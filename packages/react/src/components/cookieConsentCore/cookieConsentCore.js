@@ -218,7 +218,7 @@ export class CookieConsentCore {
   /**
    * Get the consent status for the specified cookie group names.
    * @param {string[]} groupNamesArray - An array of group names.
-   * @return {Promise<boolean>} A promise that resolves to true if all the groups are accepted, otherwise false.
+   * @return {boolean} True if all the groups are accepted, otherwise false.
    */
   getConsentStatus(groupNamesArray) {
     return this.#cookieHandler.getConsentStatus(groupNamesArray);

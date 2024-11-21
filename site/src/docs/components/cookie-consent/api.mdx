@@ -21,118 +21,115 @@ There is also an example <ExternalLink openInExternalDomainAriaLabel="Opens in a
 
 #### Options
 
-| Property                     | required | description                                                                                                                                                                              |
-| ---------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| language                     | no       | falls back to 'en'                                                                                                                                                                       |
-| theme                        | no       | Defaults to 'bus'                                                                                                                                                                        |
-| targetSelector               | no       | Defaults to 'body'                                                                                                                                                                       |
-| spacerParentSelector         | no       | Defaults to 'body'                                                                                                                                                                       |
-| pageContentSelector          | no       | Defaults to 'body'                                                                                                                                                                       |
-| submitEvent                  | no       | If set to `true`, triggers a window level event `hds-cookie-consent-changed` with `detail.acceptedGroups` before closing banner. If not set, reloads page instead, defaults to `false`   |
-| settingsPageSelector         | no       | If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element. Example: '#hds-cookie-consent-full-page' |
+| Property                     | Required | Description                                                                                                                                                                                                                              |
+| ---------------------------- | -------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
+| `focusTargetSelector`        | No       | Selector for the element that will receive focus once the banner is closed.                                                                                                                                                              |
+| `language`                   | No       | Falls back to 'en'.                                                                                                                                                                                                                      |
+| `pageContentSelector`        | No       | Defaults to 'body'.                                                                                                                                                                                                                      |
+| `settingsPageSelector`       | No       | If this string is set and matching element is found on page, instead of banner, show a full page cookie settings replacing the matched element. Example: '#hds-cookie-consent-full-page'.                                                |
+| `spacerParentSelector`       | No       | Defaults to 'body'.                                                                                                                                                                                                                      |
+| `submitEvent`                | No       | If set to `true`, triggers a window level event `hds-cookie-consent-changed` with `detail.acceptedGroups` before closing banner. If not set, reloads page instead. Defaults to `false`, but is always `true` in React context and hooks. |
+| `targetSelector`             | No       | Defaults to 'body'.                                                                                                                                                                                                                      |
 | [Table 1:Options properties] |
 
 #### Site settings
 
-| Property                           | required | description                                                             |
-| ---------------------------------- | -------- | ----------------------------------------------------------------------- |
-| siteName                           | no       | Name of the site to identify where the settings belong.                 |
-| cookieName                         | yes      | Needed for consent cookie                                               |
-| monitorInterval                    | no       | Monitoring rate in milliseconds. Must be larger than 50.                |
-| remove                             | no       | Defaults to false                                                       |
-| fallbackLanguage                   | no       | Tells which language to use if the requested language is not available. |
+| Property                           | Required | Description                                                                                                                                   |
+| ---------------------------------- | -------- | --------------------------------------------------------------------------------------------------------------------------------------------- |
+| `cookieName`                       | Yes      | Name of cookie where consents are stored to.                                                                                                  |
+| `fallbackLanguage`                 | No       | Tells which language to use if the requested language is not available.                                                                       |
+| `groupsWhitelistedForApi`          | No       | Listed groups can be updated by calling the `setGroupsStatusToAccepted([])`                                                                   |
+| `languages`                        | Yes      | List of languages.                                                                                                                            |
+| `monitorInterval`                  | No       | Monitoring rate in milliseconds. Must be larger than 50.                                                                                      |
+| `optionalGroups`                   | No       | List of optional cookie groups and their descriptions.                                                                                        |
+| `remove`                           | No       | Defaults to `false`.                                                                                                                          |
+| `robotCookies`                     | No       | Listed cookies are not shown to the user but should be allowed to be stored. For example, Siteimprove can set cookies while testing the site. |
+| `requiredGroups`                   | Yes      | List of required cookie groups and their descriptions.                                                                                        |
+| `siteName`                         | No       | Name of the site to identify where the settings belong.                                                                                       |
 | [Table 2:Site settings properties] |
-
-#### CookieDomain
-
-The cookie domain is automatically detected from the site the component is on. By default, the component sets the cookie domain to be `window.location.hostname.` This way, the cookie consents are limited to a single service, which makes the cookie more secure and understandable for the user which cookies are used right here.
-
-If you want to set the domain manually for some reason, then use the `cookieDomain` property.
-
-If the service domain is the top level `hel.fi`, use the `customDomain` property to set the cookie domain to `www.hel.fi`, or it will be readable by all.
-
-Cookies for domains on the [public suffix list](https://publicsuffix.org/) cannot accept subdomain cookies. E.g. `github.io`.
-
-If the `cookieDomain` is manually changed, there might be a scenario where consents are stored in two domains and two sets of consents are found in the `document.cookie`. If the component detects two sets of consents, it will remove both. There is no reliable way of knowing which consents are the latest. After the removal, consents will be asked again.
 
 #### Detailed info about properties
 
-##### Required and optional cookies
-
-| Property                             | Description                                                                                                                                             |
-| ------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `requiredCookies`                    | List of required consents and their descriptions.                                                                                                       |
-| `optionalCookies`                    | List of optional consents and their descriptions.                                                                                                       |
-| `*.title`                            | Title for the consent group. Optional.                                                                                                                  |
-| `*.text`                             | Description for the consent group. Optional.                                                                                                            |
-| `*.checkboxAriaDescription`          | Aria description of the checkbox shown with the category. Optional.                                                                                     |
-| `*.groups`                           | Optional list of groups. More info is below: <InternalLink href="/components/cookie-consent/api#cookie-groups">Cookie groups.</InternalLink>            |
-| `*.cookies`                          | Optional list of cookies. More info is below: <InternalLink href="/components/cookie-consent/api#cookie-information">Cookie information.</InternalLink> |
-| [Table 2:Cookie category properties] |
+Note that the user's consent is required for all types of stored information. Information can be stored to cookies, localStorage, sessionStorage, indexedDB, and cache storage. The word "cookie" is used for all storage types in the settings and in this documentation.
 
 ##### Cookie groups
 
-| Property                                  | Description                                                                                                                                                                        |
-| ----------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `group[].groupId` / `group[].commonGroup` | Both optional. If a common group is used, then the `commonGroup`. If this is a custom group provide an `groupId`. Not required, if there are no cookies that have a `groupId` set. |
-| `group[].title`                           | Only for custom groups. Title of the group. Cannot be set for a common group. **Must be unique.**                                                                                  |
-| `group[].text`                            | Only for custom groups. Cannot be set for a common group. Description of the group.                                                                                                |
-| `group[].expandAriaLabel`                 | Only for custom groups. Cannot be set for a common group. Aria-label for the button to show more details of the group.                                                             |
-| `group[].checkboxAriaDescription`         | Only for custom groups. Cannot be set for a common group. Aria-description for the checkbox for giving consent for all cookies in the group                                        |
-| `group[].cookies`                         | Optional list of cookies in this group.                                                                                                                                            |
-| [Table 3:Cookie group properties]         |
+| Property                          | Description                                |
+| --------------------------------- | ------------------------------------------ |
+| `group[].cookies`                 | List of cookies in this group.             |
+| `group[].description`             | Description of the group in all languages. |
+| `group[].groupId`                 | Unique id for the group.                   |
+| `group[].title`                   | Title of the group in all languages.       |
+| [Table 3:Cookie group properties] |
 
 ##### Cookie information
 
-| Property                                    | Description                                                                                                                                                                                                                                                                                                                      |
-| ------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| `cookie[].groupId` / `cookie[].commonGroup` | The group this cookie belongs to. Optional. Not needed when the cookie is defined in an `optionalCookies` / `requiredCookies.group` If `commonGroup` is used and the group itself is not listed, it is auto-added from the <InternalLink href="/components/cookie-consent/api#component-properties">content file.</InternalLink> |
-| `cookie[].commonCookie`                     | Optional. Use when the cookie is common.                                                                                                                                                                                                                                                                                         |
-| `cookie[].id`                               | The ID of the consent. This ID is saved in the consent cookie. **Must be unique.** Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                                                   |
-| `cookie[].name`                             | Readable cookie name. Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                                                                                                                |
-| `cookie[].hostName`                         | Hostname where it is used. Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                                                                                                           |
-| `cookie[].description`                      | Cookie usage description. Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                                                                                                            |
-| `cookie[].expiration`                       | When does the cookie expire. Only for custom cookies. Cannot be set for a common cookie.                                                                                                                                                                                                                                         |
-| [Table 4:Cookie information properties]     |
+| Property                    | Description                                                                                                                               |
+| --------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------- |
+| `cookie[].name`             | Storage name of the item stored in cookies or other storage types.                                                                        |
+| `cookie[].host`             | Domain where it is used.                                                                                                                  |
+| `cookie[].description`      | Cookie usage description in all used languages.                                                                                           |
+| `cookie[].expiration`       | Cookie expiration time in all used languages.                                                                                             |
+| `cookie[].storageType`      | Where the cookie is stored. <br/>1 = cookies,<br/> 2 = localStorage,<br/> 3 = sessionStorage,<br/> 4 = IndexedDB,<br/> 5 = Cache Storage. |
+| [Table 4:Cookie properties] |
+
+##### Languages
+
+| Property                      | Description                                             |
+| ----------------------------- | ------------------------------------------------------- |
+| `language[].code`             | Abbreviation of the language, for example `en` or `fi`. |
+| `language[].direction`        | Direction the language is read, for example `ltr`.      |
+| `language[].title`            | Name of the language, for example `English`.            |
+| [Table 4:Language properties] |
 
 ##### Strings and language
 
 The following strings can be overridden if needed. Note that you also need to provide translations if you override these. It is recommended to use the provided strings.
 
-| Property                                                                               | Description                                                                      |
-| -------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------- |
-| `translations.bannerAriaLabel`                                                         | Assistive text for screenreaders about the cookie banner.                        |
-| `translations.heading`                                                                 | Top level heading.                                                               |
-| `translations.desctiption`                                                             | Main description. **The most common override because this is service-specific.** |
-| `translations.formHeading`                                                             | Heading shown in the details. Seen when settings are opened.                     |
-| `translations.formText`                                                                | Description shown in the details. Seen when settings are opened.                 |
-| `translations.tableHeadingsName`                                                       | Title for cookie name.                                                           |
-| `translations.approveAllConsents`                                                      | Description shown in the details. Seen when settings are opened.                 |
-| `translations.storageType1`                                                            | Description shown in the details. Seen when settings are opened.                 |
-| `translations.approveAllConsents`                                                      | Description shown in the details. Seen when settings are opened.                 |
-| `translations.approveAllConsents`                                                      | Description shown in the details. Seen when settings are opened.                 |
-| `translations.approveAllConsents`                                                      | Description shown in the details. Seen when settings are opened.                 |
-| [Table 6:Main text content overrides. All translations can be found in site settings.] |
-
 | Property                                          | Description                                                                                                               |
 | ------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------- |
-| `translations.showCookieSettings`                 | Text on the show/hide settings -button when settings are hidden.                                                          |
-| `translations.hideCookieSettings`                 | Text on the show/hide settings -button when settings are shown.                                                           |
+| `translations.acceptedAt`                         | Text telling when the consent for a group was given.                                                                      |
 | `translations.approveAllConsents`                 | Button text for giving consent to all cookies. Shown when settings are closed and the user cannot give optional consents. |
-| `translations.approveRequiredAndSelectedConsents` | Button text for giving consent to required cookies and selected cookies. Shown when settings are open.                    |
 | `translations.approveOnlyRequiredConsents`        | Button text for giving consent to only to required cookies. All optional cookie consents are revoked.                     |
+| `translations.approveRequiredAndSelectedConsents` | Button text for giving consent to required cookies and selected cookies. Shown when settings are open.                    |
+| `translations.bannerAriaLabel`                    | Assistive text for screenreaders about the cookie banner.                                                                 |
+| `translations.description`                        | Main description. **The most common override because this is service-specific.**                                          |
+| `translations.formHeading`                        | Heading shown in the details. Seen when settings are opened.                                                              |
+| `translations.formText`                           | Description shown in the details. Seen when settings are opened.                                                          |
+| `translations.heading`                            | Top level heading.                                                                                                        |
+| `translations.hideDetails`                        | Button text for hiding details about a group.                                                                             |
+| `translations.hideCookieSettings`                 | Text on the show/hide settings -button when settings are shown.                                                           |
+| `translations.highlightedGroup`                   | Text shown when a specific group is highlighted and must be accepted.                                                     |
+| `translations.highlightedGroupAria`               | Aria-label for a notification about a group.                                                                              |
+| `translations.notificationAriaLabel`              | Aria-label for a notification.                                                                                            |
 | `translations.settingsSaved`                      | Text shown when the settings are saved.                                                                                   |
-| [Table 7:User interface string overrides]         |
-
-| Property                                 | Description                                                  |
-| ---------------------------------------- | ------------------------------------------------------------ |
-| `translations.tableHeadingsName`         | Title of the “name” column in the cookie description.        |
-| `translations.tableHeadingsHostName`     | Title of the “hostName” column in the cookie description.    |
-| `translations.tableHeadingsDescription`  | Title of the “description” column in the cookie description. |
-| `translations.tableHeadingsType`         | Title of the “expiration” column in the cookie description.  |
-| [Table 8:Table heading string overrides] |
+| `translations.showCookieSettings`                 | Text on the show/hide settings -button when settings are hidden.                                                          |
+| `translations.showDetails`                        | Button text for showing details about a group.                                                                            |
+| `translations.storageType1`                       | Translation for "cookie". Seen when settings are opened.                                                                  |
+| `translations.storageType2`                       | Translation for "localStorage". Seen when settings are opened.                                                            |
+| `translations.storageType3`                       | Translation for "sessionStorage". Seen when settings are opened.                                                          |
+| `translations.storageType4`                       | Translation for "IndexedDB". Seen when settings are opened.                                                               |
+| `translations.storageType5`                       | Translation for "Cache Storage". Seen when settings are opened.                                                           |
+| `translations.tableHeadingsDescription`           | Title of the “description” column in the cookie description.                                                              |
+| `translations.tableHeadingsExpiration`            | Text of the Period of validity column in the cookie description.                                                          |
+| `translations.tableHeadingsHostName`              | Title of the “hostName” column in the cookie description.                                                                 |
+| `translations.tableHeadingsName`                  | Title of the “name” column in the cookie description.                                                                     |
+| `translations.tableHeadingsType`                  | Title of the “expiration” column in the cookie description.                                                               |
+| [Table 7:Table heading string overrides]          |
 
 The consent banner language should be updated to match the language of the page.
+
+| Property                                                 | Description                                                                                                                                                                                                                                        | Type                                                                    |
+| -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
+| `getAllConsentStatuses`                                  | Returns an array of consents in the format of `[{group:string, consented:boolean}]`. `group` is the name of the consent group, and `consented` is true if the user has given consent for it.                                                       | `() => [{group:string, consented:boolean}] `                            |
+| `getConsentStatus`                                       | Returns `true` if the user has given consents to given group.                                                                                                                                                                                      | `(groupName:string) => boolean `                                        |
+| `openBanner`                                             | Opens the banner on each call and optionally highlights given groups. Use when the user needs to accept a specific group to use specific content. The `focusTargetSelector` defines the element that will receive focus once the banner is closed. | `(highlightedGroups?: string[], focusTargetSelector? :string) => void ` |
+| `setGroupsStatusToAccepted`                              | Asynchronous function to set specific groups as accepted. Returns `true` if the groups' status is successfully set to accepted, otherwise false. The given groups must have been listed in `siteSettings.groupsWhitelistedForApi`.                 | `(acceptedGroupsArray:string[]) => Promise<boolean> `                   |
+| `removeBanner`                                           | Removes the banner.                                                                                                                                                                                                                                | `(highlightedGroups?: string[], focusTargetSelector? :string) => void ` |
+| `removePage`                                             | Removes the rendered consents. Returns `true` if there was a page to remove.                                                                                                                                                                       | `() => boolean`                                                         |
+| `renderPage`                                             | Renders the consents to the element with matching `id` attribute with the `siteSettingsId` property.                                                                                                                                               | `() => void`                                                            |
+| `setLanguage`                                            | Sets a new language. Render the banner or page again once changed.                                                                                                                                                                                 | `() => void`                                                            |
+| [Table 8: Properties of the CookieConsentCore instance ] |
 
 ### Saving consents
 
@@ -152,9 +149,11 @@ The cookie consent class dispatches three kinds of events:
 
 - `hds-cookie-consent-ready` is dispatched when the class instance is ready and has loaded settings and consents.
 - `hds-cookie-consent-unapproved-item-found` is dispatched when the monitoring system finds an unapproved stored item.
-- If `options.submitEvent` is set to `true`, `hds-cookie-consent-changed` is dispatched when users change their consents. If not set, the Browser page is reloaded instead.
+- `hds-cookie-consent-changed` is dispatched if the `options.submitEvent` is set to `true` and users change their consents. If not set, the Browser page is reloaded instead.
 
 Note: the React context, hooks, and components always set `submitEvent` to `true`.
+
+Events are dispatched with `window.dispatchEvent` and can be listened with `window.addEventListener`. Events are dispatched in React and vanilla-js versions.
 
 #### Properties of the custon window events
 
@@ -164,30 +163,63 @@ Note: the React context, hooks, and components always set `submitEvent` to `true
 | `detail.storageType`                          | Storage type where the unapproved items were found. | `cookie`, `localStorage`, `sessionStorage`, `indexedDB` or `cacheStorage` | -                                          |
 | `detail.keys`                                 | Keys of the unapproved items                        | `string`                                                                  | -                                          |
 | `detail.acceptedGroups`                       | Accepted consent groups.                            | `string[]`                                                                | `[]`                                       |
-| [Table 1: Properties of the monitoring event] |
+| [Table 9: Properties of the monitoring event] |
 
-| Property                                  | Description              | Type       | Default               |
-| ----------------------------------------- | ------------------------ | ---------- | --------------------- |
-| `type`                                    | The event type.          | `string`   | `options.submitEvent` |
-| `detail.acceptedGroups`                   | Accepted consent groups. | `string[]` | `[] `                 |
-| [Table 2: Properties of the submit event] |
+| Property                                   | Description              | Type       | Default                      |
+| ------------------------------------------ | ------------------------ | ---------- | ---------------------------- |
+| `type`                                     | The event type.          | `string`   | `hds-cookie-consent-changed` |
+| `detail.acceptedGroups`                    | Accepted consent groups. | `string[]` | `[] `                        |
+| [Table 10: Properties of the change event] |
 
-| Property                                 | Description     | Type     | Default                    |
-| ---------------------------------------- | --------------- | -------- | -------------------------- |
-| `type`                                   | The event type. | `string` | `hds-cookie-consent-ready` |
-| [Table 3: Properties of the ready event] |
+| Property                                  | Description     | Type     | Default                    |
+| ----------------------------------------- | --------------- | -------- | -------------------------- |
+| `type`                                    | The event type. | `string` | `hds-cookie-consent-ready` |
+| [Table 11: Properties of the ready event] |
 
 #### Properties of the React change events
 
 The `hds-cookie-consent-ready` callback is not called with any arguments. Other callback receive the same arguments.
 
-| Property                                            | Description                                                                                      | Type       | Default |
-| --------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------- | ------- |
-| `type`                                              | Type of the event. Event types are listed in <InternalLink href="#events">events</InternalLink>. | `string`   | -       |
-| `acceptedGroups`                                    | Array of accepted group names.                                                                   | `string[]` | `[]`    |
-| `storageType`                                       | Only in monitor events. Type of storage where the unapproved item was found.                     | `string`   | -       |
-| `storageKeys`                                       | Only in monitor events. Keys of the unapproved items.                                            | `string[]` | -       |
-| [Table 4: Properties of the useCookieConsentEvents] |
+| Property                                             | Description                                                                                      | Type       | Default |
+| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------ | ---------- | ------- |
+| `type`                                               | Type of the event. Event types are listed in <InternalLink href="#events">events</InternalLink>. | `string`   | -       |
+| `acceptedGroups`                                     | Array of accepted group names.                                                                   | `string[]` | `[]`    |
+| `storageType`                                        | Only in monitor events. Type of storage where the unapproved item was found.                     | `string`   | -       |
+| `storageKeys`                                        | Only in monitor events. Keys of the unapproved items.                                            | `string[]` | -       |
+| [Table 12: Properties of the useCookieConsentEvents] |
+
+### CSS variables
+
+The current height of the banner is set to a CSS variable in the `html` element.
+
+```jsx
+<html style="--hds-cookie-consent-height: 123px;">
+```
+
+The variable is useful when adjusting the position of elements that could overlay the cookie consent banner. It's removed when the banner is closed.
+
+### Using without React
+
+The `hds-js` and <InternalLink href="/components/cookie-consent/code/#standalone-version">standalone</InternalLink> versions work in any javascript environment.
+
+```jsx
+import { CookieConsentCore } from 'hds-js';
+
+const siteSettings = 'url to the settings json or settings as an object';
+const options = {
+  // options
+};
+const instance = await CookieConsentCore.create(siteSettings, options);
+// the banner opens automatically when needed and options.settingsPageId is not set
+```
+
+Note that the `CookieConsentCore.create` is an asynchronous function.
+
+It is recommended to set `options.submitEvents` to `true` when using the <InternalLink href="/components/cookie-consent/#rendered-on-a-page">page</InternalLink> version. Otherwise the whole page is reloaded after save and the user will not see a notification about successful save and may not notify changes.
+
+The whole page is also reloaded when using the <InternalLink href="/components/cookie-consent/#banner">banner</InternalLink> without `options.submitEvents`, but the banner is closed when the consents are stored and before the page reloads.
+
+When events are used, the changes done by the user should be handled with <InternalLink href="#events">event listeners.</InternalLink>
 
 ### React context
 
@@ -215,26 +247,26 @@ Internally, the context uses the <InternalLink href="#usecookieconsent-hook">use
 
 #### Hooks requiring the React context
 
-| Hook                            | Description                                                                                                                                                                                  | Arguments        |
-| ------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
-| `useCookieContentContext()`     | Returns the context that internally uses the `useCookieConsent` hook and returns the same object.                                                                                            | -                |
-| `useCookieConsentsInstance()`   | Returns the cookie consent core instance.                                                                                                                                                    | -                |
-| `useCookieConsents()`           | Returns an array of consents in the format of `[{group:string, consented:boolean}]`. `group` is the name of the consent group, and `consented` is true if the user has given consent for it. | -                |
-| `useGroupConsent()`             | Use this hook to query if the user has given consent to a single group.                                                                                                                      | `(group:string)` |
-| `useCookieBanner()`             | Add this hook anywhere the banner should be shown if necessary consents have not been given. Preferably use the <InternalLink href="#cookiebanner">CookieBanner</InternalLink> component.    | -                |
-| `useCookieSettingsPage()`       | Add this hook where the settings page content should be shown. Preferably use the <InternalLink href="#cookiesettingspage">CookieSettingsPage</InternalLink> component.                      | -                |
-| [Table 5: Cookie consent hooks] |
+| Hook                             | Description                                                                                                                                                                                  | Arguments        |
+| -------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `useCookieContentContext()`      | Returns the context that internally uses the `useCookieConsent` hook and returns the same object.                                                                                            | -                |
+| `useCookieConsentsInstance()`    | Returns the cookie consent core instance.                                                                                                                                                    | -                |
+| `useCookieConsents()`            | Returns an array of consents in the format of `[{group:string, consented:boolean}]`. `group` is the name of the consent group, and `consented` is true if the user has given consent for it. | -                |
+| `useGroupConsent()`              | Use this hook to query if the user has given consent to a single group.                                                                                                                      | `(group:string)` |
+| `useCookieBanner()`              | Add this hook anywhere the banner should be shown if necessary consents have not been given. Preferably use the <InternalLink href="#cookiebanner">CookieBanner</InternalLink> component.    | -                |
+| `useCookieSettingsPage()`        | Add this hook where the settings page content should be shown. Preferably use the <InternalLink href="#cookiesettingspage">CookieSettingsPage</InternalLink> component.                      | -                |
+| [Table 13: Cookie consent hooks] |
 
 #### useCookieConsentEvents hook
 
 The cookie consent class dispatches window level events. These can be listened to with `window.addEventListener`. The `useCookieConsentEvents` hook does this and also handles the removal of the event listeners when the component unmounts. The hook also returns a disposer function to manually remove the event listeners.
 
-| Property                                            | Description                                                                  | Type              | Value                                                                                      |
-| --------------------------------------------------- | ---------------------------------------------------------------------------- | ----------------- | ------------------------------------------------------------------------------------------ |
-| `onChange`                                          | Required. Called when the consents change.                                   | `(e:Event)=>void` | <InternalLink href="#properties-of-the-react-change-events">A change event</InternalLink>. |
-| `onReady`                                           | Required. Called when the class instance is ready.                           | `()=>void`        | -                                                                                          |
-| `onMonitorEvent`                                    | Required. Called when the monitoring system finds an unapproved stored item. | `(e:Event)=>void` | <InternalLink href="#properties-of-the-react-change-events">A change event</InternalLink>. |
-| [Table 6: Properties of the useCookieConsentEvents] |
+| Property                                             | Description                                                                  | Type                | Value                                                                                      |
+| ---------------------------------------------------- | ---------------------------------------------------------------------------- | ------------------- | ------------------------------------------------------------------------------------------ |
+| `onChange`                                           | Required. Called when the consents change.                                   | `(e:Event) => void` | <InternalLink href="#properties-of-the-react-change-events">A change event</InternalLink>. |
+| `onReady`                                            | Required. Called when the class instance is ready.                           | `() => void`        | -                                                                                          |
+| `onMonitorEvent`                                     | Required. Called when the monitoring system finds an unapproved stored item. | `(e:Event) => void` | <InternalLink href="#properties-of-the-react-change-events">A change event</InternalLink>. |
+| [Table 14: Properties of the useCookieConsentEvents] |
 
 #### useCookieConsent hook
 
@@ -269,26 +301,26 @@ const MyComponent = ()=>{
 
 The context does not render its children if the returned `isReady` property is not true. It is true when settings have been loaded, parsed and compared to the stored consents of the user. This is the safest way to ensure all consents are loaded before components rely on the data.
 
-| Property                                            | Description                                                          |
-| --------------------------------------------------- | -------------------------------------------------------------------- |
-| `onChange`                                          | See <InternalLink href="#callbacks">callbacks</InternalLink>.        |
-| `options`                                           | See <InternalLink href="#options">options</InternalLink>.            |
-| `siteSettings`                                      | See <InternalLink href="#site-settings">siteSettings</InternalLink>. |
-| `settingsPageId`                                    | The id of the element where the settings are rendered.               |
-| [Table 7: Properties of the useCookieConsent hook ] |
+| Property                                             | Description                                                          |
+| ---------------------------------------------------- | -------------------------------------------------------------------- |
+| `onChange`                                           | See <InternalLink href="#callbacks">callbacks</InternalLink>.        |
+| `options`                                            | See <InternalLink href="#options">options</InternalLink>.            |
+| `siteSettings`                                       | See <InternalLink href="#site-settings">siteSettings</InternalLink>. |
+| `settingsPageId`                                     | The id of the element where the settings are rendered.               |
+| [Table 15: Properties of the useCookieConsent hook ] |
 
-| Property                                             | Description                                                                                                                                       | Type                                       | Default value                  |
-| ---------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------ | ------------------------------ |
-| `isReady`                                            | Indicates are the settings loaded, parsed, and compared to stored consents.                                                                       | `boolean`                                  | `false`                        |
-| `consents`                                           | Given consents. Required consents are always `true`, even if banner is still open.                                                                | `Array<{group:string, consented:boolean}>` | `[]`                           |
-| `instance`                                           | Instance of the cookie consent class.                                                                                                             | `Class instance`                           | `null`                         |
-| `openBanner`                                         | Opens the banner on each call and optionally highlights given groups. Use when the user needs to accept a specific group to use specific content. | `(highlightedGroups?: string[])=>void `    | -                              |
-| `openBannerIfNeeded`                                 | Opens the banner if all necessary consents have not been given.                                                                                   | `()=>void `                                | -                              |
-| `renderPage`                                         | Renders the consents to the element with matching `id` attribute with the `siteSettingsId` property.                                              | `()=>void`                                 | -                              |
-| `removePage`                                         | Removes the rendered consents.                                                                                                                    | `()=>void`                                 | -                              |
-| `settingsPageId`                                     | The same value as passed in the `settingsPageId` property. Used by the `useCookieSettingsPage` and `CookieSettingsPage`.                          | `string`                                   | `hds-cookie-consent-full-page` |
-| `language`                                           | Current language passed in options.                                                                                                               | `string`                                   | `en`                           |
-| [Table 8: Return type of the useCookieConsent hook ] |
+| Property                                              | Description                                                                                                                                                                                                                                        | Type                                                                  | Default value                  |
+| ----------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------- | ------------------------------ |
+| `isReady`                                             | Indicates are the settings loaded, parsed, and compared to stored consents.                                                                                                                                                                        | `boolean`                                                             | `false`                        |
+| `consents`                                            | Given consents. Required consents are always `true`, even if banner is still open.                                                                                                                                                                 | `Array<{group:string, consented:boolean}>`                            | `[]`                           |
+| `instance`                                            | Instance of the cookie consent class.                                                                                                                                                                                                              | `Class instance`                                                      | `null`                         |
+| `openBanner`                                          | Opens the banner on each call and optionally highlights given groups. Use when the user needs to accept a specific group to use specific content. The `focusTargetSelector` defines the element that will receive focus once the banner is closed. | `(highlightedGroups?: string[], focusTargetSelector? :string)=>void ` | -                              |
+| `openBannerIfNeeded`                                  | Opens the banner if all necessary consents have not been given.                                                                                                                                                                                    | `()=>void `                                                           | -                              |
+| `renderPage`                                          | Renders the consents to the element with matching `id` attribute with the `siteSettingsId` property.                                                                                                                                               | `()=>void`                                                            | -                              |
+| `removePage`                                          | Removes the rendered consents.                                                                                                                                                                                                                     | `()=>void`                                                            | -                              |
+| `settingsPageId`                                      | The same value as passed in the `settingsPageId` property. Used by the `useCookieSettingsPage` and `CookieSettingsPage`.                                                                                                                           | `string`                                                              | `hds-cookie-consent-full-page` |
+| `language`                                            | Current language passed in options.                                                                                                                                                                                                                | `string`                                                              | `en`                           |
+| [Table 16: Return type of the useCookieConsent hook ] |
 
 ### React components
 
