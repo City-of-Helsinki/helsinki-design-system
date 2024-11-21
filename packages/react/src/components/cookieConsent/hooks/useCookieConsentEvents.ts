@@ -1,4 +1,5 @@
-import { MutableRefObject, useEffect, useMemo, useRef } from 'react';
+import { useEffect, useMemo } from 'react';
+import { noop } from 'lodash';
 
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 import { cookieEventType } from '../../cookieConsentCore/cookieConsentCore';
@@ -18,20 +19,13 @@ export type CookieConsentEventsReturnType = () => void;
 
 export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieConsentEventsReturnType {
   const { onChange, onReady, onMonitorEvent } = props;
-  const listenerDisposer: MutableRefObject<(() => void) | null> = useRef(null);
-
-  useMemo(() => {
-    if (listenerDisposer.current) {
-      listenerDisposer.current();
-      listenerDisposer.current = null;
-    }
-
+  const [attach, dispose] = useMemo(() => {
     if (!onChange) {
-      return () => undefined;
+      return [noop, noop];
     }
 
     if (isSsrEnvironment()) {
-      return () => undefined;
+      return [noop, noop];
     }
 
     const getChangeProps = (e: Event): CookieConsentChangeEvent => {
@@ -59,29 +53,27 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
       onReady();
     };
 
-    window.addEventListener(cookieEventType.CHANGE, cookieListener);
-    window.addEventListener(cookieEventType.MONITOR, monitorListener);
-    window.addEventListener(cookieEventType.READY, readyListener);
+    const addEventListeners = () => {
+      window.addEventListener(cookieEventType.CHANGE, cookieListener);
+      window.addEventListener(cookieEventType.MONITOR, monitorListener);
+      window.addEventListener(cookieEventType.READY, readyListener);
+    };
 
-    const disposer = () => {
+    const removeEventListeners = () => {
       window.removeEventListener(cookieEventType.CHANGE, cookieListener);
       window.removeEventListener(cookieEventType.MONITOR, monitorListener);
       window.removeEventListener(cookieEventType.READY, readyListener);
-      listenerDisposer.current = null;
     };
 
-    listenerDisposer.current = disposer;
-
-    return disposer;
+    return [addEventListeners, removeEventListeners];
   }, [onChange, onMonitorEvent, onReady]);
 
   useEffect(() => {
+    attach();
     return () => {
-      if (listenerDisposer.current) {
-        listenerDisposer.current();
-      }
+      dispose();
     };
   }, []);
 
-  return listenerDisposer.current || (() => undefined);
+  return dispose;
 }
