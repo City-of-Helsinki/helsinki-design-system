@@ -67,7 +67,11 @@ export function mockCookieConsentCore() {
     if (!result) {
       throw new Error('Missing renderResult');
     }
-    return result.getByTestId(innerState.renderedTestId);
+    try {
+      return result.getByTestId(innerState.renderedTestId);
+    } catch (e) {
+      return null;
+    }
   };
 
   const removeCurrentElement = (renderResult?: RenderResult) => {
