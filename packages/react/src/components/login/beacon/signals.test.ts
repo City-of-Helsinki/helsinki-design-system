@@ -1,3 +1,4 @@
+import { getLastMockCallArgs } from '../../../utils/testHelpers';
 import { createTimedPromise } from '../testUtils/timerTestUtil';
 import { createUser } from '../testUtils/userTestUtil';
 import {
@@ -9,7 +10,15 @@ import {
   createBeacon,
   splitTypeAndNamespace,
 } from './beacon';
-import { createErrorTriggerProps, errorSignalType, eventSignalType, waitForSignals } from './signals';
+import {
+  createErrorTriggerProps,
+  createNamespacedBeacon,
+  createTriggerForAllSignalTypes,
+  createTriggerPropsForAllSignals,
+  errorSignalType,
+  eventSignalType,
+  waitForSignals,
+} from './signals';
 
 describe(`signals`, () => {
   describe(`compareSignals checks, if given source (argument #0) matches the given target (argument #0)`, () => {
@@ -237,6 +246,142 @@ describe(`signals`, () => {
       await promise;
       expect(result).toHaveLength(0);
       expect(rejections).toHaveLength(1);
+    });
+  });
+  describe(`createNamespacedBeacon()`, () => {
+    const createBeaconAndDedicated = () => {
+      const namespace1 = 'namespace1';
+      const namespace2 = 'namespace2';
+      const beacon = createBeacon();
+      const dedicatedBeacon1 = createNamespacedBeacon(namespace1);
+      const dedicatedBeacon2 = createNamespacedBeacon(namespace2);
+      const listener1 = jest.fn();
+      beacon.addListener(createTriggerForAllSignalTypes(), listener1);
+      return {
+        beacon,
+        dedicatedBeacon1,
+        dedicatedBeacon2,
+        listener1,
+        getLastSignal: (mock = listener1) => {
+          return getLastMockCallArgs(mock)[0];
+        },
+        namespace1,
+        namespace2,
+        emitTestSignal: (namespace?: string, emittingBeacon = beacon) => {
+          emittingBeacon.emit({
+            type: 'testSignal',
+            namespace,
+            payload: {},
+            context: { namespace: 'any', connect: () => undefined },
+          });
+        },
+      };
+    };
+
+    it(`Without a stored beacon, it does not emit but does not throw either`, async () => {
+      const { dedicatedBeacon1 } = createBeaconAndDedicated();
+      expect(dedicatedBeacon1.getBeacon()).toBeUndefined();
+      expect(dedicatedBeacon1.namespace).toBe('namespace1');
+      expect(() => dedicatedBeacon1.emit('dedicated1')).not.toThrow();
+      expect(() => dedicatedBeacon1.emitStateChange('state')).not.toThrow();
+      expect(() => dedicatedBeacon1.emitError(new Error('error'))).not.toThrow();
+      expect(() => dedicatedBeacon1.emitEvent('event')).not.toThrow();
+    });
+    it(`Listeners added before beacon are added after storeBeacon is called.`, async () => {
+      const { beacon, dedicatedBeacon1, dedicatedBeacon2, emitTestSignal, namespace1, namespace2 } =
+        createBeaconAndDedicated();
+      const dedicatedBeacon1Listener = jest.fn();
+      const dedicatedBeacon2Listener = jest.fn();
+      dedicatedBeacon1.addListener(createTriggerPropsForAllSignals(namespace2), dedicatedBeacon1Listener);
+      dedicatedBeacon2.addListener(createTriggerPropsForAllSignals(namespace1), dedicatedBeacon2Listener);
+      dedicatedBeacon1.storeBeacon(beacon);
+      dedicatedBeacon2.storeBeacon(beacon);
+      emitTestSignal(namespace1);
+      emitTestSignal(namespace1);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(0);
+      expect(dedicatedBeacon2Listener).toHaveBeenCalledTimes(2);
+      emitTestSignal(namespace2);
+      emitTestSignal(namespace2);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(2);
+      expect(dedicatedBeacon2Listener).toHaveBeenCalledTimes(2);
+    });
+    it(`Listeners added before beacon exists are moved to new beacon and old ones are disposed`, async () => {
+      const { beacon, dedicatedBeacon1, emitTestSignal, namespace2 } = createBeaconAndDedicated();
+      const beacon2 = createBeacon();
+      const neverMovedDedicatedBeacon = createNamespacedBeacon('namespaceX');
+      const neverMovedDedicatedListener = jest.fn();
+      const dedicatedBeacon1Listener = jest.fn();
+      dedicatedBeacon1.addListener(createTriggerPropsForAllSignals(namespace2), dedicatedBeacon1Listener);
+      // dedicatedBeacon2 is never moved, so it receives all signals
+      neverMovedDedicatedBeacon.addListener(createTriggerPropsForAllSignals(namespace2), neverMovedDedicatedListener);
+      dedicatedBeacon1.storeBeacon(beacon);
+      neverMovedDedicatedBeacon.storeBeacon(beacon);
+      emitTestSignal(namespace2);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(1);
+      expect(neverMovedDedicatedListener).toHaveBeenCalledTimes(1);
+      // Switch to new beacon
+      dedicatedBeacon1.storeBeacon(beacon2);
+      emitTestSignal(namespace2);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(1);
+      expect(neverMovedDedicatedListener).toHaveBeenCalledTimes(2);
+      emitTestSignal(namespace2, beacon2);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(2);
+      expect(neverMovedDedicatedListener).toHaveBeenCalledTimes(2);
+
+      // Switch to back to original beacon
+      dedicatedBeacon1.storeBeacon(beacon);
+      emitTestSignal(namespace2);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(3);
+    });
+    it(`Listeners added after beacon is created are not moved just disposed. In actual usage, they are added when beacon is created.`, async () => {
+      const { beacon, dedicatedBeacon1, emitTestSignal, namespace2 } = createBeaconAndDedicated();
+      const beacon2 = createBeacon();
+      const dedicatedBeacon1Listener = jest.fn();
+      dedicatedBeacon1.addListener(createTriggerPropsForAllSignals(namespace2), dedicatedBeacon1Listener);
+      dedicatedBeacon1.storeBeacon(beacon);
+      const dedicatedBeacon1ListenerAddedAfterBeaconExists = jest.fn();
+      dedicatedBeacon1.addListener(
+        createTriggerPropsForAllSignals(namespace2),
+        dedicatedBeacon1ListenerAddedAfterBeaconExists,
+      );
+      emitTestSignal(namespace2);
+      expect(dedicatedBeacon1ListenerAddedAfterBeaconExists).toHaveBeenCalledTimes(1);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(1);
+      dedicatedBeacon1.storeBeacon(beacon2);
+      emitTestSignal(namespace2);
+      expect(dedicatedBeacon1ListenerAddedAfterBeaconExists).toHaveBeenCalledTimes(1);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(1);
+      emitTestSignal(namespace2, beacon2);
+      expect(dedicatedBeacon1ListenerAddedAfterBeaconExists).toHaveBeenCalledTimes(1);
+      expect(dedicatedBeacon1Listener).toHaveBeenCalledTimes(2);
+    });
+    it(`By default, the listeners ignore signals in its own namespace. Setting parameter "excludeOwn" to false, overrides it`, async () => {
+      const { beacon, dedicatedBeacon1, emitTestSignal, namespace2, namespace1 } = createBeaconAndDedicated();
+      const listener = jest.fn();
+      const listenerAddedAfterBeaconExists = jest.fn();
+      const listenerForAlsoOwnNamespace = jest.fn();
+      const listenerForAlsoOwnNamespaceAddedAfterBeaconExists = jest.fn();
+
+      dedicatedBeacon1.addListener(createTriggerPropsForAllSignals(namespace2), listener);
+      dedicatedBeacon1.addListener(createTriggerPropsForAllSignals(), listenerForAlsoOwnNamespace, false);
+      dedicatedBeacon1.storeBeacon(beacon);
+      dedicatedBeacon1.addListener(createTriggerPropsForAllSignals(namespace2), listenerAddedAfterBeaconExists);
+      dedicatedBeacon1.addListener(
+        createTriggerPropsForAllSignals(),
+        listenerForAlsoOwnNamespaceAddedAfterBeaconExists,
+        false,
+      );
+      emitTestSignal(namespace2);
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listenerAddedAfterBeaconExists).toHaveBeenCalledTimes(1);
+      expect(listenerForAlsoOwnNamespace).toHaveBeenCalledTimes(1);
+      expect(listenerForAlsoOwnNamespaceAddedAfterBeaconExists).toHaveBeenCalledTimes(1);
+
+      emitTestSignal(namespace1);
+      expect(listener).toHaveBeenCalledTimes(1);
+      expect(listenerAddedAfterBeaconExists).toHaveBeenCalledTimes(1);
+      expect(listenerForAlsoOwnNamespace).toHaveBeenCalledTimes(2);
+      expect(listenerForAlsoOwnNamespaceAddedAfterBeaconExists).toHaveBeenCalledTimes(2);
     });
   });
 });
