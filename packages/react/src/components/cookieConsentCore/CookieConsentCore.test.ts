@@ -266,8 +266,7 @@ describe('cookieConsentCore', () => {
 
   beforeAll(() => {
     // Set to true to get console.log() to output
-    // const testDebug = false;
-    const testDebug = true;
+    const testDebug = false;
     jest.spyOn(console, 'log').mockImplementation((message) => {
       if (testDebug) {
         process.stdout.write(`console.log: ${message}\n`);
