@@ -25,6 +25,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
+- [Login] External modules with Strict mode throwed an error
 - [ssr] Login component works with SSR rendering
 
 ### Core
