@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useMemo } from 'react';
 
 import { LoginContextProvider } from './LoginContext';
 import { OidcClientProps } from '../client/index';
@@ -35,13 +35,20 @@ export const LoginProvider = ({
     debug,
   };
 
-  const mods = modules ? [...modules] : [];
-  if (sessionPollerSettings) {
-    mods.push(createSessionPoller(sessionPollerSettings));
-  }
-  if (apiTokensClientSettings) {
-    mods.push(createApiTokenClient(apiTokensClientSettings));
-  }
+  // Settings are not intentionally not used in memoization,
+  // because they should not change in runtime and using them would require memoizing
+  // them up in the component tree or memoization is useless.
+  const mods = useMemo(() => {
+    const currentMods = modules ? [...modules] : [];
+    if (sessionPollerSettings) {
+      currentMods.push(createSessionPoller(sessionPollerSettings));
+    }
+    if (apiTokensClientSettings) {
+      currentMods.push(createApiTokenClient(apiTokensClientSettings));
+    }
+    return currentMods;
+  }, [modules]);
+
   return (
     <LoginContextProvider loginProps={loginProps} modules={mods}>
       {children}
