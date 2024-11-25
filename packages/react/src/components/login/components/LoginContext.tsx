@@ -27,17 +27,12 @@ export const LoginContext = createContext<LoginContextData>({
 
 export const LoginContextProvider = (props: ContextProps): React.ReactElement => {
   const { children, loginProps, modules } = props;
-  const beacon = useMemo(() => {
-    return createBeacon();
-  }, []);
-  const oidcClient = useMemo(() => {
-    const client = createOidcClient({
+  const memoizedBeacon = useMemo(() => {
+    const beacon = createBeacon();
+    const oidcClient = createOidcClient({
       ...loginProps,
     });
-    return client;
-  }, []);
 
-  useMemo(() => {
     if (modules) {
       modules.forEach((module) => {
         beacon.addSignalContext(module);
@@ -45,14 +40,15 @@ export const LoginContextProvider = (props: ContextProps): React.ReactElement =>
     }
     beacon.addSignalContext(oidcClient);
     emitInitializationSignals(beacon);
+    return beacon;
   }, []);
 
   const contextData: LoginContextData = {
     addListener: (signalOrJustSignalType, listener) => {
-      return beacon.addListener(signalOrJustSignalType, listener);
+      return memoizedBeacon.addListener(signalOrJustSignalType, listener);
     },
     getModule: <T extends ConnectedModule>(namespace: SignalNamespace) => {
-      return beacon.getSignalContext(namespace) as T;
+      return memoizedBeacon.getSignalContext(namespace) as T;
     },
   };
 

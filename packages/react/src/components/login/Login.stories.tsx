@@ -1,4 +1,4 @@
-import React, { useState, useCallback, PropsWithChildren } from 'react';
+import React, { useState, useCallback, PropsWithChildren, useMemo } from 'react';
 import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { action } from '@storybook/addon-actions';
 
@@ -678,9 +678,12 @@ export const ExampleApplication = (args: StoryArgs) => {
     );
   };
 
+  const modules = useMemo(() => {
+    return [signalTracker, profileGraphQL];
+  }, [signalTracker, profileGraphQL]);
   return (
     <StrictModeEmulator>
-      <LoginProvider {...loginProps} modules={[signalTracker, profileGraphQL]}>
+      <LoginProvider {...loginProps} modules={modules}>
         <IFrameWarning />
         <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
       </LoginProvider>
