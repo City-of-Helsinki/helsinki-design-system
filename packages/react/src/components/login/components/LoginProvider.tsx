@@ -35,7 +35,7 @@ export const LoginProvider = ({
     debug,
   };
 
-  const mods = modules || [];
+  const mods = modules ? [...modules] : [];
   if (sessionPollerSettings) {
     mods.push(createSessionPoller(sessionPollerSettings));
   }
