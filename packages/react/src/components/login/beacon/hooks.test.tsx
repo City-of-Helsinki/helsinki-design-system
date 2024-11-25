@@ -61,10 +61,15 @@ describe('Beacon hooks', () => {
       }, [id, signalTypeOrTrigger]);
       const [currentSignal, reset] = useSignalListener(memoizedListener);
       const { type, namespace } = currentSignal || {};
+      const renderCountTracker = useRef(0);
+      const getNextRenderCount = () => {
+        renderCountTracker.current += 1;
+        return renderCountTracker.current;
+      };
       return (
         <div>
           <span id={id}>{JSON.stringify({ type, namespace })}</span>;
-          <span id={`${id}-${elementIds.renderTimeSuffix}`}>{Date.now()}</span>;
+          <span id={`${id}-${elementIds.renderTimeSuffix}`}>{getNextRenderCount()}</span>;
           <button
             type="button"
             id={`${id}-reset-button`}
@@ -322,6 +327,11 @@ describe('Beacon hooks', () => {
         mock(storedSignal, uuid);
         signalHistoryRef.current.push(storedSignal);
       };
+      const renderCountTracker = useRef(0);
+      const getNextRenderCount = () => {
+        renderCountTracker.current += 1;
+        return renderCountTracker.current;
+      };
       const returnsUndefined = useSignalTrackingWithCallback(trigger, listener);
       if (returnsUndefined !== undefined) {
         throw new Error('callback version should return nothing');
@@ -340,7 +350,7 @@ describe('Beacon hooks', () => {
             })}
           </ul>
           <span id={`${id}-history-length`}>{signalHistoryRef.current.length}</span>
-          <span id={`${id}-${elementIds.renderTimeSuffix}`}>{Date.now()}</span>
+          <span id={`${id}-${elementIds.renderTimeSuffix}`}>{getNextRenderCount()}</span>
           <RenderCounter idPrefix={id} />
         </div>
       );
@@ -349,10 +359,15 @@ describe('Beacon hooks', () => {
     const TestSignalTrackingWithReturnValue = ({ id, trigger }: { id: string; trigger: SignalListenerSource }) => {
       const [currentSignal, reset] = useSignalTrackingWithReturnValue(trigger);
       const { type, namespace } = currentSignal || {};
+      const renderCountTracker = useRef(0);
+      const getNextRenderCount = () => {
+        renderCountTracker.current += 1;
+        return renderCountTracker.current;
+      };
       return (
         <div>
           <span id={`${id}`}>{JSON.stringify({ type, namespace })}</span>;
-          <span id={`${id}-${elementIds.renderTimeSuffix}`}>{Date.now()}</span>
+          <span id={`${id}-${elementIds.renderTimeSuffix}`}>{getNextRenderCount()}</span>
           <button
             type="button"
             id={`${id}-${elementIds.resetButtonSuffix}`}
@@ -374,7 +389,11 @@ describe('Beacon hooks', () => {
       };
       const Component = type === 'callback' ? TestSignalTrackingWithCallback : TestSignalTrackingWithReturnValue;
       const triggers = invertTriggersToChangeProps ? [...triggersPerComponent].reverse() : triggersPerComponent;
-
+      const renderCountTracker = useRef(0);
+      const getNextRenderCount = () => {
+        renderCountTracker.current += 1;
+        return renderCountTracker.current;
+      };
       return (
         <div>
           {childCount > 0 && <Component trigger={triggers[0]} id={componentIds[0]} />}
@@ -401,7 +420,7 @@ describe('Beacon hooks', () => {
             Rerender
           </button>
           <span id={elementIds.signalListenerCount}>{childCount}</span>
-          <span id={`${elementIds.parent}-${elementIds.renderTimeSuffix}`}>{Date.now()}</span>
+          <span id={`${elementIds.parent}-${elementIds.renderTimeSuffix}`}>{getNextRenderCount()}</span>
         </div>
       );
     };
