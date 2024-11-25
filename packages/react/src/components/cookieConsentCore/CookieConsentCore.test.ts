@@ -4,7 +4,7 @@ import { fireEvent, waitFor } from '@testing-library/dom';
 import fetchMock, { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import mockDocumentCookie from './__mocks__/mockDocumentCookieCore';
-import { CookieConsentCore } from './cookieConsentCore';
+import { CookieConsentCore, cookieEventType } from './cookieConsentCore';
 import * as siteSettingsObjRaw from './example/common_sitesettings.json';
 import helpers from './helpers/cookieConsentTestHelpers';
 
@@ -1643,5 +1643,64 @@ describe('cookieConsentCore', () => {
 
     // Verify that the form checkboxes match the cookie accepted categories
     expect(Object.keys(checkedCategories)).toEqual(Object.keys(writtenCookieGroups));
+  });
+
+  // test the cookieEventTypes READY, MONITOR and CHANGE to be dispatched correctly
+
+  it('should dispatch READY event correctly', async () => {
+    const readySpy = jest.fn();
+    window.addEventListener(cookieEventType.READY, readySpy);
+
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    expect(readySpy).toHaveBeenCalled();
+    window.removeEventListener(cookieEventType.READY, readySpy);
+  });
+
+  it('should dispatch MONITOR event correctly', async () => {
+    const monitorSpy = jest.fn();
+    window.addEventListener(cookieEventType.MONITOR, monitorSpy);
+
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: false }, options);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    // @ts-ignore
+    mockedCookieControls.add({ rogue_cookie: 1 });
+    await waitFor(() => {
+      expect(monitorSpy).toHaveBeenCalled();
+      window.removeEventListener(cookieEventType.MONITOR, monitorSpy);
+    });
+  });
+
+  it('should dispatch CHANGE event correctly', async () => {
+    const changeSpy = jest.fn();
+    window.addEventListener(cookieEventType.CHANGE, changeSpy);
+
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    bannerClicks.approveAll();
+
+    await waitFor(() => {
+      expect(changeSpy).toHaveBeenCalled();
+      window.removeEventListener(cookieEventType.CHANGE, changeSpy);
+    });
+  });
+
+  it('should not dispatch CHANGE event', async () => {
+    const changeSpy = jest.fn();
+    window.addEventListener(cookieEventType.CHANGE, changeSpy);
+
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...optionsEvent, submitEvent: false });
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+    bannerClicks.approveAll();
+
+    await waitFor(() => {
+      expect(changeSpy).not.toHaveBeenCalled();
+      window.removeEventListener(cookieEventType.CHANGE, changeSpy);
+    });
   });
 });
