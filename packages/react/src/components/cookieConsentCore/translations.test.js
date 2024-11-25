@@ -23,6 +23,10 @@ describe('getTranslation', () => {
     ar: 'rtl',
   };
 
+  beforeAll(() => {
+    jest.spyOn(console, 'error').mockImplementation(jest.fn());
+  });
+
   it('should return the correct direction for the language with rtl direction', () => {
     const result = getTranslation(translations, 'greeting', 'ar', directions, 'fi', {});
     expect(result).toEqual({
