@@ -19,6 +19,8 @@ import {
 import { OidcClientError, oidcClientErrors } from './oidcClientError';
 import { createRenewalTrackingPromise } from '../utils/userRenewalPromise';
 import { createNamespacedBeacon } from '../beacon/signals';
+import { getSessionStorage } from '../utils/getSessionStorage';
+import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
 
 const getDefaultProps = (baseUrl: string): Partial<OidcClientProps> => ({
   userManagerSettings: {
@@ -52,8 +54,9 @@ export const getUserStoreKey = (settings: Partial<UserManagerSettings>): string 
  */
 export const getUserFromStorage = (
   settings: Pick<UserManagerSettings, 'authority' | 'client_id'>,
-  storage: Storage = window.sessionStorage,
+  sourceStorage?: Storage,
 ): UserReturnType => {
+  const storage = sourceStorage || getSessionStorage();
   const data = storage.getItem(getUserStoreKey(settings));
   if (!data) {
     return null;
@@ -109,9 +112,9 @@ export const pickUserToken = (user: UserReturnType, tokenType: Parameters<OidcCl
 export function createOidcClient(props: OidcClientProps): OidcClient {
   const { userManagerSettings: userManagerSettingsFromProps, ...restProps } = props;
   const { userManagerSettings: defaultUserManagerSettings, ...restDefaultProps } = getDefaultProps(
-    window.location.origin,
+    isSsrEnvironment() ? '' : window.location.origin,
   );
-  const store = window.sessionStorage;
+  const store = getSessionStorage();
   const combinedProps: OidcClientProps = {
     ...restDefaultProps,
     ...restProps,
