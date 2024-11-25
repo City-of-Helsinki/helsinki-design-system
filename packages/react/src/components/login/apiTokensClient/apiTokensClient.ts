@@ -24,6 +24,7 @@ import {
   apiTokensClientEvents,
 } from '.';
 import { sequentialAsyncLoop } from '../../../utils/sequentialAsyncLoop';
+import { getSessionStorage } from '../utils/getSessionStorage';
 
 async function fetchApiToken(options: FetchApiTokenOptions): Promise<TokenData | ApiTokensClientError> {
   const { url, signal, audience, accessToken, queryProps, maxRetries = 0, retryInterval = 500 } = options;
@@ -139,7 +140,8 @@ async function fetchApiTokens(
  * @param storage
  * @returns
  */
-export const getApiTokensFromStorage = (storage: Storage = window.sessionStorage): TokenData | null => {
+export const getApiTokensFromStorage = (sourceStorage?: Storage): TokenData | null => {
+  const storage = sourceStorage || getSessionStorage();
   const tokensString = storage.getItem(API_TOKEN_SESSION_STORAGE_KEY);
   try {
     return tokensString ? JSON.parse(tokensString) : null;
@@ -152,7 +154,8 @@ export const getApiTokensFromStorage = (storage: Storage = window.sessionStorage
  * Removes the api tokens from storage
  * @param storage
  */
-export const removeApiTokensFromStorage = (storage: Storage = window.sessionStorage) => {
+export const removeApiTokensFromStorage = (sourceStorage?: Storage) => {
+  const storage = sourceStorage || getSessionStorage();
   storage.removeItem(API_TOKEN_SESSION_STORAGE_KEY);
 };
 
@@ -161,7 +164,8 @@ export const removeApiTokensFromStorage = (storage: Storage = window.sessionStor
  * @param tokenObj
  * @param storage
  */
-export const setApiTokensToStorage = (tokenObj: TokenData, storage: Storage = window.sessionStorage): void => {
+export const setApiTokensToStorage = (tokenObj: TokenData, sourceStorage?: Storage): void => {
+  const storage = sourceStorage || getSessionStorage();
   storage.setItem(API_TOKEN_SESSION_STORAGE_KEY, JSON.stringify(tokenObj));
 };
 
@@ -171,10 +175,8 @@ export const setApiTokensToStorage = (tokenObj: TokenData, storage: Storage = wi
  * @param storage
  * @returns
  */
-export const getApiTokenFromStorage = (
-  tokenKey: string,
-  storage: Storage = window.sessionStorage,
-): string | undefined => {
+export const getApiTokenFromStorage = (tokenKey: string, sourceStorage?: Storage): string | undefined => {
+  const storage = sourceStorage || getSessionStorage();
   const tokens = getApiTokensFromStorage(storage);
   return tokens ? tokens[tokenKey] : undefined;
 };
@@ -183,7 +185,8 @@ export const getApiTokenFromStorage = (
  *  Removes the user reference from stored api tokens. Reference is the access token used when fetching api tokens
  * @param storage
  */
-export const removeUserReferenceFromStorage = (storage: Storage = window.sessionStorage) => {
+export const removeUserReferenceFromStorage = (sourceStorage?: Storage) => {
+  const storage = sourceStorage || getSessionStorage();
   storage.removeItem(API_TOKEN_SESSION_USER_REFERENCE_KEY);
 };
 
@@ -192,7 +195,8 @@ export const removeUserReferenceFromStorage = (storage: Storage = window.session
  * @param reference
  * @param storage
  */
-export const setUserReferenceToStorage = (reference: string, storage: Storage = window.sessionStorage): void => {
+export const setUserReferenceToStorage = (reference: string, sourceStorage?: Storage): void => {
+  const storage = sourceStorage || getSessionStorage();
   storage.setItem(API_TOKEN_SESSION_USER_REFERENCE_KEY, reference);
 };
 
@@ -201,7 +205,8 @@ export const setUserReferenceToStorage = (reference: string, storage: Storage = 
  * @param storage
  * @returns
  */
-export const getUserReferenceFromStorage = (storage: Storage = window.sessionStorage): string | null => {
+export const getUserReferenceFromStorage = (sourceStorage?: Storage): string | null => {
+  const storage = sourceStorage || getSessionStorage();
   return storage.getItem(API_TOKEN_SESSION_USER_REFERENCE_KEY);
 };
 
