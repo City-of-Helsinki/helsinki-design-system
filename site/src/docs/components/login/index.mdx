@@ -54,8 +54,6 @@ To use the OIDC provider with login components, you need
 
 The HDS <UsagePageAnchorLink>Oidc client</UsagePageAnchorLink> stores data in session storage for security reasons. Session storage is not shared across browser windows or tabs, so the user must log in separately for each window.
 
-HDS Login components cannot support SSR at the moment because of the session storage requirement.
-
 Silent session renewal requires a <UsagePageAnchorLink anchor="silent-renewal">dedicated HTML file</UsagePageAnchorLink> that redirects to the OIDC provider "silently" in an iframe.
 
 ### Consents for storing data
