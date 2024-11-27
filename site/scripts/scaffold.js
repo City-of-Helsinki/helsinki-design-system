@@ -47,7 +47,7 @@ const createComponentFiles = (templatePath, destination, name, pathName) => {
 
 }
 
-const appendToComponentsData = (name, description, pathName) => {
+const appendToComponentsData = (name, description, pathName, isCoreComponent) => {
   try {
     const newDataObject = {
       name,
@@ -60,7 +60,8 @@ const appendToComponentsData = (name, description, pathName) => {
         alt: `An illustration of the ${name} component.`,
         height: 180,
         width: 280
-      }
+      },
+      tags: ["react", ...(isCoreComponent ? ["core"] : [])]
     };
 
     const componentsDataPath = path.resolve(__dirname, '../src/data/components.json');
@@ -91,6 +92,12 @@ const scaffold = async () => {
     validate: (input) => (input.split(' ').length > 2 ? true : `Description not long enough: ${input}`)
   });
 
+  const { isCoreComponent } = await inquirer.prompt({
+    type: 'confirm',
+    name: 'isCoreComponent',
+    message: 'Is there also a core component?',
+  });
+
   const pathName = name.split(/(?=[A-Z])/).join('-').toLowerCase();
   const path = createFolder(`src/docs/components/${pathName}`);
 
@@ -100,7 +107,7 @@ const scaffold = async () => {
 
   logStep(`${chalk.bold(`Created files:`)}\n\t${chalk.italic(files.join('\n\t'))}`);
 
-  appendToComponentsData(name, description, pathName);
+  appendToComponentsData(name, description, pathName, isCoreComponent);
 
   logStep(`${chalk.bold(`${name} component included in components.json.`)}`);
 

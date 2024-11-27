@@ -1,18 +1,22 @@
 @import "~hds-design-tokens/lib/all.scss";
 
-.linkbox-list {
+.components-storybook-links {
   column-gap: var(--spacing-layout-xs);
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
   margin-top: var(--spacing-layout-xs) !important;
   row-gap: var(--spacing-layout-xs);
   width: 100%;
-}
 
-.linkbox-list-item {
-  width: 100%;
-}
+  & .core-storybook div {
+    background-color: var(--color-copper-medium-light);
+  }
 
-.linkbox-list-link {
-  height: 100%;
+  & .react-storybook div {
+    background-color: var(--color-fog-medium-light);
+  }
+
+  & .js-storybook div {
+    background-color: var(--color-engel);
+  }
 }
