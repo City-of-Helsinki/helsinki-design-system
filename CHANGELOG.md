@@ -59,7 +59,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- Technology tags to all components
 
 #### Changed
 

@@ -5,13 +5,19 @@ title: "Components overview"
 
 import ComponentsList from '../../components/ComponentsList';
 import InternalLink from '../../components/InternalLink';
+import { Linkbox, LinkboxSize } from 'hds-react';
+import './components.scss';
 
 # Components overview
 
-This section lists all components currently available in HDS.
+This section lists all components currently available in HDS. Components can be viewed also in the Storybook examples.
 
-Components can be viewed also in the Storybook examples.
-- <InternalLink href="/storybook/react">React Storybook</InternalLink>
-- <InternalLink href="/storybook/core">Core Storybook</InternalLink>
+<div className="components-storybook-links">
+  <Linkbox className="core-storybook" size={LinkboxSize.Small} linkboxAriaLabel="Core Storybook" linkAriaLabel="Core Storybook" href="/storybook/core" external heading="Core Storybook" />
+  <Linkbox className="react-storybook" size={LinkboxSize.Small} linkboxAriaLabel="React Storybook" linkAriaLabel="React Storybook" href="/storybook/react" external heading="React Storybook" />
+  <Linkbox className="js-storybook" size={LinkboxSize.Small} linkboxAriaLabel="Vanilla JS" linkAriaLabel="Vanilla JS" href="/storybook/js" external heading="Vanilla JS" />
+</div>
+
+Tags will tell you which technologies the component is available in.
 
 <ComponentsList />
