@@ -10,7 +10,8 @@
       "alt": "An illustration of the Accordion component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Breadcrumb",
@@ -23,7 +24,8 @@
       "alt": "An illustration of the Breadcrumb component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Button",
@@ -36,7 +38,8 @@
       "alt": "An illustration of the Button component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Card",
@@ -49,7 +52,8 @@
       "alt": "An illustration of the Card component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Checkbox",
@@ -62,7 +66,8 @@
       "alt": "An illustration of the Checkbox component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "CookieConsent",
@@ -75,7 +80,8 @@
       "alt": "An illustration of the CookieConsent component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react", "js"]
   },
   {
     "name": "DateInput",
@@ -88,7 +94,8 @@
       "alt": "An illustration of the DateInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Dialog",
@@ -101,7 +108,8 @@
       "alt": "An illustration of the Dialog component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Dropdown",
@@ -114,7 +122,8 @@
       "alt": "An illustration of the Dropdown component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "ErrorSummary",
@@ -127,7 +136,8 @@
       "alt": "An illustration of the Error Summary component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Fieldset",
@@ -140,7 +150,8 @@
       "alt": "An illustration of the Fieldset component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "FileInput",
@@ -153,7 +164,8 @@
       "alt": "An illustration of the FileInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Footer",
@@ -166,7 +178,8 @@
       "alt": "An illustration of the Footer component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Header",
@@ -179,7 +192,8 @@
       "alt": "An illustration of the Header component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Hero",
@@ -192,7 +206,8 @@
       "alt": "An illustration of the Hero component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Highlight",
@@ -205,7 +220,8 @@
       "alt": "An illustration of the Highlight component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Icon",
@@ -218,7 +234,8 @@
       "alt": "An illustration of the Icon component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Koros",
@@ -231,7 +248,8 @@
       "alt": "An illustration of the Koros component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Link",
@@ -244,7 +262,8 @@
       "alt": "An illustration of the Link component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Linkbox",
@@ -257,7 +276,8 @@
       "alt": "An illustration of the Linkbox component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "LoadingSpinner",
@@ -270,7 +290,8 @@
       "alt": "An illustration of the LoadingSpinner component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Login",
@@ -283,7 +304,8 @@
       "alt": "An illustration of the Login component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react", "js"]
   },
   {
     "name": "Logo",
@@ -296,7 +318,8 @@
       "alt": "An illustration of the Logo component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Notification",
@@ -309,7 +332,8 @@
       "alt": "An illustration of the Notification component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "NumberInput",
@@ -322,7 +346,8 @@
       "alt": "An illustration of the NumberInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Pagination",
@@ -335,7 +360,8 @@
       "alt": "An illustration of the Pagination component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "PasswordInput",
@@ -348,7 +374,8 @@
       "alt": "An illustration of the PasswordInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "PhoneInput",
@@ -361,7 +388,8 @@
       "alt": "An illustration of the PhoneInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "RadioButton",
@@ -374,7 +402,8 @@
       "alt": "An illustration of the RadioButton component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "SearchInput",
@@ -387,7 +416,8 @@
       "alt": "An illustration of the SearchInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Select",
@@ -400,7 +430,8 @@
       "alt": "An illustration of the Select component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "SelectionGroup",
@@ -413,7 +444,8 @@
       "alt": "An illustration of the SelectionGroup component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "SideNavigation",
@@ -426,7 +458,8 @@
       "alt": "An illustration of the SideNavigation component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "StatusLabel",
@@ -439,7 +472,8 @@
       "alt": "An illustration of the StatusLabel component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "StepByStep",
@@ -452,7 +486,8 @@
       "alt": "An illustration of the StepByStep component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Stepper",
@@ -465,7 +500,8 @@
       "alt": "An illustration of the Stepper component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Table",
@@ -478,7 +514,8 @@
       "alt": "An illustration of the Table component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "Tabs",
@@ -491,7 +528,8 @@
       "alt": "An illustration of the Tabs component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Tag",
@@ -504,7 +542,8 @@
       "alt": "An illustration of the Tag component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "TextArea",
@@ -517,7 +556,8 @@
       "alt": "An illustration of the TextArea component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "TextInput",
@@ -530,7 +570,8 @@
       "alt": "An illustration of the TextInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["core", "react"]
   },
   {
     "name": "TimeInput",
@@ -543,7 +584,8 @@
       "alt": "An illustration of the TimeInput component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "ToggleButton",
@@ -556,7 +598,8 @@
       "alt": "An illustration of the ToggleButton component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   },
   {
     "name": "Tooltip",
@@ -569,6 +612,7 @@
       "alt": "An illustration of the Tooltip component.",
       "height": 180,
       "width": 280
-    }
+    },
+    "tags": ["react"]
   }
 ]

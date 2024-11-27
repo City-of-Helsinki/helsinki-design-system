@@ -2,6 +2,7 @@ import * as React from 'react';
 import { navigate, withPrefix } from 'gatsby';
 import { Linkbox } from 'hds-react';
 import PropTypes from 'prop-types';
+import TechTags from './TechTags';
 
 import './LinkboxList.scss';
 
@@ -28,7 +29,9 @@ const LinkboxList = ({ data, className }) => (
                 navigate(item.href);
               }
             }}
-          />
+          >
+            <TechTags componentName={item.name} withoutHeading />
+          </Linkbox>
         </div>
       );
     })}
