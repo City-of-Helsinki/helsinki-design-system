@@ -1,0 +1,129 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use "sass:map";
+@use "sass:meta";
+@use '../exports' as *;
+@use '../helpers' as helpers;
+@use '../globals' as globals;
+@use '../selectors' as selectors;
+
+@function create-block($type, $name, $config) {
+  @return '*[data-block="#{$name}"]';
+}
+
+@function create-modifier($type, $name, $config) {
+  @return '*[data-variant="#{$name}"]';
+}
+
+@function create-element($type, $name, $config) {
+  @return '*[data-element="#{$name}"]';
+}
+
+@include describe('_selectors.scss') {
+  @include describe('create-selector') {
+    @include it('creates a block selector') {
+      $config: helpers.create-empty-map();
+
+      @include assert-equal(
+        selectors.create-selector($type: 'block', $name: 'blockName', $config: $config),
+        '.blockName'
+      );
+    }
+
+    @include it('config.blockPrefix is used') {
+      $config: (
+        'blockPrefix': 'prefix--',
+      );
+
+      @include assert-equal(
+        selectors.create-selector($type: 'block', $name: 'blockName', $config: $config),
+        '.prefix--blockName'
+      );
+    }
+
+    @include it('creates a modifier selector') {
+      $config: helpers.create-empty-map();
+
+      @include assert-equal(
+        selectors.create-selector($type: 'modifier', $name: 'modifierName', $config: $config),
+        'modifierName'
+      );
+    }
+
+    @include it('config.modifierDelimeter is used') {
+      $config: (
+        'modifierDelimeter': '----',
+      );
+
+      @include assert-equal(
+        selectors.create-selector($type: 'modifier', $name: 'modifierName', $config: $config),
+        '----modifierName'
+      );
+    }
+
+    @include it('creates an element selector') {
+      $config: helpers.create-empty-map();
+
+      @include assert-equal(
+        selectors.create-selector($type: 'element', $name: 'elementName', $config: $config),
+        'elementName'
+      );
+    }
+
+    @include it('config.elementDelimeter is used') {
+      $config: (
+        'elementDelimeter': '____',
+      );
+
+      @include assert-equal(
+        selectors.create-selector($type: 'element', $name: 'elementName', $config: $config),
+        '____elementName'
+      );
+    }
+
+    @include it('creates a custom selector') {
+      $config: helpers.create-empty-map();
+
+      @include assert-equal(
+        selectors.create-selector($type: 'custom', $name: '#div a.b', $config: $config),
+        '#div a.b'
+      );
+    }
+  }
+
+  @include describe('creator<entity>Selectors can be overridden') {
+    $result: init-multi-sass(
+      $modifiers: true,
+      $elements: true,
+      $extras: true,
+      $block: 'test',
+      $config: (
+        'createBlockSelector': meta.get-function('create-block'),
+        'createModifierSelector': meta.get-function('create-modifier'),
+        'createElementSelector': meta.get-function('create-element'),
+      ),
+    );
+    $config: map.get($result, 'config');
+
+    @include it('create-selector uses createBlockSelector if set') {
+      @include assert-equal(
+        selectors.create-selector($type: 'block', $name: 'blockName', $config: $config),
+        '*[data-block="blockName"]'
+      );
+    }
+
+    @include it('create-selector uses createModifierSelector if set') {
+      @include assert-equal(
+        selectors.create-selector($type: 'modifier', $name: 'modifierName', $config: $config),
+        '*[data-variant="modifierName"]'
+      );
+    }
+
+    @include it('create-selector uses createElementSelector if set') {
+      @include assert-equal(
+        selectors.create-selector($type: 'element', $name: 'elementName', $config: $config),
+        '*[data-element="elementName"]'
+      );
+    }
+  }
+}
