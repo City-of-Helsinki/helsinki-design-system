@@ -1,0 +1,29 @@
+@use './levels.scss' as levels;
+
+/*
+* Output functions.
+*/
+
+@mixin emit($level) {
+  // remove first check?
+  $contentOnly: levels.is-level-content-only($level) or levels.get-level-content-only($level);
+  $isAllowed: levels.is-level-allowed($level);
+  $selector: levels.get-level-selector($level);
+  $shouldEmitNested: levels.should-level-emit-nested($level);
+
+  @if $isAllowed {
+    @if $contentOnly {
+      @content;
+    } @else {
+      @if $shouldEmitNested {
+        #{$selector} {
+          @content;
+        }
+      } @else {
+        &#{$selector} {
+          @content;
+        }
+      }
+    }
+  }
+}
