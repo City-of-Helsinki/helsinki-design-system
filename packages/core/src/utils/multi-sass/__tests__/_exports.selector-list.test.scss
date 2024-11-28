@@ -1,0 +1,86 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use '../rules' as rules;
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+
+@mixin testMixin($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  div {
+    @include selector-list((('custom': ':focus'), ('custom': ':hover'))) {
+      --div-focus: var(--var-div);
+      --div-hover: var(--var-div-hover);
+    }
+  }
+
+  @include block {
+    @include selector-list((('modifier': 'mod1'), ('modifier': 'mod2'), ('element': 'elem1'), ('custom': '.custom1'))) {
+      div.class {
+        --block-selector-list-div: var(--var-block-selector-list-div);
+
+        @include selector-list(
+          (
+            ('modifier': 'inner-mod1'),
+            ('modifier': 'inner-mod2'),
+            ('element': 'inner-elem1'),
+            ('custom': '.inner-custom1')
+          )
+        ) {
+          --block-selector-list-div-selector-list: var(--var-block-selector-list-div-selector-list);
+        }
+      }
+    }
+  }
+}
+
+@include describe('Selector-list') {
+  @include it('Makes selector lists') {
+    @include assert {
+      @include output {
+        @include testMixin;
+      }
+
+      @include expect {
+        div:focus,
+        div:hover {
+          --div-focus: var(--var-div);
+          --div-hover: var(--var-div-hover);
+        }
+
+        .hds-test--mod1 div.class,
+        .hds-test--mod2 div.class,
+        .hds-test__elem1 div.class,
+        .hds-test.custom1 div.class {
+          --block-selector-list-div: var(--var-block-selector-list-div);
+        }
+
+        .hds-test--mod1 div.class--inner-mod1,
+        .hds-test--mod1 div.class--inner-mod2,
+        .hds-test--mod1 div.class__inner-elem1,
+        .hds-test--mod1 div.class.inner-custom1,
+        .hds-test--mod2 div.class--inner-mod1,
+        .hds-test--mod2 div.class--inner-mod2,
+        .hds-test--mod2 div.class__inner-elem1,
+        .hds-test--mod2 div.class.inner-custom1,
+        .hds-test__elem1 div.class--inner-mod1,
+        .hds-test__elem1 div.class--inner-mod2,
+        .hds-test__elem1 div.class__inner-elem1,
+        .hds-test__elem1 div.class.inner-custom1,
+        .hds-test.custom1 div.class--inner-mod1,
+        .hds-test.custom1 div.class--inner-mod2,
+        .hds-test.custom1 div.class__inner-elem1,
+        .hds-test.custom1 div.class.inner-custom1 {
+          --block-selector-list-div-selector-list: var(--var-block-selector-list-div-selector-list);
+        }
+      }
+    }
+  }
+}

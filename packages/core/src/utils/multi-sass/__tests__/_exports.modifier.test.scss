@@ -1,0 +1,105 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'block-name',
+  );
+
+  div.class {
+    @include modifier('mod1') {
+      --mod1: var(--var-mod1);
+
+      div {
+        --mod1-div: var(--var-mod1-div);
+      }
+    }
+  }
+
+  @include block {
+    @include modifier('mod2') {
+      --mod2: var(--var-mod2);
+
+      @include modifier('mod2-inner-mod') {
+        --mod2-inner-mod: var(--var-mod2-inner-mod);
+
+        div {
+          --mod2-inner-mod-div: var(--var-mod2-inner-mod-div);
+        }
+      }
+
+      ul {
+        li.class {
+          @include modifier('li-mod') {
+            --ul-li-li-mod: var(--var-ul-li-li-mod);
+
+            a.class {
+              --ul-li-li-mod-a: var(--var-ul-li-li-mod-a);
+
+              @include modifier('a-mod') {
+                --ul-li-li-mod-a-a-mod: var(--ul-li-li-mod-a-a-mod);
+
+                span {
+                  --ul-li-li-mod-a-a-mod-span: var(--ul-li-li-mod-a-a-mod-span);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('Modifier entities') {
+  @include it('are outputted.') {
+    @include assert {
+      @include output {
+        @include testSCSS;
+      }
+
+      @include expect {
+        div.class--mod1 {
+          --mod1: var(--var-mod1);
+        }
+
+        div.class--mod1 div {
+          --mod1-div: var(--var-mod1-div);
+        }
+
+        .hds-block-name--mod2 {
+          --mod2: var(--var-mod2);
+        }
+
+        .hds-block-name--mod2--mod2-inner-mod {
+          --mod2-inner-mod: var(--var-mod2-inner-mod);
+        }
+
+        .hds-block-name--mod2--mod2-inner-mod div {
+          --mod2-inner-mod-div: var(--var-mod2-inner-mod-div);
+        }
+
+        .hds-block-name--mod2 ul li.class--li-mod {
+          --ul-li-li-mod: var(--var-ul-li-li-mod);
+        }
+
+        .hds-block-name--mod2 ul li.class--li-mod a.class {
+          --ul-li-li-mod-a: var(--var-ul-li-li-mod-a);
+        }
+
+        .hds-block-name--mod2 ul li.class--li-mod a.class--a-mod {
+          --ul-li-li-mod-a-a-mod: var(--ul-li-li-mod-a-a-mod);
+        }
+
+        .hds-block-name--mod2 ul li.class--li-mod a.class--a-mod span {
+          --ul-li-li-mod-a-a-mod-span: var(--ul-li-li-mod-a-a-mod-span);
+        }
+      }
+    }
+  }
+}

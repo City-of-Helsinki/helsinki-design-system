@@ -1,0 +1,117 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use '../rules' as rules;
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+
+@mixin testMixin($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  div {
+    @include linked-entities(
+      $block: true,
+      $typeAndName: (
+        'type': 'modifier',
+        'name': 'mod1',
+      ),
+      $separator: ''
+    ) {
+      --should-not-render: var(--should-not-render);
+    }
+  }
+
+  @include block {
+    --block: var(--var-block);
+
+    @include linked-entities(
+      $block: true,
+      $typeAndName: (
+        'type': 'modifier',
+        'name': 'mod1',
+      ),
+      $separator: ''
+    ) {
+      --block-block-mod1: var(--var-block-block-mod1);
+
+      @include linked-entities(
+        $modifier: true,
+        $typeAndName: (
+          'type': 'element',
+          'name': 'elem1',
+        ),
+        $separator: ''
+      ) {
+        --block-block-mod1: var(--var-block-block-mod1);
+      }
+    }
+  }
+
+  @include block {
+    div.class {
+      @include modifier('middle') {
+        span.class {
+          @include linked-entities(
+            $block: true,
+            $typeAndName: (
+              'type': 'modifier',
+              'name': 'mod1',
+            ),
+            $separator: ' '
+          ) {
+            --block-2-block-mod1: var(--var-block-2-block-mod1);
+
+            @include linked-entities(
+              $modifier: true,
+              $typeAndName: (
+                'type': 'element',
+                'name': 'elem1',
+              ),
+              $separator: ''
+            ) {
+              --block-block-2-mod1: var(--var-block-block-2-mod1);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('linked-entities') {
+  @include it('Merge entities into new selectors') {
+    @include assert {
+      @include output {
+        @include testMixin;
+      }
+
+      @include expect {
+        .hds-test {
+          --block: var(--var-block);
+        }
+
+        .hds-test.hds-test--mod1 {
+          --block-block-mod1: var(--var-block-block-mod1);
+        }
+
+        .hds-test.hds-test--mod1.hds-test.hds-test--mod1__elem1 {
+          --block-block-mod1: var(--var-block-block-mod1);
+        }
+
+        .hds-test div.class--middle span.class .hds-test--mod1 {
+          --block-2-block-mod1: var(--var-block-2-block-mod1);
+        }
+
+        .hds-test div.class--middle span.class .hds-test--mod1.hds-test--middle.hds-test--mod1__elem1 {
+          --block-block-2-mod1: var(--var-block-block-2-mod1);
+        }
+      }
+    }
+  }
+}

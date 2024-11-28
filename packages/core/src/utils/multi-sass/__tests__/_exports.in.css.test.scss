@@ -1,0 +1,265 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true, $config: null) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+    $config: $config,
+  );
+
+  @include block {
+    --hds-test: var(--var-base);
+
+    @include modifier('first-mod') {
+      --hds-first-mod: var(--var-first-mod);
+    }
+
+    div.class {
+      @include element('elem') {
+        --hds-div-elem: var(--var-div);
+      }
+    }
+
+    span.class {
+      @include modifier('mod') {
+        --hds-span-mod: var(--var-span-mod);
+      }
+    }
+
+    a {
+      @include content('content') {
+        --hds-a-content: var(--var-a-content);
+      }
+    }
+
+    nav {
+      @include extra('section') {
+        section {
+          @include extra('inner-section') {
+            --hds-inner-section: var(--var-inner-section);
+          }
+        }
+      }
+    }
+
+    ul {
+      @include descendant('li') {
+        --hds-li-descendant: var(--var-li-descendant);
+      }
+    }
+
+    header.class {
+      @include selector-list((('modifier': 'hello'), ('element': 'elem'), ('custom': ' div'))) {
+        --hds-header-selector-list: var(--var-header-selector-list);
+      }
+    }
+  }
+}
+
+@include describe('Native selectors work') {
+  @include it('rules are outputted within.') {
+    @include assert {
+      @include output {
+        .wrapper {
+          @include testSCSS;
+        }
+      }
+
+      @include expect {
+        .wrapper {
+          .hds-test {
+            --hds-test: var(--var-base);
+          }
+
+          .hds-test--first-mod {
+            --hds-first-mod: var(--var-first-mod);
+          }
+
+          .hds-test div.class__elem {
+            --hds-div-elem: var(--var-div);
+          }
+
+          .hds-test span.class--mod {
+            --hds-span-mod: var(--var-span-mod);
+          }
+
+          .hds-test a {
+            --hds-a-content: var(--var-a-content);
+          }
+
+          .hds-test nav section {
+            --hds-inner-section: var(--var-inner-section);
+          }
+
+          .hds-test ul li {
+            --hds-li-descendant: var(--var-li-descendant);
+          }
+
+          .hds-test header.class--hello,
+          .hds-test header.class__elem,
+          .hds-test header.class div {
+            --hds-header-selector-list: var(--var-header-selector-list);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('Outer wrappers selectors work') {
+  @include it('rules are outputted within.') {
+    @include assert {
+      @include output {
+        .outer-wrapper {
+          .wrapper {
+            @include testSCSS;
+          }
+        }
+      }
+
+      @include expect {
+        .outer-wrapper {
+          .wrapper {
+            .hds-test {
+              --hds-test: var(--var-base);
+            }
+
+            .hds-test--first-mod {
+              --hds-first-mod: var(--var-first-mod);
+            }
+
+            .hds-test div.class__elem {
+              --hds-div-elem: var(--var-div);
+            }
+
+            .hds-test span.class--mod {
+              --hds-span-mod: var(--var-span-mod);
+            }
+
+            .hds-test a {
+              --hds-a-content: var(--var-a-content);
+            }
+
+            .hds-test nav section {
+              --hds-inner-section: var(--var-inner-section);
+            }
+
+            .hds-test ul li {
+              --hds-li-descendant: var(--var-li-descendant);
+            }
+
+            .hds-test header.class--hello,
+            .hds-test header.class__elem,
+            .hds-test header.class div {
+              --hds-header-selector-list: var(--var-header-selector-list);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('Config.emitContentOnly') {
+  @include it('renders only the content of root level if the value is "root" ($globals.$EMIT_CONTENT_ONLY_IN_ROOT) ') {
+    @include assert {
+      @include output {
+        .wrapper {
+          @include testSCSS(
+            $config: (
+              'emitContentOnly': 'root',
+            )
+          );
+        }
+      }
+
+      @include expect {
+        .wrapper {
+          --hds-test: var(--var-base);
+
+          &--first-mod {
+            --hds-first-mod: var(--var-first-mod);
+          }
+
+          div.class__elem {
+            --hds-div-elem: var(--var-div);
+          }
+
+          span.class--mod {
+            --hds-span-mod: var(--var-span-mod);
+          }
+
+          a {
+            --hds-a-content: var(--var-a-content);
+          }
+
+          nav section {
+            --hds-inner-section: var(--var-inner-section);
+          }
+
+          ul li {
+            --hds-li-descendant: var(--var-li-descendant);
+          }
+
+          header.class--hello,
+          header.class__elem,
+          header.class div {
+            --hds-header-selector-list: var(--var-header-selector-list);
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('Config.emitContentOnly') {
+  @include it('renders all contents to nearest selector if the value is "all" ($globals.$EMIT_CONTENT_ONLY_ALL) ') {
+    @include assert {
+      @include output {
+        .wrapper {
+          @include testSCSS(
+            $config: (
+              'emitContentOnly': 'all',
+            )
+          );
+        }
+      }
+
+      @include expect {
+        .wrapper {
+          --hds-test: var(--var-base);
+          --hds-first-mod: var(--var-first-mod);
+
+          div.class {
+            --hds-div-elem: var(--var-div);
+          }
+
+          span.class {
+            --hds-span-mod: var(--var-span-mod);
+          }
+
+          a {
+            --hds-a-content: var(--var-a-content);
+          }
+
+          nav section {
+            --hds-inner-section: var(--var-inner-section);
+          }
+
+          ul {
+            --hds-li-descendant: var(--var-li-descendant);
+          }
+
+          header.class {
+            --hds-header-selector-list: var(--var-header-selector-list);
+          }
+        }
+      }
+    }
+  }
+}

@@ -1,0 +1,139 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use './_testing-mixins.scss' as *;
+@use "sass:meta";
+
+@include describe('Inner blocks') {
+  @include it('are outputted.') {
+    @include assert {
+      @include output {
+        @include ComplexInnerBlocks;
+      }
+
+      @include expect {
+        .hds-block-name {
+          --block: var(--var-block);
+        }
+
+        .hds-block-name div {
+          --block-div: var(--var-block-div);
+        }
+
+        .hds-block-name {
+          --block2: var(--var-block2);
+        }
+
+        .hds-block-name.hds-block-name {
+          --block2-inner-block: var(--var-block2-inner-block);
+        }
+
+        .hds-block-name.hds-block-name div {
+          --block2-div: var(--var-block2-div);
+        }
+
+        .hds-block-name ul li.hds-block-name {
+          --ul-li-block3: var(--var-ul-li-block3);
+        }
+
+        .hds-block-name ul li.hds-block-name a {
+          --ul-li-block3-a: var(--var-ul-li-block3-a);
+        }
+
+        .hds-block-name ul li.hds-block-name a.hds-block-name {
+          --ul-li-block3-a-block4: var(--ul-li-block3-a-block4);
+        }
+
+        .hds-block-name ul li.hds-block-name a.hds-block-name span {
+          --ul-li-block3-a-block4-span: var(--ul-li-block3-a-block4-span);
+        }
+      }
+    }
+  }
+}
+
+@include describe('Nested multi-sass mixings') {
+  @include it('are outputted') {
+    @include assert {
+      @include output {
+        @include SimpleContainer {
+          @include SimpleButton;
+        }
+      }
+
+      @include expect {
+        section .hds-simple-container {
+          --simple-container-base: var(--var-simple-container-base);
+        }
+
+        section .hds-simple-container__content {
+          --simple-container-content: var(--var-simple-container-content);
+        }
+
+        section .hds-simple-container--tiny {
+          --simple-container-dark: var(--var-simple-container-tiny);
+        }
+
+        section .hds-simple-container--tiny__content {
+          --simple-container-tiny-content: var(--var-simple-container-tiny-content);
+        }
+
+        section .hds-simple-container button .hds-simple-button {
+          --simple-button-base: var(--var-simple-button-base);
+        }
+
+        section .hds-simple-container button .hds-simple-button__icon {
+          --simple-button-icon: var(--var-simple-button-icon);
+        }
+
+        section .hds-simple-container button .hds-simple-button__icon span {
+          --simple-button-icon-span: var(--var-simple-button-modifier1-icon-span);
+        }
+
+        section .hds-simple-container button .hds-simple-button--dark {
+          --simple-button-dark: var(--var-simple-button-dark);
+        }
+
+        section .hds-simple-container button .hds-simple-button--dark__icon {
+          --simple-button-dark-icon: var(--var-simple-button-dark-icon);
+        }
+
+        section .hds-simple-container button .hds-simple-button--dark__icon span {
+          --simple-button-dark-icon-span: var(--var-simple-button-dark-icon-span);
+        }
+
+        section .hds-simple-container--max {
+          --simple-container-max: var(--var-simple-container-max);
+        }
+
+        section .hds-simple-container--max__content {
+          --simple-container-max-content: var(--var-simple-container-max-content);
+        }
+      }
+    }
+  }
+
+  @include it('are outputted with args.') {
+    @include assert {
+      @include output {
+        @include SimpleContainer($modifiers: 'tiny', $elements: false) {
+          @include SimpleButton($elements: 'base', $modifiers: false);
+        }
+      }
+
+      @include expect {
+        section .hds-simple-container--tiny {
+          --simple-container-dark: var(--var-simple-container-tiny);
+        }
+
+        section .hds-simple-container--tiny__content {
+          --simple-container-tiny-content: var(--var-simple-container-tiny-content);
+        }
+
+        section .hds-simple-container button .hds-simple-button {
+          --simple-button-base: var(--var-simple-button-base);
+        }
+      }
+    }
+  }
+}
