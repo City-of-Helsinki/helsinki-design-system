@@ -1,0 +1,351 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  @include block {
+    --hds-test: var(--var-base);
+
+    @include content {
+      --hds-test-content: var(--var-content);
+    }
+
+    div {
+      --hds-test-div: var(--var-div);
+    }
+
+    @include element('another-element') {
+      --hds-test-another-element: var(--var-another-element);
+
+      li {
+        --hds-test-another-element-li: var(--var-li);
+      }
+
+      header {
+        nav {
+          @include extra-selector('header-nav', '.nav') {
+            --hds-test-header-nav-custom: var(--var-header-nav-custom);
+          }
+        }
+      }
+
+      @include modifier('dark') {
+        --hds-test-another-element-dark: var(--var-another-element-dark);
+
+        @include extra-selector('dark-focus', ':focus') {
+          --hds-test-another-element-dark: var(--var-another-element-dark);
+        }
+
+        @include selector-list((('custom': ':focus'), ('custom': ':hover'))) {
+          --hds-test-another-element-dark-focus: var(--var-another-element-dark-focus-2);
+          --hds-test-another-element-dark-hover: var(--var-another-element-dark-hover-2);
+        }
+
+        &:active,
+        &:focus-visible {
+          --hds-test-another-element-dark-hover: var(--var-another-element-dark-hover);
+        }
+      }
+    }
+
+    @include modifier('modifier') {
+      --hds-test-modifier: var(--var-modifier);
+
+      span {
+        --hds-test-modifier-span: var(--var-span);
+      }
+
+      @include element('modifier-element') {
+        --hds-test-modifier-element: var(--var-modifier-element);
+
+        ul {
+          --hds-test-modifier-element-ul: var(--var-ul);
+        }
+      }
+
+      @include block-element('block-element') {
+        --hds-test-root-element: var(--var-root-element);
+
+        ul {
+          --hds-test-block-element-ul: var(--var-ul);
+        }
+      }
+    }
+
+    @include extra('showMe') {
+      @include modifier('modifier2') {
+        --hds-test-modifier: var(--var-modifier);
+
+        @include extra-descendant('za', 'div.za span') {
+          --hds-test-modifier-element: var(--var-modifier-element);
+        }
+      }
+    }
+
+    @include selector-list((('modifier': 'hello'), ('modifier': 'hello2'), ('element': 'elem'), ('custom': ' div'))) {
+      --hds-selector-list-span: var(--var-selector-list);
+
+      span {
+        --hds-selector-list-span: var(--var-selector-list-span);
+      }
+
+      @include extra-descendant('extra-p', 'p.extra') {
+        --hds-selector-list-p: var(--var-selector-list-p);
+
+        @include element('awesome') {
+          --hds-selector-list-p-awesome: var(--var-selector-list-p-awesome);
+        }
+      }
+    }
+
+    div {
+      @include block {
+        @include element('awesome') {
+          --hds-nested-div-block-awesome: var(--var-nested-div-block-awesome);
+        }
+
+        @include extra-descendant('nested-div-p', 'p') {
+          --hds-nested-div-block-p: var(--var-nested-div-block-p);
+        }
+      }
+    }
+
+    @include modifier('sibling-modifier') {
+      --hds-test-sibling-modifier: var(--var-sibling-modifier);
+
+      @include compound-block-modifier('compound-modifier') {
+        --hds-test-compound-modifier: var(--var-compound-modifier);
+
+        @include element('compound') {
+          --hds-nested-element-compound: var(--var-nested-element-compound);
+        }
+      }
+    }
+
+    @include modifier('element-sibling-modifier') {
+      --hds-test-element-sibling-modifier: var(--var-element-sibling-modifier);
+
+      @include descendant-modifier-element('compound-element') {
+        --hds-test-element-sibling-modifier-descendant-element: var(--var-shorter-name-no-line-break);
+
+        div {
+          --hds-test-element-sibling-modifier-descendant-element-div: var(--var-shorter-name-no-line-break);
+        }
+      }
+    }
+
+    @include descendant('p') {
+      div {
+        --hds-test-descendant-div: var(--var-descendant-div);
+      }
+
+      span {
+        --hds-test-descendant-span: var(--var-descendant-span);
+      }
+
+      @include compound-block-modifier('descendant-compound-modifier') {
+        --hds-test-descendant-compound-modifier: var(--var-descendant-compound-modifier);
+
+        @include element('compound') {
+          --hds-test-descendant-compound-modifier-compound-element: var(
+            --var-descendant-compound-modifier-compound-element
+          );
+        }
+      }
+    }
+
+    @include descendant('') {
+      @include repeat($block: true) {
+        @include descendant('') {
+          @include repeat($block: true) {
+            div {
+              --hds-test-repeated-x2-div: var(--var-repeated-x2-div);
+            }
+          }
+        }
+      }
+    }
+
+    @include repeat-with-replace($original: '-test', $replacement: '-replacement', $block: true) {
+      --hds-replacement: var(--var-replacement);
+    }
+  }
+}
+
+@include describe('Test different parameters') {
+  @include it('With a defined elements, only rules in it are outputted.') {
+    @include assert {
+      @include output {
+        @include testSCSS;
+      }
+
+      @include expect {
+        .hds-test {
+          --hds-test: var(--var-base);
+          --hds-test-content: var(--var-content);
+        }
+
+        .hds-test div {
+          --hds-test-div: var(--var-div);
+        }
+
+        .hds-test__another-element {
+          --hds-test-another-element: var(--var-another-element);
+        }
+
+        .hds-test__another-element li {
+          --hds-test-another-element-li: var(--var-li);
+        }
+
+        .hds-test__another-element header nav.nav {
+          --hds-test-header-nav-custom: var(--var-header-nav-custom);
+        }
+
+        .hds-test__another-element--dark {
+          --hds-test-another-element-dark: var(--var-another-element-dark);
+        }
+
+        .hds-test__another-element--dark:focus {
+          --hds-test-another-element-dark: var(--var-another-element-dark);
+        }
+
+        .hds-test__another-element--dark:focus,
+        .hds-test__another-element--dark:hover {
+          --hds-test-another-element-dark-focus: var(--var-another-element-dark-focus-2);
+          --hds-test-another-element-dark-hover: var(--var-another-element-dark-hover-2);
+        }
+
+        .hds-test__another-element--dark:active,
+        .hds-test__another-element--dark:focus-visible {
+          --hds-test-another-element-dark-hover: var(--var-another-element-dark-hover);
+        }
+
+        .hds-test--modifier {
+          --hds-test-modifier: var(--var-modifier);
+        }
+
+        .hds-test--modifier span {
+          --hds-test-modifier-span: var(--var-span);
+        }
+
+        .hds-test--modifier__modifier-element {
+          --hds-test-modifier-element: var(--var-modifier-element);
+        }
+
+        .hds-test--modifier__modifier-element ul {
+          --hds-test-modifier-element-ul: var(--var-ul);
+        }
+
+        .hds-test--modifier .hds-test__block-element {
+          --hds-test-root-element: var(--var-root-element);
+        }
+
+        .hds-test--modifier .hds-test__block-element ul {
+          --hds-test-block-element-ul: var(--var-ul);
+        }
+
+        .hds-test--modifier2 {
+          --hds-test-modifier: var(--var-modifier);
+        }
+
+        .hds-test--modifier2 div.za span {
+          --hds-test-modifier-element: var(--var-modifier-element);
+        }
+
+        .hds-test--hello,
+        .hds-test--hello2,
+        .hds-test__elem,
+        .hds-test div {
+          --hds-selector-list-span: var(--var-selector-list);
+        }
+
+        .hds-test--hello span,
+        .hds-test--hello2 span,
+        .hds-test__elem span,
+        .hds-test div span {
+          --hds-selector-list-span: var(--var-selector-list-span);
+        }
+
+        .hds-test--hello p.extra,
+        .hds-test--hello2 p.extra,
+        .hds-test__elem p.extra,
+        .hds-test div p.extra {
+          --hds-selector-list-p: var(--var-selector-list-p);
+        }
+
+        .hds-test--hello p.extra__awesome,
+        .hds-test--hello2 p.extra__awesome,
+        .hds-test__elem p.extra__awesome,
+        .hds-test div p.extra__awesome {
+          --hds-selector-list-p-awesome: var(--var-selector-list-p-awesome);
+        }
+
+        .hds-test div.hds-test__awesome {
+          --hds-nested-div-block-awesome: var(--var-nested-div-block-awesome);
+        }
+
+        .hds-test div.hds-test p {
+          --hds-nested-div-block-p: var(--var-nested-div-block-p);
+        }
+
+        .hds-test--sibling-modifier {
+          --hds-test-sibling-modifier: var(--var-sibling-modifier);
+        }
+
+        .hds-test--sibling-modifier.hds-test--compound-modifier {
+          --hds-test-compound-modifier: var(--var-compound-modifier);
+        }
+
+        .hds-test--sibling-modifier.hds-test--compound-modifier__compound {
+          --hds-nested-element-compound: var(--var-nested-element-compound);
+        }
+
+        .hds-test--element-sibling-modifier {
+          --hds-test-element-sibling-modifier: var(--var-element-sibling-modifier);
+        }
+
+        .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element {
+          --hds-test-element-sibling-modifier-descendant-element: var(--var-shorter-name-no-line-break);
+        }
+
+        .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element div {
+          --hds-test-element-sibling-modifier-descendant-element-div: var(--var-shorter-name-no-line-break);
+        }
+
+        .hds-test p div {
+          --hds-test-descendant-div: var(--var-descendant-div);
+        }
+
+        .hds-test p span {
+          --hds-test-descendant-span: var(--var-descendant-span);
+        }
+
+        .hds-test p.hds-test--descendant-compound-modifier {
+          --hds-test-descendant-compound-modifier: var(--var-descendant-compound-modifier);
+        }
+
+        .hds-test p.hds-test--descendant-compound-modifier__compound {
+          --hds-test-descendant-compound-modifier-compound-element: var(
+            --var-descendant-compound-modifier-compound-element
+          );
+        }
+
+        .hds-test .hds-test .hds-test div {
+          --hds-test-repeated-x2-div: var(--var-repeated-x2-div);
+        }
+
+        .hds-test.hds-replacement {
+          --hds-replacement: var(--var-replacement);
+        }
+      }
+    }
+  }
+}

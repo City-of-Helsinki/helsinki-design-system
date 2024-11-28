@@ -1,0 +1,101 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'block-name',
+  );
+
+  @include block {
+    --block: var(--var-block);
+
+    div {
+      --block-div: var(--var-block-div);
+    }
+  }
+
+  @include block {
+    --block2: var(--var-block2);
+
+    @include block {
+      --block2-inner-block: var(--var-block2-inner-block);
+
+      div {
+        --block2-div: var(--var-block2-div);
+      }
+    }
+
+    ul {
+      li {
+        @include block {
+          --ul-li-block3: var(--var-ul-li-block3);
+
+          a {
+            --ul-li-block3-a: var(--var-ul-li-block3-a);
+
+            @include block {
+              --ul-li-block3-a-block4: var(--ul-li-block3-a-block4);
+
+              span {
+                --ul-li-block3-a-block4-span: var(--ul-li-block3-a-block4-span);
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('Block entities') {
+  @include it('are outputted.') {
+    @include assert {
+      @include output {
+        @include testSCSS;
+      }
+
+      @include expect {
+        .hds-block-name {
+          --block: var(--var-block);
+        }
+
+        .hds-block-name div {
+          --block-div: var(--var-block-div);
+        }
+
+        .hds-block-name {
+          --block2: var(--var-block2);
+        }
+
+        .hds-block-name.hds-block-name {
+          --block2-inner-block: var(--var-block2-inner-block);
+        }
+
+        .hds-block-name.hds-block-name div {
+          --block2-div: var(--var-block2-div);
+        }
+
+        .hds-block-name ul li.hds-block-name {
+          --ul-li-block3: var(--var-ul-li-block3);
+        }
+
+        .hds-block-name ul li.hds-block-name a {
+          --ul-li-block3-a: var(--var-ul-li-block3-a);
+        }
+
+        .hds-block-name ul li.hds-block-name a.hds-block-name {
+          --ul-li-block3-a-block4: var(--ul-li-block3-a-block4);
+        }
+
+        .hds-block-name ul li.hds-block-name a.hds-block-name span {
+          --ul-li-block3-a-block4-span: var(--ul-li-block3-a-block4-span);
+        }
+      }
+    }
+  }
+}
