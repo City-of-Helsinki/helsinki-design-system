@@ -3,8 +3,8 @@
 @use 'sass-true' as *;
 @use '../components/button/button-mixin' as CoreSass;
 
-@include describe('button React()') {
-  @include it('Entities are renamed') {
+@include describe('button.scss, React version') {
+  @include it('SCSS is converted to css') {
     @include assert {
       @include output {
         .react-version {
