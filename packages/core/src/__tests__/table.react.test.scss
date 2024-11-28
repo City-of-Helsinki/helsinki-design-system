@@ -1,0 +1,68 @@
+/* stylelint-disable scss/function-no-unknown */
+
+@use 'sass-true' as *;
+@use '../components/table/table-mixin' as CoreSass;
+
+@include describe('table.scss, React version') {
+  @include it('SCSS is converted to css') {
+    @include assert {
+      @include output {
+        .react-version {
+          .table {
+            composes: hds-table from 'hds-core/lib/components/table/table.css';
+          }
+
+          .caption {
+            composes: hds-table__caption from 'hds-core/lib/components/table/table.css';
+          }
+
+          .container {
+            composes: hds-table-container from 'hds-core/lib/components/table/table.css';
+          }
+
+          .headerRow {
+            composes: hds-table__header-row from 'hds-core/lib/components/table/table.css';
+          }
+
+          .content {
+            composes: hds-table__content from 'hds-core/lib/components/table/table.css';
+          }
+
+          .dense {
+            composes: hds-table--dense from 'hds-core/lib/components/table/table.css';
+          }
+
+          .zebra {
+            composes: hds-table--zebra from 'hds-core/lib/components/table/table.css';
+          }
+
+          .verticalLines {
+            composes: hds-table--with-vertical-lines from 'hds-core/lib/components/table/table.css';
+          }
+
+          .verticalHeaderColumn {
+            composes: hds-table__vertical-header-column from 'hds-core/lib/components/table/table.css';
+          }
+
+          .textAlignRight {
+            composes: hds-table--text-align-right from 'hds-core/lib/components/table/table.css';
+          }
+
+          .textAlignContentRight {
+            composes: hds-table__content--text-align-td-right from 'hds-core/lib/components/table/table.css';
+          }
+        }
+      }
+
+      @include expect {
+        @at-root {
+          .fff {
+            --v: flf;
+          }
+        }
+      }
+    }
+  }
+}
+
+/* prettier-ignore-end */
