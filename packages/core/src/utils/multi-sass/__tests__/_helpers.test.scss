@@ -1,0 +1,191 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../helpers' as helpers;
+@use './test-helpers' as  testHelpers;
+
+@include describe('_helpers.scss') {
+  @include it('can-value-be-falsy() returns true, if given value is falsy') {
+    @include assert-true(helpers.can-value-be-falsy(false));
+    @include assert-equal(helpers.can-value-be-falsy(''), true);
+    @include assert-equal(helpers.can-value-be-falsy(null), true);
+    @include assert-equal(helpers.can-value-be-falsy(0), true);
+
+    // non-falsy:
+    @include assert-equal(helpers.can-value-be-falsy(1), false);
+    @include assert-equal(helpers.can-value-be-falsy(' '), false);
+    @include assert-equal(helpers.can-value-be-falsy(()), false);
+    @include assert-equal(helpers.can-value-be-falsy([]), false);
+    @include assert-equal(helpers.can-value-be-falsy(true), false);
+  }
+
+  @include it('can-value-be-truthy() returns true, if given value is truthy') {
+    @include assert-equal(helpers.can-value-be-truthy(false), false);
+    @include assert-equal(helpers.can-value-be-truthy(''), false);
+    @include assert-equal(helpers.can-value-be-truthy(null), false);
+    @include assert-equal(helpers.can-value-be-truthy(0), false);
+
+    // non-truthy:
+    @include assert-equal(helpers.can-value-be-truthy(1), true);
+    @include assert-equal(helpers.can-value-be-truthy(' '), true);
+    @include assert-equal(helpers.can-value-be-truthy(()), true);
+    @include assert-equal(helpers.can-value-be-truthy([]), true);
+    @include assert-equal(helpers.can-value-be-truthy(true), true);
+  }
+
+  @include it('pop-list() removes last item from list') {
+    /// does not work: @include assert-equal(helpers.pop-list((1, 2, 3)), list(1, 2));
+    /// Error is list-separators do not match
+    @include assert-equal(testHelpers.diff-list(helpers.pop-list((1, 2, 3)), (1, 2)), []);
+    @include assert-equal(testHelpers.diff-list(helpers.pop-list((1, 2)), (1)), []);
+    @include assert-equal(testHelpers.diff-list(helpers.pop-list((1)), ()), []);
+    @include assert-equal(testHelpers.diff-list(helpers.pop-list(()), ()), []);
+  }
+
+  @include it('replace-list-item() replaces item at given index') {
+    @include assert-equal(testHelpers.diff-list(helpers.replace-list-item((1, 2, 3), 'a', 1), ('a', 2, 3)), []);
+    @include assert-equal(testHelpers.diff-list(helpers.replace-list-item((1, 2, 3), 'a', 3), (1, 2, 'a')), []);
+  }
+
+  @include it('get-last-list-item() returns last item from  a list') {
+    @include assert-equal(helpers.get-last-list-item((1, 2, 3)), 3);
+    @include assert-equal(helpers.get-last-list-item((1, 2)), 2);
+    @include assert-equal(helpers.get-last-list-item((1)), 1);
+    @include assert-equal(helpers.get-last-list-item(()), null);
+    @include assert-equal(helpers.get-last-list-item(null), null);
+  }
+
+  @include it('replace-string() is like string.replace() ') {
+    @include assert-equal(helpers.replace-string('a-a-b-a', 'a', 'c'), 'c-c-b-c');
+    @include assert-equal(helpers.replace-string('a-a-b-a', 'x', 'c'), 'a-a-b-a');
+    @include assert-equal(helpers.replace-string('a-a-b-a', '', ''), 'a-a-b-a');
+  }
+
+  @include it('get-map-value-if-map() value of a key from map if argument is a map ') {
+    @include assert-equal(
+      helpers.get-map-value-if-map(
+        (
+          'key': 'value',
+        ),
+        'key'
+      ),
+      'value'
+    );
+    @include assert-equal(
+      helpers.get-map-value-if-map(
+        (
+          'key': 'value',
+        ),
+        'value'
+      ),
+      null
+    );
+    @include assert-equal(
+      helpers.get-map-value-if-map(
+        (
+          'key': 'value',
+        ),
+        ''
+      ),
+      null
+    );
+    @include assert-equal(
+      helpers.get-map-value-if-map(
+        (
+          'key': 'value',
+        ),
+        null
+      ),
+      null
+    );
+    @include assert-equal(helpers.get-map-value-if-map(('key', 'value'), 'key'), null);
+    @include assert-equal(helpers.get-map-value-if-map(null, 'key'), null);
+  }
+
+  @include it('get-map-key-with-value() returns first item in map that is not null ') {
+    @include assert-equal(
+      helpers.get-map-key-with-value(
+        (
+          'null': null,
+          'number': 1,
+          'string': 'string',
+          'empty': '',
+        )
+      ),
+      'number'
+    );
+    @include assert-equal(
+      helpers.get-map-key-with-value(
+        (
+          'null': null,
+          'string': 'string',
+          'number': 1,
+          'empty': '',
+        )
+      ),
+      'string'
+    );
+    @include assert-equal(
+      helpers.get-map-key-with-value(
+        (
+          'null': null,
+          'empty': '',
+          'string': 'string',
+          'number': 1,
+        )
+      ),
+      'empty'
+    );
+    @include assert-equal(
+      helpers.get-map-key-with-value(
+        (
+          'null': null,
+        )
+      ),
+      null
+    );
+    @include assert-equal(helpers.get-map-key-with-value(()), null);
+    @include assert-equal(helpers.get-map-key-with-value(null), null);
+  }
+
+  @include it('get-map-data-with-value() returns first data set (key, value) in map that is not null ') {
+    // uses get-map-key-with-value() under the hood, so not testing all same combibations
+    @include assert-equal(
+      helpers.get-map-data-with-value(
+        (
+          'null': null,
+          'number': 1,
+          'string': 'string',
+          'empty': '',
+        )
+      ),
+      (
+        'key': 'number',
+        'value': 1,
+      )
+    );
+  }
+
+  @include it('get-arg-map-or-arg-list-as-map() returns arguments as a map or argument "ARGS_MAP"') {
+    @include assert-equal(
+      helpers.get-arg-map-or-arg-list-as-map($arg1: 1, $arg2: '2', $arg3: null),
+      (
+        'arg1': 1,
+        'arg2': '2',
+        'arg3': null,
+      )
+    );
+
+    $map: (
+      'argMap1': 1,
+    );
+
+    // works as named argument
+    @include assert-equal(helpers.get-arg-map-or-arg-list-as-map($ARGS_MAP: $map), $map);
+
+    // works also as positionally placed argument
+    @include assert-equal(helpers.get-arg-map-or-arg-list-as-map($map), $map);
+
+    // if one arg is given, it is assumed its $ARGS_MAP (positionall placed)
+    @include assert-equal(helpers.get-arg-map-or-arg-list-as-map(('1')), ('1'));
+  }
+}
