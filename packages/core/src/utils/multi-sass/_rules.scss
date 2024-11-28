@@ -1,0 +1,212 @@
+/* stylelint-disable scss/function-no-unknown */
+@use "sass:meta";
+@use "sass:map";
+@use './globals' as *;
+@use './helpers' as helpers;
+
+/*
+* Parses rules and provides functions to query rules.
+*/
+
+/// value-to-map converts booleans, strings and maps to a rule map.
+/// with extra helper variables to help with checking what is allowed/disallowed.
+/// "ALL_ALLOWED" means nothing is explicitly allowed, so all named entities are allowed (unless explicitly disallowed)
+/// "ALL_DISALLOWED" the value was "false", so nothing is allowed
+/// "HAS_EXPLICIT_TRUE" means an entity/entities is/are explicitly allowed, so all not explicitly allowed are disallowed.
+
+/// name: "true" converts to
+/// ( $ALL_ALLOWED: true, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: false):
+///
+/// name: "false" converts to
+/// ( $ALL_ALLOWED: false, $ALL_DISALLOWED: true, $HAS_EXPLICIT_TRUE: false):
+///
+/// name: "string" converts to
+/// ( string: true, $ALL_ALLOWED: false, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: true):
+///
+/// ("name": true, another:false) converts to
+/// ( name: true, another: false, $ALL_ALLOWED: false, $ALL_DISALLOWED: false, $HAS_EXPLICIT_TRUE: true):
+///
+
+@function value-to-map($value) {
+  $returnValue: ();
+  $valueType: meta.type-of($value);
+  $allAccepted: true;
+  $allDisallowed: false;
+  $explicitlySetTrue: false;
+
+  @if $valueType == 'bool' {
+    $allAccepted: $value == true;
+    $allDisallowed: $value == false;
+  } @else if $valueType == 'string' {
+    $returnValue: map.set($returnValue, $value, true);
+    $allAccepted: false;
+    $explicitlySetTrue: true;
+  } @else if $valueType == 'map' {
+    $allAccepted: false;
+
+    @each $itemName, $itemValue in $value {
+      @if helpers.can-value-be-truthy($itemValue) {
+        $explicitlySetTrue: true;
+      }
+
+      $returnValue: map.set($returnValue, $itemName, $itemValue);
+    }
+  }
+
+  $returnValue: map.set($returnValue, $ALL_ALLOWED, $allAccepted);
+  $returnValue: map.set($returnValue, $ALL_DISALLOWED, $allDisallowed);
+  $returnValue: map.set($returnValue, $HAS_EXPLICIT_TRUE, $explicitlySetTrue);
+
+  @return $returnValue;
+}
+
+/// Converts given rule set's categories (modifiers, elements, extras) to mapped values with "value-to-map()"
+/// If modifiers has nested maps, those are converted too with "value-to-map()"
+/// Adds also an additional helper:
+/// ALLOW_BASE_CONTENT = if an element is explicitly allowed, base content is not allowed (unless "base" is true)
+@function rules-to-map($args) {
+  $target: helpers.create-empty-map();
+  $elements: value-to-map(map.get($args, 'elements'));
+  $extras: value-to-map(map.get($args, 'extras'));
+  $argModifiers: map.get($args, 'modifiers');
+  $modifiers: value-to-map($argModifiers);
+
+  @if helpers.is-value-map($argModifiers) {
+    @each $modifierName, $modifierValue in $argModifiers {
+      // null (and other unset / undefined) values must be ignored.
+      // If null would be handled in the value-to-map() it should behave like "false",
+      // but then all "nullish" values would be false, and "defaults to true" would not work anymore.
+      // nullish values are handled by the value-to-map() when a category is not set.
+      @if not helpers.is-value-null($modifierValue) {
+        $modifiers: map.set($modifiers, $modifierName, value-to-map($modifierValue));
+      }
+    }
+  }
+
+  @if map.get($modifiers, $HAS_EXPLICIT_TRUE) {
+    $elements: map.set($elements, $ALLOW_BASE_CONTENT, false);
+    $elements: map.set($elements, $ALL_ALLOWED, false);
+  } @else if map.get($elements, $HAS_EXPLICIT_TRUE) {
+    $elements: map.set($elements, $ALLOW_BASE_CONTENT, false);
+  }
+
+  $target: map.set($target, 'modifiers', $modifiers);
+  $target: map.set($target, 'elements', $elements);
+  $target: map.set($target, 'extras', $extras);
+
+  @return $target;
+}
+
+// checks is the $name true in given $context
+// $context is the category value map
+// if $context is "true", $name is considered true
+// if $context is "false" or "null", $name is considered false
+// if $context is a string, $name is considered true, if it matches $context
+// if $context is a map, $name is picked from map and this function is called with picked value
+@function is-entity-allowed-in-category($category, $name) {
+  $value: map.get($category, $name);
+
+  @if map.get($category, $ALL_DISALLOWED) == true {
+    @return false;
+  }
+
+  @if helpers.get-map-value-if-map($value, $ALL_DISALLOWED) == true {
+    @return false;
+  }
+
+  @if map.get($category, $HAS_EXPLICIT_TRUE) == true and helpers.can-value-be-falsy($value) {
+    @return false;
+  }
+
+  @if helpers.is-value-null($value) {
+    /// at this point $ALL_DISALLOWED cannot be true (checked above)
+    /// so not checking it
+    @if map.get($category, $ALL_ALLOWED) == true or map.get($category, $HAS_EXPLICIT_TRUE) == false {
+      @return true;
+    }
+  }
+
+  @return helpers.can-value-be-truthy($value);
+}
+
+/// checks if given element is allowed within given modifier
+@function is-element-allowed-in-modifier($rules, $modifier, $element) {
+  $modifiers: get-modifiers($rules);
+
+  @if not is-entity-allowed-in-category($modifiers, $modifier) {
+    @return false;
+  }
+
+  $modifierMap: get-modifier-by-name($rules, $modifier);
+
+  @if not $modifierMap {
+    @return true;
+  }
+
+  @if helpers.is-value-true($modifierMap) {
+    @return true;
+  }
+
+  @return is-entity-allowed-in-category($modifierMap, $element);
+}
+
+/// checks is given modifier allowed within modifiers
+@function is-modifier-allowed($ruleMap, $modifier) {
+  @return is-entity-allowed-in-category(get-modifiers($ruleMap), $modifier);
+}
+
+/// is given element allowed within elements
+/// not used for checking if a element is allowed in modifier
+@function is-element-allowed($ruleMap, $element) {
+  @return is-entity-allowed-in-category(get-elements($ruleMap), $element);
+}
+
+/// is a rule allowed
+@function is-extra-allowed($ruleMap, $extra) {
+  @return is-entity-allowed-in-category(get-extras($ruleMap), $extra);
+}
+
+/// is base element allowed
+@function is-base-content-allowed($ruleMap) {
+  $elements: get-elements($ruleMap);
+
+  @return helpers.can-value-be-truthy(map.get($elements, $ALLOW_BASE_CONTENT));
+}
+
+/// Generic category / entity getters
+@function get-category($ruleMap, $category) {
+  @return map.get($ruleMap, $category);
+}
+
+@function get-category-entity($ruleMap, $category, $entityName) {
+  $childMap: map.get($ruleMap, $category);
+
+  @return map.get($childMap, $entityName);
+}
+
+/// Modifier getters
+@function get-modifiers($ruleMap) {
+  @return get-category($ruleMap, 'modifiers');
+}
+
+@function get-modifier-by-name($ruleMap, $modifier) {
+  @return get-category-entity($ruleMap, 'modifiers', $modifier);
+}
+
+/// Element getters
+@function get-elements($ruleMap) {
+  @return get-category($ruleMap, 'elements');
+}
+
+@function get-element-by-name($ruleMap, $element) {
+  @return get-category-entity($ruleMap, 'elements', $element);
+}
+
+/// Extras getters
+@function get-extras($ruleMap) {
+  @return get-category($ruleMap, 'extras');
+}
+
+@function get-extra-by-name($ruleMap, $extra) {
+  @return get-category-entity($ruleMap, 'extras', $extra);
+}
