@@ -3,8 +3,8 @@
 @use 'sass-true' as *;
 @use '../components/button/button-mixin' as *;
 
-@include describe('button()') {
-  @include it('Entities are renamed') {
+@include describe('button.scss, core version') {
+  @include it('SCSS is converted to css') {
     @include assert {
       @include output {
         @include button($all: true);
