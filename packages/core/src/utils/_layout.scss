@@ -1,0 +1,59 @@
+// @import url('hds-design-tokens/lib/breakpoint/breakpoint.scss');
+// toimii use '../../node_modules/hds-design-tokens/lib/breakpoint/breakpoint.scss' as *;
+@use 'hds-design-tokens/lib/breakpoint/breakpoint.scss' as *;
+
+//  MEDIA QUERIES
+
+// A list of breakpoints.
+$breakpoints: ($breakpoint-xs, $breakpoint-s, $breakpoint-m, $breakpoint-l, $breakpoint-xl);
+
+//  RESPOND ABOVE
+
+// @include respond-above($breakpoint.s) {}
+@mixin respond-above($breakpoint) {
+  @if not index($breakpoints, $breakpoint) {
+    // If the breakpoint doesn't exist in the list.
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  } @else {
+    // If the breakpoint exists in the list.
+    // Write the media query.
+    @media only screen and (min-width: $breakpoint) {
+      @content;
+    }
+  }
+}
+
+//  RESPOND BELOW
+
+// @include respond-below($breakpoint.s) {}
+@mixin respond-below($breakpoint) {
+  @if not index($breakpoints, $breakpoint) {
+    // If the breakpoint doesn't exist in the list.
+    // Log a warning.
+    @warn 'Invalid breakpoint: #{$breakpoint}.';
+  } @else {
+    // Write the media query.
+    @media only screen and (max-width: ($breakpoint - 1)) {
+      @content;
+    }
+  }
+}
+
+@mixin below-small() {
+  @include respond-below($breakpoint-s) {
+    @content;
+  }
+}
+
+@mixin below-medium() {
+  @include respond-below($breakpoint-m) {
+    @content;
+  }
+}
+
+@mixin below-large() {
+  @include respond-below($breakpoint-l) {
+    @content;
+  }
+}
