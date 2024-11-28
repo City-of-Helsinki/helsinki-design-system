@@ -1,0 +1,91 @@
+/* stylelint-disable scss/function-no-unknown */
+@use "sass:meta";
+@use './globals.scss' as globals;
+
+/*
+* CSS selector creators
+*/
+
+/// creates a selector for a block
+@function create-block-selector($type, $name, $config) {
+  $blockPrefix: globals.get-block-prefix($config);
+
+  @return '.#{$blockPrefix}#{$name}';
+}
+
+/// creates a selector for a modifier
+@function create-modifier-selector($type, $name, $config) {
+  $modifierDelimeter: globals.get-modifier-delimeter($config);
+
+  @return '#{$modifierDelimeter}#{$name}';
+}
+
+/// creates a selector for an element
+@function create-element-selector($type, $name, $config) {
+  $elementDelimeter: globals.get-element-delimeter($config);
+
+  @return '#{$elementDelimeter}#{$name}';
+}
+
+// generic selector creator
+@function create-selector($type, $name, $config) {
+  @if $type == 'custom' {
+    @return '#{$name}';
+  }
+
+  @if $type == 'block' {
+    $creatorFn: globals.get-block-selector-creator($config);
+
+    @if $creatorFn {
+      @return meta.call($creatorFn, $type, $name, $config);
+    }
+
+    @return create-block-selector($type, $name, $config);
+  }
+
+  @if $type == 'modifier' {
+    $creatorFn: globals.get-modifier-selector-creator($config);
+
+    @if $creatorFn {
+      @return meta.call($creatorFn, $type, $name, $config);
+    }
+
+    @return create-modifier-selector($type, $name, $config);
+  }
+
+  @if $type == 'element' {
+    $creatorFn: globals.get-element-selector-creator($config);
+
+    @if $creatorFn {
+      @return meta.call($creatorFn, $type, $name, $config);
+    }
+
+    @return create-element-selector($type, $name, $config);
+  }
+
+  @return '';
+}
+
+// selector creator for an entity with alias
+@function create-selector-with-alias($type, $alias) {
+  $prefix: '';
+
+  @if $type == 'custom' {
+    @error "Custom entities cannot have an alias";
+    @return '';
+  }
+
+  @if $type == 'block' {
+    $prefix: '.';
+  }
+
+  @if $type == 'modifier' {
+    $prefix: '.';
+  }
+
+  @if $type == 'element' {
+    $prefix: ' .';
+  }
+
+  @return '#{$prefix}#{$alias}';
+}
