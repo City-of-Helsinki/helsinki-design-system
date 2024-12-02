@@ -2,7 +2,7 @@
 /* eslint-disable jest/no-mocks-import */
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { to } from 'await-to-js';
-import { ApolloQueryResult, QueryResult, TypedDocumentNode, QueryOptions } from '@apollo/client';
+import { ApolloQueryResult, QueryResult, TypedDocumentNode, QueryOptions, HttpLink } from '@apollo/client';
 import { waitFor } from '@testing-library/react';
 
 import HttpStatusCode from '../../../utils/httpStatusCode';
@@ -32,6 +32,7 @@ import { USER_QUERY } from './__mocks__/mockData';
 import { advanceUntilPromiseResolved } from '../testUtils/timerTestUtil';
 import { getLastMockCallArgs } from '../../../utils/testHelpers';
 import { cloneObject } from '../../../utils/cloneObject';
+import { createApolloClientModule } from '../apolloClient/apolloClientModule';
 
 type ResponseType = { returnedStatus: HttpStatusCode; data?: GraphQLQueryResult | null; error?: Error };
 
@@ -1401,5 +1402,32 @@ describe(`graphQLModule`, () => {
     await advanceUntilPromiseResolved(promise2);
     expect(currentModule.isLoading()).toBeFalsy();
     expect(currentModule.isPending()).toBeFalsy();
+  });
+  it('if useApolloClientModule is "true", client is picked from modules.', async () => {
+    addResponse({ status: 200, body: JSON.stringify(createQueryResponse({ id: 100 })) });
+    currentModule = createGraphQLModule({
+      graphQLClient: undefined,
+      query: USER_QUERY,
+      queryOptions: {
+        fetchPolicy: 'no-cache',
+      },
+      options: { requireApiTokens: false },
+      useApolloClientModule: true,
+    });
+    const apolloClientModule = createApolloClientModule({
+      clientOptions: {
+        link: new HttpLink({
+          uri: mockedGraphQLUri,
+        }),
+      },
+    });
+    currentBeacon = createBeacon();
+    currentBeacon.addSignalContext(currentModule);
+    currentBeacon.addSignalContext(apolloClientModule);
+    emitInitializationSignals(currentBeacon);
+    const promise = currentModule.query();
+    await advanceUntilPromiseResolved(promise);
+    const result = await promise;
+    expect(result).toMatchObject({ data: { user: { id: 100 } } });
   });
 });
