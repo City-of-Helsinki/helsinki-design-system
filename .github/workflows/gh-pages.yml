@@ -44,6 +44,8 @@ jobs:
       - name: build documentation site
         run: yarn build
         working-directory: ./site
+        env:
+          NODE_OPTIONS: "--max_old_space_size=8192"
 
       - name: Copy CNAME file
         run: cp CNAME ./site/public/

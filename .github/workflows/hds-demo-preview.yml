@@ -81,6 +81,8 @@ jobs:
       - name: build site package
         run: yarn build --prefix-paths
         working-directory: ./site
+        env:
+          NODE_OPTIONS: "--max_old_space_size=8192"
 
       # Build core storybook
       - name: build core storybook
