@@ -78,7 +78,7 @@
   ],
   "license": "MIT",
   "scripts": {
-    "build": "yarn lint && gatsby build",
+    "build": "yarn lint && NODE_OPTIONS='--max_old_space_size=8192' gatsby build",
     "develop": "gatsby develop -o",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "gatsby develop -o",
