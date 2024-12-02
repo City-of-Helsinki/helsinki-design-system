@@ -100,7 +100,7 @@ exports.createPages = async ({ actions, graphql }) => {
       const pageTemplate = require.resolve('./src/components/ContentLayoutWrapper.js');
       const contentPath = './src/docs/' + node.parent.relativePath.replace('site/src/docs/', '');
 
-      console.log('createPage() ' + gitRemote + ' ' + contentPath);
+      console.log('createPage() ' + (gitRemote ? gitRemote : 'latest') + ' ' + contentPath);
 
       const pageContent = gitRemote
         ? require.resolve(`./.cache/gatsby-source-git/docs-${gitRemote}/${node.parent.relativePath}`)
