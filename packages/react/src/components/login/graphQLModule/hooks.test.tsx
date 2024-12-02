@@ -222,6 +222,9 @@ describe(`graphQLModule`, () => {
         getTokens: () => {
           return apiTokenStorage;
         },
+        isRenewing: () => {
+          return false;
+        },
         connect: () => {},
         namespace: apiTokensClientNamespace,
       };
@@ -306,7 +309,7 @@ describe(`graphQLModule`, () => {
 
     const emitApiTokensUpdatedStateChange = (tokens: TokenData) => {
       apiTokenStorage = tokens;
-      const payload: EventPayload = { type: apiTokensClientEvents.API_TOKENS_UPDATED };
+      const payload: EventPayload = { type: apiTokensClientEvents.API_TOKENS_UPDATED, data: tokens };
       testUtil.emit({ type: eventSignalType, namespace: apiTokensClientNamespace, payload });
     };
 
