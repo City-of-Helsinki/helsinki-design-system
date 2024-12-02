@@ -80,7 +80,10 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
    * Optional property, but must be set before the query is executed.
    */
   graphQLClient?: ApolloClient<T>;
-  getClientModule?: boolean;
+  /**
+   * Get the client from modules.
+   */
+  useApolloClientModule?: boolean;
   /**
    * GraphQL module options.
    */

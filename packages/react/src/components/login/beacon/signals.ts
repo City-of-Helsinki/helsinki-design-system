@@ -12,6 +12,7 @@ import {
   compareSignalTriggers,
   convertToComparableSignals,
   splitTypeAndNamespace,
+  ConnectedModule,
 } from './beacon';
 
 export type NamespacedBeacon = {
@@ -280,6 +281,10 @@ export function getStateChangeSignalPayload(signal: Signal): StateChangeSignalPa
 
 export function getErrorSignalPayload(signal: Signal): ErrorPayload | null {
   return (isErrorSignal(signal) && (signal.payload as ErrorPayload)) || null;
+}
+
+export function getSignalContext(signal: Signal): ConnectedModule | null {
+  return signal.context || null;
 }
 
 export function checkEventSignalPayload(signal: Signal, checker: (payload: EventPayload) => boolean): boolean {
