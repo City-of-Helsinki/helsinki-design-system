@@ -11,12 +11,13 @@ import {
   graphQLModuleEvents,
   defaultOptions,
 } from '.';
-import { Signal } from '../beacon/beacon';
-import { createNamespacedBeacon, isInitSignal } from '../beacon/signals';
+import { Signal, Disposer } from '../beacon/beacon';
+import { createInitTriggerProps, createNamespacedBeacon, getSignalContext, isInitSignal } from '../beacon/signals';
 import { createFetchAborter, isAbortError } from '../utils/abortFetch';
 import { ApiTokenClient, apiTokensClientNamespace, TokenData } from '../apiTokensClient';
 import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
 import { createApiTokenClientTracker } from '../apiTokensClient/createApiTokenClientTracker';
+import { ApolloClientModule, apolloClientModuleNamespace } from '../apolloClient';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
 import { appendFetchOptions, mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
 import { cloneObject } from '../../../utils/cloneObject';
@@ -27,6 +28,7 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
   queryOptions,
   options = {},
   queryHelper,
+  useApolloClientModule,
 }: GraphQLModuleModuleProps<T, Q>): GraphQLModule<T, Q> {
   const mergedOptions = {
     ...defaultOptions,
@@ -241,6 +243,18 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       dedicatedBeacon.storeBeacon(beacon);
       if (mergedOptions.requireApiTokens) {
         apiTokenTracker.connect(beacon);
+      }
+      if (useApolloClientModule) {
+        let clientListenerDisposer: Disposer | undefined;
+        clientListenerDisposer = beacon.addListener(
+          createInitTriggerProps(apolloClientModuleNamespace),
+          (initSignal: Signal) => {
+            const module = getSignalContext(initSignal) as ApolloClientModule<T>;
+            client = module.getClient();
+            clientListenerDisposer();
+            clientListenerDisposer = undefined;
+          },
+        );
       }
     },
     getData,
