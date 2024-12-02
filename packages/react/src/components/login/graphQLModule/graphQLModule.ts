@@ -11,16 +11,12 @@ import {
   graphQLModuleEvents,
   defaultOptions,
 } from '.';
-import { Beacon, SignalListener } from '../beacon/beacon';
-import {
-  createEventTriggerProps,
-  createInitTriggerProps,
-  createNamespacedBeacon,
-  waitForSignals,
-} from '../beacon/signals';
+import { Signal } from '../beacon/beacon';
+import { createNamespacedBeacon, isInitSignal } from '../beacon/signals';
 import { createFetchAborter, isAbortError } from '../utils/abortFetch';
-import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace } from '../apiTokensClient';
+import { ApiTokenClient, apiTokensClientNamespace, TokenData } from '../apiTokensClient';
 import { isApiTokensRemovedSignal, isApiTokensUpdatedSignal } from '../apiTokensClient/signals';
+import { createApiTokenClientTracker } from '../apiTokensClient/createApiTokenClientTracker';
 import { graphQLModuleError, GraphQLModuleError } from './graphQLModuleError';
 import { appendFetchOptions, mergeQueryOptionModifiers, mergeQueryOptionsToModuleProps } from './utils';
 import { cloneObject } from '../../../utils/cloneObject';
@@ -43,19 +39,6 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
   // abortController for requests
   const fetchAborter = createFetchAborter();
 
-  // tools for waiting for apiTokens and stopping awaits
-  let apiTokenAwaitPromise: Promise<unknown> | null;
-  const signalTypeToRejectApiTokenAwait = 'REJECT_API_TOKEN_AWAIT';
-  const emitApiTokenAwaitRejectionSignal = () => {
-    if (!apiTokenAwaitPromise) {
-      return;
-    }
-    const beacon = dedicatedBeacon.getBeacon();
-    if (beacon) {
-      beacon.emit({ type: signalTypeToRejectApiTokenAwait });
-    }
-  };
-
   // current promise for a query
   let queryPromise: Promise<ApolloQueryResult<Q>> | undefined;
   // store client
@@ -68,6 +51,7 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
   let error: GraphQLModuleError | undefined;
   // if api tokens have been fetched once, no need to check existance again.
   let apiTokensHaveBeenLoadedOnce: boolean = false;
+  let isApiTokenRenewalPendingWithQuery: boolean = false;
 
   const getApiTokensClient = () => {
     const beacon = dedicatedBeacon.getBeacon();
@@ -119,58 +103,22 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
     return queryPromise;
   };
 
-  const doApiTokensExist = () => {
-    const apiTokenClient = getApiTokensClient();
-    return !!apiTokenClient && !!apiTokenClient.getTokens();
+  const doApiTokensExist = (tokens?: TokenData) => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    const tokensToTest = tokens || apiTokenTracker.getTokens();
+    return Object.keys(tokensToTest).length > 0;
   };
 
   // if query is started when api tokens are renewed, wait for it to complete.
-  const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async (timeout = 0) => {
-    if (apiTokenAwaitPromise) {
-      return apiTokenAwaitPromise;
-    }
-    if (doApiTokensExist()) {
+  const waitForApiTokens: GraphQLModule['waitForApiTokens'] = async () => {
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    if (!apiTokenTracker.isRenewing()) {
       return Promise.resolve(true);
     }
-    let timeOutId: ReturnType<typeof setTimeout> | null = null;
-    const beacon = dedicatedBeacon.getBeacon() as Beacon;
-    if (!beacon) {
-      return Promise.reject(new Error('No Beacon found'));
-    }
 
-    apiTokenAwaitPromise = null;
-    const signalPromise = waitForSignals(
-      dedicatedBeacon.getBeacon() as Beacon,
-      [{ payload: { type: apiTokensClientEvents.API_TOKENS_UPDATED } }],
-      {
-        rejectOn: [{ payload: { type: graphQLModuleEvents.GRAPHQL_MODULE_CLEARED } }, signalTypeToRejectApiTokenAwait],
-      },
-    );
-
-    const timeoutPromise = timeout
-      ? new Promise((resolve, reject) => {
-          timeOutId = setTimeout(() => {
-            reject(new Error('Timeout for waitForApiTokens() reached'));
-            timeOutId = null;
-          }, timeout);
-        })
-      : null;
-
-    apiTokenAwaitPromise = (timeoutPromise ? Promise.race([signalPromise, timeoutPromise]) : signalPromise)
-      .then(() => {
-        if (timeOutId) {
-          clearTimeout(timeOutId);
-          timeOutId = null;
-        }
-        apiTokenAwaitPromise = null;
-        return Promise.resolve(true);
-      })
-      .catch(() => {
-        apiTokenAwaitPromise = null;
-        return Promise.resolve(false);
-      });
-
-    return apiTokenAwaitPromise;
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    const apiTokenResult = await apiTokenTracker.waitForApiTokens();
+    return Promise.resolve(apiTokenResult);
   };
 
   const queryExecutor: GraphQLModule<T, Q>['query'] = async (props = {}) => {
@@ -191,15 +139,10 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       return Promise.reject(error);
     }
 
-    if (mergedOptions.requireApiTokens && !apiTokensHaveBeenLoadedOnce) {
-      setAndEmitError(
-        new GraphQLModuleError('Required apiTokens not loaded', graphQLModuleError.GRAPHQL_NO_API_TOKENS),
-      );
-      return Promise.reject(error);
-    }
-
-    if (mergedOptions.requireApiTokens && apiTokensHaveBeenLoadedOnce && !doApiTokensExist()) {
-      await waitForApiTokens(mergedOptions.apiTokensWaitTime);
+    if (mergedOptions.requireApiTokens && !doApiTokensExist()) {
+      isApiTokenRenewalPendingWithQuery = true;
+      await waitForApiTokens();
+      isApiTokenRenewalPendingWithQuery = false;
       if (!doApiTokensExist()) {
         setAndEmitError(new GraphQLModuleError('ApiTokens timed out', graphQLModuleError.GRAPHQL_NO_API_TOKENS));
         return Promise.reject(error);
@@ -249,7 +192,8 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
   };
 
   const cancel = () => {
-    emitApiTokenAwaitRejectionSignal();
+    // eslint-disable-next-line @typescript-eslint/no-use-before-define
+    apiTokenTracker.stopWaitingForTokens();
     fetchAborter.abort();
   };
 
@@ -261,36 +205,43 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
     }
   };
 
-  const apiTokensClientEventListener: SignalListener = (signal) => {
-    const wasApiTokensUpdatedSignal = isApiTokensUpdatedSignal(signal);
-    apiTokensHaveBeenLoadedOnce = apiTokensHaveBeenLoadedOnce || wasApiTokensUpdatedSignal;
-    if (isApiTokensRemovedSignal(signal)) {
-      cancel();
-    } else if (wasApiTokensUpdatedSignal) {
-      autoLoadWithApiTokens();
+  const onApiTokenClientChange = (tokens: TokenData, signal: Signal) => {
+    if (isInitSignal(signal)) {
+      const apiTokensClient = signal.context as ApiTokenClient;
+      if (apiTokensClient && apiTokensClient.getTokens()) {
+        apiTokensHaveBeenLoadedOnce = true;
+        autoLoadWithApiTokens();
+      }
+    } else {
+      const wasApiTokensUpdatedSignal = isApiTokensUpdatedSignal(signal);
+      apiTokensHaveBeenLoadedOnce = apiTokensHaveBeenLoadedOnce || wasApiTokensUpdatedSignal;
+      if (isApiTokensRemovedSignal(signal)) {
+        cancel();
+      } else if (wasApiTokensUpdatedSignal) {
+        if (queryPromise) {
+          cancel();
+        } else {
+          autoLoadWithApiTokens();
+        }
+      }
     }
   };
 
-  const apiTokensClientInitListener: SignalListener = (signal) => {
-    const apiTokensClient = signal.context as ApiTokenClient;
-    if (apiTokensClient && apiTokensClient.getTokens()) {
-      apiTokensHaveBeenLoadedOnce = true;
-      autoLoadWithApiTokens();
-    }
-  };
-
-  const listenToApiTokenClient = () => {
-    if (mergedOptions.requireApiTokens) {
-      dedicatedBeacon.addListener(createEventTriggerProps(apiTokensClientNamespace), apiTokensClientEventListener);
-      dedicatedBeacon.addListener(createInitTriggerProps(apiTokensClientNamespace), apiTokensClientInitListener);
-    }
-  };
+  // tool for waiting for apiTokens and stopping awaits
+  const apiTokenTracker = createApiTokenClientTracker({
+    // this is "false" so the stored tokens work the same way as before this
+    keepTokensWhileRenewing: false,
+    timeout: mergedOptions.apiTokensWaitTime,
+    onChange: onApiTokenClientChange,
+  });
 
   return {
-    namespace: 'graphQLModule',
+    namespace: graphQLModuleNamespace,
     connect: (beacon) => {
       dedicatedBeacon.storeBeacon(beacon);
-      listenToApiTokenClient();
+      if (mergedOptions.requireApiTokens) {
+        apiTokenTracker.connect(beacon);
+      }
     },
     getData,
     getError: () => {
@@ -317,7 +268,7 @@ export function createGraphQLModule<Q = GraphQLQueryResult, T = GraphQLCache>({
       return state === graphQLModuleStates.LOADING;
     },
     isPending: () => {
-      return !!(apiTokenAwaitPromise || queryPromise);
+      return isApiTokenRenewalPendingWithQuery || !!queryPromise;
     },
     setClient: (newClient) => {
       client = newClient;
