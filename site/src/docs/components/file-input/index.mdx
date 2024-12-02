@@ -108,9 +108,8 @@ export const FileInputDefaultValue = () => {
     ]);
     console.log('Selected files: ', files);
     return <FileInput multiple id="file-input-default-value" language="en" onChange={setFiles} defaultValue={files} />;
-  } catch (e) {
-    console.error(e);
-  }
+  } catch { } // intended empty catch. SSR build don't have window and it always throw this error.
+
   return null;
 };
 
