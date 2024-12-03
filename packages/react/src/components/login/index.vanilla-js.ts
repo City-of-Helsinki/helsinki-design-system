@@ -7,6 +7,7 @@ export * from './types';
 export { ApiTokenClientProps, TokenData, ApiTokenClient, ApiTokensClientEvent } from './apiTokensClient/index';
 export { SessionPoller, SessionPollerEvent, SessionPollerOptions } from './sessionPoller/sessionPoller';
 export { GraphQLModule, GraphQLModuleModuleProps, GraphQLModuleEvent } from './graphQLModule/index';
+export { ApolloClientModule, ApolloClientModuleProps, ApolloClientModuleEvent } from './apolloClient/index';
 export {
   OidcClient,
   OidcClientEvent,
@@ -48,6 +49,7 @@ export * from './client/oidcClient';
 export * from './apiTokensClient/apiTokensClient';
 export { createSessionPoller } from './sessionPoller/sessionPoller';
 export { createGraphQLModule } from './graphQLModule/graphQLModule';
+export { createApolloClientModule } from './apolloClient/apolloClientModule';
 
 // beacon
 export { createBeacon, createSignalTrigger } from './beacon/beacon';
@@ -68,12 +70,14 @@ export {
   mergeHeadersToQueryOptions,
   mergeQueryOptionContexts,
 } from './graphQLModule/utils';
+export { createApiTokenClientTracker } from './apiTokensClient/createApiTokenClientTracker';
 
 // events
 export { apiTokensClientEvents } from './apiTokensClient/index';
 export { oidcClientEvents } from './client/index';
 export { sessionPollerEvents } from './sessionPoller/sessionPoller';
 export { graphQLModuleEvents } from './graphQLModule/index';
+export { apolloClientModuleEvents } from './apolloClient/index';
 
 // stateChanges
 export { oidcClientStates } from './client/index';
@@ -86,6 +90,7 @@ export { apiTokensClientNamespace } from './apiTokensClient/index';
 export { oidcClientNamespace } from './client/index';
 export { sessionPollerNamespace } from './sessionPoller/sessionPoller';
 export { graphQLModuleNamespace } from './graphQLModule/index';
+export { apolloClientModuleNamespace } from './apolloClient/index';
 
 // signals
 export * from './apiTokensClient/signals';

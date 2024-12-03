@@ -56,6 +56,8 @@ export const apolloClientModuleEvents = {
   APOLLO_CLIENT_MODULE_RESET: 'APOLLO_CLIENT_MODULE_RESET',
 } as const;
 
+export type ApolloClientModuleEvent = keyof typeof apolloClientModuleEvents;
+
 export const apolloClientModuleNamespace = 'apolloClient';
 
 export const defaultOptions: Partial<ApolloClientModuleProps> = {
