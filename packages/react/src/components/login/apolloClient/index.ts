@@ -29,8 +29,8 @@ export type ApolloClientModuleProps<T = InMemoryCache> = {
   apiTokensWaitTime?: number;
   /**
    * Function to return tokens appended to the headers
-   * @param {headers} Current headers in the request
-   * @param {tokens} All tokens from the apiTokenClient
+   * @param headers Current headers in the request
+   * @param tokens All tokens from the apiTokenClient
    */
   tokenSetter?: TokenSetter;
   /**
