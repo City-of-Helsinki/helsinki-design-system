@@ -41,7 +41,6 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
     },
     cache: false,
     optimization: {
-      chunkIds: 'deterministic',
       splitChunks: {
         chunks: 'initial',
         minChunks: 2,
