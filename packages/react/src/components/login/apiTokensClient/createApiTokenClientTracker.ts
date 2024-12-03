@@ -78,8 +78,6 @@ type InnerState = {
 /**
  * Utility for tracking changes in the apiTokenClient module
  * Use it in the connect() function of any ConnectedModule.
- * @param {ApiTokenClientTrackerProps}
- * @returns {ApiTokenClientTracker}
  */
 
 export function createApiTokenClientTracker({
