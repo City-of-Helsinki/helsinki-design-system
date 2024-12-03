@@ -6,6 +6,7 @@ export * from './components/WithAuthenticatedUser';
 export * from './components/WithAuthentication';
 export * from './components/WithoutAuthenticatedUser';
 export * from './components/SessionEndedHandler';
+export * from './components/LoginProviderWithApolloContext';
 
 // hooks
 export * from './client/hooks';
