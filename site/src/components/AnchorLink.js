@@ -18,9 +18,9 @@ export const AnchorLink = ({ anchor, children, path }) => {
 };
 
 AnchorLink.propTypes = {
-  children: PropTypes.string.isRequired,
+  children: PropTypes.node.isRequired,
   href: PropTypes.string,
-  path: PropTypes.string.isRequired,
+  path: PropTypes.string,
 };
 
 export default AnchorLink;
