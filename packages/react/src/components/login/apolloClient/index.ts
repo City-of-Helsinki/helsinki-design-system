@@ -1,4 +1,4 @@
-import { ApolloClient, InMemoryCache, ApolloClientOptions } from '@apollo/client/core';
+import { ApolloClient, InMemoryCache, ApolloClientOptions } from '@apollo/client';
 
 import { TokenData } from '../apiTokensClient';
 import { ApiTokenClientTracker } from '../apiTokensClient/createApiTokenClientTracker';

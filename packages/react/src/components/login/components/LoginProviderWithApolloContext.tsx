@@ -1,6 +1,5 @@
 import React, { useMemo } from 'react';
-import { InMemoryCache } from '@apollo/client/cache';
-import { ApolloProvider } from '@apollo/client';
+import { ApolloProvider, InMemoryCache } from '@apollo/client';
 
 import { ApolloClientModuleProps } from '../apolloClient/index';
 import { createApolloClientModule } from '../apolloClient/apolloClientModule';
