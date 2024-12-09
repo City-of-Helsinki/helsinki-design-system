@@ -75,6 +75,20 @@ const checkModule = (forHdsJs) => {
   const forbiddenImportIds = ['react', 'react-dom'];
   const forbiddenFileExtensions = ['.tsx', '.jsx', '.css', '.scss'];
   const allowedExternals = ['tslib'];
+  // the following externals needed to be allowed because
+  // import { setContext } from '@apollo/client/link/context';
+  // is not properly detected to be part of the @apollo/client package.
+  // The same happens if
+  // import { <any import> } from '@apollo/client/core';
+  // is used. The only proper way seems to be
+  // import { <any import> } from '@apollo/client';
+  // Otherwise whole Apollo client in bundled in to hds-js.
+  allowedExternals.push('@apollo');
+  allowedExternals.push('zen-observable-ts');
+  allowedExternals.push('symbol-observable');
+  allowedExternals.push('optimism');
+  allowedExternals.push('ts-invariant');
+  allowedExternals.push('@wry');
   if (!forHdsJs) {
     // https://github.com/Hacker0x01/react-datepicker/issues/1606
     allowedExternals.push('date-fns');
