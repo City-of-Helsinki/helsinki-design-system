@@ -29,6 +29,7 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>LoginButton</AnchorLink>
   - <AnchorLink>LoginCallbackHandler</AnchorLink>
   - <AnchorLink>LoginProvider</AnchorLink>
+  - <AnchorLink>LoginProviderWithApolloContext</AnchorLink>
   - <AnchorLink>SessionEndedHandler</AnchorLink>
   - <AnchorLink>WithAuthentication</AnchorLink>
   - <AnchorLink>WithAuthenticatedUser</AnchorLink>
@@ -41,24 +42,29 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>useOidcClient</AnchorLink>
   - <AnchorLink>useOidcClientTracking</AnchorLink>
 
-- <AnchorLink>Api tokens client hooks</AnchorLink>{' '}
+- <AnchorLink>Api tokens client hooks</AnchorLink>
 
   - <AnchorLink>useApiTokens</AnchorLink>
   - <AnchorLink>useApiTokensClient</AnchorLink>
   - <AnchorLink>useApiTokensClientTracking</AnchorLink>
 
-- <AnchorLink>Session poller hooks</AnchorLink>{' '}
+- <AnchorLink>Session poller hooks</AnchorLink>
 
   - <AnchorLink>useSessionPoller</AnchorLink>
   - <AnchorLink>useSessionPollerTracking</AnchorLink>
 
-- <AnchorLink>GraphQL module hooks</AnchorLink>{' '}
+- <AnchorLink>GraphQL module hooks</AnchorLink>
 
   - <AnchorLink>useGraphQLModule</AnchorLink>
   - <AnchorLink>useGraphQLModuleTracking</AnchorLink>
   - <AnchorLink>useGraphQL</AnchorLink>
 
-- <AnchorLink>Generic signal hooks</AnchorLink>{' '}
+- <AnchorLink>ApolloClient module hooks</AnchorLink>
+
+  - <AnchorLink>useApolloClientModule</AnchorLink>
+  - <AnchorLink>useApolloClient</AnchorLink>
+
+- <AnchorLink>Generic signal hooks</AnchorLink>
 
   - <AnchorLink>useSignalListener</AnchorLink>
   - <AnchorLink>useSignalTrackingWithCallback</AnchorLink>
@@ -69,6 +75,7 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Oidc Client</AnchorLink>
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
+  - <AnchorLink>ApolloClient module</AnchorLink>
   - <AnchorLink>GraphQL module</AnchorLink>
 
 - <AnchorLink>Silent renewal</AnchorLink>
@@ -190,6 +197,10 @@ const MyApp = () => {
 </PlaygroundPreview>
 
 All component properties are listed on the <ApiPageAnchorLink anchor="loginprovider">API page</ApiPageAnchorLink>.
+
+#### LoginProviderWithApolloContext
+
+This works like the <AnchorLink>LoginProvider</AnchorLink> and it also creates the `<ApolloContext>` so all ApolloClient's hooks work. The component requires the ApolloClient module is passed in the `modules` property.
 
 #### SessionEndedHandler
 
@@ -384,6 +395,20 @@ const SessionPollerHooks = () => {
 ```
 
 </PlaygroundPreview>
+
+### ApolloClient module hooks
+
+More detailed information about <AnchorLink>ApolloClient module</AnchorLink> hooks are listed on the <ApiPageAnchorLink anchor="apolloclient-module">API page</ApiPageAnchorLink>.
+
+#### useApolloClientModule
+
+Returns the <AnchorLink>ApolloClient module</AnchorLink>.
+
+#### useApolloClient
+
+Returns the ApolloClient.
+
+The ApolloClient does not emit any signals. Therefore there are no hooks related to signals.
 
 ### GraphQL module hooks
 
@@ -656,6 +681,31 @@ All `GraphQL module` settings, properties, methods and signals are detailed on t
 - <AnchorLink>useGraphQL</AnchorLink>
 
 Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="graphql-module-hooks">API page</ApiPageAnchorLink>.
+
+#### ApolloClient module
+
+Appending api tokens to every query and manually waiting for api token renewal are a complicated tasks. The ApolloClient module links itself to the Api token client and automatically appends tokens and also awaits for token renewals.
+
+The module can also be used without api tokens.
+
+##### Requirements
+
+The module requires at least the same properties as the ApolloClient it creates.
+
+##### API
+
+All `ApolloClient module` settings, properties, methods and signals are detailed on the API page:
+
+- <ApiPageAnchorLink anchor="settings-3">Module settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="methods-3">Methods</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="other-exported-utility-functions-3">Utility functions</ApiPageAnchorLink>.
+
+##### Hooks
+
+- <AnchorLink>useApolloClientModule</AnchorLink>
+- <AnchorLink>useApolloClient</AnchorLink>
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="apolloclient-module-hooks">API page</ApiPageAnchorLink>.
 
 #### Silent renewal
 
