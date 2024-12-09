@@ -7,7 +7,7 @@ import {
   ApolloQueryResult,
   ApolloError,
   DocumentNode,
-} from '@apollo/client/core';
+} from '@apollo/client';
 
 import { ApiTokenClient } from '../apiTokensClient';
 import { Beacon, ConnectedModule } from '../beacon/beacon';
