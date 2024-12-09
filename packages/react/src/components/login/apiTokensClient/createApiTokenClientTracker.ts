@@ -24,7 +24,7 @@ type ApiTokenClientTrackerProps = {
    */
   keepTokensWhileRenewing?: boolean;
   /**
-   * If true, the stored api tokens are not cleared when renewal starts. Default false.
+   * If renewal fails, should old tokens be kept of not.
    */
   keepTokensAfterRenewalError?: boolean;
   /**
