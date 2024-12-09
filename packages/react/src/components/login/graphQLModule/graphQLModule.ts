@@ -1,4 +1,4 @@
-import { ApolloClient, ApolloError, ApolloQueryResult, QueryOptions } from '@apollo/client/core';
+import { ApolloClient, ApolloError, ApolloQueryResult, QueryOptions } from '@apollo/client';
 
 import {
   GraphQLModuleModuleProps,
