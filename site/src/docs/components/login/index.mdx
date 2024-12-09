@@ -30,7 +30,18 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
 
 ## Introduction
 
-HDS Login components include React context, components and hooks for handling user authorisation, API tokens, session polling and graphQL queries. React is not a requirement, but currently, no plain JavaScript UI components exist.
+HDS Login system is built on modular vanilla JavaScript and can handle every aspect of user authorization. It can be used with or without React. React version also includes a context, components and hooks.
+
+Current modules can handle
+
+- User authorisation with any OIDC server.
+- Exchange of user tokens to API tokens.
+- Creation of ApolloClient with auto-appended api tokens in query headers.
+- GraphQL queries with auto-appended api tokens in query headers.
+- Active session polling if user session is ended in other browsers or server side.
+- Addition of custom modules.
+
+Modules interact with emitted signals that can be listened like native events. React is not a requirement, but currently, no vanilla JavaScript UI components exist, but modules can be controlled with any interactive elements.
 
 Implementation requires an OIDC provider, which is a server for user authorization. The City of Helsinki uses Helsinki Profile, but HDS login components can be used with any compatible OIDC provider. Read more about <ExternalLink href="https://auth0.com/intro-to-iam/what-is-openid-connect-oidc">OpenID Connect (OIDC)</ExternalLink>.
 
@@ -113,18 +124,20 @@ HDS Login hooks enable to
 - Add listeners.
 - Login and logout.
 - Get API tokens.
+- Use API tokens in requests.
 - Get modules.
 
 Detailed documentation is in the <UsagePageAnchorLink anchor="oidc-client-hooks">hooks section</UsagePageAnchorLink> of the <UsagePageAnchorLink anchor="usage">Usage page</UsagePageAnchorLink>.
 
 ### Modules
 
-There are four modules to handle the user's needs:
+There are five modules to handle different scenarios:
 
 - <UsagePageAnchorLink>Oidc client</UsagePageAnchorLink> for user data.
 - <UsagePageAnchorLink>Api tokens client</UsagePageAnchorLink> for acquiring backend tokens.
 - <UsagePageAnchorLink>Session poller</UsagePageAnchorLink> for checking if the user's session is still valid at the Oidc
   provider.
+- <UsagePageAnchorLink>ApolloClient module</UsagePageAnchorLink> to provide the client and auto-append api tokens to queries.
 - <UsagePageAnchorLink>GraphQL module</UsagePageAnchorLink> for fetching data from a graphQL server. Fetching can be automatically
   linked to the Api Tokens client.
 
@@ -146,6 +159,11 @@ This module exchanges the user's tokens for API tokens. API tokens are used for 
 
 This module polls the user's session from the Oidc provider and signals an error if polling returns an unauthorized response. If you have logged in with the same user in multiple browser windows, this module detects when the user is logged out in any browser window.
 
+#### ApolloClient module
+
+This module creates a client with middleware and provides the client to all modules and also to all components in the Login Context including ApolloClient's hooks. The module can wait for api tokens and automatically append them to headers.
+When ApolloClient's own hooks are used, the ApolloContext is not automatically created unless the <UsagePageAnchorLink anchor="modules">LoginProviderWithApolloContext</UsagePageAnchorLink> component is used. The context can also be created manually by picking the ApolloClient with <ApiPageAnchorLink href="apolloclient-module-hooks">hooks</ApiPageAnchorLink>.
+
 #### GraphQL module
 
 This module was added to make it easier to use the login system with authenticated graphQL queries. The GraphQL module waits for api tokens and automatically picks a token and uses it in queries.
@@ -166,8 +184,6 @@ Detailed information is in the <UsagePageAnchorLink anchor="signals">signals sec
 
 Every service must have its own `client_id` and `scope`, but these settings can be used for testing.
 They only work in `http://localhost:3000`. Make sure you have `redirect_uri`, `silent_redirect_uri` and `post_logout_redirect_uri` registered at the OIDC server.
-
-GraphQL module is not automatically added, but <ApiPageAnchorLink anchor="graphql-module">it's setup is simple</ApiPageAnchorLink>.
 
 ```js
 const loginProviderProps: LoginProviderProps = {
@@ -207,3 +223,6 @@ const loginProviderProps: LoginProviderProps = {
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 ```
+
+GraphQL module is not automatically added, but <ApiPageAnchorLink anchor="graphql-module">it's setup is simple</ApiPageAnchorLink>.
+ApolloClient is not automatically added either, but <ApiPageAnchorLink anchor="apolloclient-module">it's setup is simple</ApiPageAnchorLink>.
