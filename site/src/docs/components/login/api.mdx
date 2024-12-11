@@ -71,13 +71,13 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
   - <AnchorLink>GraphQL module</AnchorLink>
-  - <AnchorLink>GraphQL module</AnchorLink>
+  - <AnchorLink>TokenizedFetch module</AnchorLink>
 
 - <AnchorLink>Oidc client hooks</AnchorLink>
 - <AnchorLink>Api tokens client hooks</AnchorLink>{' '}
 - <AnchorLink>Session poller hooks</AnchorLink>{' '}
 - <AnchorLink>GraphQL module hooks</AnchorLink>{' '}
-- <AnchorLink>GraphQL module hooks</AnchorLink>{' '}
+- <AnchorLink>TokenizedFetch module hooks</AnchorLink>{' '}
 - <AnchorLink>Generic signal hooks</AnchorLink>{' '}
 
 - <AnchorLink>Beacon</AnchorLink>
@@ -163,7 +163,8 @@ There are four modules to handle the user's needs:
 - <AnchorLink>Api tokens client</AnchorLink> for acquiring backend tokens.
 - <AnchorLink>Session poller</AnchorLink> for checking if the user's session is still valid at the Oidc provider.
 - <AnchorLink>GraphQL module</AnchorLink> for fetching data from a graphQL server. Fetching can be automatically linked to
-  the Api Tokens client.
+- <AnchorLink>TokenizedFetch module</AnchorLink> for fetching data from a server. Requests are automatically linked to the
+  Api Tokens client.
 
 All modules can be used without React and without each other. But a <OidcClientTsLink>>user</OidcClientTsLink> object is required to get API tokens and poll the session.
 
@@ -762,6 +763,105 @@ If the given signal is not from the `GraphQL module` or is not given type, the f
 | `getGraphQLModuleEventPayload`                    | `null` or `{type, data}`.                                                                   |
 | [Table 47: GraphQL module signal payload getters] |
 
+#### TokenizedFetch Module
+
+Loading data from a server may require user authentication and api tokens. The TokenizedFetch module listens to the Api token client and appends api tokens to the request headers.
+
+Unlike the `Api token client` and `Session Poller`, the `GraphQL Module` must be manually added to the `<LoginProvider>`.
+
+<PlaygroundPreview>
+
+```jsx
+import { createTokenizedFetchModule } from 'hds-react';
+
+const options = {
+  tokenSetter: (headers, apiTokens) => {
+    return {
+      Authentication: apiTokens['tokenToAppend'],
+    };
+  },
+};
+const tokenizedFetchModule = createTokenizedFetchModule(options);
+
+<LoginProvider {...loginProps} modules={[tokenizedFetchModule]}></LoginProvider>;
+```
+
+</PlaygroundPreview>
+
+##### Settings
+
+| Property                                   | Type                                                         | Description                                                                                                              | Default value |
+| ------------------------------------------ | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------ | ------------- |
+| `preventQueriesWhileRenewing`              | `string`                                                     | xxx.                                                                                                                     | `true`        |
+| `tokenSetter`                              | `(headers:unknown,tokens:TokenData)=> Record<string,string>` | The returned object is appended to the headers. First argument type depends on the request. Can be an object or Headers. | -             |
+| [Table 39: TokenizedFetch module settings] |
+
+##### Methods
+
+| Property                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Argument(s)             | Return value            |
+| ----------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------- | ----------------------- |
+| `tokenizedFetch`                          | Proxy to the native `fetch` function. Headers returned from the optional tokenSetter are appended to the Headers passed as args.                                                                                                                                                                                                                                                                                                                                                                                               | Same as native `fetch`. | Same as native `fetch`. |
+| `tokenizedFetchWithSignals`               | Calls the tokenizedFetch, but also emits start and end signals. If fetch fails, an error signal is emitted. Aborted requests are emitted as event signals. Abort and start signals can be distinguished from actual responses with isTokenizedFetchStartedSignal(signal) and isTokenizedFetchAbortedSignal(signal). Automatic response handling uses the `response.json()` to parse response from data. If the data is not json, do not use automation this function. Use `emitResponse(promise.then(<your parse function>))`. | -                       | -                       |
+| `getTracker`                              | Returns the apiTokenClient tracker.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | -                       | -                       |
+| `reset`                                   | Emits reset signal and resets the apiTokenTracker.                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | -                       | -                       |
+| `isAbortError`                            | Utility to test was the returned error an AbortError.                                                                                                                                                                                                                                                                                                                                                                                                                                                                          | -                       | -                       |
+| `emitResponse`                            | The promise returned from tokenizedFetch can be passed to this function which will emit the results as event signals or error signals.                                                                                                                                                                                                                                                                                                                                                                                         | -                       | -                       |
+| `emitFetchStart`                          | Emits a signal where `payload.type = ${responseSignalType}\_STARTED`.                                                                                                                                                                                                                                                                                                                                                                                                                                                          | -                       | -                       |
+| `addAbortSignal`                          | Adds abort signal to FetchInit props and returns a function that will abort the request.                                                                                                                                                                                                                                                                                                                                                                                                                                       | -                       | -                       |
+| [Table 40: TokenizedFetch module methods] |
+
+##### Other exported utility functions
+
+The following functions can be imported and used without the `GraphQL module` module:
+
+| Function                                          | Description                                                 | Argument(s)                  | Return value           |
+| ------------------------------------------------- | ----------------------------------------------------------- | ---------------------------- | ---------------------- |
+| `createTokenizedFetchModule(options)`             | Creates the module.                                         | `TokenizedFetchModuleProps`. | `TokenizedFetchModule` |
+| `isTokenizedFetchStartedSignal(signal)`           | Returns true if signal was emitted to indicate fetch start. | `Signal`.                    | `boolean`              |
+| `isTokenizedFetchAbortedSignal(signal)`           | Returns true if signal was emitted to indicate fetch abort. | `Signal`.                    | `boolean`              |
+| [Table 41: Other TokenizedFetch module functions] |
+
+##### State change signals
+
+The `TokenizedFetch module` has no state changes.
+
+##### Error signal
+
+The module emits only one kind of error. They are instances of the `TokenizedFetchModuleError`. It is an extended Error object with type property and a `hasResponseIdentifierMatch` helper function to identify fetch calls. The error object also contains the thrown error in `error.originalError` property.
+
+The `hasResponseIdentifierMatch(type:string)=>boolean` returns true if the error originated from a fetch with given id. Ids are used only when using `tokenizedFetchWithSignals` or `emitResponse`.
+
+##### Event signals
+
+The `TokenizedFetch module` also emits events only when the `tokenizedFetchWithSignals` is used. Events can also be manually emitted with `emitFetchStart` or `emitResponse`
+
+The simplest way to track signals is <UsagePageAnchorLink anchor="useTokenizedFetchTracking">with hooks</UsagePageAnchorLink>.
+
+##### Dedicated signal triggers
+
+Triggers for `TokenizedFetch module` signals. These trigger signals only originated from the `TokenizedFetch module`.
+
+| Generic triggers                           | Required signal props to trigger the listener       |
+| ------------------------------------------ | --------------------------------------------------- |
+| `triggerForAllTokenizedFetchErrors`        | `TokenizedFetch module` namespace and type `error`. |
+| `triggerForAllTokenizedFetchEvents`        | `TokenizedFetch module` namespace and type `event`. |
+| `triggerForAllTokenizedFetchSignals`       | `TokenizedFetch module` namespace.                  |
+| [Table 44: TokenizedFetch module triggers] |
+
+The `createTriggerPropsForTokenizedFetchResponseSignals(identifier: string): SignalTrigger` creates a `SignalTrigger` that returns true if the signal is an event signal from the `TokenizedFetch Module` and its payload has given identifier.
+
+##### Getting signal payloads
+
+Sometimes the most significant part of a signal is the payload. There are predefined payload getters for the `GraphQL module`.
+If the given signal is not from the `GraphQL module` or is not given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                           | Returns                                                                                                    |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `getTokenizedFetchModuleEventPayload`                    | `null` or `EventPayload`. The payload may be a `Response` or information about `start` or `abort` signals. |
+| `getTokenizedFetchModuleErrorPayload`                    | `null` or `Error`.                                                                                         |
+| `getTokenizedFetchPayloadData`                           | `null` or the actual server `Response`.                                                                    |
+| [Table 47: TokenizedFetch module signal payload getters] |
+
 #### Oidc client hooks
 
 | Hook                          | Description                                                                                                                                                       | Return value                                        |
@@ -805,6 +905,17 @@ The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink
 | [Table 51: GraphQL module hooks] |
 
 The usage of the `GraphQL module` hooks is described in the <UsagePageAnchorLink anchor="usegraphql">usage</UsagePageAnchorLink> section.
+
+#### TokenizedFetch module hooks
+
+| Hook                                | Description                                                                                                                                                 | Return value                                        |
+| ----------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------- |
+| `useTokenizedFetchModule`           | Returns the `TokenizedFetch module`.                                                                                                                        | `TokenizedFetch`                                    |
+| `useTokenizedFetch`                 | Returns a function identical to the native `fetch` function..                                                                                               | The native `fetch` function                         |
+| `useTokenizedFetchModuleTracking`   | Returns `[Signal, resetFunction, TokenizedFetch module instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[signal, reset function, GraphQL module instance]` |
+| `useTokenizedFetchWithSignals`      | This hook works just like the `useTokenizedFetch` except it emits signals so individual fetches can be tracked.                                             | `Promise<Response>`                                 |
+| `useTokenizedFetchResponseTracking` | This hook works just like the `useTokenizedFetchModuleTracking` except it tracks only signals emitted by the module **and** with given identifier.          | `Signal`                                            |
+| [Table 51: GraphQL module hooks]    |
 
 #### Generic signal hooks
 
@@ -899,6 +1010,7 @@ Instead of writing signal types as strings, it is better to use predefined trigg
 - <AnchorLink anchor="dedicated-signal-triggers-1">Api tokens client triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers-2">Session poller triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers-3">GraphQL module triggers</AnchorLink>.
+- <AnchorLink anchor="dedicated-signal-triggers-4">TokenizedFetch module triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers">Generic triggers</AnchorLink>.
 
 ##### Generic triggers

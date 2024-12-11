@@ -58,6 +58,14 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>useGraphQLModuleTracking</AnchorLink>
   - <AnchorLink>useGraphQL</AnchorLink>
 
+- <AnchorLink>TokenizedFetch module hooks</AnchorLink>{' '}
+
+  - <AnchorLink>useTokenizedFetchModule</AnchorLink>
+  - <AnchorLink>useTokenizedFetch</AnchorLink>
+  - <AnchorLink>useTokenizedFetchWithSignals</AnchorLink>
+  - <AnchorLink>useTokenizedFetchTracking</AnchorLink>
+  - <AnchorLink>useTokenizedFetchResponseTracking</AnchorLink>
+
 - <AnchorLink>Generic signal hooks</AnchorLink>{' '}
 
   - <AnchorLink>useSignalListener</AnchorLink>
@@ -70,6 +78,7 @@ export const ApiPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
   - <AnchorLink>GraphQL module</AnchorLink>
+  - <AnchorLink>TokenizedFetch module</AnchorLink>
 
 - <AnchorLink>Silent renewal</AnchorLink>
 
@@ -442,6 +451,104 @@ const GraphQLModuleHooks = () => {
 
 </PlaygroundPreview>
 
+### TokenizedFetch module hooks
+
+More detailed information about <AnchorLink>TokenizedFetch module</AnchorLink> hooks are listed on the <ApiPageAnchorLink anchor="tokenizedfetch-module">API page</ApiPageAnchorLink>.
+
+#### useTokenizedFetchModule
+
+Returns the <AnchorLink>TokenizedFetch module</AnchorLink>.
+
+#### useTokenizedFetchModuleTracking
+
+Returns an array of `[signal, reset function, TokenizedFetch module instance]`. The hook re-renders the component each time the module emits a signal.
+
+#### useTokenizedFetch
+
+Returns a function identical to the native `fetch` function. The function will append headers with the `tokenSetter` function passed to the module on creation. The function will wait for on-going api tokens renewals.
+
+Note that state handling must be manually added. The hook does not return states like "loading", "error", "data".
+
+The <AnchorLink>useTokenizedFetchResponseTracking</AnchorLink> with <AnchorLink>useTokenizedFetchWithSignals</AnchorLink> helps with state changes.
+
+#### useTokenizedFetchWithSignals
+
+This hook works just like the <AnchorLink>useTokenizedFetch</AnchorLink> except it emits signals so individual fetches can be tracked.
+The hook returns the <ApiPageAnchorLink anchor="tokenizedfetch-module">tokenizedFetchWithSignals</ApiPageAnchorLink> function. The function accepts ids for `fetch` calls and native `fetch` arguments.
+
+The <AnchorLink>useTokenizedFetchResponseTracking</AnchorLink> will track signals with given id and re-renders the component only when signals match.
+
+<PlaygroundPreview>
+
+```jsx
+import {
+  useTokenizedFetchWithSignals,
+  useTokenizedFetchResponseTracking,
+  Button,
+  LoadingSpinner,
+  isErrorSignal,
+} from 'hds-react';
+const [signal] = useTokenizedFetchResponseTracking(event);
+const tokenizedFetchWithSignals = useTokenizedFetchWithSignals();
+
+const MyTokenizedFetch = () => {
+  const fetchId = "my-important-fetch";
+  // the signal is only triggered if there is a state change with a fetch() call started with same id.
+   const [signal] = useTokenizedFetchResponseTracking(fetchId);
+  const tokenizedFetch = useTokenizedFetch();
+  const executeFetch = useCallback(())=>{
+    tokenizedFetch(fetchId);
+  },[tokenizedFetch,fetchId]);
+
+  const getLoadState = (signal?:Signal)=>{
+    if(signal){
+      if(isErrorSignal(signal)){
+        return 'error';
+      }
+      if(isTokenizedFetchStartedSignal(signal)){
+        return 'loading';
+      }
+      if(isTokenizedFetchAbortedSignal(signal)){
+        return 'aborted';
+      }
+      if(getTokenizedFetchPayloadData(signal)){
+        return 'loaded';
+      }
+    }
+    return undefined;
+  }
+
+  const state = getLoadState(signal);
+
+
+
+  if (state === 'loading') {
+    return <LoadingSpinner loadingText="loading" />;
+  }
+  if (state === 'loaded' && signal) {
+    const data = getTokenizedFetchPayloadData(signal);
+    // render data
+  }
+  return (
+     <Button
+    onClick={() => {
+      executeFetch();
+    }}
+  >
+    Load data
+  </Button>;
+  )
+};
+```
+
+</PlaygroundPreview>
+
+#### useTokenizedFetchResponseTracking
+
+This hook works like the <AnchorLink>useTokenizedFetchTracking</AnchorLink> except it tracks only signals emitted by the module **and** with given identifier.
+
+See a working example in <AnchorLink>useTokenizedFetchWithSignals</AnchorLink>.
+
 ### Generic signal hooks
 
 Hooks are the easiest way to listen to signals. Most hooks return the last triggered signal and re-render the component. Re-rendering is done only if the listener returns true. So listeners added by hooks must return a boolean.
@@ -656,6 +763,32 @@ All `GraphQL module` settings, properties, methods and signals are detailed on t
 - <AnchorLink>useGraphQL</AnchorLink>
 
 Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="graphql-module-hooks">API page</ApiPageAnchorLink>.
+
+#### TokenizedFetch module
+
+Loading data from a server may require user authentication and api tokens. The TokenizedFetch module listens to the Api token client and appends api tokens to the request headers.
+
+##### API
+
+All `TokenizedFetch module` settings, properties, methods and signals are detailed on the API page:
+
+- <ApiPageAnchorLink anchor="settings-4">Module settings</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="methods-4">Methods</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="other-exported-utility-functions-4">Utility functions</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="event-signals-4">Event signals</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="error-signal-types-4">Error signal types</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="dedicated-signal-triggers-4">Dedicated signal triggers</ApiPageAnchorLink>.
+- <ApiPageAnchorLink anchor="getting-signal-payloads-4">Getting signal payloads</ApiPageAnchorLink>.
+
+##### Hooks
+
+- <AnchorLink>useTokenizedFetchModule</AnchorLink>
+- <AnchorLink>useTokenizedFetch</AnchorLink>
+- <AnchorLink>useTokenizedFetchTracking</AnchorLink>
+- <AnchorLink>useTokenizedFetchWithSignals</AnchorLink>
+- <AnchorLink>useTokenizedFetchResponseTracking</AnchorLink>
+
+Detailed information about these hooks is listed on the <ApiPageAnchorLink anchor="tokenizedfetch-module-hooks">API page</ApiPageAnchorLink>.
 
 #### Silent renewal
 

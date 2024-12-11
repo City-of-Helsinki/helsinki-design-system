@@ -152,6 +152,10 @@ This module polls the user's session from the Oidc provider and signals an error
 
 This module was added to make it easier to use the login system with authenticated graphQL queries. The GraphQL module waits for api tokens and automatically picks a token and uses it in queries.
 
+#### TokenizedFetch module
+
+This module was added to make it easier to use the login system with authenticated `fetch` calls. The TokenizedFetch module waits for api tokens and assigns headers to the request headers.
+
 #### Custom modules
 
 Other modules can be added. Detailed information is in the <InternalLink href="/components/login/customisation">custom modules section</InternalLink>.
@@ -170,6 +174,7 @@ Every service must have its own `client_id` and `scope`, but these settings can 
 They only work in `http://localhost:3000`. Make sure you have `redirect_uri`, `silent_redirect_uri` and `post_logout_redirect_uri` registered at the OIDC server.
 
 GraphQL module is not automatically added, but <ApiPageAnchorLink anchor="graphql-module">it's setup is simple</ApiPageAnchorLink>.
+TokenizedFetch module is not automatically added, but <ApiPageAnchorLink anchor="tokenizedfetch-module">it's setup is simple</ApiPageAnchorLink>.
 
 ```js
 const loginProviderProps: LoginProviderProps = {
