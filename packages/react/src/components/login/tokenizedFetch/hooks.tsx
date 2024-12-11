@@ -39,14 +39,14 @@ export const useTokenizedFetchTracking = (): [Signal | undefined, () => void, To
 };
 
 /**
- * Renders the component each time the TokenizedFetchModule emits given responseType
+ * Renders the component each time the TokenizedFetchModule emits given responseIdentifier
  */
 export const useTokenizedFetchResponseTracking = (
-  responseType: string,
+  responseIdentifier: string,
 ): [Signal | undefined, () => void, TokenizedFetchModule] => {
   const tokenizedFetchModule = useTokenizedFetchModule();
   return [
-    ...useSignalTrackingWithReturnValue(createTriggerPropsForTokenizedFetchResponseSignals(responseType)),
+    ...useSignalTrackingWithReturnValue(createTriggerPropsForTokenizedFetchResponseSignals(responseIdentifier)),
     tokenizedFetchModule,
   ];
 };

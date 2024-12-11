@@ -10,7 +10,7 @@ export type FetchReturnType = ReturnType<typeof fetch>;
 
 export type TokenizedFetchModule = ConnectedModule & {
   /**
-   * Proxy to native fetch() function. Headers returned from the optional tokenSetter are appended to the Headers passed as args.
+   * Proxy to the native fetch() function. Headers returned from the optional tokenSetter are appended to the Headers passed as args.
    */
   tokenizedFetch: (...args: FetchParameters) => FetchReturnType;
   /**
@@ -43,28 +43,27 @@ export type TokenizedFetchModule = ConnectedModule & {
    *    type: eventSignalType,
    *    payload: {
    *        data: Response,
-   *        type: responseSignalType
+   *        type: responseIdentifier
    *    },
    *    nameSpace: tokenizedFetchModuleNamespace,
    *    context:tokenizedFetchModule
    * }
-   * Aborted fetches are emitted also as event signals where payload.type = ${responseSignalType}_ABORTED.
+   * Aborted fetches are emitted also as event signals where payload.type = ${responseIdentifier}_ABORTED.
    * Failed fetches are emitted also as error signals.
    *
    * Example: const results = tokenizedFetchModule.emitResponse(tokenizedFetchModule.fetch().then(resp=>resp.json()));
    */
-  emitResponse: (promise: Promise<Response>, responseSignalType: string) => Promise<Response>;
+  emitResponse: (promise: Promise<Response>, responseIdentifier: string) => Promise<Response>;
   /**
-   * Emit signal where payload.type = ${responseSignalType}_STARTED.
+   * Emits a signal where payload.type = ${responseIdentifier}_STARTED.
    */
-  emitFetchStart: (responseSignalType: string) => void;
+  emitFetchStart: (responseIdentifier: string) => void;
   /**
    * Adds abort signal to FetchInit props and returns a function that will abort the request.
    */
   addAbortSignal: typeof appendAbortSignal;
 };
 
-// EMIT STATE CHANGES!
 export type TokenizedFetchModuleProps = Omit<ApolloClientModuleProps, 'clientOptions' | 'tokenSetter'> & {
   /**
    * If true, the tokenizedFetch() will wait for possible api token renewal to end.

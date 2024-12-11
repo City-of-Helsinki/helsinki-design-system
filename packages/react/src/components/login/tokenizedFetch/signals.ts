@@ -25,6 +25,15 @@ export function getTokenizedFetchModuleErrorPayload(signal: Signal): Error | nul
   return isTokenizedFetchModuleSignal(signal) ? (getErrorSignalPayload(signal) as Error) : null;
 }
 
+export function getTokenizedFetchPayloadData<T = unknown>(signal: Signal): T | null {
+  if (!isTokenizedFetchModuleSignal(signal)) {
+    return null;
+  }
+  const { payload } = signal as EventSignal;
+  const data = payload && payload.data;
+  return (data as T) || null;
+}
+
 /**
  *  Start / abort signal handling
  */
@@ -35,15 +44,6 @@ export function createStartSignalData(): { wasFetchStarted: boolean } {
 
 export function createAbortSignalData(): { wasFetchAborted: boolean } {
   return { wasFetchAborted: true };
-}
-
-export function getTokenizedFetchPayloadData<T = unknown>(signal: Signal): T | null {
-  if (!isTokenizedFetchModuleSignal(signal)) {
-    return null;
-  }
-  const { payload } = signal as EventSignal;
-  const data = payload && payload.data;
-  return (data as T) || null;
 }
 
 export function isTokenizedFetchStartedSignal(signal: Signal): boolean {
@@ -64,17 +64,21 @@ export function createTriggerPropsForAllTokenizedFetchSignals(): SignalTriggerPr
   return createTriggerPropsForAllSignals(tokenizedFetchModuleNamespace);
 }
 
-export function createTriggerPropsForTokenizedFetchResponseSignals(responseType: string): SignalTrigger {
+export function createTriggerPropsForTokenizedFetchResponseSignals(responseIdentifier: string): SignalTrigger {
   return (signal) => {
     if (!isTokenizedFetchModuleSignal(signal)) {
       return false;
     }
     if (isErrorSignal(signal)) {
       const payload = getErrorSignalPayload(signal) as TokenizedFetchError;
-      return !!(payload && payload.hasTypeMatch && payload.hasTypeMatch(responseType));
+      return !!(
+        payload &&
+        payload.hasResponseIdentifierMatch &&
+        payload.hasResponseIdentifierMatch(responseIdentifier)
+      );
     }
     const payload = getEventSignalPayload(signal);
-    return !!(payload && payload.type === responseType);
+    return !!(payload && payload.type === responseIdentifier);
   };
 }
 

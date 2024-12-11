@@ -47,23 +47,26 @@ export function createTokenizedFetchModule(props: TokenizedFetchModuleProps): To
 
   const apiTokenTracker = createApiTokenClientTracker({ keepTokensWhileRenewing, timeout: apiTokensWaitTime });
 
-  const emitResponse: TokenizedFetchModule['emitResponse'] = (promise: Promise<Response>, signalType: string) => {
+  const emitResponse: TokenizedFetchModule['emitResponse'] = (
+    promise: Promise<Response>,
+    responseIdentifier: string,
+  ) => {
     promise
       .then(async (response) => {
-        dedicatedBeacon.emitEvent(signalType, response);
+        dedicatedBeacon.emitEvent(responseIdentifier, response);
       })
       .catch((e) => {
         if (isAbortError(e)) {
-          dedicatedBeacon.emitEvent(signalType, createAbortSignalData());
+          dedicatedBeacon.emitEvent(responseIdentifier, createAbortSignalData());
         } else {
-          dedicatedBeacon.emitError(new TokenizedFetchError(signalType, e));
+          dedicatedBeacon.emitError(new TokenizedFetchError(responseIdentifier, e));
         }
       });
     return promise;
   };
 
-  const emitFetchStart: TokenizedFetchModule['emitFetchStart'] = (signalType: string) => {
-    dedicatedBeacon.emitEvent(signalType, createStartSignalData());
+  const emitFetchStart: TokenizedFetchModule['emitFetchStart'] = (responseIdentifier: string) => {
+    dedicatedBeacon.emitEvent(responseIdentifier, createStartSignalData());
   };
 
   const tokenizedFetch: TokenizedFetchModule['tokenizedFetch'] = async (...args) => {
@@ -94,12 +97,12 @@ export function createTokenizedFetchModule(props: TokenizedFetchModuleProps): To
       return appendAbortSignal(initProps);
     },
     tokenizedFetch,
-    tokenizedFetchWithSignals: (autoEmitSignalType, ...rest) => {
-      emitFetchStart(autoEmitSignalType);
+    tokenizedFetchWithSignals: (autoEmitResponseIdentifier, ...rest) => {
+      emitFetchStart(autoEmitResponseIdentifier);
       const promise = tokenizedFetch(...rest);
       emitResponse(
         promise.then((r) => r.json()),
-        autoEmitSignalType,
+        autoEmitResponseIdentifier,
       );
       return promise;
     },

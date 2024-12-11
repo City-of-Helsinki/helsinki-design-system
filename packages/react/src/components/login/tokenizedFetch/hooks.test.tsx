@@ -72,10 +72,10 @@ describe(`tokenizedFetchModule`, () => {
   };
   const ErrorOutput = ({ id, signal }: { id: string; signal: Signal | undefined | null }) => {
     const error = signal && isErrorSignal(signal) ? (signal?.payload as TokenizedFetchError) : null;
-    const { type, originalError } = error || { type: undefined, originalError: undefined };
+    const { identifier, originalError } = error || { type: undefined, originalError: undefined };
     return (
       <span key="signal" id={id}>
-        {JSON.stringify({ type, message: originalError ? originalError.message : '' })}
+        {JSON.stringify({ type: identifier, message: originalError ? originalError.message : '' })}
       </span>
     );
   };
