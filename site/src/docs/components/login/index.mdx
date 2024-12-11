@@ -37,7 +37,8 @@ Current modules can handle
 - User authorisation with any OIDC server.
 - Exchange of user tokens to API tokens.
 - Creation of ApolloClient with auto-appended api tokens in query headers.
-- GraphQL queries with auto-appended api tokens in query headers.
+- GraphQL queries with auto-appended api tokens in the query headers.
+- Fetch requests with auto-appended api tokens in the request headers.
 - Active session polling if user session is ended in other browsers or server side.
 - Addition of custom modules.
 
@@ -139,6 +140,7 @@ There are five modules to handle different scenarios:
   provider.
 - <UsagePageAnchorLink>ApolloClient module</UsagePageAnchorLink> to provide the client and auto-append api tokens to queries.
 - <UsagePageAnchorLink>GraphQL module</UsagePageAnchorLink> for fetching data from a graphQL server. Fetching can be automatically
+- <UsagePageAnchorLink>TokenizedFetch module</UsagePageAnchorLink> for making fetch calls to a server. Fetching is automatically
   linked to the Api Tokens client.
 
 If a module is not needed, it can be dropped with settings. <InternalLink href="/components/login/customisation">Custom modules</InternalLink> can also be added. All modules can be used without React and without each other. But a valid user object is required to get API tokens and poll the session.
@@ -163,10 +165,17 @@ This module polls the user's session from the Oidc provider and signals an error
 
 This module creates a client with middleware and provides the client to all modules and also to all components in the Login Context including ApolloClient's hooks. The module can wait for api tokens and automatically append them to headers.
 When ApolloClient's own hooks are used, the ApolloContext is not automatically created unless the <UsagePageAnchorLink anchor="modules">LoginProviderWithApolloContext</UsagePageAnchorLink> component is used. The context can also be created manually by picking the ApolloClient with <ApiPageAnchorLink href="apolloclient-module-hooks">hooks</ApiPageAnchorLink>.
+The ApolloClient is not automatically added, but <ApiPageAnchorLink anchor="apolloclient-module">it's setup is simple</ApiPageAnchorLink>.
 
 #### GraphQL module
 
 This module was added to make it easier to use the login system with authenticated graphQL queries. The GraphQL module waits for api tokens and automatically picks a token and uses it in queries.
+The GraphQL module is not automatically added, but <ApiPageAnchorLink anchor="graphql-module">it's setup is simple</ApiPageAnchorLink>.
+
+#### TokenizedFetch module
+
+This module was added to make it easier to use the login system with authenticated `fetch` calls. The TokenizedFetch module waits for api tokens and assigns headers to the request headers.
+The TokenizedFetch module is not automatically added, but <ApiPageAnchorLink anchor="tokenizedfetch-module">it's setup is simple</ApiPageAnchorLink>.
 
 #### Custom modules
 
@@ -223,6 +232,3 @@ const loginProviderProps: LoginProviderProps = {
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 ```
-
-GraphQL module is not automatically added, but <ApiPageAnchorLink anchor="graphql-module">it's setup is simple</ApiPageAnchorLink>.
-ApolloClient is not automatically added either, but <ApiPageAnchorLink anchor="apolloclient-module">it's setup is simple</ApiPageAnchorLink>.
