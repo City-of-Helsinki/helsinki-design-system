@@ -39,20 +39,17 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
         crypto: require.resolve('crypto-browserify'),
       },
     },
-    /*
+    cache: false,
     optimization: {
       splitChunks: {
         chunks: 'initial',
         minChunks: 2,
-        minSize: 10000000,
-        maxSize: 0,
         cacheGroups: {
           default: false,
           vendors: false,
         },
       },
     },
-    */
   });
 };
 
