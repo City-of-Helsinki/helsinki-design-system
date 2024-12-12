@@ -1,4 +1,4 @@
-import React, { useState, useCallback } from 'react';
+import React, { useState, useCallback, PropsWithChildren } from 'react';
 import { ApolloClient, InMemoryCache } from '@apollo/client/core';
 import { action } from '@storybook/addon-actions';
 
@@ -56,6 +56,13 @@ type StoryArgs = {
 const onLoginClick = action('header-login-click');
 const onLogoutClick = action('header-logout-click');
 const onLoginButtonClick = action('login-button-click');
+
+const StrictModeEmulator = (props: PropsWithChildren<unknown>) => {
+  // for some reason using React.StrictMode directly in the story causes an error
+  // Cannot convert a Symbol value to a string
+  // vendors-node_modules_juggle_resize-observer_lib_exports_resize-observer_js-node_modules_pmmmw
+  return <React.StrictMode>{props.children}</React.StrictMode>;
+};
 
 export default {
   component: LoginProvider,
@@ -670,10 +677,12 @@ export const ExampleApplication = (args: StoryArgs) => {
   };
 
   return (
-    <LoginProvider {...loginProps} modules={[signalTracker, profileGraphQL]}>
-      <IFrameWarning />
-      <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
-    </LoginProvider>
+    <StrictModeEmulator>
+      <LoginProvider {...loginProps} modules={[signalTracker, profileGraphQL]}>
+        <IFrameWarning />
+        <WithAuthentication AuthorisedComponent={AuthenticatedContent} UnauthorisedComponent={LoginComponent} />
+      </LoginProvider>
+    </StrictModeEmulator>
   );
 };
 
