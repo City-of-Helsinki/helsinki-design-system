@@ -25,7 +25,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [ssr] Login component works with SSR rendering
 
 ### Core
 
@@ -126,6 +126,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
 ## [4.0.0] - November, 21, 2024
 
 ### React
@@ -277,7 +278,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Select, Multiselect] New components to replace Dropdown.
-- [CookieConsent] New component replacing previous CookieConsent 
+- [CookieConsent] New component replacing previous CookieConsent
 - [Variables] The first variable named Deprecated is introduced.
 - [Design kit] New page and documentation for Shadow styles. Shadow in the Overview. New Getting started-section.
 
@@ -293,7 +294,7 @@ Changes that are not related to specific components
 - [Design kit] Components have a new configuration: Each component has its own page now. Moved documentation components to new page etc. Updated Colours-documentation page.
 - [Local styles] Headings have new line-heights (check .txt. for details)
 - [Local styles] Drop shadow-style removed, replaced by Shadow styles S-M matching HDS Shadow tokens
-- [Dialog, Notification]  Switched shadow effect to use Shadow L to match implementation
+- [Dialog, Notification] Switched shadow effect to use Shadow L to match implementation
 - [SelectionGroup] Removed 2px left and right padding and adjusted inner gaps.
 - [Tag] Updated paddings for visually better icon alignments.
 - [Tag] Changed icon property names to iconStart and iconEnd.
