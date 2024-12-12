@@ -27,6 +27,7 @@ Changes that are not related to specific components
 
 - [Login] External modules with Strict mode throwed an error
 - [ssr] Login component works with SSR rendering
+- [Login] Event listeners with Strict mode were lost in double render
 
 ### Core
 
