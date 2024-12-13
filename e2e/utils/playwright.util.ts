@@ -210,3 +210,11 @@ export const getLocatorElement = async (locator: Locator): Promise<HTMLElement |
   const first = locator.first();
   return first.evaluate((el) => el);
 };
+export const getDummyBoundingBox = () => {
+  return {
+    x: 0,
+    y: 0,
+    width: 1,
+    height: 1,
+  };
+};
