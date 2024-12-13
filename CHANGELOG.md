@@ -15,13 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [LoginProviderWithApolloContext] Login Provider with automatic ApolloClient context.
+- [ApolloClientModule] New Login module for auto-appending api tokens to query headers.
+- [ApiTokenClientTracker] Util to track api token changes and renewals.
 
 #### Changed
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [GraphQLModule] Use the ApolloClient Module when available
 
 #### Fixed
 
@@ -117,13 +119,12 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [ApolloClientModule] New Login module for auto-appending api tokens to query headers.
+- [ApiTokenClientTracker] Util to track api token changes and renewals.
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
+- [GraphQLModule] Use the ApolloClient Module when available
 
 #### Fixed
 
