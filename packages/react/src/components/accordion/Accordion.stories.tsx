@@ -6,6 +6,8 @@ import { Card } from '../card';
 import { Select } from '../../index';
 import { Accordion, AccordionSize, AccordionProps } from './Accordion';
 import { useAccordion } from './useAccordion';
+import { hideStoryFromStorybook } from '../../utils/playWrightHelpers';
+import { PlayWrightComponentHandler } from '../../utils/PlayWrightComponentHandler';
 
 export default {
   component: Accordion,
@@ -19,7 +21,7 @@ export default {
     language: 'en',
     children: 'To publish your data, open your profile settings and click button "Publish".',
     style: { maxWidth: '360px' },
-    'data-testId': 'hds-accordion',
+    'data-testid': 'hds-accordion',
   },
 };
 
@@ -166,3 +168,14 @@ export const CustomAccordion = () => {
 };
 CustomAccordion.storyName = 'Custom accordion';
 CustomAccordion.args = {};
+
+export const PlayWrightOnly = (args: AccordionProps) => {
+  return (
+    <PlayWrightComponentHandler>
+      <Accordion {...args} card />
+    </PlayWrightComponentHandler>
+  );
+};
+
+// does not work with current Storybook v6
+hideStoryFromStorybook(PlayWrightOnly);
