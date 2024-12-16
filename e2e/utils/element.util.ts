@@ -267,3 +267,17 @@ export async function waitForStablePosition(locator: Locator, requiredCount = 5)
 
   return waitForStable(fn);
 }
+
+export function getAllElementAttributes(locator: Locator): Promise<Record<string, string>> {
+  return locator.evaluate((element) => {
+    const attributes = {};
+    if (!element || typeof element.getAttribute !== 'function') {
+      return attributes;
+    }
+    for (const attr of element.attributes) {
+      attributes[attr.name] = attr.value; //element.getAttribute(attr.name);
+    }
+
+    return attributes;
+  });
+}
