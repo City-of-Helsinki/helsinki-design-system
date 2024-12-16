@@ -40,15 +40,16 @@ export function hasListenerBeenCalled(listener: jest.Mock) {
   return listener && getMockCalls(listener).length > 0;
 }
 
-export function getElementAttributesMisMatches<T = HTMLElement>(
-  elem: HTMLElement,
+export function getAttributeMisMatches<T = HTMLElement>(
+  getter: (key: string) => string | null,
   expectedAttributes: HTMLAttributes<T>,
 ) {
   const mismatches: string[] = [];
   const removeNonStyleChars = /[^(0-9a-z: )]/gi;
   Object.entries(expectedAttributes).forEach(([key, value]) => {
     const valueType = typeof value;
-    const attributeValue = elem.getAttribute(key);
+    // lowerCase conversion is mainly for tabIndex -> tabindex
+    const attributeValue = getter(key) || getter(key.toLowerCase());
     if (valueType === 'undefined') {
       return;
     }
@@ -59,10 +60,8 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
         mismatches.push(`Attribute "${key}" value '${attributeValue}' mismatches expected value '${value}'`);
       }
     } else if (key === 'className') {
-      if (!String(elem.getAttribute('class')).includes(value)) {
-        mismatches.push(
-          `Attribute "class" does not include '${value}'. Attribute has value '${elem.getAttribute('class')}'.`,
-        );
+      if (!String(getter('class')).includes(value)) {
+        mismatches.push(`Attribute "class" does not include '${value}'. Attribute has value '${getter('class')}'.`);
       }
     } else {
       const expectedValue =
@@ -76,6 +75,13 @@ export function getElementAttributesMisMatches<T = HTMLElement>(
     }
   });
   return mismatches;
+}
+
+export function getElementAttributesMisMatches<T = HTMLElement>(
+  elem: HTMLElement,
+  expectedAttributes: HTMLAttributes<T>,
+) {
+  return getAttributeMisMatches((key) => elem.getAttribute(key), expectedAttributes);
 }
 
 export function getCommonElementTestProps<T extends ElementType = 'div', C = unknown>(
