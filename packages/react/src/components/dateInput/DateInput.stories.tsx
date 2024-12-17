@@ -8,6 +8,8 @@ import { DateInput, DateInputProps } from '.';
 import { Button, ButtonVariant } from '../button';
 import { IconCrossCircle } from '../../icons';
 import { LegendItem } from './components/datePicker';
+import { PlayWrightComponentHandler } from '../../utils/PlayWrightComponentHandler';
+import { hideStoryFromStorybook } from '../../utils/playWrightHelpers';
 
 const formatHelperTextEnglish = 'Use format D.M.YYYY';
 
@@ -111,7 +113,12 @@ export const WithExternalClearValueButton = (args: DateInputProps) => {
   return (
     <div className="date-input--external-clear-value-button">
       <DateInput {...args} value={value} onChange={setValue} />
-      <Button variant={ButtonVariant.Supplementary} onClick={() => setValue('')} iconStart={<IconCrossCircle />}>
+      <Button
+        data-testid="external-clear-button"
+        variant={ButtonVariant.Supplementary}
+        onClick={() => setValue('')}
+        iconStart={<IconCrossCircle />}
+      >
         Clear value
       </Button>
     </div>
@@ -370,3 +377,14 @@ export const WithRange = (args: DateInputProps) => {
 };
 
 WithRange.parameters = { loki: { skip: true } };
+
+export const PlayWrightOnly = (args: DateInputProps) => {
+  return (
+    <PlayWrightComponentHandler>
+      <DateInput {...args} />
+    </PlayWrightComponentHandler>
+  );
+};
+
+// does not work with current Storybook v6
+hideStoryFromStorybook(PlayWrightOnly);
