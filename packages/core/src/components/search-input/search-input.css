@@ -1,5 +1,5 @@
-@import url("../../icons/icon.css");
-@import url("../../icons/search.css");
+@use '../../icons/icon.css';
+@use '../../icons/search.css';
 
 .hds-search-input {
   --border-width: 2px;

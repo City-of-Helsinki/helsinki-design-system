@@ -1,4 +1,4 @@
-@import url('../../utils/animations.css');
+@use '../../utils/animations.css';
 
 .hds-text-input {
   --border-width: 2px;
