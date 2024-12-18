@@ -7,7 +7,7 @@ import {
   ApolloQueryResult,
   ApolloError,
   DocumentNode,
-} from '@apollo/client/core';
+} from '@apollo/client';
 
 import { ApiTokenClient } from '../apiTokensClient';
 import { Beacon, ConnectedModule } from '../beacon/beacon';
@@ -72,7 +72,7 @@ export type GraphQLModule<T = NormalizedCacheObject, Q = GraphQLQueryResult> = C
   /**
    * Returns a promise that is resolved when api tokens are found.
    */
-  waitForApiTokens: (timeout?: number) => Promise<unknown>;
+  waitForApiTokens: () => Promise<boolean>;
 };
 
 export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQueryResult> = {
@@ -80,6 +80,10 @@ export type GraphQLModuleModuleProps<T = NormalizedCacheObject, Q = GraphQLQuery
    * Optional property, but must be set before the query is executed.
    */
   graphQLClient?: ApolloClient<T>;
+  /**
+   * Get the client from modules.
+   */
+  useApolloClientModule?: boolean;
   /**
    * GraphQL module options.
    */

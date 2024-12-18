@@ -1,4 +1,4 @@
-import { QueryOptions } from '@apollo/client/core';
+import { QueryOptions } from '@apollo/client';
 import { merge } from 'lodash';
 
 import { GraphQLModuleModuleProps } from '.';
