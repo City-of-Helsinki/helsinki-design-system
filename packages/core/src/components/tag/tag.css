@@ -1,5 +1,5 @@
-@import url("../../icons/icon.css");
-@import url("../../icons/cross.css");
+@use '../../icons/icon.css';
+@use '../../icons/cross.css';
 
 .hds-tag {
   /* logics, always falls back to previous (upper) if not given ->
