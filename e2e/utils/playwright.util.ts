@@ -1,4 +1,5 @@
 import { Locator, Page, expect, ElementHandle, TestInfo } from '@playwright/test';
+import { playWrightInitScript } from '../../packages/react/src/utils/playWrightHelpers';
 
 enum PackageServerPort {
   Core = 6007,
@@ -209,4 +210,25 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
 export const getLocatorElement = async (locator: Locator): Promise<HTMLElement | SVGElement | null> => {
   const first = locator.first();
   return first.evaluate((el) => el);
+};
+
+export const getDummyBoundingBox = () => {
+  return {
+    x: 0,
+    y: 0,
+    width: 1,
+    height: 1,
+  };
+};
+
+export const initCustomArgsIntegration = async (page: Page) => {
+  await page.addInitScript(playWrightInitScript);
+};
+
+export const setComponentPropsAndRender = async (props: unknown, page: Page) => {
+  await page.evaluateHandle(async (props) => {
+    // @ts-ignore
+    await window.executeStorybookComponentTest(props);
+  }, props);
+  return props;
 };

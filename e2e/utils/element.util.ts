@@ -19,6 +19,9 @@ export async function isElementVisible(element: ElementHandle | Locator | null) 
 // and returning the element, returns a Node, even if "el" is HTMLELement in function's scope.
 // https://playwright.dev/docs/evaluating
 // PS: console.log inside evaluateLocator does not output!
+// *** IMPORTANT ***
+// https://playwright.dev/docs/evaluating#different-environments
+// passing a function that calls another function will throw an error of function not found.
 export async function evaluateLocator<T = unknown>(
   locator: Locator,
   func: (element: HTMLElement | SVGElement) => T,
@@ -45,8 +48,30 @@ export function isHTMLElementSelectedOrChecked(element: HTMLElement | SVGElement
   );
 }
 
-export async function isLocatorSelectedOrChecked(element: Locator): Promise<boolean> {
-  return evaluateLocator<boolean>(element, isHTMLElementSelectedOrChecked);
+export async function isLocatorSelectedOrChecked(locator: Locator): Promise<boolean> {
+  return evaluateLocator<boolean>(locator, isHTMLElementSelectedOrChecked);
+}
+
+// this seems wrong way to test simple things, but a function cannot be passed inside another function to locator.evaluate.
+// the function is out of scope and will be undefined, because the evaluate is ran in Node's context.
+export function doesLocatorHaveAttributeOrPropValue(
+  locator: Locator,
+  attributeName: string,
+  value: string,
+  checkAlsoProps = false,
+): Promise<boolean> {
+  return locator.evaluate(
+    (element, { attributeName, value, checkAlsoProps }) => {
+      if (!element || typeof element.getAttribute !== 'function') {
+        return false;
+      }
+      const attributeMatch = element.getAttribute(attributeName) === value;
+      const propsMatch = checkAlsoProps ? Reflect.get(element, attributeName) : false;
+
+      return attributeMatch || propsMatch;
+    },
+    { attributeName, value, checkAlsoProps },
+  );
 }
 
 export async function waitForElementToBeVisible(element: Locator | null) {
@@ -72,9 +97,8 @@ export async function isLocatorFocused(element: Locator) {
   });
 }
 
-// console.log() do not work inside evaluate, so for debugging an element, its outerHTML is returned.
 export async function getFocusedElement(anyLocator: Locator) {
-  return anyLocator.evaluate((el, debug) => {
+  return anyLocator.evaluate(() => {
     return document.activeElement;
   });
 }
@@ -242,4 +266,18 @@ export async function waitForStablePosition(locator: Locator, requiredCount = 5)
   };
 
   return waitForStable(fn);
+}
+
+export function getAllElementAttributes(locator: Locator): Promise<Record<string, string>> {
+  return locator.evaluate((element) => {
+    const attributes = {};
+    if (!element || typeof element.getAttribute !== 'function') {
+      return attributes;
+    }
+    for (const attr of element.attributes) {
+      attributes[attr.name] = attr.value; //element.getAttribute(attr.name);
+    }
+
+    return attributes;
+  });
 }

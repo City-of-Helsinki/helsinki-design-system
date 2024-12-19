@@ -6,6 +6,8 @@ import { Card } from '../card';
 import { Select } from '../../index';
 import { Accordion, AccordionSize, AccordionProps } from './Accordion';
 import { useAccordion } from './useAccordion';
+import { hideStoryFromStorybook } from '../../utils/playWrightHelpers';
+import { PlayWrightComponentHandler } from '../../utils/PlayWrightComponentHandler';
 
 export default {
   component: Accordion,
@@ -19,6 +21,7 @@ export default {
     language: 'en',
     children: 'To publish your data, open your profile settings and click button "Publish".',
     style: { maxWidth: '360px' },
+    'data-testid': 'hds-accordion',
   },
 };
 
@@ -37,8 +40,8 @@ export const StackedAccordionCards = (args: AccordionProps) => (
   <>
     <h1>Stacked Accordions in Cards</h1>
     <Accordion {...args} card border style={{ maxWidth: '360px' }} />
-    <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} />
-    <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} />
+    <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} data-testId="hds-accordion-2" />
+    <Accordion {...args} card border style={{ maxWidth: '360px', borderTop: 0 }} data-testId="hds-accordion-3" />
   </>
 );
 
@@ -52,11 +55,11 @@ export const CardAccordion = (args: AccordionProps) => (
     <h2>Card</h2>
     <Accordion {...args} card />
     <h2>Small card with border</h2>
-    <Accordion {...args} card border size={AccordionSize.Small} />
+    <Accordion {...args} card border size={AccordionSize.Small} data-testId="hds-accordion-2" />
     <h2>Medium card with border</h2>
-    <Accordion {...args} card border size={AccordionSize.Medium} />
+    <Accordion {...args} card border size={AccordionSize.Medium} data-testId="hds-accordion-3" />
     <h2>Large card with border</h2>
-    <Accordion {...args} card border size={AccordionSize.Large} />
+    <Accordion {...args} card border size={AccordionSize.Large} data-testId="hds-accordion-4" />
   </>
 );
 CardAccordion.storyName = 'Card';
@@ -107,6 +110,7 @@ export const CustomTheme = (args: AccordionProps) => (
         '--close-button-background-color-focus': 'var(--color-white)',
         '--close-button-outline-color-focus': 'var(--color-brick)',
       }}
+      data-testId="hds-accordion-2"
     />
   </>
 );
@@ -164,3 +168,14 @@ export const CustomAccordion = () => {
 };
 CustomAccordion.storyName = 'Custom accordion';
 CustomAccordion.args = {};
+
+export const PlayWrightOnly = (args: AccordionProps) => {
+  return (
+    <PlayWrightComponentHandler>
+      <Accordion {...args} card />
+    </PlayWrightComponentHandler>
+  );
+};
+
+// does not work with current Storybook v6
+hideStoryFromStorybook(PlayWrightOnly);
