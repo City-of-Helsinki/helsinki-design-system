@@ -1,12 +1,11 @@
 
 #!/bin/sh
 HDS_ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." &> /dev/null && pwd )"
+HDS_DIR_BASENAME="$(basename "$HDS_ROOT_DIR")"
 
 PACKAGE=$1
 COMPONENT=$2
 COMMAND=""
-
-# PACKAGE=${PACKAGE} COMPONENT=${COMPONENT} yarn update-snapshot:react
 
 # if packaga and component are not provided, run all snapshots
 if [ -z "$PACKAGE" ] && [ -z "$COMPONENT" ]; then
@@ -23,6 +22,4 @@ if [ -n "$PACKAGE" ] && [ -n "$COMPONENT" ]; then
     COMMAND="PACKAGE=${PACKAGE} COMPONENT=${COMPONENT} yarn update-snapshots-component"
 fi
 
-docker run -v ${HDS_ROOT_DIR}:/helsinki-design-system -it --rm --ipc=host mcr.microsoft.com/playwright:v1.48.2-jammy /bin/bash -c "cd /helsinki-design-system/e2e && ${COMMAND}"
-
-# --update-snapshots
+docker run -v ${HDS_ROOT_DIR}:/${HDS_DIR_BASENAME} -it --rm --ipc=host mcr.microsoft.com/playwright:v1.48.2-jammy /bin/bash -c "cd /${HDS_DIR_BASENAME}/e2e && ${COMMAND}"
