@@ -27,6 +27,15 @@ Changes that are not related to specific components
 
 - [ssr] Login component works with SSR rendering
 - [Login] External modules with Strict mode throwed an error
+- [Login] Event listeners with Strict mode were lost in double render
+
+### Hds-js
+
+#### Fixed
+
+- [ssr] Login component works with SSR rendering
+- [Login] External modules with Strict mode throwed an error
+- [Login] Event listeners with Strict mode were lost in double render
 
 ## [3.11.0] - Oct, 31, 2024
 
