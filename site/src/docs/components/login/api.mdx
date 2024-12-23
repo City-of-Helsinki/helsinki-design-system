@@ -70,14 +70,16 @@ export const CustomisationPageAnchorLink = ({ anchor, children }) => {
   - <AnchorLink>Oidc Client</AnchorLink>
   - <AnchorLink>Api tokens client</AnchorLink>
   - <AnchorLink>Session poller</AnchorLink>
-  - <AnchorLink>ApolloClient module</AnchorLink>
   - <AnchorLink>GraphQL module</AnchorLink>
+  - <AnchorLink>ApolloClient module</AnchorLink>
+  - <AnchorLink>TokenizedFetch module</AnchorLink>
 
 - <AnchorLink>Oidc client hooks</AnchorLink>
 - <AnchorLink>Api tokens client hooks</AnchorLink>
 - <AnchorLink>Session poller hooks</AnchorLink>
-- <AnchorLink>ApolloClient module hooks</AnchorLink>
 - <AnchorLink>GraphQL module hooks</AnchorLink>
+- <AnchorLink>ApolloClient module hooks</AnchorLink>
+- <AnchorLink>TokenizedFetch module hooks</AnchorLink>
 - <AnchorLink>Generic signal hooks</AnchorLink>
 
 - <AnchorLink>Beacon</AnchorLink>
@@ -163,7 +165,8 @@ There are four modules to handle the user's needs:
 - <AnchorLink>Api tokens client</AnchorLink> for acquiring backend tokens.
 - <UsagePageAnchorLink>ApolloClient module</UsagePageAnchorLink> to provide the client and auto-append api tokens to queries.
 - <AnchorLink>GraphQL module</AnchorLink> for fetching data from a graphQL server. Fetching can be automatically linked to
-  the Api Tokens client.
+- <AnchorLink>TokenizedFetch module</AnchorLink> for fetching data from a server. Requests are automatically linked to the
+  Api Tokens client.
 
 All modules can be used without React and without each other. But a <OidcClientTsLink>>user</OidcClientTsLink> object is required to get API tokens and poll the session.
 
@@ -792,11 +795,9 @@ If the given signal is not from the `GraphQL module` or is not given type, the f
 
 Appending api tokens to every query and manually waiting for api token renewal is a complicated task. The ApolloClient module links itself to the Api token client and automatically appends tokens and also awaits for token renewals.
 
-The module can also be used without api tokens.
+The module can also be used without api tokens. This module does not emit signals.
 
-This module does not emit signals.
-
-Unlike the `Api token client` and `Session Poller`, the `ApolloClient Module` must be manually added to the `<LoginProvider>`. Preferably use the <UsagePageAnchorLink>LoginProviderWithApolloContext</UsagePageAnchorLink> which also creates the `ApolloContext`.
+The `ApolloClient Module` must be manually added to the `<LoginProvider>`. Preferably use the <UsagePageAnchorLink>LoginProviderWithApolloContext</UsagePageAnchorLink> which also creates the `ApolloContext`.
 
 <PlaygroundPreview>
 
@@ -813,9 +814,9 @@ const options = {
     };
   },
 };
-const tokenizedFetchModule = createApolloClientModule(options);
+const apolloClientModule = createApolloClientModule(options);
 
-<LoginProviderWithApolloContext {...loginProps} modules={[ApolloClientModule]}></LoginProviderWithApolloContextx  >;
+<LoginProviderWithApolloContext {...loginProps} modules={[apolloClientModule]}></LoginProviderWithApolloContextx  >;
 ```
 
 </PlaygroundPreview>
@@ -848,6 +849,105 @@ The `createApolloClientModule` function is a Generic Typescript function: `creat
 
 The ApolloClient does not emit any signals. Therefore there are no hooks or triggers related to signals.
 
+#### TokenizedFetch Module
+
+Loading data from a server may require user authentication and api tokens. The TokenizedFetch module listens to the Api token client and appends api tokens to the request headers.
+
+The `TokenizedFetch Module` must be manually added to the `<LoginProvider>`.
+
+<PlaygroundPreview>
+
+```jsx
+import { createTokenizedFetchModule } from 'hds-react';
+
+const options = {
+  tokenSetter: (headers, apiTokens) => {
+    return {
+      Authentication: apiTokens['tokenToAppend'],
+    };
+  },
+};
+const tokenizedFetchModule = createTokenizedFetchModule(options);
+
+<LoginProvider {...loginProps} modules={[tokenizedFetchModule]}></LoginProvider>;
+```
+
+</PlaygroundPreview>
+
+##### Settings
+
+| Property                                   | Type                                                           | Description                                                                                                                                                                     | Default value |
+| ------------------------------------------ | -------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
+| `preventQueriesWhileRenewing`              | `string`                                                       | If true, a ApolloLink is added to wait for possible api token renewal to end. If false, there might be times when queries are made with old api tokens. Unlikely, but possible. | `true`        |
+| `tokenSetter`                              | `(headers:unknown, tokens:TokenData) => Record<string,string>` | The returned object is appended to the headers. First argument type depends on the request. Can be an object or Headers.                                                        | -             |
+| [Table 51: TokenizedFetch module settings] |
+
+##### Methods
+
+| Property                                  | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Argument(s)             | Return value            |
+| ----------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------- | ----------------------- |
+| `tokenizedFetch`                          | Proxy to the native `fetch` function. Headers returned from the optional `tokenSetter` are appended to the Headers passed as args.                                                                                                                                                                                                                                                                                                                                                                                                     | Same as native `fetch`. | Same as native `fetch`. |
+| `tokenizedFetchWithSignals`               | Calls the tokenizedFetch, but also emits start and end signals. If fetch fails, an error signal is emitted. Aborted requests are emitted as event signals. Abort and start signals can be distinguished from actual responses with `isTokenizedFetchStartedSignal(signal)` and `isTokenizedFetchAbortedSignal(signal)`. Automatic response handling uses the `response.json()` to parse response from data. If the data is not json, do not use automation and this function. Use `emitResponse(promise.then(<your parse function>))`. | -                       | -                       |
+| `getTracker`                              | Returns the apiTokenClient tracker.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | -                       | -                       |
+| `reset`                                   | Emits reset signal and resets the apiTokenTracker.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | -                       | -                       |
+| `isAbortError`                            | Utility to test was the returned error an AbortError.                                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | -                       | -                       |
+| `emitResponse`                            | The promise returned from tokenizedFetch can be passed to this function which will emit the results as event signals or error signals.                                                                                                                                                                                                                                                                                                                                                                                                 | -                       | -                       |
+| `emitFetchStart`                          | Emits a signal where `payload.type = ${responseSignalType}\_STARTED`.                                                                                                                                                                                                                                                                                                                                                                                                                                                                  | -                       | -                       |
+| `addAbortSignal`                          | Adds abort signal to FetchInit props and returns a function that will abort the request.                                                                                                                                                                                                                                                                                                                                                                                                                                               | -                       | -                       |
+| [Table 52: TokenizedFetch module methods] |
+
+##### Other exported utility functions
+
+The following functions can be imported and used without the `TokenizedFetch module` module:
+
+| Function                                          | Description                                                     | Argument(s)                 | Return value           |
+| ------------------------------------------------- | --------------------------------------------------------------- | --------------------------- | ---------------------- |
+| `createTokenizedFetchModule(options)`             | Creates the module.                                             | `TokenizedFetchModuleProps` | `TokenizedFetchModule` |
+| `isTokenizedFetchStartedSignal(signal)`           | Returns true if the signal was emitted to indicate fetch start. | `Signal`                    | `boolean`              |
+| `isTokenizedFetchAbortedSignal(signal)`           | Returns true if the signal was emitted to indicate fetch abort. | `Signal`                    | `boolean`              |
+| [Table 53: Other TokenizedFetch module functions] |
+
+##### State change signals
+
+The `TokenizedFetch module` has no state changes.
+
+##### Error signal
+
+The module emits only one kind of error. They are instances of the `TokenizedFetchModuleError`. It is an extended Error object with type property and a `hasResponseIdentifierMatch` helper function to identify fetch calls. The error object also contains the thrown error in `error.originalError` property.
+
+The `hasResponseIdentifierMatch(type:string)=>boolean` returns true if the error originated from a fetch with given id. Ids are used only when using `tokenizedFetchWithSignals` or `emitResponse`.
+
+##### Event signals
+
+The `TokenizedFetch module` also emits events only when the `tokenizedFetchWithSignals` is used. Events can also be manually emitted with `emitFetchStart` or `emitResponse`
+
+The simplest way to track signals is <UsagePageAnchorLink anchor="useTokenizedFetchTracking">with hooks</UsagePageAnchorLink>.
+
+##### Dedicated signal triggers
+
+Triggers for `TokenizedFetch module` signals. These trigger signals only originated from the `TokenizedFetch module`.
+
+| Generic triggers                           | Required signal props to trigger the listener       |
+| ------------------------------------------ | --------------------------------------------------- |
+| `triggerForAllTokenizedFetchErrors`        | `TokenizedFetch module` namespace and type `error`. |
+| `triggerForAllTokenizedFetchEvents`        | `TokenizedFetch module` namespace and type `event`. |
+| `triggerForAllTokenizedFetchSignals`       | `TokenizedFetch module` namespace.                  |
+| [Table 54: TokenizedFetch module triggers] |
+
+The `createTriggerPropsForTokenizedFetchResponseSignals(identifier: string): SignalTrigger` creates a `SignalTrigger` that returns true if the signal is an event signal from the `TokenizedFetch Module` and its payload has given identifier.
+
+##### Getting signal payloads
+
+Sometimes the most significant part of a signal is the payload. There are predefined payload getters for the `TokenizedFetch module`.
+If the given signal is not from the `TokenizedFetch module` or is not given type, the function returns null. So there is no need to pre-check the signal namespace or type.
+
+| Payload getter                                           | Returns                                                                                                    |
+| -------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------- |
+| `getTokenizedFetchModuleEventPayload`                    | `null` or `EventPayload`. The payload may be a `Response` or information about `start` or `abort` signals. |
+| `getTokenizedFetchModuleErrorPayload`                    | `null` or `Error`.                                                                                         |
+| `getTokenizedFetchPayloadData`                           | `null` or the actual server `Response`.                                                                    |
+| [Table 55: TokenizedFetch module signal payload getters] |
+
 #### Oidc client hooks
 
 | Hook                          | Description                                                                                                                                                       | Return value                                        |
@@ -856,7 +956,7 @@ The ApolloClient does not emit any signals. Therefore there are no hooks or trig
 | `useCachedAmr`                | Returns the user's `amr` value. It is cached because in some cases it must be decrypted from `id_token`.                                                          | `string[]`                                          |
 | `useOidcClient`               | Returns the `Oidc client`.                                                                                                                                        | `OidcClient`                                        |
 | `useOidcClientTracking`       | Returns an array of `[Signal, resetFunction, oidcClient instance]`. The hook forces the component using it to re-render each time the listener is triggered.      | `[Signal or undefined, ()=>void, OidcClient]`       |
-| [Table 51: Oidc client hooks] |
+| [Table 56: Oidc client hooks] |
 
 The usage of the `Oidc client` hooks is described in the <UsagePageAnchorLink anchor="useoidcclient">usage</UsagePageAnchorLink> section.
 
@@ -867,7 +967,7 @@ The usage of the `Oidc client` hooks is described in the <UsagePageAnchorLink an
 | `useApiTokens`                      | Returns functions for checking tokens and the status of renewal.                                                                                                  | `{getStoredApiTokens(), isRenewing()}`             |
 | `useApiTokensClient`                | Returns the `Api tokens client`.                                                                                                                                  | `ApiTokensClient`                                  |
 | `useApiTokensClientTracking`        | Returns an array of `[Signal, resetFunction, apiTokensClient instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[Signal or undefined, ()=>void, ApiTokensClient]` |
-| [Table 52: Api tokens client hooks] |
+| [Table 57: Api tokens client hooks] |
 
 The usage of the `Api tokens client` hooks is described in the <UsagePageAnchorLink anchor="useapitokensclient">usage</UsagePageAnchorLink> section.
 
@@ -877,7 +977,7 @@ The usage of the `Api tokens client` hooks is described in the <UsagePageAnchorL
 | -------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------ |
 | `useSessionPoller`               | Returns the `Session poller`.                                                                                                                                   | `SessionPoller`                                  |
 | `useSessionPollerTracking`       | Returns an array of `[Signal, resetFunction, sessionPoller instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[Signal or undefined, ()=>void, SessionPoller]` |
-| [Table 53: Session poller hooks] |
+| [Table 58: Session poller hooks] |
 
 The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink anchor="usesessionpoller">usage</UsagePageAnchorLink> section.
 
@@ -888,7 +988,7 @@ The usage of the `Session poller` hooks is described in the <UsagePageAnchorLink
 | `useGraphQLModule`               | Returns the `GraphQL module`.                                                                                                                                                                                                                                                     | `GraphQLModule`                                     |
 | `useGraphQLModuleTracking`       | Returns `[Signal, resetFunction, GraphQL module instance]`. The hook forces the component using it to re-render each time the listener is triggered.                                                                                                                              | `[signal, reset function, GraphQL module instance]` |
 | `useGraphQL`                     | Mimics the <ExternalLink href="https://www.apollographql.com/docs/react/data/queries#manual-execution-with-uselazyquery">useLazyQuery</ExternalLink> hook of the Apollo GraphQL library. The hook forces the component using it to re-render each time the module emits a signal. | `[query, {data, error, loading, refetch}]`          |
-| [Table 54: GraphQL module hooks] |
+| [Table 59: GraphQL module hooks] |
 
 The usage of the `GraphQL module` hooks is described in the <UsagePageAnchorLink anchor="usegraphql">usage</UsagePageAnchorLink> section.
 
@@ -898,9 +998,20 @@ The usage of the `GraphQL module` hooks is described in the <UsagePageAnchorLink
 | ------------------------------------- | ----------------------------------- | -------------------- |
 | `useApolloClientModule`               | Returns the `ApolloClient module`.  | `ApolloClientModule` |
 | `useApolloClient`                     | Returns the created `ApolloClient`. | `ApolloClient`       |
-| [Table 55: ApolloClient module hooks] |
+| [Table 60: ApolloClient module hooks] |
 
 The usage of the `ApolloClient module` hooks is described in the <UsagePageAnchorLink anchor="useapolloclient">usage</UsagePageAnchorLink> section.
+
+#### TokenizedFetch module hooks
+
+| Hook                                    | Description                                                                                                                                                 | Return value                                               |
+| --------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------- |
+| `useTokenizedFetchModule`               | Returns the `TokenizedFetch module`.                                                                                                                        | `TokenizedFetch`                                           |
+| `useTokenizedFetch`                     | Returns a function identical to the native `fetch` function..                                                                                               | The native `fetch` function                                |
+| `useTokenizedFetchModuleTracking`       | Returns `[Signal, resetFunction, TokenizedFetch module instance]`. The hook forces the component using it to re-render each time the listener is triggered. | `[signal, reset function, TokenizedFetch module instance]` |
+| `useTokenizedFetchWithSignals`          | This hook works just like the `useTokenizedFetch` except it emits signals so individual fetches can be tracked.                                             | `Promise<Response>`                                        |
+| `useTokenizedFetchResponseTracking`     | This hook works just like the `useTokenizedFetchModuleTracking` except it tracks only signals emitted by the module **and** with given identifier.          | `Signal`                                                   |
+| [Table 61: TokenizedFetch module hooks] |
 
 #### Generic signal hooks
 
@@ -909,7 +1020,7 @@ The usage of the `ApolloClient module` hooks is described in the <UsagePageAncho
 | `useSignalListener(listener)`                           | The listener function. There are no trigger props. The listener is always called when any signal is emitted in any namespace. The listener should return `true` if the component should re-render. | An array of `[Signal or undefined, ()=>void]`. Latter is a reset function that clears the signal and re-renders the component. |
 | `useSignalTrackingWithCallback(triggerProps, callback)` | Signal props need to match the incoming signal to trigger the callback function. The hook never causes a re-render. The callback must do it.                                                       | none                                                                                                                           |
 | `useSignalTrackingWithReturnValue(triggerProps)`        | Signal props need to match the incoming signal to trigger re-rendering. The hook creates a trigger from the props and re-renders if the trigger returns `true`.                                    | Same as above.                                                                                                                 |
-| [Table 56: Generic signal listener hooks]               |
+| [Table 62: Generic signal listener hooks]               |
 
 **Important!** The listener passed to `useSignalListener` must be memoized or the hook will attach a new listener on each render because the props changed. The old one is disposed of but to avoid unnecessary listeners, use memoization with `useMemo` or `useCallback`. Note that all `triggerFor...` functions are constants and do not need memoization.
 
@@ -932,7 +1043,7 @@ Modules are added and connected by calling `beacon.addContext(module)`. The beac
 | `emit(signal)`                      | A signal to emit.                                                                              | none                                         |
 | `getAllSignalContextsAsObject()`    | Returns all stored contexts as on object of `{[context.namespace]:context}`.                   | `Object`                                     |
 | `getSignalContext(module)`          | Returns context for the given namespace.                                                       | Context module or `undefined`.               |
-| [Table 57: Beacon methods]          |
+| [Table 63: Beacon methods]          |
 
 ##### Important
 
@@ -952,7 +1063,7 @@ A signal is an object with the following properties:
 | `namespace`                          | **Required**. The namespace is the name of the module that emitted the signal.                                                                                                              | `string`   |
 | `payload`                            | Optional. The payload contains metadata. For example type of the event. A payload can also be an Error object.                                                                              | unknown    |
 | `type`                               | **Required**. Type of the signal. Can be any string, but HDS emits `init`, `error`, `event` and `stateChange` signals.                                                                      | `string`   |
-| [Table 58: Signal object properties] |
+| [Table 64: Signal object properties] |
 
 ##### Signal types and payloads
 
@@ -962,7 +1073,7 @@ A signal is an object with the following properties:
 | `event`                               | `eventSignalType`       | Usually `{type:event type}` indicating what kind of event is emitted. May also have `data` property containing for example User or Tokens. |
 | `init`                                | `initSignalType`        | Emitted when all modules are connected and everything is ready. Emitted only once. Note that modules may emit other signals before this.   |
 | `stateChange`                         | `stateChangeSignalType` | `{state, previousState}` New state and the previous state, if any.                                                                         |
-| [Table 59: Signal types and payloads] |
+| [Table 65: Signal types and payloads] |
 
 Custom modules may emit any other kind of signal with different payloads.
 
@@ -995,6 +1106,7 @@ Instead of writing signal types as strings, it is better to use predefined trigg
 - <AnchorLink anchor="dedicated-signal-triggers-1">Api tokens client triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers-2">Session poller triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers-3">GraphQL module triggers</AnchorLink>.
+- <AnchorLink anchor="dedicated-signal-triggers-4">TokenizedFetch module triggers</AnchorLink>.
 - <AnchorLink anchor="dedicated-signal-triggers">Generic triggers</AnchorLink>.
 
 ##### Generic triggers
@@ -1009,7 +1121,7 @@ Generic `create...` functions create trigger functions from given props. Creator
 | `createStateChangeTriggerProps(namespace, state, previousState)` | Namespace to listen to. Given state and previousState must also match. Both are optional. | all namespaces |
 | `createTriggerForAllNamespaces()`                                | Listens to all signals in any namespace.                                                  | none           |
 | `createTriggerPropsForAllSignals(namespace)`                     | Namespace to listen to. If omitted listens to all signals.                                | all namespaces |
-| [Table 60: Generic trigger creators]                             |
+| [Table 66: Generic trigger creators]                             |
 
 See also <AnchorLink anchor="hooks">hooks</AnchorLink>.
 
@@ -1024,7 +1136,7 @@ Signals are easier to create with functions than by manually setting all propert
 | `createErrorSignal(namespace, payload)`                    | Creates an error signal with the given namespace and error payload.                |
 | `createEventSignal(namespace, payload)`                    | Creates an event signal with the given namespace and event payload.                |
 | `createStateChangeSignal(namespace, state, previousState)` | Creates a `stateChange` signal with the given namespace and `stateChange` payload. |
-| [Table 61: Generic signal creators]                        |
+| [Table 67: Generic signal creators]                        |
 
 ###### Check
 
@@ -1037,7 +1149,7 @@ Check the signal type or namespace with these utilities.
 | `isEventSignal(signal)`                 | Returns true if the given signal is an event signal.        |
 | `isNamespacedSignal(signal, namespace)` | Returns true if the given signal has given namespace.       |
 | `isStateChangeSignal(signal)`           | Returns true if the given signal is a `stateChange` signal. |
-| [Table 62: Generic signal checks]       |
+| [Table 68: Generic signal checks]       |
 
 ###### Get payloads
 
@@ -1048,7 +1160,7 @@ Returns signal payload if the signal type is a match.
 | `getErrorSignalPayload(signal)`       | Returns the payload if the given signal is an error signal. |
 | `getEventSignalPayload(signal)`       | Returns true if the given signal is an event signal.        |
 | `getStateChangeSignalPayload(signal)` | Returns true if the given signal is a `stateChange` signal. |
-| [Table 63: Generic payloads getters]  |
+| [Table 69: Generic payloads getters]  |
 
 ###### Convert and filter
 
@@ -1056,7 +1168,7 @@ Returns signal payload if the signal type is a match.
 | ---------------------------------------------- | ---------------------------------------------------------------------------------------------- |
 | `convertSignalToTrigger(signal)`               | Removes the `context` from the signal if the property exists. The given signal is not mutated. |
 | `filterSignals(arrayOfSignals, matchingProps)` | Filters signals from the array. Returns signals which match given props.                       |
-| [Table 64: Convert and filter signals]         |
+| [Table 70: Convert and filter signals]         |
 
 ##### waitForSignals
 
@@ -1078,7 +1190,7 @@ When the promise is resolved, it returns an array of received signals. If it is 
 | `options.allowSkipping`            | `boolean`  | If true, and triggers are in order A, B, C, D and signal "C" is received. "A", "B", "C" are all removed from the array and are not checked again. | `true`  |
 | `options.strictOrder`              | `boolean`  | If true, signals are not tracked in strict order. If true and signals are received in the wrong order, the promise is rejected.                   | `false` |
 | `options.rejectOn`                 | `Object[]` | Array of signals/signal props, which cause promise rejection, if a match is found.                                                                | none    |
-| [Table 65: waitForSignals utility] |
+| [Table 71: waitForSignals utility] |
 
 There is no timeout. The promise can be rejected by setting a custom signal type to `options.rejectOn` and emit a matching signal.
 
