@@ -25,7 +25,8 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [ssr] Login component works with SSR renderin
+- [ssr] Login component works with SSR rendering
+- [Login] External modules with Strict mode throwed an error
 
 ## [3.11.0] - Oct, 31, 2024
 
