@@ -9,19 +9,17 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
+- [LoginProviderWithApolloContext] Login Provider with automatic ApolloClient context.
+- [ApolloClientModule] New Login module for auto-appending api tokens to query headers.
+- [ApiTokenClientTracker] Util to track api token changes and renewals.
 
 #### Changed
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [GraphQLModule] Use the ApolloClient Module when available
 
 #### Fixed
 
@@ -31,11 +29,20 @@ Changes that are not related to specific components
 
 ### Hds-js
 
+#### Added
+
+- [ApolloClientModule] New Login module for auto-appending api tokens to query headers.
+- [ApiTokenClientTracker] Util to track api token changes and renewals.
+
 #### Fixed
 
 - [ssr] Login component works with SSR rendering
 - [Login] External modules with Strict mode throwed an error
 - [Login] Event listeners with Strict mode were lost in double render
+
+#### Changed
+
+- [GraphQLModule] Use the ApolloClient Module when available
 
 ## [3.11.0] - Oct, 31, 2024
 
