@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.12.0] - xxx, xxx, 2025
+
+### React
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [ssr] Login component works with SSR renderin
+
 ## [3.11.0] - Oct, 31, 2024
 
 ### React
