@@ -105,14 +105,13 @@ const languages: LanguageOption[] = [
 
 const loginProviderProps: LoginProviderProps = {
   userManagerSettings: {
-    authority: 'https://tunnistamo.dev.hel.ninja/',
-    client_id: 'exampleapp-ui-dev',
-    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofiledev https://api.hel.fi/auth/exampleappdev',
-    redirect_uri: `${window.origin}/static-login/callback.html`,
-    silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
-    post_logout_redirect_uri: `${window.origin}/static-login/logout.html`,
+    authority: 'https://tunnistamo.test.hel.ninja/',
+    client_id: 'exampleapp-ui-test',
+    scope: 'openid profile email https://api.hel.fi/auth/helsinkiprofile https://api.hel.fi/auth/exampleapptest',
+    redirect_uri: `${window.origin}/storybook/react/static-login/callback.html`,
+    silent_redirect_uri: `${window.origin}/storybook/react/static-login/silent_renew.html`,
   },
-  apiTokensClientSettings: { url: 'https://tunnistamo.dev.hel.ninja/api-tokens/' },
+  apiTokensClientSettings: { url: 'https://tunnistamo.test.hel.ninja/api-tokens/' },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
 
