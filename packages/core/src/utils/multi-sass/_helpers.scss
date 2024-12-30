@@ -89,11 +89,13 @@
   @return can-value-be-falsy($value) != true;
 }
 
-/// empty () do not have type-of map, it is a list
+/// helper to create an empty map.
+/// Calling just $empty:() do not create a map with type-of "map", it is a list.
 @function create-empty-map() {
   @return map.merge((), ());
 }
 
+/// converts a argument list to a map
 @function arg-list-to-map($args...) {
   @return meta.keywords($args);
 }
