@@ -8,7 +8,7 @@
 @use './selectors.scss' as selectors;
 
 /*
-* Functions to create and update levels and their nesting.
+* Functions to create and update levels and handle their nesting.
 */
 
 $EMIT_TARGET_NESTED: 'EMIT_TARGET_NESTED';

@@ -53,8 +53,8 @@
   @return globals.store-multi-sass-controller($rules, $levels, $config);
 }
 
-// Called when all rules / scss started with init-multi-sass() is at its end
-// must be called at the end or nested  init-multi-sass() will gt mixed up.
+// Must be called when the init-multi-sass() is at its end
+// or nested init-multi-sass() blocks will get mixed up.
 @function end-multi-sass() {
   @return globals.remove-current-controller();
 }
@@ -77,32 +77,36 @@
   }
 }
 
-// emits a pure css block
+// emits a pure css content
 @mixin content($element: '') {
   @include start-emit-end($content: $element) {
     @content;
   }
 }
 
+// emits a modifier
 @mixin modifier($modifier) {
   @include start-emit-end($modifier: $modifier) {
     @content;
   }
 }
 
+// emits an element
 @mixin element($element) {
   @include start-emit-end($element: $element) {
     @content;
   }
 }
 
+// handles extra and emits its contents
 @mixin extra($extra) {
   @include start-emit-end($extra: $extra) {
     @content;
   }
 }
 
-/// Leave undocumented. Or document that usable when a level should be created and level findable
+/// Usable when a selector should findable as a level.
+/// If not needed, use plain css selectors.
 /// @internal
 @mixin custom($selector) {
   @include start-emit-end($custom: $selector) {
@@ -147,8 +151,8 @@
   }
 }
 
-// selector-list((('modifier': 'hello'), ('modifier': 'hello2'), ('element': 'elem'), ('custom': ' div'))) {...}
-// creates .hds-test--hello, .hds-test--hello2, .hds-test__elem, .hds-test div {...}
+/// selector-list((('modifier': 'hello'), ('modifier': 'hello2'), ('element': 'elem'), ('custom': ' div'))) {...}
+/// creates .hds-test--hello, .hds-test--hello2, .hds-test__elem, .hds-test div {...}
 @mixin selector-list($list) {
   $selector: '';
   $config: globals.get-multi-sass-config();
@@ -187,11 +191,9 @@
   $void: process.end();
 }
 
-// gets nearest entity by type and name (if given) and appends to its selector with given separator
-// the level to append is given as $typeAndName ($type:'modifier', name:null/true/string)
-// the entity is given as $block, $modifier, etc.
-// leave undocumented
-// @internal
+/// finds the closest entity that matches $args and appends to its selector with given separator
+/// used via other mixins below
+/// @internal
 @mixin linked-entities($typeAndName, $separator, $args...) {
   $currentLevel: process.get-current-level();
   $currentLevelSelector: if($currentLevel, levels.get-level-selector($currentLevel), '&');
@@ -225,24 +227,21 @@
   }
 }
 
-// to create .<selectors>.<selectors>
-// should not be nested with another using linked-entities (?)
+// creates compound selectors like .<selector1>.<selector2>
 @mixin compound-entity($args...) {
   @include linked-entities($separator: '', $args...) {
     @content;
   }
 }
 
-// to create .<selectors> .<selectors>
-// should not be nested with another using linked-entities (?)
+// creates descendant selectors like .<selector1> .<selector2>
 @mixin descendant-entity($args...) {
   @include linked-entities($separator: ' ', $args...) {
     @content;
   }
 }
 
-// to create .hds-myBlock--previousModifier.hds-myBlock--compoundModifier
-// should not be nested with another using linked-entities (?)
+/// Creates component selectors like .hds-myBlock--previousModifier.hds-myBlock--compoundModifier
 @mixin compound-block-modifier($modifier, $block: true) {
   $typeAndName: (
     'type': 'modifier',
@@ -254,11 +253,13 @@
   }
 }
 
-//  @include modifier('element-sibling-modifier') {
-//    @include descendant-modifier-element('compound-element') {
-//  }
-// .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element
-// should not be nested with another using linked-entities (?)
+/// copies closest modifier and apppends an element to it and appends selector as a descendant
+/// @include modifier('element-sibling-modifier') {
+///     @include descendant-modifier-element('compound-element') {
+///     }
+/// }
+/// results in
+/// .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element
 @mixin descendant-modifier-element($element, $modifier: true) {
   $typeAndName: (
     'type': 'element',
@@ -270,9 +271,14 @@
   }
 }
 
-// @include modifier('modifier') {
-//  @include block-element('block-element') {
-// .hds-test--modifier .hds-test__block-element {
+/// creates a element for the closest block. Can be called inside any entity.
+/// Calling it inside "modifier":
+///
+/// @include modifier('modifier') {
+///   @include block-element('block-element')
+///
+/// Results in
+/// .hds-test--modifier .hds-test__block-element
 @mixin block-element($element, $block: true) {
   $typeAndName: (
     'type': 'element',
@@ -299,12 +305,7 @@
   }
 }
 
-// @include descendant('') {
-//    @include repeat($block: true) {
-//      @include descendant('') {
-//       @include repeat($block: true) {
-// .hds-test .hds-test .hds-test {
-// find and repeat closest type:name
+/// finds the closest entity that matches $args and repeats its selector again
 @mixin repeat($args...) {
   $closest: levels.find-closest-in-current($args...);
 
@@ -323,9 +324,9 @@
   }
 }
 
-/// @include repeat-with-replace($original: '-test', $replacement: '-replacement', $block: true) {
-/// .hds-test.hds-replacement {
-// find closest type:name and repeat with replaced selector
+/// finds the closest entity that matches $args and repeats its selector with given replacer
+/// .hds-test with @include repeat-with-replace($original: '-test', $replacement: '-replacement', $block: true) {
+/// results in .hds-test.hds-replacement {}
 @mixin repeat-with-replace($original, $replacement, $args...) {
   $closest: levels.find-closest-in-current($args...);
 
@@ -353,6 +354,7 @@
   }
 }
 
+// mixin for creating custom levels which are useful for custom css selectors
 // calls given func and appends the level and emits the content
 @mixin create-custom-level($levelCreator) {
   $ruleMap: globals.get-multi-sass-rules();
@@ -379,6 +381,7 @@
   }
 }
 
+/// shorthand to call init + end in one mixin
 @mixin multi-sass($args...) {
   $void: init-multi-sass($args...);
   @content;

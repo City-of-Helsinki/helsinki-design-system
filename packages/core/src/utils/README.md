@@ -1,53 +1,59 @@
 # Why
 
-The purpose of this library is to create css with sass functions that can emit partial css rules, all possible rules or both with renamed/custom css selectors.
+The purpose of this library is to create css with sass that can output partial css rules, all possible rules or anything in between. Classnames can even be renamed and custom css selectors can be added.
 
-For example the css
+One `@mixin` can output css for multiple purposes.
+
+The output can be
 
 ```css
+.my-button {
+  // contents of the base css
+}
+
 .my-button--primary--small__label {
-  // contents
+  // contents of one element within modifiers
 }
 ```
 
-can be split into following parts:
-
-- core css of the `my-button`
-- css for the `primary` variant
-- css for the `small` variant
-- css for the label element
+The multi-sass creates this by calling
 
 ```css
-// emits everything
-@include Button();
-// emits the "small" modifier and "label" element
-@include Button({$modifiers:'small', $elements:'label'});
+// emits the base css
+
+@include MyButton();
+
+// emits the "small" modifier and "label" element of the "primary" modifier
+
+@include MyButton({$modifiers:('small':true, primary:'true'), $elements:'label'});
 ```
 
 # About BEM
 
 BEM methology has three entities: "block", "modifier" and "element". This library is mainly created for BEM input/output and therefore the parameters are related to BEM.
 
-Read more about bem
+[Read more about bem methology](https://en.bem.info/methodology/).
 
 # How create mixins
 
-The final css is created with sass mixins which are then included where ever the css is needed.
+The css is created with sass mixins which are then included where ever the css output is needed.
 
 ### Example
 
-SCSS files should import the `_exports.scss` and have a `@mixin` with three named parameters. The parameters are passed to the `init-multi-sass` function that controls which css is emitted.
+SCSS files should import the `_exports.scss` and have a `@mixin` with three named parameters. The parameters are passed to the `init-multi-sass` function that controls which css is outputted.
 
 #### The SCSS file
 
-The following scss is saved as `my-button.scss`.
+Example of `my-button.scss`.
 
 ```css
-@use '../exports' as *;
+@use '<path>/multi-sass/exports' as *;
+
+// the default value of "true" means all modifiers, elements and extras should be outputted
 
 @mixin MyButton($elements: true, $modifiers: true, $extras: true) {
   // init and start the block css process
-  // returned value from a function must be handled, so "$void" has to be used here.
+  // "$void" has to be used here, because zthe returned value from a function must be handled.
   $void: init-multi-sass(
     $modifiers: $modifiers,
     $elements: $elements,
@@ -55,7 +61,7 @@ The following scss is saved as `my-button.scss`.
     $block: 'test',
   );
 
-  // block is usually the first selector
+  // block should be the first entity
   @include block {
     @include content {
       // base css for the block
@@ -81,10 +87,11 @@ The following scss is saved as `my-button.scss`.
 
 ```css
 @use '../my-button' as *;
-// emit all scss
-@include MyButton;
-// emit only "label" of the "primary" variant.
+// emit all css rules
 
+@include MyButton;
+
+// emit only the "label" of the "primary" variant.
 @include MyButton(
   $modifiers: (
     'primary': (
@@ -100,11 +107,11 @@ The following scss is saved as `my-button.scss`.
 
 The parameters of the mixins are called rules.
 
-`$modifiers` define the rules for the emitted css of all modifiers.
-`$elements` define the rules for the emitted css of all elements.
-`$extras` define the rules for other emitted css, like media queries or special cases.
+`$modifiers` define the rules for the outputted css of all modifiers.
+`$elements` define the rules for the outputted css of all elements.
+`$extras` define the rules for other outputted css, like media queries and special cases.
 
-In some cases you only want parts of the css, not everything. These rules control the emitted output. The output of a modifier, element or extra can be either allowed or disallowed. By default, all outputs is allowed.
+In some cases you only want parts of the css, not everything. These rules control the outputted output. The output of a modifier, element or extra can be either allowed or disallowed. By default, all outputs is allowed.
 
 ### Other parameters
 
@@ -191,15 +198,15 @@ Explanations below.
 
 If the value is a boolean, "true" allows everything and "false" disallows.
 
-If the value is a string, it names the allowed modifier/element. All other ones are disallowed and not emitted.
+If the value is a string, it names the allowed modifier/element. All other ones are disallowed and not outputted.
 
-If the value is a map, it has name/rule pairs that names explicitly what modifiers/elements are emitted.
+If the value is a map, it has name/rule pairs that names explicitly what modifiers/elements are allowed and outputted.
 
 **Very important rule to remember: if one named entity is allowed, all other ones are disallowed!**
 
 ### The "modifiers" rule
 
-Modifers to emit. By default all modifiers are emitted.
+Modifers to emit. By default all modifiers are outputted.
 
 The value can be a boolean, string or map.
 
@@ -209,13 +216,13 @@ Boolean true/false allows/disallows all modifiers. Default is
 $modifiers: true;
 ```
 
-If value is a string, only that modifier is emitted.
+If value is a string, only that modifier is outputted.
 
 ```css
 $modifiers: 'name of the modifier';
 ```
 
-If value is a map, modifiers are emitted according to the values.
+If value is a map, modifiers are outputted according to the values.
 
 ```css
 $modifiers: (
@@ -224,7 +231,7 @@ $modifiers: (
 );
 ```
 
-All modifiers except "modifierA" and "modifierB" are emitted.
+All modifiers except "modifierA" and "modifierB" are outputted.
 
 Note that the following settings are identical
 
@@ -255,7 +262,7 @@ $modifiers: (
 );
 ```
 
-Only modifiers "modifierA" and "modifierB" are emitted.
+Only modifiers "modifierA" and "modifierB" are outputted.
 
 **If a modifier is set, base elements are not allowed!**
 
@@ -272,7 +279,7 @@ $modifiers: (
 );
 ```
 
-The 'element' and only that element is emitted in the modifiers.
+The 'element' and only that element is outputted in the 'modifierA' and 'modifierB'.
 
 ### The "elements" rule
 
@@ -284,14 +291,15 @@ There is a special element named "base" which is for the base rules for block, m
 
 ```css
 .block {
-  block base rules
+  // block base rules
   color: #f00;
+  backgroud-color: #fff;
 
   .block--modifier {
-    modifier base rules
+    // modifier base rules
     background-color: #f00;
     .block__element {
-      element base rules
+      // element base rules
       padding: 0;
     }
   }
@@ -302,28 +310,6 @@ To control the output of base rules, `@content("base")` should be used. There is
 
 Usually base is only used in the block level, because other entities are controlled with "elements" and "modifiers".
 
---
-"base" is reserved element name to target rules for the base css of an entity
-CSS:
-.block--modifier-dark {
-padding:0;
-margin: 0;
-&\_\_element-button {
-}
-}
-
-The "padding" and "margin" are base css. In order to prevent them to be emitted, the should be marked as "base". See @exported.scss
-
-Elements can be allowed/disallowed in "modifiers", and the rules set in "modifiers" override "elements".
-
-("elements":"buttons","modifiers":"dark")
-Only the element "buttons" in the modifier named "dark" is emitted. The base css of the "modifierName" is not emitted.
-
-"elements":("buttons":true,"select":false) ,
-"modifiers":("dark":("buttons":false,"select":true),"light":("select":true))
-Emits only "select" element in "dark" and "light" modifiers.
---
-
 **If a modifier is set, base elements are not allowed!**
 
 !! content() is ruled with elements
@@ -331,7 +317,7 @@ Emits only "select" element in "dark" and "light" modifiers.
 
 ### The "extras" rule
 
-The "extras" should only be "name:true/false" values.
+The "extras" should only consist "name:true/false" values.
 
 ### What about "content"?
 
@@ -340,13 +326,6 @@ The argument for the `@contents($elementName)` is an element's name. Usually onl
 ### Values
 
 ## Special cases
-
-### No need for block's base styles / base styles NOT outputted
-
-If any modifier's in the parameters are explicitly set to "true"/"string", the block's base styles are NOT outputted.
-If parameter "modifiers" is omitted, all base styles are outputted
-If parameter "modifiers" is "true", all base styles are outputted
-If parameter "modifiers" is a map and any ("modifierName":true/string), base styles are NOT outputted
 
 #### Need block base styles and a modifier together?
 
