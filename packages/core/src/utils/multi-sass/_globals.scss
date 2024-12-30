@@ -7,10 +7,16 @@
 /*
 * Global variables
 * 
-* Controls, parses and sets global properties.
+* Controls, parses and sets the global properties and controllers.
+* Each mixing that calls the init-multi-sass creates a new controller.
+* Multiple controllers are needed so nesting "init-multi-sass" inside another "init-multi-sass" works.
+* Each controller needs their own config and tracking of levels.
 */
 
+/// list of controllers initialized from init-multi-sass
 $CONTROLLER_LIST: [];
+
+/// constants
 $HAS_EXPLICIT_TRUE: 'HAS_EXPLICIT_TRUE';
 $ALL_ALLOWED: 'ALL_ALLOWED';
 $ALL_DISALLOWED: 'ALL_DISALLOWED';
@@ -28,7 +34,7 @@ $EMIT_CONTENT_ONLY_ALL: 'all';
 /// Global CONTROLLER_LIST functions
 /// ***
 
-/// Returs the global list
+/// Returs the global list of controllers
 /// @returns sass.list of controllers.
 @function get-controllers() {
   @return $CONTROLLER_LIST;
