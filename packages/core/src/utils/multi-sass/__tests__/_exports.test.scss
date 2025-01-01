@@ -83,7 +83,7 @@
     @include assert-equal(map.get($config, 'aliasInArgs'), null);
   }
 
-  @include it('alias is stored in confix') {
+  @include it('alias is stored in config') {
     $alias: (
       'a': 'a',
       'b': 'b',
