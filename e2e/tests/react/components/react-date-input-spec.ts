@@ -116,7 +116,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await inputUtil.selectDayWithMouse(13);
     await inputUtil.getCloseButtonLocator().click();
     const value = await inputUtil.getSelectedDateString();
-    expect(value).toBe('02.02.2024');
+    expect(value).toBe('02.02.2025');
   });
   test('Does not set the input value when clicked outside the modal', async ({ page, isMobile }, testInfo) => {
     if (isMobile) {
@@ -132,7 +132,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return (await inputUtil.isDialogOpen()) === false;
     });
     const value = await inputUtil.getSelectedDateString();
-    expect(value).toBe('02.02.2024');
+    expect(value).toBe('02.02.2025');
   });
   test('Select day with mouse when disableConfirmation is true closes the dialog when date is selected', async ({
     page,
@@ -236,7 +236,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     const inputUtil = createDateInputHelpers(page, selector);
     await inputUtil.setSelectedDateString({ month: 2, day: 2 });
     const value = await inputUtil.getSelectedDateString();
-    expect(value).toBe('02.02.2024');
+    expect(value).toBe('02.02.2025');
     await page.getByTestId('external-clear-button').click();
     await waitFor(async () => {
       return (await inputUtil.getSelectedDateString()) === '';
