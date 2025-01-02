@@ -155,6 +155,7 @@ Changes that are not related to specific components
 #### Added
 
 - Technology tags to all components
+- Traficom contact information to accessibility statement
 
 ### Figma
 
