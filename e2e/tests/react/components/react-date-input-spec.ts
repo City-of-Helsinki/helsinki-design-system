@@ -83,7 +83,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     createTimeControls(page, { day: 10, month: 12, year: 2024 });
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
-    await inputUtil.selectDayWithKeyboard(12);
+    await inputUtil.selectDayWithKeyboard(12, 12, 2024);
     const screenshotName = createScreenshotFileName(testInfo, isMobile, 'day 12 selected');
     const clip = await inputUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
@@ -116,7 +116,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await inputUtil.selectDayWithMouse(13);
     await inputUtil.getCloseButtonLocator().click();
     const value = await inputUtil.getSelectedDateString();
-    expect(value).toBe('02.02.2025');
+    expect(value).toBe('02.02.2024');
   });
   test('Does not set the input value when clicked outside the modal', async ({ page, isMobile }, testInfo) => {
     if (isMobile) {
@@ -132,7 +132,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return (await inputUtil.isDialogOpen()) === false;
     });
     const value = await inputUtil.getSelectedDateString();
-    expect(value).toBe('02.02.2025');
+    expect(value).toBe('02.02.2024');
   });
   test('Select day with mouse when disableConfirmation is true closes the dialog when date is selected', async ({
     page,
@@ -145,7 +145,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await gotoStorybookUrlByName(page, storyWithoutConfirmation, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
     await inputUtil.openDialog();
-    await inputUtil.clickDay(2, undefined, undefined, true);
+    await inputUtil.clickDay(2, 12, 2024, true);
     await waitFor(() => {
       return isLocatorFocused(inputUtil.getButtonLocator());
     });
@@ -313,20 +313,22 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     const inputUtil = createDateInputHelpers(page, selector);
     await inputUtil.openDialog();
     const saturdays = await inputUtil.getAllDayNumberLocators(6).all();
+
     await Promise.all(
       saturdays.map((td) => {
         // disabled = there is a span instead of button
         return expect(td.locator('button')).toHaveCount(0);
       }),
     );
+
     const sundays = await inputUtil.getAllDayNumberLocators(0).all();
     await Promise.all(
       sundays.map((td) => {
         return expect(td.locator('button')).toHaveCount(0);
       }),
     );
-    const fridayThe6th = inputUtil.getDateButtonLocator(6);
-    const mondayThe9th = inputUtil.getDateButtonLocator(9);
+    const fridayThe6th = inputUtil.getDateButtonLocator(6, 12, 2024);
+    const mondayThe9th = inputUtil.getDateButtonLocator(9, 12, 2024);
     await fridayThe6th.focus();
     await page.keyboard.press('ArrowRight');
     await waitFor(() => {

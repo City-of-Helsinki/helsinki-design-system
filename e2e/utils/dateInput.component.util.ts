@@ -116,12 +116,12 @@ export function createDateInputHelpers(page: Page, selector: string) {
     };
   };
 
-  const getDateButtonSelector = (dayNumber: number, month?: number, year?: number) => {
+  const getDateButtonSelector = (dayNumber: number, month: number, year: number) => {
     const [day, strMonth, strYear] = getDateAsArray({ day: dayNumber, month, year });
     return `button[data-date="${strYear}-${strMonth}-${day}"]`;
   };
 
-  const getDateButtonLocator = (dayNumber: number, month?: number, year?: number) => {
+  const getDateButtonLocator = (dayNumber: number, month: number, year: number) => {
     const selector = getDateButtonSelector(dayNumber, month, year);
     return getDialogLocator().locator(selector);
   };
@@ -146,7 +146,7 @@ export function createDateInputHelpers(page: Page, selector: string) {
     return isDateButtonSelected(page.locator(buttonLocator));
   };
 
-  const clickDay = async (dayNumber: number, month?: number, year?: number, hasDisableConfirmation = false) => {
+  const clickDay = async (dayNumber: number, month: number, year: number, hasDisableConfirmation = false) => {
     const buttonLocator = page.locator(getDateButtonSelector(dayNumber, month, year));
     await buttonLocator.click();
     await waitFor(async () => {
@@ -166,7 +166,7 @@ export function createDateInputHelpers(page: Page, selector: string) {
     });
   };
 
-  const openDialogAndMoveFocusToFirstEnabledDay = async (month?: number, day = 1) => {
+  const openDialogAndMoveFocusToFirstEnabledDay = async (month: number, year: number) => {
     await closeDialog();
     await getInputLocator().focus();
     await page.keyboard.press('Tab');
@@ -184,30 +184,30 @@ export function createDateInputHelpers(page: Page, selector: string) {
     await page.keyboard.press('Tab');
     await page.keyboard.press('Tab');
     await waitFor(async () => {
-      return isLocatorFocused(page.locator(getDateButtonSelector(day, month)));
+      return isLocatorFocused(page.locator(getDateButtonSelector(1, month, year)));
     });
   };
-  const moveFocusFromDayOneToGivenDay = async (dayNumber: number, month?: number) => {
+  const moveFocusFromDayOneToGivenDay = async (dayNumber: number, month: number, year: number) => {
     const moveBy = dayNumber - 1;
     // move from day "1" to the target
     const navigation = [...new Array(moveBy)].map((item, index) => async () => {
       await page.keyboard.press('ArrowRight');
       await waitFor(async () => {
-        return isLocatorFocused(page.locator(getDateButtonSelector(index + 2, month)));
+        return isLocatorFocused(page.locator(getDateButtonSelector(index + 2, month, year)));
       });
     });
-    for (const pressFn of navigation) {
+    for (const pressFn of navigation) { 
       await pressFn();
     }
     await page.keyboard.press('Space');
     await waitFor(async () => {
-      return isDateButtonSelected(page.locator(getDateButtonSelector(dayNumber, month)));
+      return isDateButtonSelected(page.locator(getDateButtonSelector(dayNumber, month, year)));
     });
   };
 
-  const selectDayWithKeyboard = async (dayNumber: number, month?: number, closeDialogAfterSelection = false) => {
-    await openDialogAndMoveFocusToFirstEnabledDay(month);
-    await moveFocusFromDayOneToGivenDay(dayNumber, month);
+  const selectDayWithKeyboard = async (dayNumber: number, month: number, year: number, closeDialogAfterSelection = false) => {
+    await openDialogAndMoveFocusToFirstEnabledDay(month, year);
+    await moveFocusFromDayOneToGivenDay(dayNumber, month, year);
     if (closeDialogAfterSelection) {
       await page.keyboard.press('Tab');
       await page.keyboard.press('Space');
@@ -217,12 +217,12 @@ export function createDateInputHelpers(page: Page, selector: string) {
     }
   };
 
-  const selectDayWithMouse = async (dayNumber: number, month?: number, closeDialogAfterSelection = false) => {
+  const selectDayWithMouse = async (dayNumber: number, month?: number, year?: number, closeDialogAfterSelection = false) => {
     await openDialog();
-    const dt = await getPossibleDate(dayNumber, month);
+    const dt = await getPossibleDate(dayNumber, month, year);
     await clickDay(dt.day, dt.month, dt.year);
     await waitFor(async () => {
-      return isDateButtonSelected(page.locator(getDateButtonSelector(dt.day, dt.month)));
+      return isDateButtonSelected(page.locator(getDateButtonSelector(dt.day, dt.month, dt.year)));
     });
     if (closeDialogAfterSelection) {
       await closeDialog();
