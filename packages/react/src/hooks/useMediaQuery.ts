@@ -15,7 +15,6 @@ const isLesserThan = (a: number, b: number | undefined) => (typeof b !== 'undefi
 
 /**
  * Hook for checking if a certain viewport breakpoint has been met.
- *
  * @param {() => boolean} breakpointCheck
  * @returns
  */
@@ -43,10 +42,14 @@ const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
   return matches;
 };
 
+/**
+ * @internal
+ */
 export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl';
 
 /**
  * Hook for listening to when the viewport is less than given breakpoint.
+ * @internal
  * @param {Breakpoint} breakpoint
  * @returns
  */
@@ -55,12 +58,16 @@ export const useMediaQueryLessThan = (breakpoint: Breakpoint) =>
 
 /**
  * Hook for listening to when the viewport is greater than or equal to given breakpoint.
+ * @internal
  * @param {Breakpoint} breakpoint
  * @returns
  */
 export const useMediaQueryGreaterThan = (breakpoint: Breakpoint) =>
   useMediaQuery(() => isEqualOrGreaterThan(breakpointValues[breakpoint], getWindowInnerWidth()));
 
+/**
+ * @internal
+ */
 export const getCurrentMediaBreakpoint = () => {
   let key;
   let val;

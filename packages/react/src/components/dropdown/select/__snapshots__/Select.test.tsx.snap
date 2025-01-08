@@ -64,10 +64,10 @@ exports[`<Select /> spec renders the component without label when aria-labelledb
       <button
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="hds-select-4-label some-external-label-id hds-select-4-toggle-button"
-        aria-owns="hds-select-4-menu"
+        aria-labelledby="hds-select-5-label some-external-label-id hds-select-5-toggle-button"
+        aria-owns="hds-select-5-menu"
         class="button placeholder"
-        id="hds-select-4-toggle-button"
+        id="hds-select-5-toggle-button"
         type="button"
       >
         <svg
@@ -87,9 +87,9 @@ exports[`<Select /> spec renders the component without label when aria-labelledb
         </svg>
       </button>
       <ul
-        aria-labelledby="hds-select-4-label"
+        aria-labelledby="hds-select-5-label"
         class="menu"
-        id="hds-select-4-menu"
+        id="hds-select-5-menu"
         role="listbox"
         style="max-height: 260px;"
         tabindex="-1"

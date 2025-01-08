@@ -4,7 +4,7 @@ import React from 'react';
 import { act } from 'react-dom/test-utils';
 import { render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 import { DateInput } from './DateInput';
@@ -37,16 +37,14 @@ describe('<DateInput /> spec', () => {
 
   it('renders the component with default props', async () => {
     const { asFragment } = render(<DateInput id="date" />);
-    await act(async () => {
-      userEvent.click(screen.getByLabelText('Choose date'));
-    });
+    await userEvent.click(screen.getByLabelText('Choose date'));
     expect(asFragment()).toMatchSnapshot();
   });
 
   it('renders the component with additional props', async () => {
     const { asFragment } = render(<DateInput id="date" label="Foo" disableConfirmation />);
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Choose date'));
+      await userEvent.click(screen.getByLabelText('Choose date'));
     });
     expect(asFragment()).toMatchSnapshot();
   });

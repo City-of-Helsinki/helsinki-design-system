@@ -19,7 +19,7 @@ export function createChildrenWithUser(children: React.ReactNode | null, user: U
       return child;
     }
     if (childType === 'function') {
-      const renderResult = React.cloneElement((child as React.FC<Props>)({ user }) as React.ReactElement);
+      const renderResult = React.cloneElement((child as unknown as React.FC<Props>)({ user }) as React.ReactElement);
       return renderChild(renderResult, `key-${index}`);
     }
     if (!isValidElement(child)) {

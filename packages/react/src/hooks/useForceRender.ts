@@ -1,8 +1,9 @@
 import { useState, useCallback } from 'react';
-/*
-  Simple hook that re-renders component via useState
-*/
-function useForceRender() {
+/**
+ * @internal
+ * Simple hook that re-renders component via useState
+ */
+export default function useForceRender() {
   const [, forceUpdate] = useState<number>(0);
   const reRender = useCallback(() => {
     forceUpdate((p) => p + 1);
@@ -10,4 +11,3 @@ function useForceRender() {
 
   return reRender;
 }
-export default useForceRender;

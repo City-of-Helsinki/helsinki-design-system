@@ -3,10 +3,19 @@ import { useCallback, useEffect, useRef, useState } from 'react';
 import { cancellablePromise } from '../../utils/cancellablePromise';
 import { useDebouncedEffect } from '../../hooks/useDebouncedEffect';
 
+/**
+ * @internal
+ */
 export type GetSuggestionsFunction<SuggestionItemType> = (searchString: string) => Promise<SuggestionItemType[]>;
 
+/**
+ * @internal
+ */
 export const SUGGESTIONS_DEBOUNCE_VALUE = 200;
 
+/**
+ * @internal
+ */
 export const useSuggestions = <SuggestionItemType>(
   searchString: string,
   getSuggestions: GetSuggestionsFunction<SuggestionItemType>,

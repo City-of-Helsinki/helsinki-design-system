@@ -47,6 +47,7 @@ function parseClassName(arg: ClassNameArgType) {
  * - Strings are appended to the resulting string as given.
  * - For objects, every key with a truthy value is appended to the resulting string.
  * @returns string A space delimited string parsed from the given arguments.
+ * @internal
  */
 export default (...args: Array<ClassNameArgumentType>) => args.map(parseClassName).filter(Boolean).join(' ');
 
@@ -56,6 +57,7 @@ export default (...args: Array<ClassNameArgumentType>) => args.map(parseClassNam
  * included in parsed object as keys and tested against object's values for the same
  * @param styles A css class name object.
  * @returns A classNames function bound to the given css class name object.
+ * @internal
  */
 export const styleBoundClassNames = (styles: Record<string, unknown>) => {
   const boundClassNames = parseClassName.bind(styles);

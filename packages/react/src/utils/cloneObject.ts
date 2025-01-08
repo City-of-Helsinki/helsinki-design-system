@@ -6,6 +6,7 @@ type IterableObject = Record<any, any> &
 
 /**
  * Shallow clones objects, Headers, etc.
+ * @internal
  */
 
 export function shallowClone(source: IterableObject): IterableObject {
@@ -18,6 +19,7 @@ export function shallowClone(source: IterableObject): IterableObject {
 /**
  * Deep clones an object, but drops out values that are functions, undefined, instances.
  * Useful for example in tests where jest cannot compare objects with functions
+ * @internal
  */
 
 export function cloneWithJSONConversion(source: unknown): IterableObject {
@@ -29,6 +31,7 @@ export function cloneWithJSONConversion(source: unknown): IterableObject {
 
 /**
  * Deep clones source
+ * @internal
  */
 
 export function deepClone(source: unknown): IterableObject {
@@ -67,6 +70,7 @@ function copyIterableObject(source: IterableObject): IterableObject {
  * @param source IterableObject any object
  * @param iterator (obj: IterableObject, key: string, value: unknown) => unknown, any non-undefined value is set as obj[key]=value.
  * @param deep If true (default), the source is checked for nested objects
+ * @internal
  */
 
 export function cloneWithIterator(
@@ -93,6 +97,7 @@ export function cloneWithIterator(
  * @see cloneWithIterator
  * @param source IterableObject any object
  * @param deep If true (default), the source is checked for nested objects
+ * @internal
  */
 
 export function cloneObject(source: IterableObject, deep = true): IterableObject {

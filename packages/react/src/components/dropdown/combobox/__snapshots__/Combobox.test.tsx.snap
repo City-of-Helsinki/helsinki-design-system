@@ -76,15 +76,15 @@ exports[`<Combobox /> renders the component without label when aria-labelledby i
     >
       <input
         aria-autocomplete="list"
-        aria-controls="hds-combobox-4-menu"
+        aria-controls="hds-combobox-5-menu"
         aria-expanded="false"
         aria-haspopup="listbox"
-        aria-labelledby="hds-combobox-4-label some-external-label-id hds-combobox-4-input"
-        aria-owns="hds-combobox-4-menu"
+        aria-labelledby="hds-combobox-5-label some-external-label-id hds-combobox-5-input"
+        aria-owns="hds-combobox-5-menu"
         autocomplete="off"
         autocorrect="off"
         class="input"
-        id="hds-combobox-4-input"
+        id="hds-combobox-5-input"
         role="combobox"
         type="text"
         value=""
@@ -93,7 +93,7 @@ exports[`<Combobox /> renders the component without label when aria-labelledby i
         aria-expanded="false"
         aria-label="undefined: Open the combobox"
         class="button"
-        id="hds-combobox-4-toggle-button"
+        id="hds-combobox-5-toggle-button"
         tabindex="-1"
         type="button"
       >
@@ -114,9 +114,9 @@ exports[`<Combobox /> renders the component without label when aria-labelledby i
         </svg>
       </button>
       <ul
-        aria-labelledby="hds-combobox-4-label"
+        aria-labelledby="hds-combobox-5-label"
         class="menu"
-        id="hds-combobox-4-menu"
+        id="hds-combobox-5-menu"
         role="listbox"
         style="max-height: 260px;"
       />

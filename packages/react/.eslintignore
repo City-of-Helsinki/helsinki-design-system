@@ -2,3 +2,4 @@
 webpack.config.js
 .templates
 lib/
+**/*.stories.tsx

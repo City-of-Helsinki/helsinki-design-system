@@ -38,7 +38,7 @@ export enum AccordionSize {
 
 type Language = 'en' | 'fi' | 'sv';
 
-export type CommonAccordionProps = React.PropsWithChildren<{
+type CommonAccordionProps = React.PropsWithChildren<{
   /**
    * If `true` border will be drawn around the accordion card.
    */
@@ -95,7 +95,7 @@ export type CommonAccordionProps = React.PropsWithChildren<{
   theme?: AccordionTheme;
 }>;
 
-export type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> & {
+type CardAccordionProps = Omit<CommonAccordionProps, 'card' | 'border'> & {
   /**
    * If `true` border will be drawn around the accordion card.
    */

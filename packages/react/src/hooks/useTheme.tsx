@@ -1,7 +1,7 @@
 import { useRef } from 'react';
 import { uniqueId } from 'lodash';
 
-import useIsomorphicLayoutEffect from './useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from './useIsomorphicLayoutEffect';
 import { isSsrEnvironment } from '../utils/isSsrEnvironment';
 
 /**
@@ -59,6 +59,7 @@ const setComponentTheme = <T,>(selector: string, theme: T, customClass: string):
  * @param `selector`  The class selector for the component. Used to find the correct style sheet to apply the custom styles to.
  * @param `theme`     The custom theme overrides.
  * @return {string}   The custom class name that should be applied to the component.
+ * @internal
  */
 export const useTheme = <T,>(selector: string, theme: T, extraSelector?: string): string => {
   const useCustomTheme = theme && typeof theme !== 'string';

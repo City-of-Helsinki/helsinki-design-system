@@ -45,7 +45,7 @@ export enum ButtonVariant {
   Clear = 'clear',
 }
 
-export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
+type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   /**
    * The content (label) of the button
    */
@@ -84,7 +84,7 @@ export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
 };
 
 // Supplementary variant requires iconStart or iconEnd
-export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
+type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
   variant: ButtonVariant.Supplementary;
 } & (
     | {

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { ReactNode } from 'react';
 
 import { useRenderChildrenInChunks } from '../../hooks/useRenderChildrenInChunks';
 import { createContainerProps, createGroups } from './MultiSelectListWithGroups';
@@ -15,7 +15,7 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
 
   const allOptions = getAllOptions(groups);
   const shouldRenderOptions = open && !isSearching;
-  const currentChildren = useRenderChildrenInChunks(shouldRenderOptions ? allOptions : []);
+  const currentChildren = useRenderChildrenInChunks(shouldRenderOptions ? (allOptions as unknown as ReactNode[]) : []);
 
   const createVirtualGroups = (): Group[] => {
     let childrenLeft = currentChildren.length;

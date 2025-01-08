@@ -15,7 +15,7 @@ export interface TagTheme {
   '--outline-color'?: string;
 }
 
-export enum TagVariant {
+enum TagVariant {
   Action = 'action',
   Informative = 'informative',
   Link = 'link',
@@ -145,7 +145,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
       }
     };
 
-    const LinkWrapper: React.FC = (props) => {
+    const LinkWrapper: React.FC<{ children: React.ReactNode }> = (props) => {
       return (
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}
@@ -158,7 +158,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
       );
     };
 
-    const Wrapper: React.FC = (props) => {
+    const Wrapper: React.FC<{ children: React.ReactNode }> = (props) => {
       return (
         <div
           className={containerClassName}

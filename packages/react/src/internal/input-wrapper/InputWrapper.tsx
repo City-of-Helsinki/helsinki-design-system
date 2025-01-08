@@ -5,6 +5,9 @@ import classNames from '../../utils/classNames';
 import { FieldLabel } from '../field-label/FieldLabel';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
+/**
+ * @internal
+ */
 export type InputWrapperProps = AllElementPropsWithoutRef<'div'> & {
   children?: React.ReactNode;
   className?: string;
@@ -27,6 +30,9 @@ export type InputWrapperProps = AllElementPropsWithoutRef<'div'> & {
   ref?: React.Ref<HTMLDivElement>;
 };
 
+/**
+ * @internal
+ */
 export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
   (
     {

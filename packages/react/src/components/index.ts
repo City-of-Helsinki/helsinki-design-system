@@ -2,7 +2,6 @@ export * from './accordion';
 export * from './button';
 export * from './card';
 export * from './checkbox';
-export * from './columns';
 export * from './container';
 export * from './cookieConsent';
 export * from './dateInput';

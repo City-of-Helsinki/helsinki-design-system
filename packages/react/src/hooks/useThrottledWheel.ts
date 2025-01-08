@@ -1,10 +1,11 @@
 import React, { useEffect } from 'react';
 import { throttle } from 'lodash';
-/*
-  A Hook that will throttle the wheel event
-  for 200ms or with chosen delay on given html input reference object.
-*/
-function useThrottledWheel(inputRef: React.MutableRefObject<HTMLInputElement>, delay = 200) {
+/**
+ * @internal
+ * A Hook that will throttle the wheel event
+ * for 200ms or with chosen delay on given html input reference object.
+ */
+export default function useThrottledWheel(inputRef: React.MutableRefObject<HTMLInputElement>, delay = 200) {
   let throttledWheel = false;
 
   const throttledWheelToggler = throttle(() => {
@@ -29,5 +30,3 @@ function useThrottledWheel(inputRef: React.MutableRefObject<HTMLInputElement>, d
     };
   }, [inputRef]);
 }
-
-export default useThrottledWheel;

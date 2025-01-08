@@ -38,6 +38,9 @@ type DropdownMenuItemProps = {
   selected: boolean;
 };
 
+/**
+ * @internal
+ */
 export const DropdownMenuItem = ({
   disabled,
   highlightValue,
@@ -134,6 +137,9 @@ type DropdownMenuProps<T> = {
   };
 };
 
+/**
+ * @internal
+ */
 export const DropdownMenu = <T,>({
   getItemProps,
   highlightValue,

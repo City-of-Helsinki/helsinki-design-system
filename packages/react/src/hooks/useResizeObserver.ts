@@ -9,6 +9,7 @@ type ResizeCallback = (entry: ResizeObserverEntry) => void;
  * The callback is debounced and removed on unmount.
  * The callback must be memoized or the observer is recreated on each render.
  * The observer is automatically re-created if the ref object's element changes.
+ * @internal
  * @param callback Callback called when resizing occurs. Receives a ResizeObserverEntry as and argument.
  * @param delay Delay in milliseconds between debounced calls. Default 200ms. Setting delay to 0, will not remove debounce or delay.
  * @returns Tuple with [RefObject,function to dispose the observer manually]

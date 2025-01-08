@@ -7,7 +7,7 @@ import { styleBoundClassNames } from '../../../../utils/classNames';
 import { Link } from '../../../link';
 import { HeaderLinkDropdown, DropdownMenuPosition } from './headerLinkDropdown';
 import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
-import useIsomorphicLayoutEffect from '../../../../hooks/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '../../../../hooks/useIsomorphicLayoutEffect';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 
 const classNames = styleBoundClassNames(styles);

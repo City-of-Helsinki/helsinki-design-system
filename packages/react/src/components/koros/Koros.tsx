@@ -38,7 +38,7 @@ export type KorosProps = AllElementPropsWithoutRef<'div'> & {
   style?: React.CSSProperties;
 };
 
-const getSVG = (dense: boolean, type: string, patternName: string): React.SVGProps<SVGElement> => {
+const getSVG = (dense: boolean, type: string, patternName: string): React.ReactElement => {
   const transform = `scale(${dense ? 1 : 3})`;
   const patterns = {
     basic: <path transform={transform} d="m0 5v80h32v-80c-8 0-8-5-16-5s-8 5-16 5z" />,

@@ -1,3 +1,4 @@
+@use 'sass:list';
 @import '~hds-design-tokens/lib/all.scss';
 
 //  MEDIA QUERIES
@@ -15,7 +16,7 @@ $breakpoints: (
 
 // @include respond-above($breakpoint.s) {}
 @mixin respond-above($breakpoint) {
-  @if not index($breakpoints, $breakpoint) {
+  @if not list.index($breakpoints, $breakpoint) {
     // If the breakpoint doesn't exist in the list.
     // Log a warning.
     @warn 'Invalid breakpoint: #{$breakpoint}.';
@@ -32,7 +33,7 @@ $breakpoints: (
 
 // @include respond-below($breakpoint.s) {}
 @mixin respond-below($breakpoint) {
-  @if not index($breakpoints, $breakpoint) {
+  @if not list.index($breakpoints, $breakpoint) {
     // If the breakpoint doesn't exist in the list.
     // Log a warning.
     @warn 'Invalid breakpoint: #{$breakpoint}.';

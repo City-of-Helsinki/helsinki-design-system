@@ -1,6 +1,7 @@
 class CancelledPromiseError extends Error {}
 
 /**
+ * @internal
  * Cancellable promise wrapper
  */
 export const cancellablePromise = <ReturnType>(promise: Promise<ReturnType>) => {

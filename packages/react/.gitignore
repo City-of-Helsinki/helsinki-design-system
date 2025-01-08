@@ -5,3 +5,5 @@ _bundles/
 *.css.d.ts
 .loki/current
 .loki/difference
+
+*storybook.log

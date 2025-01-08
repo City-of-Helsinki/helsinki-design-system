@@ -1,8 +1,9 @@
 import { useEffect, RefObject, useCallback } from 'react';
-/*
-  Simple hook that calls given callback when click event happens outside given element (in a ref)
-*/
-function useOutsideClick(props: { ref: RefObject<HTMLElement>; callback: () => void }) {
+/**
+ * @internal
+ * Simple hook that calls given callback when click event happens outside given element (in a ref)
+ */
+export default function useOutsideClick(props: { ref: RefObject<HTMLElement>; callback: () => void }) {
   const handleClickOutsideWrapper = useCallback(
     (event: MouseEvent) => {
       const { ref, callback } = props;
@@ -19,4 +20,3 @@ function useOutsideClick(props: { ref: RefObject<HTMLElement>; callback: () => v
     };
   }, [handleClickOutsideWrapper]);
 }
-export default useOutsideClick;

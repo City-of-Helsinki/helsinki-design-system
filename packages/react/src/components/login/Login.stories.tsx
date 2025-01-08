@@ -371,9 +371,9 @@ const UserData = ({ user }: { user: User }) => {
       <p>
         Your email, <strong>{profile.email}</strong>, is {profile.email_verified ? '' : 'not'} verified.
       </p>
-      <p>
+      {/* <p>
         Your level of assurance is <strong>&quot;{profile.loa}&quot;</strong>.
-      </p>
+      </p> */}
       <p>
         Your tokens will expire{' '}
         {new Intl.DateTimeFormat('en-FI', { dateStyle: 'full', timeStyle: 'long', timeZone: 'GMT' }).format(expiresAt)}

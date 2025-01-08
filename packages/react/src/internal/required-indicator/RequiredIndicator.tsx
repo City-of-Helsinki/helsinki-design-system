@@ -8,6 +8,9 @@ type RequiredIndicatorProps = {
   style?: React.CSSProperties;
 };
 
+/**
+ * @internal
+ */
 export const RequiredIndicator = ({ className, style }: RequiredIndicatorProps) => (
   <span className={classNames(styles.indicator, className)} style={style}>
     *

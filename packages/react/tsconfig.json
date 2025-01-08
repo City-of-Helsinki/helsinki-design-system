@@ -1,20 +1,29 @@
 {
   "compilerOptions": {
-    "module": "ES2015",
-    "moduleResolution": "Node",
-    "target": "es6",
-    "lib": ["es6", "dom", "dom.iterable"],
-    "outDir": "lib",
     "allowSyntheticDefaultImports": true,
-    "forceConsistentCasingInFileNames": true,
-    "sourceMap": true,
     "declaration": true,
     "esModuleInterop": true,
-    "resolveJsonModule": true,
+    "forceConsistentCasingInFileNames": true,
     "jsx": "react",
-    "stripInternal": true
+    "lib": ["es6", "dom", "dom.iterable"],
+    "module": "ES6",
+    "moduleResolution": "Node",
+    "outDir": "lib",
+    "resolveJsonModule": true,
+    "stripInternal": true,
+    "target": "ES6",
+    // "declarationDir": "hds-react",
+    // "sourceMap": true,
   },
-  "include": ["src/*", "./global.d.ts"],
+  "include": ["src/index.ts", "src/global.d.ts"],
+  // "include": [
+  //   "src/**/*.ts",
+  //   "src/**/*.tsx",
+  //   "src/**/*.d.ts",
+  //   ".storybook/**/*.ts",
+  //   ".storybook/**/*.tsx"
+  // ],
+  // "exclude": ["node_modules", "lib", "dist", "src/utils/*", "src/hooks/*", "src/internal/*"],
   "compileOnSave": false,
   "buildOnSave": false
 }

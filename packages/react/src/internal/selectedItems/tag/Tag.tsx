@@ -6,12 +6,18 @@ import { IconCross } from '../../../icons';
 import classNames from '../../../utils/classNames';
 import { useTheme } from '../../../hooks/useTheme';
 
+/**
+ * @internal
+ */
 export interface TagCustomTheme {
   '--tag-background'?: string;
   '--tag-color'?: string;
   '--tag-focus-outline-color'?: string;
 }
 
+/**
+ * @internal
+ */
 export type TagProps = {
   /**
    * The label for the tag
@@ -69,6 +75,9 @@ export type TagProps = {
   theme?: TagCustomTheme;
 };
 
+/**
+ * @internal
+ */
 export const Tag = forwardRef<HTMLDivElement, TagProps>(
   (
     {

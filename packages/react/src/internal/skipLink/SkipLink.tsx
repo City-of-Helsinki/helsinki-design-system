@@ -7,11 +7,17 @@ import classNames from '../../utils/classNames';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 // custom theme for skip link position
+/**
+ * @internal
+ */
 export interface SkipLinkTheme {
   '--left'?: string;
   '--top'?: string;
 }
 
+/**
+ * @internal
+ */
 export type SkipLinkProps = AllElementPropsWithoutRef<'a'> & {
   /**
    * Label for the SkipLink.
@@ -26,6 +32,10 @@ export type SkipLinkProps = AllElementPropsWithoutRef<'a'> & {
    */
   theme?: SkipLinkTheme;
 };
+
+/**
+ * @internal
+ */
 export const SkipLink = ({ label, skipTo, theme, className, ...rest }: SkipLinkProps) => {
   const href = skipTo.startsWith('#') ? skipTo : `#${skipTo}`;
   const customThemeClass = useTheme<SkipLinkTheme>(styles.skipLink, theme);

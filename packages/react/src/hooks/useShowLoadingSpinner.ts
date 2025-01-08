@@ -1,8 +1,9 @@
 import { useEffect, useRef, useState } from 'react';
 
-export const LOADING_SPINNER_TIMEOUT = 3000;
-
-export const useShowLoadingSpinner = (isLoading: boolean, timeoutValue = LOADING_SPINNER_TIMEOUT) => {
+/**
+ * @internal
+ */
+export const useShowLoadingSpinner = (isLoading: boolean, timeoutValue: number = 3000) => {
   const [showLoadingSpinner, setShowLoadingSpinner] = useState<boolean>(false);
   const loadingSpinnerTimeout = useRef(null);
   useEffect(() => {

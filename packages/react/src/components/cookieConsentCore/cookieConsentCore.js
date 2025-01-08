@@ -2,8 +2,10 @@
 /* eslint-disable lines-between-class-members */
 
 /* eslint-disable-next-line import/no-unresolved */
-import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
+// import styles from 'hds-core/lib/components/cookie-consent/cookieConsent';
 
+// eslint-disable-next-line import/no-relative-packages
+import styles from '../../../../core/lib/components/cookie-consent/cookieConsent';
 import {
   CONSTANTS as TEMPLATE_CONSTANTS,
   getCookieBannerHtml,

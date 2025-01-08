@@ -16,6 +16,9 @@ type FieldLabelProps = {
   tooltipText?: string;
 };
 
+/**
+ * @internal
+ */
 export const FieldLabel = ({
   hidden,
   id,

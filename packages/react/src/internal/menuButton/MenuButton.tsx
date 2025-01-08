@@ -11,6 +11,9 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useMobile } from '../../hooks/useMobile';
 
+/**
+ * @internal
+ */
 export type MenuButtonProps = React.PropsWithChildren<{
   /**
    * aria-label for the dropdown toggle button
@@ -50,6 +53,9 @@ export type MenuButtonProps = React.PropsWithChildren<{
   hoverAndClick?: boolean;
 }>;
 
+/**
+ * @internal
+ */
 export const MenuButton = ({
   buttonAriaLabel,
   buttonAriaLabelledby,

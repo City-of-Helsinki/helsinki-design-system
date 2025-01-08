@@ -178,6 +178,9 @@ type ClearButtonProps = {
   disabled?: boolean;
 };
 
+/**
+ * @internal
+ */
 export const ClearButton = ({
   toggleButtonHidden,
   onClear,
@@ -199,6 +202,9 @@ export const ClearButton = ({
   );
 };
 
+/**
+ * @internal
+ */
 export const SelectedItems = <OptionType,>({
   activeIndex,
   className,

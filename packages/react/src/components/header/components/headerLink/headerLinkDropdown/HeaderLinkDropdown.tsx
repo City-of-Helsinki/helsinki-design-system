@@ -6,7 +6,7 @@ import { IconAngleDown, IconAngleLeft, IconAngleRight } from '../../../../../ico
 import { useHeaderContext } from '../../../HeaderContext';
 import classNames from '../../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../../utils/getChildren';
-import useIsomorphicLayoutEffect from '../../../../../hooks/useIsomorphicLayoutEffect';
+import { useIsomorphicLayoutEffect } from '../../../../../hooks/useIsomorphicLayoutEffect';
 
 export enum DropdownMenuPosition {
   Left = 'left',

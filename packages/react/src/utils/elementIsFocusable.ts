@@ -1,3 +1,6 @@
+/**
+ * @internal
+ */
 export const elementIsFocusable = (element: HTMLElement) => {
   if (!window) {
     return false;

@@ -31,7 +31,6 @@
   --computed-outline-color-focus: var(--outline-color-focus, transparent);
   --computed-icon-size: var(--icon-size, var(--spacing-m));
 
-  align-content: flex-start;
   align-items: center;
   background-color: var(--computed-background-color);
   border: var(--border-width) solid var(--computed-border-color);
@@ -47,7 +46,6 @@
   font-size: 100%;
   font-weight: 500;
   hyphens: auto;
-  justify-content: center;
   line-height: var(--lineheight-l);
   margin: 0;
   min-height: var(--min-size);
@@ -57,6 +55,7 @@
   overflow: hidden;
   overflow-wrap: anywhere;
   padding: var(--padding);
+  place-content: flex-start center;
   position: relative;
   text-align: center;
   text-decoration: none;

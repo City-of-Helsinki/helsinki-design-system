@@ -1,7 +1,13 @@
 import React, { LinkHTMLAttributes } from 'react';
 
+/**
+ * @internal
+ */
 export type LinkProps = LinkHTMLAttributes<unknown>;
 
+/**
+ * @internal
+ */
 export const LinkItem = (props: LinkProps) => {
   const { children, href, ...attributes } = props;
 
