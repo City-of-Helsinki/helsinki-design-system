@@ -1,69 +1,116 @@
-@use 'hds-core/lib/components/button/_button-mixin' as CoreSass;
+@use 'hds-core/lib/components/button/_button-mixin-2' as CoreSass;
+
+@mixin get-only-modifier-output($modifierName) {
+  @include CoreSass.button(
+    $modifiers: $modifierName,
+    $elements: false,
+    $extras: false,
+    $config: (
+      'emitContentOnly': 'all',
+    )
+  );
+}
+
+@mixin get-only-element-output($elementName) {
+  @include CoreSass.button(
+    $modifiers: false,
+    $elements: $elementName,
+    $extras: false,
+    $config: (
+      'emitContentOnly': 'all',
+    )
+  );
+}
+
+@mixin get-theme-modifier-output($themeName, $modifierName) {
+  $theme: 'theme-#{$themeName}';
+
+  @include CoreSass.button(
+    $modifiers: (
+      $modifierName: true,
+      $theme: true,
+    ),
+    $elements: false,
+    $extras: (
+      $theme: true,
+    ),
+    $config: (
+      'emitContentOnly': 'all',
+    )
+  );
+}
 
 .button {
-  @include CoreSass.button($all: false, $base: true, $react: true);
+  @include CoreSass.button(
+    $modifiers: false,
+    $elements: 'base',
+    $extras: false,
+    $config: (
+      'emitContentOnly': 'root',
+    )
+  );
 }
 
 .primary {
-  @include CoreSass.button($all: false, $primary: true, $react: true);
+  @include get-only-modifier-output('primary');
 }
 
 .secondary {
-  @include CoreSass.button($all: false, $secondary: true, $react: true);
+  @include get-only-modifier-output('secondary');
 }
 
 .supplementary {
-  @include CoreSass.button($all: false, $supplementary: true, $react: true);
+  @include get-only-modifier-output('supplementary');
 }
 
 .theme-coat {
   &.primary {
-    @include CoreSass.button($all: false, $themeCoat: true, $primary: true, $react: true);
+    @include get-theme-modifier-output('coat', 'primary');
   }
 
   &.secondary {
-    @include CoreSass.button($all: false, $themeCoat: true, $secondary: true, $react: true);
+    @include get-theme-modifier-output('coat', 'secondary');
   }
 
   &.supplementary {
-    @include CoreSass.button($all: false, $themeCoat: true, $supplementary: true, $react: true);
+    @include get-theme-modifier-output('coat', 'supplementary');
   }
 }
 
 .theme-black {
   &.primary {
-    @include CoreSass.button($all: false, $themeBlack: true, $primary: true, $react: true);
+    @include get-theme-modifier-output('black', 'primary');
   }
 
   &.secondary {
-    @include CoreSass.button($all: false, $themeBlack: true, $secondary: true, $react: true);
+    @include get-theme-modifier-output('black', 'secondary');
   }
 
   &.supplementary {
-    @include CoreSass.button($all: false, $themeBlack: true, $supplementary: true, $react: true);
+    @include get-theme-modifier-output('black', 'supplementary');
   }
 }
 
 .clear {
-  @include CoreSass.button($all: false, $clear: true, $react: true);
+  @include get-only-modifier-output('clear');
 }
 
 .success {
-  @include CoreSass.button($all: false, $success: true, $react: true);
+  @include get-only-modifier-output('success');
 }
 
 .danger {
-  @include CoreSass.button($all: false, $danger: true, $react: true);
+  @include get-only-modifier-output('danger');
 }
 
 .size-small {
-  @include CoreSass.button($all: false, $small: true, $react: true);
+  @include get-only-modifier-output('small');
 }
 
 .fullWidth {
-  @include CoreSass.button($all: false, $fullwidth: true, $react: true);
+  @include get-only-modifier-output('fullwidth');
 }
 
 .icon {
-  @include CoreSass.button($all: false, $icon: true, $react: true);
+  @include get-only-element-output('icon');
 }

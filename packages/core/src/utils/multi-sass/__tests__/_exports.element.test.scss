@@ -1,0 +1,105 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'block-name',
+  );
+
+  div.class {
+    @include element('elem1') {
+      --elem1: var(--var-elem1);
+
+      div {
+        --elem1-div: var(--var-elem1-div);
+      }
+    }
+  }
+
+  @include block {
+    @include element('elem2') {
+      --elem2: var(--var-elem2);
+
+      @include element('elem2-inner-elem') {
+        --elem2-inner-elem: var(--var-elem2-inner-elem);
+
+        div {
+          --elem2-inner-elem-div: var(--var-elem2-inner-elem-div);
+        }
+      }
+
+      ul {
+        li.class {
+          @include element('li-elem') {
+            --ul-li-li-elem: var(--var-ul-li-li-elem);
+
+            a.class {
+              --ul-li-li-elem-a: var(--var-ul-li-li-elem-a);
+
+              @include element('a-elem') {
+                --ul-li-li-elem-a-a-elem: var(--ul-li-li-elem-a-a-elem);
+
+                span {
+                  --ul-li-li-elem-a-a-elem-span: var(--ul-li-li-elem-a-a-elem-span);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@include describe('Element entities') {
+  @include it('are outputted.') {
+    @include assert {
+      @include output {
+        @include testSCSS;
+      }
+
+      @include expect {
+        div.class__elem1 {
+          --elem1: var(--var-elem1);
+        }
+
+        div.class__elem1 div {
+          --elem1-div: var(--var-elem1-div);
+        }
+
+        .hds-block-name__elem2 {
+          --elem2: var(--var-elem2);
+        }
+
+        .hds-block-name__elem2__elem2-inner-elem {
+          --elem2-inner-elem: var(--var-elem2-inner-elem);
+        }
+
+        .hds-block-name__elem2__elem2-inner-elem div {
+          --elem2-inner-elem-div: var(--var-elem2-inner-elem-div);
+        }
+
+        .hds-block-name__elem2 ul li.class__li-elem {
+          --ul-li-li-elem: var(--var-ul-li-li-elem);
+        }
+
+        .hds-block-name__elem2 ul li.class__li-elem a.class {
+          --ul-li-li-elem-a: var(--var-ul-li-li-elem-a);
+        }
+
+        .hds-block-name__elem2 ul li.class__li-elem a.class__a-elem {
+          --ul-li-li-elem-a-a-elem: var(--ul-li-li-elem-a-a-elem);
+        }
+
+        .hds-block-name__elem2 ul li.class__li-elem a.class__a-elem span {
+          --ul-li-li-elem-a-a-elem-span: var(--ul-li-li-elem-a-a-elem-span);
+        }
+      }
+    }
+  }
+}

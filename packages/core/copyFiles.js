@@ -13,13 +13,44 @@
 
 const { glob } = require('glob');
 var fs = require('fs/promises');
+var path = require('path');
 
 function createPathReplacer(globPath, targetFolder) {
   const globPrefix = globPath.split('*')[0];
   const targetPrefix = targetFolder.endsWith('/') ? targetFolder : `${targetFolder}/`;
-  return (path) => {
-    return path.replace(globPrefix, targetPrefix);
+  return (filePath) => {
+    return filePath.replace(globPrefix, targetPrefix);
   };
+}
+
+/**
+ * Check if dir exists
+ * @param {} filePath
+ * @returns
+ */
+async function doesDirectoryExist(filePath) {
+  try {
+    const stats = await fs.lstat(filePath);
+    return stats.isDirectory();
+  } catch (e) {
+    return false;
+  }
+}
+
+/**
+ * Create the path for a file is does not exist
+ * @param {} targetPath
+ * @returns
+ */
+async function createFileFolders(targetPath, verbose) {
+  const dirname = path.dirname(targetPath);
+  const exist = await doesDirectoryExist(dirname);
+  if (!exist) {
+    if (verbose) {
+      console.log('Creating directory', dirname);
+    }
+    await fs.mkdir(dirname, { recursive: true });
+  }
 }
 
 /**
@@ -38,6 +69,7 @@ async function copyFiles(args) {
           console.log('Copying file', filePath, targetLocation);
         }
         try {
+          await createFileFolders(targetLocation, verbose);
           await fs.copyFile(filePath, targetLocation);
         } catch (e) {
           error = e;

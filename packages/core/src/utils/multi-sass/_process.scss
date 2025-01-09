@@ -1,0 +1,46 @@
+/* stylelint-disable scss/function-no-unknown */
+@use "sass:meta";
+@use './globals.scss' as globals;
+@use './levels.scss' as levels;
+@use './rules.scss' as rules;
+@use './helpers.scss' as helpers;
+
+/*
+* Starts, and ends, processing a level.
+*/
+
+@function start($args...) {
+  $newLevel: create-process-level($args...);
+  $void: globals.add-multi-sass-level($newLevel);
+
+  @return $newLevel;
+}
+
+@function end() {
+  @return globals.remove-current-multi-sass-level();
+}
+
+@function create-process-level($args...) {
+  $rules: globals.get-multi-sass-rules();
+  $levels: globals.get-multi-sass-levels();
+  $config: globals.get-multi-sass-config();
+  $parent: levels.get-current-level($levels);
+  $newLevel: levels.create-level($rules, $config, $parent, $args...);
+
+  @return $newLevel;
+}
+
+@function get-current-state() {
+  $rules: globals.get-multi-sass-rules();
+  $levels: globals.get-multi-sass-levels();
+  $config: globals.get-multi-sass-config();
+  $currentLevel: levels.get-current-level($levels);
+
+  @return ('rules': $rules, 'levels': $levels, 'config': $config, 'currentLevel': $currentLevel);
+}
+
+@function get-current-level() {
+  $levels: globals.get-multi-sass-levels();
+
+  @return levels.get-current-level($levels);
+}

@@ -1,0 +1,39 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use './test-helpers' as testHelpers;
+@use '../exports' as exports;
+@use '../process' as process;
+
+@include describe('_process.scss') {
+  @include it('create-process-level') {
+    $global: exports.init-multi-sass(
+      $block: 'myBlock',
+    );
+    $newBlock: process.start(
+      $block: '',
+    );
+    $expectedResult: (
+      'type': 'block',
+      'parent': null,
+      'isAllowed': true,
+      'selector': '.hds-myBlock',
+      'depth': 0,
+      'name': '',
+    );
+
+    @include assert-equal(testHelpers.diff-map($newBlock, $expectedResult), []);
+
+    $newModifier: process.start(
+      $modifier: 'modifier',
+    );
+    $expectedResult: (
+      'type': 'modifier',
+      'isAllowed': true,
+      'selector': '--modifier',
+      'depth': 1,
+      'name': 'modifier',
+    );
+
+    @include assert-equal(testHelpers.diff-map($newModifier, $expectedResult), []);
+  }
+}

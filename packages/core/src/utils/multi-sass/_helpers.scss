@@ -1,0 +1,144 @@
+/* stylelint-disable scss/function-no-unknown */
+@use "sass:meta";
+@use "sass:map";
+@use "sass:list";
+@use "sass:string";
+
+/*
+* Generic helper functions
+*/
+
+// Clone of array.pop()
+@function pop-list($target) {
+  $len: list.length($target);
+  $copy: [];
+
+  @if $len > 1 {
+    @for $i from 1 through $len - 1 {
+      $copy: list.append($copy, list.nth($target, $i));
+    }
+  }
+
+  @return $copy;
+}
+
+// Returns the key of the first item in map that has a non-null value
+@function get-map-key-with-value($target) {
+  @if not $target {
+    @return null;
+  } @else {
+    @each $name, $value in $target {
+      /* stylelint-disable-next-line scss/at-if-no-null */
+      @if meta.type-of($value) != 'null' {
+        @return $name;
+      }
+    }
+  }
+
+  @return null;
+}
+
+// Returns the (key,value) map of the first item in map that has a non-null value
+@function get-map-data-with-value($target) {
+  $keyWithValue: get-map-key-with-value($target);
+
+  @if not $keyWithValue {
+    @return null;
+  }
+
+  $value: map.get($target, $keyWithValue);
+
+  @return ('key': $keyWithValue, 'value': $value);
+}
+
+@function is-value-boolean($value) {
+  @return meta.type-of($value) == 'bool';
+}
+
+@function is-value-string($value) {
+  @return meta.type-of($value) == 'string';
+}
+
+@function is-value-null($value) {
+  @return meta.type-of($value) == 'null';
+}
+
+@function is-value-map($value) {
+  @return meta.type-of($value) == 'map';
+}
+
+@function is-value-list($value) {
+  @return meta.type-of($value) == 'list';
+}
+
+@function is-value-false($value) {
+  @return is-value-boolean($value) and $value == false;
+}
+
+@function is-value-true($value) {
+  @return is-value-boolean($value) and $value == true;
+}
+
+/// this is intentionally named like this so it is not confused with is-value-false
+@function can-value-be-falsy($value) {
+  @return not $value or $value == '' or $value == 0;
+}
+
+/// this is intentionally named like this so it is not confused with is-value-true
+@function can-value-be-truthy($value) {
+  @return can-value-be-falsy($value) != true;
+}
+
+/// helper to create an empty map.
+/// Calling just $empty:() do not create a map with type-of "map", it is a list.
+@function create-empty-map() {
+  @return map.merge((), ());
+}
+
+/// converts a argument list to a map
+@function arg-list-to-map($args...) {
+  @return meta.keywords($args);
+}
+
+// returns argument named ARGS_MAP or all arguments as map
+// the "ARGS_MAP" is used in cases where a params passed to a function are be picked with "$args..."
+// or may already be picked earlier as a map and are passed as a map in an parameter named as  "ARGS_MAP"
+@function get-arg-map-or-arg-list-as-map($ARGS_MAP: null, $args...) {
+  @return $ARGS_MAP or meta.keywords($args);
+}
+
+@function get-last-list-item($list) {
+  $len: if($list, list.length($list), 0);
+
+  @return if($len > 0, list.nth($list, -1), null);
+}
+
+@function replace-list-item($list, $replacee, $index) {
+  @return list.set-nth($list, $index, $replacee);
+}
+
+@function replace-string($string, $search, $replace: '') {
+  @if can-value-be-falsy($search) or can-value-be-falsy($replace) {
+    @return $string;
+  }
+
+  $index: string.index($string, $search);
+
+  /* stylelint-disable-next-line scss/at-if-no-null */
+  @if $index != null {
+    /* stylelint-disable-next-line scss/operator-no-newline-after */
+    @return string.slice($string, 1, $index - 1) + $replace +
+      replace-string(string.slice($string, $index + string.length($search)), $search, $replace);
+  }
+
+  @return $string;
+}
+
+// returns value of given key from a map, if map is found in arguments.
+@function get-map-value-if-map($assumedMap, $name) {
+  @if not $assumedMap or not is-value-map($assumedMap) {
+    @return null;
+  }
+
+  @return map.get($assumedMap, $name);
+}

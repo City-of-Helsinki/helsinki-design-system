@@ -1,0 +1,91 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use '../rules' as rules;
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+
+@mixin testMixin($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  @include block {
+    --always-emitted-block-content: var(--var-always-emitted-block-content);
+
+    @include if-content-allowed {
+      --block-content: var(--var-block-content-allowed);
+    }
+
+    @include content('content2') {
+      --block-content2: var(--var-block-content2-allowed);
+    }
+
+    @include element('elem1') {
+      --elem1-content: var(--var-elem1-content);
+
+      @include content('content2') {
+        --elem1-content2: var(--var-elem1-content2);
+      }
+    }
+
+    @include modifier('abc') {
+      --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+
+      @include if-content-allowed {
+        --modifier-abc-content: var(--var-modifier-abc-content-allowed);
+      }
+
+      @include element('elem1') {
+        --abc-elem1-content: var(--var-abc-elem1-content);
+
+        @include content('content2') {
+          --abc-elem1-content2: var(--var-abc-elem1-content2);
+        }
+      }
+    }
+  }
+}
+
+@include describe('Content') {
+  @include it('Output is controlled with elements') {
+    @include assert {
+      @include output {
+        @include testMixin(
+          $elements: (
+            'base': false,
+            'content2': false,
+          ),
+          $modifiers: (
+            'abc': (
+              'base': false,
+              'content2': false,
+            ),
+          )
+        );
+      }
+
+      @include expect {
+        .hds-test {
+          --always-emitted-block-content: var(--var-always-emitted-block-content);
+        }
+
+        .hds-test__elem1 {
+          --elem1-content: var(--var-elem1-content);
+        }
+
+        .hds-test--abc {
+          --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+        }
+
+        .hds-test--abc__elem1 {
+          --abc-elem1-content: var(--var-abc-elem1-content);
+        }
+      }
+    }
+  }
+}

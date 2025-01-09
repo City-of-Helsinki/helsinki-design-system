@@ -1,0 +1,155 @@
+@use '../exports' as *;
+
+@mixin SimpleBlockModifiersElements($args...) {
+  @include multi-sass($args..., $block: 'simple-simple-block') {
+    @include block {
+      --simple-block: var(--var-simple-block);
+
+      div {
+        --simple-block-div: var(--var-simple-block-div);
+      }
+
+      @include modifier('modifier1') {
+        --simple-block-modifier1: var(--var-simple-block-modifier1);
+
+        @include element('element1') {
+          --simple-block-modifier1-element1: var(--var-simple-block-modifier1-element1);
+
+          a {
+            --simple-block-modifier1-element1-a: var(--var-simple-block-modifier1-element1-a);
+          }
+        }
+      }
+
+      @include modifier('modifier2') {
+        --simple-block-modifier2: var(--var-simple-block-modifier2);
+
+        @include element('element1') {
+          --simple-block-modifier2-element1: var(--var-simple-block-modifier2-element1);
+
+          a {
+            --simple-block-modifier2-element1-a: var(--var-simple-block-modifier2-element1-a);
+          }
+        }
+
+        @include element('element2') {
+          --simple-block-modifier2-element2: var(--var-simple-block-modifier2-element2);
+
+          span {
+            --simple-block-modifier2-element2-span: var(--var-simple-block-modifier2-element2-span);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin SimpleContainer($args...) {
+  @include multi-sass($args..., $block: 'simple-container') {
+    section {
+      @include block {
+        @include if-content-allowed {
+          --simple-container-base: var(--var-simple-container-base);
+        }
+
+        @include element('content') {
+          --simple-container-content: var(--var-simple-container-content);
+        }
+
+        @include modifier('tiny') {
+          --simple-container-dark: var(--var-simple-container-tiny);
+
+          @include element('content') {
+            --simple-container-tiny-content: var(--var-simple-container-tiny-content);
+          }
+        }
+        @content;
+
+        @include modifier('max') {
+          --simple-container-max: var(--var-simple-container-max);
+
+          @include element('content') {
+            --simple-container-max-content: var(--var-simple-container-max-content);
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin SimpleButton($args...) {
+  @include multi-sass($args..., $block: 'simple-button') {
+    button {
+      @include block {
+        @include if-content-allowed {
+          --simple-button-base: var(--var-simple-button-base);
+        }
+
+        @include element('icon') {
+          --simple-button-icon: var(--var-simple-button-icon);
+
+          span {
+            --simple-button-icon-span: var(--var-simple-button-modifier1-icon-span);
+          }
+        }
+
+        @include modifier('dark') {
+          --simple-button-dark: var(--var-simple-button-dark);
+
+          @include element('icon') {
+            --simple-button-dark-icon: var(--var-simple-button-dark-icon);
+
+            span {
+              --simple-button-dark-icon-span: var(--var-simple-button-dark-icon-span);
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+@mixin ComplexInnerBlocks($elements: true, $modifiers: true, $extras: true) {
+  @include multi-sass($modifiers: $modifiers, $elements: $elements, $extras: $extras, $block: 'block-name') {
+    ///
+    @include block {
+      --block: var(--var-block);
+
+      div {
+        --block-div: var(--var-block-div);
+      }
+    }
+
+    @include block {
+      --block2: var(--var-block2);
+
+      @include block {
+        --block2-inner-block: var(--var-block2-inner-block);
+
+        div {
+          --block2-div: var(--var-block2-div);
+        }
+      }
+
+      ul {
+        li {
+          @include block {
+            --ul-li-block3: var(--var-ul-li-block3);
+
+            a {
+              --ul-li-block3-a: var(--var-ul-li-block3-a);
+
+              @include block {
+                --ul-li-block3-a-block4: var(--ul-li-block3-a-block4);
+
+                span {
+                  --ul-li-block3-a-block4-span: var(--ul-li-block3-a-block4-span);
+                }
+              }
+            }
+          }
+        }
+      }
+    }
+  }
+}

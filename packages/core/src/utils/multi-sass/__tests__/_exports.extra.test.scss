@@ -1,0 +1,86 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  @include extra('root') {
+    .root {
+      --root: var(--var-root);
+    }
+  }
+
+  @include extra('root-sibling') {
+    .root-sibling {
+      @include extra-selector('root-selector', '.root-selector') {
+        --root-selector: var(--var-root-selector);
+
+        .root-child-selector {
+          --root-child-selector: var(--var-root-child-selector);
+        }
+
+        @include extra-descendant('root-selector', 'div') {
+          --root-selector-div: var(--var-root-selector-div);
+        }
+      }
+    }
+  }
+
+  .wrapper {
+    @include extra('wrapper') {
+      --wrapper: var(--var-wrapper);
+    }
+
+    @include block {
+      --hds-test: var(--var-base);
+
+      @include extra('block') {
+        --hds-test-block: var(--var-block);
+      }
+    }
+  }
+}
+
+@include describe('Extra') {
+  @include it('Enable conditional output') {
+    @include assert {
+      @include output {
+        @include testSCSS;
+      }
+
+      @include expect {
+        .root {
+          --root: var(--var-root);
+        }
+
+        .root-sibling.root-selector {
+          --root-selector: var(--var-root-selector);
+        }
+
+        .root-sibling.root-selector .root-child-selector {
+          --root-child-selector: var(--var-root-child-selector);
+        }
+
+        .root-sibling.root-selector div {
+          --root-selector-div: var(--var-root-selector-div);
+        }
+
+        .wrapper {
+          --wrapper: var(--var-wrapper);
+        }
+
+        .wrapper .hds-test {
+          --hds-test: var(--var-base);
+          --hds-test-block: var(--var-block);
+        }
+      }
+    }
+  }
+}

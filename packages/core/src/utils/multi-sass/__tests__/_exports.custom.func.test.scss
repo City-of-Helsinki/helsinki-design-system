@@ -1,0 +1,67 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use "sass:meta";
+
+@function custom-selector($ruleMap, $config, $currentLevel) {
+  @return '.my-custom-selector';
+}
+
+@function custom-level($ruleMap, $config, $currentLevel) {
+  @return ('type': 'element', 'name': 'custom-level', 'selector': '.my-custom-level-selector');
+}
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  @include block {
+    @include create-custom-selector(meta.get-function('custom-selector')) {
+      --hds-block-custom-selector: var(--var-block-custom-selector);
+    }
+
+    @include create-custom-level(meta.get-function('custom-level')) {
+      --hds-block-custom-level: var(--var-block-custom-level);
+    }
+  }
+
+  @include create-custom-selector(meta.get-function('custom-selector')) {
+    --hds-root-custom-selector: var(--var-root-custom-selector);
+  }
+
+  @include create-custom-level(meta.get-function('custom-level')) {
+    --hds-root-custom-level: var(--var-root-custom-level);
+  }
+}
+
+@include describe('Custom functions') {
+  @include it('Output selectors and levels') {
+    @include assert {
+      @include output {
+        @include testSCSS;
+      }
+
+      @include expect {
+        .hds-test.my-custom-selector {
+          --hds-block-custom-selector: var(--var-block-custom-selector);
+        }
+
+        .hds-test.my-custom-level-selector {
+          --hds-block-custom-level: var(--var-block-custom-level);
+        }
+
+        .my-custom-selector {
+          --hds-root-custom-selector: var(--var-root-custom-selector);
+        }
+
+        .my-custom-level-selector {
+          --hds-root-custom-level: var(--var-root-custom-level);
+        }
+      }
+    }
+  }
+}

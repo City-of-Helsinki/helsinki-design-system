@@ -1,0 +1,95 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use '../globals' as globals;
+
+@mixin testSCSS($elements: true, $modifiers: true, $extras: true, $alias: false) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'myBlock',
+    $alias: $alias,
+    $config: (
+      'blockPrefix': '',
+    ),
+  );
+
+  @include block {
+    --hds-test: var(--var-base);
+
+    @include element('element') {
+      --hds-test-element: var(--var-element);
+
+      @include modifier('dark') {
+        --hds-test-element-dark: var(--var-element-dark);
+      }
+    }
+
+    @include modifier('light') {
+      --hds-test-light-modifier: var(--var-light-modifier);
+
+      @include element('element') {
+        --hds-test-element: var(--var-element);
+
+        span {
+          --hds-test-light-modifier-span: var(--var-light-modifier-span);
+        }
+      }
+    }
+  }
+}
+
+@include describe('Alias') {
+  @include it('Entities are renamed') {
+    @include assert {
+      @include output {
+        @include testSCSS(
+          $modifiers: (
+            'dark': (
+              'element': true,
+            ),
+            'light': (
+              'element': true,
+            ),
+          ),
+          $elements: (
+            'base': true,
+            'element': true,
+          ),
+          $alias: (
+            'dark': 'really-dark',
+            'element': 'nice-element',
+            'light': 'ultra-light',
+          )
+        );
+      }
+
+      @include expect {
+        .myBlock {
+          --hds-test: var(--var-base);
+        }
+
+        .myBlock .nice-element {
+          --hds-test-element: var(--var-element);
+        }
+
+        .myBlock .nice-element.really-dark {
+          --hds-test-element-dark: var(--var-element-dark);
+        }
+
+        .myBlock.ultra-light {
+          --hds-test-light-modifier: var(--var-light-modifier);
+        }
+
+        .myBlock.ultra-light .nice-element {
+          --hds-test-element: var(--var-element);
+        }
+
+        .myBlock.ultra-light .nice-element span {
+          --hds-test-light-modifier-span: var(--var-light-modifier-span);
+        }
+      }
+    }
+  }
+}
