@@ -8,11 +8,11 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
     new webpack.NormalModuleReplacementPlugin(
       /hds-core|hds-react/,
       resource => {
-        if (resource.context.includes('.cache/gatsby-source-git/docs-release-2.17.1/site')) {
+        if (resource.context.includes('.cache/gatsby-source-git/docs-release-2.')) {
           resource.request = resource.request.replace('hds-core', 'hds-2-core');
           resource.request = resource.request.replace('hds-react', 'hds-2-react');
         }
-        if (resource.context.includes('.cache/gatsby-source-git/docs-release-3.11.0/site')) {
+        if (resource.context.includes('.cache/gatsby-source-git/docs-release-3.')) {
           resource.request = resource.request.replace('hds-core', 'hds-3-core');
           resource.request = resource.request.replace('hds-react', 'hds-3-react');
         }
