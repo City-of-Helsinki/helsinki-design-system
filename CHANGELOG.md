@@ -5,13 +5,9 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.X.X] - Month, XX, 202X
+## [4.1.0] - January, 09, 2025
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -31,91 +27,23 @@ Changes that are not related to specific components
 - [ssr] Login component works with SSR rendering
 - [Login] Event listeners with Strict mode were lost in double render
 
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- Changed includes to use @use notation
-
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
 - Technology tags to all components
 
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Header] Other actions menu item color fixed in header dark version.
 
-### Icon kit
+#### Deprecated
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [PhoneInput] Country Code variant was deprecated.  Still available in the library but will be removed in the next major release.
 
 ### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -125,10 +53,6 @@ Changes that are not related to specific components
 #### Changed
 
 - [GraphQLModule] Use the ApolloClient Module when available
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [4.0.0] - November, 21, 2024
 
