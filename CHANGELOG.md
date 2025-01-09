@@ -14,6 +14,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [LoginProviderWithApolloContext] Login Provider with automatic ApolloClient context.
 - [ApolloClientModule] New Login module for auto-appending api tokens to query headers.
 - [ApiTokenClientTracker] Util to track api token changes and renewals.
+- [TokenizedFetch] New Login module for auto-appending api tokens to fetch requests.
 
 #### Changed
 
