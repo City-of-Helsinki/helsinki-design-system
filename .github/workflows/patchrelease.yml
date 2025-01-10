@@ -49,3 +49,12 @@ jobs:
         run: yarn release --dist-tag patch
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: delete the patchrelease branch
+        run: |
+          git config --global user.email "hds@hel.fi"
+          git config --global user.name "Github Actions"
+          git push origin --delete patchrelease
+
+      - name: End
+        run: echo "Done!"
