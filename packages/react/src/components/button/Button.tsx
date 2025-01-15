@@ -27,7 +27,7 @@ export interface ButtonTheme {
   '--color-active'?: string;
   '--color-disabled'?: string;
   '--outline-color-focus'?: string;
-  [key: string]: string;
+  [key: string]: string | undefined;
 }
 
 export enum ButtonPresetTheme {
@@ -45,7 +45,7 @@ export enum ButtonVariant {
   Clear = 'clear',
 }
 
-export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
+type NonSupplementaryButtonProps = AllElementPropsWithoutRef<'button'> & {
   /**
    * The content (label) of the button
    */
@@ -83,19 +83,18 @@ export type CommonButtonProps = AllElementPropsWithoutRef<'button'> & {
   size?: ButtonSize;
 };
 
-// Supplementary variant requires iconStart or iconEnd
-export type SupplementaryButtonProps = Omit<CommonButtonProps, 'variant'> & {
-  variant: ButtonVariant.Supplementary;
-} & (
-    | {
-        iconStart: React.ReactNode;
-      }
-    | {
-        iconEnd: React.ReactNode;
-      }
-  );
+type NonVariantButtonProps = Omit<NonSupplementaryButtonProps, 'variant'>;
 
-export type ButtonProps = CommonButtonProps | SupplementaryButtonProps;
+export type ButtonProps =
+  | (NonVariantButtonProps & { variant?: Exclude<ButtonVariant, ButtonVariant.Supplementary> })
+  | (NonVariantButtonProps & {
+      variant: ButtonVariant.Supplementary | ButtonVariant;
+      iconStart: React.ReactNode;
+    })
+  | (NonVariantButtonProps & {
+      variant: ButtonVariant.Supplementary | ButtonVariant;
+      iconEnd: React.ReactNode;
+    });
 
 export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
   (
