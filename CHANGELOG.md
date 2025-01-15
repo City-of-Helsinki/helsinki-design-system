@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Button] Fixed typing errors in conditionally changing variant to ButtonVariant.Supplementary
 
 ### Core
 
