@@ -64,5 +64,6 @@ This script will update the snapshot files used in the tests.
 - Do not run the scripts in `package.json` locally since the screenshots will most likely differ from the ones created in CI and will cause the tests to fail.
 
 - If you need to update Playwright version in the project, you need to match the versions in `package.json`'s `devDependencies` and the docker scripts (used Docker images).
+  - And be EXTRA careful with it since the used Playwright Docker image might have different version of Ubuntu than what's running in CI (Github actions). So make sure that the GA workflow (`.github/workflows/e2e-test.yml`) has the same Ubuntu version than what the Playwright Docker image has! This is why the GA-workflow doesn't have `ubuntu-latest` because it will start failing eventually due to version-mismatch.
 
 For further assistance, refer to the project documentation or contact the development team.

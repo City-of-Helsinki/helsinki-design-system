@@ -50,8 +50,10 @@ export default defineConfig({
       testMatch: [/tests/],
       use: {
         ...devices['Desktop Chrome'],
+        channel: 'chromium',
+        args: ['--no-sandbox'],
         viewport: { width: 1280, height: 720 },
-        isMobile: false,
+        hasTouch: false,
       },
     },
     {
@@ -59,8 +61,10 @@ export default defineConfig({
       testMatch: [/tests/],
       use: {
         ...devices['Desktop Chrome'],
+        channel: 'chromium',
+        args: ['--no-sandbox'],
         viewport: { width: 320, height: 576 },
-        isMobile: true,
+        hasTouch: true,
       },
     },
   ],
