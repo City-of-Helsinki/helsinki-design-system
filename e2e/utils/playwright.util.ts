@@ -107,13 +107,13 @@ export const takeScreenshotWithSpacing = async (
 
 export const takeAllStorySnapshots = async (props: {
   page: Page;
-  isMobile: boolean;
+  hasTouch: boolean;
   componentName: string;
   storybook: 'core' | 'react';
   takeStateSnapshots: boolean;
   bodySpacing?: number; // this spacing is used around the whole story's screenshot
 }) => {
-  const { page, componentName, storybook, takeStateSnapshots, isMobile, bodySpacing = 0 } = props;
+  const { page, componentName, storybook, takeStateSnapshots, hasTouch, bodySpacing = 0 } = props;
   const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
   if (componentUrls.length === 0) {
     throw new Error('No componentUrls found for');
@@ -121,7 +121,7 @@ export const takeAllStorySnapshots = async (props: {
   for (const componentUrl of componentUrls) {
     await page.goto(componentUrl);
     const container = page.locator('body');
-    const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
+    const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
     await takeScreenshotWithSpacing(page, container, screenshotName, bodySpacing);
 
     if (takeStateSnapshots) {
@@ -179,12 +179,12 @@ export async function waitForStable(tester: () => Promise<boolean>, requiredCoun
   return waitFor(fn, { intervals: [30, 30, 60, 60, 120, 120, 200, 200, 200, 200, 200, 500, 1000, 1000, 1000, 1000] });
 }
 
-export const createScreenshotFileName = (info: TestInfo, isMobile: boolean, suffix?: string, fileFormat = '.png') => {
+export const createScreenshotFileName = (info: TestInfo, hasTouch: boolean, suffix?: string, fileFormat = '.png') => {
   const testName = [info.title];
   if (suffix) {
     testName.push(suffix);
   }
-  return testName.join(' ').replaceAll(' ', '_').toLowerCase() + (isMobile ? '-mobile' : '-desktop') + fileFormat;
+  return testName.join(' ').replaceAll(' ', '_').toLowerCase() + (hasTouch ? '-mobile' : '-desktop') + fileFormat;
 };
 
 export const listenToConsole = (page: Page) => {
