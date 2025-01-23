@@ -21,7 +21,7 @@ const storyForPlayWright = 'Play Wright Only';
 const selector = '*[data-testId="hds-accordion"]';
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
-  test('Take snapshots of all Accordion stories', async ({ page, isMobile }) => {
+  test('Take snapshots of all Accordion stories', async ({ page, hasTouch }) => {
     const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
     if (componentUrls.length === 0) {
       throw new Error('No componentUrls found for');
@@ -34,7 +34,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       const containerCount = await element.count();
       if (containerCount === 1) {
         const clip = await accordionUtil.getBoundingBox();
-        const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
+        const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
         await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: false });
 
         //open the accordion
@@ -44,7 +44,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       }
     }
   });
-  test('Accordion is opened and closed. Focus stays in the button.', async ({ page, isMobile }, testInfo) => {
+  test('Accordion is opened and closed. Focus stays in the button.', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
 
     const accordionUtil = createAccordionHelpers(page, selector);
@@ -52,7 +52,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     expect(isOpen).toBeFalsy();
     await accordionUtil.open();
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'open');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'open');
     const clip = await accordionUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
@@ -60,7 +60,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return isLocatorFocused(accordionUtil.getButtonLocator());
     });
   });
-  test('Initially open is open and can be closed', async ({ page, isMobile }, testInfo) => {
+  test('Initially open is open and can be closed', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithInitiallyOpenAccordion, componentName, storybook);
 
     const accordionUtil = createAccordionHelpers(page, selector);
@@ -72,7 +72,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return (await accordionUtil.isOpen()) === false;
     });
   });
-  test('Closing the accordion from inner button, moves focus to main button', async ({ page, isMobile }, testInfo) => {
+  test('Closing the accordion from inner button, moves focus to main button', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
 
     const accordionUtil = createAccordionHelpers(page, selector);
@@ -87,8 +87,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return isLocatorFocused(accordionUtil.getButtonLocator());
     });
   });
-  test('Native html props are passed to the element', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Native html props are passed to the element', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // no need to test in mobile
       return;
     }

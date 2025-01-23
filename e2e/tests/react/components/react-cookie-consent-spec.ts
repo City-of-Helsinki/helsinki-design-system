@@ -164,8 +164,8 @@ test.describe(`Banner`, () => {
     });
   };
 
-  test('Banner is shown. Changing language changes the contents', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Banner is shown. Changing language changes the contents', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -174,14 +174,14 @@ test.describe(`Banner`, () => {
     const banner = getBannerOrPageLocator(page);
     // isVisible does not seem to work with shadow dom
     expect(banner).toHaveCount(1);
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     await takeScreenshotWithSpacing(page, banner, screenshotName);
     await changeLanguage(page, 'sv');
-    const screenshotNameSV = createScreenshotFileName(testInfo, isMobile, 'sv language');
+    const screenshotNameSV = createScreenshotFileName(testInfo, hasTouch, 'sv language');
     await takeScreenshotWithSpacing(page, banner, screenshotNameSV);
   });
-  test('Banner is closed after approval and not shown again. Focus is moved.', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Banner is closed after approval and not shown again. Focus is moved.', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -192,7 +192,7 @@ test.describe(`Banner`, () => {
     const focusTarget = await getLocatorElement(page.locator('#actionbar > a'));
     const focusedElement = await getFocusedElement(page.locator('body'));
     expect(focusTarget === focusedElement).toBeTruthy();
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName);
 
     await page.reload();
@@ -201,8 +201,8 @@ test.describe(`Banner`, () => {
     await page.waitForTimeout(200);
     expect(banner).toHaveCount(0);
   });
-  test('Consents are stored properly.', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Consents are stored properly.', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -211,8 +211,8 @@ test.describe(`Banner`, () => {
     const consents = await approveRequiredAndCheckStoredConsents(page);
     expect(consents).toEqual(['essential', 'test_essential']);
   });
-  test('Element given in openBanner is focused on banner close', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Element given in openBanner is focused on banner close', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -227,8 +227,8 @@ test.describe(`Banner`, () => {
     const focusedElement = await getFocusedElement(page.locator('body'));
     expect(focusTarget === focusedElement).toBeTruthy();
   });
-  test('Stored consents are changed via settings page', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Stored consents are changed via settings page', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -241,8 +241,8 @@ test.describe(`Banner`, () => {
     const consents = await gotoConsentsAndReturnCurrent(page);
     expect(consents).toEqual(['essential', 'test_essential', 'preferences', 'statistics', 'chat', 'test_optional']);
   });
-  test('Page is shown. Changing language changes the contents', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Page is shown. Changing language changes the contents', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -250,14 +250,14 @@ test.describe(`Banner`, () => {
     const banner = getBannerOrPageLocator(page);
     // isVisible does not seem to work with shadow dom
     expect(banner).toHaveCount(1);
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     await takeScreenshotWithSpacing(page, banner, screenshotName);
     await changeLanguage(page, 'sv');
-    const screenshotNameSV = createScreenshotFileName(testInfo, isMobile, 'sv language');
+    const screenshotNameSV = createScreenshotFileName(testInfo, hasTouch, 'sv language');
     await takeScreenshotWithSpacing(page, banner, screenshotNameSV);
   });
-  test('Aria live is visually shown when page is saved.', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Aria live is visually shown when page is saved.', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
@@ -265,7 +265,7 @@ test.describe(`Banner`, () => {
     await storeConsentsAndWaitForNotification(page, 'selected');
     const notificationElementLocator = await getAriaLiveLocatorWhenRendered(page);
     await notificationElementLocator.isVisible();
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'first save');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'first save');
     await hideAllTimestampsFromScreenshots(page);
     await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName);
     // it takes 5000ms for the element to hide, so not waiting for it.
@@ -273,19 +273,19 @@ test.describe(`Banner`, () => {
     await changeTab(page, 'page');
     await expect(notificationElementLocator).not.toBeVisible();
 
-    const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'no visible aria-live');
+    const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'no visible aria-live');
     await hideAllTimestampsFromScreenshots(page);
     await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName2);
 
     await storeConsentsAndWaitForNotification(page, 'required');
     const newNotificationElementLocator = await getAriaLiveLocatorWhenRendered(page);
     await newNotificationElementLocator.isVisible();
-    const screenshotName3 = createScreenshotFileName(testInfo, isMobile, 'second save');
+    const screenshotName3 = createScreenshotFileName(testInfo, hasTouch, 'second save');
     await hideAllTimestampsFromScreenshots(page);
     await takeScreenshotWithSpacing(page, page.locator('body'), screenshotName3);
   });
-  test('Aria live is shown to the screenreader when banner is closed.', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Aria live is shown to the screenreader when banner is closed.', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // viewport is too small to test with mobile view. Banner blocks the ui.
       return;
     }
