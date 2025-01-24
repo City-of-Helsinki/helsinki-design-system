@@ -17,6 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Component] What is added?
 - [Select] Add ref prop to be able to for example focus the element programmatically
+- [Select] Tooltip support
 
 #### Changed
 

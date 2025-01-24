@@ -10,13 +10,14 @@ type FieldLabelProps = Parameters<typeof FieldLabel>[0];
 const createLabelProps = (dataHandlers: SelectDataHandlers): FieldLabelProps => {
   const { getData, getMetaData } = dataHandlers;
   const { required } = getData();
-  const { elementIds } = getMetaData();
+  const { elementIds, tooltip } = getMetaData();
   const label = getTextFromDataHandlers('label', dataHandlers);
   return {
     required,
     label,
     inputId: elementIds.button,
     id: elementIds.label,
+    tooltip,
   };
 };
 

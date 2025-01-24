@@ -27,6 +27,7 @@ const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Fil
 const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Search';
 const storyWithValidation = 'With Validation And Forced Selection';
 const storyWithCustomTheme = 'With Custom Theme';
+const storyWithTooltip = 'Singleselect With Tooltip';
 
 const selectId = 'hds-select-component';
 

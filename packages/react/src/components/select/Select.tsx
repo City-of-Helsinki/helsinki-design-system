@@ -45,6 +45,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       value,
       theme,
       clearable,
+      tooltip,
       ...divElementProps
     },
     ref,
@@ -133,6 +134,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         hasSearchError: false,
         cancelCurrentSearch: undefined,
         screenReaderNotifications: [],
+        tooltip,
       };
     }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts, ref]);
 
