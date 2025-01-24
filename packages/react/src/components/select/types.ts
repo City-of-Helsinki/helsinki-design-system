@@ -3,6 +3,7 @@ import { ReactElement, ReactNode, RefObject } from 'react';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { DataHandlers } from '../dataProvider/DataContext';
 import { EventId } from './events';
+import { Tooltip, TooltipProps } from '../tooltip/Tooltip';
 
 export type Option = {
   value: string;
@@ -55,6 +56,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   required?: boolean;
   texts?: Partial<Texts> | TextProvider;
   theme?: SelectCustomTheme;
+  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
   value?: string | string[] | Option[] | OptionInProps[];
   virtualize?: boolean;
   visibleOptions?: number;
@@ -124,6 +126,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> & {
   showAllTags: boolean;
   screenReaderNotifications: ScreenReaderNotification[];
   themes?: Record<ThemeTarget, undefined | string>;
+  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
 };
 
 export type DivElementProps = AllElementPropsWithoutRef<'div'>;
