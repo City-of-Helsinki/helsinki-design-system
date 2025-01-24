@@ -24,6 +24,7 @@ import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons
 import { Button } from '../button/Button';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
 import { Tag, TagSize } from '../tag/Tag';
+import { Tooltip } from '../tooltip/Tooltip';
 import useForceRender from '../../hooks/useForceRender';
 
 export default {
@@ -134,6 +135,27 @@ export const Singleselect = () => {
       required
       texts={defaultTexts}
       id="hds-select-component"
+    />
+  );
+};
+
+export const SingleselectWithTooltip = () => {
+  const options = getOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    return requireOneSelection(...args);
+  }, []);
+
+  const tooltip = <Tooltip>This is a test tooltip</Tooltip>;
+
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={defaultTexts}
+      id="hds-select-component"
+      tooltip={tooltip}
     />
   );
 };
