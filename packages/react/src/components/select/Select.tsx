@@ -19,6 +19,7 @@ import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
+import { ChangeEvent, DataHandlers } from '../dataProvider/DataContext';
 
 export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
   (
@@ -29,6 +30,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       icon,
       required,
       onChange,
+      onClose,
       children,
       id,
       onFocus,
@@ -60,6 +62,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         noTags: !!noTags,
         visibleOptions: visibleOptions || 5.5,
         virtualize: !!virtualize,
+        onClose,
         onChange,
         onFocus,
         onBlur,
@@ -71,6 +74,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       options,
       open,
       groups,
+      onClose,
       onChange,
       disabled,
       invalid,
@@ -144,8 +148,21 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       };
     }, []);
 
+    // hijack the changeHandler to analyze the event and forward it unchanged
+    const closeHandler = (
+      changeEvent: ChangeEvent,
+      dataHandlers: DataHandlers<SelectData, SelectMetaData>,
+    ): boolean => {
+      return closeHandler(changeEvent, dataHandlers);
+    };
+
     return (
-      <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
+      <DataProvider<SelectData, SelectMetaData>
+        initialData={initialData}
+        metaData={metaData}
+        onChange={changeHandler}
+        onClose={closeHandler}
+      >
         <Container {...divElementProps} theme={theme}>
           <Label />
           <SelectionsAndListsContainer>

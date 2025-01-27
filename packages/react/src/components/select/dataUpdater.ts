@@ -312,17 +312,38 @@ const debouncedSearch = debounce(
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
-  const { onSearch, onChange } = getData();
+  const { onSearch, onChange, onClose, multiSelect } = getData();
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
 
   if (didSearchChange && onSearch) {
     dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
     debouncedSearch(dataHandlers, onSearch);
   }
+
+  // check if the event is something that should trigger onClose
+  const multiSelectChangeTriggerEvents = [
+    'focusMovedToNonListElement',
+    'cancelled',
+    'blur',
+    'outSideClick',
+    'close',
+    'clearButton',
+    'clearAllButton',
+    'tag',
+  ];
+
+  if (
+    multiSelect &&
+    (multiSelectChangeTriggerEvents.includes(event.type) || multiSelectChangeTriggerEvents.includes(event.id))
+  ) {
+    const current = getData();
+    onClose?.(getSelectedOptions(current.groups), undefined, current);
+  }
+
   if (didSelectionsChange) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
-    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     let newPropsHasChanges = false;
     if (newProps) {
       const { groups, options, invalid, texts } = newProps;
