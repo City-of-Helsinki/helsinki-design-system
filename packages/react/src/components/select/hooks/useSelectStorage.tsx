@@ -89,12 +89,7 @@ export function useSelectStorage(props: SelectStorageProps) {
   return {
     // get props for the component
     getProps: (): SelectProps => {
-      const combinedProps = { ...propsStorage.current, groups: groupsStorage.current, onChange };
-      // Ensure multiSelect is explicitly false for SingleSelectProps
-      if (!combinedProps.multiSelect) {
-        return { ...combinedProps, multiSelect: false };
-      }
-      return { ...props, multiSelect: true } as SelectProps;
+      return { ...propsStorage.current, groups: groupsStorage.current, onChange };
     },
     // the given iterator is called once for each options and returned option overwrites the old one
     updateAllOptions: (iterator: OptionIterator) => {
