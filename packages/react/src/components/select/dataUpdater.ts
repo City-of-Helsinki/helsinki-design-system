@@ -312,7 +312,7 @@ const debouncedSearch = debounce(
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
-  const { onSearch, onChange, onClose, multiSelect } = getData();
+  const { onSearch, onChange, multiSelect } = getData();
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
 
   if (didSearchChange && onSearch) {
@@ -332,18 +332,39 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
     'tag',
   ];
 
-  if (
+  const multiSelectChange =
     multiSelect &&
-    (multiSelectChangeTriggerEvents.includes(event.type) || multiSelectChangeTriggerEvents.includes(event.id))
-  ) {
+    (multiSelectChangeTriggerEvents.includes(event.type) || multiSelectChangeTriggerEvents.includes(event.id));
+
+  // multiselect handling, no selections change
+  if (multiSelectChange) {
     const current = getData();
-    onClose?.(getSelectedOptions(current.groups), undefined, current);
+    const { lastClickedOption } = getMetaData();
+    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    if (newProps) {
+      const { groups, options, invalid, texts } = newProps;
+      if (groups || options) {
+        const newGroups = propsToGroups(newProps) || [];
+        updateData({ groups: newGroups });
+        updateMetaData(
+          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, lastClickedOption),
+        );
+      }
+      if (invalid !== undefined && invalid !== current.invalid) {
+        updateData({ invalid });
+      }
+      if (texts) {
+        appendTexts(texts, getMetaData());
+      }
+    }
   }
 
   if (didSelectionsChange) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
-    const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    const newProps = multiSelect
+      ? false
+      : onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     let newPropsHasChanges = false;
     if (newProps) {
       const { groups, options, invalid, texts } = newProps;

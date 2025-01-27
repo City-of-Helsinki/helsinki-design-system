@@ -9,7 +9,6 @@ export type DataProviderProps<D extends StorageData, M extends StorageData> = {
   initialData: D;
   metaData: M;
   onChange: (changeEvent: ChangeEvent, dataHandlers: DataHandlers<D, M>) => boolean;
-  onClose?: (changeEvent: ChangeEvent, dataHandlers: DataHandlers<D, M>) => boolean;
 };
 
 export function DataProvider<D extends StorageData, M extends StorageData>({

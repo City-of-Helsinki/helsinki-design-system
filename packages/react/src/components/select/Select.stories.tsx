@@ -398,10 +398,10 @@ export const WithSearch = () => {
 
 export const Multiselect = () => {
   const options = getOptionLabels(20);
-  // const onChange: SelectProps['onChange'] = useCallback((...args) => {
-  //   // track changes here
-  //   return requireOneSelection(...args);
-  // }, []);
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    // track changes here
+    return requireOneSelection(...args);
+  }, []);
   return (
     <Select
       options={options}
@@ -410,12 +410,7 @@ export const Multiselect = () => {
       multiSelect
       texts={defaultTextsForMultiSelect}
       id="hds-select-component"
-      onClose={(selectedOptions) => {
-        console.log('onClose', selectedOptions);
-      }}
-      onChange={(selectedOptions) => {
-        console.log('onChange', selectedOptions);
-      }}
+      onChange={onChange}
     />
   );
 };
@@ -481,18 +476,12 @@ export const MultiselectWithGroupsAndSearch = () => {
   const onChange: SelectProps['onChange'] = useCallback((...args) => {
     // track changes here
     genericOnChangeCallback(...args);
-    console.log('onChange', args);
   }, []);
-
-  const onClose = (a, b, c) => {
-    console.log('onClose', a, b, c);
-  };
 
   return (
     <div>
       <Select
         onChange={onChange}
-        onClose={onClose}
         multiSelect
         onSearch={onSearch}
         icon={<IconLocation />}

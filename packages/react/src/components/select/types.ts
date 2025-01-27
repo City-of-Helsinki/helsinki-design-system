@@ -43,8 +43,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   multiSelect?: boolean;
   noTags?: boolean;
   onBlur?: () => void;
-  onClose?: SelectProps['onChange'];
-  onChange?: (
+  onChange: (
     selectedOptions: Option[],
     clickedOption: Option,
     data: SelectData,
@@ -68,7 +67,6 @@ export type SelectData = Required<
     | 'required'
     | 'invalid'
     | 'onChange'
-    | 'onClose'
     | 'disabled'
     | 'multiSelect'
     | 'noTags'
