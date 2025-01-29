@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 
 import styles from '../../Select.module.scss';
 import { DROPDOWN_MENU_ITEM_HEIGHT, getVisibleGroupLabels } from '../../utils';
@@ -40,6 +40,41 @@ export const List = () => {
 
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isMultiSelectAndHasGroupLabels = multiSelect && hasVisibleGroupLabels;
+
+  useEffect(() => {
+    let isListenerActive = false;
+
+    const onKeyDown = (event: KeyboardEvent) => {
+      if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
+        event.preventDefault();
+      }
+    };
+
+    const onClose = () => {
+      if (isListenerActive) {
+        window.removeEventListener('keydown', onKeyDown);
+        isListenerActive = false;
+      }
+    };
+
+    const onOpen = () => {
+      if (!isListenerActive) {
+        window.addEventListener('keydown', onKeyDown, {
+          capture: true,
+          passive: false,
+        });
+        isListenerActive = true;
+      }
+    };
+
+    if (isVisible) {
+      onOpen();
+    } else {
+      onClose();
+    }
+
+    return onClose;
+  }, [isVisible]);
 
   return (
     <div className={classes} style={styleObj}>
