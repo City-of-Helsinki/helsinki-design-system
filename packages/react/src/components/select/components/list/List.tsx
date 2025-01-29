@@ -42,38 +42,21 @@ export const List = () => {
   const isMultiSelectAndHasGroupLabels = multiSelect && hasVisibleGroupLabels;
 
   useEffect(() => {
-    let isListenerActive = false;
-
     const onKeyDown = (event: KeyboardEvent) => {
       if (['ArrowUp', 'ArrowDown'].includes(event.code)) {
         event.preventDefault();
       }
     };
 
-    const onClose = () => {
-      if (isListenerActive) {
-        window.removeEventListener('keydown', onKeyDown);
-        isListenerActive = false;
-      }
-    };
-
-    const onOpen = () => {
-      if (!isListenerActive) {
-        window.addEventListener('keydown', onKeyDown, {
-          capture: true,
-          passive: false,
-        });
-        isListenerActive = true;
-      }
-    };
-
     if (isVisible) {
-      onOpen();
+      window.addEventListener('keydown', onKeyDown);
     } else {
-      onClose();
+      window.removeEventListener('keydown', onKeyDown);
     }
 
-    return onClose;
+    return () => {
+      window.removeEventListener('keydown', onKeyDown);
+    };
   }, [isVisible]);
 
   return (
