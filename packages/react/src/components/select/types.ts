@@ -60,6 +60,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   visibleOptions?: number;
   minCount?: number;
   maxCount?: number;
+  validationFunction?: (selectedOptions: Option[]) => boolean;
 };
 
 export type SelectData = Required<

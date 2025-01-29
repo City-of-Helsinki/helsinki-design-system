@@ -47,6 +47,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       clearable,
       minCount,
       maxCount,
+      validationFunction,
       ...divElementProps
     },
     ref,
@@ -70,6 +71,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         clearable: clearable !== false,
         minCount,
         maxCount,
+        validationFunction,
       };
     }, [
       options,

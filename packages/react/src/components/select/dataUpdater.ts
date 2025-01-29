@@ -374,12 +374,14 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
     const minFail = minCount !== undefined ? selectedOptions.length < minCount : false;
     if (minFail) {
       updateData({ invalid: true });
+      appendTexts({ error: `Please select at least ${minCount} options` }, getMetaData());
+      appendTexts({ assistive: 'joo joo tää on assistive...' }, getMetaData());
     } else {
       updateData({ invalid: false });
+      appendTexts({ error: '' }, getMetaData());
+      appendTexts({ assistive: '' }, getMetaData());
     }
     onChange(selectedOptions, lastClickedOption as Option, current);
-    // the changes are already made in didSelectionsChange,
-    // so we don't need to do anything here, just call multiSelect onChange
   }
 
   if (didSelectionsChange) {
