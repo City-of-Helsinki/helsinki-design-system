@@ -45,6 +45,8 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       value,
       theme,
       clearable,
+      minCount,
+      maxCount,
       ...divElementProps
     },
     ref,
@@ -66,6 +68,8 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         filterFunction: filter,
         onSearch,
         clearable: clearable !== false,
+        minCount,
+        maxCount,
       };
     }, [
       options,

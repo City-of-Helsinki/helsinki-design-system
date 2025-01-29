@@ -58,6 +58,8 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   value?: string | string[] | Option[] | OptionInProps[];
   virtualize?: boolean;
   visibleOptions?: number;
+  minCount?: number;
+  maxCount?: number;
 };
 
 export type SelectData = Required<
@@ -73,6 +75,8 @@ export type SelectData = Required<
     | 'visibleOptions'
     | 'virtualize'
     | 'clearable'
+    | 'minCount'
+    | 'maxCount'
   >
 > & {
   groups: Array<Group>;

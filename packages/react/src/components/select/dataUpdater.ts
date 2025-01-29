@@ -21,6 +21,7 @@ import {
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
   createMetaDataAfterSelectionChange,
+  iterateAndCopyGroup,
 } from './utils';
 import {
   EventId,
@@ -106,6 +107,7 @@ const dataUpdater = (
     if (!clickedOption) {
       return returnValue;
     }
+
     const newGroups = updateOptionInGroup(
       current.groups,
       {
@@ -115,6 +117,33 @@ const dataUpdater = (
       current.multiSelect,
     );
     updateGroups(newGroups, clickedOption);
+
+    // If maxCount would be exceeded, disable all unselected options
+    const { maxCount } = current;
+    if (maxCount !== undefined) {
+      const currentSelections = getSelectedOptions(current.groups);
+      const isDeselecting = clickedOption.selected;
+      const wouldExceedMax = !isDeselecting && maxCount !== undefined && currentSelections.length >= maxCount - 1;
+      if (wouldExceedMax) {
+        const updatedGroups = iterateAndCopyGroup(newGroups, (option) => {
+          if (!option.selected && !option.isGroupLabel) {
+            return { ...option, disabled: true };
+          }
+          return option;
+        });
+        updateGroups(updatedGroups, clickedOption);
+      } else {
+        // Re-enable all options if we're below maxCount
+        const updatedGroups = iterateAndCopyGroup(newGroups, (option) => {
+          if (!option.isGroupLabel) {
+            return { ...option, disabled: false };
+          }
+          return option;
+        });
+        updateGroups(updatedGroups, clickedOption);
+      }
+    }
+
     openOrClose(id !== eventIds.tag && current.multiSelect);
     if (id === eventIds.listItem && !current.multiSelect) {
       setFocusTarget('button');
@@ -312,7 +341,7 @@ const debouncedSearch = debounce(
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
-  const { onSearch, onChange, multiSelect } = getData();
+  const { onSearch, onChange, multiSelect, minCount } = getData();
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
 
   if (didSearchChange && onSearch) {
@@ -334,29 +363,23 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
 
   const multiSelectChange =
     multiSelect &&
-    (multiSelectChangeTriggerEvents.includes(event.type) || multiSelectChangeTriggerEvents.includes(event.id));
+    (multiSelectChangeTriggerEvents.includes(event.type || '') ||
+      multiSelectChangeTriggerEvents.includes(event.id || ''));
 
   // multiselect handling, no selections change
   if (multiSelectChange) {
     const current = getData();
     const { lastClickedOption } = getMetaData();
-    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
-    if (newProps) {
-      const { groups, options, invalid, texts } = newProps;
-      if (groups || options) {
-        const newGroups = propsToGroups(newProps) || [];
-        updateData({ groups: newGroups });
-        updateMetaData(
-          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, lastClickedOption),
-        );
-      }
-      if (invalid !== undefined && invalid !== current.invalid) {
-        updateData({ invalid });
-      }
-      if (texts) {
-        appendTexts(texts, getMetaData());
-      }
+    const selectedOptions = getSelectedOptions(current.groups);
+    const minFail = minCount !== undefined ? selectedOptions.length < minCount : false;
+    if (minFail) {
+      updateData({ invalid: true });
+    } else {
+      updateData({ invalid: false });
     }
+    onChange(selectedOptions, lastClickedOption as Option, current);
+    // the changes are already made in didSelectionsChange,
+    // so we don't need to do anything here, just call multiSelect onChange
   }
 
   if (didSelectionsChange) {

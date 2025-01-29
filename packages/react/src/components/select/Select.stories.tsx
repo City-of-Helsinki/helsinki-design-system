@@ -912,6 +912,28 @@ export const WithStorageControls = () => {
   );
 };
 
+export const AMinMax = () => {
+  const minCount = 2;
+  const maxCount = 4;
+
+  const onChange = (selectedValues, lastClickedOption, data) => {
+    console.log(selectedValues, lastClickedOption, data);
+  };
+
+  return (
+    <Select
+      options={getOptionLabels(20)}
+      onChange={onChange}
+      icon={<IconLocation />}
+      multiSelect
+      texts={defaultTextsForMultiSelect}
+      id="hds-select-component-tuomo"
+      minCount={minCount}
+      maxCount={maxCount}
+    />
+  );
+};
+
 export const WithMinMax = () => {
   const requiredCount = 1;
   const maxCount = 3;
