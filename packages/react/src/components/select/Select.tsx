@@ -65,7 +65,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         onBlur,
         filterFunction: filter,
         onSearch,
-        clearable: clearable !== false,
+        clearable: !!clearable,
       };
     }, [
       options,
