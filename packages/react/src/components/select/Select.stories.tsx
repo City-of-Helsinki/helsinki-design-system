@@ -409,6 +409,7 @@ export const Multiselect = () => {
       icon={<IconLocation />}
       required
       multiSelect
+      clearable
       texts={defaultTextsForMultiSelect}
       id="hds-select-component"
     />
