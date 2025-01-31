@@ -465,6 +465,7 @@ export const MultiselectWithGroupsAndFilter = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
+      clearable
       filter={defaultFilter}
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
