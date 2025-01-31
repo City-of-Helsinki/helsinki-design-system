@@ -314,8 +314,8 @@ const Layout = ({ location, children, pageContext }) => {
             titleAriaLabel="Helsinki: Helsinki Design System"
             titleHref={siteUrl}
             logoHref={siteUrl}
-            logoAriaLabel="City of Helsinki Logo"
-            logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+            logoAriaLabel="City of Helsinki"
+            logo={<Logo src={logoFi} alt="City of Helsinki" />}
           >
             <Header.ActionBarItem label={versionLabel} fixedRightPosition>
               {versions.map((itemVersion, index) => (
@@ -406,7 +406,7 @@ const Layout = ({ location, children, pageContext }) => {
           <Footer.Base
             copyrightHolder="Copyright"
             backToTopLabel="Back to top"
-            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
+            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="City of Helsinki" logoHref="https://hel.fi"/>}
           >
             <Footer.Link
               label="Contribution"
