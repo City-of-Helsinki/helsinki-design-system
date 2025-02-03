@@ -163,6 +163,7 @@ export const SingleselectWithGroups = () => {
       onChange={onChange}
       icon={<IconLocation />}
       texts={defaultTexts}
+      clearable
       id="hds-select-component"
     />
   );
