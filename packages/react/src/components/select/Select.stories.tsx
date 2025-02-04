@@ -233,8 +233,7 @@ export const WithControls = () => {
     updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, selectedOptions));
   };
 
-  const [props, updateProps] = useState<SelectProps>({
-    onChange,
+  const [props, updateProps] = useState<Partial<SelectProps>>({
     disabled: false,
     multiSelect: true,
     open: false,
@@ -320,7 +319,7 @@ export const WithControls = () => {
 
   return (
     <WrapperWithButtonStyles>
-      <Select {...props} groups={optionGroups} texts={texts} icon={icons[lang]} ref={reference} />
+      <Select {...props} groups={optionGroups} texts={texts} icon={icons[lang]} ref={reference} onChange={onChange} />
       <div className="buttons">
         <Button onClick={resetSelections}>Reset selections</Button>
         <Button onClick={toggleDisable}>Disable/enable component</Button>
