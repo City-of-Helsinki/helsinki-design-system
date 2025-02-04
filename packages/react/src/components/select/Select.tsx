@@ -83,6 +83,8 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       onFocus,
       onBlur,
       value,
+      children,
+      clearable,
     ]);
 
     const metaData = useMemo((): SelectMetaData => {
