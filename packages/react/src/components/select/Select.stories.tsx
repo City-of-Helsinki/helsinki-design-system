@@ -228,10 +228,12 @@ export const WithControls = () => {
       options: getOptionLabels(4, 5).map(createOptionWithLanguage),
     },
   ]);
-
-  const onChange: SelectProps['onChange'] = (selectedOptions) => {
-    updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, selectedOptions));
-  };
+  const onChange: SelectProps['onChange'] = useCallback(
+    (selectedOptions) => {
+      updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, selectedOptions));
+    },
+    [optionGroups],
+  );
 
   const [props, updateProps] = useState<Partial<SelectProps>>({
     disabled: false,
