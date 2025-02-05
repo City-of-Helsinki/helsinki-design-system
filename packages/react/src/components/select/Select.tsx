@@ -5,7 +5,7 @@ import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
-import { getSelectedOptions, getElementIds, convertPropsToGroups } from './utils';
+import { getSelectedOptions, getElementIds, convertPropsToGroups, mutateGroupLabelSelections } from './utils';
 import { DataProvider, DataProviderProps } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -51,7 +51,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
     ref,
   ) => {
     const initialData = useMemo<SelectData>(() => {
-      return {
+      const data = {
         groups: convertPropsToGroups({ options, groups, value, children }),
         open: !!open,
         required: !!required,
@@ -69,6 +69,10 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         clearable: !!clearable,
         initialOpenValue: open,
       };
+      if (data.multiSelect) {
+        mutateGroupLabelSelections(data.groups);
+      }
+      return data;
     }, [
       options,
       open,
