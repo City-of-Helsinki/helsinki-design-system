@@ -66,6 +66,7 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- Old V1 documentation has been removed altogether
 
 #### Fixed
 

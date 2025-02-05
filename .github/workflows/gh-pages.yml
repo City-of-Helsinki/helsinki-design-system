@@ -64,12 +64,6 @@ jobs:
       - name: move react storybook under site
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
 
-      - name: move v1 docz site under v1
-        run: cp -R ./deprecated/v1/docz-site ./site/public/v1
-
-      - name: move v1 storybooks under v1
-        run: cp -R ./deprecated/v1/storybook ./site/public/v1/storybook
-
       - name: release npm packages
         run: yarn release
         env:
