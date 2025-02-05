@@ -1,12 +1,12 @@
 import { uniqueId } from 'lodash';
-import React, { useMemo, createRef, useEffect, forwardRef } from 'react';
+import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
 import { getSelectedOptions, getElementIds, convertPropsToGroups } from './utils';
-import { DataProvider } from '../dataProvider/DataProvider';
+import { DataProvider, DataProviderProps } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
 import { List } from './components/list/List';
@@ -67,6 +67,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         filterFunction: filter,
         onSearch,
         clearable: !!clearable,
+        initialOpenValue: open,
       };
     }, [
       options,
@@ -148,8 +149,36 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       };
     }, []);
 
+    const onReset: DataProviderProps<SelectData, SelectMetaData>['onReset'] = useCallback(
+      ({ previousData, currentData, currentMetaData }) => {
+        if (currentData) {
+          if (previousData) {
+            // if the "open"-prop is explicitly set and has changed, it must be deliberate.
+            if (
+              typeof currentData.initialOpenValue !== 'undefined' &&
+              previousData.initialOpenValue !== currentData.initialOpenValue
+            ) {
+              return { ...currentData, open: currentData.initialOpenValue };
+            }
+            // if the list was open prior to the re-render, it should still be
+            if (previousData.open) {
+              return { ...currentData, open: true };
+            }
+          }
+          return currentData;
+        }
+        return currentMetaData;
+      },
+      [],
+    );
+
     return (
-      <DataProvider<SelectData, SelectMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
+      <DataProvider<SelectData, SelectMetaData>
+        initialData={initialData}
+        metaData={metaData}
+        onChange={changeHandler}
+        onReset={onReset}
+      >
         <Container {...divElementProps} theme={theme}>
           <Label />
           <SelectionsAndListsContainer>
