@@ -54,7 +54,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
           //open the dialog
           await inputUtil.openDialog();
           const clipOpen = await inputUtil.getBoundingBox();
-          await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: true });
+          await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: true, timeout: 1000 });
         }
       }
     }
