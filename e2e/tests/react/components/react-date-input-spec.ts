@@ -47,14 +47,14 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       if (containerCount === 1) {
         const clip = await inputUtil.getBoundingBox();
         const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
-        await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: false });
+        await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
 
         const hasButton = await inputUtil.getButtonLocator().isVisible();
         if (hasButton) {
           //open the dialog
           await inputUtil.openDialog();
           const clipOpen = await inputUtil.getBoundingBox();
-          await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: false });
+          await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: true });
         }
       }
     }
