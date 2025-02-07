@@ -351,14 +351,14 @@ export const createSelectHelpers = (page: Page, componentId: string) => {
     return page.getByTestId(dataTestIds.screenReaderNotifications);
   };
 
-  const getBoundingBox = async (spacing = 10) => {
+  const getBoundingBox = async (spacing = 8) => {
     const container = getElementByName('container');
     const selectionsAndListsContainer = getElementByName('selectionsAndListsContainer');
     const box = await combineBoundingBoxes([container, selectionsAndListsContainer]);
     box.x -= spacing;
     box.y -= spacing;
-    box.height += spacing;
-    box.width += spacing;
+    box.height += 2 * spacing;
+    box.width += 2 * spacing;
     return box;
   };
 
