@@ -36,7 +36,7 @@ const Table = (props) => {
 
   return (
     <div className="hds-table-container" tabIndex="0" style={{ marginBottom: 'var(--spacing-layout-xs)' }}>
-      <table className="hds-table hds-table--dark" aria-label="Service users (dark variant)">
+      <table className="hds-table hds-table--dark">
         {tableName && caption && (
           <caption className="hds-table__caption">
             <b>{tableName}</b>: {caption}

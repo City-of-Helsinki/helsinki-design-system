@@ -306,7 +306,7 @@ const Layout = ({ location, children, pageContext }) => {
         ]}
       />
       <div className="page text-body">
-        <Header id="page-header" className="pageHeader">
+        <Header id="page-header" className="pageHeader" aria-label="Page header">
           <Header.SkipLink skipTo={`#${contentId}`} label="Skip to content" />
           <Header.ActionBar
             frontPageLabel="Front page"
@@ -314,8 +314,8 @@ const Layout = ({ location, children, pageContext }) => {
             titleAriaLabel="Helsinki: Helsinki Design System"
             titleHref={siteUrl}
             logoHref={siteUrl}
-            logoAriaLabel="City of Helsinki Logo"
-            logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+            logoAriaLabel="Helsinki: Helsinki Design System"
+            logo={<Logo src={logoFi} alt="Helsinki: Helsinki Design System" />}
           >
             <Header.ActionBarItem label={versionLabel} fixedRightPosition>
               {versions.map((itemVersion, index) => (
@@ -390,7 +390,9 @@ const Layout = ({ location, children, pageContext }) => {
             </aside>
           )}
           {customLayout ? (
-            <MDXProvider components={components(version)}>{children}</MDXProvider>
+            <main id={contentId} className="main-content">
+              <MDXProvider components={components(version)}>{children}</MDXProvider>
+            </main>
           ) : (
             <main id={contentId} className="main-content">
               <MDXProvider components={components(version)}>{children}</MDXProvider>
@@ -406,7 +408,7 @@ const Layout = ({ location, children, pageContext }) => {
           <Footer.Base
             copyrightHolder="Copyright"
             backToTopLabel="Back to top"
-            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
+            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="City of Helsinki" logoHref="https://hel.fi"/>}
           >
             <Footer.Link
               label="Contribution"
