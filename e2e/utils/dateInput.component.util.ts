@@ -90,7 +90,7 @@ export function createDateInputHelpers(page: Page, selector: string) {
     });
   };
 
-  const getBoundingBox = async (spacing = 10) => {
+  const getBoundingBox = async (spacing = 8) => {
     const container = getContainerLocator();
     if ((await container.count()) > 1) {
       return getDummyBoundingBox();
@@ -101,8 +101,8 @@ export function createDateInputHelpers(page: Page, selector: string) {
 
     box.x -= spacing;
     box.y -= spacing;
-    box.height += spacing;
-    box.width += spacing;
+    box.height +=  2 * spacing;
+    box.width += 2 * spacing;
 
     return box;
   };
