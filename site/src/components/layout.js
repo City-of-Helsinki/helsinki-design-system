@@ -412,7 +412,7 @@ const Layout = ({ location, children, pageContext }) => {
               label="Contribution"
               href={hrefWithVersion('/getting-started/contributing/how-to-contribute', version)}
             />
-            <Footer.Link label="Accessibility" href={hrefWithVersion('/about/accessibility/statement', version)} />
+            <Footer.Link label="Accessibility statement" href={hrefWithVersion('/about/accessibility/statement', version)} />
             <Footer.Link label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
