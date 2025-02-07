@@ -3,7 +3,7 @@ import { render, waitFor, fireEvent, act, cleanup } from '@testing-library/react
 import { v4 as uuidv4 } from 'uuid';
 
 import useForceRender from '../../hooks/useForceRender';
-import { getAllMockCallArgs } from '../../utils/testHelpers';
+import { getAllMockCallArgs, getMockCalls } from '../../utils/testHelpers';
 import { Button } from '../button';
 import { ChangeEvent, DataHandlers } from './DataContext';
 import { DataProviderProps, DataProvider } from './DataProvider';
@@ -47,6 +47,11 @@ describe('DataContext', () => {
     return domEventsPerId.get(id) || { ...initialDomEventData };
   };
 
+  let renderCounter = 0;
+  const getUpdateTime = () => {
+    renderCounter += 1;
+    return renderCounter;
+  };
   // get the time a component was rendered.
   const getDomUpdateTime = (id: string) => {
     const current = getDomEventDataPerId(id);
@@ -57,7 +62,7 @@ describe('DataContext', () => {
   const updateDomEventsPerId = (id: string, targetProp: keyof DomEventData) => {
     const current = getDomEventDataPerId(id);
     current[targetProp] += 1;
-    current.updateTime = Date.now();
+    current.updateTime = getUpdateTime();
     domEventsPerId.set(id, current);
   };
 
@@ -164,7 +169,15 @@ describe('DataContext', () => {
   });
 
   // renders dom
-  const renderComponent = ({ initialData, metaData }: { initialData: TestData; metaData: TestData }) => {
+  const renderComponent = ({
+    initialData,
+    metaData,
+    onReset,
+  }: {
+    initialData: TestData;
+    metaData: TestData;
+    onReset?: DataProviderProps<TestData, TestData>['onReset'];
+  }) => {
     const onChange: DataProviderProps<TestData, TestData>['onChange'] = (event, dataHandlers) => {
       if (event.type === 'click') {
         const data = dataHandlers.getData();
@@ -199,52 +212,49 @@ describe('DataContext', () => {
         toggleRenderContext((current) => !current);
       };
       // store data so it can be changed later to force a new Context instance.
-      const dataRefs = useRef({ initialData, metaData, onChange });
+      const dataRefs = useRef({ initialData, metaData, onChange, onReset });
       const updateData = () => {
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { initialData, metaData, onChange } = dataRefs.current;
+        const { initialData, metaData, onChange, onReset } = dataRefs.current;
         dataRefs.current = {
           initialData: {
             ...initialData,
-            componentData: {
-              test1: -100,
-              test2: -200,
-              test3: -300,
-            },
-            time: Date.now(),
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            componentData: updatedComponentData,
+            time: getUpdateTime(),
           },
           metaData,
           onChange,
+          onReset,
         };
         rerender();
       };
       const updateMetaData = () => {
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { initialData, metaData, onChange } = dataRefs.current;
+        const { initialData, metaData, onChange, onReset } = dataRefs.current;
         dataRefs.current = {
           initialData,
           onChange,
+          onReset,
           metaData: {
             ...metaData,
-            componentData: {
-              test1: -1000,
-              test2: -2000,
-              test3: -3000,
-            },
-            time: Date.now(),
+            // eslint-disable-next-line @typescript-eslint/no-use-before-define
+            componentData: updatedMetaComponentData,
+            time: getUpdateTime(),
           },
         };
         rerender();
       };
       const updateOnChange = () => {
         // eslint-disable-next-line @typescript-eslint/no-shadow
-        const { initialData, metaData } = dataRefs.current;
+        const { initialData, metaData, onReset } = dataRefs.current;
         dataRefs.current = {
           initialData,
           onChange: () => {
             throw new Error('This should not happen');
           },
           metaData,
+          onReset,
         };
         rerender();
       };
@@ -271,6 +281,7 @@ describe('DataContext', () => {
                 initialData={dataRefs.current.initialData}
                 metaData={dataRefs.current.metaData}
                 onChange={dataRefs.current.onChange}
+                onReset={dataRefs.current.onReset}
               >
                 <TestComponent id="test1" key="key1" />
                 <TestComponent id="test2" key="key2" />
@@ -460,17 +471,30 @@ describe('DataContext', () => {
   });
 
   const initialData: TestData = {
-    time: Date.now(),
+    time: getUpdateTime(),
     list: [],
     componentData: { test1: 100, test2: 200, test3: 300, test4: 0 },
     uuid: uuidv4(),
   };
   const metaData: TestData = {
-    time: Date.now(),
+    time: getUpdateTime(),
     list: [],
     componentData: { test1: 1000, test2: 2000, test3: 3000, test4: 0 },
     uuid: uuidv4(),
   };
+
+  const updatedMetaComponentData = {
+    test1: -1000,
+    test2: -2000,
+    test3: -3000,
+  };
+
+  const updatedComponentData = {
+    test1: -100,
+    test2: -200,
+    test3: -300,
+  };
+
   it('Data is passed to components and all components are rendered with proper data.', async () => {
     const { collectAllDataPerId, createComponentDataStorage, getValue } = renderComponent({
       initialData,
@@ -753,5 +777,260 @@ describe('DataContext', () => {
       expect(asyncTracker).toHaveBeenCalledTimes(1);
     });
     expect(logSpy).toHaveBeenCalledTimes(0);
+  });
+  it('onReset is not called when component mounts or when re-rendered internally', async () => {
+    const onReset = jest.fn();
+    const { executeAndWaitForUpdate, clickButton, getInstanceRenderCount } = renderComponent({
+      initialData,
+      metaData,
+      onReset,
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('test1');
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('test2');
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('test3');
+    });
+    await executeAndWaitForUpdate(() => {
+      clickButton('update-onChange');
+    });
+    expect(onReset).toHaveBeenCalledTimes(0);
+    expect(getInstanceRenderCount('test1')).toBe(5);
+  });
+  it("onReset is not called when component's parent re-renders and data or metaData has not changed.", async () => {
+    const onReset = jest.fn();
+    const { rerenderAll } = renderComponent({
+      initialData,
+      metaData,
+      onReset,
+    });
+    await rerenderAll();
+    expect(onReset).toHaveBeenCalledTimes(0);
+  });
+  it("onReset is called when component's parent re-renders with new data or metaData", async () => {
+    const onResetTracker = jest.fn();
+    const onReset: DataProviderProps<TestData, TestData>['onReset'] = (args) => {
+      onResetTracker(args);
+      const { currentData, currentMetaData } = args;
+      return (currentData || currentMetaData) as TestData;
+    };
+    const { clickButton, rerenderAll } = renderComponent({
+      initialData,
+      metaData,
+      onReset,
+    });
+    clickButton('update-data');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(1);
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(1);
+    clickButton('update-metadata');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(2);
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(2);
+  });
+  it('onReset can alter given data which is stored as new', async () => {
+    const onResetTracker = jest.fn();
+    // alter data.componentData with this data set
+    const newValues = [
+      { test1: 'newValue1' },
+      { test1: 'newValue1.1', test2: 'newValue2' },
+      { test2: 'newValue2.1', test3: 'newValue3' },
+    ];
+    const onReset: DataProviderProps<TestData, TestData>['onReset'] = (args) => {
+      const { currentData, previousData, currentMetaData, previousMetaData } = args;
+      // track only data changes i.e. currentData is set
+      if (currentData) {
+        const { componentData } = currentData;
+        const callCount = getMockCalls(onResetTracker).length;
+        const newValue = newValues[callCount];
+        const { componentData: previousComponentData } = previousData || {};
+        // construct new data
+        const newData = { ...currentData, componentData: { ...previousComponentData, ...componentData, ...newValue } };
+        // track passed data and the new modified data.
+        onResetTracker({
+          componentData,
+          previousComponentData,
+          result: newData.componentData,
+          currentMetaData,
+          previousMetaData,
+        });
+
+        return newData;
+      }
+
+      return currentMetaData as TestData;
+    };
+    const { clickButton, rerenderAll, getValue } = renderComponent({
+      initialData,
+      metaData,
+      onReset,
+    });
+    // first data update
+    clickButton('update-data');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(1);
+    expect(onResetTracker).toHaveBeenLastCalledWith({
+      previousComponentData: initialData.componentData,
+      componentData: updatedComponentData,
+      result: {
+        ...initialData.componentData,
+        ...updatedComponentData,
+        test1: 'newValue1',
+      },
+      currentMetaData: undefined,
+      previousMetaData: undefined,
+    });
+
+    expect(getValue('test1')).toBe(newValues[0].test1);
+
+    // second data update
+    clickButton('update-data');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(2);
+    expect(onResetTracker).toHaveBeenLastCalledWith({
+      previousComponentData: {
+        ...initialData.componentData,
+        ...updatedComponentData,
+        test1: 'newValue1',
+      },
+      componentData: updatedComponentData,
+      result: {
+        ...initialData.componentData,
+        ...updatedComponentData,
+        test1: 'newValue1.1',
+        test2: 'newValue2',
+      },
+      currentMetaData: undefined,
+      previousMetaData: undefined,
+    });
+
+    expect(getValue('test1')).toBe(newValues[1].test1);
+    expect(getValue('test2')).toBe(newValues[1].test2);
+
+    // third data update
+    clickButton('update-data');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(3);
+    expect(onResetTracker).toHaveBeenLastCalledWith({
+      previousComponentData: {
+        ...initialData.componentData,
+        ...updatedComponentData,
+        test1: 'newValue1.1',
+        test2: 'newValue2',
+      },
+      componentData: updatedComponentData,
+      result: {
+        ...initialData.componentData,
+        ...updatedComponentData,
+        test2: 'newValue2.1',
+        test3: 'newValue3',
+      },
+      currentMetaData: undefined,
+      previousMetaData: undefined,
+    });
+
+    expect(getValue('test1')).toBe('-100');
+    expect(getValue('test2')).toBe(newValues[2].test2);
+    expect(getValue('test3')).toBe(newValues[2].test3);
+  });
+  it('onReset can alter given metadata which is stored as new', async () => {
+    const onResetTracker = jest.fn();
+    // alter metadata.componentData with this data set
+    const newMetaValues = [
+      { test1: 'newMetaValue1' },
+      { test1: 'newMetaValue1.1', test2: 'newMetaValue2' },
+      { test2: 'newMetaValue2.1', test3: 'newMetaValue3' },
+    ];
+    const onReset: DataProviderProps<TestData, TestData>['onReset'] = (args) => {
+      const { currentData, previousData, currentMetaData, previousMetaData } = args;
+      // track only metadata changes i.e. currentMetaData is set
+      if (currentMetaData) {
+        const { componentData } = currentMetaData;
+        const callCount = getMockCalls(onResetTracker).length;
+        const newMetaValue = newMetaValues[callCount];
+        const { componentData: previousComponentData } = previousMetaData || {};
+        const newMetaData = {
+          ...currentMetaData,
+          componentData: { ...previousComponentData, ...componentData, ...newMetaValue },
+        };
+        // track passed metadata and the new modified metadata.
+        onResetTracker({
+          componentData,
+          previousComponentData,
+          result: newMetaData.componentData,
+          currentData,
+          previousData,
+        });
+
+        return newMetaData;
+      }
+
+      return currentData as TestData;
+    };
+    const { clickButton, rerenderAll } = renderComponent({
+      initialData,
+      metaData,
+      onReset,
+    });
+    clickButton('update-metadata');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(1);
+    expect(onResetTracker).toHaveBeenLastCalledWith({
+      previousComponentData: metaData.componentData,
+      componentData: updatedMetaComponentData,
+      result: {
+        ...metaData.componentData,
+        ...updatedMetaComponentData,
+        test1: 'newMetaValue1',
+      },
+      currentData: undefined,
+      previousData: undefined,
+    });
+
+    clickButton('update-metadata');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(2);
+    expect(onResetTracker).toHaveBeenLastCalledWith({
+      previousComponentData: {
+        ...metaData.componentData,
+        ...updatedMetaComponentData,
+        test1: 'newMetaValue1',
+      },
+      componentData: updatedMetaComponentData,
+      result: {
+        ...metaData.componentData,
+        ...updatedMetaComponentData,
+        test1: 'newMetaValue1.1',
+        test2: 'newMetaValue2',
+      },
+      currentData: undefined,
+      previousData: undefined,
+    });
+
+    clickButton('update-metadata');
+    await rerenderAll();
+    expect(onResetTracker).toHaveBeenCalledTimes(3);
+    expect(onResetTracker).toHaveBeenLastCalledWith({
+      previousComponentData: {
+        ...metaData.componentData,
+        ...updatedMetaComponentData,
+        test1: 'newMetaValue1.1',
+        test2: 'newMetaValue2',
+      },
+      componentData: updatedMetaComponentData,
+      result: {
+        ...metaData.componentData,
+        ...updatedMetaComponentData,
+        test2: 'newMetaValue2.1',
+        test3: 'newMetaValue3',
+      },
+      currentData: undefined,
+      previousData: undefined,
+    });
   });
 });

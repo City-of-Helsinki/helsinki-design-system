@@ -82,6 +82,7 @@ export type SelectData = Required<
   onSearch?: SearchFunction;
   onFocus?: SelectProps['onFocus'];
   onBlur?: SelectProps['onBlur'];
+  initialOpenValue?: boolean;
 };
 
 export type SelectMetaData = Pick<SelectProps, 'icon'> & {

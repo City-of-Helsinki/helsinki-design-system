@@ -92,7 +92,7 @@ export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0):
   );
 }
 
-function mutateGroupLabelSelections(groups: SelectData['groups']) {
+export function mutateGroupLabelSelections(groups: SelectData['groups']) {
   groups.forEach((group) => {
     // eslint-disable-next-line no-param-reassign
     group.options[0].selected = getSelectedOptionsPerc(group) === 1;
