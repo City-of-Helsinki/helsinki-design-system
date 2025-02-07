@@ -54,6 +54,9 @@ export default defineConfig({
         args: ['--no-sandbox'],
         viewport: { width: 1280, height: 720 },
         hasTouch: false,
+        launchOptions: {
+          slowMo: 100,
+        },
       },
     },
     {
@@ -65,6 +68,9 @@ export default defineConfig({
         args: ['--no-sandbox'],
         viewport: { width: 320, height: 576 },
         hasTouch: true,
+        launchOptions: {
+          slowMo: 100,
+        },
       },
     },
   ],
