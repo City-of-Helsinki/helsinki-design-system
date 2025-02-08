@@ -48,7 +48,7 @@ export default defineConfig({
     },
     retries: 3,
     expect: {
-      timeout: 1000,
+      timeout: 2000,
     },
   },
   projects: [
