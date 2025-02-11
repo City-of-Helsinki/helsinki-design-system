@@ -65,13 +65,16 @@ function SingleSelectOption(props: SelectItemProps) {
 
 export const MemoizedSingleSelectOption = memo<SelectItemProps>(
   SingleSelectOption,
-  ({ option: oldOption }, { option: newOption }) => {
+  ({ option: oldOption, trigger: oldTrigger }, { option: newOption, trigger: newTrigger }) => {
     // option.visible is checked in parent component and option.value is used as prop.key,
     // so those are not compared.
+    // comparing "trigger" functions makes the memoization more unefficient, because the trigger changes every time
+    // Select component's props are changed externally. This might cause update lag, when there are hundreds of options.
     return (
       oldOption.selected === newOption.selected &&
       oldOption.disabled === newOption.disabled &&
-      oldOption.label === newOption.label
+      oldOption.label === newOption.label &&
+      oldTrigger === newTrigger
     );
   },
 );
