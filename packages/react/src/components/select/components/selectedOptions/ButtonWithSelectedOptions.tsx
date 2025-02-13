@@ -124,7 +124,7 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
       !selectedOptions.length && styles.placeholder,
       disabled && styles.disabledButton,
       !multiSelect && styles.singleSelect,
-      !clearable && styles.notClearable,
+      clearable && styles.clearable,
     ),
     'aria-disabled': disabled,
     icon,

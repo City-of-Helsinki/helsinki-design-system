@@ -1,0 +1,221 @@
+/* stylelint-disable scss/function-no-unknown */
+@use 'sass-true' as *;
+@use '../exports' as *;
+@use '../rules' as rules;
+@use "sass:list";
+@use "sass:meta";
+@use "sass:map";
+
+@include describe('init-multi-sass creates rulemap, config and empty levels') {
+  $result: init-multi-sass(
+    $modifiers: true,
+    $elements: true,
+    $extras: true,
+    $block: 'test',
+  );
+
+  @include it('rulemap includes modifiers,elements and extras') {
+    $ruleMap: map.get($result, 'rules');
+    $modifiers: rules.get-modifiers($ruleMap);
+    $elements: rules.get-elements($ruleMap);
+    $extras: rules.get-extras($ruleMap);
+
+    @include assert-equal(
+      $modifiers,
+      (
+        'ALL_ALLOWED': true,
+        'ALL_DISALLOWED': false,
+        'HAS_EXPLICIT_TRUE': false,
+      )
+    );
+    @include assert-equal(
+      $elements,
+      (
+        'ALL_ALLOWED': true,
+        'ALL_DISALLOWED': false,
+        'HAS_EXPLICIT_TRUE': false,
+      )
+    );
+    @include assert-equal(
+      $extras,
+      (
+        'ALL_ALLOWED': true,
+        'ALL_DISALLOWED': false,
+        'HAS_EXPLICIT_TRUE': false,
+      )
+    );
+  }
+
+  @include it('levels is empty') {
+    @include assert-equal(list.length(map.keys(map.get($result, 'levels'))), 0);
+  }
+
+  @include it('config has default values') {
+    $config: map.get($result, 'config');
+
+    @include assert-equal(map.get($config, 'blockName'), 'test');
+    @include assert-equal(map.get($config, 'rootSelector'), null);
+    @include assert-equal(map.get($config, 'blockPrefix'), 'hds-');
+    @include assert-equal(map.get($config, 'modifierDelimeter'), '--');
+    @include assert-equal(map.get($config, 'elementDelimeter'), '__');
+    @include assert-equal(map.get($config, 'aliasInArgs'), null);
+  }
+
+  @include it('config can be overridden default values') {
+    $customConfig: (
+      'blockPrefix': 'blockPrefix',
+      'modifierDelimeter': 'modifierDelimeter',
+      'elementDelimeter': 'elementDelimeter',
+      'alias': 'should-not-be-set',
+    );
+    $withCustomConfig: init-multi-sass(
+      $modifiers: true,
+      $elements: true,
+      $extras: true,
+      $block: 'test',
+      $config: $customConfig,
+    );
+    $config: map.get($withCustomConfig, 'config');
+
+    @include assert-equal(map.get($config, 'blockPrefix'), map.get($customConfig, 'blockPrefix'));
+    @include assert-equal(map.get($config, 'modifierDelimeter'), map.get($customConfig, 'modifierDelimeter'));
+    @include assert-equal(map.get($config, 'elementDelimeter'), map.get($customConfig, 'elementDelimeter'));
+    @include assert-equal(map.get($config, 'aliasInArgs'), null);
+  }
+
+  @include it('alias is stored in config') {
+    $alias: (
+      'a': 'a',
+      'b': 'b',
+    );
+    $withAlias: init-multi-sass(
+      $modifiers: true,
+      $elements: true,
+      $extras: true,
+      $block: 'test',
+      $alias: $alias,
+    );
+    $config: map.get($withAlias, 'config');
+    $alias: map.get($config, 'alias');
+
+    @include assert-equal(map.get($alias, 'a'), 'a');
+    @include assert-equal(map.get($alias, 'b'), 'b');
+  }
+}
+
+@mixin testMixin($elements: true, $modifiers: true, $extras: true) {
+  $void: init-multi-sass(
+    $modifiers: $modifiers,
+    $elements: $elements,
+    $extras: $extras,
+    $block: 'test',
+  );
+
+  @include block {
+    --always-emitted-block-content: var(--var-always-emitted-block-content);
+
+    @include if-content-allowed {
+      --block-content: var(--var-block-content-allowed);
+    }
+
+    @include content('content2') {
+      --block-content2: var(--var-block-content2-allowed);
+    }
+
+    @include element('elem1') {
+      --elem1-content: var(--var-elem1-content);
+
+      @include content('content2') {
+        --elem1-content2: var(--var-elem1-content2);
+      }
+    }
+
+    @include modifier('abc') {
+      --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+
+      @include if-content-allowed {
+        --modifier-abc-content: var(--var-modifier-abc-content-allowed);
+      }
+
+      @include element('elem1') {
+        --abc-elem1-content: var(--var-abc-elem1-content);
+
+        @include content('content2') {
+          --abc-elem1-content2: var(--var-abc-elem1-content2);
+        }
+      }
+    }
+  }
+}
+
+@include describe('Entities') {
+  @include it('are created') {
+    @include assert {
+      @include output {
+        @include testMixin($elements: true, $modifiers: true);
+      }
+
+      @include expect {
+        .hds-test {
+          --always-emitted-block-content: var(--var-always-emitted-block-content);
+          --block-content: var(--var-block-content-allowed);
+          --block-content2: var(--var-block-content2-allowed);
+        }
+
+        .hds-test__elem1 {
+          --elem1-content: var(--var-elem1-content);
+          --elem1-content2: var(--var-elem1-content2);
+        }
+
+        .hds-test--abc {
+          --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+          --modifier-abc-content: var(--var-modifier-abc-content-allowed);
+        }
+
+        .hds-test--abc__elem1 {
+          --abc-elem1-content: var(--var-abc-elem1-content);
+          --abc-elem1-content2: var(--var-abc-elem1-content2);
+        }
+      }
+    }
+  }
+}
+
+@include describe('Content') {
+  @include it('Output is controlled with elements') {
+    @include assert {
+      @include output {
+        @include testMixin(
+          $elements: (
+            'base': false,
+            'content2': false,
+          ),
+          $modifiers: (
+            'abc': (
+              'base': false,
+              'content2': false,
+            ),
+          )
+        );
+      }
+
+      @include expect {
+        .hds-test {
+          --always-emitted-block-content: var(--var-always-emitted-block-content);
+        }
+
+        .hds-test__elem1 {
+          --elem1-content: var(--var-elem1-content);
+        }
+
+        .hds-test--abc {
+          --always-emitted-abc-content: var(--var-always-emitted-abc-content);
+        }
+
+        .hds-test--abc__elem1 {
+          --abc-elem1-content: var(--var-abc-elem1-content);
+        }
+      }
+    }
+  }
+}

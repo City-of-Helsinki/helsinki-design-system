@@ -27,11 +27,12 @@ const storyWithMultiSelectAndGroupsWithFilter = 'Multiselect With Groups And Fil
 const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Search';
 const storyWithValidation = 'With Validation And Forced Selection';
 const storyWithCustomTheme = 'With Custom Theme';
+const storyWithTooltip = 'Singleselect With Tooltip';
 
 const selectId = 'hds-select-component';
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
-  test('Take snapshots of all Selects stories', async ({ page, isMobile }) => {
+  test('Take snapshots of all Selects stories', async ({ page, hasTouch }) => {
     const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
     if (componentUrls.length === 0) {
       throw new Error('No componentUrls found for');
@@ -48,14 +49,14 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       // many select stories have extra buttons etc. so skipping them with clip
       const clip = await selectUtil.getBoundingBox();
 
-      const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
+      const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
       await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
     }
   });
 });
 
 test.describe(`Selecting options and groups`, () => {
-  test('Multiselect select an option and one group', async ({ page, isMobile }, testInfo) => {
+  test('Multiselect select an option and one group', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput, componentName, storybook);
 
     const selectUtil = createSelectHelpers(page, selectId);
@@ -65,11 +66,11 @@ test.describe(`Selecting options and groups`, () => {
     await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
     await selectUtil.selectGroupByIndex({ index: 1 });
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
   });
-  test('Singleselect options one by one', async ({ page, isMobile }, testInfo) => {
+  test('Singleselect options one by one', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithPlainSingleSelect, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
 
@@ -78,7 +79,7 @@ test.describe(`Selecting options and groups`, () => {
     await selectUtil.selectOptionByIndex({ index: 10, multiSelect: false });
     await selectUtil.selectOptionByIndex({ index: 19, multiSelect: false });
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
   });
@@ -87,7 +88,7 @@ test.describe(`Selecting options and groups`, () => {
 test.describe(`Keyboard navigation`, () => {
   test('Spacebar opens menu, arrow keys move focus, esc closes, home and end move to start and end', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithoutInput, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
@@ -113,7 +114,7 @@ test.describe(`Keyboard navigation`, () => {
     await waitForStablePosition(options[3]);
 
     await selectUtil.scrollGroupInToView({ index: 0 });
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
 
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
@@ -133,7 +134,7 @@ test.describe(`Keyboard navigation`, () => {
       return selectUtil.isOptionListClosed();
     });
   });
-  test('Group labels are ignored with single select', async ({ page, isMobile }, testInfo) => {
+  test('Group labels are ignored with single select', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
@@ -150,7 +151,7 @@ test.describe(`Keyboard navigation`, () => {
       return isLocatorFocused(options[1]);
     });
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'first non-label is focused');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'first non-label is focused');
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
@@ -163,7 +164,7 @@ test.describe(`Keyboard navigation`, () => {
     await selectUtil.scrollOptionInToView(lastOption);
     await waitForStablePosition(lastOption);
 
-    const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'last non-label is focused');
+    const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'last non-label is focused');
     const clip2 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
 
@@ -180,7 +181,7 @@ test.describe(`Keyboard navigation`, () => {
   });
 });
 test.describe(`Typing when focused and there is no input`, () => {
-  test('user input focuses options with filtering.', async ({ page, isMobile }, testInfo) => {
+  test('user input focuses options with filtering.', async ({ page, hasTouch }, testInfo) => {
     // this test assumes that top three options do NOT start with same 3 letters
     // keyCache in the components resets in 300ms
     const assumedCacheResetInMs = 300;
@@ -204,7 +205,7 @@ test.describe(`Typing when focused and there is no input`, () => {
     await waitForStablePosition(options[2]);
 
     const clip = await selectUtil.getBoundingBox();
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, isMobile, 'Option #2 is focused'), {
+    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Option #2 is focused'), {
       clip,
       fullPage: true,
     });
@@ -220,14 +221,14 @@ test.describe(`Typing when focused and there is no input`, () => {
     await waitForStablePosition(options[0]);
 
     const clip2 = await selectUtil.getBoundingBox();
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, isMobile, 'Option #0 is focused'), {
+    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Option #0 is focused'), {
       clip: clip2,
       fullPage: true,
     });
   });
 });
 test.describe(`Typing when focused and there is an input`, () => {
-  test('user input is copied to the input. Even if focus is in options.', async ({ page, isMobile }, testInfo) => {
+  test('user input is copied to the input. Even if focus is in options.', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const filterText = 'satisfying';
     const filterTextWithoutResults = 'none';
@@ -251,7 +252,7 @@ test.describe(`Typing when focused and there is an input`, () => {
     expect(inputText).toBe(filterText);
 
     const clip = await selectUtil.getBoundingBox();
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, isMobile, 'Filter text is seen'), {
+    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Filter text is seen'), {
       clip,
       fullPage: true,
     });
@@ -270,7 +271,7 @@ test.describe(`Typing when focused and there is an input`, () => {
     await selectUtil.waitUntilSelectedOptionCountMatches(1);
     expect(await selectUtil.getSelectedGroupLabels()).toHaveLength(1);
     const clip2 = await selectUtil.getBoundingBox();
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, isMobile, 'Filtered option selected'), {
+    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Filtered option selected'), {
       clip: clip2,
       fullPage: true,
     });
@@ -281,7 +282,7 @@ test.describe(`Typing when focused and there is an input`, () => {
     });
     expect(selectUtil.getSearchAndFilterInfo()).toBeVisible();
     const clip3 = await selectUtil.getBoundingBox();
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, isMobile, 'No results'), {
+    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'No results'), {
       clip: clip3,
       fullPage: true,
     });
@@ -289,7 +290,7 @@ test.describe(`Typing when focused and there is an input`, () => {
   });
 });
 test.describe(`Tags`, () => {
-  test('Are rendered with multiselect. Only two rows are shown.', async ({ page, isMobile }, testInfo) => {
+  test('Are rendered with multiselect. Only two rows are shown.', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     expect(await selectUtil.getTagsCount()).toBe(0);
@@ -301,14 +302,14 @@ test.describe(`Tags`, () => {
     // getting with label, because getByText check value-prop with buttons.
     expect(page.getByLabel('Show all 11 options.').isVisible()).toBeTruthy();
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'tags rendered');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'tags rendered');
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     // click show all and take screenshot.
     await selectUtil.showAllTags();
     expect(page.getByLabel('Show less options.').isVisible()).toBeTruthy();
-    const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'all tags shown');
+    const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'all tags shown');
     const clip2 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
   });
@@ -333,7 +334,7 @@ test.describe(`Tags`, () => {
   });
   test('Selection can be deleted from tags. Focus is moved when tag is removed.', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
@@ -356,7 +357,7 @@ test.describe(`Tags`, () => {
       return isLocatorFocused(tag0);
     });
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile);
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
@@ -380,13 +381,13 @@ test.describe(`Tags`, () => {
       return isLocatorFocused(selectUtil.getElementByName('button'));
     });
 
-    const screenshotName2 = createScreenshotFileName(testInfo, isMobile, 'Focus is in the button');
+    const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'Focus is in the button');
     const clip2 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
   });
 });
 test.describe(`Search`, () => {
-  test('Is also triggerable via button and shows loading info and results', async ({ page, isMobile }, testInfo) => {
+  test('Is also triggerable via button and shows loading info and results', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
@@ -404,7 +405,7 @@ test.describe(`Search`, () => {
       return selectUtil.isSearchingSpinnerVisible();
     });
 
-    const spinnerScreenShotName = createScreenshotFileName(testInfo, isMobile, 'search spinner visible');
+    const spinnerScreenShotName = createScreenshotFileName(testInfo, hasTouch, 'search spinner visible');
     const clip2 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(spinnerScreenShotName, { clip: clip2, fullPage: true });
 
@@ -416,7 +417,7 @@ test.describe(`Search`, () => {
     // the final count is 20 random options + 2 group labels + 2 common results.
     expect(options).toHaveLength(24);
   });
-  test('No results info is shown', async ({ page, isMobile }, testInfo) => {
+  test('No results info is shown', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
@@ -430,11 +431,11 @@ test.describe(`Search`, () => {
       return selectUtil.isNoSearchResultsVisible();
     });
 
-    const noResultsScreenShotName = createScreenshotFileName(testInfo, isMobile, 'no results');
+    const noResultsScreenShotName = createScreenshotFileName(testInfo, hasTouch, 'no results');
     const clip3 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
   });
-  test('Error is shown', async ({ page, isMobile }, testInfo) => {
+  test('Error is shown', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
@@ -448,11 +449,11 @@ test.describe(`Search`, () => {
       return selectUtil.isSearchingErrorVisible();
     });
 
-    const noResultsScreenShotName = createScreenshotFileName(testInfo, isMobile, 'error');
+    const noResultsScreenShotName = createScreenshotFileName(testInfo, hasTouch, 'error');
     const clip3 = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
   });
-  test('Search results are selectable', async ({ page, isMobile }, testInfo) => {
+  test('Search results are selectable', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
@@ -491,14 +492,14 @@ test.describe(`Search`, () => {
   });
 });
 test.describe(`Element state snapshots`, () => {
-  test('Dropdown button and its children', async ({ page, isMobile }, testInfo) => {
+  test('Dropdown button and its children', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const button = selectUtil.getElementByName('button');
 
-    await takeStateScreenshots(page, button, createScreenshotFileName(testInfo, isMobile, 'dropdownbutton'));
+    await takeStateScreenshots(page, button, createScreenshotFileName(testInfo, hasTouch, 'dropdownbutton'));
   });
-  test('Multiselect items', async ({ page, isMobile }, testInfo) => {
+  test('Multiselect items', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
@@ -510,7 +511,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       groupLabel,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-unselected-groupLabel'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-unselected-groupLabel'),
       true,
     );
 
@@ -519,7 +520,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       groupLabel,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-selected-groupLabel'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-selected-groupLabel'),
       true,
     );
 
@@ -528,7 +529,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       option,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-unselected-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-unselected-option'),
       true,
     );
     await selectUtil.selectOptionByIndex({ index: 3, multiSelect: true });
@@ -536,11 +537,11 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       option,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-selected-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-selected-option'),
       true,
     );
   });
-  test('Singleselect items', async ({ page, isMobile }, testInfo) => {
+  test('Singleselect items', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithSingleSelectAndGroups, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
@@ -549,7 +550,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       groupLabel,
-      createScreenshotFileName(testInfo, isMobile, 'singleselect-unselected-groupLabel'),
+      createScreenshotFileName(testInfo, hasTouch, 'singleselect-unselected-groupLabel'),
       true,
     );
 
@@ -557,7 +558,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       option,
-      createScreenshotFileName(testInfo, isMobile, 'singleselect-unselected-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'singleselect-unselected-option'),
       true,
     );
 
@@ -567,11 +568,11 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       option,
-      createScreenshotFileName(testInfo, isMobile, 'singleselect-selected-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'singleselect-selected-option'),
       true,
     );
   });
-  test('Tag buttons', async ({ page, isMobile }, testInfo) => {
+  test('Tag buttons', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
@@ -581,22 +582,22 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       showAllButton,
-      createScreenshotFileName(testInfo, isMobile, 'taglist-showAllButton'),
+      createScreenshotFileName(testInfo, hasTouch, 'taglist-showAllButton'),
       true,
     );
     const clearAllButton = selectUtil.getElementByName('clearAllButton');
     await takeStateScreenshots(
       page,
       clearAllButton,
-      createScreenshotFileName(testInfo, isMobile, 'taglist-clearAllButton'),
+      createScreenshotFileName(testInfo, hasTouch, 'taglist-clearAllButton'),
       true,
     );
   });
-  test('Custom dropdown items', async ({ page, isMobile }, testInfo) => {
+  test('Custom dropdown items', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithCustomTheme, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.openList();
-    const menuOpenFilename = createScreenshotFileName(testInfo, isMobile, 'menu open');
+    const menuOpenFilename = createScreenshotFileName(testInfo, hasTouch, 'menu open');
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(menuOpenFilename, { clip, fullPage: true });
     // takeStateScreenshots has noOutsideClicks=true,
@@ -608,7 +609,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       groupLabel,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-selected-groupLabel'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-selected-groupLabel'),
       true,
     );
 
@@ -619,7 +620,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       groupLabel,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-unselected-groupLabel'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-unselected-groupLabel'),
       true,
     );
 
@@ -628,7 +629,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       option,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-unselected-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-unselected-option'),
       true,
     );
 
@@ -637,7 +638,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       option,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-selected-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-selected-option'),
       true,
     );
 
@@ -646,7 +647,7 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       disabledoption,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-disabled-option'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-disabled-option'),
       true,
     );
 
@@ -656,39 +657,39 @@ test.describe(`Element state snapshots`, () => {
     await takeStateScreenshots(
       page,
       disabledGroupLabel,
-      createScreenshotFileName(testInfo, isMobile, 'multiselect-disabled-group-label'),
+      createScreenshotFileName(testInfo, hasTouch, 'multiselect-disabled-group-label'),
       true,
     );
   });
 });
 test.describe(`Error and assistive text snapshots`, () => {
-  test('Assistive text is rendered', async ({ page, isMobile }, testInfo) => {
+  test('Assistive text is rendered', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithValidation, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectOptionByIndex({ index: 2, multiSelect: false });
-    const screenShotName = createScreenshotFileName(testInfo, isMobile);
+    const screenShotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
-  test('Error text is rendered', async ({ page, isMobile }, testInfo) => {
+  test('Error text is rendered', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithValidation, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectOptionByIndex({ index: 5, multiSelect: false });
-    const screenShotName = createScreenshotFileName(testInfo, isMobile);
+    const screenShotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
 });
 
 test.describe(`Changing language changes all related props`, () => {
-  test('Texts change also in selections', async ({ page, isMobile }, testInfo) => {
+  test('Texts change also in selections', async ({ page, hasTouch }, testInfo) => {
     const buttonTexts = ['Finnish', 'English', 'Swedish'];
     await gotoStorybookUrlByName(page, storyWithControls, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     await selectUtil.selectGroupByIndex({ index: 0 });
     await selectUtil.closeList();
 
-    const screenShotName = createScreenshotFileName(testInfo, isMobile, 'Finnish texts');
+    const screenShotName = createScreenshotFileName(testInfo, hasTouch, 'Finnish texts');
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
 
@@ -697,7 +698,7 @@ test.describe(`Changing language changes all related props`, () => {
     expect(page.getByText('Label (en)')).toBeVisible();
     await selectUtil.getElementByName('button').scrollIntoViewIfNeeded();
 
-    const screenShotNameEn = createScreenshotFileName(testInfo, isMobile, 'English texts');
+    const screenShotNameEn = createScreenshotFileName(testInfo, hasTouch, 'English texts');
     const clipEn = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotNameEn, { clip: clipEn, fullPage: true });
 
@@ -706,8 +707,23 @@ test.describe(`Changing language changes all related props`, () => {
     expect(page.getByText('Label (sv)')).toBeVisible();
     await selectUtil.getElementByName('button').scrollIntoViewIfNeeded();
 
-    const screenShotNameSv = createScreenshotFileName(testInfo, isMobile, 'Swedish texts');
+    const screenShotNameSv = createScreenshotFileName(testInfo, hasTouch, 'Swedish texts');
     const clipSv = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotNameSv, { clip: clipSv, fullPage: true });
+  });
+});
+
+test.describe(`Focus works with given reference`, () => {
+  test('Button is focused by calling the Button executing focus()', async ({ page, hasTouch }, testInfo) => {
+    await gotoStorybookUrlByName(page, storyWithControls, componentName, storybook);
+    const selectUtil = createSelectHelpers(page, selectId);
+
+    // get button with text "Focus"
+    const focusButton = page.getByText('Focus');
+    await focusButton.click();
+
+    const screenShotName = createScreenshotFileName(testInfo, hasTouch, 'Reference focus');
+    const clip = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
 });

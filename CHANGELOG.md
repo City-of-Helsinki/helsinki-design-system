@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.X.X] - Month, XX, 202X
+## [4.2.0] - Month, XX, 202X
 
 ### React
 
@@ -16,6 +16,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
+- [Select] Add ref prop to be able to for example focus the element programmatically
+- [Select] Tooltip support
 
 #### Changed
 
@@ -27,6 +29,8 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 - [Button] Fixed typing errors in conditionally changing variant to ButtonVariant.Supplementary
+- [Select] Fixed keyboard navigation
+- [Select] Fixed clearable property to be false as a default
 
 ### Core
 
@@ -63,10 +67,12 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- Old V1 documentation has been removed altogether
 
 #### Fixed
 
 - Accessibility statement has been updated
+- Documentation site: improved accessibility with better aria-labels and landmarks
 
 ### Figma
 

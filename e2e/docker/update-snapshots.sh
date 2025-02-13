@@ -22,4 +22,4 @@ if [ -n "$PACKAGE" ] && [ -n "$COMPONENT" ]; then
     COMMAND="PACKAGE=${PACKAGE} COMPONENT=${COMPONENT} yarn update-snapshots-component"
 fi
 
-docker run -v ${HDS_ROOT_DIR}:/${HDS_DIR_BASENAME} -it --rm --ipc=host mcr.microsoft.com/playwright:v1.48.2-jammy /bin/bash -c "cd /${HDS_DIR_BASENAME}/e2e && ${COMMAND}"
+docker run -v ${HDS_ROOT_DIR}:/${HDS_DIR_BASENAME} -it --rm --ipc=host mcr.microsoft.com/playwright:v1.49.1-noble /bin/bash -c "cd /${HDS_DIR_BASENAME}/e2e && ${COMMAND}"

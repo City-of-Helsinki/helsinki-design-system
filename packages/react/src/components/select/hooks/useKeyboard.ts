@@ -317,13 +317,16 @@ export function useKeyboard() {
     [trigger, getData, getMetaData, updateMetaData],
   );
 
-  const onKeyDown = useCallback((e: KeyboardEvent<HTMLElement>) => {
-    const { type } = getEventElementType(e);
-    keyDownElementType.current = type;
-    if (type && isAnyListChildType(type) && isClickKey(e)) {
-      e.preventDefault();
-    }
-  }, []);
+  const onKeyDown = useCallback(
+    (e: KeyboardEvent<HTMLElement>) => {
+      const { type } = getEventElementType(e);
+      keyDownElementType.current = type;
+      if (type && isAnyListChildType(type) && isClickKey(e)) {
+        e.preventDefault();
+      }
+    },
+    [getEventElementType],
+  );
 
   useEffect(() => {
     if (getData().open && keyCache.hasPendingInput()) {

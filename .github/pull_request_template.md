@@ -24,5 +24,5 @@ Links to demos are in the comments
 
 ## Add to changelog
 
-- [ ] Added needed line to changelog
+- [] Added needed line to changelog
 <!-- Or comment here why it is not relevant in the change log -->

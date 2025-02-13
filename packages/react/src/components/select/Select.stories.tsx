@@ -24,6 +24,7 @@ import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons
 import { Button } from '../button/Button';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
 import { Tag, TagSize } from '../tag/Tag';
+import { Tooltip } from '../tooltip/Tooltip';
 import useForceRender from '../../hooks/useForceRender';
 
 export default {
@@ -138,6 +139,27 @@ export const Singleselect = () => {
   );
 };
 
+export const SingleselectWithTooltip = () => {
+  const options = getOptionLabels(20);
+  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+    return requireOneSelection(...args);
+  }, []);
+
+  const tooltip = <Tooltip>This is a test tooltip</Tooltip>;
+
+  return (
+    <Select
+      options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={defaultTexts}
+      id="hds-select-component"
+      tooltip={tooltip}
+    />
+  );
+};
+
 export const SingleselectWithGroups = () => {
   const groups: SelectProps['groups'] = [
     {
@@ -163,6 +185,7 @@ export const SingleselectWithGroups = () => {
       onChange={onChange}
       icon={<IconLocation />}
       texts={defaultTexts}
+      clearable
       id="hds-select-component"
     />
   );
@@ -185,6 +208,7 @@ export const OptionsAsHtml = () => {
 
 export const WithControls = () => {
   const [lang, setLang] = useState<SupportedLanguage>('fi');
+  const reference = React.createRef<HTMLButtonElement>();
   const addLang = (value: string, language?: string) => {
     const withoutLang = value.split('(')[0];
     return `${withoutLang} (${language || lang})`;
@@ -204,13 +228,14 @@ export const WithControls = () => {
       options: getOptionLabels(4, 5).map(createOptionWithLanguage),
     },
   ]);
+  const onChange: SelectProps['onChange'] = useCallback(
+    (selectedOptions) => {
+      updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, selectedOptions));
+    },
+    [optionGroups],
+  );
 
-  const onChange: SelectProps['onChange'] = (selectedOptions) => {
-    updateOptionGroups(updateSelectedOptionsInGroups(optionGroups, selectedOptions));
-  };
-
-  const [props, updateProps] = useState<SelectProps>({
-    onChange,
+  const [props, updateProps] = useState<Partial<SelectProps>>({
     disabled: false,
     multiSelect: true,
     open: false,
@@ -290,15 +315,20 @@ export const WithControls = () => {
     updateProps({ ...props, required: !required });
   };
 
+  const setFocus = () => {
+    reference?.current?.focus();
+  };
+
   return (
     <WrapperWithButtonStyles>
-      <Select {...props} groups={optionGroups} texts={texts} icon={icons[lang]} />
+      <Select {...props} groups={optionGroups} texts={texts} icon={icons[lang]} ref={reference} onChange={onChange} />
       <div className="buttons">
         <Button onClick={resetSelections}>Reset selections</Button>
         <Button onClick={toggleDisable}>Disable/enable component</Button>
         <Button onClick={toggleMenu}>Open/Close list</Button>
         <Button onClick={toggleInvalid}>Set valid/invalid</Button>
         <Button onClick={toggleRequired}>Toggle required</Button>
+        <Button onClick={setFocus}>Focus</Button>
       </div>
       <div className="buttons">
         <Button onClick={setFinnish} disabled={lang === 'fi'}>
@@ -403,6 +433,7 @@ export const Multiselect = () => {
       icon={<IconLocation />}
       required
       multiSelect
+      clearable
       texts={defaultTextsForMultiSelect}
       id="hds-select-component"
     />
@@ -458,6 +489,7 @@ export const MultiselectWithGroupsAndFilter = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
+      clearable
       filter={defaultFilter}
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}

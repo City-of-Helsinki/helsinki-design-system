@@ -1,0 +1,66 @@
+/* stylelint-disable scss/function-no-unknown */
+@use '../helpers' as helpers;
+@use "sass:map";
+@use "sass:meta";
+@use "sass:list";
+
+// tested keys are from "expected" so partials can be tested.
+@function diff-map($target, $expected, $diffs: []) {
+  @each $key in map.keys($expected) {
+    $value: map.get($target, $key);
+    $expectedValue: map.get($expected, $key);
+
+    @if helpers.is-value-map($expectedValue) {
+      @if not helpers.is-value-map($value) {
+        $diffs: list.append($diffs, 'expected "#{$key}" to be a map, but got "#{meta.inspect($value)}"');
+      } @else {
+        $diffs: diff-map($value, $expectedValue, $diffs);
+      }
+    } @else {
+      @if $value != $expectedValue {
+        $diffs: list.append($diffs, 'expected "#{$key}" to be "#{$expectedValue}", but got "#{meta.inspect($value)}"');
+      }
+    }
+  }
+
+  @return $diffs;
+}
+
+// tested items are from "expected" so partials can be tested.
+@function diff-list($target, $expected, $diffs: []) {
+  $len: list.length($expected);
+  @if $len > 1 {
+    @for $i from 1 through $len - 1 {
+      $value: list.nth($target, $i);
+      $expectedValue: list.nth($expected, $i);
+
+      @if helpers.is-value-list($expectedValue) {
+        @if not helpers.is-value-list($value) {
+          $diffs: list.append($diffs, 'expected "#{$i}" to be a list, but got "#{meta.inspect($value)}"');
+        } @else {
+          $diffs: diff-map($value, $expectedValue, $diffs);
+        }
+      } @else {
+        @if $value != $expectedValue {
+          $diffs: list.append($diffs, 'expected "#{$i}" to be "#{$expectedValue}", but got "#{meta.inspect($value)}"');
+        }
+      }
+    }
+  }
+  @return $diffs;
+}
+
+@function inspect($note, $data) {
+  @debug '#{$note}: #{meta.inspect($data)}';
+  @return null;
+}
+
+@function inspectArgs($args...) {
+  $data: helpers.create-empty-map();
+  @each $key, $value in meta.keywords($args) {
+    $data: map.set($data, $key, $value);
+  }
+
+  @debug 'inspectArgs: #{meta.inspect($data)}';
+  @return null;
+}

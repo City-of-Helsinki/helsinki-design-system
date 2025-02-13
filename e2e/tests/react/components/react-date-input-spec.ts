@@ -32,7 +32,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     createTimeControls(page, commonTestDate);
   };
 
-  test('Take snapshots of all DateInput stories', async ({ page, isMobile }) => {
+  test('Take snapshots of all DateInput stories', async ({ page, hasTouch }) => {
     setCommonTestDate(page);
     const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
     if (componentUrls.length === 0) {
@@ -46,20 +46,20 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       const containerCount = await element.count();
       if (containerCount === 1) {
         const clip = await inputUtil.getBoundingBox();
-        const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${isMobile ? 'mobile' : 'desktop'}`;
-        await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: false });
+        const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
+        await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
 
         const hasButton = await inputUtil.getButtonLocator().isVisible();
         if (hasButton) {
           //open the dialog
           await inputUtil.openDialog();
           const clipOpen = await inputUtil.getBoundingBox();
-          await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: false });
+          await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: true });
         }
       }
     }
   });
-  test('Dialog is opened and closed. Focus stays in the button.', async ({ page, isMobile }, testInfo) => {
+  test('Dialog is opened and closed. Focus stays in the button.', async ({ page, hasTouch }, testInfo) => {
     setCommonTestDate(page);
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
 
@@ -68,7 +68,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     expect(isOpen).toBeFalsy();
     await inputUtil.openDialog();
 
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'open');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'open');
     const clip = await inputUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
@@ -76,38 +76,38 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return isLocatorFocused(inputUtil.getButtonLocator());
     });
   });
-  test('Select day with keyboard', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Select day with keyboard', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     createTimeControls(page, { day: 10, month: 12, year: 2024 });
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
     await inputUtil.selectDayWithKeyboard(12, 12, 2024);
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'day 12 selected');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'day 12 selected');
     const clip = await inputUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
     await inputUtil.clickSelectButton();
     const value = await inputUtil.getSelectedDateString();
     expect(value).toBe('12.12.2024');
   });
-  test('Select day with mouse', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Select day with mouse', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     createTimeControls(page, { day: 10, month: 12, year: 2024 });
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
     await inputUtil.selectDayWithMouse(13);
-    const screenshotName = createScreenshotFileName(testInfo, isMobile, 'day 13 selected');
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'day 13 selected');
     const clip = await inputUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
     await inputUtil.clickSelectButton();
     const value = await inputUtil.getSelectedDateString();
     expect(value).toBe('13.12.2024');
   });
-  test('Does not set the input value when close button is pressed', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Does not set the input value when close button is pressed', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
@@ -118,8 +118,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     const value = await inputUtil.getSelectedDateString();
     expect(value).toBe('02.02.2024');
   });
-  test('Does not set the input value when clicked outside the modal', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Does not set the input value when clicked outside the modal', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
@@ -136,9 +136,9 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   });
   test('Select day with mouse when disableConfirmation is true closes the dialog when date is selected', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
-    if (isMobile) {
+    if (hasTouch) {
       return;
     }
     createTimeControls(page, { day: 10, month: 12, year: 2024 });
@@ -154,9 +154,9 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   });
   test('Month and year selects have correct values which change when user input changes', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
-    if (isMobile) {
+    if (hasTouch) {
       return;
     }
     const startDate = { day: 10, month: 2, year: 2015 };
@@ -175,8 +175,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     expect(newTime.month).toBe(String(newDate.month));
     expect(newTime.year).toBe(String(newDate.year));
   });
-  test('Given input value is selected', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Given input value is selected', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     const startDate = { day: 10, month: 2, year: 2015 };
@@ -188,8 +188,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await inputUtil.openDialog();
     await inputUtil.isDateSelected(newDate);
   });
-  test('Current date is indicated', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Current date is indicated', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     const currentDate = { day: 12, month: 12, year: 2012 };
@@ -204,9 +204,9 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   });
   test('Setting invalid date as the input value resets the selected date in calendar', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
-    if (isMobile) {
+    if (hasTouch) {
       return;
     }
     const currentDate = { day: 12, month: 12, year: 2012 };
@@ -227,8 +227,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     const selectedButton2 = await inputUtil.getSelectedDateLocator().count();
     expect(selectedButton2).toBe(0);
   });
-  test('Should be able to clear the value with external button', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Should be able to clear the value with external button', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     setCommonTestDate(page);
@@ -247,9 +247,9 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   });
   test('When min and max dates are set, keyboard moves focus to the first enabled date.', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
-    if (isMobile) {
+    if (hasTouch) {
       return;
     }
     // the min and max are set in the story
@@ -277,8 +277,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return isLocatorFocused(page.locator(inputUtil.getDateButtonSelector(5, currentDate.month, currentDate.year)));
     });
   });
-  test('Max date limits how far calendar can be browsed', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Max date limits how far calendar can be browsed', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     // the min and max are set in the story
@@ -300,9 +300,9 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   });
   test('Should skip weekend dates with keyboard navigation when weekend dates are disabled', async ({
     page,
-    isMobile,
+    hasTouch,
   }, testInfo) => {
-    if (isMobile) {
+    if (hasTouch) {
       return;
     }
     // the min and max are set in the story
@@ -339,8 +339,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       return isLocatorFocused(fridayThe6th);
     });
   });
-  test('Should return custom class for specific days', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Should return custom class for specific days', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       return;
     }
     // specialDates are in the story
@@ -367,8 +367,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     }
     await expect(page.locator(`#${littleSpaceLeftDate.elementId}`)).toHaveCount(1);
   });
-  test('Native html props are passed to the element', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('Native html props are passed to the element', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // no need to test in mobile
       return;
     }
@@ -402,8 +402,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       }),
     ).toHaveLength(0);
   });
-  test('renders the component with Finnish language', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('renders the component with Finnish language', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // no need to test in mobile
       return;
     }
@@ -417,8 +417,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     expect(page.getByLabel('Valitse päivämäärä')).toHaveCount(1);
     expect(await inputUtil.getContainerLocator().getAttribute('lang')).toBe(langProps.language);
   });
-  test('renders the component with Swedish language', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('renders the component with Swedish language', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // no need to test in mobile
       return;
     }
@@ -432,8 +432,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     expect(page.getByLabel('Välj datum')).toHaveCount(1);
     expect(await inputUtil.getContainerLocator().getAttribute('lang')).toBe(langProps.language);
   });
-  test('has correct date selected when defaultValue is provided', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('has correct date selected when defaultValue is provided', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // no need to test in mobile
       return;
     }
@@ -450,8 +450,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     expect(await inputUtil.getDropdownValues()).toMatchObject({ year: date.year, month: date.month });
     expect(await inputUtil.isDateSelected(date)).toBeTruthy();
   });
-  test('has correct date selected when value is provided', async ({ page, isMobile }, testInfo) => {
-    if (isMobile) {
+  test('has correct date selected when value is provided', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
       // no need to test in mobile
       return;
     }
