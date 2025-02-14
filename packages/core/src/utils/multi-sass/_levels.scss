@@ -1,0 +1,377 @@
+/* stylelint-disable scss/dollar-variable-pattern */
+/* stylelint-disable scss/function-no-unknown */
+@use "sass:map";
+@use "sass:meta";
+@use './globals.scss' as globals;
+@use './helpers.scss' as helpers;
+@use './rules.scss' as rules;
+@use './selectors.scss' as selectors;
+
+/*
+* Functions to create and update levels and handle their nesting.
+*/
+
+$EMIT_TARGET_NESTED: 'EMIT_TARGET_NESTED';
+$EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
+
+@function init-levels() {
+  $levels: [];
+
+  @return $levels;
+}
+
+@function create-level-data($parent, $args...) {
+  $parentDepth: if($parent, map.get($parent, 'depth'), -1);
+  $parentIsContentOnly: if($parent, map.get($parent, 'contentOnly'), false);
+  $depth: if($parentIsContentOnly, $parentDepth, $parentDepth + 1);
+  $levelProps: helpers.get-map-data-with-value(helpers.get-arg-map-or-arg-list-as-map($args...));
+
+  @if not $levelProps {
+    @return ('depth': -1, 'type': null, 'name': null, 'parent': null);
+  }
+
+  $type: map.get($levelProps, 'key');
+  $name: map.get($levelProps, 'value');
+
+  @return ('parent': $parent, 'type': $type, 'depth': $depth, 'name': $name);
+}
+
+@function append-level-rules($ruleMap, $config, $level) {
+  $parent: map.get($level, 'parent');
+  $parentAllowed: if($parent, map.get($parent, 'isAllowed'), true);
+  $isAllowed: $parentAllowed and is-level-allowed-in-rules($ruleMap, $level);
+  $contentOnly: $isAllowed and is-level-content-only($level);
+  $selector: null;
+  $isRoot: is-root-level($level);
+  $emitToRootInConfig: (
+    ($isRoot and globals.emit-content-only-in-root($config)) or globals.emit-content-only-in-all($config)
+  );
+
+  // only block and custom should nest their selectors in root.
+  // or is block levels needed here
+  @if $emitToRootInConfig {
+    $level: set-level-emit-target-to-root($level);
+    $contentOnly: true;
+  } @else if $isRoot and (is-block-level($level) or is-custom-level($level)) {
+    $level: set-level-emit-target-to-nested($level);
+  }
+
+  $level: map.set($level, 'isAllowed', $isAllowed);
+  $level: map.set($level, 'contentOnly', $contentOnly);
+
+  @if $isAllowed and not $contentOnly {
+    $selector: create-level-selector($config, $level);
+  } @else if $isAllowed and is-extra-level($level) and $parent {
+    $selector: get-level-selector($parent);
+  }
+
+  $level: map.set($level, 'selector', $selector);
+
+  @return $level;
+}
+
+@function create-level($ruleMap, $config, $args...) {
+  $level: create-level-data($args...);
+
+  @return append-level-rules($ruleMap, $config, $level);
+}
+
+@function get-current-level($levels) {
+  @return helpers.get-last-list-item($levels);
+}
+
+@function get-level-parent-selector($config, $level) {
+  $parent: get-level-parent($level);
+
+  @if $parent {
+    @return get-level-selector($parent);
+  }
+
+  @return globals.get-root-selector($config);
+}
+
+@function create-level-selector($config, $level) {
+  $shouldEmitAtRoot: should-level-emit-at-root($level);
+  $type: get-level-type($level);
+  $name: get-level-name($level);
+
+  @if helpers.can-value-be-falsy($name) and is-block-type($type) {
+    $name: globals.get-block-name($config);
+  }
+
+  $alias: get-level-alias($level, $config);
+
+  @if $alias {
+    @return selectors.create-selector-with-alias($type, $alias);
+  }
+
+  @return selectors.create-selector($type, $name, $config);
+}
+
+@function get-closest-with-name-or-type($level, $type, $name: null, $startFromLevel: false) {
+  $nameRequired: helpers.can-value-be-truthy($name) and $name != true;
+  $parent: if($startFromLevel, $level, get-level-parent($level));
+
+  @while $parent {
+    @if get-level-type($parent) == $type {
+      @if $nameRequired {
+        @if get-level-name() == $name {
+          @return $parent;
+        }
+      } @else {
+        @return $parent;
+      }
+    }
+
+    $parent: get-level-parent($parent);
+  }
+
+  @return null;
+}
+
+@function get-closest-entity($level, $startFromLevel: true) {
+  $parent: if($startFromLevel, $level, get-level-parent($level));
+
+  @while $parent {
+    $parentType: get-level-type($parent);
+
+    @if is-block-type($parentType) or is-modifier-type($parentType) or is-element-type($parentType) {
+      @return $parent;
+    }
+
+    $parent: get-level-parent($parent);
+  }
+
+  @return null;
+}
+
+@function is-level-allowed-in-rules($ruleMap, $level) {
+  $type: get-level-type($level);
+  $name: get-level-name($level);
+
+  @if is-block-type($type) {
+    @return true;
+  } @else if is-modifier-type($type) {
+    @return rules.is-modifier-allowed($ruleMap, $name);
+  } @else if is-element-type($type) {
+    // get parent modifier
+    $closestModifier: get-closest-with-name-or-type($level, 'modifier');
+
+    @if $closestModifier {
+      @return rules.is-element-allowed-in-modifier($ruleMap, get-level-name($closestModifier), $name);
+    } @else {
+      @return rules.is-element-allowed($ruleMap, $name);
+    }
+
+    @return false;
+  } @else if is-content-type($type) {
+    $closestEntity: get-closest-entity($level);
+
+    @if not $closestEntity {
+      @return true;
+    }
+
+    $closestType: get-level-type($closestEntity);
+
+    @if is-block-type($closestType) {
+      @if not $name or globals.is-base-name($name) {
+        @return rules.is-base-content-allowed($ruleMap);
+      }
+
+      @return rules.is-element-allowed($ruleMap, $name);
+    } @else if not $name {
+      @return true;
+    } @else if is-modifier-type($closestType) {
+      @return rules.is-element-allowed-in-modifier($ruleMap, get-level-name($closestEntity), $name);
+    } @else if is-element-type($closestType) {
+      @return rules.is-element-allowed($ruleMap, get-level-name($closestEntity)) and
+        rules.is-element-allowed($ruleMap, $name);
+    }
+  } @else if is-extra-type($type) {
+    @return rules.is-extra-allowed($ruleMap, $name);
+  } @else if is-custom-type($type) {
+    @if $name {
+      @return rules.is-extra-allowed($ruleMap, $name);
+    }
+
+    @return true;
+  }
+
+  @return false;
+}
+
+@function find-closest-in-current($args...) {
+  $entityProps: helpers.get-map-data-with-value(helpers.get-arg-map-or-arg-list-as-map($args...));
+
+  @if not $entityProps {
+    @return null;
+  }
+
+  $type: map.get($entityProps, 'key');
+  $name: map.get($entityProps, 'value');
+
+  @if $type {
+    $levels: globals.get-multi-sass-levels();
+    $currentLevel: get-current-level($levels);
+    $targetLevel: get-closest-with-name-or-type($currentLevel, $type, $name, $startFromLevel: true);
+
+    @return if($targetLevel, $targetLevel, null);
+  }
+
+  @return null;
+}
+
+@function is-level-content-only($level) {
+  @return is-content-level($level) or is-extra-level($level);
+}
+
+@function get-level-content-only($level) {
+  @return map.get($level, 'contentOnly');
+}
+
+@function get-level-type($level) {
+  @return map.get($level, 'type');
+}
+
+@function get-level-alias($level, $config: null) {
+  $ruleMap: globals.get-multi-sass-rules();
+  $type: get-level-type($level);
+  $name: get-level-name($level);
+
+  @return globals.get-alias-value($name, $config);
+}
+
+@function get-level-name($level) {
+  @return map.get($level, 'name');
+}
+
+@function set-level-name($level, $name) {
+  @return map.set($level, 'name', $name);
+}
+
+@function get-level-parent($level) {
+  @return map.get($level, 'parent');
+}
+
+@function set-level-parent($level, $parent) {
+  @return map.set($level, 'parent', $parent);
+}
+
+@function get-level-depth($level) {
+  @return map.get($level, 'depth');
+}
+
+@function set-level-depth($level, $depth) {
+  @return map.set($level, 'depth', $depth);
+}
+
+@function get-level-selector($level) {
+  @return map.get($level, 'selector');
+}
+
+@function set-level-selector($level, $selector) {
+  @if is-custom-level($level) {
+    $void: set-level-name($level, $selector);
+  }
+
+  @return map.set($level, 'selector', $selector);
+}
+
+@function collect-parent-entity-selectors($level) {
+  $selector: get-level-selector($level);
+  $parent: get-level-parent($level);
+
+  @while $parent {
+    $levelSelector: get-level-selector($parent);
+
+    @if not is-level-content-only($parent) and helpers.can-value-be-truthy($levelSelector) {
+      $selector: '#{$levelSelector}#{$selector}';
+    }
+
+    $parent: get-level-parent($parent);
+  }
+
+  @return $selector;
+}
+
+@function get-level-emit-target($level) {
+  @return map.get($level, 'emitTarget');
+}
+
+@function set-level-emit-target($level, $emitTarget) {
+  @return map.set($level, 'emitTarget', $emitTarget);
+}
+
+@function set-level-emit-target-to-root($level) {
+  @return set-level-emit-target($level, $EMIT_TARGET_ROOT);
+}
+
+@function set-level-emit-target-to-nested($level) {
+  @return set-level-emit-target($level, $EMIT_TARGET_NESTED);
+}
+
+@function should-level-emit-at-root($level) {
+  $target: get-level-emit-target($level);
+
+  @return $target == $EMIT_TARGET_ROOT;
+}
+
+@function should-level-emit-nested($level) {
+  @return get-level-emit-target($level) == $EMIT_TARGET_NESTED;
+}
+
+@function is-level-allowed($level) {
+  @return map.get($level, 'isAllowed') == true;
+}
+
+@function is-root-level($level) {
+  @return helpers.can-value-be-falsy(get-level-parent($level));
+}
+
+@function is-block-type($type) {
+  @return $type == 'block';
+}
+
+@function is-modifier-type($type) {
+  @return $type == 'modifier';
+}
+
+@function is-element-type($type) {
+  @return $type == 'element';
+}
+
+@function is-content-type($type) {
+  @return $type == 'content';
+}
+
+@function is-extra-type($type) {
+  @return $type == 'extra';
+}
+
+@function is-custom-type($type) {
+  @return $type == 'custom';
+}
+
+@function is-block-level($level) {
+  @return is-block-type(get-level-type($level));
+}
+
+@function is-modifier-level($level) {
+  @return is-modifier-type(get-level-type($level));
+}
+
+@function is-element-level($level) {
+  @return is-element-type(get-level-type($level));
+}
+
+@function is-content-level($level) {
+  @return is-content-type(get-level-type($level));
+}
+
+@function is-extra-level($level) {
+  @return is-extra-type(get-level-type($level));
+}
+
+@function is-custom-level($level) {
+  @return is-custom-type(get-level-type($level));
+}

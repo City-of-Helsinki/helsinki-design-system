@@ -1,0 +1,390 @@
+/* stylelint-disable scss/dollar-variable-pattern */
+/* stylelint-disable scss/function-no-unknown */
+@use "sass:map";
+@use "sass:meta";
+@use './globals.scss' as globals;
+@use './levels.scss' as levels;
+@use './rules.scss' as rules;
+@use './helpers.scss' as helpers;
+@use './process.scss' as process;
+@use './output.scss' as output;
+@use './selectors.scss' as selectors;
+
+/*
+* This file contains functions and mixins that are exported publicly.
+*/
+
+/// Initializes the system
+/// Parses args and creates
+/// - rules
+/// - levels (always empty at this point
+/// - config
+///
+/// @params Named args:
+///  - $alias
+///  - $block
+///  - $config
+///  - $elements
+///  - $extras
+///  - $modifiers
+/// @returns a map with "rules" | "levels" | "config"
+
+@function init-multi-sass($args...) {
+  $argMap: helpers.arg-list-to-map($args...);
+  $rootSelector: null;
+  $rules: rules.rules-to-map($argMap);
+  $levels: [];
+  $blockName: map.get($argMap, 'block');
+  $configInArgs: map.get($argMap, 'config') or helpers.create-empty-map();
+  $aliasInArgs: map.get($argMap, 'alias') or null;
+  $config: map.merge(
+    (
+      'blockName': $blockName,
+      'rootSelector': $rootSelector,
+      'blockPrefix': globals.$BLOCK-PREFIX,
+      'modifierDelimeter': globals.$MODIFIER-DELIMETER,
+      'elementDelimeter': globals.$ELEMENT-DELIMETER,
+      'alias': $aliasInArgs,
+      'emitContentOnly': null,
+    ),
+    $configInArgs
+  );
+
+  @return globals.store-multi-sass-controller($rules, $levels, $config);
+}
+
+// Must be called when the init-multi-sass() is at its end
+// or nested init-multi-sass() blocks will get mixed up.
+@function end-multi-sass() {
+  @return globals.remove-current-controller();
+}
+
+// emits css
+@mixin start-emit-end($args...) {
+  $createdLevel: process.start($args...);
+
+  @include output.emit($createdLevel) {
+    @content;
+  }
+
+  $void: process.end();
+}
+
+// emits a block
+@mixin block() {
+  @include start-emit-end($block: '') {
+    @content;
+  }
+}
+
+// emits a pure css content
+@mixin content($element: '') {
+  @include start-emit-end($content: $element) {
+    @content;
+  }
+}
+
+// emits a modifier
+@mixin modifier($modifier) {
+  @include start-emit-end($modifier: $modifier) {
+    @content;
+  }
+}
+
+// emits an element
+@mixin element($element) {
+  @include start-emit-end($element: $element) {
+    @content;
+  }
+}
+
+// handles extra and emits its contents
+@mixin extra($extra) {
+  @include start-emit-end($extra: $extra) {
+    @content;
+  }
+}
+
+/// Usable when a selector should findable as a level.
+/// If not needed, use plain css selectors.
+/// @internal
+@mixin custom($selector) {
+  @include start-emit-end($custom: $selector) {
+    @content;
+  }
+}
+
+@mixin extra-selector($name, $selector) {
+  @include extra($name) {
+    @include custom($selector) {
+      @content;
+    }
+  }
+}
+
+@mixin extra-descendant($name, $selector) {
+  @include extra($name) {
+    @include custom(' #{$selector}') {
+      @content;
+    }
+  }
+}
+
+// SPECIAL CASES / HELPERS
+
+@mixin if-content-allowed() {
+  $currentLevel: process.get-current-level();
+
+  // create a fake level, so all checks are made like a normal entity
+
+  $ARGS_MAP: helpers.create-empty-map();
+  $ARGS_MAP: map.set($ARGS_MAP, 'element', globals.$BASE_CONTENT_NAME);
+  $level: levels.create-level-data($currentLevel, $ARGS_MAP);
+  $ruleMap: globals.get-multi-sass-rules();
+  $isAllowed: levels.is-level-allowed-in-rules($ruleMap, $level);
+
+  // clear the fake level
+  $level: ();
+
+  @if $isAllowed {
+    @content;
+  }
+}
+
+/// selector-list((('modifier': 'hello'), ('modifier': 'hello2'), ('element': 'elem'), ('custom': ' div'))) {...}
+/// creates .hds-test--hello, .hds-test--hello2, .hds-test__elem, .hds-test div {...}
+@mixin selector-list($list) {
+  $selector: '';
+  $config: globals.get-multi-sass-config();
+
+  @each $item in $list {
+    $tempLevel: process.create-process-level(
+      $ARGS_MAP: $item,
+    );
+    $keyAndValue: helpers.get-map-data-with-value($item);
+    $type: map.get($keyAndValue, 'key');
+    $name: map.get($keyAndValue, 'value');
+    $levelSelector: levels.get-level-selector($tempLevel);
+
+    @if $levelSelector {
+      @if $selector != '' {
+        $selector: '#{$selector},&#{$levelSelector}';
+      } @else {
+        $selector: '&#{$levelSelector}';
+      }
+    }
+  }
+
+  $newLevel: process.create-process-level(
+    $custom: '> .will-be-overridden',
+  );
+  $newLevel: levels.set-level-selector($newLevel, $selector);
+
+  // children of this entity should emit nested css
+  $newLevel: levels.set-level-emit-target-to-nested($newLevel);
+  $void: globals.add-multi-sass-level($newLevel);
+
+  @include output.emit($newLevel) {
+    @content;
+  }
+
+  $void: process.end();
+}
+
+/// finds the closest entity that matches $args and appends to its selector with given separator
+/// used via other mixins below
+/// @internal
+@mixin linked-entities($typeAndName, $separator, $args...) {
+  $currentLevel: process.get-current-level();
+  $currentLevelSelector: if($currentLevel, levels.get-level-selector($currentLevel), '&');
+  $closest: levels.find-closest-in-current($args...);
+  $type: map.get($typeAndName, 'type');
+  $name: map.get($typeAndName, 'name');
+
+  @if $closest and $type {
+    $closestSelector: levels.collect-parent-entity-selectors($closest);
+    $ARGS_MAP: helpers.create-empty-map();
+    $ARGS_MAP: map.set($ARGS_MAP, $type, $name);
+    $newLevel: process.create-process-level(
+      $ARGS_MAP: $ARGS_MAP,
+    );
+    $selector: selectors.create-selector($type, $name, globals.get-multi-sass-config());
+    $newLevel: levels.set-level-selector($newLevel, '#{$closestSelector}#{$selector}');
+
+    @if $separator == ' ' {
+      $newLevel: levels.set-level-emit-target-to-nested($newLevel);
+    }
+
+    $void: globals.add-multi-sass-level($newLevel);
+
+    /// depth is wrong. (depends on separator)
+    /// parent is kind of wrong (depends on separator)
+    @include output.emit($newLevel) {
+      @content;
+    }
+
+    $void: process.end();
+  }
+}
+
+// creates compound selectors like .<selector1>.<selector2>
+@mixin compound-entity($args...) {
+  @include linked-entities($separator: '', $args...) {
+    @content;
+  }
+}
+
+// creates descendant selectors like .<selector1> .<selector2>
+@mixin descendant-entity($args...) {
+  @include linked-entities($separator: ' ', $args...) {
+    @content;
+  }
+}
+
+/// Creates component selectors like .hds-myBlock--previousModifier.hds-myBlock--compoundModifier
+@mixin compound-block-modifier($modifier, $block: true) {
+  $typeAndName: (
+    'type': 'modifier',
+    'name': $modifier,
+  );
+
+  @include compound-entity($typeAndName, $block: $block) {
+    @content;
+  }
+}
+
+/// copies closest modifier and apppends an element to it and appends selector as a descendant
+/// @include modifier('element-sibling-modifier') {
+///     @include descendant-modifier-element('compound-element') {
+///     }
+/// }
+/// results in
+/// .hds-test--element-sibling-modifier .hds-test--element-sibling-modifier__compound-element
+@mixin descendant-modifier-element($element, $modifier: true) {
+  $typeAndName: (
+    'type': 'element',
+    'name': $element,
+  );
+
+  @include descendant-entity($typeAndName, $modifier: $modifier) {
+    @content;
+  }
+}
+
+/// creates a element for the closest block. Can be called inside any entity.
+/// Calling it inside "modifier":
+///
+/// @include modifier('modifier') {
+///   @include block-element('block-element')
+///
+/// Results in
+/// .hds-test--modifier .hds-test__block-element
+@mixin block-element($element, $block: true) {
+  $typeAndName: (
+    'type': 'element',
+    'name': $element,
+  );
+
+  @include descendant-entity($typeAndName, $block: $block) {
+    @content;
+  }
+}
+
+// shorthand for custom(' #{$selector}')
+// can also be used to add a new child
+@mixin descendant($selector) {
+  @include custom(' #{$selector}') {
+    @content;
+  }
+}
+
+// shorthand for custom('.#{$selector}')
+@mixin class($selector) {
+  @include custom('.#{$selector}') {
+    @content;
+  }
+}
+
+/// finds the closest entity that matches $args and repeats its selector again
+@mixin repeat($args...) {
+  $closest: levels.find-closest-in-current($args...);
+
+  @if $closest {
+    $selector: levels.get-level-selector($closest);
+    $createdLevel: process.start(
+      $custom: $selector,
+    );
+    $createdLevel: levels.set-level-emit-target-to-nested($createdLevel);
+
+    @include output.emit($createdLevel) {
+      @content;
+    }
+
+    $void: process.end();
+  }
+}
+
+/// finds the closest entity that matches $args and repeats its selector with given replacer
+/// .hds-test with @include repeat-with-replace($original: '-test', $replacement: '-replacement', $block: true) {
+/// results in .hds-test.hds-replacement {}
+@mixin repeat-with-replace($original, $replacement, $args...) {
+  $closest: levels.find-closest-in-current($args...);
+
+  @if $closest {
+    $selector: levels.get-level-selector($closest);
+    $editedSelector: helpers.replace-string($selector, $original, $replacement);
+
+    @include custom($editedSelector) {
+      @content;
+    }
+  }
+}
+
+// calls given func and emits the selector with content
+@mixin create-custom-selector($selectorCreator) {
+  $ruleMap: globals.get-multi-sass-rules();
+  $config: globals.get-multi-sass-config();
+  $currentLevel: process.get-current-level();
+  $selector: meta.call($selectorCreator, $ruleMap, $config, $currentLevel);
+
+  @if $selector {
+    @include custom($selector) {
+      @content;
+    }
+  }
+}
+
+// mixin for creating custom levels which are useful for custom css selectors
+// calls given func and appends the level and emits the content
+@mixin create-custom-level($levelCreator) {
+  $ruleMap: globals.get-multi-sass-rules();
+  $config: globals.get-multi-sass-config();
+  $currentLevel: process.get-current-level();
+  $newLevel: meta.call($levelCreator, $ruleMap, $config, $currentLevel);
+  $selector: levels.get-level-selector($newLevel);
+
+  @if $newLevel and $selector {
+    $parentDepth: if($currentLevel, levels.get-level-depth($currentLevel), 0);
+    $newLevel: levels.set-level-parent($newLevel, $currentLevel);
+    $newLevel: levels.set-level-depth($newLevel, $parentDepth + 1);
+    $void: globals.add-multi-sass-level($newLevel);
+
+    @include output.emit($newLevel) {
+      @content;
+    }
+
+    $void: process.end();
+
+    @include custom($selector) {
+      @content;
+    }
+  }
+}
+
+/// shorthand to call init + end in one mixin
+@mixin multi-sass($args...) {
+  $void: init-multi-sass($args...);
+  @content;
+
+  $void: end-multi-sass();
+}

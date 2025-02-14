@@ -1,0 +1,258 @@
+/* stylelint-disable scss/function-no-unknown */
+/* stylelint-disable scss/dollar-variable-pattern */
+@use "sass:map";
+@use "sass:list";
+@use './helpers.scss' as helpers;
+
+/*
+* Global variables
+* 
+* Controls, parses and sets the global properties and controllers.
+* Each mixing that calls the init-multi-sass creates a new controller.
+* Multiple controllers are needed so nesting "init-multi-sass" inside another "init-multi-sass" works.
+* Each controller needs their own config and tracking of levels.
+*/
+
+/// list of controllers initialized from init-multi-sass
+$CONTROLLER_LIST: [];
+
+/// constants
+$HAS_EXPLICIT_TRUE: 'HAS_EXPLICIT_TRUE';
+$ALL_ALLOWED: 'ALL_ALLOWED';
+$ALL_DISALLOWED: 'ALL_DISALLOWED';
+$ALLOW_BASE_CONTENT: 'ALLOW_BASE_CONTENT';
+$BASE_CONTENT_NAME: 'base';
+$ALIAS_MAP_KEY: 'alias';
+$USE_PARENT_ALIAS_VALUE: '&';
+$ELEMENT-DELIMETER: '__';
+$MODIFIER-DELIMETER: '--';
+$BLOCK-PREFIX: 'hds-';
+$EMIT_CONTENT_ONLY_IN_ROOT: 'root';
+$EMIT_CONTENT_ONLY_ALL: 'all';
+
+/// ***
+/// Global CONTROLLER_LIST functions
+/// ***
+
+/// Returs the global list of controllers
+/// @returns sass.list of controllers.
+@function get-controllers() {
+  @return $CONTROLLER_LIST;
+}
+
+/// Update global list and return updated list
+/// @returns sass.list of controllers.
+@function update-controllers($controllerList) {
+  $CONTROLLER_LIST: $controllerList !global;
+
+  @return $CONTROLLER_LIST;
+}
+
+/// Adds a new controller to the global list and returns updated list
+/// @returns sass.list of controllers.
+@function add-controller($controller) {
+  $current: get-controllers();
+  $updated: list.append($current, $controller);
+  $void: update-controllers($updated);
+
+  @return $updated;
+}
+
+/// Removes current controller (pops the list)from the global list and returns updated list
+/// @returns sass.list of controllers.
+@function remove-current-controller() {
+  $controllers: get-controllers();
+  $newList: helpers.pop-list($controllers);
+
+  @return update-controllers($controllers);
+}
+
+/// Gets current controller, the last in the list
+/// @returns A controller.
+@function get-current-controller() {
+  @return helpers.get-last-list-item(get-controllers());
+}
+
+/// Updates current controller
+/// @returns An updated controller.
+@function update-current-controller($ruleMap: null, $levels: null, $config: null) {
+  $currentController: get-current-controller();
+
+  @if $ruleMap {
+    $currentController: map.set($currentController, 'rules', $ruleMap);
+  }
+
+  @if $levels {
+    $currentController: map.set($currentController, 'levels', $levels);
+  }
+
+  @if $config {
+    $currentController: map.set($currentController, 'config', $config);
+  }
+
+  $currentIndex: list.length(get-controllers());
+  $newControllerList: helpers.replace-list-item(get-controllers(), $currentController, $currentIndex);
+  $void: update-controllers($newControllerList);
+
+  @return $currentController;
+}
+
+/// Creates a new controller from given data and stores a new controller
+/// @returns The controller.
+@function store-multi-sass-controller($ruleMap, $levels, $config) {
+  $newController: (
+    'rules': $ruleMap,
+    'levels': $levels,
+    'config': $config,
+  );
+  $void: add-controller($newController);
+
+  @return $newController;
+}
+
+/// ***
+/// Current controller rule functions
+/// ***
+
+/// Updates the rules of the current controller
+/// @returns The current controller.
+@function update-multi-sass-rules($ruleMap) {
+  @return update-current-controller($ruleMap: $ruleMap);
+}
+
+/// Returns the rules of the current controller
+/// @returns The rules of the current controller.
+@function get-multi-sass-rules() {
+  @return map.get(get-current-controller(), 'rules');
+}
+
+/// ***
+/// Current controller level functions
+/// ***
+
+/// Returns levels the current controller
+/// @returns The current list of levels
+@function get-multi-sass-levels() {
+  $currentController: get-current-controller();
+
+  @return map.get($currentController, 'levels');
+}
+
+/// Updates the levels of the current controller
+/// @returns The current controller.
+@function update-multi-sass-levels($levels) {
+  @return update-current-controller($levels: $levels);
+}
+
+/// Removes the current level of the current controller
+/// @returns The current controller.
+@function remove-current-multi-sass-level() {
+  $levels: get-multi-sass-levels();
+  $newList: helpers.pop-list($levels);
+
+  @return update-multi-sass-levels($newList);
+}
+
+/// Adds a new level to the current controller
+/// @returns The current list of levels
+@function add-multi-sass-level($level) {
+  $current: get-multi-sass-levels();
+  $updated: list.append($current, $level);
+  $void: update-multi-sass-levels($updated);
+
+  @return $updated;
+}
+
+/// Replaces a level of the current controller
+/// @returns The current list of levels
+@function replace-multi-sass-level($replacee, $index) {
+  $newLevels: helpers.replace-list-item(get-multi-sass-levels(), $replacee, $index);
+  $void: update-multi-sass-levels($newLevels);
+
+  @return $newLevels;
+}
+
+/// ***
+/// Current controller config functions
+/// ***
+
+/// Returns config the current controller
+/// @returns The current config
+@function get-multi-sass-config() {
+  @return map.get(get-current-controller(), 'config');
+}
+
+/// Returns a value from the config of the current controller
+/// @returns Any value
+@function get-config-value($value, $config: null) {
+  $config: $config or get-multi-sass-config();
+
+  @return map.get($config, $value);
+}
+
+/// @returns The "blockPrefix" from the config of the current controller
+@function get-block-prefix($config: null) {
+  @return get-config-value('blockPrefix', $config);
+}
+
+/// @returns The "blockName" from the config of the current controller
+@function get-block-name($config: null) {
+  @return get-config-value('blockName', $config);
+}
+
+/// @returns The "rootSelector" from the config of the current controller
+@function get-root-selector($config: null) {
+  @return get-config-value('rootSelector', $config);
+}
+
+/// @returns The "modifierDelimeter" from the config of the current controller
+@function get-modifier-delimeter($config: null) {
+  @return get-config-value('modifierDelimeter', $config);
+}
+
+/// @returns The "elementDelimeter" from the config of the current controller
+@function get-element-delimeter($config: null) {
+  @return get-config-value('elementDelimeter', $config);
+}
+
+/// @returns The "alias" from the config of the current controller
+@function get-alias($config: null) {
+  @return get-config-value('alias', $config);
+}
+
+/// @returns A value from the "alias" object of the config of the current controller
+@function get-alias-value($entityName, $config: null) {
+  $alias: get-alias($config);
+
+  @return helpers.get-map-value-if-map($alias, $entityName);
+}
+
+/// @returns The "createBlockSelector" from the config of the current controller
+@function get-block-selector-creator($config: null) {
+  @return get-config-value('createBlockSelector', $config);
+}
+
+/// @returns The "createModifierSelector" from the config of the current controller
+@function get-modifier-selector-creator($config: null) {
+  @return get-config-value('createModifierSelector', $config);
+}
+
+/// @returns The "createElementSelector" from the config of the current controller
+@function get-element-selector-creator($config: null) {
+  @return get-config-value('createElementSelector', $config);
+}
+
+/// @returns true if the given name matches the BASE_CONTENT_NAME ("base")
+@function is-base-name($name) {
+  @return $name == $BASE_CONTENT_NAME;
+}
+
+/// @returns true if config.emitContentOnly is set to emit only contentst of the root (level 0)
+@function emit-content-only-in-root($config: null) {
+  @return get-config-value('emitContentOnly', $config) == $EMIT_CONTENT_ONLY_IN_ROOT;
+}
+
+/// @returns true if config.emitContentOnly is set to emit all rules without selectors
+@function emit-content-only-in-all($config: null) {
+  @return get-config-value('emitContentOnly', $config) == $EMIT_CONTENT_ONLY_ALL;
+}
