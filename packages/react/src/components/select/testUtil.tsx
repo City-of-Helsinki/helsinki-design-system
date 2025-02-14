@@ -195,6 +195,7 @@ export const getSelectProps = ({
   multiSelect,
   input,
   searchResults,
+  clearable,
 }: {
   groups: boolean;
   open?: boolean;
@@ -202,6 +203,7 @@ export const getSelectProps = ({
   hasSelections?: boolean;
   input?: SelectMetaData['listInputType'];
   searchResults?: SearchResult[];
+  clearable?: boolean;
 }) => {
   const selectProps: SelectProps = {
     options,
@@ -214,6 +216,7 @@ export const getSelectProps = ({
     },
     open,
     multiSelect,
+    clearable,
   };
   if (input === 'filter') {
     selectProps.filter = defaultFilter;
@@ -361,7 +364,7 @@ export const renderResultToHelpers = (result: RenderResult) => {
 export const initTests = ({
   renderComponentOnly,
   selectProps = {},
-  testProps = { groups: false },
+  testProps = { groups: false, clearable: true },
   withForceRender,
 }: {
   renderComponentOnly?: boolean;

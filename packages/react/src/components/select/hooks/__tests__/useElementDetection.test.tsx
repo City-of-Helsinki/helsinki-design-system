@@ -128,6 +128,7 @@ describe('useElementDetection', () => {
     input: 'filter',
     hasSelections: true,
     open: true,
+    clearable: true,
   };
 
   describe('getElementByKnownType', () => {

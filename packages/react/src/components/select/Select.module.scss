@@ -116,7 +116,7 @@
       }
     }
 
-    &.notClearable {
+    &:not(.clearable) {
       .arrowAndSpaceForClearButton {
         padding-left: var(--spacing-xs);
       }

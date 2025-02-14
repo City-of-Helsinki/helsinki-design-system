@@ -185,6 +185,7 @@ export const SingleselectWithGroups = () => {
       onChange={onChange}
       icon={<IconLocation />}
       texts={defaultTexts}
+      clearable
       id="hds-select-component"
     />
   );
@@ -431,6 +432,7 @@ export const Multiselect = () => {
       icon={<IconLocation />}
       required
       multiSelect
+      clearable
       texts={defaultTextsForMultiSelect}
       id="hds-select-component"
     />
@@ -486,6 +488,7 @@ export const MultiselectWithGroupsAndFilter = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
+      clearable
       filter={defaultFilter}
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
