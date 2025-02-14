@@ -60,7 +60,7 @@ export function createAccordionHelpers(page: Page, selector: string) {
     });
   };
 
-  const getBoundingBox = async (spacing = 10) => {
+  const getBoundingBox = async (spacing = 8) => {
     const locator = getElementLocator();
     if ((await locator.count()) > 1) {
       return getDummyBoundingBox();
@@ -69,8 +69,8 @@ export function createAccordionHelpers(page: Page, selector: string) {
 
     box.x -= spacing;
     box.y -= spacing;
-    box.height += spacing;
-    box.width += spacing;
+    box.height += 2 * spacing;
+    box.width += 2 * spacing;
 
     return box;
   };
