@@ -5,68 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.2.0] - Month, XX, 202X
+## [4.2.0] - February, 14, 2025
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
 - [Select] Add ref prop to be able to for example focus the element programmatically
 - [Select] Tooltip support
 
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Button] Fixed typing errors in conditionally changing variant to ButtonVariant.Supplementary
 - [Select] Fixed keyboard navigation
 - [Select] Fixed clearable property to be false as a default
-
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Select] Fixed some issues with state out-of-sync with selections
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - Old V1 documentation has been removed altogether
 
 #### Fixed
@@ -76,63 +34,10 @@ Changes that are not related to specific components
 
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [CookieConsent] New documentation for forbidden embeds. Dialog component used to design an overlay.
+- [Patterns] New forms pattern page with examples/prototype frames
 
 ## [4.1.0] - January, 09, 2025
 
