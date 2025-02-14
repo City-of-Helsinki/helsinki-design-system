@@ -1,8 +1,0 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<svg width="128px" height="128px" viewBox="0 0 128 128" version="1.1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-    <title>start-develop</title>
-    <g id="start-develop" stroke="none" stroke-width="1" fill="none" fill-rule="evenodd">
-        <circle id="Oval-Copy" fill="#00D7A7" cx="64" cy="64" r="64"></circle>
-        <path d="M48.1,79.9 L50.48,74.93 L24.44,62.61 L50.48,50.29 L48.1,45.32 L18,60.16 L18,65.06 L48.1,79.9 Z M57.8,94.04 L75.93,33 L70.05,33 L51.92,94.04 L57.8,94.04 Z M79.75,79.9 L109.85,65.06 L109.85,60.16 L79.75,45.32 L77.37,50.29 L103.41,62.61 L77.37,74.93 L79.75,79.9 Z" id="Color" fill="#1A1A1A" fill-rule="nonzero"></path>
-    </g>
-</svg>
