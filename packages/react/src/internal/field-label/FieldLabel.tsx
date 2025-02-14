@@ -1,8 +1,8 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import styles from './FieldLabel.module.scss';
 import { RequiredIndicator } from '../required-indicator/RequiredIndicator';
-import { Tooltip } from '../../components/tooltip';
+import { Tooltip, TooltipProps } from '../../components/tooltip';
 
 type FieldLabelProps = {
   hidden?: boolean;
@@ -14,6 +14,7 @@ type FieldLabelProps = {
   tooltipLabel?: string;
   tooltipButtonLabel?: string;
   tooltipText?: string;
+  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
 };
 
 export const FieldLabel = ({
@@ -26,6 +27,7 @@ export const FieldLabel = ({
   tooltipLabel,
   tooltipButtonLabel,
   tooltipText,
+  tooltip,
   ...rest
 }: FieldLabelProps) => (
   <>
@@ -38,6 +40,7 @@ export const FieldLabel = ({
       {label}
       {required && <RequiredIndicator />}
     </label>
+    {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
     {tooltipText && (
       <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
         {tooltipText}
