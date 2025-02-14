@@ -158,7 +158,9 @@ describe('<Select />', () => {
       expect(isListOpen()).toBeFalsy();
     });
     it('Clicking the clear button removes all selections', async () => {
-      const { openList, getClearButton, clickOptionAndWaitForRerender, getSelectionsInButton } = renderWithHelpers();
+      const { openList, getClearButton, clickOptionAndWaitForRerender, getSelectionsInButton } = renderWithHelpers({
+        clearable: true,
+      });
       await openList();
       await clickOptionAndWaitForRerender(2);
       expect(getSelectionsInButton()).toHaveLength(1);
@@ -185,7 +187,10 @@ describe('<Select />', () => {
         }
         return newVersion;
       };
-      const { openList, getClearButton, getSelectionsInButton } = renderWithHelpers({ optionIterator });
+      const { openList, getClearButton, getSelectionsInButton } = renderWithHelpers({
+        optionIterator,
+        clearable: true,
+      });
       await openList();
       expect(getSelectionsInButton()).toHaveLength(selectedItemsCount);
       fireEvent.click(getClearButton());
@@ -207,6 +212,7 @@ describe('<Select />', () => {
       } = renderWithHelpers({
         multiSelect: true,
         groups: true,
+        clearable: true,
       });
       await openList();
       await clickGroupAndWaitForRerender(0);
@@ -227,6 +233,7 @@ describe('<Select />', () => {
         renderWithHelpers({
           multiSelect: true,
           groups: true,
+          clearable: true,
         });
       await openList();
       await clickGroupAndWaitForRerender(2);

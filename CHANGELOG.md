@@ -30,6 +30,7 @@ Changes that are not related to specific components
 - [Component] What bugs/typos are fixed?
 - [Button] Fixed typing errors in conditionally changing variant to ButtonVariant.Supplementary
 - [Select] Fixed keyboard navigation
+- [Select] Fixed clearable property to be false as a default
 
 ### Core
 
