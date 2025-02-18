@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { useStaticQuery, graphql, withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
+import { withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi } from 'hds-react';
 import Seo from './Seo';
@@ -18,7 +18,7 @@ import InternalLink from './InternalLink';
 import ExternalLink from './ExternalLink';
 import AnchorLink from './AnchorLink';
 import './layout.scss';
-import versions from '../data/versions.json';
+import { documentationVersion, versionsFromGit } from '../version';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
@@ -132,38 +132,7 @@ const components = (version) => ({
   ),
 });
 
-const resolveCurrentMenuItem = (version, menuItems, slugWithPrefix) => {
-  const rootPath = '/';
-
-  if (slugWithPrefix === rootPath) {
-    return menuItems.find(({ link }) => link === rootPath);
-  } else {
-    const ret = menuItems
-      .filter(({ link }) => link !== rootPath)
-      .find((menuItem) => slugWithPrefix.startsWith(menuItem.link));
-    return ret;
-  }
-};
-
-const generateUiIdFromPath = (path, prefix) => {
-  const pathStr =
-    !path && path === '/'
-      ? 'home'
-      : path
-          .split('/')
-          .filter((str) => !!str)
-          .join('-');
-  return `${prefix}-${pathStr}`;
-};
-
-const isNavPage = (page) => page.slug && page.navTitle;
 const splitPathIntoParts = (path) => path.split('/').filter((l) => !!l);
-const isLinkParentForPage = (parentPath, level) => (page) => {
-  const pathParts = splitPathIntoParts(page.slug);
-  const ret = pathParts.length === level && pathParts.slice(0, -1).every((pathPart) => parentPath.includes(pathPart));
-  return ret;
-};
-const sortByPageTitle = (pageA, pageB) => pageA.title.localeCompare(pageB.title);
 const isMatchingParentLink = (link, slug) => {
   const linkParts = splitPathIntoParts(link);
   const slugParts = splitPathIntoParts(slug);
@@ -181,7 +150,7 @@ const Layout = ({ location, children, pageContext }) => {
   const pathParts = pathName.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
   const locationWithoutVersion = hrefWithoutVersion(pathName, version);
-  const versionNumber = version ? version.replace('release-', '') : versions[0];
+  const versionNumber = version ? version.replace('release-', '') : documentationVersion;
   const versionLabel = `Version ${versionNumber}`;
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
@@ -201,95 +170,17 @@ const Layout = ({ location, children, pageContext }) => {
     }
   }, [version, pathName]);
 
-
-  const queryData = useStaticQuery(graphql`
-    query SiteDataQuery {
-      site {
-        siteMetadata {
-          title
-          description
-          siteUrl
-          menuLinks {
-            name
-            link
-            subMenuLinks {
-              name
-              link
-              withDivider
-            }
-          }
-          footerTitle
-          footerAriaLabel
-        }
-      }
-      allMdx {
-        edges {
-          node {
-            frontmatter {
-              title
-              slug
-              navTitle
-            }
-            parent {
-              ... on File {
-                gitRemote {
-                  ref
-                }
-              }
-            }
-          }
-        }
-      }
-    }
-  `);
-
-  const siteData = queryData.site.siteMetadata;
-  const mdxPageData = queryData.allMdx?.edges || [];
-
-  // filter out duplicate slug entries. It would be better to do this in graphql query
-  const allPages = Object.values(
-    Object.fromEntries(
-      mdxPageData
-        .filter(({ node }) => node?.parent?.gitRemote?.ref === version)
-        .map(({ node }) => [node.frontmatter.slug, { ...node.frontmatter, ...node.fields }])
-    ),
-  );
+  const siteData = pageContext.siteData;
 
   const siteTitle = siteData?.title || 'Title';
   const siteUrl = siteData?.siteUrl;
   const description = siteData?.description;
   const footerTitle = siteData?.footerTitle || siteTitle;
   const footerAriaLabel = siteData?.footerAriaLabel;
-  const menuLinks = siteData?.menuLinks || [];
-  const uiMenuLinks = menuLinks.map((menuLink) => ({
-    ...menuLink,
-    uiId: generateUiIdFromPath(menuLink.link, 'nav'),
-  }));
-  const currentMenuItem = resolveCurrentMenuItem(version, uiMenuLinks, locationWithoutVersion);
-  const subMenuLinks = currentMenuItem?.subMenuLinks || [];
-  const subMenuLinksFromPages =
-    currentMenuItem && currentMenuItem.link
-      ? allPages
-          .filter(isNavPage)
-          .filter(isLinkParentForPage(currentMenuItem.link, 2))
-          .map((page) => ({ name: page.title, title: page.title, link: page.slug }))
-          .sort(sortByPageTitle)
-      : [];
 
-  const uiSubMenuLinks = [...subMenuLinks, ...subMenuLinksFromPages].map((subMenuLink) => ({
-    ...subMenuLink,
-    prefixedLink: subMenuLink.link,
-    uiId: generateUiIdFromPath(subMenuLink.link, 'side-nav'),
-    subLevels: allPages
-      .filter(isNavPage)
-      .filter(isLinkParentForPage(subMenuLink.link, 3))
-      .map((subLevelLink) => ({
-        ...subLevelLink,
-        uiId: generateUiIdFromPath(subLevelLink.slug, 'side-nav-sub'),
-        prefixedLink: subLevelLink.slug,
-      }))
-      .sort(sortByPageTitle),
-  }));
+  const uiMenuLinks = pageContext.uiMenuLinks;
+  const currentMenuItem = pageContext.currentMenuItem;
+  const uiSubMenuLinks = pageContext.uiSubMenuLinks;
   const contentId = 'content';
 
   return (
@@ -318,7 +209,7 @@ const Layout = ({ location, children, pageContext }) => {
             logo={<Logo src={logoFi} alt="Helsinki: Helsinki Design System" />}
           >
             <Header.ActionBarItem label={versionLabel} fixedRightPosition>
-              {versions.map((itemVersion, index) => (
+              {[documentationVersion, ...versionsFromGit].map((itemVersion, index) => (
                 <Header.ActionBarSubItem
                   label={`Version ${itemVersion}`}
                   key={`Version ${itemVersion}`}
