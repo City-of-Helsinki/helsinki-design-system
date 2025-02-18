@@ -1,8 +1,7 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const latestVersion = process.env.npm_package_version;
-const versionsFromGit = require('./src/data/versions.json').filter(v => v !== latestVersion);
+const versionsFromGit = process.env.NODE_ENV === 'development' ? [] : require('./src/data/versionsFromGit.json');
 const gitSources = versionsFromGit.map(version => ({
   resolve: 'gatsby-source-git',
   options: {
