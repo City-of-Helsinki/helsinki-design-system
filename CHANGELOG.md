@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
+- [Select] Added `onClose`-property enabling better functionality for multiSelect (get the selected options when dropdown closes, not on every change).
 
 #### Changed
 
@@ -56,6 +57,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
+- [Select] Add documentation and an example for added `onClose` property.
 
 #### Changed
 
