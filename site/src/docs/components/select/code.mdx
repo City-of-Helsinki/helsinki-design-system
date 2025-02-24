@@ -43,7 +43,7 @@ import { Select } from 'hds-react';
             ],
           },
         ]}
-        onChange={(selectedOptions) => {
+        onClose={(selectedOptions) => {
           console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
           if (selectedOptions.map((option) => option.value).includes('error')) {
             return {
@@ -185,28 +185,33 @@ import { Select, iterateAndCopyGroup } from 'hds-react';
   See the code in action in Storybook.
 </ExternalLink>
 
-<InternalLink href="#handling-changes">The documentation</InternalLink> of the `onChange` describes all properties that can
+<InternalLink href="#handling-changes">The documentation</InternalLink> of the `onChange` and `onClose` describes all properties that can
 be updated within the callback.
 
 ### Handling changes
 
-When the user changes the selected options, the `onChange` is called. Other user actions do not trigger the callback. Not even searching or filtering.
+When the user changes the selected options, the `onChange` is called. Other user actions do not trigger the callback. Not even searching or filtering. When using multiselect, it's advised to use the `onClose` callback to get the selections after the user has finished selecting options but any.
 
-The callback has the following signature:
+The callbacks has the following signature:
 
 ```jsx
 // some properties are omitted to make the example clearer
+
+// single select
 <Select onChange={(selectedOptions, clickedOption, data) => {...} />;
+
+// multiselect, use onClose to get the selections after the user closed the dropdown
+<Select multiSelect onClose={(selectedOptions, clickedOption, data) => {...} />;
 ```
 
 | Argument                                       | Description                                                                                                                                  | Values                                                                             | Default value |
 | ---------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------- | ------------- |
 | `selectedOptions`                              | An array of selected options in object format.                                                                                               | `Option[]`                                                                         | []            |
-| `clickedOption`                                | The option that was clicked. Can be a group label too. The option data is prior to the selection, so its `selected` property is not updated. | `Option`                                                                           | -             |
+| `clickedOption`                                | The option that was clicked. Can be a group label too. The option data is prior to the selection, so its `selected` property is not updated. | `Option` or `undefined` if `onClose`                                                | -             |
 | `data`                                         | All data of the Select component.                                                                                                            | <InternalLink href="#the-data-property-in-the-callbacks">SelectData</InternalLink> | -             |
-| [Table 2: Arguments of the onChange callback ] |
+| [Table 2: Arguments of the onChange and onClose callbacks ] |
 
-The `onChange` can return data that is stored immediately to the Select component. Returning any data is optional.
+The `onChange` and `onClose` can return data that is stored immediately to the Select component. Returning any data is optional.
 
 | Property                                                            | Description                                                                                                                | Values     | Default value |
 | ------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------- | ---------- | ------------- |
@@ -214,7 +219,7 @@ The `onChange` can return data that is stored immediately to the Select componen
 | `invalid`                                                           | The `invalid` property.                                                                                                    | `boolean`  | -             |
 | `options`                                                           | Array of `options` in the same format as passed to the Select component. Cannot be used with `groups`.                     | `Option[]` | -             |
 | `texts`                                                             | Updated texts in the same format as passed to the Select component. Does not need to include all texts. Only updated ones. | `Texts`    | -             |
-| [Table 3: Properties of the return object of the onChange callback] |
+| [Table 3: Properties of the return object of the onChange and onClose callbacks] |
 
 ### Texts
 
@@ -385,6 +390,63 @@ The function should return either `groups` or `options`.
 
 If the search results in an error, an error message is shown to the user.
 
+
+### Getting selections to parent state
+
+The selected options can be set to parent state from within the `onChange` and/or `onClose` callbacks. The parent component should have a state for the selected options and a callback function to update the state.
+
+The example below also displays a really simple validation. The user must select one option and if no correct selection is done, an error message is shown.
+
+<Playground scope={{ Select }}>
+
+```jsx
+import { Select } from 'hds-react';
+
+() => {
+  const [onCloseSelections, setOnCloseSelections] = React.useState([]);
+
+  const onClose = React.useCallback((selectedOptions, lastClickedOption, data) => {
+    setOnCloseSelections(selectedOptions);
+    return { invalid: selectedOptions.length !== 1, texts: { error: 'Choose only one' } }
+  }, []);
+
+  const [props] = React.useState({
+    multiSelect: true,
+    id: 'hds-select-component',
+    clearable: true,
+    required: true,
+    options: [
+      'First',
+      'Second',
+      'Third',
+    ],
+    texts: {
+      label: 'Select one',
+      language: 'en',
+    },
+    noTags: true,
+  });
+  
+    return (
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '420px' }}>
+      <label id="onclose-label" htmlFor="onclose">
+        Selected values in parent state
+      </label>
+      <input
+        placeholder="No selected values"
+        type="text"
+        id="onclose"
+        aria-labelledby="onclose-label"
+        readOnly
+        value={onCloseSelections.map((option) => option.label).join(', ')}
+      />
+      <Select {...props} onClose={onClose} />
+    </div>
+  );
+}
+```
+</Playground>
+
 ### useSelectStorage hook
 
 The properties passed to the Select component must be memoized or React will render a new instance of the component when props change. This means user's selections could be lost when the component re-renders.
@@ -406,7 +468,10 @@ const storage = useSelectStorage({
     },
   ],
   onChange: (selectedOptions) => {
-    // handle changes
+    // handle changes as soon as they happen
+  },
+  onClose: (selectedOptions) => {
+    // handle changes after closing the dropdown
   },
   multiSelect: true,
   filter: defaultFilter,
@@ -453,6 +518,7 @@ The hook returns functions to modify current state of the Select component.
 
 The functions are usually called inside the onChange function. <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-storage-controls">See them in action</ExternalLink>.
 
+
 ### Component Properties
 
 | Property                     | Description                                                                                                                                     | Values                                                          | Default value |
@@ -468,7 +534,8 @@ The functions are usually called inside the onChange function. <ExternalLink hre
 | `multiSelect`                | If set to true, the user can select multiple options.                                                                                           | `boolean`                                                       | false         |
 | `noTags`                     | If set to true and multiselect is also true, the list of selected options is not shown as tags.                                                 | `boolean`                                                       | false         |
 | `onBlur`                     | Called when the component loses focus.                                                                                                          | `()=>void`                                                      | -             |
-| `onChange`                   | Required. Called each time the user clicks an option.                                                                                           | `(selectedOptions, option, data)=>Partial<SelectProps> or void` | -             |
+| `onChange`                   | Called each time the user clicks an option.                                                                                                     | `(selectedOptions, option, data)=>Partial<SelectProps> or void` | -             |
+| `onClose`                    | Called when the dropdown is closed. Preferred way of getting the selections in multiselect. Return same values as `onChage` except option is always undefined (same function can be used to process) | `(selectedOptions, undefined, data)=>Partial<SelectProps> or void` | -          |
 | `onFocus`                    | Called when the component gets focus.                                                                                                           | `()=>void`                                                      | -             |
 | `onSearch`                   | Search function. If set, an input field is shown above the option list.                                                                         | `(searchValue, selectedOptions, data) => Promise<SearchResult>` | -             |
 | `open`                       | If set to true, the list is open.                                                                                                               | `boolean`                                                       | false         |
@@ -494,6 +561,7 @@ Callbacks receive all current data of the Select component. This includes the fo
 - `invalid`
 - `onBlur`
 - `onChange`
+- `onClose`
 - `onFocus`
 - `onSearch`
 - `open`

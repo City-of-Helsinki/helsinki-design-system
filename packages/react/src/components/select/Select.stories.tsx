@@ -90,7 +90,8 @@ const genericOnChangeCallback: SelectProps['onChange'] = () => {
   action('onChange');
 };
 
-const requireOneSelection: SelectProps['onChange'] = (selectedOptions) => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const requireOneSelection: SelectProps['onChange'] = (selectedOptions, clickedOption, data) => {
   const hasSelections = selectedOptions.length > 0;
 
   return {
@@ -124,8 +125,8 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
 
 export const Singleselect = () => {
   const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
-    return requireOneSelection(...args);
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
+    return requireOneSelection(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -141,8 +142,8 @@ export const Singleselect = () => {
 
 export const SingleselectWithTooltip = () => {
   const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
-    return requireOneSelection(...args);
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
+    return requireOneSelection(selectedOptions, lastClickedOption, props);
   }, []);
 
   const tooltip = <Tooltip>This is a test tooltip</Tooltip>;
@@ -175,9 +176,9 @@ export const SingleselectWithGroups = () => {
       ],
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -421,22 +422,53 @@ export const WithSearch = () => {
 };
 
 export const Multiselect = () => {
-  const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
-    // track changes here
-    return requireOneSelection(...args);
+  const [onChangeSelections, setOnChangeSelections] = useState<Option[]>([]);
+  const [onCloseSelections, setOnCloseSelections] = useState<Option[]>([]);
+
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    setOnChangeSelections(selectedOptions);
+    return requireOneSelection(selectedOptions, lastClickedOption, data);
   }, []);
+
+  const onClose: SelectProps['onClose'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    setOnCloseSelections(selectedOptions);
+    return requireOneSelection(selectedOptions, lastClickedOption, data);
+  }, []);
+
+  const [props] = useState<Partial<SelectProps>>({
+    multiSelect: true,
+    id: 'hds-select-component',
+    texts: defaultTextsForMultiSelect,
+    clearable: true,
+    required: true,
+    icon: <IconLocation />,
+    options: getOptionLabels(20),
+  });
+
   return (
-    <Select
-      options={options}
-      onChange={onChange}
-      icon={<IconLocation />}
-      required
-      multiSelect
-      clearable
-      texts={defaultTextsForMultiSelect}
-      id="hds-select-component"
-    />
+    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '420px' }}>
+      <label id="onchange-label" htmlFor="onchange">
+        onChange triggered values
+      </label>
+      <input
+        type="text"
+        id="onchange"
+        aria-labelledby="onchange-label"
+        readOnly
+        value={onChangeSelections.map((option) => option.label).join(', ')}
+      />
+      <label id="onclose-label" htmlFor="onclose">
+        onClose triggered values
+      </label>
+      <input
+        type="text"
+        id="onclose"
+        aria-labelledby="onclose-label"
+        readOnly
+        value={onCloseSelections.map((option) => option.label).join(', ')}
+      />
+      <Select {...props} onChange={onChange} onClose={onClose} />
+    </div>
   );
 };
 
@@ -452,9 +484,9 @@ export const MultiselectWithGroups = () => {
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -480,9 +512,9 @@ export const MultiselectWithGroupsAndFilter = () => {
     },
   ];
 
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -499,9 +531,9 @@ export const MultiselectWithGroupsAndFilter = () => {
 };
 
 export const MultiselectWithGroupsAndSearch = () => {
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <div>
@@ -584,9 +616,9 @@ export const VirtualizedMultiselectWithGroups = () => {
       options: getLargeBatchOfUniqueValues(1000),
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -611,9 +643,9 @@ export const VirtualizedSingleselectWithGroups = () => {
       options: getLargeBatchOfUniqueValues(1000),
     },
   ];
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -628,9 +660,9 @@ export const VirtualizedSingleselectWithGroups = () => {
 };
 
 export const VirtualizationMultiselectWithoutGroups = () => {
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -646,9 +678,9 @@ export const VirtualizationMultiselectWithoutGroups = () => {
 };
 
 export const VirtualizedSingleselectWithoutGroups = () => {
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -696,16 +728,16 @@ export const FocusListenerExample = () => {
     setIsFocusedInHook(true);
   }, []);
 
-  const onBlur: SelectProps['onBlur'] = useCallback(async () => {
+  const onBlur: SelectProps['onBlur'] = useCallback(() => {
     if (!memoizedProps.changeTracking.selectedOptions.length) {
       memoizedProps.texts.error = 'Select something';
     }
     setIsFocusedInHook(false);
   }, []);
 
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    genericOnChangeCallback(...args);
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
 
   return (
@@ -1035,9 +1067,9 @@ export const VeryLongLabels = () => {
   const options = getOptionLabels(10).map((label, index) => {
     return label + ` ${label.toLowerCase()} `.repeat(10).substring(0, 30 + index * 5);
   });
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
-    return genericOnChangeCallback(...args);
+    return genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select
@@ -1053,8 +1085,8 @@ export const VeryLongLabels = () => {
 
 export const PreselectedValue = () => {
   const options = getOptionLabels(20);
-  const onChange: SelectProps['onChange'] = useCallback((...args) => {
-    return requireOneSelection(...args);
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
+    return requireOneSelection(selectedOptions, lastClickedOption, props);
   }, []);
   return (
     <Select

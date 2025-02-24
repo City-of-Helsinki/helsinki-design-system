@@ -310,19 +310,60 @@ const debouncedSearch = debounce(
   300,
 );
 
+const isCloseTriggerEvent = (event: ChangeEvent) => {
+  // check if the event is something that should trigger onClose
+  const onCloseTriggerEvents = [
+    'cancelled',
+    'close',
+    'clearButton',
+    'clearAllButton',
+    'tag',
+    'selectedOptions',
+    'focusMovedToNonListElement',
+  ];
+
+  return onCloseTriggerEvents.includes(event.type || '') || onCloseTriggerEvents.includes(event.id || '');
+};
+
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
-  const { onSearch, onChange } = getData();
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
+  const current = getData();
+  const { onSearch, onChange, onClose, multiSelect, open } = current;
+
+  const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
+  let closeHasChanges = false;
+
+  if (closeChange && onClose) {
+    const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);
+    if (closeProps) {
+      const { groups, options, invalid, texts } = closeProps;
+      if (groups || options) {
+        const newGroups = propsToGroups(closeProps) || [];
+        updateData({ groups: newGroups });
+        updateMetaData(
+          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, undefined),
+        );
+      }
+      if (invalid !== undefined && invalid !== current.invalid) {
+        // update invalid state
+        updateData({ invalid });
+        closeHasChanges = true;
+      }
+      if (texts) {
+        appendTexts(texts, getMetaData());
+        closeHasChanges = true;
+      }
+    }
+  }
 
   if (didSearchChange && onSearch) {
     dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
     debouncedSearch(dataHandlers, onSearch);
   }
   if (didSelectionsChange) {
-    const current = getData();
     const { lastClickedOption } = getMetaData();
-    const newProps = onChange(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     let newPropsHasChanges = false;
     if (newProps) {
       const { groups, options, invalid, texts } = newProps;
@@ -348,5 +389,5 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
     }
   }
 
-  return didDataChange;
+  return didDataChange || closeHasChanges;
 };
