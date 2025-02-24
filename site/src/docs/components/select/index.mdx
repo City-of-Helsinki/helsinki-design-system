@@ -129,7 +129,7 @@ Options can be grouped to provide additional context or to visually separate the
 
 #### Multiselect
 
-The multiselect variant is used when the user needs to select one or more options from a list of 7 to 15 items. If more than 15 options are available, consider adding a filtering function. Multiselect is a complex component, so always be considerate when using this.
+The multiselect variant is used when the user needs to select one or more options from a list of 7 to 15 items. If more than 15 options are available, consider adding a filtering function. Multiselect is a complex component, so always be considerate when using this. Prefer using `onClose` to get the selected options over `onChange` since it's triggered after closing the dropdown.
 
 <PlaygroundPreview>
   <Select
@@ -140,7 +140,7 @@ The multiselect variant is used when the user needs to select one or more option
       language: 'en',
     }}
     options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
-    onChange={(selectedOptions) => {
+    onClose={(selectedOptions) => {
       console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
     }}
   />
@@ -160,7 +160,7 @@ Multiselect with a filtering function is used when the user needs to select one 
       language: 'en',
     }}
     options={[{ label: 'Americium' }, { label: 'Berkelium' }, { label: 'Californium' }, { label: 'Copernicium' }]}
-    onChange={(selectedOptions) => {
+    onClose={(selectedOptions) => {
       console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
     }}
   />
@@ -189,7 +189,7 @@ Options can be grouped to provide additional context or to visually separate the
         options: [{ label: 'Einsteinium' }, { label: 'Fermium' }, { label: 'Mendelevium' }, { label: 'Plutonium' }],
       },
     ]}
-    onChange={(selectedOptions) => {
+    onClose={(selectedOptions) => {
       console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
     }}
   />
@@ -228,7 +228,7 @@ When options are selected in multiselect, they appear below the select field. Th
         ],
       },
     ]}
-    onChange={(selectedOptions) => {
+    onClose={(selectedOptions) => {
       console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
     }}
   />

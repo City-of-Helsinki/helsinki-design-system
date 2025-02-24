@@ -44,7 +44,12 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   multiSelect?: boolean;
   noTags?: boolean;
   onBlur?: () => void;
-  onChange: (
+  onClose?: (
+    selectedOptions: Option[],
+    clickedOption: undefined,
+    data: SelectData,
+  ) => Partial<Pick<SelectProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
+  onChange?: (
     selectedOptions: Option[],
     clickedOption: Option,
     data: SelectData,
@@ -82,6 +87,7 @@ export type SelectData = Required<
   onSearch?: SearchFunction;
   onFocus?: SelectProps['onFocus'];
   onBlur?: SelectProps['onBlur'];
+  onClose?: SelectProps['onClose'];
   initialOpenValue?: boolean;
 };
 

@@ -28,6 +28,7 @@ const storyWithMultiSelectAndGroupsWithSearch = 'Multiselect With Groups And Sea
 const storyWithValidation = 'With Validation And Forced Selection';
 const storyWithCustomTheme = 'With Custom Theme';
 const storyWithTooltip = 'Singleselect With Tooltip';
+const storyWithMultiSelectEvents = 'Multiselect';
 
 const selectId = 'hds-select-component';
 
@@ -725,5 +726,27 @@ test.describe(`Focus works with given reference`, () => {
     const screenShotName = createScreenshotFileName(testInfo, hasTouch, 'Reference focus');
     const clip = await selectUtil.getBoundingBox();
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
+  });
+});
+
+test.describe(`Multiselect onChange and onBlur selections`, () => {
+  test('onChange selections take effect immediately, onClose when closed', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
+      return;
+    }
+
+    await gotoStorybookUrlByName(page, storyWithMultiSelectEvents, componentName, storybook);
+    const selectUtil = createSelectHelpers(page, selectId);
+    await selectUtil.openList();
+    await selectUtil.selectOptionByIndex({ index: 1, multiSelect: true });
+
+    // check that text content of #onchange has content and #onclose is empty
+    const onChange = page.locator('#onchange');
+    const onClose = page.locator('#onclose');
+    await expect(onChange).not.toHaveValue('');
+    await expect(onClose).toHaveValue('');
+    // check that after closing, the contents are equal (multiselect has changed the onclose value)
+    await selectUtil.closeList();
+    await expect(onClose).toHaveValue(await onChange.inputValue());
   });
 });
