@@ -285,6 +285,15 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     isRenewing,
     login: async (loginProps) => {
       emitStateChange(oidcClientStates.LOGGING_IN);
+      // this is to check if the login was aborted or successful
+      const interval = setInterval(() => {
+        if (oidcClient.getState() === oidcClientStates.LOGGING_IN && !oidcClient.isAuthenticated()) {
+          clearInterval(interval);
+          emitStateChange(oidcClientStates.NO_SESSION);
+        } else {
+          clearInterval(interval);
+        }
+      }, 3000);
       const [err] = await to(userManager.signinRedirect(convertLoginOrLogoutParams<LoginProps>(loginProps)));
       if (err) {
         emitError(new OidcClientError('Login redirect failed', oidcClientErrors.SIGNIN_ERROR, err));
