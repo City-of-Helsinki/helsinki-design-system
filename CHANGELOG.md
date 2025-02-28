@@ -27,6 +27,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Login] Fix issue when cancelling logging in by browser back-button which caused the state to remain in "logging in", disabling the button.
 
 ### Core
 

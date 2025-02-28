@@ -367,17 +367,33 @@ describe('Test all modules together', () => {
       // allListener listens to all modules (oidc, apiTokens, sessionPoller and 3 listener modules)
       expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(6);
     });
-    it('When login starts, only login process starts', async () => {
+    it('When login starts, only login process starts (with short timeout, not checking for session)', async () => {
       const { getReceivedSignalTypes } = await initAll({});
       await waitForLoginToTimeout(mockedWindowControls);
       // open id config is called on every login
-      jest.advanceTimersByTime(1000000);
+      jest.advanceTimersByTime(1000);
       expect(getRequestCount()).toBe(1);
       expect(getRequestsInfoById(openIdResponder.id as string)).toHaveLength(1);
       expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([initSignalType, oidcClientStates.LOGGING_IN]);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
       expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(7);
+    });
+    it('When login starts, only login process starts (with long timeout, checking for session)', async () => {
+      const { getReceivedSignalTypes } = await initAll({});
+      await waitForLoginToTimeout(mockedWindowControls);
+      // open id config is called on every login
+      jest.advanceTimersByTime(1000000);
+      expect(getRequestCount()).toBe(1);
+      expect(getRequestsInfoById(openIdResponder.id as string)).toHaveLength(1);
+      expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
+        initSignalType,
+        oidcClientStates.LOGGING_IN,
+        oidcClientStates.NO_SESSION,
+      ]);
+      expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([initSignalType]);
+      expect(getReceivedSignalTypes(sessionPollerNamespace)).toEqual([initSignalType]);
+      expect(getReceivedSignalTypes(LISTEN_TO_ALL_MARKER)).toHaveLength(8);
     });
     it('When login handleCallback is called and finished, apiTokens are fetched and session polling starts', async () => {
       const { getReceivedSignalTypes, oidcClient, beacon } = await initAll({});
