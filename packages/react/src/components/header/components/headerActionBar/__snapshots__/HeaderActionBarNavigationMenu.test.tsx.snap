@@ -9,10 +9,6 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
       class="headerBackgroundWrapper"
     >
       <div
-        aria-hidden="true"
-        tabindex="0"
-      />
-      <div
         class="headerActionBarContainer mobileMenuContainer"
       >
         <div
@@ -697,10 +693,6 @@ exports[`<HeaderActionBarNavigationMenu /> spec renders the component and menu c
           </div>
         </div>
       </div>
-      <div
-        aria-hidden="true"
-        tabindex="0"
-      />
     </div>
   </header>
 </DocumentFragment>
