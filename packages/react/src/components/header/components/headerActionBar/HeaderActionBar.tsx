@@ -17,7 +17,6 @@ import { LinkItem, LinkProps } from '../../../../internal/LinkItem';
 import { HeaderActionBarNavigationMenu } from './HeaderActionBarNavigationMenu';
 import { HeaderLanguageSelectorConsumer, getLanguageSelectorComponentProps } from '../headerLanguageSelector';
 import { useCallbackIfDefined, useEnterOrSpacePressCallback } from '../../../../utils/useCallback';
-import { elementIsFocusable } from '../../../../utils/elementIsFocusable';
 import { HeaderActionBarItem } from '../headerActionBarItem';
 import HeaderActionBarLogo from './HeaderActionBarLogo';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
@@ -28,61 +27,31 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 
 const classNames = styleBoundClassNames(styles);
 
-enum TabBarrierPosition {
-  top = 'top',
-  bottom = 'bottom',
-}
+const addDocumentFocusPrevention = (
+  actionBar: HTMLElement,
+  originalTabIndexes: React.MutableRefObject<Map<Element, string | null>>,
+) => {
+  if (document && actionBar) {
+    const focusableElements = document.querySelectorAll(
+      'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
+    );
+    focusableElements.forEach((element) => {
+      if (!actionBar.contains(element)) {
+        originalTabIndexes.current.set(element, element.getAttribute('tabindex'));
+        element.setAttribute('tabindex', '-1');
+      }
+    });
 
-type TabBarrierProps = {
-  id: string;
-  tabIndex: number;
-  'aria-hidden': boolean;
-};
-
-const defaultBarrierProps: Partial<TabBarrierProps> = {
-  tabIndex: 0,
-  'aria-hidden': true,
-};
-
-const ACTIONBAR_TAB_BARRIER_CLASS_NAME = 'hds-actionbar-tab-barrier';
-
-const findFocusableElementsWithin = (element: HTMLElement) => {
-  const elements = element.querySelectorAll('a, button, textarea, input[type="text"], select');
-
-  return Array.from(elements).filter((item) => elementIsFocusable(item as HTMLElement));
-};
-
-const focusToActionBar = (position: TabBarrierPosition, element?: HTMLElement) => {
-  if (element) {
-    const focusableElements = findFocusableElementsWithin(element);
-
-    if (focusableElements.length) {
-      (
-        focusableElements[position === TabBarrierPosition.top ? 0 : focusableElements.length - 1] as HTMLElement
-      ).focus();
-    }
-  }
-};
-
-const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element => {
-  /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
-  return <div {...defaultBarrierProps} onFocus={onFocus} />;
-};
-
-const addDocumentTabBarrier = (position: TabBarrierPosition, actionBar?: HTMLElement): (() => void) => {
-  if (document) {
-    const element = document.createElement('div');
-    element.className = ACTIONBAR_TAB_BARRIER_CLASS_NAME;
-    element.tabIndex = defaultBarrierProps.tabIndex;
-    element['aria-hidden'] = defaultBarrierProps['aria-hidden'];
-    element.addEventListener('focus', () => focusToActionBar(position, actionBar));
-    if (position === TabBarrierPosition.top) {
-      document.body.insertBefore(element, document.body.firstChild);
-    } else {
-      document.body.appendChild(element);
-    }
-
-    return () => element.remove();
+    return () => {
+      originalTabIndexes.current.forEach((tabIndex, element) => {
+        if (tabIndex === null) {
+          element.removeAttribute('tabindex');
+        } else {
+          element.setAttribute('tabindex', tabIndex);
+        }
+      });
+      originalTabIndexes.current.clear();
+    };
   }
   return null;
 };
@@ -200,18 +169,17 @@ export const HeaderActionBar = ({
   const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
   const actionBarRef = useRef<HTMLDivElement>();
+  const documentTabIndexes = useRef(new Map());
 
   useEffect(() => {
     if (mobileMenuOpen && actionBarRef !== undefined) {
-      // When mobile menu is open, set up tab barriers to prevent keyboard navigation to content outside action bar and menu.
-      const removeTopTabBarrier = addDocumentTabBarrier(TabBarrierPosition.top, actionBarRef.current);
-      const removeBottomTabBarrier = addDocumentTabBarrier(TabBarrierPosition.bottom, actionBarRef.current);
+      // When mobile menu is open, set all elements of document unfocusable outside action bar
+      const removeFocusPrevention = addDocumentFocusPrevention(actionBarRef.current, documentTabIndexes);
       // Set overflow: hidden to html tag so page content under the mobile menu is not scrollable
       const removeScrollPrevention = addDocumentScrollPrevention(actionBarRef.current);
 
       return () => {
-        removeTopTabBarrier();
-        removeBottomTabBarrier();
+        removeFocusPrevention();
         removeScrollPrevention();
       };
     }
@@ -270,9 +238,6 @@ export const HeaderActionBar = ({
   }, [lsChildren]);
   return (
     <>
-      {mobileMenuOpen && (
-        <ContentTabBarrier onFocus={() => focusToActionBar(TabBarrierPosition.bottom, actionBarRef.current)} />
-      )}
       <div
         className={classNames(styles.headerActionBarContainer, mobileMenuOpen && styles.mobileMenuContainer)}
         ref={actionBarRef}
@@ -322,9 +287,6 @@ export const HeaderActionBar = ({
         <HeaderLanguageSelectorConsumer {...lsProps} fullWidthForMobile>
           {languageSelectorChildren}
         </HeaderLanguageSelectorConsumer>
-      )}
-      {mobileMenuOpen && (
-        <ContentTabBarrier onFocus={() => focusToActionBar(TabBarrierPosition.top, actionBarRef.current)} />
       )}
     </>
   );
