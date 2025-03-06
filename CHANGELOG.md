@@ -60,6 +60,7 @@ Changes that are not related to specific components
 
 - [Component] What is added?
 - [Select] Add documentation and an example for added `onClose` property.
+- [Getting started] Added links to Figma Community file
 
 #### Changed
 
@@ -72,6 +73,7 @@ Changes that are not related to specific components
 - [Component] What bugs/typos are fixed?
 - Site code-examples "Copy code" notifications now have progress bar to display that they close automatically without user interaction.
 - [SelectionGroup] Do not recommend a preselected value anymore according to our new guideline.
+- [Colours] Link to Figma colour examples
 
 ### Figma
 
