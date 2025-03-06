@@ -236,7 +236,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
             label="Code copied"
             position="bottom-right"
             autoClose
-            displayAutoCloseProgress={false}
+            autoCloseDuration={4000}
             onClose={() => setCopyState('')}
           >
             Example code was copied to clipboard.
@@ -247,7 +247,6 @@ const Editor = ({ onChange, initialCode, code, language }) => {
             type="error"
             label="Copy failed"
             position="bottom-right"
-            displayAutoCloseProgress={false}
             dismissible
             closeButtonLabelText="Close toast"
             onClose={() => {
