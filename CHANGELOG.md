@@ -28,6 +28,7 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 - [Login] Fix issue when cancelling logging in by browser back-button which caused the state to remain in "logging in", disabling the button.
+- [SelectionGroup] Fix warnings about groups with no selections since the new guideline is not to have a preselected value.
 
 ### Core
 
@@ -70,6 +71,7 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 - Site code-examples "Copy code" notifications now have progress bar to display that they close automatically without user interaction.
+- [SelectionGroup] Do not recommend a preselected value anymore according to our new guideline.
 
 ### Figma
 
