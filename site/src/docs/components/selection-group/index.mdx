@@ -14,7 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 export const SelectionGroupExample = () => {
-  const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox1": true, "v-checkbox2": true });
+  const [checkedItems, setCheckedItems] = React.useState({});
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
@@ -36,7 +36,9 @@ export const SelectionGroupExample = () => {
 - Currently, Selection group can contain either Checkboxes or Radio buttons.
   - If the user can select more than one option from a list, use <InternalLink href="/components/checkbox">checkboxes.</InternalLink>
   - If the user can only select one option from a list, use <InternalLink href="/components/radio-button">radio buttons.</InternalLink>
-- **Default option must be set for Radio button groups.** For Checkbox groups, this is recommended.
+- It is not recommended to have a default option selected because
+  - The user might not realise they’ve missed a question
+  - The user might submit a wrong answer
 - Visible label must be given to the Selection group. The label should be clear and describe the choice the user is about to make.
 - Selection group can be aligned both vertically and horizontally. **Vertical alignment is recommended.** Horizontal alignment can be used when there are less than 4 options.
   -  Note that horizontal Selection groups must not span to multiple lines.
@@ -47,7 +49,7 @@ export const SelectionGroupExample = () => {
 Vertical selection group is the recommended way to present grouped form controls. Vertical checkbox groups are generally easier to perceive and read.
 
 export const VerticalGroupExample = () => {
-  const [checkedItems, setCheckedItems] = React.useState({ "v-checkbox5": true, "v-checkbox6": true });
+  const [checkedItems, setCheckedItems] = React.useState({});
   const onChange = (event) => {
     setCheckedItems({ ...checkedItems, [event.target.name]: event.target.checked });
   };
@@ -69,7 +71,7 @@ export const VerticalGroupExample = () => {
 Horizontal selection group can be used in situations where there are only a few (less than 4) options. Otherwise, a vertical alignment is recommended.
 
 export const HorizontalGroupExample = () => {
-  const [selectedItem, setSelectedItem] = React.useState("1");
+  const [selectedItem, setSelectedItem] = React.useState();
   const onChange = (event) => {
     setSelectedItem(event.target.value);
   };
