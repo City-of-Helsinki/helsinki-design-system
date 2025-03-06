@@ -5,24 +5,13 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.X.X] - Month, XX, 202X
+## [4.3.0] - March, 7, 2025
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
 - [Select] Added `onClose`-property enabling better functionality for multiSelect (get the selected options when dropdown closes, not on every change).
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
 
 #### Fixed
 
@@ -31,110 +20,18 @@ Changes that are not related to specific components
 - [SelectionGroup] Fix warnings about groups with no selections since the new guideline is not to have a preselected value.
 - [Header] Keyboard navigation in mobile menu allows navigation to browser controls, but not to page contents under mobile menu
 
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
 - [Select] Add documentation and an example for added `onClose` property.
 - [Getting started] Added links to Figma Community file
 
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - Site code-examples "Copy code" notifications now have progress bar to display that they close automatically without user interaction.
 - [SelectionGroup] Do not recommend a preselected value anymore according to our new guideline.
 - [Colours] Link to Figma colour examples
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [4.2.0] - February, 14, 2025
 
