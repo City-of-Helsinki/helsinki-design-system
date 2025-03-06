@@ -28,19 +28,48 @@ import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
 const classNames = styleBoundClassNames(styles);
 
 const addDocumentFocusPrevention = (
-  actionBar: HTMLElement,
+  modalContainer: HTMLElement,
   originalTabIndexes: React.MutableRefObject<Map<Element, string | null>>,
 ) => {
-  if (document && actionBar) {
-    const focusableElements = document.querySelectorAll(
-      'a, button, input, textarea, select, details, [tabindex]:not([tabindex="-1"])',
-    );
-    focusableElements.forEach((element) => {
-      if (!actionBar.contains(element)) {
+  const isFocusableByDefault = (element: Element): boolean => {
+    const focusableElements = [
+      'a[href]',
+      'area[href]',
+      'input:not([disabled])',
+      'select:not([disabled])',
+      'textarea:not([disabled])',
+      'button:not([disabled])',
+      'iframe',
+      'object',
+      'embed',
+      '[contenteditable]',
+      '[tabindex]:not([tabindex="-1"])',
+    ];
+    return focusableElements.some((selector) => element.matches(selector));
+  };
+
+  const isFocusableByTabIndex = (element: Element): boolean => {
+    const tabIndex = window.getComputedStyle(element).getPropertyValue('tabindex');
+    return tabIndex !== '' && tabIndex !== '-1';
+  };
+
+  const isFocusableByScroll = (element: Element): boolean => {
+    const { overflowX, overflowY } = window.getComputedStyle(element);
+    return overflowY === 'auto' || overflowY === 'scroll' || overflowX === 'auto' || overflowX === 'scroll';
+  };
+
+  if (modalContainer) {
+    const allElements = document.querySelectorAll('*');
+
+    Array.from(allElements)
+      .filter((element) => !modalContainer.contains(element))
+      .filter(
+        (element) => isFocusableByDefault(element) || isFocusableByTabIndex(element) || isFocusableByScroll(element),
+      )
+      .forEach((element) => {
         originalTabIndexes.current.set(element, element.getAttribute('tabindex'));
         element.setAttribute('tabindex', '-1');
-      }
-    });
+      });
 
     return () => {
       originalTabIndexes.current.forEach((tabIndex, element) => {
