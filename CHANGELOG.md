@@ -69,6 +69,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- Site code-examples "Copy code" notifications now have progress bar to display that they close automatically without user interaction.
 
 ### Figma
 
