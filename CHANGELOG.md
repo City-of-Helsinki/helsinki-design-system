@@ -16,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
-- [Select] Added `onClose`-property enabling better functionality for multiSelect (get the selected options when dropdown closes, not on every change).
 
 #### Changed
 
@@ -27,9 +26,6 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
-- [Login] Fix issue when cancelling logging in by browser back-button which caused the state to remain in "logging in", disabling the button.
-- [SelectionGroup] Fix warnings about groups with no selections since the new guideline is not to have a preselected value.
-- [Header] Keyboard navigation in mobile menu allows navigation to browser controls, but not to page contents under mobile menu
 
 ### Core
 
@@ -60,8 +56,6 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
-- [Select] Add documentation and an example for added `onClose` property.
-- [Getting started] Added links to Figma Community file
 
 #### Changed
 
@@ -72,9 +66,6 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
-- Site code-examples "Copy code" notifications now have progress bar to display that they close automatically without user interaction.
-- [SelectionGroup] Do not recommend a preselected value anymore according to our new guideline.
-- [Colours] Link to Figma colour examples
 
 ### Figma
 
@@ -135,6 +126,33 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+## [4.3.0] - March, 7, 2025
+
+### React
+
+#### Added
+
+- [Select] Added `onClose`-property enabling better functionality for multiSelect (get the selected options when dropdown closes, not on every change).
+
+#### Fixed
+
+- [Login] Fix issue when cancelling logging in by browser back-button which caused the state to remain in "logging in", disabling the button.
+- [SelectionGroup] Fix warnings about groups with no selections since the new guideline is not to have a preselected value.
+- [Header] Keyboard navigation in mobile menu allows navigation to browser controls, but not to page contents under mobile menu
+
+### Documentation
+
+#### Added
+
+- [Select] Add documentation and an example for added `onClose` property.
+- [Getting started] Added links to Figma Community file
+
+#### Fixed
+
+- Site code-examples "Copy code" notifications now have progress bar to display that they close automatically without user interaction.
+- [SelectionGroup] Do not recommend a preselected value anymore according to our new guideline.
+- [Colours] Link to Figma colour examples
 
 ## [4.2.0] - February, 14, 2025
 
