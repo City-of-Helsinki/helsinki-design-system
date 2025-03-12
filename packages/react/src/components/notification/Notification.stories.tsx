@@ -129,7 +129,6 @@ export const AutoClose = () => {
           label="Without progress bar"
           position="top-left"
           autoClose
-          autoCloseDuration={3000}
           displayAutoCloseProgress={false}
           onClose={() => onClose()}
         >
@@ -137,13 +136,7 @@ export const AutoClose = () => {
         </Notification>
       )}
       {openProgress && (
-        <Notification
-          label="With progress bar"
-          position="top-left"
-          autoClose
-          autoCloseDuration={3000}
-          onClose={() => onClose()}
-        >
+        <Notification label="With progress bar" position="top-left" autoClose onClose={() => onClose()}>
           {content}
         </Notification>
       )}
