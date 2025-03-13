@@ -1,8 +1,8 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
 
-import { IconShare, IconTrash } from '../../icons';
-import { Tag, TagProps, TagSize, TagTheme } from './Tag';
+import { IconAlertCircle, IconCheckCircle, IconError, IconInfoCircle, IconShare, IconTrash } from '../../icons';
+import { Tag, TagProps, TagSize, TagTheme, TagVariant } from './Tag';
 
 export default {
   component: Tag,
@@ -126,6 +126,47 @@ export const DeletableTags = (args: TagProps) => {
         {args.children}
       </Tag>
     </TagWrapper>
+  );
+};
+
+export const StatusLabelTags = (args: TagProps) => {
+  return (
+    <div style={{ display: 'flex', gap: '12px', flexDirection: 'column' }}>
+      <TagWrapper>
+        <Tag {...args} variant={TagVariant.StatusLabelNeutral}>
+          Neutral
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelInfo}>
+          Info
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelSuccess}>
+          Success
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelAlert}>
+          Alert
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelError}>
+          Error
+        </Tag>
+      </TagWrapper>
+      <TagWrapper>
+        <Tag {...args} variant={TagVariant.StatusLabelNeutral} iconStart={<IconInfoCircle />}>
+          Neutral
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelInfo} iconStart={<IconInfoCircle />}>
+          Info
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelSuccess} iconStart={<IconCheckCircle />}>
+          Success
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelAlert} iconStart={<IconAlertCircle />}>
+          Alert
+        </Tag>
+        <Tag {...args} variant={TagVariant.StatusLabelError} iconStart={<IconError />}>
+          Error
+        </Tag>
+      </TagWrapper>
+    </div>
   );
 };
 

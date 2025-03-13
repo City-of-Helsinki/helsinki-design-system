@@ -23,3 +23,23 @@
 .multiline {
   composes: hds-tag--multiline from 'hds-core/lib/components/tag/tag.css';
 }
+
+.statusLabelNeutral {
+  composes: hds-tag--statuslabel-neutral from 'hds-core/lib/components/tag/tag.css';
+}
+
+.statusLabelInfo {
+  composes: hds-tag--statuslabel-info from 'hds-core/lib/components/tag/tag.css';
+}
+
+.statusLabelSuccess {
+  composes: hds-tag--statuslabel-success from 'hds-core/lib/components/tag/tag.css';
+}
+
+.statusLabelAlert {
+  composes: hds-tag--statuslabel-alert from 'hds-core/lib/components/tag/tag.css';
+}
+
+.statusLabelError {
+  composes: hds-tag--statuslabel-error from 'hds-core/lib/components/tag/tag.css';
+}
