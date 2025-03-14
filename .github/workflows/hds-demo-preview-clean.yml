@@ -5,7 +5,6 @@ on:
     branches:
       - development
       - release-*
-      - 'feature/*'
     types:
       - closed
 
@@ -13,6 +12,9 @@ jobs:
   build_and_publish_demo:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    concurrency:
+      group: hds-demo
+      cancel-in-progress: false
 
     steps:
       - name: Checkout code hds-demo
@@ -42,5 +44,6 @@ jobs:
           git status
           git add .
           git commit -m "Updated pr ${{ github.event.number }}"
+          git pull --rebase || (sleep 20 && git pull --rebase)
           git push
         working-directory: ./hds-demo
