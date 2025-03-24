@@ -122,6 +122,7 @@ export const Required = (args: FileInputProps) => {
 Required.args = {
   label: 'Choose a file',
   accept: 'image/*',
+  required: true,
 };
 
 export const Playground = (args: FileInputProps) => {

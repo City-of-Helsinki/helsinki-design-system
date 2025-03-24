@@ -576,28 +576,27 @@ export const FileInput = ({
 
   useEffect(() => {
     if (!didMountRef.current) {
-      setInputStateText(getNoFilesAddedMessage(language));
+      if (defaultValue && inputRef.current) {
+        const dataTransfer = new DataTransfer();
+
+        defaultValue.forEach((defaultFile) => {
+          const file = new File([defaultFile], defaultFile.name, {
+            type: defaultFile.type,
+            lastModified: defaultFile.lastModified,
+          });
+          dataTransfer.items.add(file);
+        });
+
+        inputRef.current.files = dataTransfer.files;
+        const defaultFileItems = defaultValue.map(convertFileToFileItem);
+        setSelectedFileItems(defaultFileItems);
+        setInputStateText(getAddSuccessMessage(language, defaultValue.length, defaultValue.length));
+      } else if (required) {
+        setInputStateText(getNoFilesAddedMessage(language));
+      }
       didMountRef.current = true;
     }
-  }, [setInputStateText, language]);
-
-  useEffect(() => {
-    if (!hasFileItems && defaultValue && inputRef.current) {
-      const dataTransfer = new DataTransfer();
-
-      defaultValue.forEach((defaultFile) => {
-        const file = new File([defaultFile], defaultFile.name, {
-          type: defaultFile.type,
-          lastModified: defaultFile.lastModified,
-        });
-        dataTransfer.items.add(file);
-      });
-
-      inputRef.current.files = dataTransfer.files;
-      const event = new Event('change', { bubbles: true });
-      inputRef.current.dispatchEvent(event);
-    }
-  }, [defaultValue]);
+  }, [defaultValue, language]);
 
   // Compose aria-describedby attribute
   const ariaDescribedBy: string = [
