@@ -57,6 +57,7 @@ const hrefWithVersion = (href, version, withoutPrefix = false) => {
   if (!version || hrefWithFixedExceptions === ''
     || hrefWithFixedExceptions.startsWith('mailto:')
     || hrefWithFixedExceptions.startsWith('#')
+    || hrefWithFixedExceptions.startsWith('/#')
     || hrefWithFixedExceptions.startsWith('http'))
     return hrefWithFixedExceptions;
 

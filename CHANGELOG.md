@@ -68,7 +68,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Bug of anchor links on the documentation page
 
 ### Figma
 
