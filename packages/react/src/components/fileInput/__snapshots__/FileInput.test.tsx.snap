@@ -52,7 +52,7 @@ exports[`<FileInput /> spec renders the component 1`] = `
           </button>
           <input
             accept=".png,.jpg"
-            aria-describedby="test-file-input-helper test-file-input-error test-file-input-info"
+            aria-describedby="test-file-input-helper test-file-input-error"
             class="fileInput"
             id="test-file-input"
             type="file"
@@ -65,12 +65,6 @@ exports[`<FileInput /> spec renders the component 1`] = `
       id="test-file-input-error"
     >
       Error text
-    </div>
-    <div
-      class="infoText"
-      id="test-file-input-info"
-    >
-      No file has been selected.
     </div>
     <div
       class="helperText"

@@ -27,6 +27,8 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [FileInput] `defaultValue` triggered the `onChange` prop function
+- [FileInput] display the "No file selected" only when `required` prop is given and no file(s) selected
 
 ### Core
 
