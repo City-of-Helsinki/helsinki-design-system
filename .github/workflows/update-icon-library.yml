@@ -139,7 +139,7 @@ jobs:
           git config --global user.email "hds@hel.fi"
           git config --global user.name "Github Actions"
           git add .
-          git commit -m 'Updated icon library'
+          git commit -m 'chore: update-icon-library workflow update icon library'
           git push
 
       - name: End

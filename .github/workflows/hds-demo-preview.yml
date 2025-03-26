@@ -123,7 +123,7 @@ jobs:
           git config --global user.name "Github Actions"
           git status
           git add .
-          git commit -m "Updated preview to $DEMO_NAME"
+          git commit -m "chore: hds-demo-previewworkflow updated preview to $DEMO_NAME"
           git status
           git pull --rebase || (sleep 20 && git pull --rebase)
           git push

@@ -43,7 +43,7 @@ jobs:
           git config --global user.name "Github Actions"
           git status
           git add .
-          git commit -m "Updated pr ${{ github.event.number }}"
+          git commit -m "chore: hds-demo-preview-clean workflow updated pr ${{ github.event.number }}"
           git pull --rebase || (sleep 20 && git pull --rebase)
           git push
         working-directory: ./hds-demo
