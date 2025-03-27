@@ -300,7 +300,8 @@ const Layout = ({ location, children, pageContext }) => {
           <Footer.Base
             copyrightHolder="Copyright"
             backToTopLabel="Back to top"
-            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="City of Helsinki" logoHref="https://hel.fi"/>}
+            logo={<Logo src={logoFi} size={LogoSize.Medium} alt="City of Helsinki" />}
+            logoHref="https://hel.fi"
           >
             <Footer.Link
               label="Contribution"

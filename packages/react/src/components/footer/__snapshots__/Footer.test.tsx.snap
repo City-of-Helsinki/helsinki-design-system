@@ -61,7 +61,6 @@ exports[`<Footer /> spec renders the component 1`] = `
           >
             <a
               class="link link-medium item"
-              tabindex="0"
             >
               <img
                 alt="Helsingin kaupunki"
