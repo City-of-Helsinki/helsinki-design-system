@@ -13,8 +13,7 @@ jobs:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
     concurrency:
-      group: hds-demo
-      cancel-in-progress: false
+      group: hds-demo-${{ github.ref }}
 
     steps:
       - name: Checkout code hds-demo
