@@ -153,6 +153,7 @@ const Layout = ({ location, children, pageContext }) => {
   const locationWithoutVersion = hrefWithoutVersion(pathName, version);
   const versionNumber = version ? version.replace('release-', '') : documentationVersion;
   const versionLabel = `Version ${versionNumber}`;
+  const hash = location.hash;
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
@@ -169,7 +170,21 @@ const Layout = ({ location, children, pageContext }) => {
         }
       }
     }
-  }, [version, pathName]);
+
+    // Move focus to anchor if it is specified
+    if (hash) {
+      const timeout = setTimeout(() => {
+        const anchor = document.querySelector(`a[href='${hash}']`);
+        if (anchor) {
+          anchor.focus();
+        }
+      }, 0);
+
+      return () => clearTimeout(timeout);
+    }
+
+
+  }, [version, pathName, hash]);
 
   const siteData = pageContext.siteData;
 
