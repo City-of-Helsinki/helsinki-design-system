@@ -238,15 +238,16 @@ h2,
 h3,
 h4,
 h5 {
+  & a {
+    color: var(--color-black-90);
+    text-decoration: none;
+    outline: none;
+  }
+
   &:hover {
     .hds-anchor-icon {
       visibility: visible;
-    }
-  }
-
-  &:focus {
-    .hds-anchor-icon {
-      visibility: visible;
+      color: var(--color-black-50);
     }
   }
 }
@@ -259,8 +260,6 @@ h5 {
   vertical-align: middle;
 
   &:focus {
-    outline: 3px solid var(--color-coat-of-arms);
-
     .hds-anchor-icon {
       visibility: visible;
     }

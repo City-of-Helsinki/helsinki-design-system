@@ -87,6 +87,17 @@ const hrefWithoutVersion = (href, version) => {
   return href.replace(`/${version}`, '');
 };
 
+const headingWrapper = (props) => {
+  return (
+    <a href={`#${props.id}`} aria-label={`${props.id} permalink`}>
+      {props.children}
+      <span className="hds-anchor-icon hds-icon hds-icon--link hds-icon--size-s header-anchor after" aria-hidden="true" style={{verticalAlign: "middle"}} />
+    </a>
+  );
+}
+
+
+
 const components = (version) => ({
   IconCheckCircleFill,
   IconCrossCircle,
@@ -101,34 +112,34 @@ const components = (version) => ({
   thead: Table.Head,
   tbody: Table.Body,
   th: Table.Th,
-  h1: (props) => (
+  h1: (props) => {console.log(props); return (
     <h1 {...props} className={classNames('page-heading-1 heading-xl-mobile', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h1>
-  ),
+  )},
   h2: (props) => (
     <h2 {...props} className={classNames('page-heading-2 heading-l', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h2>
   ),
   h3: (props) => (
     <h3 {...props} className={classNames('page-heading-3 heading-m', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h3>
   ),
   h4: (props) => (
     <h4 {...props} className={classNames('page-heading-4 heading-s', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h4>
   ),
   h5: (props) => (
     <h5 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h5>
   ),
   h6: (props) => (
     <h6 {...props} className={classNames('page-heading-6 heading-xxs', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h6>
   ),
 });

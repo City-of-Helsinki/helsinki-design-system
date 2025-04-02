@@ -71,6 +71,8 @@ Changes that are not related to specific components
 
 - Bug of anchor links on the documentation page
 - Page footer Helsinki logo link
+- Focus follows anchor links
+- Permalinks of headings are fixed better for screen readers
 
 ### Figma
 
