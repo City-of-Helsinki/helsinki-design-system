@@ -87,7 +87,7 @@ export const FooterBase = ({
     <div {...rest} className={classNames(styles.base, className)}>
       <hr className={styles.divider} aria-hidden />
       <div className={styles.logoWrapper}>
-        <FooterLink tabIndex={0} icon={logo} href={logoHref} onClick={handleLogoClick} />
+        <FooterLink icon={logo} href={logoHref} onClick={handleLogoClick} />
       </div>
       {(copyrightHolder || copyrightText) && (
         <div className={styles.copyright}>

@@ -29,6 +29,7 @@ Changes that are not related to specific components
 - [Component] What bugs/typos are fixed?
 - [FileInput] `defaultValue` triggered the `onChange` prop function
 - [FileInput] display the "No file selected" only when `required` prop is given and no file(s) selected
+- [Footer] fix `Footer.Base` logo tabIndex issue, it was falsely given zero which prevented focus
 
 ### Core
 
@@ -69,6 +70,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - Bug of anchor links on the documentation page
+- Page footer Helsinki logo link
 
 ### Figma
 
