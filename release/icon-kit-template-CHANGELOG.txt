@@ -1,4 +1,4 @@
-# Helsinki Design System, Icon kit, version 4.3.0
+# Helsinki Design System, Icon kit, version 4.4.0
 
 ## CHANGELOG
 
