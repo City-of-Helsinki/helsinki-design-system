@@ -244,23 +244,44 @@ h5 {
     }
   }
 
-  &:focus {
-    .hds-anchor-icon {
-      visibility: visible;
+  & a {
+    color: var(--color-black-90);
+    outline: none;
+    text-decoration: none;
+
+    & .anchor-link {
+      color: var(--color-black-50);
+      display: inline-block;
+      height: var(--fontsize-heading-m);
+      margin-left: var(--spacing-2-xs);
+      vertical-align: middle;
+
+      & .hds-anchor-icon {
+        height: var(--fontsize-heading-m);
+        vertical-align: top;
+        width: var(--fontsize-heading-m);
+      }
+    }
+
+    &:focus {
+      & .anchor-link {
+        outline: 3px solid var(--color-focus-outline);
+      }
+
+      & .hds-anchor-icon {
+        visibility: visible;
+      }
     }
   }
 }
 
 .header-anchor {
-  color: var(--color-black-90);
   font-size: 0;
   margin-left: var(--spacing-2-xs);
   padding-left: 0 !important;
   vertical-align: middle;
 
   &:focus {
-    outline: 3px solid var(--color-coat-of-arms);
-
     .hds-anchor-icon {
       visibility: visible;
     }

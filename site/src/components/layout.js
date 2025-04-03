@@ -87,6 +87,15 @@ const hrefWithoutVersion = (href, version) => {
   return href.replace(`/${version}`, '');
 };
 
+const headingWrapper = (props) => {
+  return (
+    <a href={`#${props.id}`} aria-label={`${props.id} permalink`}>
+      {props.children}
+      <span className="anchor-link" aria-hidden="true"><span className="hds-anchor-icon hds-icon hds-icon--link" /></span>
+    </a>
+  );
+}
+
 const components = (version) => ({
   IconCheckCircleFill,
   IconCrossCircle,
@@ -101,34 +110,34 @@ const components = (version) => ({
   thead: Table.Head,
   tbody: Table.Body,
   th: Table.Th,
-  h1: (props) => (
+  h1: (props) => {console.log(props); return (
     <h1 {...props} className={classNames('page-heading-1 heading-xl-mobile', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h1>
-  ),
+  )},
   h2: (props) => (
     <h2 {...props} className={classNames('page-heading-2 heading-l', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h2>
   ),
   h3: (props) => (
     <h3 {...props} className={classNames('page-heading-3 heading-m', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h3>
   ),
   h4: (props) => (
     <h4 {...props} className={classNames('page-heading-4 heading-s', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h4>
   ),
   h5: (props) => (
     <h5 {...props} className={classNames('page-heading-5 heading-xs', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h5>
   ),
   h6: (props) => (
     <h6 {...props} className={classNames('page-heading-6 heading-xxs', props.className)}>
-      {props.children}
+      {headingWrapper(props)}
     </h6>
   ),
 });
@@ -153,6 +162,7 @@ const Layout = ({ location, children, pageContext }) => {
   const locationWithoutVersion = hrefWithoutVersion(pathName, version);
   const versionNumber = version ? version.replace('release-', '') : documentationVersion;
   const versionLabel = `Version ${versionNumber}`;
+  const hash = location.hash;
 
   // Some hrefs of internal links can't be replaced with MDXProvider's replace component logic.
   // this code will take care of those
@@ -169,7 +179,21 @@ const Layout = ({ location, children, pageContext }) => {
         }
       }
     }
-  }, [version, pathName]);
+
+    // Move focus to anchor if it is specified
+    if (hash) {
+      const timeout = setTimeout(() => {
+        const anchor = document.querySelector(`a[href='${hash}']`);
+        if (anchor) {
+          anchor.focus();
+        }
+      }, 0);
+
+      return () => clearTimeout(timeout);
+    }
+
+
+  }, [version, pathName, hash]);
 
   const siteData = pageContext.siteData;
 
