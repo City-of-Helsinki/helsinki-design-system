@@ -91,12 +91,10 @@ const headingWrapper = (props) => {
   return (
     <a href={`#${props.id}`} aria-label={`${props.id} permalink`}>
       {props.children}
-      <span className="hds-anchor-icon hds-icon hds-icon--link hds-icon--size-s header-anchor after" aria-hidden="true" style={{verticalAlign: "middle"}} />
+      <span className="anchor-link" aria-hidden="true"><span className="hds-anchor-icon hds-icon hds-icon--link" /></span>
     </a>
   );
 }
-
-
 
 const components = (version) => ({
   IconCheckCircleFill,
