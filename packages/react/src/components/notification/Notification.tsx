@@ -7,6 +7,7 @@ import styles from './Notification.module.scss';
 import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
+import { getPlainTextContent } from '../../utils/getPlainTextContent';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 
@@ -33,8 +34,8 @@ type CommonProps = React.PropsWithChildren<
      */
     autoClose?: boolean;
     /**
-     * The duration before the notification is automatically closed. Used together with the `autoClose` prop.
-     * @default 6000
+     * The duration before the notification is automatically closed in milliseconds. Used together with the `autoClose` prop.
+     * If `autoClose` is `true` and `autoCloseDuration` is not set, the duration is calculated based on the content length with a minimum of 4000ms.
      */
     autoCloseDuration?: number;
     /**
@@ -187,7 +188,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
   (
     {
       autoClose = false,
-      autoCloseDuration = 6000,
+      autoCloseDuration,
       boxShadow = false,
       children,
       className = '',
@@ -234,11 +235,28 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       setTimeout(() => onClose(), closeAnimationDuration);
     }, [onClose, closeAnimationDuration]);
 
+    // calculate autoClose duration based on content length, minimum 4 seconds
+    const calculatedAutoCloseDuration = () => {
+      const totalPlainTextContentLength = getPlainTextContent(children).length + getPlainTextContent(label).length;
+      const contentBasedAutoCloseDuration = totalPlainTextContentLength * 60 + 1000;
+      if (contentBasedAutoCloseDuration < 4000) {
+        return 4000;
+      }
+      return contentBasedAutoCloseDuration;
+    };
+
+    // autoClose duration, use provided value or calculate (if autoClose true) based on content length
+    const formedAutoCloseDuration =
+      autoCloseDuration > 0 || !autoClose ? autoCloseDuration : calculatedAutoCloseDuration();
+
     useEffect(() => {
-      const interval = setTimeout(() => {
-        if (autoClose) handleClose();
-      }, autoCloseDuration);
-      return () => clearTimeout(interval);
+      if (autoClose) {
+        const interval = setTimeout(() => {
+          handleClose();
+        }, formedAutoCloseDuration);
+        return () => clearTimeout(interval);
+      }
+      return undefined;
     }, [autoClose, autoCloseDuration, handleClose]);
 
     // icon
@@ -247,7 +265,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     // notification transitions
     const openTransitionProps = isToast ? getOpenTransition(position) : {};
     const closeTransitionProps = getCloseTransition(closeAnimationDuration);
-    const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(autoCloseDuration) : {};
+    const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(formedAutoCloseDuration) : {};
 
     const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
     const autoCloseTransition = useSpring(autoCloseTransitionProps);

@@ -5,17 +5,17 @@ on:
     branches:
       - development
       - release-*
-      - 'feature/*'
   push:
     branches:
       - development
       - release-*
-      - 'feature/*'
 
 jobs:
   build_and_publish_demo:
     if: github.event.pull_request.draft == false
     runs-on: ubuntu-latest
+    concurrency:
+      group: hds-demo-${{ github.ref }}
 
     env:
       PATH_PREFIX: "/hds-demo/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}"
@@ -122,9 +122,9 @@ jobs:
           git config --global user.name "Github Actions"
           git status
           git add .
-          git commit -m "Updated preview to $DEMO_NAME"
+          git commit -m "chore: hds-demo-previewworkflow updated preview to $DEMO_NAME"
           git status
-          git pull --rebase
+          git pull --rebase || (sleep 20 && git pull --rebase)
           git push
         working-directory: ./hds-demo
 

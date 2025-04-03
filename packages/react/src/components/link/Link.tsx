@@ -4,7 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Link.module.scss';
 import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
-import { getTextFromReactChildren } from '../../utils/getTextFromReactChildren';
+import { getPlainTextContent } from '../../utils/getPlainTextContent';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 import { IconSize } from '../../icons/Icon.interface';
 
@@ -87,7 +87,7 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
     ref: React.Ref<HTMLAnchorElement>,
   ) => {
     const composeAriaLabel = () => {
-      let childrenText = ariaLabel || getTextFromReactChildren(children);
+      let childrenText = ariaLabel || getPlainTextContent(children);
       const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
       const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 

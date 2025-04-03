@@ -168,9 +168,7 @@ module.exports = {
           {
             resolve: `gatsby-remark-autolink-headers`,
             options: {
-              icon: `<span class="hds-anchor-icon hds-icon hds-icon--link hds-icon--size-xs" aria-hidden="true" style="vertical-align: middle"></span>`,
-              isIconAfterHeader: true,
-              className: `header-anchor`,
+              icon: false
             },
           },
         ],

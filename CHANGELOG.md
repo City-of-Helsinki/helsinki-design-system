@@ -5,6 +5,35 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.4.0] - April, 3rd, 2025
+
+### React
+
+#### Changed
+
+- [Notification] `autoCloseDuration` is now calculated automatically if not provided (displayed a minimum of 4000ms)
+
+#### Fixed
+
+- [FileInput] `defaultValue` triggered the `onChange` prop function
+- [FileInput] display the "No file selected" only when `required` prop is given and no file(s) selected
+- [Footer] fix `Footer.Base` logo tabIndex issue, it was falsely given zero which prevented focus
+
+### Documentation
+
+#### Fixed
+
+- Bug of anchor links on the documentation page
+- Page footer Helsinki logo link
+- Focus follows anchor links
+- Permalinks of headings are fixed better for screen readers
+
+### Figma
+
+#### Fixed
+
+- [Header] UniversalBar properties mix-up and responsiveness issues.
+
 ## [4.3.0] - March, 7, 2025
 
 ### React
@@ -15,7 +44,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Login] Fix issue when cancelling logging in by browser back-button which caused the state to remain in "logging in", disabling the button.
 - [SelectionGroup] Fix warnings about groups with no selections since the new guideline is not to have a preselected value.
 - [Header] Keyboard navigation in mobile menu allows navigation to browser controls, but not to page contents under mobile menu

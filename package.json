@@ -19,9 +19,13 @@
     "start:react": "lerna run --scope hds-react start",
     "release": "lerna publish from-package --yes",
     "update-versions": "lerna version --exact --no-git-tag-version --no-push --amend --yes",
-    "update-changelog": "node ./scripts/changelog/update-changelog.js"
+    "update-changelog": "node ./scripts/changelog/update-changelog.js",
+    "prepare": "husky"
   },
   "devDependencies": {
+    "@commitlint/cli": "^19.8.0",
+    "@commitlint/config-conventional": "^19.8.0",
+    "husky": "^9.1.7",
     "lerna": "^7.0.1",
     "rimraf": "^5.0.1"
   },
