@@ -5,67 +5,21 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.X.X] - Month, XX, 202X
+## [4.4.0] - April, 3, 2025
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Notification] `autoCloseDuration` is now calculated automatically if not provided (displayed a minimum of 4000ms)
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [FileInput] `defaultValue` triggered the `onChange` prop function
 - [FileInput] display the "No file selected" only when `required` prop is given and no file(s) selected
 - [Footer] fix `Footer.Base` logo tabIndex issue, it was falsely given zero which prevented focus
 
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
 
 #### Fixed
 
@@ -73,66 +27,6 @@ Changes that are not related to specific components
 - Page footer Helsinki logo link
 - Focus follows anchor links
 - Permalinks of headings are fixed better for screen readers
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [4.3.0] - March, 7, 2025
 
@@ -206,8 +100,6 @@ Changes that are not related to specific components
 - [ApiTokenClientTracker] Util to track api token changes and renewals.
 
 #### Changed
-
-Changes that are not related to specific components
 
 - [GraphQLModule] Use the ApolloClient Module when available
 
@@ -310,8 +202,6 @@ Changes that are not related to specific components
 
 #### Changed
 
-Changes that are not related to specific components
-
 - [Hero] The optional arrow element does not overlap with the element below
 - [Notification] Change auto closing notification progressbar to decrease instead of increase.
 - [LinkBox] Change size prop to an enum (LinkboxSize.Small, LinkboxSize.Medium, LinkboxSize.Large), not a breaking change though since the enum values are identical to the old ones.
@@ -373,8 +263,6 @@ Changes that are not related to specific components
 
 #### Changed
 
-Changes that are not related to specific components
-
 - [Breadcrumbs] Changed Breadcrumbs status to stable
 - [Dropdown] Changed Dropdown status to deprecated
 - [Header] Changed Header status to beta
@@ -388,7 +276,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - Links to old brand guide have been corrected with the new ones
 
 ### Figma
@@ -634,7 +521,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Footer] Fix Koros height issue (Calm type was of wrong height)
 - [Login] Fixed initialization failure in React strict mode when external modules are used.
 - [ErrorSummary] Change wrong error icon to correct one
@@ -660,7 +546,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [ErrorSummary] Change wrong error icon to correct one
 
 ### Figma
