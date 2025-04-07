@@ -16,7 +16,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <div style={{ maxWidth: '400px' }}>
     <DateInput
-      helperText="Use format D.M.YYYY"
+      helperText="Use format d.M.yyyy"
       id="date-input-example-1"
       initialMonth={new Date()}
       label="Choose a date"
@@ -33,7 +33,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   - When selecting weeks or months, it is usually better to use <InternalLink size="M" href="/components/dropdown#select-single-selection">the dropdown select component</InternalLink>.
 - Pay close attention to the date input label. It should clearly describe the date the user is expected to input. A good label describes the input, such as "Arrival date".
 - The date input should be provided with an assistive text which tells the user the expected date format. Avoid relying on a placeholder text alone because it will disappear when the user starts typing. The recommended way to show the expected format is to use the assistive text below the input.
-  - As specified in <InternalLink size="M" href="/foundation/guidelines/data-formats">the data format guidelines</InternalLink>, Helsinki services will always use D.M.YYYY format. Do not use the English date format even if the user is using English locale.
+  - As specified in <InternalLink size="M" href="/foundation/guidelines/data-formats">the data format guidelines</InternalLink>, Helsinki services will always use d.M.yyyy format. Do not use the English date format even if the user is using English locale. The format can be overridden with the `format` prop if needed. The possible formats are documented <ExternalLink href="https://date-fns.org/v2.16.1/docs/format">here</ExternalLink>.
 - When asking for date ranges, you should use two separate date inputs instead of using one input or picker for both dates.
 - HDS Date picker acts as a modal. This means that clicking outside of the date picker closes it. Closing the picker this way also cancels the selection made in the date picker.
 
@@ -51,7 +51,7 @@ Out of the box, HDS date input will include an openable date picker which allows
 <PlaygroundPreview>
   <div style={{ maxWidth: '400px' }}>
     <DateInput
-      helperText="Use format D.M.YYYY"
+      helperText="Use format d.M.yyyy"
       id="date-input-example-2"
       initialMonth={new Date()}
       label="Choose a date"
@@ -74,7 +74,7 @@ In all other types of services, it is recommended to not disable the confirmatio
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       disableConfirmation
-      helperText="Use format D.M.YYYY"
+      helperText="Use format d.M.yyyy"
       id="date-input-example-3"
       initialMonth={new Date()}
       label="Choose a date"
@@ -93,7 +93,7 @@ It is possible to disable the date picker functionality by supplying a `disableD
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       disableDatePicker
-      helperText="Use format D.M.YYYY"
+      helperText="Use format d.M.yyyy"
       id="date-input-example-4"
       initialMonth={new Date()}
       label="Choose a date"

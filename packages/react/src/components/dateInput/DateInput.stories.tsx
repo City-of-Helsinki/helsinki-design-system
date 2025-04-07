@@ -11,7 +11,7 @@ import { LegendItem } from './components/datePicker';
 import { PlayWrightComponentHandler } from '../../utils/PlayWrightComponentHandler';
 import { hideStoryFromStorybook } from '../../utils/playWrightHelpers';
 
-const formatHelperTextEnglish = 'Use format D.M.YYYY';
+const formatHelperTextEnglish = 'Use format d.M.yyyy';
 
 const argTypes = {
   minDate: {
@@ -75,7 +75,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-fi`}
           language="fi"
           label="Valitse päivämäärä"
-          helperText={formatHelperTextEnglish}
+          helperText="Käytä muotoa P.K.VVVV"
         />
       </div>
       <div style={bottomMargin}>
@@ -93,7 +93,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-en`}
           language="en"
           label="Choose a date"
-          helperText="Käytä muotoa P.K.VVVV"
+          helperText={formatHelperTextEnglish}
         />
       </div>
     </div>
@@ -138,7 +138,7 @@ export const WithDisabledDates = (args: DateInputProps) => {
     } else {
       const selectedDate = parse(value, 'dd.M.yyyy', new Date());
       if (isWeekend(selectedDate)) {
-        setErrorText(`The date is a weekend day. ${dateHelperText}`);
+        // setErrorText(`The date is a weekend day. ${dateHelperText}`);
       } else {
         setErrorText(undefined);
       }
@@ -221,7 +221,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
-  const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
+  const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format d.M.yyyy.`;
 
   const littleSpaceLeftDate: LegendItem = {
     elementId: 'little-space-left',
