@@ -138,7 +138,7 @@ export const WithDisabledDates = (args: DateInputProps) => {
     } else {
       const selectedDate = parse(value, 'dd.M.yyyy', new Date());
       if (isWeekend(selectedDate)) {
-        // setErrorText(`The date is a weekend day. ${dateHelperText}`);
+        setErrorText(`The date is a weekend day. ${dateHelperText}`);
       } else {
         setErrorText(undefined);
       }
