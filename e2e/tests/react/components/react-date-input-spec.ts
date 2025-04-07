@@ -196,7 +196,6 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     createTimeControls(page, currentDate);
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
-    await inputUtil.setSelectedDateString({ month: 2, day: 2 });
     await inputUtil.openDialog();
     const { dayNumber, fullMonthAndDayNumber } = await inputUtil.getCurrentDateDescription();
     expect(dayNumber).toBe('12');
@@ -213,7 +212,6 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     createTimeControls(page, currentDate);
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
-    await inputUtil.setSelectedDateString({ month: 2, day: 2 });
     await inputUtil.openDialog();
     await inputUtil.clickDay(10, 12, 2012);
     const selectedButton = await inputUtil.getSelectedDateLocator().count();

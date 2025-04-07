@@ -79,7 +79,7 @@ export const Default = (args: DialogProps) => {
             required
           />
           <br />
-          <DateInput id="item-date" label="Item date" required helperText="Use format D.M.YYYY" />
+          <DateInput id="item-date" label="Item date" required helperText="Use format d.M.yyyy" />
         </Dialog.Content>
         <Dialog.ActionButtons>
           <Button
