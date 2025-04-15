@@ -4,6 +4,9 @@
   "description": "Core styles for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
+  "engines": {
+    "node": "^22.13.1"
+  },
   "main": "lib/base.min.css",
   "files": [
     "lib"
