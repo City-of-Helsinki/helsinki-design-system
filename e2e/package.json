@@ -3,6 +3,9 @@
   "private": true,
   "description": "e2e tests using Playwright",
   "version": "4.4.0",
+  "engines": {
+    "node": "^22.13.1"
+  },
   "scripts": {
     "ci": "npx playwright test",
     "playwright-install": "yarn playwright install --with-deps chromium",
@@ -16,7 +19,7 @@
     "update-snapshots": "npx playwright test --update-snapshots"
   },
   "devDependencies": {
-    "@playwright/test": "1.49.1",
+    "@playwright/test": "1.50.0",
     "http-server": "^14.1.1"
   }
 }
