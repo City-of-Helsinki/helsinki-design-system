@@ -3,6 +3,9 @@
   "private": true,
   "description": "Documentation for Helsinki Design System",
   "version": "4.4.0",
+  "engines": {
+    "node": "^22.13.1"
+  },
   "workspaces": {
     "nohoist": [
       "gatsby",
