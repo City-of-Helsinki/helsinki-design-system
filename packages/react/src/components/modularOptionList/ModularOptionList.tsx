@@ -1,26 +1,26 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps } from './types';
-import { Container } from './components/Container';
-import { Label } from './components/Label';
+import {
+  ModularOptionListProps,
+  ModularOptionListMetaData,
+  ModularOptionListData,
+  Option,
+  AcceptedNativeDivProps,
+} from './types';
 import { changeHandler } from './dataUpdater';
+import { Container } from './components/Container';
 import { getSelectedOptions, getElementIds, convertPropsToGroups, mutateGroupLabelSelections } from './utils';
 import { DataProvider, DataProviderProps } from '../dataProvider/DataProvider';
-import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
-import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
-import { ModularOptionList } from '../modularOptionList';
-import { ListAndInputContainer } from './components/ListAndInputContainer';
-import { SearchOrFilterInput } from './components/searchAndFilter/SearchOrFilterInput';
-import { SearchAndFilterInfo } from './components/searchAndFilter/SearchAndFilterInfo';
-import { TagList } from './components/tagList/TagList';
-import { ErrorNotification } from './components/Error';
-import { AssistiveText } from './components/AssistiveText';
+import { List } from './components/List';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
-import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
+// import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 
-export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
+export const ModularOptionList = forwardRef<
+  HTMLButtonElement,
+  Omit<ModularOptionListProps & AcceptedNativeDivProps, 'ref'>
+>(
   (
     {
       options,
@@ -51,10 +51,10 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
     },
     ref,
   ) => {
-    const initialData = useMemo<SelectData>(() => {
+    const initialData = useMemo<ModularOptionListData>(() => {
       const data = {
         groups: convertPropsToGroups({ options, groups, value, children }),
-        open: !!open,
+        open: true,
         required: !!required,
         invalid: !!invalid,
         disabled: !!disabled,
@@ -95,7 +95,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       clearable,
     ]);
 
-    const metaData = useMemo((): SelectMetaData => {
+    const metaData = useMemo((): ModularOptionListMetaData => {
       const containerId = `${id || uniqueId('hds-select-')}`;
       const optionIds = new Map<string, string>();
       let optionIdCounter = 0;
@@ -156,7 +156,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       };
     }, []);
 
-    const onReset: DataProviderProps<SelectData, SelectMetaData>['onReset'] = useCallback(
+    const onReset: DataProviderProps<ModularOptionListData, ModularOptionListMetaData>['onReset'] = useCallback(
       ({ previousData, currentData, currentMetaData }) => {
         if (currentData) {
           if (previousData) {
@@ -178,33 +178,17 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       },
       [],
     );
-
-    const modularOptionListProps = {
-      ...initialData,
-    };
-    console.log('Select modularOptionListProps', modularOptionListProps);
+    console.log('initialData', initialData);
 
     return (
-      <DataProvider<SelectData, SelectMetaData>
+      <DataProvider<ModularOptionListData, ModularOptionListMetaData>
         initialData={initialData}
         metaData={metaData}
         onChange={changeHandler}
         onReset={onReset}
       >
         <Container {...divElementProps} theme={theme}>
-          <Label />
-          <SelectionsAndListsContainer>
-            <SelectedOptionsContainer />
-            <ListAndInputContainer>
-              <SearchOrFilterInput />
-              <ModularOptionList {...modularOptionListProps} />
-              <SearchAndFilterInfo />
-            </ListAndInputContainer>
-          </SelectionsAndListsContainer>
-          <ErrorNotification />
-          <AssistiveText />
-          <TagList />
-          <ScreenReaderNotifications />
+          <List />
         </Container>
       </DataProvider>
     );

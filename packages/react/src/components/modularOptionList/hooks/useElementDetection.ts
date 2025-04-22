@@ -2,12 +2,12 @@ import { RefObject, MouseEvent, KeyboardEvent, FocusEvent, BaseSyntheticEvent } 
 import { isElement } from 'lodash';
 
 import { Group, KnownElementType, Option } from '../types';
-import { useSelectDataHandlers } from './useSelectDataHandlers';
+import { useModularOptionListDataHandlers } from './useModularOptionListDataHandlers';
 import { findSelectableOptionIndex } from '../utils';
-import { singleSelectGroupLabelSelector } from '../../modularOptionList/components/listItems/SingleSelectGroupLabel';
-import { multiSelectGroupLabelSelector } from '../../modularOptionList/components/listItems/MultiSelectGroupLabel';
-import { multiSelectOptionSelector } from '../../modularOptionList/components/listItems/MultiSelectOption';
-import { singleSelectOptionSelector } from '../../modularOptionList/components/listItems/SingleSelectOption';
+import { singleSelectGroupLabelSelector } from '../components/listItems/SingleSelectGroupLabel';
+import { multiSelectGroupLabelSelector } from '../components/listItems/MultiSelectGroupLabel';
+import { multiSelectOptionSelector } from '../components/listItems/MultiSelectOption';
+import { singleSelectOptionSelector } from '../components/listItems/SingleSelectOption';
 import { elementIsSelectable } from '../../../utils/elementIsSelectable';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
@@ -78,7 +78,7 @@ const pickElement = (elementOrEvent: HTMLElementSource) => {
 };
 
 export function useElementDetection() {
-  const { getMetaData } = useSelectDataHandlers();
+  const { getMetaData } = useModularOptionListDataHandlers();
   const { refs, elementIds, listInputType } = getMetaData();
   const hasInput = !!listInputType;
 

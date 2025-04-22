@@ -5,10 +5,9 @@ import { axe } from 'jest-axe';
 import { IconLocation } from '../../icons';
 import { getAllMockCallArgs, getLastMockCallArgs } from '../../utils/testHelpers';
 import { eventIds, eventTypes } from './events';
-import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
-import { Select } from './Select';
+import { useModularOptionListDataHandlers } from './hooks/useModularOptionListDataHandlers';
 import { defaultTexts } from './texts';
-import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } from './types';
+import { ModularOptionListProps, ModularOptionListMetaData, ModularOptionListData, Group, Option, SearchResult } from './types';
 import {
   getElementIds,
   defaultFilter,
@@ -21,14 +20,13 @@ import {
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import useForceRender from '../../hooks/useForceRender';
-import { multiSelectGroupLabelSelector } from '../modularOptionList/components/listItems/MultiSelectGroupLabel';
-import { singleSelectGroupLabelSelector } from '../modularOptionList/components/listItems/SingleSelectGroupLabel';
-import { singleSelectOptionSelector } from '../modularOptionList/components/listItems/SingleSelectOption';
-import { multiSelectOptionSelector } from '../modularOptionList/components/listItems/MultiSelectOption';
-import { tagSelectorForTagList } from './components/tagList/TagListItem';
+import { multiSelectGroupLabelSelector } from './components/listItems/MultiSelectGroupLabel';
+import { singleSelectGroupLabelSelector } from './components/listItems/SingleSelectGroupLabel';
+import { singleSelectOptionSelector } from './components/listItems/SingleSelectOption';
+import { multiSelectOptionSelector } from './components/listItems/MultiSelectOption';
 import { elementIsSelectable } from '../../utils/elementIsSelectable';
 
-export type GetSelectProps = Parameters<typeof getSelectProps>[0];
+export type GetModularOptionListProps = Parameters<typeof getModularOptionListProps>[0];
 
 // storage for the target component to test
 const renderMockedComponent = jest.fn();
@@ -60,7 +58,7 @@ export const skipAxeRulesExpectedToFail: Parameters<typeof axe>[1] = {
 };
 
 const ButtonsForDataUpdates = () => {
-  const dataHandlers = useSelectDataHandlers();
+  const dataHandlers = useModularOptionListDataHandlers();
 
   const onDataClick = () => {
     dataHandlers.updateData(getLastMockCallArgs(tempDataStorage)[0]);
@@ -100,18 +98,18 @@ const ButtonsForDataUpdates = () => {
 
 const UpdateChecker = () => {
   // hook usage will cause update when context re-renders
-  useSelectDataHandlers();
+  useModularOptionListDataHandlers();
   return <span id="render-time">{Date.now()}</span>;
 };
 
 const ExportedData = () => {
-  const { getData } = useSelectDataHandlers();
+  const { getData } = useModularOptionListDataHandlers();
   const jsonData = JSON.stringify(getData());
   return <span id="exported-data">{jsonData}</span>;
 };
 
 const ExportedMetaData = () => {
-  const { getMetaData } = useSelectDataHandlers();
+  const { getMetaData } = useModularOptionListDataHandlers();
   const jsonData = JSON.stringify(getMetaData(), (key, value) => {
     if (typeof value === 'function') {
       return undefined;
@@ -155,7 +153,7 @@ const options: Partial<Option>[] = [
     label: 'Option 3',
   },
 ];
-export const groupsAndOptions: SelectProps['groups'] = [
+export const groupsAndOptions: ModularOptionListProps['groups'] = [
   {
     label: 'Group0',
     options: [
@@ -188,7 +186,7 @@ export const groupsAndOptions: SelectProps['groups'] = [
 export const defaultLabel = 'Select label';
 export const defaultId = 'test-select-component';
 
-export const getSelectProps = ({
+export const getModularOptionListProps = ({
   groups,
   open,
   hasSelections,
@@ -201,11 +199,11 @@ export const getSelectProps = ({
   open?: boolean;
   multiSelect?: boolean;
   hasSelections?: boolean;
-  input?: SelectMetaData['listInputType'];
+  input?: ModularOptionListMetaData['listInputType'];
   searchResults?: SearchResult[];
   clearable?: boolean;
 }) => {
-  const selectProps: SelectProps = {
+  const selectProps: ModularOptionListProps = {
     options,
     onChange: onChangeTracker,
     icon: <IconLocation />,
@@ -275,7 +273,7 @@ export const renderResultToHelpers = (result: RenderResult) => {
     });
   };
 
-  const getDataFromElement = (): SelectData => {
+  const getDataFromElement = (): ModularOptionListData => {
     const el = getElementById('exported-data');
     return JSON.parse(el && el.innerHTML);
   };
@@ -289,18 +287,18 @@ export const renderResultToHelpers = (result: RenderResult) => {
     });
   };
 
-  const getMetaDataFromElement = (): SelectMetaData => {
+  const getMetaDataFromElement = (): ModularOptionListMetaData => {
     const el = getElementById('exported-meta-data');
     return JSON.parse(el && el.innerHTML);
   };
 
   // metadata update does not trigger render!
-  const triggerMetaDataChange = async (metaData: Partial<SelectMetaData>) => {
+  const triggerMetaDataChange = async (metaData: Partial<ModularOptionListMetaData>) => {
     tempMetaDataStorage(metaData);
     fireEvent.click(getElementById('meta-data-updater'));
   };
 
-  const triggerDataChange = async (data: Partial<SelectData>) => {
+  const triggerDataChange = async (data: Partial<ModularOptionListData>) => {
     const promise = createRenderUpdatePromise();
     const promise2 = createDataUpdatePromise();
     tempDataStorage(data);
@@ -368,12 +366,12 @@ export const initTests = ({
   withForceRender,
 }: {
   renderComponentOnly?: boolean;
-  selectProps?: Partial<SelectProps>;
-  testProps?: Parameters<typeof getSelectProps>[0];
+  selectProps?: Partial<ModularOptionListProps>;
+  testProps?: Parameters<typeof getModularOptionListProps>[0];
   withForceRender?: boolean;
 } = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
-  const props = { ...getSelectProps({ input: undefined, ...testProps }), ...selectProps };
+  const props = { ...getModularOptionListProps({ input: undefined, ...testProps }), ...selectProps };
   if (selectProps.onChange) {
     const currentOnChange = props.onChange;
     const onChangeListener = selectProps.onChange;
@@ -418,10 +416,11 @@ export const initTests = ({
   };
 };
 
+/*
 export const renderWithHelpers = (
-  selectProps: Partial<Omit<SelectProps, 'groups'>> & {
+  selectProps: Partial<Omit<ModularOptionListProps, 'groups'>> & {
     groups?: boolean;
-    input?: SelectMetaData['listInputType'];
+    input?: ModularOptionListMetaData['listInputType'];
     hasSelections?: boolean;
     withForceRender?: boolean;
     optionIterator?: OptionIterator;
@@ -430,10 +429,10 @@ export const renderWithHelpers = (
   // eslint-disable-next-line no-param-reassign
   selectProps.id = selectProps.id || defaultId;
   const placeholderText = defaultTexts.en.placeholder;
-  const { groups, input, hasSelections, withForceRender, optionIterator, ...restSelectProps } = selectProps;
-  const props: SelectProps = {
-    ...getSelectProps({ groups: !!groups, input, hasSelections }),
-    ...restSelectProps,
+  const { groups, input, hasSelections, withForceRender, optionIterator, ...restModularOptionListProps } = selectProps;
+  const props: ModularOptionListProps = {
+    ...getModularOptionListProps({ groups: !!groups, input, hasSelections }),
+    ...restModularOptionListProps,
   };
   if (optionIterator) {
     if (props.groups) {
@@ -478,7 +477,7 @@ export const renderWithHelpers = (
   };
   selectors.allListItems = `${selectors.groupLabels}, ${selectors.options}`;
 
-  const getText = (componentProps: SelectProps, key: string) => {
+  const getText = (componentProps: ModularOptionListProps, key: string) => {
     if (!componentProps || !componentProps.texts) {
       throw new Error('No texts found');
     }
@@ -746,3 +745,4 @@ export const renderWithHelpers = (
     dataTestIds,
   };
 };
+*/
