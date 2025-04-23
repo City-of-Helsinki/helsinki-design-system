@@ -4,7 +4,7 @@ title: 'TextArea'
 navTitle: 'TextArea'
 ---
 
-import { TextArea } from 'hds-react';
+import { TextArea, Tooltip } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -62,9 +62,7 @@ A text area can be provided with additional tooltip. Tooltip information should 
     id="textarea-tooltip"
     label="Label"
     placeholder="Placeholder"
-    tooltipLabel="Tooltip label"
-    tooltipButtonLabel="Tooltip button label"
-    tooltipText="Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+    tooltip={<Tooltip tooltipLabel="Tooltip label" buttonLabel="Tooltip button label">Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>}
     style={{ maxWidth: '320px' }}
   />
 </PlaygroundPreview>

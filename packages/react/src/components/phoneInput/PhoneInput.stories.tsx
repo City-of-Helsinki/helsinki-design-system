@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { PhoneInput, PhoneInputProps } from './PhoneInput';
-import { Select } from '../../index';
+import { Select, Tooltip } from '../../index';
 
 export default {
   component: PhoneInput,
@@ -19,6 +19,14 @@ Default.args = {
   id: 'Default',
   helperText: 'Assistive text',
   label: 'Label',
+};
+
+export const WithTooltip = (args: PhoneInputProps) => <PhoneInput {...args} />;
+WithTooltip.args = {
+  id: 'WithTooltip',
+  helperText: 'Assistive text',
+  label: 'Label',
+  tooltip: <Tooltip>This is a tooltip</Tooltip>,
 };
 
 export const Disabled = (args: PhoneInputProps) => <PhoneInput {...args} />;

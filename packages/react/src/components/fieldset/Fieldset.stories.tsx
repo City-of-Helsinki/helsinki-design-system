@@ -4,6 +4,7 @@ import { Fieldset, FieldsetProps } from './Fieldset';
 import { TextInput } from '../textInput/TextInput';
 import { RadioButton } from '../radioButton/RadioButton';
 import { SelectionGroup } from '../selectionGroup/SelectionGroup';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: Fieldset,
@@ -139,9 +140,11 @@ export const WithTooltip = (args: FieldsetProps) => {
 };
 
 WithTooltip.args = {
-  tooltipText: 'tooltip text',
-  tooltipLabel: 'tooltip text aria label',
-  tooltipButtonLabel: 'tooltip button aria label',
+  tooltip: (
+    <Tooltip tooltipLabel="tooltip text aria label" buttonLabel="tooltip button aria label">
+      tooltip text
+    </Tooltip>
+  ),
 };
 
 export const WithHelperText = (args: FieldsetProps) => {
