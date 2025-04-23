@@ -179,6 +179,7 @@ export const ModularOptionList = forwardRef<
       [],
     );
     console.log('initialData', initialData);
+    console.log(Container, theme, divElementProps);
 
     return (
       <DataProvider<ModularOptionListData, ModularOptionListMetaData>
@@ -187,10 +188,13 @@ export const ModularOptionList = forwardRef<
         onChange={changeHandler}
         onReset={onReset}
       >
+        <List />
+      </DataProvider>
+    );
+    /*
         <Container {...divElementProps} theme={theme}>
           <List />
         </Container>
-      </DataProvider>
-    );
+    */
   },
 );

@@ -232,10 +232,6 @@
   }
 }
 
-.listAndInputContainer {
-  @extend %dropdownMenu;
-
-  background-color: var(--computed-dropdown-background-default);
 
   .listContainer {
     display: flex;
@@ -363,16 +359,6 @@
     }
   }
 
-  &.listAndInputContainerVisible {
-    display: block;
-  }
-
-  &.withSearchOrFilter {
-    .listContainer {
-      border-top: 1px solid var(--computed-menu-divider-color);
-    }
-  }
-}
 
 .searchOrFilterInput {
   padding: var(--spacing-2-xs);
