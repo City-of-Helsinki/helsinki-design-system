@@ -27,6 +27,7 @@ yarn start:react
 | yarn build:hds-js            | Builds the hds-js package.                                |
 | yarn build:hds-js-standalone | Builds standalone files for hds-js package.               |
 | yarn start                   | Starts the development environment.                       |
+| yarn nolint                  | Starts the development environment without eslint.        |
 | yarn test                    | Runs the tests.                                           |
 | yarn lint                    | Runs the linting.                                         |
 | yarn scaffold                | Runs the scaffolding script for creating a new component. |

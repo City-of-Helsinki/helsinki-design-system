@@ -21,6 +21,7 @@
     "update:hds-js": "rollup -c --environment hdsJSUpdate",
     "clean": "rimraf node_modules lib storybook-static ../hds-js/lib/",
     "start": "tcm src internal --watch & yarn storybook",
+    "nolint": "ESLINT_NO_DEV_ERRORS=true yarn start",
     "scaffold": "node scripts/scaffold.js",
     "icon": "node scripts/icon.js",
     "tsc:es5": "tsc",
