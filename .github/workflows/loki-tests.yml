@@ -1,0 +1,17 @@
+name: loki-tests
+
+on:
+  workflow_dispatch:
+  pull_request:
+  push:
+    branches:
+      - development
+      - master
+      - release-*
+
+jobs:
+  run-loki-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
