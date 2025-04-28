@@ -143,11 +143,11 @@ export const createContainerProps = (
 export function MultiSelectListWithGroups() {
   const dataHandlers = useModularOptionListDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
-  const { open, groups } = getData();
+  const { groups } = getData();
   const { isSearching, getOptionId } = getMetaData();
   const attr = createContainerProps(dataHandlers);
 
-  const shouldRenderOptions = open && !isSearching;
+  const shouldRenderOptions = !isSearching;
   const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
-  return <div {...attr}>{open ? children : null}</div>;
+  return <div {...attr}>{children}</div>;
 }

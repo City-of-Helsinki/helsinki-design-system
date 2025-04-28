@@ -4,9 +4,9 @@ import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
 import {
   addOrUpdateScreenReaderNotificationByType,
-  countVisibleOptions,
   removeScreenReaderNotification,
 } from '../../utils';
+import { countVisibleOptions } from '../../../modularOptionList/utils';
 import { LoadingSpinner } from '../../../loadingSpinner';
 import { DivElementProps } from '../../types';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';

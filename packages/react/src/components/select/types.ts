@@ -4,28 +4,16 @@ import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { DataHandlers } from '../dataProvider/DataContext';
 import { EventId } from './events';
 import { Tooltip, TooltipProps } from '../tooltip/Tooltip';
-
-export type Option = {
-  value: string;
-  label: string;
-  selected: boolean;
-  isGroupLabel: boolean;
-  visible: boolean;
-  disabled: boolean;
-};
-export type OptionInProps = Partial<Option>;
-export type Group = { options: Option[] };
-export type SearchResult = Pick<SelectProps, 'groups' | 'options'>;
-export type FilterFunction = (option: Option, filterStr: string) => boolean;
-export type SearchFunction = (
-  searchValue: string,
-  selectedOptions: Option[],
-  data: SelectData,
-) => Promise<SearchResult>;
-export type GroupInProps = {
-  label: string;
-  options: (OptionInProps | string)[];
-};
+import {
+  ModularOptionListProps,
+  ModularOptionListData,
+  Option,
+  OptionInProps,
+  FilterFunction,
+  SearchFunction,
+  GroupInProps,
+  ModularOptionListMetaData,
+} from '../modularOptionList/types'
 
 export type AcceptedNativeDivProps = Omit<
   AllElementPropsWithoutRef<'div'>,
@@ -37,7 +25,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   clearable?: boolean;
   disabled?: boolean;
   filter?: FilterFunction;
-  groups?: Array<GroupInProps> | SelectData['groups'];
+  groups?: Array<GroupInProps> | ModularOptionListData['groups'];
   icon?: ReactNode;
   id?: string;
   invalid?: boolean;
@@ -47,13 +35,13 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   onClose?: (
     selectedOptions: Option[],
     clickedOption: undefined,
-    data: SelectData,
-  ) => Partial<Pick<SelectProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
+    data: ModularOptionListData,
+  ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onChange?: (
     selectedOptions: Option[],
     clickedOption: Option,
-    data: SelectData,
-  ) => Partial<Pick<SelectProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
+    data: ModularOptionListData,
+  ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onFocus?: () => void;
   onSearch?: SearchFunction;
   open?: boolean;
@@ -67,74 +55,67 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   visibleOptions?: number;
 };
 
-export type SelectData = Required<
-  Pick<
-    SelectProps,
-    | 'open'
-    | 'required'
-    | 'invalid'
-    | 'onChange'
-    | 'disabled'
-    | 'multiSelect'
-    | 'noTags'
-    | 'visibleOptions'
-    | 'virtualize'
-    | 'clearable'
-  >
-> & {
-  groups: Array<Group>;
-  filterFunction?: FilterFunction;
-  onSearch?: SearchFunction;
-  onFocus?: SelectProps['onFocus'];
-  onBlur?: SelectProps['onBlur'];
-  onClose?: SelectProps['onClose'];
-  initialOpenValue?: boolean;
-};
+export type SelectData =
+  ModularOptionListData &
+  Required<
+    Pick<
+      SelectProps,
+      | 'open'
+    >
+  > & {
+    initialOpenValue?: boolean;
+  }
+;
 
-export type SelectMetaData = Pick<SelectProps, 'icon'> & {
-  refs: {
-    button: RefObject<HTMLButtonElement>;
-    listContainer: RefObject<HTMLDivElement>;
-    list: RefObject<HTMLUListElement>;
-    tagList: RefObject<HTMLDivElement>;
-    showAllButton: RefObject<HTMLButtonElement>;
-    searchOrFilterInput: RefObject<HTMLInputElement>;
-    selectionsAndListsContainer: RefObject<HTMLDivElement>;
-    container: RefObject<HTMLDivElement>;
-  };
-  filter: string;
-  search: string;
-  isSearching: boolean;
-  hasSearchError: boolean;
-  hasListInput: boolean;
-  lastClickedOption: Option | undefined;
-  lastToggleCommand: number;
-  selectedOptions: Option[];
-  cancelCurrentSearch: (() => void) | undefined;
-  focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
-  activeDescendant: string | undefined;
-  listInputType?: Extract<EventId, 'filter' | 'search'>;
-  textContent?: TextInterpolationContent;
-  elementIds: {
-    button: string;
-    label: string;
-    searchOrFilterInputLabel: string;
-    list: string;
-    container: string;
-    tagList: string;
-    searchOrFilterInput: string;
-    showAllButton: string;
-    clearAllButton: string;
-    clearButton: string;
-    selectionsAndListsContainer: string;
-  };
-  textProvider: TextProvider;
-  getOptionId: (option: Option) => string;
-  showAllTags: boolean;
-  screenReaderNotifications: ScreenReaderNotification[];
-  themes?: Record<ThemeTarget, undefined | string>;
-  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
-};
+
+export type SelectMetaData =
+  ModularOptionListMetaData & {
+    /*
+    refs: {
+      button: RefObject<HTMLButtonElement>;
+      listContainer: RefObject<HTMLDivElement>;
+      list: RefObject<HTMLUListElement>;
+      tagList: RefObject<HTMLDivElement>;
+      showAllButton: RefObject<HTMLButtonElement>;
+      searchOrFilterInput: RefObject<HTMLInputElement>;
+      selectionsAndListsContainer: RefObject<HTMLDivElement>;
+      container: RefObject<HTMLDivElement>;
+    };
+    filter: string;
+    search: string;
+    isSearching: boolean;
+    hasSearchError: boolean;
+    hasListInput: boolean;
+    lastClickedOption: Option | undefined;
+    lastToggleCommand: number;
+    selectedOptions: Option[];
+    cancelCurrentSearch: (() => void) | undefined;
+    focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
+    activeDescendant: string | undefined;
+    listInputType?: Extract<EventId, 'filter' | 'search'>;
+    textContent?: TextInterpolationContent;
+    elementIds: {
+      button: string;
+      label: string;
+      searchOrFilterInputLabel: string;
+      list: string;
+      container: string;
+      tagList: string;
+      searchOrFilterInput: string;
+      showAllButton: string;
+      clearAllButton: string;
+      clearButton: string;
+      selectionsAndListsContainer: string;
+    };
+    textProvider: TextProvider;
+    getOptionId: (option: Option) => string;
+    showAllTags: boolean;
+    screenReaderNotifications: ScreenReaderNotification[];
+    */
+    themes?: Record<ThemeTarget, undefined | string>;
+    tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
+  }
+;
 
 export type DivElementProps = AllElementPropsWithoutRef<'div'>;
 export type ButtonElementProps = AllElementPropsWithoutRef<'button'>;

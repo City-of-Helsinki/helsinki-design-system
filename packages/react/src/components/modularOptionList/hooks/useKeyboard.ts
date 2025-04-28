@@ -200,7 +200,6 @@ export function useKeyboard() {
       const wasClickKeyPressed = !wasArrowUpPressed && !wasArrowDownPressed && isClickKey(e);
       const { listInputType, refs } = getMetaData();
       const hasInput = !!listInputType;
-      const isOpen = getData().open;
 
       keyCache.clearIfNeeded(type, wasAlphaNumKeyPressed);
 
@@ -219,6 +218,8 @@ export function useKeyboard() {
         e.preventDefault();
       }
 
+      /* TODO
+
       // esc should close the list
       if (isEscKey(e) && isOpen) {
         trigger({ id: eventIds.generic, type: eventTypes.close });
@@ -234,6 +235,7 @@ export function useKeyboard() {
         moveFocusToLastListItem();
         return;
       }
+      */
 
       // move focus from input to first option when wasArrowDownPressed
       if (isSearchOrFilterInputType(type) && wasArrowDownPressed) {
@@ -278,7 +280,7 @@ export function useKeyboard() {
         }
         return;
       }
-
+      /* TODO
       // if focus is the button or its siblings
       if (isInSelectedOptionsType(type)) {
         // open menu on arrow down press
@@ -301,7 +303,9 @@ export function useKeyboard() {
           }
         }
       }
+      */
 
+      /* TODO
       // if focus is somewhere in the list and user starts typing but input does not exist,
       // focus is moved to the element that starts with given input
       if (keyCache.shouldUseInput(type, wasAlphaNumKeyPressed) && !hasInput) {
@@ -313,6 +317,7 @@ export function useKeyboard() {
         }
         focusToFirstFilteredOption(keyCache.getValue());
       }
+      */
     },
     [trigger, getData, getMetaData, updateMetaData],
   );
@@ -329,7 +334,7 @@ export function useKeyboard() {
   );
 
   useEffect(() => {
-    if (getData().open && keyCache.hasPendingInput()) {
+    if (/*TODO getData().open && */keyCache.hasPendingInput()) {
       focusToFirstFilteredOption(keyCache.getValue());
     }
   });

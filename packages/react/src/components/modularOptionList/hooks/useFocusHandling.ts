@@ -38,7 +38,7 @@ export function useFocusHandling(): ReturnObject {
       type: keyof typeof eventTypes,
       e: FocusEvent<HTMLDivElement> | MouseEvent<HTMLDivElement> | KeyboardEvent<HTMLDivElement>,
     ) => {
-      const { onFocus, onBlur, open } = getData();
+      const { onFocus, onBlur } = getData();
       const markActiveDescendant = (element: HTMLElement | null) => {
         const id = (element && getElementId(element)) || '';
         updateMetaData({ activeDescendant: id });
@@ -83,7 +83,7 @@ export function useFocusHandling(): ReturnObject {
         } else {
           markActiveDescendant(null);
         }
-        if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType) && open) {
+        if (eventElementType && elementsThatCloseMenuOnFocus.includes(eventElementType)) {
           if (eventElementType === 'tag' || eventElementType === 'tagList') {
             // when the list was open and a tag was focused and close event re-renders the component, the focus is lost from the tag.
             // this is caused by the tag element losing its element refs.
@@ -93,7 +93,7 @@ export function useFocusHandling(): ReturnObject {
           }
           trigger({ id: eventIds.generic, type: eventTypes.blur });
         }
-      } else if (type === eventTypes.blur && open) {
+      } else if (type === eventTypes.blur) {
         const focusedElement = getFocusedElementFromBlurEvent(e as FocusEvent<HTMLDivElement>);
         const focusedElementType = focusedElement ? getElementType(focusedElement) : null;
         if (!focusedElementType) {

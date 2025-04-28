@@ -9,11 +9,14 @@ import {
   ButtonElementProps,
   SelectDataHandlers,
   SelectMetaData,
-  Option,
   TextKey,
   TextsWithNumberedVariations,
 } from '../../types';
-import { createOnClickListener, getVisibleGroupLabels } from '../../utils';
+import {
+  Option,
+} from '../../../modularOptionList/types';
+import { createOnClickListener } from '../../utils';
+import { getVisibleGroupLabels } from '../../../modularOptionList/utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';
 import { getNumberedVariationsTextKey, getTextKey } from '../../texts';
 import { IconAngleDown } from '../../../../icons';

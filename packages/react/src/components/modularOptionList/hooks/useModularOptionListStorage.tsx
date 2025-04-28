@@ -104,9 +104,6 @@ export function useModularOptionListStorage(props: ModularOptionListStorageProps
       }
       updateProps({ invalid });
     },
-    setOpen: (open: boolean) => {
-      updateProps({ open });
-    },
     setDisabled: (disabled: boolean) => {
       updateProps({ disabled });
     },

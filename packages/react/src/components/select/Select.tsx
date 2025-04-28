@@ -1,11 +1,11 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData, Option, AcceptedNativeDivProps } from './types';
+import { SelectProps, SelectMetaData, SelectData, AcceptedNativeDivProps } from './types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
-import { getSelectedOptions, getElementIds, convertPropsToGroups, mutateGroupLabelSelections } from './utils';
+import { getElementIds } from './utils';
 import { DataProvider, DataProviderProps } from '../dataProvider/DataProvider';
 import { SelectedOptionsContainer } from './components/selectedOptions/SelectedOptionsContainer';
 import { SelectionsAndListsContainer } from './components/SelectionsAndListsContainer';
@@ -19,6 +19,14 @@ import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
+import {
+  Option,
+} from '../modularOptionList/types';
+import {
+  getSelectedOptions,
+  convertPropsToGroups,
+  mutateGroupLabelSelections,
+} from '../modularOptionList/utils';
 
 export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
   (
@@ -179,12 +187,6 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       [],
     );
 
-    // TODO: just for test. Use dataProvider somehow
-    const modularOptionListProps = {
-      ...initialData,
-    };
-    console.log('Select modularOptionListProps', modularOptionListProps);
-
     return (
       <DataProvider<SelectData, SelectMetaData>
         initialData={initialData}
@@ -198,7 +200,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
             <SelectedOptionsContainer />
             <ListAndInputContainer>
               <SearchOrFilterInput />
-              <ModularOptionList {...modularOptionListProps} />
+              <ModularOptionList />
               <SearchAndFilterInfo />
             </ListAndInputContainer>
           </SelectionsAndListsContainer>
@@ -209,5 +211,6 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         </Container>
       </DataProvider>
     );
+
   },
 );

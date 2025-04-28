@@ -15,8 +15,9 @@ import {
   createDataWithSelectedOptions,
   getTriggeredEvents,
 } from '../../hooks/__mocks__/useSelectDataHandlers';
-import { getSelectedOptions } from '../../utils';
-import { Option, SelectData, SelectMetaData, TextInterpolationContent } from '../../types';
+import { getSelectedOptions } from '../../../modularOptionList/utils';
+import { SelectData, SelectMetaData, TextInterpolationContent } from '../../types';
+import { Option } from '../../../modularOptionList/types';
 import { isClearOptionsClickEvent, isOpenOrCloseEvent } from '../../events';
 import { defaultTexts } from '../../texts';
 

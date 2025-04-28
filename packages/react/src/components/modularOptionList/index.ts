@@ -1,7 +1,7 @@
 export * from './ModularOptionList';
 export * from './hooks';
 // export { defaultTexts } from './texts';
-/*
+
 export {
   defaultFilter,
   iterateAndCopyGroup,
@@ -12,10 +12,9 @@ export {
   getAllOptions,
   getSelectedOptions,
   propsToGroups,
-  getElementIds,
   pickSelectedValues,
   getNewSelections,
   updateSelectedOptionsInGroups,
 } from './utils';
-*/
-// export * from './types';
+
+//export * from './types';

@@ -6,7 +6,8 @@ import { DivElementProps, SelectDataHandlers } from '../types';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../events';
-import { countVisibleOptions, getVisibleGroupLabels } from '../utils';
+import { countVisibleOptions } from '../utils';
+import { getVisibleGroupLabels } from '../../modularOptionList/utils';
 import { getNumberedVariationsTextKey, getTextFromDataHandlers } from '../texts';
 
 const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {

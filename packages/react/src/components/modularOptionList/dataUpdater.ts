@@ -60,6 +60,7 @@ const dataUpdater = (
   if (current.disabled) {
     return returnValue;
   }
+  /* TODO
   const openOrClose = (open: boolean) => {
     if (current.open === open) {
       return false;
@@ -75,6 +76,7 @@ const dataUpdater = (
     }
     return true;
   };
+  */
 
   const setFocusTarget = (focusTarget: ModularOptionListMetaData['focusTarget']) => {
     dataHandlers.updateMetaData({
@@ -89,6 +91,7 @@ const dataUpdater = (
     );
   };
 
+  /* TODO
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
@@ -100,6 +103,7 @@ const dataUpdater = (
       didDataChange: didUpdate,
     };
   }
+  */
 
   if (isOptionClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
@@ -115,7 +119,7 @@ const dataUpdater = (
       current.multiSelect,
     );
     updateGroups(newGroups, clickedOption);
-    openOrClose(id !== eventIds.tag && current.multiSelect);
+    // TODO openOrClose(id !== eventIds.tag && current.multiSelect);
     if (id === eventIds.listItem && !current.multiSelect) {
       setFocusTarget('button');
     } else if (isRemoveTagEventId(id)) {
@@ -203,6 +207,7 @@ const dataUpdater = (
     };
   }
 
+  /* TODO
   if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
     if (openOrClose(false)) {
       setFocusTarget('button');
@@ -212,13 +217,16 @@ const dataUpdater = (
       };
     }
   }
+  */
 
+  /* TODO
   if (isCloseOnFocusMoveEvent(id, type) && current.open) {
     return {
       ...returnValue,
       didDataChange: openOrClose(false),
     };
   }
+  */
 
   if (isSearchSuccessEvent(id, type)) {
     dataHandlers.updateMetaData({ isSearching: false, hasSearchError: false });
@@ -253,12 +261,14 @@ const dataUpdater = (
       didDataChange: true,
     };
   }
+  /* TODO
   if (isGenericBlurEvent(id, type) && current.open) {
     return {
       ...returnValue,
       didDataChange: openOrClose(false),
     };
   }
+  */
   return returnValue;
 };
 
@@ -332,7 +342,7 @@ export const changeHandler: ChangeHandler<ModularOptionListData, ModularOptionLi
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
-  const { onSearch, onChange, onClose, multiSelect, open } = current;
+  const { onSearch, onChange, onClose, multiSelect } = current;
 
   const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;

@@ -56,7 +56,6 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
   ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onFocus?: () => void;
   onSearch?: SearchFunction;
-  open?: boolean;
   options?: (OptionInProps | string)[];
   required?: boolean;
   texts?: Partial<Texts> | TextProvider;
@@ -70,7 +69,6 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
 export type ModularOptionListData = Required<
   Pick<
     ModularOptionListProps,
-    | 'open'
     | 'required'
     | 'invalid'
     | 'onChange'
@@ -88,7 +86,6 @@ export type ModularOptionListData = Required<
   onFocus?: ModularOptionListProps['onFocus'];
   onBlur?: ModularOptionListProps['onBlur'];
   onClose?: ModularOptionListProps['onClose'];
-  initialOpenValue?: boolean;
 };
 
 export type ModularOptionListMetaData = Pick<ModularOptionListProps, 'icon'> & {
@@ -110,6 +107,7 @@ export type ModularOptionListMetaData = Pick<ModularOptionListProps, 'icon'> & {
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   selectedOptions: Option[];
+
   cancelCurrentSearch: (() => void) | undefined;
   focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
   activeDescendant: string | undefined;
@@ -133,7 +131,6 @@ export type ModularOptionListMetaData = Pick<ModularOptionListProps, 'icon'> & {
   showAllTags: boolean;
   screenReaderNotifications: ScreenReaderNotification[];
   themes?: Record<ThemeTarget, undefined | string>;
-  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
 };
 
 export type DivElementProps = AllElementPropsWithoutRef<'div'>;

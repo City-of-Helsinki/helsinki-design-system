@@ -10,11 +10,11 @@ import { createListElementProps, createOptionElements } from './SingleSelectAndG
 export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectWithGroups: boolean }) => {
   const dataHandlers = useModularOptionListDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
-  const { open, groups, multiSelect } = getData();
+  const { groups, multiSelect } = getData();
   const { isSearching, getOptionId, refs, elementIds } = getMetaData();
 
   const allOptions = getAllOptions(groups);
-  const shouldRenderOptions = open && !isSearching;
+  const shouldRenderOptions = !isSearching;
   const currentChildren = useRenderChildrenInChunks(shouldRenderOptions ? allOptions : []);
 
   const createVirtualGroups = (): Group[] => {

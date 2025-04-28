@@ -5,24 +5,29 @@ import { capitalize } from 'lodash';
 import {
   SelectProps,
   Texts,
-  Option,
   TextProvider,
   Select,
   useSelectStorage,
   SupportedLanguage,
   defaultTexts as defaultUITexts,
+  getElementIds,
+} from './index';
+
+import {
   defaultFilter,
   getNewSelections,
   iterateAndCopyGroup,
   updateSelectedOptionsInGroups,
   getSelectedOptions,
+} from '../modularOptionList/utils';
+import {
+  Option,
   OptionInProps,
   Group,
-  getElementIds,
-} from './index';
+} from '../modularOptionList/types';
 import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
-import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
+import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from '../modularOptionList/batch.options';
 import { Tag, TagSize } from '../tag/Tag';
 import { Tooltip } from '../tooltip/Tooltip';
 import useForceRender from '../../hooks/useForceRender';
@@ -31,7 +36,7 @@ export default {
   component: Select,
   title: 'Components/Select',
 };
-
+/*
 const createRandomGroupsForSearch = (search: string) => {
   if (search === 'none') {
     return { groups: [] };
@@ -85,7 +90,7 @@ const onSearch: SelectProps['onSearch'] = async (searchValue) => {
   }
   return Promise.resolve(searchValue ? createRandomGroupsForSearch(searchValue) : {});
 };
-
+*/
 const genericOnChangeCallback: SelectProps['onChange'] = () => {
   action('onChange');
 };
@@ -102,6 +107,7 @@ const requireOneSelection: SelectProps['onChange'] = (selectedOptions, clickedOp
   };
 };
 
+
 const defaultTexts: Partial<Texts> = {
   label: 'Label',
   placeholder: 'Choose one',
@@ -117,21 +123,25 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
   placeholder: 'Choose many',
 };
 
+
 /**
  *
  * Visual Playwright tests depend on these stories. Changing option labels or other props may brake the tests.
  *
  */
 
+
 export const Singleselect = () => {
   const options = getOptionLabels(20);
+  /*
   const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     return requireOneSelection(selectedOptions, lastClickedOption, props);
   }, []);
+  */
   return (
     <Select
       options={options}
-      onChange={onChange}
+//      onChange={onChange}
       icon={<IconLocation />}
       required
       texts={defaultTexts}
@@ -191,7 +201,7 @@ export const SingleselectWithGroups = () => {
     />
   );
 };
-
+/*
 export const OptionsAsHtml = () => {
   return (
     <Select onChange={genericOnChangeCallback} texts={defaultTexts} id="hds-select-component">
@@ -420,6 +430,7 @@ export const WithSearch = () => {
     </>
   );
 };
+*/
 
 export const Multiselect = () => {
   const [onChangeSelections, setOnChangeSelections] = useState<Option[]>([]);
@@ -499,6 +510,8 @@ export const MultiselectWithGroups = () => {
     />
   );
 };
+
+/*
 
 export const MultiselectWithGroupsAndFilter = () => {
   const groups: SelectProps['groups'] = [
@@ -1454,3 +1467,4 @@ WithCustomTheme.args = {
     '--text-label-color-default': 'var(--color-white)',
   },
 };
+*/

@@ -1,26 +1,20 @@
 import { debounce } from 'lodash';
 
 import {
-  FilterFunction,
-  Option,
-  SearchFunction,
-  SearchResult,
   SelectData,
   SelectDataHandlers,
   SelectMetaData,
 } from './types';
+import {
+  FilterFunction,
+  Option,
+  SearchFunction,
+  SearchResult,
+} from '../modularOptionList/types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
-  updateOptionInGroup,
-  clearAllSelectedOptions,
-  propsToGroups,
-  getSelectedOptions,
-  updateGroupLabelAndOptions,
-  filterOptions,
-  mergeSearchResultsToCurrent,
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
-  createMetaDataAfterSelectionChange,
 } from './utils';
 import {
   EventId,
@@ -82,13 +76,6 @@ const dataUpdater = (
     });
   };
 
-  const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
-    dataHandlers.updateData({ groups });
-    dataHandlers.updateMetaData(
-      createMetaDataAfterSelectionChange(groups, dataHandlers.getMetaData().selectedOptions, clickedOption),
-    );
-  };
-
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
@@ -101,67 +88,11 @@ const dataUpdater = (
     };
   }
 
-  if (isOptionClickEvent(id, type)) {
-    const clickedOption = payload && (payload.value as Option);
-    if (!clickedOption) {
-      return returnValue;
-    }
-    const newGroups = updateOptionInGroup(
-      current.groups,
-      {
-        ...clickedOption,
-        selected: !clickedOption.selected,
-      },
-      current.multiSelect,
-    );
-    updateGroups(newGroups, clickedOption);
-    openOrClose(id !== eventIds.tag && current.multiSelect);
-    if (id === eventIds.listItem && !current.multiSelect) {
-      setFocusTarget('button');
-    } else if (isRemoveTagEventId(id)) {
-      const currentMetaData = dataHandlers.getMetaData();
-      const remainingOptions = currentMetaData.selectedOptions.length;
-      const hasSelectedItems = !!remainingOptions;
-      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
-      const removalText = getTextKey('tagRemoved', currentMetaData, {
-        value: clickedOption.label,
-      });
-      const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
-      const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
-
-      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
-    }
-    return {
-      ...returnValue,
-      didSelectionsChange: true,
-      didDataChange: true,
-    };
-  }
-
-  // Note: single select group labels do not emit events
-  // so multiSelect is not checked.
-  if (isGroupClickEvent(id, type)) {
-    const clickedOption = payload && (payload.value as Option);
-    if (!clickedOption) {
-      return returnValue;
-    }
-    // add to docs that the clicked option is updated before onChange
-    const updatedOption = {
-      ...clickedOption,
-      selected: !clickedOption.selected,
-    };
-    const newGroups = updateGroupLabelAndOptions(current.groups, updatedOption);
-    updateGroups(newGroups, clickedOption);
-    return {
-      ...returnValue,
-      didSelectionsChange: true,
-      didDataChange: true,
-    };
-  }
-
   if (isClearOptionsClickEvent(id, type)) {
+      /* TODO: use MOL
     const newGroups = clearAllSelectedOptions(current.groups);
     updateGroups(newGroups);
+    */
     setFocusTarget('button');
     return {
       ...returnValue,
@@ -173,9 +104,12 @@ const dataUpdater = (
   if (isFilterChangeEvent(id, type)) {
     const filterValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ filter: filterValue });
+          /* TODO: use MOL
+
     dataHandlers.updateData({
       groups: filterOptions(current.groups, filterValue, current.filterFunction as FilterFunction),
     });
+    */
     return {
       ...returnValue,
       didDataChange: true,
@@ -190,12 +124,15 @@ const dataUpdater = (
       setFocusTarget('tag');
     } else {
       // when "Show less" was clicked, tell screen reader some tag are hidden
+            /* TODO: use MOL
+
       const notification = createScreenReaderNotification(
         eventIds.tag,
         getTextKey('tagsPartiallyHidden', dataHandlers.getMetaData()) as string,
       );
 
       addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+      */
     }
     return {
       ...returnValue,
@@ -222,9 +159,11 @@ const dataUpdater = (
 
   if (isSearchSuccessEvent(id, type)) {
     dataHandlers.updateMetaData({ isSearching: false, hasSearchError: false });
+      /* TODO: use MOL
     dataHandlers.updateData({
       groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),
     });
+    */
 
     return {
       ...returnValue,
@@ -236,7 +175,9 @@ const dataUpdater = (
     const searchValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ search: searchValue, hasSearchError: false });
     if (!searchValue) {
+      /* TODO: use MOL
       dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
+      */
     }
     return {
       ...returnValue,
@@ -246,8 +187,10 @@ const dataUpdater = (
   }
 
   if (isSearchErrorEvent(id, type)) {
+    /* TODO: use MOL
     dataHandlers.updateMetaData({ isSearching: false, hasSearchError: true });
     dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
+    */
     return {
       ...returnValue,
       didDataChange: true,
@@ -262,50 +205,25 @@ const dataUpdater = (
   return returnValue;
 };
 
-// payload in resolve() will be triggered to the dataUpdater as an event
-// also errors are resolved, so there is no extra need for catching.
-const executeSearch = (
-  searchFunc: SearchFunction,
-  search: string,
-  selectedOptions: SelectMetaData['selectedOptions'],
-  data: SelectData,
-): [() => void, Promise<ChangeEvent>] => {
-  let isCancelled = false;
-  const request = new Promise<ChangeEvent>((resolve) => {
-    searchFunc(search as string, selectedOptions, data)
-      .then((res) => {
-        if (isCancelled) {
-          resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
-        } else {
-          resolve({ id: eventIds.searchResult, type: eventTypes.success, payload: { value: res } });
-        }
-      })
-      .catch(() => {
-        resolve({ id: eventIds.searchResult, type: eventTypes.error });
-      });
-  });
-  const cancel = () => {
-    isCancelled = true;
-  };
-  return [cancel, request];
-};
 
 const debouncedSearch = debounce(
   (dataHandlers: DataHandlers<SelectData, SelectMetaData>, searchFunc?: SearchFunction) => {
     if (!searchFunc) {
       return;
     }
-    const { cancelCurrentSearch, search, selectedOptions } = dataHandlers.getMetaData();
+    const { cancelCurrentSearch, search/*, selectedOptions*/ } = dataHandlers.getMetaData();
     if (cancelCurrentSearch) {
       cancelCurrentSearch();
     }
     if (!search) {
       return;
     }
+    /* TODO: use MOL
     const [cancel, request] = executeSearch(searchFunc, search, selectedOptions, dataHandlers.getData());
     dataHandlers.updateMetaData({ cancelCurrentSearch: cancel });
     // dataHandler will listen to the promise and trigger an event when promise fulfills:
     dataHandlers.asyncRequestWithTrigger(request);
+    */
   },
   300,
 );
@@ -329,11 +247,12 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
+
+/* TODO
   const { onSearch, onChange, onClose, multiSelect, open } = current;
 
   const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;
-
   if (closeChange && onClose) {
     const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);
     if (closeProps) {
@@ -356,7 +275,9 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
       }
     }
   }
+*/
 
+/*
   if (didSearchChange && onSearch) {
     dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
     debouncedSearch(dataHandlers, onSearch);
@@ -388,6 +309,7 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
       return true;
     }
   }
+*/
 
-  return didDataChange || closeHasChanges;
+  return didDataChange; // TODO: || closeHasChanges;
 };

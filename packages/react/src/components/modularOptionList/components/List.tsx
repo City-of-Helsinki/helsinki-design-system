@@ -31,15 +31,18 @@ const ListComponent = ({
 
 export const List = () => {
   const dataHandlers = useModularOptionListDataHandlers();
-  const { getData /* , getMetaData */ } = dataHandlers;
-  const { open, groups, multiSelect, visibleOptions, virtualize } = getData();
-  // const { isSearching } = getMetaData();
-  const isVisible = true; // TODO open && !isSearching;
+  const { getData, getMetaData } = dataHandlers;
+  const { groups, multiSelect, visibleOptions, virtualize } = getData();
+  const { isSearching } = getMetaData();
+  const isVisible = !isSearching;
   const classes = classNames(styles.listContainer, !isVisible && styles.hidden);
   const styleObj = { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions };
 
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const isMultiSelectAndHasGroupLabels = multiSelect && hasVisibleGroupLabels;
+
+  console.log('List data', getData());
+  console.log('List metaData', getMetaData());
 
   useEffect(() => {
     const onKeyDown = (event: KeyboardEvent) => {
@@ -59,7 +62,6 @@ export const List = () => {
     };
   }, [isVisible]);
 
-  console.log(open, groups, multiSelect, visibleOptions, virtualize);
   return (
     <div className={classes} style={styleObj}>
       <ListComponent

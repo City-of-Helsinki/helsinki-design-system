@@ -1,10 +1,14 @@
 import { getNumberedVariationsTextKey, getTextKey } from '../../texts';
 import { ScreenReaderNotification, SelectData, SelectMetaData, TextInterpolationContent } from '../../types';
-import { countVisibleOptions, createScreenReaderNotification } from '../../utils';
+import { createScreenReaderNotification } from '../../utils';
+import { countVisibleOptions } from '../../../modularOptionList/utils';
 import { getTextKeyWithType, typeIndicator } from './common';
 
-export function getScreenReaderNotification(data: SelectData, metaData: SelectMetaData): ScreenReaderNotification {
-  const { groups, open } = data;
+export function getScreenReaderNotification(
+  data: SelectData,
+  metaData: SelectMetaData,
+): ScreenReaderNotification {
+  const { open, groups } = data;
   const { isSearching, search, filter, hasSearchError } = metaData;
   const resultCount = countVisibleOptions(groups);
   const value = search || filter;

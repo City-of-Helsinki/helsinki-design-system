@@ -17,6 +17,29 @@ import { createTextProvider } from './texts';
 import { eventIds } from './events';
 // import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 
+import { useModularOptionListDataHandlers } from './hooks/useModularOptionListDataHandlers';
+
+export const checkDataProviderPresence = () => {
+  try {
+    // Check if dataHandlers itself is valid
+    const dataHandlers = useModularOptionListDataHandlers();
+    if (!dataHandlers || typeof dataHandlers.getData !== 'function' || typeof dataHandlers.getMetaData !== 'function') {
+      return false;
+    }
+
+    // Explicitly check if data or metaData is undefined, null, or empty
+    const data = dataHandlers.getData();
+    const metaData = dataHandlers.getMetaData();
+    if (!data || !metaData || Object.keys(data).length === 0 || Object.keys(metaData).length === 0) {
+      return false;
+    }
+
+    return true;
+  } catch (error) {
+    return false;
+  }
+};
+
 export const ModularOptionList = forwardRef<
   HTMLButtonElement,
   Omit<ModularOptionListProps & AcceptedNativeDivProps, 'ref'>
@@ -24,7 +47,6 @@ export const ModularOptionList = forwardRef<
   (
     {
       options,
-      open,
       groups,
       icon,
       required,
@@ -54,7 +76,6 @@ export const ModularOptionList = forwardRef<
     const initialData = useMemo<ModularOptionListData>(() => {
       const data = {
         groups: convertPropsToGroups({ options, groups, value, children }),
-        open: true,
         required: !!required,
         invalid: !!invalid,
         disabled: !!disabled,
@@ -69,7 +90,6 @@ export const ModularOptionList = forwardRef<
         filterFunction: filter,
         onSearch,
         clearable: !!clearable,
-        initialOpenValue: open,
       };
       if (data.multiSelect) {
         mutateGroupLabelSelections(data.groups);
@@ -77,7 +97,6 @@ export const ModularOptionList = forwardRef<
       return data;
     }, [
       options,
-      open,
       groups,
       onChange,
       disabled,
@@ -144,7 +163,7 @@ export const ModularOptionList = forwardRef<
         hasSearchError: false,
         cancelCurrentSearch: undefined,
         screenReaderNotifications: [],
-        tooltip,
+        //tooltip,
       };
     }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts, ref]);
 
@@ -156,21 +175,12 @@ export const ModularOptionList = forwardRef<
       };
     }, []);
 
+    // TODO: not sure what this should do
     const onReset: DataProviderProps<ModularOptionListData, ModularOptionListMetaData>['onReset'] = useCallback(
       ({ previousData, currentData, currentMetaData }) => {
         if (currentData) {
           if (previousData) {
-            // if the "open"-prop is explicitly set and has changed, it must be deliberate.
-            if (
-              typeof currentData.initialOpenValue !== 'undefined' &&
-              previousData.initialOpenValue !== currentData.initialOpenValue
-            ) {
-              return { ...currentData, open: currentData.initialOpenValue };
-            }
-            // if the list was open prior to the re-render, it should still be
-            if (previousData.open) {
-              return { ...currentData, open: true };
-            }
+            return { ...currentData };
           }
           return currentData;
         }
@@ -178,23 +188,23 @@ export const ModularOptionList = forwardRef<
       },
       [],
     );
+    const isDataProvider = checkDataProviderPresence();
+    console.log('isDataProvider', isDataProvider);
     console.log('initialData', initialData);
-    console.log(Container, theme, divElementProps);
 
     return (
-      <DataProvider<ModularOptionListData, ModularOptionListMetaData>
-        initialData={initialData}
-        metaData={metaData}
-        onChange={changeHandler}
-        onReset={onReset}
-      >
+       isDataProvider ? (
         <List />
-      </DataProvider>
-    );
-    /*
-        <Container {...divElementProps} theme={theme}>
+      ) : (
+        <DataProvider<ModularOptionListData, ModularOptionListMetaData>
+          initialData={initialData}
+          metaData={metaData}
+          onChange={changeHandler}
+          onReset={onReset}
+        >
           <List />
-        </Container>
-    */
+        </DataProvider>
+      )
+    );
   },
 );

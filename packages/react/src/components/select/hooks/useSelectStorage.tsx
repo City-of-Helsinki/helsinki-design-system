@@ -1,8 +1,9 @@
 import { useCallback, useMemo, useRef } from 'react';
 
 import useForceRender from '../../../hooks/useForceRender';
-import { Group, SelectProps, Texts, SupportedLanguage } from '../types';
-import { iterateAndCopyGroup, OptionIterator, propsToGroups } from '../utils';
+import { Texts, SupportedLanguage, SelectProps } from '../types';
+import { Group } from '../../modularOptionList/types';
+import { iterateAndCopyGroup, OptionIterator, propsToGroups } from '../../modularOptionList/utils';
 
 export type SelectStorageProps = Omit<SelectProps, 'value'> & {
   updateKey?: string;
