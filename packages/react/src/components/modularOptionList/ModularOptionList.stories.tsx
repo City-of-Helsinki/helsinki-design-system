@@ -84,6 +84,7 @@ export const Multiselect = () => {
   const [onCloseSelections, setOnCloseSelections] = useState<Option[]>([]);
 
   const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    console.log('onChange', selectedOptions);
     setOnChangeSelections(selectedOptions);
     return requireOneSelection(selectedOptions, lastClickedOption, data);
   }, []);

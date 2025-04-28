@@ -16,6 +16,12 @@ import {
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
 } from './utils';
+  import {
+  getSelectedOptions,
+  propsToGroups,
+  createMetaDataAfterSelectionChange,
+} from '../modularOptionList/utils';
+
 import {
   EventId,
   eventIds,
@@ -37,6 +43,7 @@ import {
   isRemoveTagEventId,
 } from './events';
 import { appendTexts, getNumberedVariationsTextKey, getTextKey } from './texts';
+import { changeHandler as modularOptionListChangeHandler } from '../modularOptionList/dataUpdater';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
@@ -244,15 +251,19 @@ const isCloseTriggerEvent = (event: ChangeEvent) => {
 };
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
+  console.log('select changeHandler');
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
+
+  const didModularOptionListChange = modularOptionListChangeHandler(event, dataHandlers);
+
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
 
-/* TODO
   const { onSearch, onChange, onClose, multiSelect, open } = current;
 
   const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;
+
   if (closeChange && onClose) {
     const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);
     if (closeProps) {
@@ -275,7 +286,7 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
       }
     }
   }
-*/
+
 
 /*
   if (didSearchChange && onSearch) {
@@ -311,5 +322,5 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
   }
 */
 
-  return didDataChange; // TODO: || closeHasChanges;
+  return didModularOptionListChange || didDataChange || closeHasChanges;
 };

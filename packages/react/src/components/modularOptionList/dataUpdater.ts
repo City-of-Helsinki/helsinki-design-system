@@ -106,6 +106,7 @@ const dataUpdater = (
   */
 
   if (isOptionClickEvent(id, type)) {
+    console.log('option click');
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return returnValue;
@@ -339,6 +340,7 @@ export const changeHandler: ChangeHandler<ModularOptionListData, ModularOptionLi
   event,
   dataHandlers,
 ): boolean => {
+  console.log('mol changeHandler');
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();

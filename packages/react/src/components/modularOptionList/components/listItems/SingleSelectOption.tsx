@@ -41,6 +41,7 @@ const createSingleSelectItemProps = ({ option, trigger, getOptionId }: ModularOp
     ),
     children: <Label text={label} selected={selected} />,
     onClick: (originalEvent: React.MouseEvent) => {
+      console.log('click', originalEvent, option, trigger);
       if (option.selected) {
         return;
       }

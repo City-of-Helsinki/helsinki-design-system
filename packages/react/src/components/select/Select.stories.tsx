@@ -36,7 +36,7 @@ export default {
   component: Select,
   title: 'Components/Select',
 };
-/*
+
 const createRandomGroupsForSearch = (search: string) => {
   if (search === 'none') {
     return { groups: [] };
@@ -90,7 +90,7 @@ const onSearch: SelectProps['onSearch'] = async (searchValue) => {
   }
   return Promise.resolve(searchValue ? createRandomGroupsForSearch(searchValue) : {});
 };
-*/
+
 const genericOnChangeCallback: SelectProps['onChange'] = () => {
   action('onChange');
 };
@@ -201,7 +201,7 @@ export const SingleselectWithGroups = () => {
     />
   );
 };
-/*
+
 export const OptionsAsHtml = () => {
   return (
     <Select onChange={genericOnChangeCallback} texts={defaultTexts} id="hds-select-component">
@@ -430,13 +430,14 @@ export const WithSearch = () => {
     </>
   );
 };
-*/
+
 
 export const Multiselect = () => {
   const [onChangeSelections, setOnChangeSelections] = useState<Option[]>([]);
   const [onCloseSelections, setOnCloseSelections] = useState<Option[]>([]);
 
   const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    console.log('onChange', selectedOptions);
     setOnChangeSelections(selectedOptions);
     return requireOneSelection(selectedOptions, lastClickedOption, data);
   }, []);
@@ -510,8 +511,6 @@ export const MultiselectWithGroups = () => {
     />
   );
 };
-
-/*
 
 export const MultiselectWithGroupsAndFilter = () => {
   const groups: SelectProps['groups'] = [
@@ -1467,4 +1466,3 @@ WithCustomTheme.args = {
     '--text-label-color-default': 'var(--color-white)',
   },
 };
-*/
