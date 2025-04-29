@@ -1,6 +1,7 @@
-name: hds-demo-preview-clean
+name: clean-demo-site
 
 on:
+  delete:
   pull_request:
     branches:
       - development
@@ -9,8 +10,7 @@ on:
       - closed
 
 jobs:
-  build_and_publish_demo:
-    if: github.event.pull_request.draft == false
+  clean-demo-site:
     runs-on: ubuntu-latest
     concurrency:
       group: hds-demo-${{ github.ref }}
@@ -23,11 +23,11 @@ jobs:
           path: hds-demo
           ssh-key: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
 
-      - name: Remove PR directory
+      - name: Remove preview directory
         id: remove_preview
         run: |
-          if [ -d "./docs/preview_${{ github.event.number }}" ] ; then
-            rm -fr ./docs/preview_${{ github.event.number }}
+          if [ -d "./docs/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}" ] ; then
+            rm -fr ./docs/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}
             echo "preview_exists=true" >> $GITHUB_OUTPUT
           else
             echo "preview_exists=false" >> $GITHUB_OUTPUT
@@ -42,7 +42,7 @@ jobs:
           git config --global user.name "Github Actions"
           git status
           git add .
-          git commit -m "chore: hds-demo-preview-clean workflow updated pr ${{ github.event.number }}"
+          git commit -m "chore: hds-demo-preview-clean workflow updated pr ${{ github.event.number != '' && github.event.number || github.ref_name }}"
           git pull --rebase || (sleep 20 && git pull --rebase)
           git push
         working-directory: ./hds-demo

@@ -8,7 +8,7 @@ on:
       - release-*
 
 jobs:
-  build-icon-library:
+  update-icon-library:
     runs-on: ubuntu-latest
     env:
       FILE_KEY: 'Kxwg3R0zNRHj55nQqFu6VS'

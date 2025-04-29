@@ -1,5 +1,4 @@
-# this is reference workflow to run e2e tests and get test results
-name: e2e-tests
+name: publish npm packages
 
 on:
   workflow_call:
@@ -7,11 +6,13 @@ on:
       commit_sha:
         required: true
         type: string
+    secrets:
+      NPM_TOKEN:
+        required: true
 
 jobs:
-  e2e-tests:
-    # needs to match the playwright-docker image version
-    runs-on: ubuntu-24.04
+  publish-npm-packages:
+    runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
@@ -31,7 +32,7 @@ jobs:
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
-      
+
       # Github cache
       - name: get yarn cache directory path
         id: yarn-cache-dir-path
@@ -50,44 +51,12 @@ jobs:
         uses: actions/cache@v4
         with:
           path: '**/node_modules'
-          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
+          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}          
 
-      - name: install e2e dependencies
-        run: |
-          yarn config set network-timeout 300000 
-          yarn
-        working-directory: ./e2e
+      - name: install dependencies
+        run: yarn
 
-      - name: install playwright browser and OS dependencies
-        run: |
-          yarn playwright-install
-        working-directory: ./e2e
-
-      - name: run tests
-        run: |
-          yarn start
+      - name: release npm packages
+        run: yarn release
         env:
-          E2E_TESTS_ENV_URL: 'https://hds.hel.fi'
-        working-directory: ./e2e
-
-      - name: upload test results in case of failure
-        uses: actions/upload-artifact@v4
-        with:
-          name: e2e_test_report
-          path: e2e/report/
-          include-hidden-files: true
-        if: failure()
-
-      - name: upload screenshot differences in case of failure
-        uses: actions/upload-artifact@v4
-        with:
-          name: e2e_test_results
-          path: e2e/test-results/
-        if: failure()
-
-      - name: Publish Test Results
-        uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
-        with:
-          files: |
-            e2e/report/**/*.xml
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
