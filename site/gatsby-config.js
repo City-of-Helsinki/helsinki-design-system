@@ -1,7 +1,10 @@
 require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
-const versionsFromGit = process.env.NODE_ENV === 'development' ? [] : require('./src/data/versionsFromGit.json');
+
+const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
+const versionsFromGit = buildSingleVersion ? [] : require('./src/data/versionsFromGit.json');
+
 const gitSources = versionsFromGit.map(version => ({
   resolve: 'gatsby-source-git',
   options: {

@@ -82,8 +82,9 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn lint && NODE_OPTIONS='--max_old_space_size=8192' gatsby build",
+    "build-single-version": "yarn lint && NODE_OPTIONS='--max_old_space_size=8192' BUILD_SINGLE_VERSION=true gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "NODE_OPTIONS=--max_old_space_size=8192 gatsby develop -o",
+    "start": "NODE_OPTIONS=--max_old_space_size=8192 BUILD_SINGLE_VERSION=true gatsby develop -o",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
