@@ -31,13 +31,13 @@
 
   &__content {
     display: grid;
-    gap: var(--spacing-s);
+    gap: var(--spacing-2-xs);
   }
 
   &__label {
     align-items: center;
     display: flex;
-    font-size: var(--fontsize-heading-xs);
+    font-size: var(--fontsize-heading-xxs);
     font-weight: bold;
     letter-spacing: 0;
     line-height: 24px;
