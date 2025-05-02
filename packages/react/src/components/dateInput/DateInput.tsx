@@ -74,6 +74,10 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    * Function to set aria-describedby for dates.
    */
   setDateAriaDescribedBy?: (date: Date) => string | undefined;
+  /**
+   * Date format for the input value.
+   * */
+  format?: string;
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -94,11 +98,11 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       setDateClassName,
       legend,
       setDateAriaDescribedBy,
+      format: dateFormat = 'd.M.yyyy',
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
-    const dateFormat = 'd.M.yyyy';
     const inputRef = useRef<HTMLInputElement>();
     const didMount = useRef(false);
     const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue || '');
