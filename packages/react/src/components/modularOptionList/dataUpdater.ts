@@ -12,7 +12,6 @@ import {
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
   updateOptionInGroup,
-  clearAllSelectedOptions,
   propsToGroups,
   getSelectedOptions,
   updateGroupLabelAndOptions,
@@ -27,24 +26,15 @@ import {
   eventIds,
   EventType,
   eventTypes,
-  isClearOptionsClickEvent,
-  isCloseEvent,
-  isCloseOnFocusMoveEvent,
   isFilterChangeEvent,
-  isGenericBlurEvent,
   isGroupClickEvent,
-  isOpenOrCloseEvent,
   isOptionClickEvent,
-  isOutsideClickEvent,
   isSearchChangeEvent,
   isSearchSuccessEvent,
   isSearchErrorEvent,
-  isShowAllClickEvent,
   isRemoveTagEventId,
 } from './events';
 import { appendTexts, getNumberedVariationsTextKey, getTextKey } from './texts';
-
-const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
 const dataUpdater = (
   event: ChangeEvent,
@@ -60,23 +50,6 @@ const dataUpdater = (
   if (current.disabled) {
     return returnValue;
   }
-  /* TODO
-  const openOrClose = (open: boolean) => {
-    if (current.open === open) {
-      return false;
-    }
-    const now = Date.now();
-    if (now - dataHandlers.getMetaData().lastToggleCommand < MIN_USER_INTERACTION_TIME_IN_MS) {
-      return false;
-    }
-    dataHandlers.updateData({ open });
-    dataHandlers.updateMetaData({ lastToggleCommand: now });
-    if (!open) {
-      dataHandlers.updateMetaData({ activeDescendant: undefined });
-    }
-    return true;
-  };
-  */
 
   const setFocusTarget = (focusTarget: ModularOptionListMetaData['focusTarget']) => {
     dataHandlers.updateMetaData({
@@ -90,20 +63,6 @@ const dataUpdater = (
       createMetaDataAfterSelectionChange(groups, dataHandlers.getMetaData().selectedOptions, clickedOption),
     );
   };
-
-  /* TODO
-  if (isOpenOrCloseEvent(id, type)) {
-    const willOpen = !current.open;
-    const didUpdate = openOrClose(willOpen);
-    if (didUpdate && willOpen) {
-      setFocusTarget(dataHandlers.getMetaData().listInputType ? 'searchOrFilterInput' : 'list');
-    }
-    return {
-      ...returnValue,
-      didDataChange: didUpdate,
-    };
-  }
-  */
 
   if (isOptionClickEvent(id, type)) {
     console.log('option click');
@@ -176,27 +135,6 @@ const dataUpdater = (
     };
   }
 
-  /* TODO
-  if (isOutsideClickEvent(id, type) || isCloseEvent(id, type)) {
-    if (openOrClose(false)) {
-      setFocusTarget('button');
-      return {
-        ...returnValue,
-        didDataChange: true,
-      };
-    }
-  }
-  */
-
-  /* TODO
-  if (isCloseOnFocusMoveEvent(id, type) && current.open) {
-    return {
-      ...returnValue,
-      didDataChange: openOrClose(false),
-    };
-  }
-  */
-
   if (isSearchSuccessEvent(id, type)) {
     dataHandlers.updateMetaData({ isSearching: false, hasSearchError: false });
     dataHandlers.updateData({
@@ -230,14 +168,7 @@ const dataUpdater = (
       didDataChange: true,
     };
   }
-  /* TODO
-  if (isGenericBlurEvent(id, type) && current.open) {
-    return {
-      ...returnValue,
-      didDataChange: openOrClose(false),
-    };
-  }
-  */
+
   return returnValue;
 };
 
@@ -289,21 +220,6 @@ const debouncedSearch = debounce(
   300,
 );
 
-const isCloseTriggerEvent = (event: ChangeEvent) => {
-  // check if the event is something that should trigger onClose
-  const onCloseTriggerEvents = [
-    'cancelled',
-    'close',
-    'clearButton',
-    'clearAllButton',
-    'tag',
-    'selectedOptions',
-    'focusMovedToNonListElement',
-  ];
-
-  return onCloseTriggerEvents.includes(event.type || '') || onCloseTriggerEvents.includes(event.id || '');
-};
-
 export const changeHandler: ChangeHandler<ModularOptionListData, ModularOptionListMetaData> = (
   event,
   dataHandlers,
@@ -313,32 +229,6 @@ export const changeHandler: ChangeHandler<ModularOptionListData, ModularOptionLi
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
   const { onSearch, onChange, onClose, multiSelect } = current;
-
-  const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
-  let closeHasChanges = false;
-
-  if (closeChange && onClose) {
-    const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);
-    if (closeProps) {
-      const { groups, options, invalid, texts } = closeProps;
-      if (groups || options) {
-        const newGroups = propsToGroups(closeProps) || [];
-        updateData({ groups: newGroups });
-        updateMetaData(
-          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, undefined),
-        );
-      }
-      if (invalid !== undefined && invalid !== current.invalid) {
-        // update invalid state
-        updateData({ invalid });
-        closeHasChanges = true;
-      }
-      if (texts) {
-        appendTexts(texts, getMetaData());
-        closeHasChanges = true;
-      }
-    }
-  }
 
   if (didSearchChange && onSearch) {
     dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
@@ -372,5 +262,5 @@ export const changeHandler: ChangeHandler<ModularOptionListData, ModularOptionLi
     }
   }
 
-  return didDataChange || closeHasChanges;
+  return didDataChange;
 };

@@ -54,6 +54,9 @@ const dataUpdater = (
   event: ChangeEvent,
   dataHandlers: SelectDataHandlers,
 ): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
+
+  const didModularOptionListChange = modularOptionListChangeHandler(event, dataHandlers);
+
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
   const returnValue = {
@@ -92,6 +95,16 @@ const dataUpdater = (
       createMetaDataAfterSelectionChange(groups, dataHandlers.getMetaData().selectedOptions, clickedOption),
     );
   };
+
+
+  if (didModularOptionListChange && !current.multiSelect) {
+    const didUpdate = openOrClose(false);
+    return  {
+      ...returnValue,
+      didSelectionsChange: didModularOptionListChange,
+      didDataChange: didUpdate,
+    }
+  }
 
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
@@ -256,12 +269,11 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
   console.log('select changeHandler');
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
 
-  const didModularOptionListChange = modularOptionListChangeHandler(event, dataHandlers);
-
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
 
   const { onSearch, onChange, onClose, multiSelect, open } = current;
+  console.log('data open', open);
 
   const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;
@@ -289,40 +301,5 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
     }
   }
 
-
-/*
-  if (didSearchChange && onSearch) {
-    dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
-    debouncedSearch(dataHandlers, onSearch);
-  }
-  if (didSelectionsChange) {
-    const { lastClickedOption } = getMetaData();
-    const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
-    let newPropsHasChanges = false;
-    if (newProps) {
-      const { groups, options, invalid, texts } = newProps;
-      if (groups || options) {
-        const newGroups = propsToGroups(newProps) || [];
-        updateData({ groups: newGroups });
-        updateMetaData(
-          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, lastClickedOption),
-        );
-        newPropsHasChanges = true;
-      }
-      if (invalid !== undefined && invalid !== current.invalid) {
-        updateData({ invalid });
-        newPropsHasChanges = true;
-      }
-      if (texts) {
-        appendTexts(texts, getMetaData());
-        newPropsHasChanges = true;
-      }
-    }
-    if (newPropsHasChanges) {
-      return true;
-    }
-  }
-*/
-
-  return didModularOptionListChange || didDataChange || closeHasChanges;
+  return didDataChange || closeHasChanges;
 };
