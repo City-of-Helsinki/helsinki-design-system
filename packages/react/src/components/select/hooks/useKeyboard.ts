@@ -2,6 +2,7 @@ import { KeyboardEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
 import { KnownElementType } from '../types';
+import { defaultFilter, filterSelectableOptions } from '../../modularOptionList/utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,
@@ -124,7 +125,7 @@ const createKeyCache = () => {
 };
 
 export function useKeyboard() {
-  const { getEventElementType/*, getSelectableListItemSiblings, getOptionListItem, getSelectableListItems*/ } =
+  const { getEventElementType, getSelectableListItemSiblings, getOptionListItem, getSelectableListItems } =
     useElementDetection();
   const { trigger, getData, getMetaData, updateMetaData } = useSelectDataHandlers();
   // When there is an input and user starts typing and button is focused,
@@ -137,6 +138,29 @@ export function useKeyboard() {
   // The keydown element type is stored to prevent this.
   // If keydown type is different that keyup, then keydown shifted focus and keyup should be ignored.
   const keyDownElementType = useRef<KnownElementType | null>(null);
+
+  const scrollToFocusedElement = useCallback(() => {
+    if (document.activeElement) {
+      document.activeElement.scrollIntoView({ block: 'center' });
+    }
+  }, []);
+
+  const focusToFirstFilteredOption = useCallback(
+    (filterValue: string) => {
+      const { groups, filterFunction, multiSelect } = getData();
+      const hits = filterValue
+        ? filterSelectableOptions(groups, filterValue, filterFunction || defaultFilter, multiSelect)
+        : [];
+      if (hits[0]) {
+        const listItem = getOptionListItem(groups, hits[0], multiSelect);
+        if (listItem && listItem.focus) {
+          listItem.focus();
+          scrollToFocusedElement();
+        }
+      }
+    },
+    [scrollToFocusedElement, getOptionListItem, defaultFilter, getData, filterSelectableOptions],
+  );
 
   const onKeyUp = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
@@ -151,6 +175,24 @@ export function useKeyboard() {
         keyDownElementType.current = null;
         return;
       }
+
+      const moveFocusToFirstListItem = () => {
+        const listItems = getSelectableListItems();
+        const el = listItems[0];
+        if (el) {
+          el.focus();
+          scrollToFocusedElement();
+        }
+      };
+
+      const moveFocusToLastListItem = () => {
+        const listItems = getSelectableListItems();
+        const el = listItems.pop();
+        if (el) {
+          el.focus();
+          scrollToFocusedElement();
+        }
+      };
 
       const wasArrowDownPressed = isArrowDownKey(e);
       const wasAlphaNumKeyPressed = isAlphaNumKey(e);
@@ -184,46 +226,44 @@ export function useKeyboard() {
       }
       // home should move to first item
       if (isHomekey(e) && isOpen) {
-        //TODO: use MOL moveFocusToFirstListItem();
+        moveFocusToFirstListItem();
         return;
       }
       // end should move to last item
       if (isEndKey(e) && isOpen) {
-        //TODO: use MOL moveFocusToLastListItem();
+        moveFocusToLastListItem();
         return;
       }
 
       // move focus from input to first option when wasArrowDownPressed
       if (isSearchOrFilterInputType(type) && wasArrowDownPressed) {
         // if focus in the input, move focus to first item on arrow down
-        //TODO: use MOL moveFocusToFirstListItem();
+        moveFocusToFirstListItem();
         return;
       }
 
       // navigate between options. Will loop from first to last and vice versa
       if (isAnyListChildType(type) && (wasArrowDownPressed || wasArrowUpPressed)) {
-        /*
         const closestListItems = getSelectableListItemSiblings(element as HTMLLIElement);
         if (wasArrowDownPressed && closestListItems.next) {
           closestListItems.next.focus();
         } else if (wasArrowUpPressed && closestListItems.prev) {
           closestListItems.prev.focus();
         }
-        */
-        //TODO: use MOL scrollToFocusedElement();
+        scrollToFocusedElement();
         return;
       }
 
       // select/unselect on space/enter
       if (isAnyListChildType(type) && wasClickKeyPressed && element) {
         element.click();
-        //TODO: use MOL scrollToFocusedElement();
+        scrollToFocusedElement();
         return;
       }
 
       // if focus is the list element and not in a list item, move focus to first item.
       if (isListType(type) && wasArrowDownPressed && hasInput) {
-        //TODO: use MOL moveFocusToFirstListItem();
+        moveFocusToFirstListItem();
         return;
       }
 
@@ -271,7 +311,7 @@ export function useKeyboard() {
           keyCache.markPendingInput();
           return;
         }
-        //TODO: use MOL focusToFirstFilteredOption(keyCache.getValue());
+        focusToFirstFilteredOption(keyCache.getValue());
       }
     },
     [trigger, getData, getMetaData, updateMetaData],
@@ -290,7 +330,7 @@ export function useKeyboard() {
 
   useEffect(() => {
     if (getData().open && keyCache.hasPendingInput()) {
-      //TODO: use MOL focusToFirstFilteredOption(keyCache.getValue());
+      focusToFirstFilteredOption(keyCache.getValue());
     }
   });
 

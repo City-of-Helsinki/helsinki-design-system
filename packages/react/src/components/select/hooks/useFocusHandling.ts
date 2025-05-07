@@ -27,6 +27,7 @@ export function useFocusHandling(): ReturnObject {
   const { getMetaData, updateMetaData, getData, trigger } = useSelectDataHandlers();
   const {
     getEventElementType,
+    getSelectableListItemSiblings,
     getElementUsingActiveDescendant,
     getElementId,
     getElementType,
@@ -54,6 +55,14 @@ export function useFocusHandling(): ReturnObject {
         elementWithActiveDescendant.setAttribute('aria-activedescendant', id);
       };
 
+      const moveFocusToFirstListItem = () => {
+        const closestListItems = getSelectableListItemSiblings(undefined, false);
+        if (closestListItems.next) {
+          markActiveDescendant(closestListItems.next);
+          closestListItems.next.focus();
+        }
+      };
+
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
         if (onBlur) {
           onBlur();
@@ -69,7 +78,7 @@ export function useFocusHandling(): ReturnObject {
       if (type === eventTypes.focus) {
         const { type: eventElementType, element } = getEventElementType(e);
         if (eventElementType === 'list') {
-          // TODO use MOL moveFocusToFirstListItem();
+          moveFocusToFirstListItem();
         } else if (eventElementType === 'listItem' || eventElementType === 'listGroupLabel') {
           markActiveDescendant(element);
         } else {

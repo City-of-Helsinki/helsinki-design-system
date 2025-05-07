@@ -200,7 +200,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
             <SelectedOptionsContainer />
             <ListAndInputContainer>
               <SearchOrFilterInput />
-              <ModularOptionList />
+              <ModularOptionList {...divElementProps} theme={theme} />
               <SearchAndFilterInfo />
             </ListAndInputContainer>
           </SelectionsAndListsContainer>

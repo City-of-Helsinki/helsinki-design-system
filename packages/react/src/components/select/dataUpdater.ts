@@ -10,6 +10,7 @@ import {
   Option,
   SearchFunction,
   SearchResult,
+  ModularOptionListData,
 } from '../modularOptionList/types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
@@ -20,6 +21,8 @@ import {
   getSelectedOptions,
   propsToGroups,
   createMetaDataAfterSelectionChange,
+  clearAllSelectedOptions,
+  filterOptions,
 } from '../modularOptionList/utils';
 
 import {
@@ -83,6 +86,13 @@ const dataUpdater = (
     });
   };
 
+  const updateGroups = (groups: ModularOptionListData['groups'], clickedOption?: Option) => {
+    dataHandlers.updateData({ groups });
+    dataHandlers.updateMetaData(
+      createMetaDataAfterSelectionChange(groups, dataHandlers.getMetaData().selectedOptions, clickedOption),
+    );
+  };
+
   if (isOpenOrCloseEvent(id, type)) {
     const willOpen = !current.open;
     const didUpdate = openOrClose(willOpen);
@@ -96,10 +106,8 @@ const dataUpdater = (
   }
 
   if (isClearOptionsClickEvent(id, type)) {
-      /* TODO: use MOL
     const newGroups = clearAllSelectedOptions(current.groups);
     updateGroups(newGroups);
-    */
     setFocusTarget('button');
     return {
       ...returnValue,
@@ -111,12 +119,9 @@ const dataUpdater = (
   if (isFilterChangeEvent(id, type)) {
     const filterValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ filter: filterValue });
-          /* TODO: use MOL
-
     dataHandlers.updateData({
       groups: filterOptions(current.groups, filterValue, current.filterFunction as FilterFunction),
     });
-    */
     return {
       ...returnValue,
       didDataChange: true,
@@ -131,15 +136,12 @@ const dataUpdater = (
       setFocusTarget('tag');
     } else {
       // when "Show less" was clicked, tell screen reader some tag are hidden
-            /* TODO: use MOL
-
       const notification = createScreenReaderNotification(
         eventIds.tag,
         getTextKey('tagsPartiallyHidden', dataHandlers.getMetaData()) as string,
       );
 
       addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
-      */
     }
     return {
       ...returnValue,

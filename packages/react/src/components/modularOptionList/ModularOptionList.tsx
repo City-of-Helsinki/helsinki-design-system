@@ -9,7 +9,6 @@ import {
   AcceptedNativeDivProps,
 } from './types';
 import { changeHandler } from './dataUpdater';
-import { Container } from './components/Container';
 import { getSelectedOptions, getElementIds, convertPropsToGroups, mutateGroupLabelSelections } from './utils';
 import { DataProvider, DataProviderProps } from '../dataProvider/DataProvider';
 import { List } from './components/List';
@@ -127,7 +126,6 @@ export const ModularOptionList = forwardRef<
       return {
         lastToggleCommand: 0,
         lastClickedOption: undefined,
-        showAllTags: false,
         icon,
         activeDescendant: undefined,
         focusTarget: undefined,
@@ -163,7 +161,6 @@ export const ModularOptionList = forwardRef<
         hasSearchError: false,
         cancelCurrentSearch: undefined,
         screenReaderNotifications: [],
-        //tooltip,
       };
     }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts, ref]);
 
@@ -192,6 +189,7 @@ export const ModularOptionList = forwardRef<
     console.log('isDataProvider', isDataProvider);
     console.log('initialData', initialData);
 
+
     return (
        isDataProvider ? (
         <List />
@@ -202,7 +200,7 @@ export const ModularOptionList = forwardRef<
           onChange={changeHandler}
           onReset={onReset}
         >
-          <List />
+          <List/>
         </DataProvider>
       )
     );

@@ -2,7 +2,9 @@ import { RefObject, MouseEvent, KeyboardEvent, FocusEvent, BaseSyntheticEvent } 
 import { isElement } from 'lodash';
 
 import { KnownElementType } from '../types';
+import { Group, Option } from '../../modularOptionList/types';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
+import { findSelectableOptionIndex } from '../../modularOptionList/utils';
 import { singleSelectGroupLabelSelector } from '../../modularOptionList/components/listItems/SingleSelectGroupLabel';
 import { multiSelectGroupLabelSelector } from '../../modularOptionList/components/listItems/MultiSelectGroupLabel';
 import { multiSelectOptionSelector } from '../../modularOptionList/components/listItems/MultiSelectOption';
@@ -136,6 +138,48 @@ export function useElementDetection() {
     return refs.list.current as HTMLElement;
   };
 
+  const getListItems = () => {
+    const selector = `${singleSelectGroupLabelSelector},${singleSelectOptionSelector},${multiSelectOptionSelector},${multiSelectGroupLabelSelector}`;
+    return [...getListElement().querySelectorAll(selector)] as HTMLElement[];
+  };
+
+  const getSelectableListItems = () => {
+    return getListItems().filter(elementIsSelectable);
+  };
+
+  const getSelectableListItemSiblings = (listItem?: HTMLLIElement, loop = true) => {
+    const selectableListItems = getSelectableListItems();
+    return getElementSiblings<HTMLElement>(getListElement(), listItem, loop, false, selectableListItems);
+  };
+
+  const isListGroupLabel = (element: HTMLElement) => {
+    const labelElements = Array.from(getGroupLabels());
+    if (labelElements.includes(element)) {
+      return true;
+    }
+    return (
+      labelElements.findIndex((el) => {
+        return el.contains(element);
+      }) > -1
+    );
+  };
+
+  const isListItemElement = (element: HTMLElement) => {
+    const list = getElementByKnownType('list');
+    if (!list) {
+      return false;
+    }
+    const listItems = Array.from(getListItems());
+    if (listItems.includes(element)) {
+      return true;
+    }
+    return (
+      listItems.findIndex((el) => {
+        return el.contains(element);
+      }) > -1
+    );
+  };
+
   const getTagSiblings = (tag: HTMLElement, loop = true) => {
     const list = refs.tagList.current as HTMLElement;
     return getElementSiblings(list, tag, loop);
@@ -147,14 +191,12 @@ export function useElementDetection() {
   };
 
   const narrowDownKnownElement = (element: HTMLElement, type: KnownElementType | null): KnownElementType | null => {
-    /* TODO: use MOL
     if (type === 'list' && isListGroupLabel(element)) {
       return 'listGroupLabel';
     }
     if (type === 'list' && isListItemElement(element)) {
       return 'listItem';
     }
-    */
     if (type === 'tagList' && isTagOrChild(element)) {
       return 'tag';
     }
@@ -207,13 +249,25 @@ export function useElementDetection() {
     return getElementByKnownType('button');
   };
 
+  const getOptionListItem = (groups: Group[], option: Option, isMultiSelect: boolean): HTMLElement | null => {
+    const index = findSelectableOptionIndex(groups, (groupOption) => groupOption.value === option.value, isMultiSelect);
+    if (index === -1 || !refs.list.current) {
+      return null;
+    }
+    return (getListItems()[index] as HTMLElement) || null;
+  };
+
   return {
     getEventElementType,
     getElementType,
+    getSelectableListItemSiblings,
     getTagSiblings,
     getElementUsingActiveDescendant,
     getElementByKnownType,
     getElementId,
+    getOptionListItem,
+    getListItems,
+    getSelectableListItems,
   };
 }
 

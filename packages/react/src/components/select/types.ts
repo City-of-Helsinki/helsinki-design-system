@@ -109,9 +109,9 @@ export type SelectMetaData =
     };
     textProvider: TextProvider;
     getOptionId: (option: Option) => string;
-    showAllTags: boolean;
     screenReaderNotifications: ScreenReaderNotification[];
     */
+    showAllTags: boolean;
     themes?: Record<ThemeTarget, undefined | string>;
     tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
   }

@@ -128,7 +128,7 @@ export type ModularOptionListMetaData = Pick<ModularOptionListProps, 'icon'> & {
   };
   textProvider: TextProvider;
   getOptionId: (option: Option) => string;
-  showAllTags: boolean;
+//  showAllTags: boolean;
   screenReaderNotifications: ScreenReaderNotification[];
   themes?: Record<ThemeTarget, undefined | string>;
 };
