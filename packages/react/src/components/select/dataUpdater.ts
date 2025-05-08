@@ -301,5 +301,37 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
     }
   }
 
+  if (didSearchChange && onSearch) {
+    dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
+    debouncedSearch(dataHandlers, onSearch);
+  }
+  if (didSelectionsChange) {
+    const { lastClickedOption } = getMetaData();
+    const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
+    let newPropsHasChanges = false;
+    if (newProps) {
+      const { groups, options, invalid, texts } = newProps;
+      if (groups || options) {
+        const newGroups = propsToGroups(newProps) || [];
+        updateData({ groups: newGroups });
+        updateMetaData(
+          createMetaDataAfterSelectionChange(newGroups, dataHandlers.getMetaData().selectedOptions, lastClickedOption),
+        );
+        newPropsHasChanges = true;
+      }
+      if (invalid !== undefined && invalid !== current.invalid) {
+        updateData({ invalid });
+        newPropsHasChanges = true;
+      }
+      if (texts) {
+        appendTexts(texts, getMetaData());
+        newPropsHasChanges = true;
+      }
+    }
+    if (newPropsHasChanges) {
+      return true;
+    }
+  }
+
   return didDataChange || closeHasChanges;
 };
