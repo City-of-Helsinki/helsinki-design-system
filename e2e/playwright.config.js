@@ -5,19 +5,21 @@ import { defineConfig, devices } from '@playwright/test';
  */
 export default defineConfig({
   webServer: [
+    !process.env.PACKAGE || process.env.PACKAGE === 'core' ?
     {
       command: 'yarn serve-core',
       url: 'http://localhost:6007',
       stdout: 'ignore',
       stderr: 'pipe',
-    },
+    } : null,
+    !process.env.PACKAGE || process.env.PACKAGE === 'react' ? 
     {
       command: 'yarn serve-react',
       url: 'http://localhost:6006',
       stdout: 'ignore',
       stderr: 'pipe',
-    },
-  ],
+    } : null,
+  ].filter(Boolean),
   snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
   testDir: './tests/',
   timeout: 60 * 1000,
