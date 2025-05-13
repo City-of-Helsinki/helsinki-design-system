@@ -1,5 +1,5 @@
-import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth, max } from 'date-fns';
-import React, { useState, useRef, useEffect, useCallback, useMemo } from 'react';
+import { format, parse, isValid, subYears, addYears, startOfMonth, endOfMonth } from 'date-fns';
+import React, { useState, useRef, useEffect, useCallback } from 'react';
 
 import styles from './DateInput.module.scss';
 import { IconCalendar } from '../../icons';
@@ -76,8 +76,18 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
   setDateAriaDescribedBy?: (date: Date) => string | undefined;
   /**
    * Date format for the input value.
+   * Documentation: https://date-fns.org/v2.16.1/docs/format
+   * @default "d.M.yyyy"
    * */
-  format?: string;
+  dateFormat?: string;
+  /**
+   * Error text for invalid date format, or if date does not exist.
+   */
+  malformedDateErrorText?: string;
+  /**
+   * Error text for date outside the allowed range.
+   */
+  dateOutsideRangeErrorText?: string;
 };
 
 export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
@@ -98,17 +108,20 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       setDateClassName,
       legend,
       setDateAriaDescribedBy,
-      format: dateFormat = 'd.M.yyyy',
+      dateFormat = 'd.M.yyyy',
+      malformedDateErrorText,
+      dateOutsideRangeErrorText,
       ...textInputProps
     }: DateInputProps,
     ref?: React.Ref<HTMLInputElement>,
   ) => {
-    const inputRef = useRef<HTMLInputElement>();
+    const inputRef = useRef<HTMLInputElement | null>(null);
     const didMount = useRef(false);
     const [inputValue, setInputValue] = useState<string>(providedValue || defaultValue || '');
     const [showPicker, setShowPicker] = useState(false);
     const getToggleButton = (): HTMLButtonElement | null => inputRef.current?.parentNode.querySelector('button');
-
+    const [dateIsInvalid, setDateIsInvalid] = useState(false);
+    const [dateOutsideRange, setDateOutsideRange] = useState(false);
     /**
      * Set the input value if value prop changes
      */
@@ -157,14 +170,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
     const stringToDate = useCallback((value: string) => parse(value, dateFormat, new Date()), [dateFormat]);
 
     // Handle the input change
-    const handleInputChange = (value: string) => {
-      const disallowedCharacters = /[^0-9.]+/g;
-      const newValue = value.replace(disallowedCharacters, '');
-      setInputValue(newValue);
-      const valueAsDate = stringToDate(newValue);
-      if (textInputProps.onChange) {
-        textInputProps.onChange(newValue, valueAsDate);
-      }
+    const handleInputChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+      setInputValue(e.target.value);
     };
 
     // Get the open button label based on language
@@ -203,24 +210,73 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
       }[language];
     };
 
+    const getMalformedDateText = () => {
+      if (malformedDateErrorText) {
+        return malformedDateErrorText;
+      }
+      return {
+        en: 'Invalid date or date format',
+        fi: 'Virheellinen päivämäärä tai päivämäärämuoto',
+        sv: 'Ogiltigt datum eller datumformat',
+      }[language];
+    };
+
+    const getDateOutsideRangeText = () => {
+      if (dateOutsideRangeErrorText) {
+        return dateOutsideRangeErrorText;
+      }
+      return {
+        en: 'Date is outside the allowed range',
+        fi: 'Päivämäärä on sallitun alueen ulkopuolella',
+        sv: 'Datumet ligger utanför det tillåtna intervallet',
+      }[language];
+    };
+
     // Get the current value as Date object
     const inputValueAsDate = stringToDate(inputValue);
     const toggleButton = getToggleButton();
-    // Use useMemo for minDateToUse, maxDateToUse, selected and initialMonth to set
-    // new currentMonth value in DatePicker component only if any of these values
-    // is changed.
-    // Changing currentMonth value re-renders MonthTable and values of all the input
-    // fields it contains will be reseted which can be quite irritating for the user.
-    const minDateToUse = useMemo(
-      () => (minDate && isValid(minDate) ? minDate : startOfMonth(subYears(new Date(), 10))),
-      [minDate],
-    );
-    const maxDateToUse = useMemo(
-      () => (maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(max([minDateToUse, new Date()]), 10))),
-      [maxDate],
-    );
-    const selected = useMemo(() => (isValid(inputValueAsDate) ? inputValueAsDate : undefined), [inputValueAsDate]);
-    const initialMonth = useMemo(() => _initialMonth || new Date(), [_initialMonth]);
+    const selected = isValid(inputValueAsDate) ? inputValueAsDate : undefined;
+    const minDateToUse = minDate && isValid(minDate) ? minDate : startOfMonth(subYears(selected || new Date(), 10));
+    const maxDateToUse = maxDate && isValid(maxDate) ? maxDate : endOfMonth(addYears(selected || new Date(), 10));
+    const initialMonth = _initialMonth || new Date();
+
+    const handleBlur = (value: string, e?: React.FocusEvent<HTMLInputElement>) => {
+      if (value !== inputValue) {
+        setInputValue(value);
+      }
+
+      if (textInputProps.onBlur && e) {
+        textInputProps.onBlur(e);
+      }
+
+      const valueAsDate = stringToDate(value);
+
+      if (textInputProps.onChange) {
+        textInputProps.onChange(value, valueAsDate);
+      }
+
+      if (value === '') {
+        return;
+      }
+
+      const isValidDate = isValid(valueAsDate) && (isDateDisabledBy ? !isDateDisabledBy(valueAsDate) : true);
+
+      // check if the date is outside the allowed range (if minDate and/or maxDate are set)
+      const isOutsideRange = (minDate ? valueAsDate < minDate : false) || (maxDate ? valueAsDate > maxDate : false);
+
+      if (isOutsideRange !== dateOutsideRange) {
+        setDateOutsideRange(isOutsideRange);
+      }
+
+      setDateIsInvalid(!isValidDate);
+    };
+
+    // form the error text, prioritize the given prop
+    const errorText =
+      textInputProps.errorText ||
+      (dateIsInvalid && getMalformedDateText()) ||
+      (dateOutsideRange && getDateOutsideRangeText()) ||
+      undefined;
 
     return (
       <div lang={language} className={styles.wrapper}>
@@ -229,11 +285,19 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           buttonIcon={disableDatePicker ? undefined : <IconCalendar />}
           buttonAriaLabel={disableDatePicker ? undefined : getOpenButtonLabel()}
           onButtonClick={disableDatePicker ? undefined : onOpenButtonClick}
-          onChange={(event) => {
-            handleInputChange(event.target.value);
+          onChange={handleInputChange}
+          onBlur={(e) => handleBlur(e.target.value, e)}
+          onKeyPress={(e) => {
+            if (e.key === 'Enter') {
+              e.preventDefault();
+              handleBlur((e.target as HTMLInputElement).value);
+            }
           }}
           value={inputValue}
           ref={inputRef}
+          invalid={dateIsInvalid || dateOutsideRange}
+          {...(dateIsInvalid || dateOutsideRange ? { 'aria-invalid': true } : {})}
+          errorText={errorText}
         >
           {disableDatePicker === false && showPicker && (
             <DatePicker
@@ -243,7 +307,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
               initialMonth={initialMonth}
               onDaySelect={(day) => {
                 closeDatePicker();
-                handleInputChange(format(day, dateFormat));
+                handleBlur(format(day, dateFormat));
               }}
               onCloseButtonClick={(focusToggleButton) => closeDatePicker(focusToggleButton)}
               selectButtonLabel={getSelectButtonLabel()}
