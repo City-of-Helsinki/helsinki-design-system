@@ -152,8 +152,8 @@ jobs:
       (needs.run-loki-tests.result == 'success') && 
       (needs.run-e2e-tests.result == 'success') && 
       (needs.publish-demo-site-with-storybooks.result == 'success' || needs.publish-demo-site-with-storybooks.result == 'skipped') && 
-      (needs.publish-site-with-storybooks == 'success' || needs.publish-site-with-storybooks.result == 'skipped') &&
-      (needs.publish-npm-packages == 'success' || needs.publish-npm-packages.result == 'skipped')
+      (needs.publish-site-with-storybooks.result == 'success' || needs.publish-site-with-storybooks.result == 'skipped') &&
+      (needs.publish-npm-packages.result == 'success' || needs.publish-npm-packages.result == 'skipped')
     runs-on: ubuntu-latest
     steps:
       - name: Delete artifacts
