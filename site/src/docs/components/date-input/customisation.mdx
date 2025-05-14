@@ -36,7 +36,7 @@ In this example some days have a different background colour to indicate that th
 import { DateInput } from 'hds-react';
 
 () => {
-  const dateFormat = 'dd.M.yyyy';
+  const dateFormat = 'd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState(format(dateValue, dateFormat));
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;

@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.5.0] - May, 14th, 2025
+
+### React
+
+#### Added
+
+- [DateInput] Add possibility to give the wanted date format as `dateFormat` prop. Also adds `malformedDateErrorText` and `dateOutsideRangeErrorText` props to display more precise error messages. Now `minDate` and `maxDate` props also affect the written date too, not only the date picker with the picker.
+
+### Documentation
+
+#### Changed
+
+- [DateInput] Document the new props added and changes to the old ones.
+
+### Figma
+
+#### Added
+
+- [Tabs] Selected+focus state added
+
+#### Changed
+
+- [Tabs] Default state gray border removed and added to tab group container as in development and also to avoid issues with borders between tabs
+- [Tabs] Tab group overflow made visible for tab focus to appear
+- [Tabs] Breakpoint names clarified in specs
+
 ## [4.4.0] - April, 3rd, 2025
 
 ### React

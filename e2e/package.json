@@ -2,21 +2,24 @@
   "name": "e2e",
   "private": true,
   "description": "e2e tests using Playwright",
-  "version": "4.4.0",
+  "version": "4.5.0",
+  "engines": {
+    "node": "^22.13.1"
+  },
   "scripts": {
     "ci": "npx playwright test",
     "playwright-install": "yarn playwright install --with-deps chromium",
     "serve-core": "http-server ../packages/core/storybook-static -d -p 6007",
     "serve-react": "http-server ../packages/react/storybook-static -d -p 6006",
-    "start-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT*",
-    "start-package": "npx playwright test tests/$PACKAGE/",
+    "start-component": "PACKAGE=$PACKAGE npx playwright test tests/$PACKAGE/**/*$COMPONENT*",
+    "start-package": "PACKAGE=$PACKAGE npx playwright test tests/$PACKAGE/",
     "start": "npx playwright test",
     "update-snapshots-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT* --update-snapshots",
     "update-snapshots-package": "npx playwright test tests/$PACKAGE/ --update-snapshots",
     "update-snapshots": "npx playwright test --update-snapshots"
   },
   "devDependencies": {
-    "@playwright/test": "1.49.1",
+    "@playwright/test": "1.50.0",
     "http-server": "^14.1.1"
   }
 }

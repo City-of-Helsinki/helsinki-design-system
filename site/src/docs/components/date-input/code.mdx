@@ -137,6 +137,7 @@ import { DateInput } from 'hds-react';
 ### With validation
 
 Selectable dates can be filtered and disabled with the `isDateDisabledBy` property. The component's invalid state can be set with the `invalid` property, and an error can be shown with the `errorText` property.
+DateInput also has some built-in validations, such as checking that the date is in the correct format and that the date is in the given range. However, if you want to add custom validation, you can do so by using the `onChange` prop to set the already mentioned `invalid` state and `errorText`.
 
 <Playground scope={{ DateInput,parse, isWeekend }}>
 
@@ -153,7 +154,7 @@ import { DateInput } from 'hds-react';
     if (!value) {
       setErrorText(undefined);
     } else {
-      const selectedDate = parse(value, 'dd.M.yyyy', new Date());
+      const selectedDate = parse(value, 'd.M.yyyy', new Date());
       if (isWeekend(selectedDate)) {
         setErrorText(`The date is a weekend day. ${dateHelperText}`);
       } else {
@@ -238,7 +239,7 @@ import { DateInput } from 'hds-react';
   const endMaxDate = undefined;
 
   const dateToString = (date) => {
-    return date && isValid(date) ? format(date, 'dd.MM.yyyy') : '';
+    return date && isValid(date) ? format(date, 'd.M.yyyy') : '';
   };
 
   const rangeToString = () => {
@@ -300,16 +301,18 @@ Also, note that this component is an input. All features supported by the HDS Te
 
 | Property                       | Description                                                             | Values                | Default value                                    |
 | ------------------------------ | ----------------------------------------------------------------------- | --------------------- | ------------------------------------------------ |
-| `helperText`                   | Helper text to be displayed below the input.                            | `string`              | -                                                |
-| `errorText`                    | Error text to be displayed below the input.                             | `string`              | -                                                |
+| `helperText`                   | Helper text to be displayed below the input. Advised to tell the expected date format in human readable format. | `string`              | -                                                |
+| `errorText`                    | Error text to be displayed below the input. If given, will override both `dateOutsideRangeErrorText` and `malformedDateErrorText` | `string` | -   |
+| `dateOutsideRangeErrorText`    | Error text to be displayed when date is outside given min and/or maxDate range. | `string`      | Has basic translations for en, fi and sv         |
+| `malformedDateErrorText`       | Error text to be displayed when date does not exist or doesn't match the wanted format. | `string` | Has basic translations for en, fi and sv      |
 | `successText`                  | Success text to be displayed below the input.                           | `string`              | -                                                |
 | `infoText`                     | Info text to be displayed below the input.                              | `string`              | -                                                |
 | `initialMonth`                 | The initial month open in calendar.                                     | `Date`                | -                                                |
 | `label`                        | A text label for the input.                                             | `string`              | -                                                |
 | `onChange`                     | Callback fired when the state is changed.                               | `event`               | -                                                |
 | `language`                     | Language of the date input.                                             | `string` (fi, en, sv) | en                                               |
-| `minDate`                      | Minimum date to show in the datepicker calendar.                        | `Date`                | Start of the month ten years before current date |
-| `maxDate`                      | Maximum date to show in the datepicker calendar.                        | `Date`                | End of the month ten years from current date.    |
+| `minDate`                      | Minimum date allowed (both input and picker).                           | `Date`                | -                                                |
+| `maxDate`                      | Maximum date allowed (both input and picker).                           | `Date`                | -                                                |
 | `isDateDisabledBy`             | Disables date(s) based on conditional function.                         | `function`            | -                                                |
 | `initialMonth`                 | The initial month open in calendar.                                     | `Date`                | -                                                |
 | `disableDatePicker`            | If set to true, the date picker button is hidden.                       | `boolean`             | false                                            |
@@ -317,6 +320,7 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `setDateClassName`             | Set className for specific dates to customise styles via CSS variables. | `function`            | -                                                |
 | `legend`                       | Legend items.                                                           | `LegendItem[]`        | -                                                |
 | `setDateAriaDescribedBy`       | Set aria-describedby for specific dates.                                | `function`            | -                                                |
+| `format`                       | Date format in which the selection is made or typed in (codevise, may differ from the human readable format) | `string`              | 'd.M.yyyy'                                       |
 | [Table 1:DateInput properties] |                                                                         |                       |                                                  |
 
 | Property                        | Description                                                                           | Values    | Default value |

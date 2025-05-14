@@ -2,16 +2,25 @@
 name: e2e-tests
 
 on:
-  workflow_dispatch:
-  pull_request:
+  workflow_call:
+    inputs:
+      commit_sha:
+        required: true
+        type: string
 
 jobs:
-  e2e-test:
+  e2e-tests:
+    # needs to match the playwright-docker image version
     runs-on: ubuntu-24.04
-
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-${{ inputs.commit_sha }}
+          path: ./packages
 
       - name: Read .nvmrc
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
@@ -22,36 +31,28 @@ jobs:
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
+      
+      # Github cache
+      - name: get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
-      # added to build react-storybook for testing
-      - name: install dependencies
-        run: |
-          yarn config set network-timeout 300000 
-          yarn
+      - name: restore yarn cache
+        uses: actions/cache@v4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            yarn-cache-folder-
 
-      - name: build design tokens package
-        run: yarn build
-        working-directory: ./packages/design-tokens
+      - name: restore lerna
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
 
-      - name: build core package
-        run: yarn build
-        working-directory: ./packages/core
-
-      - name: build core storybook
-        run: yarn build-storybook
-        working-directory: ./packages/core
-  
-      - name: build react package
-        run: yarn build
-        working-directory: ./packages/react
-
-      - name: build react storybook
-        run: yarn build-storybook
-        working-directory: ./packages/react
-
-      # added to build react-storybook for testing
-
-      - name: install dependencies
+      - name: install e2e dependencies
         run: |
           yarn config set network-timeout 300000 
           yarn

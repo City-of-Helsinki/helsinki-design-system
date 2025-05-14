@@ -1,16 +1,27 @@
-name: github pages
+name: publish site with storybooks
 
 on:
-  push:
-    branches:
-      - master
+  workflow_call:
+    inputs:
+      commit_sha:
+        required: true
+        type: string
+    secrets:
+      ACTIONS_DEPLOY_KEY:
+        required: true
 
 jobs:
-  build-deploy:
+  publish-site-with-storybooks:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
         uses: actions/checkout@v4
+
+      - name: download all artifacts
+        uses: actions/download-artifact@v4
+        with:
+          name: build-${{ inputs.commit_sha }}
+          path: ./packages
 
       - name: Read .nvmrc
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
@@ -22,24 +33,30 @@ jobs:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
 
+      # Github cache
+      - name: get yarn cache directory path
+        id: yarn-cache-dir-path
+        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+
+      - name: restore yarn cache
+        uses: actions/cache@v4
+        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
+        with:
+          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
+          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock') }}
+          restore-keys: |
+            yarn-cache-folder-
+
+      - name: restore lerna
+        uses: actions/cache@v4
+        with:
+          path: '**/node_modules'
+          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}          
+
       - name: install dependencies
-        run: yarn
-
-      - name: build design tokens package
-        run: yarn build
-        working-directory: ./packages/design-tokens
-
-      - name: build core package
-        run: yarn build
-        working-directory: ./packages/core
-
-      - name: build react package
-        run: yarn build
-        working-directory: ./packages/react
-
-      - name: build hds-js package
-        run: yarn build:hds-js
-        working-directory: ./packages/react
+        run: |
+          yarn config set network-timeout 300000 
+          yarn
 
       - name: build documentation site
         run: yarn build
@@ -50,24 +67,11 @@ jobs:
       - name: Copy CNAME file
         run: cp CNAME ./site/public/
 
-      - name: build core storybook
-        run: yarn build-storybook
-        working-directory: ./packages/core
-
       - name: move core storybook under site
         run: mkdir ./site/public/storybook && mv ./packages/core/storybook-static $_/core
 
-      - name: build react storybook
-        run: yarn build-storybook
-        working-directory: ./packages/react
-
       - name: move react storybook under site
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
-
-      - name: release npm packages
-        run: yarn release
-        env:
-          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
 
       - name: Deploy
         env:

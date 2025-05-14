@@ -2,7 +2,10 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "4.4.0",
+  "version": "4.5.0",
+  "engines": {
+    "node": "^22.13.1"
+  },
   "workspaces": {
     "nohoist": [
       "gatsby",
@@ -58,9 +61,9 @@
     "hds-2-react": "npm:hds-react@2.17.1",
     "hds-3-core": "npm:hds-core@3.12.0",
     "hds-3-react": "npm:hds-react@3.12.0",
-    "hds-core": "4.4.0",
-    "hds-design-tokens": "4.4.0",
-    "hds-react": "4.4.0",
+    "hds-core": "4.5.0",
+    "hds-design-tokens": "4.5.0",
+    "hds-react": "4.5.0",
     "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",
@@ -79,8 +82,9 @@
   "license": "MIT",
   "scripts": {
     "build": "yarn lint && NODE_OPTIONS='--max_old_space_size=8192' gatsby build",
+    "build-single-version": "yarn lint && NODE_OPTIONS='--max_old_space_size=8192' BUILD_SINGLE_VERSION=true gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
-    "start": "NODE_OPTIONS=--max_old_space_size=8192 gatsby develop -o",
+    "start": "NODE_OPTIONS=--max_old_space_size=8192 BUILD_SINGLE_VERSION=true gatsby develop -o",
     "serve": "gatsby serve",
     "clean": "gatsby clean",
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",

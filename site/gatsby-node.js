@@ -1,6 +1,6 @@
 const webpack = require('webpack');
 const path = require('path');
-const isDevelopmentMode = process.env.NODE_ENV === 'development';
+const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
 
 exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   const config = getConfig();
@@ -40,7 +40,7 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
         crypto: require.resolve('crypto-browserify'),
       },
     },
-    cache: isDevelopmentMode,
+    cache: buildSingleVersion,
     optimization: {
       splitChunks: {
         chunks: 'initial',
@@ -91,7 +91,7 @@ exports.createPages = async ({ actions, graphql }) => {
             parent {
               ... on File {
                 relativePath
-                ${!isDevelopmentMode ?
+                ${!buildSingleVersion ?
                 `   gitRemote {
                       ref
                 }` : ``}

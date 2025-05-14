@@ -1,9 +1,12 @@
 {
   "name": "hds-react",
-  "version": "4.4.0",
+  "version": "4.5.0",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
+  "engines": {
+    "node": "^22.13.1"
+  },
   "main": "./cjs/index.js",
   "module": "./index.js",
   "esnext": "./index.js",
@@ -18,6 +21,7 @@
     "update:hds-js": "rollup -c --environment hdsJSUpdate",
     "clean": "rimraf node_modules lib storybook-static ../hds-js/lib/",
     "start": "tcm src internal --watch & yarn storybook",
+    "nolint": "ESLINT_NO_DEV_ERRORS=true yarn start",
     "scaffold": "node scripts/scaffold.js",
     "icon": "node scripts/icon.js",
     "tsc:es5": "tsc",
@@ -143,7 +147,7 @@
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
     "graphql": "^16.8.1",
-    "hds-core": "4.4.0",
+    "hds-core": "4.5.0",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash": "^4.17.21",
