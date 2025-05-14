@@ -30,7 +30,7 @@ export const validationSchema = Yup.object()
           if (!isValidDate(value)) {
             return createError({
               path,
-              message: 'Please enter a permit end date in DD.MM.YYYY format',
+              message: 'Please enter a permit end date in D.M.YYYY format',
             });
           }
           const selectedDate = parse(value, 'd.M.yyyy', new Date());

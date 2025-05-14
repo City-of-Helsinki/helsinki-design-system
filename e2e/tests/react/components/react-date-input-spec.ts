@@ -23,6 +23,7 @@ const storyWithExternalClearButton = 'With external clear value button';
 const storyWithMinAndMax = 'With Min And Max Date';
 const storyWithDisabledDates = 'With disabled dates';
 const storyWithCustomStyles = 'With custom day styles';
+const storyWithCustomDateFormat = 'With custom date format';
 
 const selector = '#date';
 
@@ -196,7 +197,6 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     createTimeControls(page, currentDate);
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
-    await inputUtil.setSelectedDateString({ month: 2, day: 2 });
     await inputUtil.openDialog();
     const { dayNumber, fullMonthAndDayNumber } = await inputUtil.getCurrentDateDescription();
     expect(dayNumber).toBe('12');
@@ -213,7 +213,6 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     createTimeControls(page, currentDate);
     await gotoStorybookUrlByName(page, storyWithDefault, componentName, storybook);
     const inputUtil = createDateInputHelpers(page, selector);
-    await inputUtil.setSelectedDateString({ month: 2, day: 2 });
     await inputUtil.openDialog();
     await inputUtil.clickDay(10, 12, 2012);
     const selectedButton = await inputUtil.getSelectedDateLocator().count();
@@ -467,5 +466,32 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await inputUtil.openDialog();
     expect(await inputUtil.getDropdownValues()).toMatchObject({ year: date.year, month: date.month });
     expect(await inputUtil.isDateSelected(date)).toBeTruthy();
+  });
+  test('Should handle custom date format', async ({ page, hasTouch }, testInfo) => {
+    if (hasTouch) {
+      return;
+    }
+
+    await gotoStorybookUrlByName(page, storyWithCustomDateFormat, componentName, storybook);
+    const input = page.locator('input[id="WithCustomDateFormat"]').first();
+    // 1st fill with wrong format
+    await input.fill('2024/12/12');
+    // now unfocus the input
+    await input.blur();
+    // now check that the input is invalid
+    const hasAriaInvalid = await input.evaluate((el) => el.getAttribute('aria-invalid') === 'true');
+    expect(hasAriaInvalid).toBe(true);
+    // then fill with correct separator but still wrong format
+    await input.fill('12-12-2024');
+    await input.blur();
+    // and still invalid anymore
+    const hasAriaInvalidStill = await input.evaluate((el) => el.getAttribute('aria-invalid') === 'true');
+    expect(hasAriaInvalidStill).toBe(true);
+    // then all correctly
+    await input.fill('2024-12-12');
+    await input.blur();
+    // and finally not aria-invalid
+    const hasAriaInvalidFinally = await input.evaluate((el) => el.getAttribute('aria-invalid') === 'true');
+    expect(hasAriaInvalidFinally).toBe(false);
   });
 });

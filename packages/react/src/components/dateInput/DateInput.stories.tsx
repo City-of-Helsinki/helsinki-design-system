@@ -75,7 +75,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-fi`}
           language="fi"
           label="Valitse päivämäärä"
-          helperText={formatHelperTextEnglish}
+          helperText="Käytä muotoa P.K.VVVV"
         />
       </div>
       <div style={bottomMargin}>
@@ -93,7 +93,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-en`}
           language="en"
           label="Choose a date"
-          helperText="Käytä muotoa P.K.VVVV"
+          helperText={formatHelperTextEnglish}
         />
       </div>
     </div>
@@ -218,7 +218,7 @@ Success.args = {
 };
 
 export const WithCustomDayStyles = (args: DateInputProps) => {
-  const dateFormat = 'dd.M.yyyy';
+  const dateFormat = 'd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
@@ -377,6 +377,16 @@ export const WithRange = (args: DateInputProps) => {
 };
 
 WithRange.parameters = { loki: { skip: true } };
+
+export const WithCustomDateFormat = (args: DateInputProps) => {
+  return <DateInput {...args} />;
+};
+WithCustomDateFormat.storyName = 'With custom date format';
+WithCustomDateFormat.args = {
+  id: 'WithCustomDateFormat',
+  dateFormat: 'yyyy-MM-dd',
+  helperText: 'Use format YYYY-MM-DD',
+};
 
 export const PlayWrightOnly = (args: DateInputProps) => {
   return (

@@ -15,7 +15,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [DateInput] Add possibility to give the wanted date format as `dateFormat` prop. Also adds `malformedDateErrorText` and `dateOutsideRangeErrorText` props to display more precise error messages. Now `minDate` and `maxDate` props also affect the written date too, not only the date picker with the picker.
 
 #### Changed
 
