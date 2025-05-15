@@ -4,7 +4,7 @@ title: 'Checkbox'
 navTitle: 'Checkbox'
 ---
 import { useReducer } from 'react';
-import { Checkbox, SelectionGroup, Fieldset } from 'hds-react';
+import { Checkbox, SelectionGroup, Fieldset, Tooltip } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -41,7 +41,7 @@ export const CheckboxExample = () => {
       />
       <Checkbox label="Label" id="checkbox-unchecked-error-text" checked={checkedItems['checkbox-unchecked-error-text']} onChange={onChange} errorText="Error text"/>
       <Checkbox label="Label" id="checkbox-unchecked-helper-text" checked={checkedItems['checkbox-unchecked-helper-text']} onChange={onChange} helperText="Assistive text"/>
-      <Checkbox label= "label" id="checkbox-with-tooltip" tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label" checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
+      <Checkbox label="Label" id="checkbox-with-tooltip" tooltip={<Tooltip tooltipLabel="tooltip text aria label" buttonLabel="tooltip button aria label">tooltip text</Tooltip>} checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
     </>
   );
 };

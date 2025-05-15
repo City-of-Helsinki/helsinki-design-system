@@ -4,6 +4,7 @@ import { SelectionGroup } from './SelectionGroup';
 import { Checkbox } from '../checkbox';
 import { RadioButton } from '../radioButton';
 import { Fieldset } from '../fieldset';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: SelectionGroup,
@@ -177,10 +178,12 @@ export const WithTooltip = ({ numberOfItems, ...args }) => {
   );
 };
 WithTooltip.args = {
-  tooltipLabel: 'Tooltip',
-  tooltipButtonLabel: 'Tooltip',
-  tooltipText:
-    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
+  tooltip: (
+    <Tooltip buttonLabel="Tooltip" tooltipLabel="Tooltip">
+      Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to
+      three sentences. For longer descriptions, provide a link to a separate page.
+    </Tooltip>
+  ),
 };
 WithTooltip.storyName = 'With tooltip';
 
