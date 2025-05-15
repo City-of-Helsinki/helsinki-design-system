@@ -19,7 +19,7 @@ import { getAllOptions } from './utils';
 import { Option } from './types';
 import { isOptionClickEvent } from './events';
 
-jest.mock('../../hooks/useModularOptionListDataHandlers', () => ({
+jest.mock('./hooks/useModularOptionListDataHandlers', () => ({
   useModularOptionListDataHandlers: () => mockUseModularOptionListDataHandlersContents,
 }));
 
@@ -53,14 +53,13 @@ describe('<ModularOptionList />', () => {
   const initTests = (data: OptionalModularOptionListData = {}, metaData?: OptionalModularOptionListMetaData) => {
     updateMockData({
       ...createDataWithSelectedOptions({ selectedOptionsCount: 10 }),
-      open: true,
       ...data,
     });
 
     if (metaData) {
       updateMockMetaData(metaData);
     }
-    const result = render(<List />);
+    const result = render(<ModularOptionList />);
     const getElementsBySelector = (selector: string) => {
       return result.container.querySelectorAll(selector);
     };
@@ -76,7 +75,7 @@ describe('<ModularOptionList />', () => {
     };
   };
   describe('List element is always present in the DOM.', () => {
-    it('When data.open is true and options are found', () => {
+    it('All options are found', () => {
       const { getElementById, metaData, data } = initTests();
       const optionElements = getOptionElements({ getElementById, metaData });
       const options = getOptionsFromData({ data });
@@ -88,11 +87,7 @@ describe('<ModularOptionList />', () => {
       });
     });
     it('When there are no options', () => {
-      const { getElementById, metaData } = initTests({ groups: [], open: true });
-      expect(getList({ getElementById, metaData })).not.toBeNull();
-    });
-    it('When data.open is false', () => {
-      const { getElementById, metaData } = initTests({ open: false });
+      const { getElementById, metaData } = initTests({ groups: [] });
       expect(getList({ getElementById, metaData })).not.toBeNull();
     });
   });

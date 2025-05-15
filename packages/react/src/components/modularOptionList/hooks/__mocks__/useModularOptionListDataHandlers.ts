@@ -18,7 +18,6 @@ const mockData: { current: OptionalModularOptionListData; default: OptionalModul
   current: {},
   default: {
     groups: propsToGroups({ options: ['Option 1'] }),
-    open: false,
     multiSelect: false,
     onChange: jest.fn(),
     visibleOptions: 5.5,
