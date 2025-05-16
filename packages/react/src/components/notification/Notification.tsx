@@ -8,6 +8,7 @@ import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { getPlainTextContent } from '../../utils/getPlainTextContent';
+import { Link, LinkSize } from '../link/Link';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 
@@ -66,6 +67,15 @@ type CommonProps = React.PropsWithChildren<
      * Note: Labels are not displayed visually for small notifications, but they are still accessible to assistive technology. This could be used to help screen reader users to better understand the context of the notification.
      */
     label?: string | React.ReactNode;
+    /**
+     * Link to be displayed in the notification. If not provided, the link will not be displayed.
+     */
+    link?: string;
+    /**
+     * Link text to display. If not provided, the link will be displayed as plain text.
+     * Note: This prop is only used when the `link` prop is provided.
+     */
+    linkText?: string;
     /**
      * The aria-label of the notification region
      * @default "Notification"
@@ -205,6 +215,8 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       style,
       type = 'info',
       headingLevel = 2,
+      link = undefined,
+      linkText = undefined,
       ...rest
     }: NotificationProps,
     ref,
@@ -306,6 +318,11 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}
+            <ConditionalVisuallyHidden visuallyHidden={link === undefined}>
+              <Link href={link as string} size={LinkSize.Medium}>
+                {linkText || getPlainTextContent(link)}
+              </Link>
+            </ConditionalVisuallyHidden>
           </div>
           {dismissible && (
             <button
