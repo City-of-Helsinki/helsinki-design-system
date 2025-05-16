@@ -168,6 +168,18 @@ WithCustomHeadingLevel.parameters = {
 
 WithCustomHeadingLevel.storyName = 'With a custom aria-level';
 
+export const WithLink = () => (
+  <>
+    <Notification {...props} link="https://example.com">
+      {content}
+    </Notification>
+    <br />
+    <Notification {...props} link="https://example.com" linkText="Custom link text">
+      {content}
+    </Notification>
+  </>
+);
+
 export const Playground = (args: NotificationProps & Record<string, string>) => {
   const [open, setOpen] = useState(true);
 
