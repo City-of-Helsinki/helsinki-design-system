@@ -318,11 +318,11 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}
-            <ConditionalVisuallyHidden visuallyHidden={link === undefined}>
+            {link && ( 
               <Link href={link as string} size={LinkSize.Medium}>
                 {linkText || getPlainTextContent(link)}
               </Link>
-            </ConditionalVisuallyHidden>
+            )}
           </div>
           {dismissible && (
             <button
