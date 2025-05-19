@@ -318,7 +318,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}
-            {link && ( 
+            {link && (
               <Link href={link as string} size={LinkSize.Medium}>
                 {linkText || getPlainTextContent(link)}
               </Link>
