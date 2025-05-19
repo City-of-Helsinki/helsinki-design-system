@@ -77,16 +77,18 @@ const LegendAndToolTip = ({
   SelectionGroupProps,
   'label' | 'required' | 'tooltipLabel' | 'tooltipButtonLabel' | 'tooltipText' | 'tooltip'
 >) => {
-  if (!tooltipText) {
+  if (!tooltipText && !tooltip) {
     return <Legend label={label} required={required} />;
   }
   return (
     <div className={styles.legendAndToolTipWrapper}>
       <Legend label={label} required={required} />
       {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
-      <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
-        {tooltipText}
-      </Tooltip>
+      {tooltipText ? (
+        <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
+          {tooltipText}
+        </Tooltip>
+      ) : null}
     </div>
   );
 };
