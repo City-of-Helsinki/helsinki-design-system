@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [FileInput] `defaultValue` was wrongly typed (TypeScript)
 
 ### Core
 

@@ -11,7 +11,7 @@ import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/In
 
 type Language = 'en' | 'fi' | 'sv';
 
-export type FileInputProps = Omit<InputWrapperProps, 'onChange'> & {
+export type FileInputProps = Omit<InputWrapperProps, 'onChange' | 'defaultValue'> & {
   /**
    * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. If the file(s) do not match the acceptance criteria, the component will not add the file(s), and it will show an error message with the file name.
    */
