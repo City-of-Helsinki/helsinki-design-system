@@ -47,25 +47,19 @@ export const ModularOptionList = forwardRef<
     {
       options,
       groups,
-      icon,
-      required,
       onChange,
       children,
       id,
       onFocus,
       onBlur,
-      onClose,
       disabled,
       texts,
       invalid,
       multiSelect,
-      noTags,
       visibleOptions,
       virtualize,
       value,
       theme,
-      clearable,
-      tooltip,
       ...divElementProps
     },
     ref,
@@ -73,18 +67,14 @@ export const ModularOptionList = forwardRef<
     const initialData = useMemo<ModularOptionListData>(() => {
       const data = {
         groups: convertPropsToGroups({ options, groups, value, children }),
-        required: !!required,
         invalid: !!invalid,
         disabled: !!disabled,
         multiSelect: !!multiSelect,
-        noTags: !!noTags,
         visibleOptions: visibleOptions || 5.5,
         virtualize: !!virtualize,
         onChange,
         onFocus,
         onBlur,
-        onClose,
-        clearable: !!clearable,
       };
       if (data.multiSelect) {
         mutateGroupLabelSelections(data.groups);
@@ -96,16 +86,12 @@ export const ModularOptionList = forwardRef<
       onChange,
       disabled,
       invalid,
-      required,
-      noTags,
       virtualize,
       visibleOptions,
       onFocus,
       onBlur,
-      onClose,
       value,
       children,
-      clearable,
     ]);
 
     const metaData = useMemo((): ModularOptionListMetaData => {
@@ -115,7 +101,6 @@ export const ModularOptionList = forwardRef<
       return {
         lastToggleCommand: 0,
         lastClickedOption: undefined,
-        icon,
         activeDescendant: undefined,
         refs: {
           button: typeof ref === 'function' ? createRef<HTMLButtonElement>() : ref || createRef<HTMLButtonElement>(),

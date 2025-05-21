@@ -25,20 +25,12 @@ export type AcceptedNativeDivProps = Omit<
 
 export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   children?: P | P[];
-  clearable?: boolean;
   disabled?: boolean;
   groups?: Array<GroupInProps> | ModularOptionListData['groups'];
-  icon?: ReactNode;
   id?: string;
   invalid?: boolean;
   multiSelect?: boolean;
-  noTags?: boolean;
   onBlur?: () => void;
-  onClose?: (
-    selectedOptions: Option[],
-    clickedOption: undefined,
-    data: ModularOptionListData,
-  ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onChange?: (
     selectedOptions: Option[],
     clickedOption: Option,
@@ -46,7 +38,6 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
   ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onFocus?: () => void;
   options?: (OptionInProps | string)[];
-  required?: boolean;
   texts?: Partial<Texts> | TextProvider;
   theme?: ModularOptionListCustomTheme;
   value?: string | string[] | Option[] | OptionInProps[];
@@ -57,24 +48,20 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
 export type ModularOptionListData = Required<
   Pick<
     ModularOptionListProps,
-    | 'required'
     | 'invalid'
     | 'onChange'
     | 'disabled'
     | 'multiSelect'
-    | 'noTags'
     | 'visibleOptions'
     | 'virtualize'
-    | 'clearable'
   >
 > & {
   groups: Array<Group>;
   onFocus?: ModularOptionListProps['onFocus'];
   onBlur?: ModularOptionListProps['onBlur'];
-  onClose?: ModularOptionListProps['onClose'];
 };
 
-export type ModularOptionListMetaData = Pick<ModularOptionListProps, 'icon'> & {
+export type ModularOptionListMetaData = {
   refs: {
     button: RefObject<HTMLButtonElement>;
     listContainer: RefObject<HTMLDivElement>;

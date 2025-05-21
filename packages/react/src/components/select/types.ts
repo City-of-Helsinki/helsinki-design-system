@@ -42,12 +42,12 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
     selectedOptions: Option[],
     clickedOption: undefined,
     data: ModularOptionListData,
-  ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
+  ) => Partial<Pick<SelectProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onChange?: (
     selectedOptions: Option[],
     clickedOption: Option,
     data: ModularOptionListData,
-  ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
+  ) => Partial<Pick<SelectProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onFocus?: () => void;
   onSearch?: SearchFunction;
   open?: boolean;
@@ -81,11 +81,13 @@ export type SelectData =
     initialOpenValue?: boolean;
     filterFunction?: FilterFunction;
     onSearch?: SearchFunction;
+    onClose?: SelectProps['onClose'];
   }
 ;
 
 
 export type SelectMetaData =
+  Pick<SelectProps, 'icon'> &
   ModularOptionListMetaData & {
     /*
     refs: {

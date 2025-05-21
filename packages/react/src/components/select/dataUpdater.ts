@@ -144,6 +144,7 @@ const dataUpdater = (
 
   if (didModularOptionListChange) {
     if (id === eventIds.listItem && !current.multiSelect) {
+      openOrClose(false);
       setFocusTarget('button');
     }
     return  {

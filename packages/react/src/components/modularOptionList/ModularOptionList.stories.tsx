@@ -4,7 +4,6 @@ import { action } from '@storybook/addon-actions';
 import { ModularOptionList } from './ModularOptionList';
 import { getOptionLabels } from './batch.options';
 import { ModularOptionListProps, Texts, Option } from './types';
-import { IconLocation } from '../../icons';
 
 export default {
   component: ModularOptionList,
@@ -71,9 +70,7 @@ export const SingleselectWithGroups = () => {
     <ModularOptionList
       groups={groups}
       onChange={onChange}
-      icon={<IconLocation />}
       texts={defaultTexts}
-      clearable
       id="hds-select-component"
     />
   );
@@ -89,18 +86,11 @@ export const Multiselect = () => {
     return requireOneSelection(selectedOptions, lastClickedOption, data);
   }, []);
 
-  const onClose: ModularOptionListProps['onClose'] = useCallback((selectedOptions, lastClickedOption, data) => {
-    setOnCloseSelections(selectedOptions);
-    return requireOneSelection(selectedOptions, lastClickedOption, data);
-  }, []);
 
   const [props] = useState<Partial<ModularOptionListProps>>({
     multiSelect: true,
     id: 'hds-select-component',
     texts: defaultTextsForMultiSelect,
-    clearable: true,
-    required: true,
-    icon: <IconLocation />,
     options: getOptionLabels(20),
   });
 
@@ -116,17 +106,7 @@ export const Multiselect = () => {
         readOnly
         value={onChangeSelections.map((option) => option.label).join(', ')}
       />
-      <label id="onclose-label" htmlFor="onclose">
-        onClose triggered values
-      </label>
-      <input
-        type="text"
-        id="onclose"
-        aria-labelledby="onclose-label"
-        readOnly
-        value={onCloseSelections.map((option) => option.label).join(', ')}
-      />
-      <ModularOptionList {...props} onChange={onChange} onClose={onClose} />
+      <ModularOptionList {...props} onChange={onChange} />
     </div>
   );
 };
@@ -152,7 +132,6 @@ export const MultiselectWithGroups = () => {
       groups={groups}
       onChange={onChange}
       multiSelect
-      icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
       id="hds-select-component"
     />

@@ -8,16 +8,19 @@ import { eventIds, eventTypes } from './events';
 import { useSelectDataHandlers } from './hooks/useSelectDataHandlers';
 import { Select } from './Select';
 import { defaultTexts } from './texts';
-import { SelectProps, SelectMetaData, SelectData, Group, Option, SearchResult } from './types';
+import { SelectProps, SelectMetaData, SelectData, SearchResult } from './types';
+import { Group, Option } from '../modularOptionList/types';
 import {
   getElementIds,
   defaultFilter,
+  OptionIterator,
+} from './utils';
+import {
   propsToGroups,
   getAllOptions,
   iterateAndCopyGroup,
-  OptionIterator,
   validateOption,
-} from './utils';
+} from '../modularOptionList/utils';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import useForceRender from '../../hooks/useForceRender';

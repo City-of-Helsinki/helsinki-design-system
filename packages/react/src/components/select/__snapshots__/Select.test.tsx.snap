@@ -94,7 +94,7 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
         id="test-select-component-sl-container"
       >
         <div
-          class="listContainer hidden"
+          class="listContainer"
           style="max-height: 286px;"
         >
           <ul
@@ -103,7 +103,113 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
             id="test-select-component-list"
             role="listbox"
             tabindex="-1"
-          />
+          >
+            <li
+              aria-disabled="false"
+              aria-label="Option 1"
+              aria-selected="false"
+              class="listItem selectableListItem focusableListItem multiSelectListItem"
+              id="test-select-component-option-0"
+              role="option"
+              tabindex="-1"
+            >
+              <div
+                aria-hidden="true"
+                class="checkboxContainer"
+              >
+                <div
+                  class="checkbox checkbox"
+                >
+                  <input
+                    class="input"
+                    id="test-select-component-option-0-checkbox"
+                    tabindex="-1"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label noLabel"
+                    for="test-select-component-option-0-checkbox"
+                  />
+                </div>
+                <label
+                  for="test-select-component-option-0-checkbox"
+                >
+                  Option 1
+                </label>
+              </div>
+            </li>
+            <li
+              aria-disabled="false"
+              aria-label="Option 2"
+              aria-selected="false"
+              class="listItem selectableListItem focusableListItem multiSelectListItem"
+              id="test-select-component-option-1"
+              role="option"
+              tabindex="-1"
+            >
+              <div
+                aria-hidden="true"
+                class="checkboxContainer"
+              >
+                <div
+                  class="checkbox checkbox"
+                >
+                  <input
+                    class="input"
+                    id="test-select-component-option-1-checkbox"
+                    tabindex="-1"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label noLabel"
+                    for="test-select-component-option-1-checkbox"
+                  />
+                </div>
+                <label
+                  for="test-select-component-option-1-checkbox"
+                >
+                  Option 2
+                </label>
+              </div>
+            </li>
+            <li
+              aria-disabled="false"
+              aria-label="Option 3"
+              aria-selected="false"
+              class="listItem selectableListItem focusableListItem multiSelectListItem"
+              id="test-select-component-option-2"
+              role="option"
+              tabindex="-1"
+            >
+              <div
+                aria-hidden="true"
+                class="checkboxContainer"
+              >
+                <div
+                  class="checkbox checkbox"
+                >
+                  <input
+                    class="input"
+                    id="test-select-component-option-2-checkbox"
+                    tabindex="-1"
+                    type="checkbox"
+                    value=""
+                  />
+                  <label
+                    class="label noLabel"
+                    for="test-select-component-option-2-checkbox"
+                  />
+                </div>
+                <label
+                  for="test-select-component-option-2-checkbox"
+                >
+                  Option 3
+                </label>
+              </div>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
@@ -220,7 +326,7 @@ exports[`<Select /> spec renders single select component with groups and filter 
         id="test-select-component-sl-container"
       >
         <div
-          class="listContainer hidden"
+          class="listContainer"
           style="max-height: 286px;"
         >
           <ul
@@ -229,7 +335,50 @@ exports[`<Select /> spec renders single select component with groups and filter 
             id="test-select-component-list"
             role="listbox"
             tabindex="-1"
-          />
+          >
+            <li
+              aria-disabled="false"
+              aria-selected="false"
+              class="listItem selectableListItem singleSelectListItem focusableListItem"
+              id="test-select-component-option-0"
+              role="option"
+              tabindex="-1"
+            >
+              <span
+                class="singleSelectListItemLabel"
+              >
+                Option 1
+              </span>
+            </li>
+            <li
+              aria-disabled="false"
+              aria-selected="false"
+              class="listItem selectableListItem singleSelectListItem focusableListItem"
+              id="test-select-component-option-1"
+              role="option"
+              tabindex="-1"
+            >
+              <span
+                class="singleSelectListItemLabel"
+              >
+                Option 2
+              </span>
+            </li>
+            <li
+              aria-disabled="false"
+              aria-selected="false"
+              class="listItem selectableListItem singleSelectListItem focusableListItem"
+              id="test-select-component-option-2"
+              role="option"
+              tabindex="-1"
+            >
+              <span
+                class="singleSelectListItemLabel"
+              >
+                Option 3
+              </span>
+            </li>
+          </ul>
         </div>
       </div>
     </div>
