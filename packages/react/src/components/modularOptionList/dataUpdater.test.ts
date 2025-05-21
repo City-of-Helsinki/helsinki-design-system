@@ -19,7 +19,6 @@ import {
 } from './hooks/__mocks__/useModularOptionListDataHandlers';
 import { getTextKey } from './texts';
 import {
-  FilterFunction,
   Group,
   Option,
   OptionInProps,

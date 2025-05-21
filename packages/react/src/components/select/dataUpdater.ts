@@ -4,25 +4,25 @@ import {
   SelectData,
   SelectDataHandlers,
   SelectMetaData,
-} from './types';
-import {
   FilterFunction,
-  Option,
   SearchFunction,
   SearchResult,
-  ModularOptionListData,
+} from './types';
+import {
+  Option,
 } from '../modularOptionList/types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
+  filterOptions,
+  mergeSearchResultsToCurrent,
 } from './utils';
   import {
   getSelectedOptions,
   propsToGroups,
   createMetaDataAfterSelectionChange,
   clearAllSelectedOptions,
-  filterOptions,
 } from '../modularOptionList/utils';
 
 import {
@@ -35,17 +35,14 @@ import {
   isCloseOnFocusMoveEvent,
   isFilterChangeEvent,
   isGenericBlurEvent,
-  isGroupClickEvent,
   isOpenOrCloseEvent,
-  isOptionClickEvent,
   isOutsideClickEvent,
   isSearchChangeEvent,
   isSearchSuccessEvent,
   isSearchErrorEvent,
   isShowAllClickEvent,
-  isRemoveTagEventId,
 } from './events';
-import { appendTexts, getNumberedVariationsTextKey, getTextKey } from './texts';
+import { appendTexts, getTextKey } from './texts';
 import { changeHandler as modularOptionListChangeHandler } from '../modularOptionList/dataUpdater';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
@@ -54,8 +51,6 @@ const dataUpdater = (
   event: ChangeEvent,
   dataHandlers: SelectDataHandlers,
 ): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
-
-  const didModularOptionListChange = modularOptionListChangeHandler(event, dataHandlers);
 
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
@@ -67,6 +62,56 @@ const dataUpdater = (
   if (current.disabled) {
     return returnValue;
   }
+
+  if (isFilterChangeEvent(id, type)) {
+    console.log('isFilterChangeEvent');
+    const filterValue = (payload && (payload.value as string)) || '';
+    dataHandlers.updateMetaData({ filter: filterValue });
+    dataHandlers.updateData({
+      groups: filterOptions(current.groups, filterValue, current.filterFunction as FilterFunction),
+    });
+    return {
+      ...returnValue,
+      didDataChange: true,
+    };
+  }
+
+  if (isSearchSuccessEvent(id, type)) {
+    dataHandlers.updateMetaData({ isSearching: false, hasSearchError: false });
+    dataHandlers.updateData({
+      groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),
+    });
+
+    return {
+      ...returnValue,
+      didDataChange: true,
+    };
+  }
+
+  if (isSearchChangeEvent(id, type)) {
+    const searchValue = (payload && (payload.value as string)) || '';
+    dataHandlers.updateMetaData({ search: searchValue, hasSearchError: false });
+    if (!searchValue) {
+      dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
+    }
+    return {
+      ...returnValue,
+      didSearchChange: true,
+      didDataChange: true,
+    };
+  }
+
+  if (isSearchErrorEvent(id, type)) {
+    dataHandlers.updateMetaData({ isSearching: false, hasSearchError: true });
+    dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
+    return {
+      ...returnValue,
+      didDataChange: true,
+    };
+  }
+
+  const didModularOptionListChange = modularOptionListChangeHandler(event, dataHandlers);
+
   const openOrClose = (open: boolean) => {
     if (current.open === open) {
       return false;
@@ -89,7 +134,7 @@ const dataUpdater = (
     });
   };
 
-  const updateGroups = (groups: ModularOptionListData['groups'], clickedOption?: Option) => {
+  const updateGroups = (groups: SelectData['groups'], clickedOption?: Option) => {
     dataHandlers.updateData({ groups });
     dataHandlers.updateMetaData(
       createMetaDataAfterSelectionChange(groups, dataHandlers.getMetaData().selectedOptions, clickedOption),
@@ -97,12 +142,14 @@ const dataUpdater = (
   };
 
 
-  if (didModularOptionListChange && !current.multiSelect) {
-    const didUpdate = openOrClose(false);
+  if (didModularOptionListChange) {
+    if (id === eventIds.listItem && !current.multiSelect) {
+      setFocusTarget('button');
+    }
     return  {
       ...returnValue,
-      didSelectionsChange: didModularOptionListChange,
-      didDataChange: didUpdate,
+      didSelectionsChange: true,
+      didDataChange: true,
     }
   }
 
@@ -181,11 +228,9 @@ const dataUpdater = (
 
   if (isSearchSuccessEvent(id, type)) {
     dataHandlers.updateMetaData({ isSearching: false, hasSearchError: false });
-      /* TODO: use MOL
     dataHandlers.updateData({
       groups: mergeSearchResultsToCurrent(payload?.value as SearchResult, current.groups),
     });
-    */
 
     return {
       ...returnValue,
@@ -197,9 +242,7 @@ const dataUpdater = (
     const searchValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ search: searchValue, hasSearchError: false });
     if (!searchValue) {
-      /* TODO: use MOL
       dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
-      */
     }
     return {
       ...returnValue,
@@ -209,10 +252,8 @@ const dataUpdater = (
   }
 
   if (isSearchErrorEvent(id, type)) {
-    /* TODO: use MOL
     dataHandlers.updateMetaData({ isSearching: false, hasSearchError: true });
     dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
-    */
     return {
       ...returnValue,
       didDataChange: true,
@@ -227,28 +268,54 @@ const dataUpdater = (
   return returnValue;
 };
 
+// payload in resolve() will be triggered to the dataUpdater as an event
+// also errors are resolved, so there is no extra need for catching.
+const executeSearch = (
+  searchFunc: SearchFunction,
+  search: string,
+  selectedOptions: SelectMetaData['selectedOptions'],
+  data: SelectData,
+): [() => void, Promise<ChangeEvent>] => {
+  let isCancelled = false;
+  const request = new Promise<ChangeEvent>((resolve) => {
+    searchFunc(search as string, selectedOptions, data)
+      .then((res) => {
+        if (isCancelled) {
+          resolve({ id: eventIds.searchResult, type: eventTypes.cancelled });
+        } else {
+          resolve({ id: eventIds.searchResult, type: eventTypes.success, payload: { value: res } });
+        }
+      })
+      .catch(() => {
+        resolve({ id: eventIds.searchResult, type: eventTypes.error });
+      });
+  });
+  const cancel = () => {
+    isCancelled = true;
+  };
+  return [cancel, request];
+};
 
 const debouncedSearch = debounce(
   (dataHandlers: DataHandlers<SelectData, SelectMetaData>, searchFunc?: SearchFunction) => {
     if (!searchFunc) {
       return;
     }
-    const { cancelCurrentSearch, search/*, selectedOptions*/ } = dataHandlers.getMetaData();
+    const { cancelCurrentSearch, search, selectedOptions } = dataHandlers.getMetaData();
     if (cancelCurrentSearch) {
       cancelCurrentSearch();
     }
     if (!search) {
       return;
     }
-    /* TODO: use MOL
     const [cancel, request] = executeSearch(searchFunc, search, selectedOptions, dataHandlers.getData());
     dataHandlers.updateMetaData({ cancelCurrentSearch: cancel });
     // dataHandler will listen to the promise and trigger an event when promise fulfills:
     dataHandlers.asyncRequestWithTrigger(request);
-    */
   },
   300,
 );
+
 
 const isCloseTriggerEvent = (event: ChangeEvent) => {
   // check if the event is something that should trigger onClose
@@ -266,17 +333,20 @@ const isCloseTriggerEvent = (event: ChangeEvent) => {
 };
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
-  console.log('select changeHandler');
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
 
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
 
   const { onSearch, onChange, onClose, multiSelect, open } = current;
-  console.log('data open', open);
 
   const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;
+
+  if (didSearchChange && onSearch) {
+    dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
+    debouncedSearch(dataHandlers, onSearch);
+  }
 
   if (closeChange && onClose) {
     const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);

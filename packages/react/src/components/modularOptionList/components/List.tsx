@@ -33,9 +33,8 @@ export const List = () => {
   const dataHandlers = useModularOptionListDataHandlers();
   const { getData, getMetaData } = dataHandlers;
   const { groups, multiSelect, visibleOptions, virtualize } = getData();
-  const { isSearching } = getMetaData();
-  const isVisible = !isSearching;
-  const classes = classNames(styles.listContainer, !isVisible && styles.hidden);
+  const isVisible = true; // TODO !isSearching;
+  const classes = classNames(styles.listContainer, {[`${styles.hidden}`]: !isVisible});
   const styleObj = { maxHeight: DROPDOWN_MENU_ITEM_HEIGHT * visibleOptions };
 
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;

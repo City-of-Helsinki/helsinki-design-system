@@ -2,8 +2,6 @@ import { ReactElement, ReactNode, RefObject } from 'react';
 
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { DataHandlers } from '../dataProvider/DataContext';
-import { EventId } from './events';
-import { Tooltip, TooltipProps } from '../tooltip/Tooltip';
 
 export type Option = {
   value: string;
@@ -15,13 +13,6 @@ export type Option = {
 };
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };
-export type SearchResult = Pick<ModularOptionListProps, 'groups' | 'options'>;
-export type FilterFunction = (option: Option, filterStr: string) => boolean;
-export type SearchFunction = (
-  searchValue: string,
-  selectedOptions: Option[],
-  data: ModularOptionListData,
-) => Promise<SearchResult>;
 export type GroupInProps = {
   label: string;
   options: (OptionInProps | string)[];
@@ -36,7 +27,6 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
   children?: P | P[];
   clearable?: boolean;
   disabled?: boolean;
-  filter?: FilterFunction;
   groups?: Array<GroupInProps> | ModularOptionListData['groups'];
   icon?: ReactNode;
   id?: string;
@@ -55,12 +45,10 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
     data: ModularOptionListData,
   ) => Partial<Pick<ModularOptionListProps, 'groups' | 'options' | 'invalid' | 'texts'>> | void;
   onFocus?: () => void;
-  onSearch?: SearchFunction;
   options?: (OptionInProps | string)[];
   required?: boolean;
   texts?: Partial<Texts> | TextProvider;
   theme?: ModularOptionListCustomTheme;
-  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
   value?: string | string[] | Option[] | OptionInProps[];
   virtualize?: boolean;
   visibleOptions?: number;
@@ -81,8 +69,6 @@ export type ModularOptionListData = Required<
   >
 > & {
   groups: Array<Group>;
-  filterFunction?: FilterFunction;
-  onSearch?: SearchFunction;
   onFocus?: ModularOptionListProps['onFocus'];
   onBlur?: ModularOptionListProps['onBlur'];
   onClose?: ModularOptionListProps['onClose'];
@@ -99,19 +85,11 @@ export type ModularOptionListMetaData = Pick<ModularOptionListProps, 'icon'> & {
     selectionsAndListsContainer: RefObject<HTMLDivElement>;
     container: RefObject<HTMLDivElement>;
   };
-  filter: string;
-  search: string;
-  isSearching: boolean;
-  hasSearchError: boolean;
-  hasListInput: boolean;
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
   selectedOptions: Option[];
 
-  cancelCurrentSearch: (() => void) | undefined;
-  focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
   activeDescendant: string | undefined;
-  listInputType?: Extract<EventId, 'filter' | 'search'>;
   textContent?: TextInterpolationContent;
   elementIds: {
     button: string;

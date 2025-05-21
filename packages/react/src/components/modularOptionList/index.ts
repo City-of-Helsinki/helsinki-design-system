@@ -3,7 +3,6 @@ export * from './hooks';
 // export { defaultTexts } from './texts';
 
 export {
-  defaultFilter,
   iterateAndCopyGroup,
   getOptionGroupIndex,
   getOptionIndex,

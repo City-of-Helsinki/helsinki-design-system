@@ -2,7 +2,7 @@ import { KeyboardEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
 import { KnownElementType } from '../types';
-import { defaultFilter, filterSelectableOptions } from '../../modularOptionList/utils';
+import { defaultFilter, filterSelectableOptions } from '../utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,

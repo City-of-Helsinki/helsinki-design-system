@@ -15,6 +15,8 @@ import {
 
 import {
   defaultFilter,
+} from './utils';
+import {
   getNewSelections,
   iterateAndCopyGroup,
   updateSelectedOptionsInGroups,

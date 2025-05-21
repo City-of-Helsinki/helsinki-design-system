@@ -11,10 +11,10 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
   const dataHandlers = useModularOptionListDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
   const { groups, multiSelect } = getData();
-  const { isSearching, getOptionId, refs, elementIds } = getMetaData();
+  const { getOptionId, refs, elementIds } = getMetaData();
 
   const allOptions = getAllOptions(groups);
-  const shouldRenderOptions = !isSearching;
+  const shouldRenderOptions = true; //TODO !isSearching;
   const currentChildren = useRenderChildrenInChunks(shouldRenderOptions ? allOptions : []);
 
   const createVirtualGroups = (): Group[] => {

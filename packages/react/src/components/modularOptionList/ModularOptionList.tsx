@@ -62,8 +62,6 @@ export const ModularOptionList = forwardRef<
       noTags,
       visibleOptions,
       virtualize,
-      filter,
-      onSearch,
       value,
       theme,
       clearable,
@@ -86,8 +84,6 @@ export const ModularOptionList = forwardRef<
         onFocus,
         onBlur,
         onClose,
-        filterFunction: filter,
-        onSearch,
         clearable: !!clearable,
       };
       if (data.multiSelect) {
@@ -104,7 +100,6 @@ export const ModularOptionList = forwardRef<
       noTags,
       virtualize,
       visibleOptions,
-      onSearch,
       onFocus,
       onBlur,
       onClose,
@@ -117,18 +112,11 @@ export const ModularOptionList = forwardRef<
       const containerId = `${id || uniqueId('hds-select-')}`;
       const optionIds = new Map<string, string>();
       let optionIdCounter = 0;
-      const getListInputType = () => {
-        if (!initialData.onSearch && !initialData.filterFunction) {
-          return undefined;
-        }
-        return initialData.onSearch ? eventIds.search : eventIds.filter;
-      };
       return {
         lastToggleCommand: 0,
         lastClickedOption: undefined,
         icon,
         activeDescendant: undefined,
-        focusTarget: undefined,
         refs: {
           button: typeof ref === 'function' ? createRef<HTMLButtonElement>() : ref || createRef<HTMLButtonElement>(),
           listContainer: createRef<HTMLDivElement>(),
@@ -153,24 +141,10 @@ export const ModularOptionList = forwardRef<
           }
           return current;
         },
-        listInputType: getListInputType(),
-        hasListInput: !!getListInputType(),
-        filter: '',
-        search: '',
-        isSearching: false,
-        hasSearchError: false,
-        cancelCurrentSearch: undefined,
         screenReaderNotifications: [],
       };
-    }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts, ref]);
+    }, [id, initialData.groups, texts, ref]);
 
-    useEffect(() => {
-      return () => {
-        if (metaData.cancelCurrentSearch) {
-          metaData.cancelCurrentSearch();
-        }
-      };
-    }, []);
 
     // TODO: not sure what this should do
     const onReset: DataProviderProps<ModularOptionListData, ModularOptionListMetaData>['onReset'] = useCallback(

@@ -8,7 +8,6 @@ import {
   OptionInProps,
   ModularOptionListMetaData,
   GroupInProps,
-  FilterFunction,
   ScreenReaderNotification,
   ModularOptionListDataHandlers,
 } from './types';
@@ -277,31 +276,6 @@ export function propsToGroups(
   ];
 }
 
-export function defaultFilter(option: Option, filterStr: string) {
-  return option.label.toLowerCase().indexOf(filterStr.toLowerCase()) > -1;
-}
-
-export function filterOptions(groups: ModularOptionListData['groups'], filterStr: string, filterFunc: FilterFunction) {
-  const newGroupsWithFilteredOptions = iterateAndCopyGroup(groups, (option) => {
-    if (option.isGroupLabel) {
-      return { ...option };
-    }
-    return { ...option, visible: !filterStr || filterFunc(option, filterStr) };
-  });
-
-  // check if group label should be visible....
-  newGroupsWithFilteredOptions.forEach((group) => {
-    // eslint-disable-next-line @typescript-eslint/no-use-before-define
-    const groupLabel = getGroupLabelOption(group);
-    if (!groupLabel) {
-      return;
-    }
-    groupLabel.visible = !!groupLabel.label && group.options.findIndex((opt) => !opt.isGroupLabel && opt.visible) > -1;
-  });
-
-  return newGroupsWithFilteredOptions;
-}
-
 export function childrenToGroups(
   children: ModularOptionListProps['children'],
 ): ModularOptionListData['groups'] | undefined {
@@ -333,30 +307,6 @@ export function childrenToGroups(
     });
   }
   return [{ options: [createGroupLabel(''), ...childArray.map(optionElementToOption)] }];
-}
-
-export function mergeSearchResultsToCurrent(
-  props: Pick<ModularOptionListProps, 'groups' | 'options'>,
-  currentGroups: ModularOptionListData['groups'],
-): ModularOptionListData['groups'] {
-  const newData = propsToGroups(props) || [];
-  const newOptions = getAllOptions(newData);
-  const currentOptionsWithoutMatches = getSelectedOptions(currentGroups).filter((option) => {
-    const sameInNewOptionsIndex = newOptions.findIndex((newOption) => {
-      return newOption.value === option.value;
-    });
-    if (sameInNewOptionsIndex > -1) {
-      newOptions[sameInNewOptionsIndex].selected = true;
-      return false;
-    }
-    return true;
-  });
-
-  const currentHiddenOptionsInAGroup = currentOptionsWithoutMatches.length
-    ? [{ options: currentOptionsWithoutMatches.map((opt) => ({ ...opt, visible: false })) } as Group]
-    : [];
-
-  return [...currentHiddenOptionsInAGroup, ...newData];
 }
 
 export function createSelectedOptionsList(currentSelections: Option[], groups: ModularOptionListData['groups']) {
@@ -453,15 +403,6 @@ export function removeScreenReaderNotification(
     return true;
   }
   return false;
-}
-
-export function filterSelectableOptions(
-  groups: ModularOptionListData['groups'],
-  filterStr: string,
-  filterFunc: FilterFunction,
-  isMultiSelect: boolean,
-) {
-  return getAllOptions(groups, !isMultiSelect).filter((option) => filterFunc(option, filterStr));
 }
 
 export function findSelectableOptionIndex(

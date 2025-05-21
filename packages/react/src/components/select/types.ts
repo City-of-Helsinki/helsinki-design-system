@@ -9,8 +9,6 @@ import {
   ModularOptionListData,
   Option,
   OptionInProps,
-  FilterFunction,
-  SearchFunction,
   GroupInProps,
   ModularOptionListMetaData,
 } from '../modularOptionList/types'
@@ -19,6 +17,14 @@ export type AcceptedNativeDivProps = Omit<
   AllElementPropsWithoutRef<'div'>,
   'onChange' | 'onFocus' | 'onBlur' | 'id' | 'tabIndex' | 'children'
 >;
+
+export type FilterFunction = (option: Option, filterStr: string) => boolean;
+export type SearchResult = Pick<ModularOptionListProps, 'groups' | 'options'>;
+export type SearchFunction = (
+  searchValue: string,
+  selectedOptions: Option[],
+  data: ModularOptionListData,
+) => Promise<SearchResult>;
 
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   children?: P | P[];
@@ -61,9 +67,20 @@ export type SelectData =
     Pick<
       SelectProps,
       | 'open'
+      | 'required'
+      | 'invalid'
+      | 'onChange'
+      | 'disabled'
+      | 'multiSelect'
+      | 'noTags'
+      | 'visibleOptions'
+      | 'virtualize'
+      | 'clearable'
     >
   > & {
     initialOpenValue?: boolean;
+    filterFunction?: FilterFunction;
+    onSearch?: SearchFunction;
   }
 ;
 
@@ -81,18 +98,10 @@ export type SelectMetaData =
       selectionsAndListsContainer: RefObject<HTMLDivElement>;
       container: RefObject<HTMLDivElement>;
     };
-    filter: string;
-    search: string;
-    isSearching: boolean;
-    hasSearchError: boolean;
-    hasListInput: boolean;
     lastClickedOption: Option | undefined;
     lastToggleCommand: number;
     selectedOptions: Option[];
-    cancelCurrentSearch: (() => void) | undefined;
-    focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
     activeDescendant: string | undefined;
-    listInputType?: Extract<EventId, 'filter' | 'search'>;
     textContent?: TextInterpolationContent;
     elementIds: {
       button: string;
@@ -111,6 +120,15 @@ export type SelectMetaData =
     getOptionId: (option: Option) => string;
     screenReaderNotifications: ScreenReaderNotification[];
     */
+    search: string;
+    isSearching: boolean;
+    hasSearchError: boolean;
+    hasListInput: boolean;
+    listInputType?: Extract<EventId, 'filter' | 'search'>;
+    cancelCurrentSearch: (() => void) | undefined;
+    focusTarget: Extract<KnownElementType, 'list' | 'button' | 'container' | 'searchOrFilterInput' | 'tag'> | undefined;
+
+    filter: string;
     showAllTags: boolean;
     themes?: Record<ThemeTarget, undefined | string>;
     tooltip?: ReactElement<TooltipProps, typeof Tooltip>;

@@ -102,8 +102,8 @@ export const createContainerProps = (
   const { getData, getMetaData } = dataHandlers;
   const { groups } = getData();
   const metaData = getMetaData();
-  const { elementIds, refs, listInputType } = metaData;
-  const hasInput = !!listInputType;
+  const { elementIds, refs/* TODO, listInputType*/ } = metaData;
+  const hasInput = true; //TODO !!listInputType;
   const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
   const hasInputAndGroups = hasInput || hasVisibleGroupLabels;
   const hasOnlyGroups = !hasInput && hasVisibleGroupLabels;
@@ -144,10 +144,10 @@ export function MultiSelectListWithGroups() {
   const dataHandlers = useModularOptionListDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
   const { groups } = getData();
-  const { isSearching, getOptionId } = getMetaData();
+  const { getOptionId } = getMetaData();
   const attr = createContainerProps(dataHandlers);
 
-  const shouldRenderOptions = !isSearching;
+  const shouldRenderOptions = true; // TODO !isSearching;
   const children = shouldRenderOptions ? createGroups({ groups, getOptionId, trigger }) : [];
   return <div {...attr}>{children}</div>;
 }
