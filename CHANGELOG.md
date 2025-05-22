@@ -22,6 +22,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- [Notification] body text size set to --fontsize-body-m all variations
+- [Notification] Heading size and gaps in default/basic size inline updated
+- [Notification] `link` and `linkText` props to enable native links in Notification.
 
 #### Fixed
 
@@ -36,6 +39,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
+- [Notification] New 
 
 #### Changed
 
