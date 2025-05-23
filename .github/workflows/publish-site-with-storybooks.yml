@@ -73,14 +73,10 @@ jobs:
       - name: move react storybook under site
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
 
-      - name: Deploy
-        env:
-          ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-          PUBLISH_BRANCH: gh-pages
-          PUBLISH_DIR: ./site/public
-          SCRIPT_MODE: true
-        run: |
-          wget https://raw.githubusercontent.com/peaceiris/actions-gh-pages/v2.5.0/entrypoint.sh
-          bash ./entrypoint.sh
-          # with:
-          # keepFiles: true
+      - name: Deploy site
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          deploy_key: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+          publish_branch: gh-pages
+          publish_dir: ./site/public
+          force_orphan: true
