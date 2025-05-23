@@ -3,7 +3,7 @@ slug: '/components/text-area/code'
 title: 'TextArea - Code'
 ---
 
-import { TextArea } from 'hds-react';
+import { TextArea, Tooltip } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -85,19 +85,17 @@ import { TextArea } from 'hds-react';
 </Playground>
 
 #### With a tooltip
-<Playground scope={{ TextArea }}>
+<Playground scope={{ TextArea, Tooltip }}>
 
 ```jsx
-import { TextArea } from 'hds-react';
+import { TextArea, Tooltip } from 'hds-react';
 
 () => (
   <TextArea
     id="textarea-tooltip"
     label="Label"
     placeholder="Placeholder"
-    tooltipLabel="Tooltip label"
-    tooltipButtonLabel="Tooltip button label"
-    tooltipText="Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+    tooltip={<Tooltip tooltipLabel="Tooltip label" buttonLabel="Tooltip button label">Tooltips contain nice to have information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>}
     style={{ maxWidth: '320px' }}
   />
 )
@@ -123,9 +121,10 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `invalid`            | If set to true, the input will be displayed in an invalid state. | `boolean`   | false         |
 | `successText`        | The success text content that will be shown below the input.     | `string`    | -             |
 | `infoText`           | The info text content that will be shown below the input.        | `string`    | -             |
-| `tooltipLabel`       | The aria-label text for the tooltip.                             | `string`    | -             |
-| `tooltipButtonLabel` | The aria-label text for the tooltip trigger button.              | `string`    | -             |
-| `tooltipText`        | The text content of the tooltip.                                 | `string`    | -             |
+| `tooltipLabel`       | The aria-label text for the tooltip. **Deprecated, will be removed in next major release** | `string`    | -             |
+| `tooltipButtonLabel` | The aria-label text for the tooltip trigger button. **Deprecated, will be removed in next major release** | `string`    | -             |
+| `tooltipText`        | The text content of the tooltip. **Deprecated, will be removed in next major release**   | `string`    | -             |
+| `tooltip`            | The tooltip component.                                           | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/components/tooltip/">`Tooltip`</Link> | -             |
 [Table 1:TextArea properties]|
 
 <NativeElementPropsInfo

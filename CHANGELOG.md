@@ -16,12 +16,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
+- [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
 
 #### Changed
 
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- [Multiple components] Use `InputWrapper` more extensively to harmonise `tooltip`, `infoText`, `helperText`, `successText` and `errorText` usages.
 
 #### Fixed
 
@@ -63,6 +65,7 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- [Multiple components] Examples of new `tooltip`-prop which replaces the deprecated separate props.
 
 #### Fixed
 

@@ -3,7 +3,7 @@ slug: '/components/text-input/code'
 title: 'TextInput - Code'
 ---
 
-import { TextInput } from 'hds-react';
+import { TextInput, Tooltip } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -116,19 +116,17 @@ import { TextInput } from 'hds-react';
 </Playground>
 
 #### With tooltip
-<Playground scope={{ TextInput }}>
+<Playground scope={{ TextInput, Tooltip }}>
 
 ```jsx
-import { TextInput } from 'hds-react';
+import { TextInput, Tooltip } from 'hds-react';
 
 () => (
   <TextInput
     id="textinput-tooltip"
     label="Label"
     placeholder="Placeholder"
-    tooltipLabel="Tooltip label"
-    tooltipButtonLabel="Tooltip button label"
-    tooltipText="Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page."
+    tooltip={<Tooltip tooltipLabel="Tooltip label" buttonLabel="Tooltip button label">Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.</Tooltip>}
   />
 )
 ```
@@ -153,9 +151,10 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `invalid`            | If set to true, the input will be displayed in an invalid state. | `boolean`   | false         |
 | `successText`        | The success text content that will be shown below the input.     | `string`    | -             |
 | `infoText`           | The info text content that will be shown below the input.        | `string`    | -             |
-| `tooltipLabel`       | The aria-label text for the tooltip.                             | `string`    | -             |
-| `tooltipButtonLabel` | The aria-label text for the tooltip trigger button.              | `string`    | -             |
-| `tooltipText`        | The text content of the tooltip.                                 | `string`    | -             |
+| `tooltipLabel`       | The aria-label text for the tooltip. **Deprecated, will be removed in next major release** | `string`    | -             |
+| `tooltipButtonLabel` | The aria-label text for the tooltip trigger button. **Deprecated, will be removed in next major release** | `string`    | -             |
+| `tooltipText`        | The text content of the tooltip. **Deprecated, will be removed in next major release**   | `string`    | -             |
+| `tooltip`            | The tooltip component.                                           | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/components/tooltip/">`Tooltip`</Link> | -             |
 | `buttonIcon`         | Button icon.                                                     | `ReactNode` | -             |
 | `buttonAriaLabel`    | The aria-label for the button.                                   | `string`    | -             |
 | `onButtonClick`      | Callback called when the button is pressed.                      | `function`  | -             |

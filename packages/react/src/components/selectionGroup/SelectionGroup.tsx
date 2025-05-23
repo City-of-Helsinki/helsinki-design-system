@@ -1,10 +1,10 @@
-import React, { isValidElement } from 'react';
+import React, { isValidElement, ReactElement } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './SelectionGroup.module.scss';
 import classNames from '../../utils/classNames';
 import { RequiredIndicator } from '../../internal/required-indicator/RequiredIndicator';
-import { Tooltip } from '../tooltip';
+import { Tooltip, TooltipProps } from '../tooltip';
 import { getChildrenAsArray } from '../../utils/getChildren';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
@@ -34,16 +34,23 @@ export type SelectionGroupProps = React.PropsWithChildren<
     required?: boolean;
     /**
      * Aria-label text for the tooltip
+     * @deprecated Use `tooltip` prop instead
      */
     tooltipLabel?: string;
     /**
      * Aria-label text for the tooltip trigger button
+     * @deprecated Use `tooltip` prop instead
      */
     tooltipButtonLabel?: string;
     /**
      * The text content of the tooltip
+     * @deprecated Use `tooltip` prop instead
      */
     tooltipText?: string;
+    /**
+     * Tooltip
+     */
+    tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
     /**
      * Additional class names
      */
@@ -65,16 +72,23 @@ const LegendAndToolTip = ({
   tooltipText,
   tooltipLabel,
   tooltipButtonLabel,
-}: Pick<SelectionGroupProps, 'label' | 'required' | 'tooltipLabel' | 'tooltipButtonLabel' | 'tooltipText'>) => {
-  if (!tooltipText) {
+  tooltip,
+}: Pick<
+  SelectionGroupProps,
+  'label' | 'required' | 'tooltipLabel' | 'tooltipButtonLabel' | 'tooltipText' | 'tooltip'
+>) => {
+  if (!tooltipText && !tooltip) {
     return <Legend label={label} required={required} />;
   }
   return (
     <div className={styles.legendAndToolTipWrapper}>
       <Legend label={label} required={required} />
-      <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
-        {tooltipText}
-      </Tooltip>
+      {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
+      {tooltipText ? (
+        <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
+          {tooltipText}
+        </Tooltip>
+      ) : null}
     </div>
   );
 };
@@ -88,6 +102,7 @@ export const SelectionGroup = ({
   tooltipLabel,
   tooltipButtonLabel,
   tooltipText,
+  tooltip,
   children,
   className,
   ...fieldSetProps
@@ -99,6 +114,7 @@ export const SelectionGroup = ({
     tooltipLabel,
     tooltipButtonLabel,
     tooltipText,
+    tooltip,
   };
 
   return (

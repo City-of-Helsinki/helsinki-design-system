@@ -1,10 +1,10 @@
-import React from 'react';
+import React, { ReactElement } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './ToggleButton.module.scss';
 import classNames from '../../utils/classNames';
 import { IconCrossCircleFill, IconCheckCircleFill } from '../../icons';
-import { Tooltip } from '../tooltip/Tooltip';
+import { Tooltip, TooltipProps } from '../tooltip/Tooltip';
 import { useTheme } from '../../hooks/useTheme';
 import { IconSize } from '../../icons/Icon.interface';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
@@ -39,16 +39,23 @@ export type ToggleButtonProps = AllElementPropsWithoutRef<'button'> & {
   onChange: (boolean) => void;
   /**
    * Aria-label text for the tooltip
+   * @deprecated Use `tooltip` prop with a Tooltip component instead
    */
   tooltipLabel?: string;
   /**
    * Aria-label text for the tooltip trigger button
+   * @deprecated Use `tooltip` prop with a Tooltip component instead
    */
   tooltipButtonLabel?: string;
   /**
    * The text content of the tooltip
+   * @deprecated Use `tooltip` prop with a Tooltip component instead
    */
   tooltipText?: string;
+  /**
+   * Tooltip
+   */
+  tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
   /**
    * Defines the toggle button variant
    */
@@ -70,6 +77,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       tooltipLabel,
       tooltipButtonLabel,
       tooltipText,
+      tooltip,
       variant = 'default',
       theme,
       className,
@@ -92,6 +100,7 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
           <label id={labelId} htmlFor={id} className={styles.label}>
             {label}
           </label>
+          {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
           {tooltipText && (
             <Tooltip
               buttonClassName={styles.tooltipButton}

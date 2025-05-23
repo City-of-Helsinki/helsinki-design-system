@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { NumberInput, NumberInputProps } from './NumberInput';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: NumberInput,
@@ -21,6 +22,12 @@ export default {
 export const Default = (args: NumberInputProps) => <NumberInput {...args} />;
 Default.args = {
   id: 'Default',
+};
+
+export const WithTooltip = (args: NumberInputProps) => <NumberInput {...args} />;
+WithTooltip.args = {
+  id: 'WithTooltip',
+  tooltip: <Tooltip>This is a tooltip</Tooltip>,
 };
 
 export const CustomStep = (args: NumberInputProps) => <NumberInput {...args} />;
