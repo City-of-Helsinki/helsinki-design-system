@@ -14,6 +14,7 @@ import {
   ModularOptionListMetaData,
   TextKey as ModularOptionListTextKey,
   TextsWithNumberedVariations as ModularOptionListTextsWithNumberedVariations,
+  ModularOptionListCustomTheme,
 } from '../modularOptionList/types';
 
 export type AcceptedNativeDivProps = Omit<
@@ -211,22 +212,7 @@ export type ScreenReaderNotification = {
 
 export type ThemeTarget = 'root' | 'checkbox' | 'textInput' | 'tag' | 'showAllButton' | 'clearAllButton';
 
-export type SelectCustomTheme = {
-  '--assistive-color'?: string;
-  '--checkbox-background-default'?: string;
-  '--checkbox-background-selected'?: string;
-  '--checkbox-background-hover'?: string;
-  '--checkbox-background-disabled'?: string;
-  '--checkbox-border-color-selected'?: string;
-  '--checkbox-border-color-selected-hover'?: string;
-  '--checkbox-border-color-selected-focus'?: string;
-  '--checkbox-border-color-unselected'?: string;
-  '--checkbox-border-color-unselected-hover'?: string;
-  '--checkbox-border-color-unselected-focus'?: string;
-  '--checkbox-border-color-disabled'?: string;
-  '--checkbox-icon-color-unselected'?: string;
-  '--checkbox-icon-color-selected'?: string;
-  '--checkbox-icon-color-disabled'?: string;
+export type SelectCustomTheme = ModularOptionListCustomTheme & {
   '--clear-all-background-color'?: string;
   '--clear-all-background-color-focus'?: string;
   '--clear-all-background-color-hover'?: string;
@@ -243,12 +229,6 @@ export type SelectCustomTheme = {
   '--clear-all-color-active'?: string;
   '--clear-all-color-disabled'?: string;
   '--clear-all-outline-color-focus'?: string;
-  '--error-text-color'?: string;
-  '--error-icon-color'?: string;
-  '--error-background-color'?: string;
-  '--error-border-color'?: string;
-  '--focus-outline-color'?: string;
-  '--icon-color'?: string;
   '--dropdown-background-default'?: string;
   '--dropdown-background-disabled'?: string;
   '--dropdown-border-color-default'?: string;
@@ -259,25 +239,6 @@ export type SelectCustomTheme = {
   '--dropdown-color-default'?: string;
   '--dropdown-color-disabled'?: string;
   '--dropdown-icon-color'?: string;
-  '--menu-divider-color'?: string;
-  '--menu-item-background-color-default'?: string;
-  '--menu-item-background-color-hover'?: string;
-  '--menu-item-background-color-selected'?: string;
-  '--menu-item-background-color-selected-hover'?: string;
-  '--menu-item-background-color-disabled'?: string;
-  '--menu-item-background-color-disabled-hover'?: string;
-  '--menu-item-color-default'?: string;
-  '--menu-item-color-hover'?: string;
-  '--menu-item-color-selected'?: string;
-  '--menu-item-color-selected-hover'?: string;
-  '--menu-item-color-disabled'?: string;
-  '--menu-item-icon-color-selected'?: string;
-  '--menu-item-icon-color-disabled'?: string;
-  '--menu-item-border-color-focus'?: string;
-  '--menu-item-group-label-background-default'?: string;
-  '--menu-item-group-label-background-disabled'?: string;
-  '--menu-item-group-label-background-disabled-hover'?: string;
-  '--menu-item-group-label-color-disabled'?: string;
   '--placeholder-color'?: string;
   '--show-all-background-color'?: string;
   '--show-all-background-color-focus'?: string;
