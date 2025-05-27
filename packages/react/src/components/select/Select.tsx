@@ -19,14 +19,8 @@ import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
-import {
-  Option,
-} from '../modularOptionList/types';
-import {
-  getSelectedOptions,
-  convertPropsToGroups,
-  mutateGroupLabelSelections,
-} from '../modularOptionList/utils';
+import { Option } from '../modularOptionList/types';
+import { getSelectedOptions, convertPropsToGroups, mutateGroupLabelSelections } from '../modularOptionList/utils';
 
 export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
   (
@@ -211,6 +205,5 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         </Container>
       </DataProvider>
     );
-
   },
 );

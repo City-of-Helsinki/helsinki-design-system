@@ -36,7 +36,6 @@ const defaultTexts: Partial<Texts> = {
 const defaultTextsForMultiSelect: Partial<Texts> = {
   ...defaultTexts,
   label: 'Select multiple fruits or vegetables',
-  placeholder: 'Choose many',
 };
 
 export const Singleselect = () => {

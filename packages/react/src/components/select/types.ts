@@ -1,3 +1,4 @@
+import { ModularOptionList } from './../modularOptionList/ModularOptionList';
 import { ReactElement, ReactNode, RefObject } from 'react';
 
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
@@ -11,7 +12,9 @@ import {
   OptionInProps,
   GroupInProps,
   ModularOptionListMetaData,
-} from '../modularOptionList/types'
+  TextKey as ModularOptionListTextKey,
+  TextsWithNumberedVariations as ModularOptionListTextsWithNumberedVariations,
+} from '../modularOptionList/types';
 
 export type AcceptedNativeDivProps = Omit<
   AllElementPropsWithoutRef<'div'>,
@@ -122,6 +125,7 @@ export type SelectMetaData =
     getOptionId: (option: Option) => string;
     screenReaderNotifications: ScreenReaderNotification[];
     */
+    textProvider: TextProvider;
     search: string;
     isSearching: boolean;
     hasSearchError: boolean;
@@ -146,13 +150,10 @@ export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
 export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
 
 export type TextKey =
-  | 'assistive'
-  | 'choiceCount_one'
-  | 'choiceCount_multiple'
+  | ModularOptionListTextKey
   | 'clearButtonAriaLabel_multiple'
   | 'clearButtonAriaLabel_one'
   | 'dropdownButtonAriaLabel'
-  | 'error'
   | 'filterClearButtonAriaLabel'
   | 'filteredWithoutResultsInfo'
   | 'filterLabel'
@@ -161,11 +162,7 @@ export type TextKey =
   | 'filterResultsCount_multiple'
   | 'filterResultsCount_one'
   | 'filterWithAnotherTerm'
-  | 'label'
-  | 'multiSelectGroupAriaLabel'
-  | 'noSelectedOptions'
   | 'placeholder'
-  | 'required'
   | 'searchClearButtonAriaLabel'
   | 'searchedWithoutResultsInfo'
   | 'searchErrorText'
@@ -176,9 +173,6 @@ export type TextKey =
   | 'searchWithAnotherTerm'
   | 'searchResults_multiple'
   | 'searchResults_one'
-  | 'selectedOptionsCount_multiple'
-  | 'selectedOptionsCount_one'
-  | 'selectedOptionsCount_zero'
   | 'tagRemoved'
   | 'tagRemoveSelectionAriaLabel'
   | 'tagsClearAllButton'
@@ -193,11 +187,10 @@ export type TextKey =
   | 'tagsShowLessButtonAriaLabel';
 
 export type TextsWithNumberedVariations =
-  | 'choiceCount'
+  | ModularOptionListTextsWithNumberedVariations
   | 'clearButtonAriaLabel'
   | 'filterResultsCount'
   | 'searchResults'
-  | 'selectedOptionsCount'
   | 'tagsClearAllButtonAriaLabel'
   | 'tagsRemaining';
 
