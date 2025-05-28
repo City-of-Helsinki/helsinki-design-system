@@ -2,19 +2,15 @@ import React, { SyntheticEvent } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './TextInput.module.css';
-import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
+import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/InputWrapper';
 import classNames from '../../utils/classNames';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import { IconCrossCircle } from '../../icons';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
 export type TextInputProps = MergeAndOverrideProps<
-  AllElementPropsWithoutRef<'input'>,
+  AllElementPropsWithoutRef<'input'> & InputWrapperProps,
   {
-    /**
-     * Additional class names to apply to the text input
-     */
-    className?: string;
     /**
      * The aria-label for the clear button.
      * @default 'Clear'
@@ -25,37 +21,9 @@ export type TextInputProps = MergeAndOverrideProps<
      */
     clearButton?: boolean;
     /**
-     * Additional children to render after the input.
-     */
-    children?: React.ReactNode;
-    /**
      * The default input element value. Use when the component is not controlled
      */
     defaultValue?: string;
-    /**
-     * The error text content that will be shown below the input
-     */
-    errorText?: string;
-    /**
-     * The helper text content that will be shown below the input
-     */
-    helperText?: string;
-    /**
-     * Hides the label above the input
-     */
-    hideLabel?: boolean;
-    /**
-     * The id of the input element
-     */
-    id: string;
-    /**
-     * If `true`, the input will be displayed in an invalid state.
-     */
-    invalid?: boolean;
-    /**
-     * The label for the input
-     */
-    label?: string | React.ReactNode;
     /**
      * The label for the input
      */
@@ -72,30 +40,6 @@ export type TextInputProps = MergeAndOverrideProps<
      * Short hint displayed in the input before the user enters a value
      */
     placeholder?: string;
-    /**
-     * Override or extend the styles applied to the component
-     */
-    style?: React.CSSProperties;
-    /**
-     * The success text content that will be shown below the input
-     */
-    successText?: string;
-    /**
-     * The info text content that will be shown below the input
-     */
-    infoText?: string;
-    /**
-     * Aria-label text for the tooltip
-     */
-    tooltipLabel?: string;
-    /**
-     * Aria-label text for the tooltip trigger button
-     */
-    tooltipButtonLabel?: string;
-    /**
-     * The text content of the tooltip
-     */
-    tooltipText?: string;
     /**
      * Type of the input element
      */
@@ -146,6 +90,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       tooltipButtonLabel,
       tooltipLabel,
       tooltipText,
+      tooltip,
       type = 'text',
       ...rest
     }: TextInputProps,
@@ -167,6 +112,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       tooltipButtonLabel,
       tooltipLabel,
       tooltipText,
+      tooltip,
     };
 
     const innerWrapperRef = React.useRef<HTMLDivElement>(null);

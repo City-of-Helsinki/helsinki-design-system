@@ -1,10 +1,10 @@
-import React, { useEffect, useRef } from 'react';
+import React, { ReactElement, useEffect, useRef } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './Checkbox.module.scss';
 import classNames from '../../utils/classNames';
 import mergeRefWithInternalRef from '../../utils/mergeRefWithInternalRef';
-import { Tooltip } from '../tooltip';
+import { Tooltip, TooltipProps } from '../tooltip';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
@@ -40,17 +40,24 @@ export type CheckboxProps = MergeAndOverrideProps<
      */
     style?: React.CSSProperties;
     /**
+     * @deprecated This prop is deprecated and will be removed in a future version.
      * Tooltip text for the checkbox
      */
     tooltipText?: string;
     /**
+     * @deprecated This prop is deprecated and will be removed in a future version.
      * Aria-label text for the tooltip
      */
     tooltipLabel?: string;
     /**
+     * @deprecated This prop is deprecated and will be removed in a future version.
      * Aria-label text for the tooltip trigger button
      */
     tooltipButtonLabel?: string;
+    /**
+     * Tooltip component
+     */
+    tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
   }
 >;
 
@@ -71,6 +78,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       tooltipText,
       tooltipLabel,
       tooltipButtonLabel,
+      tooltip,
       ...rest
     }: CheckboxProps,
     ref: React.Ref<HTMLInputElement>,
@@ -112,6 +120,7 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
         <label htmlFor={id} className={classNames(styles.label, !label ? styles.noLabel : '')}>
           {label}
         </label>
+        {tooltip ? <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} /> : null}
         {tooltipText && (
           <Tooltip className={styles.tooltipButton} buttonLabel={tooltipButtonLabel} tooltipLabel={tooltipLabel}>
             {tooltipText}

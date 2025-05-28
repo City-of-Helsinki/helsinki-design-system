@@ -2,45 +2,15 @@ import React from 'react';
 
 import '../../styles/base.module.css';
 import styles from '../textInput/TextInput.module.css';
-import { InputWrapper } from '../../internal/input-wrapper/InputWrapper';
+import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/InputWrapper';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
-import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
-export type TextAreaProps = MergeAndOverrideProps<
-  AllElementPropsWithoutRef<'textarea'>,
-  {
-    /**
-     * Additional class names to apply to the textarea
-     */
-    className?: string;
+export type TextAreaProps = Omit<InputWrapperProps, keyof React.TextareaHTMLAttributes<HTMLTextAreaElement>> &
+  React.TextareaHTMLAttributes<HTMLTextAreaElement> & {
     /**
      * The default textarea element value. Use when the component is not controlled
      */
     defaultValue?: string;
-    /**
-     * The error text content that will be shown below the textarea
-     */
-    errorText?: string;
-    /**
-     * The helper text content that will be shown below the textarea
-     */
-    helperText?: string;
-    /**
-     * Hides the label above the textarea
-     */
-    hideLabel?: boolean;
-    /**
-     * The id of the textarea element
-     */
-    id: string;
-    /**
-     * If `true`, the textarea and `helperText` will be displayed in an invalid state.
-     */
-    invalid?: boolean;
-    /**
-     * The label for the textarea
-     */
-    label?: string | React.ReactNode;
     /**
      * Short hint displayed in the textarea before the user enters a value
      */
@@ -50,26 +20,6 @@ export type TextAreaProps = MergeAndOverrideProps<
      */
     style?: React.CSSProperties;
     /**
-     * The success text content that will be shown below the text area
-     */
-    successText?: string;
-    /**
-     * The info text content that will be shown below the text area
-     */
-    infoText?: string;
-    /**
-     * Aria-label text for the tooltip
-     */
-    tooltipLabel?: string;
-    /**
-     * Aria-label text for the tooltip trigger button
-     */
-    tooltipButtonLabel?: string;
-    /**
-     * The text content of the tooltip
-     */
-    tooltipText?: string;
-    /**
      * The value of the textarea element, required for a controlled component
      */
     value?: string;
@@ -77,8 +27,7 @@ export type TextAreaProps = MergeAndOverrideProps<
      * The `ref` is forwarded to the native textarea element.
      */
     ref?: React.Ref<HTMLTextAreaElement>;
-  }
->;
+  };
 
 export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   (
@@ -100,6 +49,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      tooltip,
       ...rest
     }: TextAreaProps,
     ref: React.Ref<HTMLTextAreaElement>,
@@ -119,6 +69,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      tooltip,
     };
 
     // Compose aria-describedby attribute

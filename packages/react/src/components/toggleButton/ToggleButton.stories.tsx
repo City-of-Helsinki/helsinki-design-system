@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 
 import { ToggleButton, ToggleButtonProps } from './ToggleButton';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: ToggleButton,
@@ -63,10 +64,12 @@ export const WithTooltip = (args: ToggleButtonProps) => {
 };
 
 WithTooltip.args = {
-  tooltipLabel: 'What are the notifications?',
-  tooltipButtonLabel: 'Open info tooltip',
-  tooltipText:
-    'When notifications are allowed, the application can use desktop notifications. But this is not mandatory for application to function.',
+  tooltip: (
+    <Tooltip tooltipLabel="What are the notifications?" buttonLabel="Open info tooltip">
+      When notifications are allowed, the application can use desktop notifications. But this is not mandatory for
+      application to function.
+    </Tooltip>
+  ),
 };
 
 WithTooltip.storyName = 'With tooltip';

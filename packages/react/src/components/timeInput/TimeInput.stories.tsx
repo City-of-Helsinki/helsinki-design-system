@@ -1,6 +1,7 @@
 import React from 'react';
 
 import { TimeInput, TimeInputProps } from './TimeInput';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: TimeInput,
@@ -35,4 +36,15 @@ export const Success = (args: TimeInputProps) => <TimeInput {...args} />;
 Success.args = {
   id: 'Default',
   successText: 'Valid value',
+};
+
+export const WithTooltip = (args: TimeInputProps) => <TimeInput {...args} />;
+WithTooltip.args = {
+  id: 'WithTooltip',
+  tooltip: (
+    <Tooltip tooltipLabel="Tooltip" buttonLabel="Tooltip">
+      Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to
+      three three sentences. For longer descriptions, provide a link to a separate page.
+    </Tooltip>
+  ),
 };

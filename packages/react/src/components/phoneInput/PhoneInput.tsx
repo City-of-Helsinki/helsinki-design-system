@@ -6,15 +6,7 @@ import { TextInputProps } from '../textInput';
 import textInputStyles from '../textInput/TextInput.module.css';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 
-export type PhoneInputProps = Omit<
-  TextInputProps,
-  'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children' | 'label'
-> & {
-  /**
-   * The label for the input
-   */
-  label?: string;
-};
+export type PhoneInputProps = Omit<TextInputProps, 'buttonIcon' | 'buttonAriaLabel' | 'onButtonClick' | 'children'>;
 
 export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
   (
@@ -37,6 +29,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      tooltip,
       type = 'tel',
       ...rest
     }: PhoneInputProps,
@@ -56,6 +49,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      tooltip,
     };
 
     // Compose aria-describedby attribute
