@@ -89,6 +89,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      tooltip,
       type = 'number',
       unit,
       ...rest
@@ -110,6 +111,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       tooltipLabel,
       tooltipText,
       tooltipButtonLabel,
+      tooltip,
       labelId: step ? `${id}-label` : undefined,
     };
 

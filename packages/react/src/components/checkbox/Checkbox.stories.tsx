@@ -3,6 +3,7 @@ import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { Checkbox, CheckboxProps } from './Checkbox';
 import { Fieldset } from '../fieldset';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: Checkbox,
@@ -43,9 +44,11 @@ export const WithHelperText = () => <Checkbox id="helper-text" label="Label" hel
 export const WithTooltip = (args: CheckboxProps) => <Checkbox {...args} id="with-tooltip" />;
 WithTooltip.args = {
   label: 'Label',
-  tooltipText: 'Tooltip text',
-  tooltipLabel: 'Tooltip text aria label',
-  tooltipButtonLabel: 'Tooltip button aria label',
+  tooltip: (
+    <Tooltip tooltipLabel="Tooltip text aria label" buttonLabel="Tooltip button aria label">
+      Tooltip text
+    </Tooltip>
+  ),
 };
 
 export const SelectedDisabled = () => <Checkbox id="selected-disabled" label="Label" checked disabled />;

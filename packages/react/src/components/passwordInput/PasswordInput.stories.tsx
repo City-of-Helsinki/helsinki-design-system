@@ -3,6 +3,7 @@ import React, { useState } from 'react';
 import { PasswordInput, PasswordInputProps } from './PasswordInput';
 import { Button, ButtonVariant } from '../button';
 import { IconEye, IconEyeCrossed } from '../../icons';
+import { Tooltip } from '../tooltip';
 
 export default {
   component: PasswordInput,
@@ -21,6 +22,16 @@ Default.args = {
   label: 'Label',
   revealPasswordButtonAriaLabel: 'Show password',
   concealPasswordButtonAriaLabel: 'Hide password',
+};
+
+export const WithTooltip = (args: PasswordInputProps) => <PasswordInput {...args} />;
+WithTooltip.args = {
+  id: 'Default',
+  helperText: 'Assistive text',
+  label: 'Label',
+  revealPasswordButtonAriaLabel: 'Show password',
+  concealPasswordButtonAriaLabel: 'Hide password',
+  tooltip: <Tooltip>This is a tooltip</Tooltip>,
 };
 
 export const Disabled = (args: PasswordInputProps) => <PasswordInput {...args} />;

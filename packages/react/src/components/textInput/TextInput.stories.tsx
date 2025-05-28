@@ -5,6 +5,7 @@ import { action } from '@storybook/addon-actions';
 import { TextInput, TextInputProps } from './TextInput';
 import { Button, ButtonPresetTheme, ButtonSize } from '../button';
 import { IconSearch } from '../../icons';
+import { Tooltip } from '../tooltip';
 
 const textInputProps = {
   helperText: 'Assistive text',
@@ -54,9 +55,12 @@ WithLabelHidden.storyName = 'With label hidden';
 export const WithTooltip = () => (
   <TextInput
     {...textInputProps}
-    tooltipLabel="Tooltip"
-    tooltipButtonLabel="Tooltip"
-    tooltipText='Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.'
+    tooltip={
+      <Tooltip tooltipLabel="Tooltip" buttonLabel="Tooltip">
+        Tooltips contain &quot;nice to have&quot; information. Default Tooltip contents should not be longer than two to
+        three three sentences. For longer descriptions, provide a link to a separate page.
+      </Tooltip>
+    }
   />
 );
 WithTooltip.storyName = 'With tooltip';

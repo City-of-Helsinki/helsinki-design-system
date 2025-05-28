@@ -2,6 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { FileInput, FileInputProps } from './FileInput';
+import { Tooltip } from '../tooltip';
 
 const onFilesChanged = (files: File[] | undefined) => action('filesChanged')(files);
 
@@ -80,9 +81,11 @@ export const WithTooltip = (args: FileInputProps) => {
 };
 WithTooltip.args = {
   accept: 'image/*',
-  tooltipLabel: 'More info',
-  tooltipButtonLabel: 'Click to view more info',
-  tooltipText: 'The file input will accept most of the known image formats. Please notice the size limit.',
+  tooltip: (
+    <Tooltip tooltipLabel="More info" buttonLabel="Click to view more info">
+      The file input will accept most of the known image formats. Please notice the size limit.
+    </Tooltip>
+  ),
 };
 
 export const Disabled = (args: FileInputProps) => {
