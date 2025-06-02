@@ -319,17 +319,7 @@ export function createSelectedOptionsList(currentSelections: Option[], groups: M
 
 export function getElementIds(containerId: string): ModularOptionListMetaData['elementIds'] {
   return {
-    container: containerId,
-    button: `${containerId}-main-button`,
     list: `${containerId}-list`,
-    clearButton: `${containerId}-clear-button`,
-    label: `${containerId}-label`,
-    selectionsAndListsContainer: `${containerId}-sl-container`,
-    tagList: `${containerId}-tag-list`,
-    searchOrFilterInput: `${containerId}-input-element`,
-    searchOrFilterInputLabel: `${containerId}-input-element-label`,
-    clearAllButton: `${containerId}-clear-all-button`,
-    showAllButton: `${containerId}-show-all-button`,
   };
 }
 

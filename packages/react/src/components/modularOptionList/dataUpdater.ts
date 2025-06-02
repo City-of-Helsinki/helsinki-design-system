@@ -1,9 +1,4 @@
-import {
-  Option,
-  ModularOptionListData,
-  ModularOptionListDataHandlers,
-  ModularOptionListMetaData,
-} from './types';
+import { Option, ModularOptionListData, ModularOptionListDataHandlers, ModularOptionListMetaData } from './types';
 import { ChangeEvent, ChangeHandler } from '../dataProvider/DataContext';
 import {
   updateOptionInGroup,
@@ -12,12 +7,7 @@ import {
   updateGroupLabelAndOptions,
   createMetaDataAfterSelectionChange,
 } from './utils';
-import {
-  EventId,
-  EventType,
-  isGroupClickEvent,
-  isOptionClickEvent,
-} from './events';
+import { EventId, EventType, isGroupClickEvent, isOptionClickEvent } from './events';
 import { appendTexts } from './texts';
 
 const dataUpdater = (
@@ -102,7 +92,6 @@ const dataUpdater = (
 
   return returnValue;
 };
-
 
 export const changeHandler: ChangeHandler<ModularOptionListData, ModularOptionListMetaData> = (
   event,

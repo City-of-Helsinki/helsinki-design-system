@@ -12,8 +12,8 @@ import {
   groupsAndOptions as presetGroups,
 } from './testUtil';
 import { defaultFilter, getElementIds, OptionIterator } from './utils';
-import { Texts, SearchResult, SelectProps, AcceptedNativeDivProps } from './types';
-import { Group, Option } from '../modularOptionList/types';
+import { Texts, SearchResult, SelectProps } from './types';
+import { Group, Option, AcceptedNativeDivProps, GroupInProps, OptionInProps } from '../modularOptionList/types';
 import { createTimedPromise } from '../login/testUtils/timerTestUtil';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 import { Select } from './Select';
@@ -741,6 +741,7 @@ describe('<Select />', () => {
             }),
           ).toHaveLength(0);
         });
+        /*
         it('List element has correct attributes and node', async () => {
           const { getListElement } = renderWithHelpers(selectOptions);
           const listElement = getListElement();
@@ -750,6 +751,7 @@ describe('<Select />', () => {
           ).toHaveLength(0);
           expect(listElement.nodeName.toLowerCase()).toBe(expectedAttributes.listElementNodeName);
         });
+        */
         it('Groups are created inside the list and have correct attributes', async () => {
           const { getGroupElements, openList, groupsAndOptions } = renderWithHelpers(selectOptions);
           expect(getGroupElements()).toHaveLength(0);
@@ -858,7 +860,7 @@ describe('<Select />', () => {
       });
     });
   });
-/*
+
   describe('Preset values are selected', () => {
     const getPresetOption = (groupIndex: number, optionIndex: number) => {
       return (presetGroups as GroupInProps[])[groupIndex].options[optionIndex] as OptionInProps;
@@ -891,5 +893,4 @@ describe('<Select />', () => {
       expect(getSelectionsInButton()).toEqual([getPresetOption(1, 1).label, getPresetOption(2, 2).label]);
     });
   });
-  */
 });

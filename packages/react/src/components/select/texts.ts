@@ -5,10 +5,9 @@ import {
   Texts,
   SelectMetaData,
   SelectDataHandlers,
-  TextInterpolationContent,
-  SupportedLanguage,
   TextsWithNumberedVariations,
 } from './types';
+import { TextInterpolationContent, SupportedLanguage } from '../modularOptionList/types';
 
 export const defaultTexts: Record<SupportedLanguage, Texts> = {
   en: {

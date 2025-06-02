@@ -1,4 +1,3 @@
-import { ModularOptionList } from './../modularOptionList/ModularOptionList';
 import { ReactElement, ReactNode, RefObject } from 'react';
 
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
@@ -15,12 +14,11 @@ import {
   TextKey as ModularOptionListTextKey,
   TextsWithNumberedVariations as ModularOptionListTextsWithNumberedVariations,
   ModularOptionListCustomTheme,
+  KnownElementType as ModularOptionListKnownElementType,
+  TextInterpolationContent,
+  SupportedLanguage,
+  ThemeTarget as ModularOptionListThemeTarget,
 } from '../modularOptionList/types';
-
-export type AcceptedNativeDivProps = Omit<
-  AllElementPropsWithoutRef<'div'>,
-  'onChange' | 'onFocus' | 'onBlur' | 'id' | 'tabIndex' | 'children'
->;
 
 export type FilterFunction = (option: Option, filterStr: string) => boolean;
 export type SearchResult = Pick<ModularOptionListProps, 'groups' | 'options'>;
@@ -65,8 +63,7 @@ export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   visibleOptions?: number;
 };
 
-export type SelectData =
-  ModularOptionListData &
+export type SelectData = ModularOptionListData &
   Required<
     Pick<
       SelectProps,
@@ -86,34 +83,23 @@ export type SelectData =
     filterFunction?: FilterFunction;
     onSearch?: SearchFunction;
     onClose?: SelectProps['onClose'];
-  }
-;
+  };
 
-
-export type SelectMetaData =
-  Pick<SelectProps, 'icon'> &
+export type SelectMetaData = Pick<SelectProps, 'icon'> &
   ModularOptionListMetaData & {
-    /*
-    refs: {
+    refs: ModularOptionListMetaData['refs'] & {
       button: RefObject<HTMLButtonElement>;
       listContainer: RefObject<HTMLDivElement>;
-      list: RefObject<HTMLUListElement>;
       tagList: RefObject<HTMLDivElement>;
       showAllButton: RefObject<HTMLButtonElement>;
       searchOrFilterInput: RefObject<HTMLInputElement>;
       selectionsAndListsContainer: RefObject<HTMLDivElement>;
       container: RefObject<HTMLDivElement>;
     };
-    lastClickedOption: Option | undefined;
-    lastToggleCommand: number;
-    selectedOptions: Option[];
-    activeDescendant: string | undefined;
-    textContent?: TextInterpolationContent;
-    elementIds: {
+    elementIds: ModularOptionListMetaData['elementIds'] & {
       button: string;
       label: string;
       searchOrFilterInputLabel: string;
-      list: string;
       container: string;
       tagList: string;
       searchOrFilterInput: string;
@@ -122,10 +108,6 @@ export type SelectMetaData =
       clearButton: string;
       selectionsAndListsContainer: string;
     };
-    textProvider: TextProvider;
-    getOptionId: (option: Option) => string;
-    screenReaderNotifications: ScreenReaderNotification[];
-    */
     textProvider: TextProvider;
     search: string;
     isSearching: boolean;
@@ -139,16 +121,15 @@ export type SelectMetaData =
     showAllTags: boolean;
     themes?: Record<ThemeTarget, undefined | string>;
     tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
-  }
-;
+  };
 
-export type DivElementProps = AllElementPropsWithoutRef<'div'>;
 export type ButtonElementProps = AllElementPropsWithoutRef<'button'>;
-export type UlElementProps = AllElementPropsWithoutRef<'ul'>;
-export type LiElementProps = AllElementPropsWithoutRef<'li'>;
 
 export type SelectDataHandlers = DataHandlers<SelectData, SelectMetaData>;
-export type KnownElementType = keyof SelectMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
+
+export type KnownElementType = | ModularOptionListKnownElementType
+  | keyof SelectMetaData['elementIds']
+  | 'tag';
 
 export type TextKey =
   | ModularOptionListTextKey
@@ -195,22 +176,10 @@ export type TextsWithNumberedVariations =
   | 'tagsClearAllButtonAriaLabel'
   | 'tagsRemaining';
 
-export type TextInterpolationKeys = 'selectionCount' | 'value' | 'numberIndicator' | 'label';
-
-export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;
-export type SupportedLanguage = 'fi' | 'sv' | 'en';
 export type Texts = Record<TextKey, string> & { language?: SupportedLanguage };
 
-export type ScreenReaderNotification = {
-  type: string;
-  content: string;
-  showTime: number;
-  delay: number;
-  addTime: number;
-};
-
-export type ThemeTarget = 'root' | 'checkbox' | 'textInput' | 'tag' | 'showAllButton' | 'clearAllButton';
+export type ThemeTarget = ModularOptionListThemeTarget | 'textInput' | 'tag' | 'showAllButton' | 'clearAllButton';
 
 export type SelectCustomTheme = ModularOptionListCustomTheme & {
   '--clear-all-background-color'?: string;

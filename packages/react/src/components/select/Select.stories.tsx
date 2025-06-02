@@ -2,31 +2,16 @@ import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react'
 import { action } from '@storybook/addon-actions';
 import { capitalize } from 'lodash';
 
-import {
-  SelectProps,
-  Texts,
-  TextProvider,
-  Select,
-  useSelectStorage,
-  SupportedLanguage,
-  defaultTexts as defaultUITexts,
-  getElementIds,
-} from './index';
-
-import {
-  defaultFilter,
-} from './utils';
+import { SelectProps, Texts, TextProvider } from './types';
+import { Select, useSelectStorage, defaultTexts as defaultUITexts, getElementIds } from './index';
+import { defaultFilter } from './utils';
 import {
   getNewSelections,
   iterateAndCopyGroup,
   updateSelectedOptionsInGroups,
   getSelectedOptions,
 } from '../modularOptionList/utils';
-import {
-  Option,
-  OptionInProps,
-  Group,
-} from '../modularOptionList/types';
+import { Option, OptionInProps, Group, SupportedLanguage } from '../modularOptionList/types';
 import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
 import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from '../modularOptionList/batch.options';
@@ -109,7 +94,6 @@ const requireOneSelection: SelectProps['onChange'] = (selectedOptions, clickedOp
   };
 };
 
-
 const defaultTexts: Partial<Texts> = {
   label: 'Label',
   placeholder: 'Choose one',
@@ -125,13 +109,11 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
   placeholder: 'Choose many',
 };
 
-
 /**
  *
  * Visual Playwright tests depend on these stories. Changing option labels or other props may brake the tests.
  *
  */
-
 
 export const Singleselect = () => {
   const options = getOptionLabels(20);
@@ -143,7 +125,7 @@ export const Singleselect = () => {
   return (
     <Select
       options={options}
-//      onChange={onChange}
+      //      onChange={onChange}
       icon={<IconLocation />}
       required
       texts={defaultTexts}
@@ -432,7 +414,6 @@ export const WithSearch = () => {
     </>
   );
 };
-
 
 export const Multiselect = () => {
   const [onChangeSelections, setOnChangeSelections] = useState<Option[]>([]);

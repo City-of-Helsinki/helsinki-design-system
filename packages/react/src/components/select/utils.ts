@@ -1,18 +1,8 @@
-import React, { ReactElement, ReactNode } from 'react';
+import React from 'react';
 
-import {
-  SelectData,
-  SelectMetaData,
-  ScreenReaderNotification,
-  SelectDataHandlers,
-  FilterFunction,
-} from './types';
-import {
-  Group,
-  Option,
-  ModularOptionListData,
-  ModularOptionListProps,
-} from '../modularOptionList/types';
+import { SelectData, SelectMetaData, SelectDataHandlers, FilterFunction } from './types';
+import { ScreenReaderNotification } from '../modularOptionList/types';
+import { Group, Option, ModularOptionListData, ModularOptionListProps } from '../modularOptionList/types';
 import { ChangeEvent } from '../dataProvider/DataContext';
 import { eventTypes } from './events';
 import {

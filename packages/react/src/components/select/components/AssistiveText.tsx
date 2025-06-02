@@ -1,7 +1,7 @@
 import React, { useRef } from 'react';
 
 import styles from '../Select.module.scss';
-import { DivElementProps } from '../types';
+import { DivElementProps } from '../../modularOptionList/types';
 import { useTextProvider } from '../hooks/useTextProvider';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 import { addOrUpdateScreenReaderNotificationByType, createScreenReaderNotification } from '../utils';

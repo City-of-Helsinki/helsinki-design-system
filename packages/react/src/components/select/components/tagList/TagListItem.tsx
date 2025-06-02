@@ -1,7 +1,8 @@
 import React from 'react';
 
 import styles from '../../Select.module.scss';
-import { DivElementProps, SelectDataHandlers } from '../../types';
+import { SelectDataHandlers } from '../../types';
+import { DivElementProps } from '../../../modularOptionList/types';
 import { Option } from '../../../modularOptionList/types';
 import classNames from '../../../../utils/classNames';
 import { Tag, TagProps } from '../../../tag/Tag';

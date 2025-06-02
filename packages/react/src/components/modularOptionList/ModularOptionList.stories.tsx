@@ -65,26 +65,17 @@ export const SingleselectWithGroups = () => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
-  return (
-    <ModularOptionList
-      groups={groups}
-      onChange={onChange}
-      texts={defaultTexts}
-      id="hds-select-component"
-    />
-  );
+  return <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />;
 };
 
 export const Multiselect = () => {
   const [onChangeSelections, setOnChangeSelections] = useState<Option[]>([]);
-  const [onCloseSelections, setOnCloseSelections] = useState<Option[]>([]);
 
   const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, data) => {
     console.log('onChange', selectedOptions);
     setOnChangeSelections(selectedOptions);
     return requireOneSelection(selectedOptions, lastClickedOption, data);
   }, []);
-
 
   const [props] = useState<Partial<ModularOptionListProps>>({
     multiSelect: true,

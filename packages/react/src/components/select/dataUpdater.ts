@@ -1,16 +1,7 @@
 import { debounce } from 'lodash';
 
-import {
-  SelectData,
-  SelectDataHandlers,
-  SelectMetaData,
-  FilterFunction,
-  SearchFunction,
-  SearchResult,
-} from './types';
-import {
-  Option,
-} from '../modularOptionList/types';
+import { SelectData, SelectDataHandlers, SelectMetaData, FilterFunction, SearchFunction, SearchResult } from './types';
+import { Option } from '../modularOptionList/types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../dataProvider/DataContext';
 import {
   addOrUpdateScreenReaderNotificationByType,
@@ -18,13 +9,12 @@ import {
   filterOptions,
   mergeSearchResultsToCurrent,
 } from './utils';
-  import {
+import {
   getSelectedOptions,
   propsToGroups,
   createMetaDataAfterSelectionChange,
   clearAllSelectedOptions,
 } from '../modularOptionList/utils';
-
 import {
   EventId,
   eventIds,
@@ -51,7 +41,6 @@ const dataUpdater = (
   event: ChangeEvent,
   dataHandlers: SelectDataHandlers,
 ): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
-
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
   const returnValue = {
@@ -141,17 +130,16 @@ const dataUpdater = (
     );
   };
 
-
   if (didModularOptionListChange) {
     if (id === eventIds.listItem && !current.multiSelect) {
       openOrClose(false);
       setFocusTarget('button');
     }
-    return  {
+    return {
       ...returnValue,
       didSelectionsChange: true,
       didDataChange: true,
-    }
+    };
   }
 
   if (isOpenOrCloseEvent(id, type)) {
@@ -316,7 +304,6 @@ const debouncedSearch = debounce(
   },
   300,
 );
-
 
 const isCloseTriggerEvent = (event: ChangeEvent) => {
   // check if the event is something that should trigger onClose

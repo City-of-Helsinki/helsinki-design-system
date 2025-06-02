@@ -30,7 +30,7 @@ export function SingleSelectListWithGroups() {
   const { groups, multiSelect } = getData();
   const { getOptionId, refs, elementIds } = getMetaData();
   const attr = createListElementProps<HTMLDivElement>({ refs, elementIds, multiSelect });
-  const shouldRenderOptions = true; //TODO !isSearching;
+  const shouldRenderOptions = true; // TODO !isSearching;
   const children = shouldRenderOptions ? createGroups({ groups, trigger, getOptionId }) : null;
   return <div {...attr}>{children}</div>;
 }

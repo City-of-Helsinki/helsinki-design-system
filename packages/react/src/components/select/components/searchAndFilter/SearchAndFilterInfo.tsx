@@ -2,13 +2,10 @@ import React, { useRef } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../utils/classNames';
-import {
-  addOrUpdateScreenReaderNotificationByType,
-  removeScreenReaderNotification,
-} from '../../utils';
+import { addOrUpdateScreenReaderNotificationByType, removeScreenReaderNotification } from '../../utils';
 import { countVisibleOptions } from '../../../modularOptionList/utils';
 import { LoadingSpinner } from '../../../loadingSpinner';
-import { DivElementProps } from '../../types';
+import { DivElementProps } from '../../../modularOptionList/types';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import { getTextKey } from '../../texts';
 import { IconError } from '../../../../icons';

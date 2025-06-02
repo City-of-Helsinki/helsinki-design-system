@@ -2,7 +2,8 @@ import React, { RefObject } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { DivElementProps, SelectDataHandlers } from '../types';
+import { SelectDataHandlers } from '../types';
+import { DivElementProps } from '../../modularOptionList/types';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 
 function createComponentProps(

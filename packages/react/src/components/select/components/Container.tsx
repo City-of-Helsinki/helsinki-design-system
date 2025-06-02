@@ -1,7 +1,8 @@
 import React from 'react';
 
 import styles from '../Select.module.scss';
-import { DivElementProps, SelectCustomTheme, SelectDataHandlers } from '../types';
+import { SelectCustomTheme, SelectDataHandlers } from '../types';
+import { DivElementProps } from '../../modularOptionList/types';
 import { useFocusHandling } from '../hooks/useFocusHandling';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 import classNames from '../../../utils/classNames';

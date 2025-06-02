@@ -12,9 +12,7 @@ import {
   TextKey,
   TextsWithNumberedVariations,
 } from '../../types';
-import {
-  Option,
-} from '../../../modularOptionList/types';
+import { Option } from '../../../modularOptionList/types';
 import { createOnClickListener } from '../../utils';
 import { getVisibleGroupLabels } from '../../../modularOptionList/utils';
 import { getIndexOfFirstVisibleChild } from '../../../../utils/getIndexOfFirstVisibleChild';

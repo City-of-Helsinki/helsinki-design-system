@@ -14,7 +14,7 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
   const { getOptionId, refs, elementIds } = getMetaData();
 
   const allOptions = getAllOptions(groups);
-  const shouldRenderOptions = true; //TODO !isSearching;
+  const shouldRenderOptions = true; // TODO !isSearching;
   const currentChildren = useRenderChildrenInChunks(shouldRenderOptions ? allOptions : []);
 
   const createVirtualGroups = (): Group[] => {

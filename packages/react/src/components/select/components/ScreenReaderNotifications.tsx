@@ -3,7 +3,7 @@ import React, { useCallback, useEffect, useRef } from 'react';
 import styles from '../Select.module.scss';
 import useForceRender from '../../../hooks/useForceRender';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
-import { ScreenReaderNotification } from '../types';
+import { ScreenReaderNotification } from '../../modularOptionList/types';
 
 export function ScreenReaderNotifications() {
   const { getMetaData, updateMetaData } = useSelectDataHandlers();

@@ -1,7 +1,8 @@
 import { useCallback, useMemo, useRef } from 'react';
 
 import useForceRender from '../../../hooks/useForceRender';
-import { Texts, SupportedLanguage, SelectProps } from '../types';
+import { Texts, SelectProps } from '../types';
+import { SupportedLanguage } from '../../modularOptionList/types';
 import { Group } from '../../modularOptionList/types';
 import { iterateAndCopyGroup, OptionIterator, propsToGroups } from '../../modularOptionList/utils';
 

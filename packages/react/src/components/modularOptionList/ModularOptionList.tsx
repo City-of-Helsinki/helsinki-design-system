@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
+import React, { useMemo, createRef, forwardRef } from 'react';
 
 import {
   ModularOptionListProps,
@@ -10,12 +10,9 @@ import {
 } from './types';
 import { changeHandler } from './dataUpdater';
 import { getSelectedOptions, getElementIds, convertPropsToGroups, mutateGroupLabelSelections } from './utils';
-import { DataProvider, DataProviderProps } from '../dataProvider/DataProvider';
+import { DataProvider } from '../dataProvider/DataProvider';
 import { List } from './components/List';
 import { createTextProvider } from './texts';
-import { eventIds } from './events';
-// import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
-
 import { useModularOptionListDataHandlers } from './hooks/useModularOptionListDataHandlers';
 
 export const checkDataProviderPresence = () => {
@@ -59,8 +56,6 @@ export const ModularOptionList = forwardRef<
       visibleOptions,
       virtualize,
       value,
-      theme,
-      ...divElementProps
     },
     ref,
   ) => {
@@ -80,19 +75,7 @@ export const ModularOptionList = forwardRef<
         mutateGroupLabelSelections(data.groups);
       }
       return data;
-    }, [
-      options,
-      groups,
-      onChange,
-      disabled,
-      invalid,
-      virtualize,
-      visibleOptions,
-      onFocus,
-      onBlur,
-      value,
-      children,
-    ]);
+    }, [options, groups, onChange, disabled, invalid, virtualize, visibleOptions, onFocus, onBlur, value, children]);
 
     const metaData = useMemo((): ModularOptionListMetaData => {
       const containerId = `${id || uniqueId('hds-select-')}`;
@@ -103,14 +86,7 @@ export const ModularOptionList = forwardRef<
         lastClickedOption: undefined,
         activeDescendant: undefined,
         refs: {
-          button: typeof ref === 'function' ? createRef<HTMLButtonElement>() : ref || createRef<HTMLButtonElement>(),
-          listContainer: createRef<HTMLDivElement>(),
           list: createRef<HTMLUListElement>(),
-          selectionsAndListsContainer: createRef<HTMLDivElement>(),
-          tagList: createRef<HTMLDivElement>(),
-          showAllButton: createRef<HTMLButtonElement>(),
-          searchOrFilterInput: createRef<HTMLInputElement>(),
-          container: createRef<HTMLDivElement>(),
         },
         selectedOptions: getSelectedOptions(initialData.groups),
         elementIds: getElementIds(containerId),
@@ -130,38 +106,18 @@ export const ModularOptionList = forwardRef<
       };
     }, [id, initialData.groups, texts, ref]);
 
-
-    // TODO: not sure what this should do
-    const onReset: DataProviderProps<ModularOptionListData, ModularOptionListMetaData>['onReset'] = useCallback(
-      ({ previousData, currentData, currentMetaData }) => {
-        if (currentData) {
-          if (previousData) {
-            return { ...currentData };
-          }
-          return currentData;
-        }
-        return currentMetaData;
-      },
-      [],
-    );
     const isDataProvider = checkDataProviderPresence();
-    console.log('isDataProvider', isDataProvider);
-    console.log('initialData', initialData);
 
-
-    return (
-       isDataProvider ? (
+    return isDataProvider ? (
+      <List />
+    ) : (
+      <DataProvider<ModularOptionListData, ModularOptionListMetaData>
+        initialData={initialData}
+        metaData={metaData}
+        onChange={changeHandler}
+      >
         <List />
-      ) : (
-        <DataProvider<ModularOptionListData, ModularOptionListMetaData>
-          initialData={initialData}
-          metaData={metaData}
-          onChange={changeHandler}
-          onReset={onReset}
-        >
-          <List/>
-        </DataProvider>
-      )
+      </DataProvider>
     );
   },
 );

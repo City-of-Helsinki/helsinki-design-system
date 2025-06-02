@@ -1,4 +1,4 @@
-import { ReactElement, ReactNode, RefObject } from 'react';
+import { ReactElement, RefObject } from 'react';
 
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { DataHandlers } from '../dataProvider/DataContext';
@@ -46,15 +46,7 @@ export type ModularOptionListProps<P = ReactElement<HTMLOptGroupElement | HTMLOp
 };
 
 export type ModularOptionListData = Required<
-  Pick<
-    ModularOptionListProps,
-    | 'invalid'
-    | 'onChange'
-    | 'disabled'
-    | 'multiSelect'
-    | 'visibleOptions'
-    | 'virtualize'
-  >
+  Pick<ModularOptionListProps, 'invalid' | 'onChange' | 'disabled' | 'multiSelect' | 'visibleOptions' | 'virtualize'>
 > & {
   groups: Array<Group>;
   onFocus?: ModularOptionListProps['onFocus'];
@@ -63,14 +55,7 @@ export type ModularOptionListData = Required<
 
 export type ModularOptionListMetaData = {
   refs: {
-    button: RefObject<HTMLButtonElement>;
-    listContainer: RefObject<HTMLDivElement>;
     list: RefObject<HTMLUListElement>;
-    tagList: RefObject<HTMLDivElement>;
-    showAllButton: RefObject<HTMLButtonElement>;
-    searchOrFilterInput: RefObject<HTMLInputElement>;
-    selectionsAndListsContainer: RefObject<HTMLDivElement>;
-    container: RefObject<HTMLDivElement>;
   };
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
@@ -79,17 +64,7 @@ export type ModularOptionListMetaData = {
   activeDescendant: string | undefined;
   textContent?: TextInterpolationContent;
   elementIds: {
-    button: string;
-    label: string;
-    searchOrFilterInputLabel: string;
     list: string;
-    container: string;
-    tagList: string;
-    searchOrFilterInput: string;
-    showAllButton: string;
-    clearAllButton: string;
-    clearButton: string;
-    selectionsAndListsContainer: string;
   };
   textProvider: TextProvider;
   getOptionId: (option: Option) => string;
@@ -98,12 +73,11 @@ export type ModularOptionListMetaData = {
 };
 
 export type DivElementProps = AllElementPropsWithoutRef<'div'>;
-export type ButtonElementProps = AllElementPropsWithoutRef<'button'>;
 export type UlElementProps = AllElementPropsWithoutRef<'ul'>;
 export type LiElementProps = AllElementPropsWithoutRef<'li'>;
 
 export type ModularOptionListDataHandlers = DataHandlers<ModularOptionListData, ModularOptionListMetaData>;
-export type KnownElementType = keyof ModularOptionListMetaData['elementIds'] | 'listItem' | 'listGroupLabel' | 'tag';
+export type KnownElementType = keyof ModularOptionListMetaData['elementIds'] | 'listItem' | 'listGroupLabel';
 
 export type TextKey =
   | 'assistive'

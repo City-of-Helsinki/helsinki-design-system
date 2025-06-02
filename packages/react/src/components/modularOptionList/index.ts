@@ -1,6 +1,5 @@
 export * from './ModularOptionList';
 export * from './hooks';
-// export { defaultTexts } from './texts';
 
 export {
   iterateAndCopyGroup,
@@ -16,4 +15,6 @@ export {
   updateSelectedOptionsInGroups,
 } from './utils';
 
-//export * from './types';
+export { Option, OptionInProps, Group, GroupInProps } from './types';
+
+// export * from './types';

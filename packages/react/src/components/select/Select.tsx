@@ -1,7 +1,8 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData, AcceptedNativeDivProps } from './types';
+import { SelectProps, SelectMetaData, SelectData } from './types';
+import { AcceptedNativeDivProps } from '../modularOptionList/types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
@@ -55,7 +56,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
   ) => {
     const initialData = useMemo<SelectData>(() => {
       const data = {
-        groups: convertPropsToGroups({ options, groups, value, children }),
+        groups: convertPropsToGroups({ groups, options, value, children }),
         open: !!open,
         required: !!required,
         invalid: !!invalid,

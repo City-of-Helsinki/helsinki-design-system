@@ -2,7 +2,8 @@ import React, { useCallback } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../utils/classNames';
-import { DivElementProps, SelectDataHandlers } from '../types';
+import { SelectDataHandlers } from '../types';
+import { DivElementProps } from '../../modularOptionList/types';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
 import useOutsideClick from '../../../hooks/useOutsideClick';
 import { eventIds, eventTypes } from '../events';
@@ -42,6 +43,7 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
     id: elementIds.selectionsAndListsContainer,
     'aria-hidden': !open,
     ...((hasInput || (multiSelect && hasVisibleGroupLabels)) && { role: 'dialog', 'aria-label': ariaLabel }),
+    open,
   };
 };
 
@@ -52,5 +54,6 @@ export const ListAndInputContainer = (props: DivElementProps) => {
   };
 
   useOutsideClick({ ref: attr.ref, callback });
-  return <div {...attr}>{children}</div>;
+
+  return <div {...attr}>{attr.open && children}</div>;
 };
