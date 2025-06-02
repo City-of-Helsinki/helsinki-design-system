@@ -253,7 +253,9 @@ describe('oidcClient', () => {
       expect(oidcClient.isAuthenticated()).toBeTruthy();
     });
     it('should return true when current user is expired', async () => {
-      const { oidcClient } = await initTests({ userProps: { expiredUser: true } });
+      const { oidcClient } = await initTests({
+        userProps: { expiredUser: true, invalidUser: true },
+      });
       expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should return true when user is does not exist', async () => {
@@ -636,7 +638,7 @@ describe('oidcClient', () => {
       return beaconModule;
     };
 
-    const initRenewalTests = async (validResponse = true, createListeningModules = false) => {
+    const initRenewalTests = async (validResponse = true, createListeningModules = false, userPropsOverrides = {}) => {
       const modules = createListeningModules
         ? moduleNamespaces.map((namespace) => {
             return createModule(namespace);
@@ -664,7 +666,7 @@ describe('oidcClient', () => {
         : new Error('Failed');
       const clientData = await initTests({
         modules: createListeningModules ? [reEmitListeningModule, ...modules] : undefined,
-        userProps: { signInResponseProps: { refresh_token: refreshTokens.initial } },
+        userProps: { signInResponseProps: { ...userPropsOverrides, refresh_token: refreshTokens.initial } },
       });
       const renewalFunctions = init({ userManager: clientData.userManager });
 
@@ -779,6 +781,17 @@ describe('oidcClient', () => {
           expect(oidcClient.isRenewing()).toBeFalsy();
         });
         expect(oidcClient.getUser()).toMatchObject(initialUser);
+        expect(oidcClient.isAuthenticated()).toBeTruthy();
+      });
+      it('Renewal when access_token has expired', async () => {
+        const { oidcClient, waitForRefreshToEnd } = await initRenewalTests(true, true, { access_token: null });
+        expect(oidcClient.isRenewing()).toBeTruthy();
+
+        await waitForRefreshToEnd();
+        await waitFor(() => {
+          expect(oidcClient.isRenewing()).toBeFalsy();
+        });
+
         expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
     });

@@ -117,20 +117,20 @@ const loginProviderProps: LoginProviderProps = {
 
 const loginProviderPropsForKeycloak: LoginProviderProps = {
   userManagerSettings: {
-    authority: 'https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus',
-    client_id: 'exampleapp-ui-test',
-    scope: 'openid profile',
+    authority: 'https://tunnistus.dev.hel.ninja/auth/realms/helsinki-tunnistus',
+    client_id: 'exampleapp-ui-dev',
+    scope: 'openid profile email',
     redirect_uri: `${window.origin}/static-login/callback_kc.html`,
     silent_redirect_uri: `${window.origin}/static-login/silent_renew.html`,
     post_logout_redirect_uri: `${window.origin}/static-login/logout.html`,
   },
   apiTokensClientSettings: {
-    url: 'https://tunnistus.test.hel.ninja/auth/realms/helsinki-tunnistus/protocol/openid-connect/token',
+    url: 'https://tunnistus.dev.hel.ninja/auth/realms/helsinki-tunnistus/protocol/openid-connect/token',
     queryProps: {
       grantType: 'urn:ietf:params:oauth:grant-type:uma-ticket',
       permission: '#access',
     },
-    audiences: ['exampleapp-api-test', 'profile-api-test'],
+    audiences: ['exampleapp-api-dev', 'profile-api-dev'],
   },
   sessionPollerSettings: { pollIntervalInMs: 10000 },
 };
@@ -629,6 +629,7 @@ export const ExampleApplication = (args: StoryArgs) => {
   // The following lines are not needed when only one oidc server is used.
   // HDS uses both Tunnistamo and Helsinki Profile (Keycloak) and uses Storybook args to define which is used.
   const isUsingKeycloak = shouldUseKeycloakServer(args);
+
   const loginProps = isUsingKeycloak ? loginProviderPropsForKeycloak : loginProviderProps;
 
   const AuthenticatedContent = ({ user }: { user: User }) => {
