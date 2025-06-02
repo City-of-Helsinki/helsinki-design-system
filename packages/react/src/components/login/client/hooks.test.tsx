@@ -44,7 +44,7 @@ describe('Client hooks', () => {
     });
     it('Returns null, if a valid user is not found', async () => {
       init({
-        invalidUser: false,
+        invalidUser: true,
         expiredUser: true,
       });
       expect(getUser()).toBeNull();

@@ -14,7 +14,13 @@ export const useOidcClient = (): OidcClient => {
 
 export const useAuthenticatedUser = (): UserReturnType => {
   const client = useOidcClient();
+
   const user = client.getUser();
+
+  if (client.isRenewing() && user && user.refresh_token) {
+    return user;
+  }
+
   if (!isValidUser(user)) {
     return null;
   }
