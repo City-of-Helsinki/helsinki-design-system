@@ -253,7 +253,9 @@ describe('oidcClient', () => {
       expect(oidcClient.isAuthenticated()).toBeTruthy();
     });
     it('should return true when current user is expired', async () => {
-      const { oidcClient } = await initTests({ userProps: { expiredUser: true } });
+      const { oidcClient } = await initTests({
+        userProps: { expiredUser: true, invalidUser: true },
+      });
       expect(oidcClient.isAuthenticated()).toBeFalsy();
     });
     it('should return true when user is does not exist', async () => {

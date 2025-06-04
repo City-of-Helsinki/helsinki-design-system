@@ -289,7 +289,8 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     },
     isAuthenticated: () => {
       const target = getUserFromStorage(combinedProps.userManagerSettings as UserManagerSettings, store);
-      return !!target && isValidUser(target);
+
+      return (!!target && isValidUser(target)) || (isRenewing() && !!target && !!target.refresh_token);
     },
     isRenewing,
     login: async (loginProps) => {
