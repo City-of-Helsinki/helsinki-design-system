@@ -5,131 +5,31 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.X.X] - Month, XX, 202X
+## [4.6.0] - June, 5th, 2025
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
 - [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Multiple components] Use `InputWrapper` more extensively to harmonise `tooltip`, `infoText`, `helperText`, `successText` and `errorText` usages.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [FileInput] `defaultValue` was wrongly typed (TypeScript)
-
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [Multiple components] Examples of new `tooltip`-prop which replaces the deprecated separate props.
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- No changes from the previous version
 
 ## [4.5.0] - May, 14th, 2025
 
