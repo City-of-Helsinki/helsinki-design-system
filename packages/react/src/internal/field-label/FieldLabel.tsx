@@ -4,16 +4,28 @@ import styles from './FieldLabel.module.scss';
 import { RequiredIndicator } from '../required-indicator/RequiredIndicator';
 import { Tooltip, TooltipProps } from '../../components/tooltip';
 
-type FieldLabelProps = {
+export type FieldLabelProps = {
   hidden?: boolean;
   id?: string;
   inputId: string;
   isAriaLabelledBy?: boolean;
   label: string | React.ReactNode;
   required?: boolean;
+  /**
+   * Aria-label text for the tooltip
+   * @deprecated Use `tooltip` prop instead
+   */
   tooltipLabel?: string;
-  tooltipButtonLabel?: string;
+  /**
+   * The text content of the tooltip
+   * @deprecated Use `tooltip` prop instead
+   */
   tooltipText?: string;
+  /**
+   * Aria-label text for the tooltip trigger button
+   * @deprecated Use `tooltip` prop instead
+   */
+  tooltipButtonLabel?: string;
   tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
 };
 

@@ -3,6 +3,7 @@ import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { TextArea, TextAreaProps } from './TextArea';
+import { Tooltip } from '../tooltip';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<Textarea /> spec', () => {
@@ -25,7 +26,7 @@ describe('<Textarea /> spec', () => {
   });
   it('renders the component with tooltip', () => {
     const { asFragment } = render(
-      <TextArea tooltipText="Tooltip text" tooltipLabel="Tooltip label" {...textAreaProps} />,
+      <TextArea tooltip={<Tooltip tooltipLabel="Tooltip label">Tooltip text</Tooltip>} {...textAreaProps} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });

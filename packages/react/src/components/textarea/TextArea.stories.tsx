@@ -2,6 +2,7 @@ import React from 'react';
 import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
 
 import { TextArea, TextAreaProps } from './TextArea';
+import { Tooltip } from '../tooltip';
 
 const textAreaProps = {
   helperText: 'Assistive text',
@@ -48,9 +49,12 @@ WithLabelHidden.storyName = 'With label hidden';
 export const WithTooltip = () => (
   <TextArea
     {...textAreaProps}
-    tooltipLabel="Tooltip"
-    tooltipButtonLabel="Tooltip"
-    tooltipText='Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.'
+    tooltip={
+      <Tooltip tooltipLabel="Tooltip" buttonLabel="Tooltip">
+        Tooltips contain &ldquo;nice to have&rdquo; information. Default Tooltip contents should not be longer than two
+        to three sentences. For longer descriptions, provide a link to a separate page.
+      </Tooltip>
+    }
   />
 );
 WithTooltip.storyName = 'With tooltip';
@@ -91,8 +95,4 @@ Playground.args = {
   invalid: false,
   errorText: 'Error text',
   hideLabel: false,
-  tooltipAriaLabel: 'Tooltip',
-  tooltipText:
-    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
-  tooltipButtonAriaLabelText: 'Tooltip',
 };

@@ -5,6 +5,32 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.6.0] - June, 5th, 2025
+
+### React
+
+#### Added
+
+- [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
+
+#### Changed
+
+- [Multiple components] Use `InputWrapper` more extensively to harmonise `tooltip`, `infoText`, `helperText`, `successText` and `errorText` usages.
+
+#### Fixed
+
+- [FileInput] `defaultValue` was wrongly typed (TypeScript)
+
+### Documentation
+
+#### Changed
+
+- [Multiple components] Examples of new `tooltip`-prop which replaces the deprecated separate props.
+
+### Figma
+
+- No changes from the previous version
+
 ## [4.5.0] - May, 14th, 2025
 
 ### React

@@ -11,7 +11,7 @@ import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/In
 
 type Language = 'en' | 'fi' | 'sv';
 
-export type FileInputProps = Omit<InputWrapperProps, 'onChange'> & {
+export type FileInputProps = Omit<InputWrapperProps, 'onChange' | 'defaultValue'> & {
   /**
    * A comma-separated list of unique file type specifiers describing file types to allow. If present, the filename extension or filetype property is validated against the list. If the file(s) do not match the acceptance criteria, the component will not add the file(s), and it will show an error message with the file name.
    */
@@ -45,22 +45,6 @@ export type FileInputProps = Omit<InputWrapperProps, 'onChange'> & {
    */
   dragAndDropInputLabel?: string;
   /**
-   * The error text content that will be shown below the input
-   */
-  errorText?: string;
-  /**
-   * The helper text content that will be shown below the input
-   */
-  helperText?: string;
-  /**
-   * The id of the input element
-   */
-  id: string;
-  /**
-   * The info text content that will be shown below the input
-   */
-  infoText?: string;
-  /**
    * The label for the input
    */
   label: string;
@@ -86,30 +70,6 @@ export type FileInputProps = Omit<InputWrapperProps, 'onChange'> & {
    * Callback fired when the list of files changes
    */
   onChange: (files: File[]) => void;
-  /**
-   * If `true`, the label is displayed as required and the `input` element will be required
-   */
-  required?: boolean;
-  /**
-   * Override or extend the styles applied to the component
-   */
-  style?: React.CSSProperties;
-  /**
-   * The success text content that will be shown below the input
-   */
-  successText?: string;
-  /**
-   * Aria-label text for the tooltip
-   */
-  tooltipLabel?: string;
-  /**
-   * Aria-label text for the tooltip trigger button
-   */
-  tooltipButtonLabel?: string;
-  /**
-   * The text content of the tooltip
-   */
-  tooltipText?: string;
 };
 
 type FileItem = {
@@ -390,6 +350,7 @@ export const FileInput = ({
   tooltipLabel,
   tooltipButtonLabel,
   tooltipText,
+  tooltip,
   ...restWrapperProps
 }: FileInputProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -430,6 +391,7 @@ export const FileInput = ({
     tooltipLabel,
     tooltipButtonLabel,
     tooltipText,
+    tooltip,
   };
 
   const passClickToInput = () => {

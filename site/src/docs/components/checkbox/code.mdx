@@ -4,7 +4,7 @@ title: 'Checkbox - Code'
 ---
 
 import { useReducer } from 'react';
-import { Checkbox, Fieldset, SelectionGroup } from 'hds-react';
+import { Checkbox, Fieldset, SelectionGroup, Tooltip } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -15,7 +15,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Checkbox with label
-<Playground scope={{ Checkbox }}>
+<Playground scope={{ Checkbox, Tooltip }}>
 
 ```jsx
 import { Checkbox } from 'hds-react';
@@ -32,7 +32,7 @@ import { Checkbox } from 'hds-react';
     <Checkbox label="Label" id="checkbox-checked-disabled" checked={checkedItems["checkbox-checked-disabled"]} onChange={onChange} disabled />
     <Checkbox label="Label" id="checkbox-checked-error-text" checked={checkedItems['checkbox-checked-error-text']} onChange={onChange} errorText="Error text"/>
     <Checkbox label="Label" id="checkbox-checked-helper-text" checked={checkedItems['checkbox-checked-helper-text']} onChange={onChange} helperText="Helper text"/>
-    <Checkbox label="label" id="checkbox-with-tooltip" tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label" checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
+    <Checkbox label="Label" id="checkbox-with-tooltip" tooltip={<Tooltip tooltipLabel="tooltip text aria label" buttonLabel="tooltip button aria label">tooltip text</Tooltip>} checked={checkedItems['checkbox-with-tooltip']} onChange={onChange}/>
   </>
 }
 ```
@@ -278,9 +278,10 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `label`                    | A text label for the checkbox.                                             | `string`    | -             |
 | `errorText`                | The error text content that will be shown below the checkbox.              | `string`    | -             |
 | `helperText`               | The helper text content that will be shown below the checkbox.             | `string`    | -             |
-| `tooltipLabel`             | The aria-label text for the tooltip.                                       | `string`    | -             |
-| `tooltipButtonLabel`       | The aria-label text for the tooltip trigger button.                        | `string`    | -             |
-| `tooltipText`              | The text content of the tooltip.                                           | `string`    | -             |
+| `tooltipLabel`             | The aria-label text for the tooltip. **Deprecated, will be removed in next major release** | `string`    | -             |
+| `tooltipButtonLabel`       | The aria-label text for the tooltip trigger button. **Deprecated, will be removed in next major release** | `string`    | -             |
+| `tooltipText`              | The text content of the tooltip. **Deprecated, will be removed in next major release**   | `string`    | -             |
+| `tooltip`                  | The tooltip component.                                                     | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/components/tooltip/">`Tooltip`</Link> | -             |
 | `onChange`                 | Callback fired when the state is changed.                                  | `function`  | -             |
 
 <NativeElementPropsInfo
