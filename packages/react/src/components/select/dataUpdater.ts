@@ -323,8 +323,12 @@ const isCloseTriggerEvent = (event: ChangeEvent) => {
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
 
+  console.log('changeHandler received search event:', event);
+
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
+
+  console.log('didSearchChange:', didSearchChange);
 
   const { onSearch, onChange, onClose, multiSelect, open } = current;
 
