@@ -22,6 +22,7 @@ import { eventIds } from './events';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 import { Option } from '../modularOptionList/types';
 import { getSelectedOptions, convertPropsToGroups, mutateGroupLabelSelections } from '../modularOptionList/utils';
+import { SearchInput } from './components/searchInput/SearchInput';
 
 export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
   (
@@ -192,7 +193,8 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         <Container {...divElementProps} theme={theme}>
           <Label />
           <SelectionsAndListsContainer>
-            <SelectedOptionsContainer />
+            {/* <SelectedOptionsContainer /> */}
+            <SearchInput id={`${id}-searchInput`} />
             <ListAndInputContainer>
               <SearchOrFilterInput />
               <ModularOptionList {...divElementProps} theme={theme} />
