@@ -1,6 +1,6 @@
 import React, { PropsWithChildren, useCallback, useMemo, useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { capitalize } from 'lodash';
+import { capitalize, get, set } from 'lodash';
 
 import { SelectProps, Texts, TextProvider } from './types';
 import { Select, useSelectStorage, defaultTexts as defaultUITexts, getElementIds } from './index';
@@ -107,6 +107,18 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
   ...defaultTexts,
   label: 'Select multiple fruits or vegetables',
   placeholder: 'Choose many',
+};
+
+export const TuomonSearch = () => {
+  const handleSearch: SelectProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    return Promise.resolve({ options: ['a', 'b'] });
+  }, []);
+
+  const [props] = useState<Partial<SelectProps>>({
+    id: 'hds-search-component',
+  });
+
+  return <Select {...props} onSearch={handleSearch} />;
 };
 
 /**

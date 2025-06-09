@@ -323,12 +323,8 @@ const isCloseTriggerEvent = (event: ChangeEvent) => {
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
 
-  console.log('changeHandler received search event:', event);
-
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
-
-  console.log('didSearchChange:', didSearchChange);
 
   const { onSearch, onChange, onClose, multiSelect, open } = current;
 
@@ -365,6 +361,7 @@ export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, 
 
   if (didSearchChange && onSearch) {
     dataHandlers.updateMetaData({ isSearching: !!getMetaData().search });
+    dataHandlers.updateData({ open: true });
     debouncedSearch(dataHandlers, onSearch);
   }
   if (didSelectionsChange) {
