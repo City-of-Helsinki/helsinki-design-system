@@ -196,7 +196,18 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     }
     const [error, user] = await renewPromise;
     if (error) {
-      emitError(error);
+      const storedUser = getUserFromStorageSyncronously();
+      if (!storedUser || !isValidUser(storedUser)) {
+        emitError(
+          new OidcClientError(
+            'Invalid user for token renewal',
+            oidcClientErrors.INVALID_OR_EXPIRED_USER,
+            error.originalError,
+          ),
+        );
+      } else {
+        emitError(error);
+      }
     }
     emitEvent(oidcClientEvents.USER_UPDATED, user || null);
     renewPromise = undefined;
@@ -232,8 +243,17 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     emitEvent(oidcClientEvents.USER_REMOVED);
   });
 
-  if (isValidUser(getUserFromStorageSyncronously())) {
+  const storedUser = getUserFromStorageSyncronously();
+
+  if (isValidUser(storedUser)) {
     state = oidcClientStates.VALID_SESSION;
+  } else if (storedUser && storedUser.refresh_token) {
+    // If user has a refresh token but expired access token, try to renew on initialization
+    handleUserRenewal({ triggerSigninSilent: true }).then(([, renewedUser]) => {
+      if (renewedUser && isValidUser(renewedUser)) {
+        emitStateChange(oidcClientStates.VALID_SESSION);
+      }
+    });
   }
 
   const oidcClient: OidcClient = {
@@ -280,7 +300,7 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     },
     isAuthenticated: () => {
       const target = getUserFromStorage(combinedProps.userManagerSettings as UserManagerSettings, store);
-      return !!target && isValidUser(target);
+      return (!!target && isValidUser(target)) || (isRenewing() && !!target && !!target.refresh_token);
     },
     isRenewing,
     login: async (loginProps) => {

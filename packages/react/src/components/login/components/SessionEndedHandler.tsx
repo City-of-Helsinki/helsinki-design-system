@@ -3,6 +3,7 @@ import React from 'react';
 import { useOidcClient } from '../client/hooks';
 import { useErrorTracking } from '../beacon/hooks';
 import { isSessionEndedSignal } from '../sessionPoller/signals';
+import { isInvalidApiTokensUserErrorSignal } from '../apiTokensClient/signals';
 import { Button } from '../../button';
 import { Dialog, DialogProps } from '../../dialog/Dialog';
 
@@ -30,7 +31,7 @@ export function SessionEndedHandler(
 ): React.ReactElement | null {
   const [errorSignal] = useErrorTracking();
   const oidcClient = useOidcClient();
-  if (!errorSignal || !isSessionEndedSignal(errorSignal)) {
+  if (!errorSignal || !(isSessionEndedSignal(errorSignal) || isInvalidApiTokensUserErrorSignal(errorSignal))) {
     return null;
   }
   const { ids = {}, content, dialogProps } = props;

@@ -10,8 +10,10 @@ import {
   createNamespacedBeacon,
   createInitTriggerProps,
   getEventSignalPayload,
+  createErrorTriggerProps,
 } from '../beacon/signals';
 import { oidcClientEvents, oidcClientNamespace, OidcClientEvent } from '../client';
+import { isRenewalErrorSignal } from '../client/signals';
 import { getValidUserFromSignal } from '../client/signalParsers';
 import {
   FetchApiTokenOptions,
@@ -216,6 +218,7 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
 
   let tokens: TokenData | null = null;
   let renewing = false;
+  let renewalFailed = false;
   const dedicatedBeacon = createNamespacedBeacon(apiTokensClientNamespace);
 
   const removeAllTokens = () => {
@@ -244,6 +247,34 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
   };
 
   const fetch: ApiTokenClient['fetch'] = async (user) => {
+    if (!user) {
+      renewing = false;
+
+      const error = new ApiTokensClientError(
+        'Invalid user for API tokens',
+        apiTokensClientError.INVALID_USER_FOR_API_TOKENS,
+        null,
+      );
+
+      dedicatedBeacon.emitError(error);
+
+      return Promise.reject(error);
+    }
+
+    if (renewalFailed) {
+      renewing = false;
+
+      const error = new ApiTokensClientError(
+        'Token renewal has previously failed',
+        apiTokensClientError.API_TOKEN_FETCH_FAILED,
+        null,
+      );
+
+      dedicatedBeacon.emitError(error);
+
+      return Promise.reject(error);
+    }
+
     fetchCanceller.abort();
     const { access_token: accessToken } = user;
     renewing = true;
@@ -262,11 +293,13 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
     renewing = false;
     removeAllTokens();
     if (result instanceof Error) {
+      renewalFailed = true;
       dedicatedBeacon.emitError(result);
       return Promise.reject(result);
     }
 
     tokens = { ...result };
+    renewalFailed = false;
     setUserReferenceToStorage(accessToken);
     setStoredTokens(tokens);
     dedicatedBeacon.emitEvent(apiTokensClientEvents.API_TOKENS_UPDATED, tokens);
@@ -274,6 +307,7 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
   };
 
   const oidcClientInitListener = (signal: Signal): void => {
+    renewalFailed = false;
     const user = getValidUserFromSignal(signal);
     if (user) {
       const storedTokens = getStoredTokensForUser(user as User);
@@ -297,38 +331,56 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
     if (type === oidcClientEvents.USER_REMOVED) {
       clear();
       renewing = false;
+      renewalFailed = false;
     }
     if (type === oidcClientEvents.USER_UPDATED) {
       const user = getValidUserFromSignal(signal);
-      if (user) {
-        const currentTokens = getStoredTokensForUser(user);
-        if (currentTokens) {
-          tokens = currentTokens;
-          renewing = false;
-          return Promise.resolve();
-        }
-        await fetch(user).catch(() => {
-          // error and results are handled in the fetch(),
-          // but it may reject and that must be catched.
-        });
+
+      if (renewalFailed || !user) {
+        renewing = false;
+
+        dedicatedBeacon.emitError(
+          new ApiTokensClientError(
+            'Oidc client event has no valid user',
+            apiTokensClientError.INVALID_USER_FOR_API_TOKENS,
+          ),
+        );
+
         return Promise.resolve();
       }
-      dedicatedBeacon.emitError(
-        new ApiTokensClientError(
-          'Oidc client event has no valid user',
-          apiTokensClientError.INVALID_USER_FOR_API_TOKENS,
-        ),
-      );
+
+      const currentTokens = getStoredTokensForUser(user);
+
+      if (currentTokens) {
+        tokens = currentTokens;
+        renewing = false;
+        return Promise.resolve();
+      }
+      await fetch(user).catch(() => {
+        // error and results are handled in the fetch(),
+        // but it may reject and that must be catched.
+      });
+      return Promise.resolve();
     }
     if (type === oidcClientEvents.USER_RENEWAL_STARTED) {
       clear();
       renewing = true;
+      renewalFailed = false;
     }
     return Promise.resolve();
   };
 
+  const oidcClientErrorListener = (signal: Signal): void => {
+    if (isRenewalErrorSignal(signal)) {
+      clear();
+      renewing = false;
+      renewalFailed = true;
+    }
+  };
+
   dedicatedBeacon.addListener(createEventTriggerProps(oidcClientNamespace), oidcClientEventListener);
   dedicatedBeacon.addListener(createInitTriggerProps(oidcClientNamespace), oidcClientInitListener);
+  dedicatedBeacon.addListener(createErrorTriggerProps(oidcClientNamespace), oidcClientErrorListener);
 
   return {
     fetch,
