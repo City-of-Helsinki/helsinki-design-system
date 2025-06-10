@@ -335,6 +335,18 @@ describe(`apiTokenClient`, () => {
       expect(emittedErrors).toHaveLength(1);
       expect(emittedErrors[0].isInvalidTokensError).toBeTruthy();
     });
+
+    it('rejects with ApiTokensClientError when user is undefined', async () => {
+      const apiTokenClient = initTests({
+        apiTokenClientProps: { maxRetries: 0 },
+        responses: [{ error: true }, forbiddenResponse],
+      });
+      await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(undefined as unknown as User));
+      const emittedErrors = getEmittedErrors();
+      expect(emittedErrors).toHaveLength(1);
+      expect(emittedErrors[0].isInvalidApiTokensUserError).toBeTruthy();
+    });
+
     it('Returns a fetch error when fetch fails for a network error or other status. An error is emitted.', async () => {
       const apiTokenClient = initTests({
         apiTokenClientProps: { maxRetries: 0 },
@@ -345,8 +357,9 @@ describe(`apiTokenClient`, () => {
       await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(user));
       await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(user));
       const emittedErrors = getEmittedErrors();
-      expect(emittedErrors).toHaveLength(1);
+      expect(emittedErrors).toHaveLength(2);
       expect(emittedErrors[0].isFetchError).toBeTruthy();
+      expect(emittedErrors[1].isFetchError).toBeTruthy();
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
     it('If fetch fails, tokens are cleared.', async () => {
