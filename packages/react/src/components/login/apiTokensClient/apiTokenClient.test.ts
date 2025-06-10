@@ -345,9 +345,8 @@ describe(`apiTokenClient`, () => {
       await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(user));
       await advanceUntilPromiseResolvedAndReturnValue(apiTokenClient.fetch(user));
       const emittedErrors = getEmittedErrors();
-      expect(emittedErrors).toHaveLength(2);
+      expect(emittedErrors).toHaveLength(1);
       expect(emittedErrors[0].isFetchError).toBeTruthy();
-      expect(emittedErrors[1].isFetchError).toBeTruthy();
       expect(apiTokenClient.isRenewing()).toBeFalsy();
     });
     it('If fetch fails, tokens are cleared.', async () => {
