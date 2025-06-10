@@ -42,6 +42,24 @@ describe('Client hooks', () => {
       init({ invalidUser: false });
       expect((getUser() as unknown as User).access_token).not.toBeUndefined();
     });
+    it('Returns an user object if client is renewing and user has refresh_token', async () => {
+      init({
+        invalidUser: false,
+        expiredUser: true,
+      });
+
+      const { getBeaconFuncs } = testUtil;
+      const oidcClient = getBeaconFuncs().getModule(oidcClientNamespace) as OidcClient;
+
+      jest.spyOn(oidcClient, 'isRenewing').mockReturnValue(true);
+
+      await testUtil.waitForRerender();
+
+      const user = getUser() as User;
+
+      expect(user).not.toBeNull();
+      expect(user.refresh_token).toBeDefined();
+    });
     it('Returns null, if a valid user is not found', async () => {
       init({
         invalidUser: true,

@@ -9,6 +9,8 @@ import { Beacon, ConnectedModule } from '../beacon/beacon';
 import { createSessionPollerErrorSignal } from '../sessionPoller/signals';
 import { SessionPollerError, sessionPollerErrors } from '../sessionPoller/sessionPollerError';
 import { OidcClient, oidcClientNamespace } from '../client';
+import { apiTokensClientError, ApiTokensClientError } from '../apiTokensClient/apiTokensClientError';
+import { createApiTokensClientErrorSignal } from '../apiTokensClient/signals';
 
 const loginProps = getDefaultOidcClientTestProps();
 loginProps.userManagerSettings.automaticSilentRenew = false;
@@ -71,6 +73,28 @@ describe('SessionEndedHandler', () => {
     expect(getDialogElement()).toBeNull();
     act(() => {
       beacon.emit(createSessionPollerErrorSignal(new SessionPollerError('test', sessionPollerErrors.SESSION_ENDED)));
+    });
+    await waitFor(() => {
+      expect(getDialogElement()).not.toBeNull();
+    });
+    const dialog = getDialogElement();
+    const title = getTitleElement();
+    const text = getTextElement();
+    const button = getButtonElement();
+    expect(dialog.getAttribute('id')).toBe(ids.dialog);
+    expect(title.getAttribute('id')).toBe(ids.title);
+    expect(text.getAttribute('id')).toBe(ids.text);
+    expect(button).not.toBeNull();
+  });
+  it('the dialog is shown when invalid user api tokens user signal is emitted', async () => {
+    renderComponent({ content, ids });
+    expect(getDialogElement()).toBeNull();
+    act(() => {
+      beacon.emit(
+        createApiTokensClientErrorSignal(
+          new ApiTokensClientError('test', apiTokensClientError.INVALID_USER_FOR_API_TOKENS),
+        ),
+      );
     });
     await waitFor(() => {
       expect(getDialogElement()).not.toBeNull();

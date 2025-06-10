@@ -249,20 +249,30 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
   const fetch: ApiTokenClient['fetch'] = async (user) => {
     if (!user) {
       renewing = false;
-      return Promise.reject(
-        new ApiTokensClientError('Invalid user for API tokens', apiTokensClientError.INVALID_USER_FOR_API_TOKENS, null),
+
+      const error = new ApiTokensClientError(
+        'Invalid user for API tokens',
+        apiTokensClientError.INVALID_USER_FOR_API_TOKENS,
+        null,
       );
+
+      dedicatedBeacon.emitError(error);
+
+      return Promise.reject(error);
     }
 
     if (renewalFailed) {
       renewing = false;
-      return Promise.reject(
-        new ApiTokensClientError(
-          'Token renewal has previously failed',
-          apiTokensClientError.API_TOKEN_FETCH_FAILED,
-          null,
-        ),
+
+      const error = new ApiTokensClientError(
+        'Token renewal has previously failed',
+        apiTokensClientError.API_TOKEN_FETCH_FAILED,
+        null,
       );
+
+      dedicatedBeacon.emitError(error);
+
+      return Promise.reject(error);
     }
 
     fetchCanceller.abort();
@@ -340,6 +350,7 @@ export function createApiTokenClient(props: ApiTokenClientProps): ApiTokenClient
       }
 
       const currentTokens = getStoredTokensForUser(user);
+
       if (currentTokens) {
         tokens = currentTokens;
         renewing = false;
