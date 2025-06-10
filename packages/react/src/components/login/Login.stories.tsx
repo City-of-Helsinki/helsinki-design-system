@@ -629,7 +629,6 @@ export const ExampleApplication = (args: StoryArgs) => {
   // The following lines are not needed when only one oidc server is used.
   // HDS uses both Tunnistamo and Helsinki Profile (Keycloak) and uses Storybook args to define which is used.
   const isUsingKeycloak = shouldUseKeycloakServer(args);
-
   const loginProps = isUsingKeycloak ? loginProviderPropsForKeycloak : loginProviderProps;
 
   const AuthenticatedContent = ({ user }: { user: User }) => {

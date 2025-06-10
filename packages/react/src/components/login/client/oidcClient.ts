@@ -196,7 +196,18 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     }
     const [error, user] = await renewPromise;
     if (error) {
-      emitError(error);
+      const storedUser = getUserFromStorageSyncronously();
+      if (!storedUser || !isValidUser(storedUser)) {
+        emitError(
+          new OidcClientError(
+            'Invalid user for token renewal',
+            oidcClientErrors.INVALID_OR_EXPIRED_USER,
+            error.originalError,
+          ),
+        );
+      } else {
+        emitError(error);
+      }
     }
     emitEvent(oidcClientEvents.USER_UPDATED, user || null);
     renewPromise = undefined;
@@ -289,7 +300,6 @@ export function createOidcClient(props: OidcClientProps): OidcClient {
     },
     isAuthenticated: () => {
       const target = getUserFromStorage(combinedProps.userManagerSettings as UserManagerSettings, store);
-
       return (!!target && isValidUser(target)) || (isRenewing() && !!target && !!target.refresh_token);
     },
     isRenewing,
