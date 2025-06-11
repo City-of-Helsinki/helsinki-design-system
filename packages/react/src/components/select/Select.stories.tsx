@@ -111,6 +111,9 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
 
 export const TuomonSearch = () => {
   const handleSearch: SelectProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    // get search value from data
+    console.debug('Search value:', data);
+    
     return Promise.resolve({ options: ['a', 'b'] });
   }, []);
 
