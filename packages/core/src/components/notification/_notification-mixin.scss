@@ -34,6 +34,11 @@
     gap: var(--spacing-2-xs);
   }
 
+  .hds-link {
+    color: inherit;
+    justify-self: flex-start;
+  }
+
   &__label {
     align-items: center;
     display: flex;

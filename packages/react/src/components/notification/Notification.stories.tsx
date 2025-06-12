@@ -2,7 +2,7 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { Notification, NotificationProps, NotificationSize } from './Notification';
 import { Button } from '../button';
-import { Link, LinkSize } from '../link/Link';
+import { Link } from '../link/Link';
 
 const props = {
   label: 'Label',
@@ -173,7 +173,7 @@ export const WithLink = () => (
   <Notification
     {...props}
     link={
-      <Link size={LinkSize.Medium} href="https://example.com" data-test="notification-link">
+      <Link href="https://example.com" data-test="notification-link">
         Link
       </Link>
     }

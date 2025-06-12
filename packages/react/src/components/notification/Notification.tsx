@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
@@ -8,7 +8,7 @@ import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { getPlainTextContent } from '../../utils/getPlainTextContent';
-import { Link } from '../link/Link';
+import { Link, LinkSize } from '../link/Link';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 
@@ -276,6 +276,17 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
     const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
+    const linkInsideNotification = useMemo(
+      () =>
+        link && React.isValidElement(link)
+          ? React.cloneElement(link as React.ReactElement<React.ComponentProps<typeof Link>>, {
+              size: LinkSize.Medium,
+              className: classNames(styles.link),
+            })
+          : undefined,
+      [link],
+    );
+
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.section
@@ -312,7 +323,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}
-            {link}
+            {linkInsideNotification}
           </div>
           {dismissible && (
             <button
