@@ -94,8 +94,13 @@ export function getSelectedOptionsPerc(group: Group, pendingSelectionCount = 0):
 
 export function mutateGroupLabelSelections(groups: SelectData['groups']) {
   groups.forEach((group) => {
-    // eslint-disable-next-line no-param-reassign
-    group.options[0].selected = getSelectedOptionsPerc(group) === 1;
+    // Only update the group label, don't touch other options
+    const groupLabel = group.options[0];
+    if (groupLabel && groupLabel.isGroupLabel) {
+      const perc = getSelectedOptionsPerc(group);
+      // eslint-disable-next-line no-param-reassign
+      groupLabel.selected = perc === 1;
+    }
   });
 
   return groups;
