@@ -32,30 +32,9 @@ export default {
   title: 'Components/Select',
 };
 
-const createRandomGroupsForSearch = (search: string) => {
-  if (search === 'none') {
-    return { groups: [] };
-  }
-  const groups: SelectProps['groups'] = [
-    {
-      label: 'Random items',
-      options: getOptions(),
-    },
-    {
-      label: 'Common items',
-      options: [
-        {
-          value: `${search}`,
-          label: `Searched for ${search}`,
-        },
-        {
-          value: `match`,
-          label: `Same option everytime`,
-        },
-      ],
-    },
-  ];
-  return { groups };
+const simulateSearchQuery = (search: string) => {
+  const options = getOptions(500);
+  return { options: options.filter((option) => option.label?.indexOf(search) !== -1) };
 };
 
 const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
@@ -83,7 +62,7 @@ const onSearch: SelectProps['onSearch'] = async (searchValue) => {
   if (searchValue === 'error') {
     return Promise.reject(new Error('Simulated error'));
   }
-  return Promise.resolve(searchValue ? createRandomGroupsForSearch(searchValue) : {});
+  return Promise.resolve(searchValue ? simulateSearchQuery(searchValue) : {});
 };
 
 const genericOnChangeCallback: SelectProps['onChange'] = () => {
@@ -414,6 +393,31 @@ export const WithSearch = () => {
         onSearch={onSearch}
         texts={defaultTexts}
         id="hds-select-component"
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+      <p>Search with &quot;error&quot; to simulate an error.</p>
+    </>
+  );
+};
+
+export const MultiselectWithSearch = () => {
+  const [selectedOptionsValue, setSelectedOptionsValue] = React.useState<OptionInProps[]>([]);
+
+  const onClose = (selectedOptions) => {
+    setSelectedOptionsValue(selectedOptions);
+  };
+  const options = getOptions(5);
+
+  return (
+    <>
+      <Select
+        multiSelect
+        options={options}
+        onSearch={onSearch}
+        onClose={onClose}
+        texts={defaultTexts}
+        id="hds-select-component"
+        value={selectedOptionsValue}
       />
       <p>Search with &quot;none&quot; to return an empty set</p>
       <p>Search with &quot;error&quot; to simulate an error.</p>
