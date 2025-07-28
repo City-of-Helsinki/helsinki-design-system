@@ -887,4 +887,93 @@ describe('<Select />', () => {
       expect(getSelectionsInButton()).toEqual([getPresetOption(1, 1).label, getPresetOption(2, 2).label]);
     });
   });
+  describe('Search functionality with multiselect preserves selections', () => {
+    it('preserves selected options from search results that are not in initial options', async () => {
+      const initialOptions = ['Initial Option 1', 'Initial Option 2'];
+      const searchResults = ['Search Result 1', 'Search Result 2'];
+      const onSearch: SelectProps['onSearch'] = (searchValue) => {
+        return Promise.resolve(searchValue ? { options: searchResults } : {});
+      };
+
+      // First render with initial options
+      const {
+        rerender,
+        openList,
+        setInputValue,
+        clickOptionAndWaitForRerender,
+        getSelectionsInButton,
+        getListItemLabels,
+      } = renderWithHelpers({
+        multiSelect: true,
+        input: undefined,
+        onSearch,
+        options: initialOptions,
+      });
+
+      // Open and select from initial options
+      await openList();
+      await clickOptionAndWaitForRerender(0); // Select "Initial Option 1"
+      expect(getSelectionsInButton()).toEqual(['Initial Option 1']);
+
+      // Search and select from search results
+      await setInputValue('search query');
+      await waitFor(() => {
+        expect(getListItemLabels()).toEqual(searchResults);
+      });
+      await clickOptionAndWaitForRerender(0); // Select "Search Result 1"
+      expect(getSelectionsInButton()).toEqual(['Initial Option 1', 'Search Result 1']);
+
+      // Simulate component re-render with value prop containing both initial and search result selections
+      const selectedValues = [
+        { label: 'Initial Option 1', value: 'Initial Option 1' },
+        { label: 'Search Result 1', value: 'Search Result 1' },
+      ];
+
+      rerender(
+        <Select
+          multiSelect
+          options={initialOptions}
+          onSearch={onSearch}
+          texts={defaultTexts}
+          id={defaultId}
+          value={selectedValues}
+          onChange={jest.fn()}
+        />,
+      );
+
+      // Verify both selections are preserved even though "Search Result 1" is not in initial options
+      expect(getSelectionsInButton()).toEqual(['Initial Option 1', 'Search Result 1']);
+
+      // Open list and verify the hidden option is still selected but not visible
+      await openList();
+      const visibleLabels = getListItemLabels();
+      expect(visibleLabels).toEqual(initialOptions); // Only initial options are visible
+      expect(visibleLabels).not.toContain('Search Result 1'); // Search result is not visible
+      expect(getSelectionsInButton()).toEqual(['Initial Option 1', 'Search Result 1']); // But still selected
+    });
+
+    it('handles missing selected options when no search is involved', async () => {
+      const initialOptions = ['Option A', 'Option B'];
+      const selectedValues = [
+        { label: 'Option A', value: 'Option A' },
+        { label: 'External Option', value: 'External Option' }, // Not in initial options
+      ];
+
+      const { openList, getSelectionsInButton, getListItemLabels } = renderWithHelpers({
+        multiSelect: true,
+        options: initialOptions,
+        value: selectedValues,
+      });
+
+      // Verify both selections are preserved
+      expect(getSelectionsInButton()).toEqual(['Option A', 'External Option']);
+
+      // Open list and verify only initial options are visible
+      await openList();
+      const visibleLabels = getListItemLabels();
+      expect(visibleLabels).toEqual(initialOptions);
+      expect(visibleLabels).not.toContain('External Option');
+      expect(getSelectionsInButton()).toEqual(['Option A', 'External Option']);
+    });
+  });
 });
