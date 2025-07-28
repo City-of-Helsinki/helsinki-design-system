@@ -539,15 +539,16 @@ export function convertPropsToGroups({
       const missingOptions = valueOptions.filter((valueOpt) => {
         return !allCurrentOptions.some((currentOpt) => currentOpt.value === valueOpt.value);
       });
-      // If there are missing options, add them to the groups
-      let finalGroups = fromGroupsAndOptions;
+      // First, update selections in existing groups
+      let finalGroups = updateSelectedOptionsInGroups(fromGroupsAndOptions, value) as Group[];
+      // Then, if there are missing options, add them as hidden selected options
       if (missingOptions.length > 0) {
         const hiddenGroup: Group = {
-          options: [createGroupLabel(''), ...missingOptions.map((opt) => ({ ...opt, visible: false }))],
+          options: [createGroupLabel(''), ...missingOptions.map((opt) => ({ ...opt, visible: false, selected: true }))],
         };
-        finalGroups = [hiddenGroup, ...fromGroupsAndOptions];
+        finalGroups = [hiddenGroup, ...finalGroups];
       }
-      return updateSelectedOptionsInGroups(finalGroups, value) as Group[];
+      return finalGroups;
     }
     return fromGroupsAndOptions;
   }
