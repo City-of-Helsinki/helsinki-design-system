@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
+- [Select] Add 'aria-live'-attribute to search/filter results on the Select component.
 
 #### Changed
 
