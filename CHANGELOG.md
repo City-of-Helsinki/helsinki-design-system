@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [FileInput] `defaultValue` was wrongly typed (TypeScript)
+- [Header] Header logo had `role='link'` always, but now only when the logo is set as a link.
 
 ### Documentation
 
