@@ -415,8 +415,8 @@ test.describe(`Search`, () => {
     });
 
     const options = await selectUtil.getOptionElements();
-    // the final count is 7 different bananas
-    expect(options).toHaveLength(7);
+    // the final count is 7 different bananas + 2 group labels
+    expect(options).toHaveLength(9);
   });
   test('No results info is shown', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
@@ -472,11 +472,11 @@ test.describe(`Search`, () => {
     });
 
     const options = await selectUtil.getOptionElements();
-    // the final count is 7 different bananas
-    expect(options).toHaveLength(7);
+    // the final count is 7 different bananas + 2 group labels
+    expect(options).toHaveLength(9);
 
     // select last option, which is always the same
-    await selectUtil.selectOptionByIndex({ index: 6, multiSelect: true });
+    await selectUtil.selectOptionByIndex({ index: 8, multiSelect: true });
 
     await keyboard.type('pineapple');
     // for some reason this middle check is needed of PW clicks outside input and list is closed
@@ -486,10 +486,10 @@ test.describe(`Search`, () => {
     });
 
     const optionsNow = await selectUtil.getOptionElements();
-    expect(optionsNow).toHaveLength(12);
+    expect(optionsNow).toHaveLength(15);
 
     // last option in search results is always same and should still be selected
-    expect(isLocatorSelectedOrChecked(optionsNow[11])).toBeTruthy();
+    expect(isLocatorSelectedOrChecked(optionsNow[14])).toBeTruthy();
   });
 });
 test.describe(`Element state snapshots`, () => {

@@ -19,6 +19,7 @@ import { Select } from './Select';
 import { getActiveElement } from '../../utils/test-utils';
 
 // Suppress console.error for React act warnings during tests
+// eslint-disable-next-line no-console
 const originalError = console.error;
 beforeAll(() => {
   // eslint-disable-next-line no-console

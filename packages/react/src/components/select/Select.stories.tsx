@@ -22,7 +22,7 @@ import {
 } from './index';
 import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
-import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
+import { getOptionLabels, getOptions, getOptionLabelsInGroups, getLargeBatchOfUniqueValues } from './batch.options';
 import { Tag, TagSize } from '../tag/Tag';
 import { Tooltip } from '../tooltip/Tooltip';
 import useForceRender from '../../hooks/useForceRender';
@@ -30,11 +30,6 @@ import useForceRender from '../../hooks/useForceRender';
 export default {
   component: Select,
   title: 'Components/Select',
-};
-
-const simulateSearchQuery = (search: string) => {
-  const options = getOptions(500);
-  return { options: options.filter((option) => option.label?.indexOf(search) !== -1) };
 };
 
 const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
@@ -55,14 +50,40 @@ const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
   );
 };
 
-const onSearch: SelectProps['onSearch'] = async (searchValue) => {
+const simulateSearchQuery = (search: string, withGroups: boolean) => {
+  if (search === 'none') {
+    return { groups: [] };
+  }
+  if (withGroups) {
+    const groupsWithAllOptions = getOptionLabelsInGroups(150);
+    const searchResult = [];
+    groupsWithAllOptions?.forEach((group) => {
+      const options = group.options.filter((option) => option.indexOf(search) !== -1);
+      if (options.length) {
+        searchResult.push({ label: group.label, options });
+      }
+    });
+    return { groups: searchResult };
+  }
+  return { options: getOptions(500).filter((option) => option.label?.indexOf(search) !== -1) };
+};
+
+const onSearchQuery = async (searchValue, withGroups) => {
   await new Promise((res) => {
     setTimeout(res, 1000);
   });
   if (searchValue === 'error') {
     return Promise.reject(new Error('Simulated error'));
   }
-  return Promise.resolve(searchValue ? simulateSearchQuery(searchValue) : {});
+  return Promise.resolve(searchValue ? simulateSearchQuery(searchValue, withGroups) : {});
+};
+
+const onSearch: SelectProps['onSearch'] = async (searchValue) => {
+  return onSearchQuery(searchValue, false);
+};
+
+const onSearchWithGroups: SelectProps['onSearch'] = async (searchValue) => {
+  return onSearchQuery(searchValue, true);
 };
 
 const genericOnChangeCallback: SelectProps['onChange'] = () => {
@@ -535,6 +556,8 @@ export const MultiselectWithGroupsAndFilter = () => {
 };
 
 export const MultiselectWithGroupsAndSearch = () => {
+  const groups: SelectProps['groups'] = getOptionLabelsInGroups(5);
+
   const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
@@ -542,9 +565,10 @@ export const MultiselectWithGroupsAndSearch = () => {
   return (
     <div>
       <Select
+        groups={groups}
         onChange={onChange}
         multiSelect
-        onSearch={onSearch}
+        onSearch={onSearchWithGroups}
         icon={<IconLocation />}
         texts={defaultTextsForMultiSelect}
         id="hds-select-component"
