@@ -392,7 +392,7 @@ test.describe(`Search`, () => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
-    await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'Test search');
+    await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'banana');
     listenToConsole(page);
     const input = selectUtil.getInput();
     await waitFor(async () => {
@@ -400,7 +400,7 @@ test.describe(`Search`, () => {
     });
 
     const inputText = await selectUtil.getInputText();
-    expect(inputText).toBe('Test search');
+    expect(inputText).toBe('banana');
 
     await waitFor(async () => {
       return selectUtil.isSearchingSpinnerVisible();
@@ -415,8 +415,8 @@ test.describe(`Search`, () => {
     });
 
     const options = await selectUtil.getOptionElements();
-    // the final count is 20 random options + 2 group labels + 2 common results.
-    expect(options).toHaveLength(24);
+    // the final count is 7 different bananas + 2 group labels
+    expect(options).toHaveLength(9);
   });
   test('No results info is shown', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithSearch, componentName, storybook);
@@ -459,9 +459,9 @@ test.describe(`Search`, () => {
     const selectUtil = createSelectHelpers(page, selectId);
     const keyboard = createKeyboardHelpers(page);
     // typing when button is focused, copies user input to the input
-    await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'Test search');
+    await keyboard.typeOneByOne(selectUtil.getElementByName('button'), 'banana');
     const inputText = await selectUtil.getInputText();
-    expect(inputText).toBe('Test search');
+    expect(inputText).toBe('banana');
 
     await waitFor(async () => {
       return selectUtil.isSearchingSpinnerVisible();
@@ -472,13 +472,13 @@ test.describe(`Search`, () => {
     });
 
     const options = await selectUtil.getOptionElements();
-    // the final count is 20 random options + 2 group labels + 2 common results.
-    expect(options).toHaveLength(24);
+    // the final count is 7 different bananas + 2 group labels
+    expect(options).toHaveLength(9);
 
     // select last option, which is always the same
-    await selectUtil.selectOptionByIndex({ index: 23, multiSelect: true });
+    await selectUtil.selectOptionByIndex({ index: 8, multiSelect: true });
 
-    await keyboard.type('another test');
+    await keyboard.type('pineapple');
     // for some reason this middle check is needed of PW clicks outside input and list is closed
 
     await waitFor(async () => {
@@ -486,10 +486,10 @@ test.describe(`Search`, () => {
     });
 
     const optionsNow = await selectUtil.getOptionElements();
-    expect(optionsNow).toHaveLength(24);
+    expect(optionsNow).toHaveLength(15);
 
     // last option in search results is always same and should still be selected
-    expect(isLocatorSelectedOrChecked(optionsNow[23])).toBeTruthy();
+    expect(isLocatorSelectedOrChecked(optionsNow[14])).toBeTruthy();
   });
 });
 test.describe(`Element state snapshots`, () => {

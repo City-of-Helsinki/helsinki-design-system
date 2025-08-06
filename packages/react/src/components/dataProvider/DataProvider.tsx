@@ -42,7 +42,8 @@ export function DataProvider<D extends StorageData, M extends StorageData>({
   // if onReset is not provided, no need to store anything extra
   storageRefs.current = onReset ? { dataStorage, metaDataStorage } : undefined;
   const rerender = useForceRender();
-  const isComponentUnmounted = useRef(false);
+  const isMountedRef = useRef(true);
+
   const dataHandlers = useMemo(() => {
     const handlers = createDataHandlers(dataStorage, metaDataStorage);
     const asyncRequestWithTrigger: DataHandlers['asyncRequestWithTrigger'] = async (promise) => {
@@ -50,7 +51,8 @@ export function DataProvider<D extends StorageData, M extends StorageData>({
       if (err) {
         return;
       }
-      if (isComponentUnmounted.current) {
+      // Check if component is still mounted when async operation completes
+      if (!isMountedRef.current) {
         return;
       }
       handlers.trigger(result);
@@ -65,8 +67,9 @@ export function DataProvider<D extends StorageData, M extends StorageData>({
   }, [dataStorage, metaDataStorage, rerender, memoizedOnChange]);
 
   useEffect(() => {
+    isMountedRef.current = true;
     return () => {
-      isComponentUnmounted.current = true;
+      isMountedRef.current = false;
     };
   }, []);
 
