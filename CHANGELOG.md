@@ -29,6 +29,8 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Select] Mounting & unmounting sometimes prevented opening the dropdown.
+- [Select] Search cleared or messed up the previous selections made.
 
 ### Core
 

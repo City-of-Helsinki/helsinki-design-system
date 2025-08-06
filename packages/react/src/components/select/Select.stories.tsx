@@ -22,7 +22,7 @@ import {
 } from './index';
 import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../icons';
 import { Button } from '../button/Button';
-import { getOptionLabels, getOptions, getLargeBatchOfUniqueValues } from './batch.options';
+import { getOptionLabels, getOptions, getOptionLabelsInGroups, getLargeBatchOfUniqueValues } from './batch.options';
 import { Tag, TagSize } from '../tag/Tag';
 import { Tooltip } from '../tooltip/Tooltip';
 import useForceRender from '../../hooks/useForceRender';
@@ -30,32 +30,6 @@ import useForceRender from '../../hooks/useForceRender';
 export default {
   component: Select,
   title: 'Components/Select',
-};
-
-const createRandomGroupsForSearch = (search: string) => {
-  if (search === 'none') {
-    return { groups: [] };
-  }
-  const groups: SelectProps['groups'] = [
-    {
-      label: 'Random items',
-      options: getOptions(),
-    },
-    {
-      label: 'Common items',
-      options: [
-        {
-          value: `${search}`,
-          label: `Searched for ${search}`,
-        },
-        {
-          value: `match`,
-          label: `Same option everytime`,
-        },
-      ],
-    },
-  ];
-  return { groups };
 };
 
 const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
@@ -76,14 +50,40 @@ const WrapperWithButtonStyles = (props: PropsWithChildren<unknown>) => {
   );
 };
 
-const onSearch: SelectProps['onSearch'] = async (searchValue) => {
+const simulateSearchQuery = (search: string, withGroups: boolean) => {
+  if (search === 'none') {
+    return { groups: [] };
+  }
+  if (withGroups) {
+    const groupsWithAllOptions = getOptionLabelsInGroups(150);
+    const searchResult = [];
+    groupsWithAllOptions?.forEach((group) => {
+      const options = group.options.filter((option) => option.indexOf(search) !== -1);
+      if (options.length) {
+        searchResult.push({ label: group.label, options });
+      }
+    });
+    return { groups: searchResult };
+  }
+  return { options: getOptions(500).filter((option) => option.label?.indexOf(search) !== -1) };
+};
+
+const onSearchQuery = async (searchValue, withGroups) => {
   await new Promise((res) => {
     setTimeout(res, 1000);
   });
   if (searchValue === 'error') {
     return Promise.reject(new Error('Simulated error'));
   }
-  return Promise.resolve(searchValue ? createRandomGroupsForSearch(searchValue) : {});
+  return Promise.resolve(searchValue ? simulateSearchQuery(searchValue, withGroups) : {});
+};
+
+const onSearch: SelectProps['onSearch'] = async (searchValue) => {
+  return onSearchQuery(searchValue, false);
+};
+
+const onSearchWithGroups: SelectProps['onSearch'] = async (searchValue) => {
+  return onSearchQuery(searchValue, true);
 };
 
 const genericOnChangeCallback: SelectProps['onChange'] = () => {
@@ -421,6 +421,31 @@ export const WithSearch = () => {
   );
 };
 
+export const MultiselectWithSearch = () => {
+  const [selectedOptionsValue, setSelectedOptionsValue] = React.useState<OptionInProps[]>([]);
+
+  const onClose = (selectedOptions) => {
+    setSelectedOptionsValue(selectedOptions);
+  };
+  const options = getOptions(5);
+
+  return (
+    <>
+      <Select
+        multiSelect
+        options={options}
+        onSearch={onSearch}
+        onClose={onClose}
+        texts={defaultTexts}
+        id="hds-select-component"
+        value={selectedOptionsValue}
+      />
+      <p>Search with &quot;none&quot; to return an empty set</p>
+      <p>Search with &quot;error&quot; to simulate an error.</p>
+    </>
+  );
+};
+
 export const Multiselect = () => {
   const [onChangeSelections, setOnChangeSelections] = useState<Option[]>([]);
   const [onCloseSelections, setOnCloseSelections] = useState<Option[]>([]);
@@ -531,6 +556,8 @@ export const MultiselectWithGroupsAndFilter = () => {
 };
 
 export const MultiselectWithGroupsAndSearch = () => {
+  const groups: SelectProps['groups'] = getOptionLabelsInGroups(5);
+
   const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
@@ -538,9 +565,10 @@ export const MultiselectWithGroupsAndSearch = () => {
   return (
     <div>
       <Select
+        groups={groups}
         onChange={onChange}
         multiSelect
-        onSearch={onSearch}
+        onSearch={onSearchWithGroups}
         icon={<IconLocation />}
         texts={defaultTextsForMultiSelect}
         id="hds-select-component"
