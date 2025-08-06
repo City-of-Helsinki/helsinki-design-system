@@ -1,4 +1,4 @@
-import { OptionInProps } from './types';
+import { OptionInProps, ModularOptionListProps } from './types';
 
 const optionLabels = [
   'Aromatic pineapple',
@@ -505,6 +505,24 @@ const optionLabels = [
 
 export const getOptionLabels = (count = 20, startIndex = 0): string[] => {
   return optionLabels.slice(startIndex, startIndex + count);
+};
+
+export const getOptionLabelsInGroups = (count = 20, startIndex = 0): ModularOptionListProps['groups'] => {
+  const groups: ModularOptionListProps['groups'] = [
+    {
+      label: 'Provider 1',
+      options: getOptionLabels(count, startIndex),
+    },
+    {
+      label: 'Provider 2',
+      options: getOptionLabels(count, startIndex + 150),
+    },
+    {
+      label: 'Provider 3',
+      options: getOptionLabels(count, startIndex + 300),
+    },
+  ];
+  return groups;
 };
 
 export const getOptions = (count = 20): OptionInProps[] => {

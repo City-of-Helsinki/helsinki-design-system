@@ -151,7 +151,7 @@ export function mergeSearchResultsToCurrent(
   });
 
   const currentHiddenOptionsInAGroup = currentOptionsWithoutMatches.length
-    ? [{ options: currentOptionsWithoutMatches.map((opt) => ({ ...opt, visible: false })) } as Group]
+    ? [{ options: currentOptionsWithoutMatches.map((opt) => ({ ...opt, visible: false, selected: true })) } as Group]
     : [];
 
   return [...currentHiddenOptionsInAGroup, ...newData];
