@@ -31,6 +31,7 @@ Changes that are not related to specific components
 - [Component] What bugs/typos are fixed?
 - [Select] Mounting & unmounting sometimes prevented opening the dropdown.
 - [Select] Search cleared or messed up the previous selections made.
+- [Tabs] Tabs has tabindex=0 to allow keyboard navigation
 
 ### Core
 
