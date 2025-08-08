@@ -4,7 +4,6 @@ import styles from './Icon.module.css';
 import { IconProps, IconSize } from './Icon.interface';
 
 export const IconSortAlphabeticalDescending = ({
-  'aria-label': ariaLabel = 'sort-alphabetical-descending',
   'aria-hidden': ariaHidden = true,
   className = '',
   color,
@@ -13,7 +12,6 @@ export const IconSortAlphabeticalDescending = ({
   ...rest
 }: IconProps) => (
   <svg
-    aria-label={ariaLabel}
     aria-hidden={ariaHidden}
     className={[styles.icon, styles[size], className].filter((e) => e).join(' ')}
     role="img"

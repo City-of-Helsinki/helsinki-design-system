@@ -24,35 +24,26 @@ export type SortingHeaderCellProps = {
 } & React.ComponentPropsWithoutRef<'th'>;
 
 type SortingIconProps = {
-  ariaLabelSortButtonUnset: string;
-  ariaLabelSortButtonAscending: string;
-  ariaLabelSortButtonDescending: string;
   order: 'unset' | 'asc' | 'desc';
   sortIconType: 'string' | 'other';
 };
 
-const renderSortIcon = ({
-  ariaLabelSortButtonUnset,
-  ariaLabelSortButtonAscending,
-  ariaLabelSortButtonDescending,
-  order,
-  sortIconType,
-}: SortingIconProps) => {
+const renderSortIcon = ({ order, sortIconType }: SortingIconProps) => {
   if (order === 'unset') {
-    return <IconSort className={styles.sortIcon} aria-label={ariaLabelSortButtonUnset} />;
+    return <IconSort className={styles.sortIcon} />;
   }
   if (order === 'asc') {
     if (sortIconType === 'string') {
-      return <IconSortAlphabeticalAscending className={styles.sortIcon} aria-label={ariaLabelSortButtonAscending} />;
+      return <IconSortAlphabeticalAscending className={styles.sortIcon} />;
     }
-    return <IconSortAscending className={styles.sortIcon} aria-label={ariaLabelSortButtonAscending} />;
+    return <IconSortAscending className={styles.sortIcon} />;
   }
 
   if (sortIconType === 'string') {
-    return <IconSortAlphabeticalDescending className={styles.sortIcon} aria-label={ariaLabelSortButtonDescending} />;
+    return <IconSortAlphabeticalDescending className={styles.sortIcon} />;
   }
 
-  return <IconSortDescending className={styles.sortIcon} aria-label={ariaLabelSortButtonDescending} />;
+  return <IconSortDescending className={styles.sortIcon} />;
 };
 
 const resolveNewOrder = ({ previousOrder }) => {
@@ -78,6 +69,13 @@ export const SortingHeaderCell = ({
   const sortingCallback = () => {
     setSortingAndOrder(colKey);
   };
+
+  const orderLabel = {
+    unset: ariaLabelSortButtonUnset,
+    asc: ariaLabelSortButtonAscending,
+    desc: ariaLabelSortButtonDescending,
+  }[order];
+
   return (
     <th className={styles.sortingHeader} scope="col" {...rest}>
       <div className={styles.sortColumnCell}>
@@ -85,6 +83,7 @@ export const SortingHeaderCell = ({
           data-testid={`hds-table-sorting-header-${colKey}`}
           className={styles.sortButton}
           type="button"
+          aria-label={orderLabel}
           onClick={(event) => {
             // Prevent default to not submit form if we happen to be inside form
             event.preventDefault();
@@ -96,13 +95,7 @@ export const SortingHeaderCell = ({
           }}
         >
           <span>{title}</span>
-          {renderSortIcon({
-            ariaLabelSortButtonUnset,
-            ariaLabelSortButtonAscending,
-            ariaLabelSortButtonDescending,
-            order,
-            sortIconType,
-          })}
+          {renderSortIcon({ order, sortIconType })}
         </button>
       </div>
     </th>
