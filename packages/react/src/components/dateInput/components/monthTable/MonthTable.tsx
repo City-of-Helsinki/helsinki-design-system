@@ -37,7 +37,7 @@ export const MonthTable = (props: MonthTableProps) => {
   return (
     <div>
       <MonthNavigation month={month} />
-      <table className={styles['hds-datepicker__month-table']}>
+      <table className={styles['hds-datepicker__month-table']} aria-live="polite">
         <Head locale={locale} />
         <tbody>
           {weeks.map((week) => (
