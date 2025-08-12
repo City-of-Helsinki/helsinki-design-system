@@ -34,6 +34,7 @@ Changes that are not related to specific components
 - [Select] Search cleared or messed up the previous selections made.
 - [Tabs] Tabs has tabindex=0 to allow keyboard navigation
 - [Select] Select component didn't render last option on virtualize -mode.
+- [Select] Some aria-labels had no translations.
 
 ### Core
 

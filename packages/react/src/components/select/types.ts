@@ -178,6 +178,8 @@ export type TextKey =
   | 'selectedOptionsCount_multiple'
   | 'selectedOptionsCount_one'
   | 'selectedOptionsCount_zero'
+  | 'selectedOptionsCount_and'
+  | 'selectedOptionsCount_otherOptions'
   | 'tagRemoved'
   | 'tagRemoveSelectionAriaLabel'
   | 'tagsClearAllButton'
