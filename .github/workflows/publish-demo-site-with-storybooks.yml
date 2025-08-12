@@ -27,7 +27,7 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
 
       - name: download all artifacts
         uses: actions/download-artifact@v4
@@ -83,7 +83,7 @@ jobs:
 
       # Publish to hds-demo
       - name: Checkout code hds-demo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           repository: City-of-Helsinki/hds-demo
           path: hds-demo
