@@ -46,6 +46,7 @@ exports[`<Tabs /> spec renders the component 1`] = `
       aria-labelledby="tab-0-button"
       id="tab-0-panel"
       role="tabpanel"
+      tabindex="0"
     >
       Fizz
     </div>

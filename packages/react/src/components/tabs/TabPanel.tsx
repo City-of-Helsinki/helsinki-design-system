@@ -26,6 +26,7 @@ export const TabPanel = ({ children, className, index, style }: TabPanelProps) =
       aria-labelledby={`tab-${index}-button`}
       className={className}
       style={style}
+      tabIndex={0}
     >
       {children}
     </div>
