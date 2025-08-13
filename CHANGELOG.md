@@ -32,6 +32,7 @@ Changes that are not related to specific components
 - [Component] What bugs/typos are fixed?
 - [Select] Mounting & unmounting sometimes prevented opening the dropdown.
 - [Select] Search cleared or messed up the previous selections made.
+- [Select] Select component didn't render last option on virtualize -mode.
 
 ### Core
 
