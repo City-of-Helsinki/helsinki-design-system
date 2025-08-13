@@ -27,7 +27,7 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
       const allowedLength = Math.min(options.length, childrenLeft);
       childrenLeft -= allowedLength;
       return {
-        options: allowedLength > 0 ? options.slice(0, allowedLength - 1) : [],
+        options: allowedLength > 0 ? options.slice(0, allowedLength) : [],
       };
     });
   };
