@@ -150,6 +150,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [FileInput] `defaultValue` was wrongly typed (TypeScript)
+- [Header] Header logo had `role='link'` always, but now only when the logo is set as a link.
 
 ### Documentation
 

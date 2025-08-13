@@ -227,8 +227,8 @@ export const HeaderActionBar = ({
 
   const logoProps: LinkProps = {
     'aria-label': logoAriaLabel,
-    role: 'link',
     href: logoHref,
+    ...(logoHref ? { role: 'link' } : {}),
     className: classNames(styles.titleAndLogoContainer, styles.logo),
     onClick: handleLogoClick,
     onKeyPress: handleLogoKeyPress,
