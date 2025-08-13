@@ -60,6 +60,14 @@ export type TextInputProps = MergeAndOverrideProps<
      * Button aria-label
      */
     buttonAriaLabel?: string;
+    /**
+     * ID of the element controlled by the button (e.g., dropdown, dialog)
+     */
+    buttonAriaControlsId?: string;
+    /**
+     * Whether the controlled element is expanded/visible
+     */
+    buttonAriaExpanded?: boolean;
   }
 >;
 
@@ -67,6 +75,8 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   (
     {
       buttonAriaLabel,
+      buttonAriaControlsId,
+      buttonAriaExpanded,
       buttonIcon,
       children,
       className = '',
@@ -179,6 +189,12 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
                 disabled={disabled}
                 onClick={onButtonClick}
                 type="button"
+                {...(buttonAriaControlsId
+                  ? {
+                      'aria-controls': buttonAriaControlsId,
+                      'aria-expanded': buttonAriaExpanded,
+                    }
+                  : {})}
               >
                 {buttonIcon}
               </button>
