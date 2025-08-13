@@ -6,6 +6,7 @@ import { DayPickerProps } from '../types';
  * List the default props used by the [[DayPicker]] component.
  */
 export const defaultProps: DayPickerProps = {
+  id: 'hds-date-picker',
   className: '',
   style: {},
   language: 'en',

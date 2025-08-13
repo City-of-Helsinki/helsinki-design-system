@@ -284,6 +284,8 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
           {...textInputProps}
           buttonIcon={disableDatePicker ? undefined : <IconCalendar />}
           buttonAriaLabel={disableDatePicker ? undefined : getOpenButtonLabel()}
+          buttonAriaControlsId="hds-date-picker"
+          buttonAriaExpanded={showPicker}
           onButtonClick={disableDatePicker ? undefined : onOpenButtonClick}
           onChange={handleInputChange}
           onBlur={(e) => handleBlur(e.target.value, e)}
@@ -301,6 +303,7 @@ export const DateInput = React.forwardRef<HTMLInputElement, DateInputProps>(
         >
           {disableDatePicker === false && showPicker && (
             <DatePicker
+              id="hds-date-picker"
               language={language}
               disableConfirmation={disableConfirmation}
               selected={selected}

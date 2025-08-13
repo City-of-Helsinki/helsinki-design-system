@@ -28,6 +28,8 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           class="buttonWrapper"
         >
           <button
+            aria-controls="hds-date-picker"
+            aria-expanded="true"
             aria-label="Choose date"
             class="button"
             type="button"
@@ -55,6 +57,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           data-popper-escaped="true"
           data-popper-placement="bottom-end"
           data-popper-reference-hidden="true"
+          id="hds-date-picker"
           role="dialog"
           style="position: absolute; left: 0px; top: 0px; right: 0px; transform: translate(0px, 5px);"
         >
@@ -70,6 +73,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                 >
                   <select
                     aria-label="Month"
+                    aria-live="polite"
                   >
                     <option
                       value="0"
@@ -163,6 +167,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                 >
                   <select
                     aria-label="Year"
+                    aria-live="polite"
                   >
                     <option
                       value="2011"
@@ -346,6 +351,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                 </div>
               </div>
               <table
+                aria-live="polite"
                 class="hds-datepicker__month-table"
               >
                 <thead>
@@ -1483,6 +1489,8 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           class="buttonWrapper"
         >
           <button
+            aria-controls="hds-date-picker"
+            aria-expanded="true"
             aria-label="Choose date"
             class="button"
             type="button"
@@ -1510,6 +1518,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           data-popper-escaped="true"
           data-popper-placement="bottom-end"
           data-popper-reference-hidden="true"
+          id="hds-date-picker"
           role="dialog"
           style="position: absolute; left: 0px; top: 0px; right: 0px; transform: translate(0px, 5px);"
         >
@@ -1525,6 +1534,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                 >
                   <select
                     aria-label="Month"
+                    aria-live="polite"
                   >
                     <option
                       value="0"
@@ -1618,6 +1628,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                 >
                   <select
                     aria-label="Year"
+                    aria-live="polite"
                   >
                     <option
                       value="2011"
@@ -1801,6 +1812,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                 </div>
               </div>
               <table
+                aria-live="polite"
                 class="hds-datepicker__month-table"
               >
                 <thead>
