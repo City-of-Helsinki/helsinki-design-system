@@ -395,7 +395,6 @@ describe('<Select />', () => {
         multiSelect: false,
         input: 'filter',
       });
-      
       await openList();
       const listElement = getListElement();
       expect(listElement).toHaveAttribute('aria-live', 'polite');
@@ -406,7 +405,6 @@ describe('<Select />', () => {
         multiSelect: false,
         input: 'filter',
       });
-      
       await openList();
       const listElement = getListElement();
       expect(listElement).toHaveAttribute('aria-live', 'polite');
@@ -417,7 +415,6 @@ describe('<Select />', () => {
         multiSelect: true,
         input: 'search',
       });
-      
       await openList();
       const listElement = getListElement();
       expect(listElement).toHaveAttribute('aria-live', 'polite');
@@ -427,7 +424,6 @@ describe('<Select />', () => {
         groups: true,
         multiSelect: false,
       });
-      
       await openList();
       const listElement = getListElement();
       expect(listElement).not.toHaveAttribute('aria-live');

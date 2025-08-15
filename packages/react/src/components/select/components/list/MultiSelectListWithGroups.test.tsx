@@ -145,7 +145,6 @@ describe('<MultiSelectListWithGroups />', () => {
       selectProps: { open: true, multiSelect: true, filter: () => true },
       testProps: { groups: true, input: 'filter' },
     });
-    
     // Find the list element by ID pattern or class
     const listElement = container.querySelector('[id$="-list"]') || container.querySelector('.list');
     expect(listElement).toHaveAttribute('aria-live', 'polite');
@@ -156,7 +155,6 @@ describe('<MultiSelectListWithGroups />', () => {
       selectProps: { open: true, multiSelect: true },
       testProps: { groups: true },
     });
-    
     // Find the list element by ID pattern or class
     const listElement = container.querySelector('[id$="-list"]') || container.querySelector('.list');
     expect(listElement).not.toHaveAttribute('aria-live');
