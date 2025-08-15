@@ -10,30 +10,35 @@ import { axe } from 'jest-axe';
 import { DateInput } from './DateInput';
 
 // Mock the Notification component to be able to test aria-live announcements
-jest.mock('../notification', () => ({
-  Notification: (props: any) => {
-    const React = require('react');
-    if (props.invisible && props.notificationAriaLabel) {
-      return React.createElement(
-        'div', 
-        { 
-          'data-testid': 'notification', 
-          'aria-live': props['aria-live'] || 'polite',
-          role: 'status'
-        }, 
-        props.notificationAriaLabel
-      );
-    }
-    return null;
-  },
-}));
+jest.mock('../notification', () => {
+  // eslint-disable-next-line @typescript-eslint/no-var-requires
+  const mockReact = jest.requireActual('react');
+  return {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    Notification: (props: any) => {
+      if (props.invisible && props.notificationAriaLabel) {
+        return mockReact.createElement(
+          'div',
+          {
+            'data-testid': 'notification',
+            'aria-live': props['aria-live'] || 'polite',
+            role: 'status',
+          },
+          props.notificationAriaLabel,
+        );
+      }
+      return null;
+    },
+  };
+});
 
 describe('<DateInput /> spec', () => {
   const RealDate = Date;
   const mockDate = (isoDate: string) => {
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
     (global as any).Date = class extends RealDate {
-      constructor(...theArgs: [number, number, number, number, number, number]) {
-        super(...theArgs);
+      constructor(...theArgs: ConstructorParameters<typeof RealDate>) {
+        super();
         if (theArgs.length) {
           return new RealDate(...theArgs);
         }
@@ -76,60 +81,93 @@ describe('<DateInput /> spec', () => {
     expect(results).toHaveNoViolations();
   });
 
-  it('informs screen reader users when month is changed', async () => {
-    const testCases = [
-      {
-        language: 'en' as const,
-        expectedTextPattern: /Calendar page has changed to/,
-        expectedMonth: 'February 2021', // Next month from January 2021
-        nextMonthLabel: 'Next month'
-      },
-      {
-        language: 'fi' as const,
-        expectedTextPattern: /Kalenterisivu on vaihtunut kuukauteen/,
-        expectedMonth: 'helmikuu 2021', // Finnish for February 2021
-        nextMonthLabel: 'Seuraava kuukausi'
-      },
-      {
-        language: 'sv' as const,
-        expectedTextPattern: /Kalendersidan har ändrats till/,
-        expectedMonth: 'februari 2021', // Swedish for February 2021
-        nextMonthLabel: 'Nästa månad'
-      }
-    ];
+  it('informs screen reader users when month is changed - English', async () => {
+    const { rerender } = render(<DateInput id="date" label="Date" language="en" />);
 
-    for (const testCase of testCases) {
-      const { rerender } = render(<DateInput id="date" label="Date" language={testCase.language} />);
-      
-      // Open the date picker
-      await act(async () => {
-        userEvent.click(screen.getByLabelText(
-          testCase.language === 'en' ? 'Choose date' :
-          testCase.language === 'fi' ? 'Valitse päivämäärä' :
-          'Välj datum'
-        ));
-      });
+    // Open the date picker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Choose date'));
+    });
 
-      // Wait for the date picker to be visible
-      expect(screen.getByRole('dialog')).toBeInTheDocument();
+    // Wait for the date picker to be visible
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
 
-      // Click the next month button to change the month
-      const nextMonthButton = screen.getByLabelText(testCase.nextMonthLabel);
-      await act(async () => {
-        userEvent.click(nextMonthButton);
-      });
+    // Click the next month button to change the month
+    const nextMonthButton = screen.getByLabelText('Next month');
+    await act(async () => {
+      userEvent.click(nextMonthButton);
+    });
 
-      // Wait for and check that an aria-live notification appears with the correct language message and month/year
-      await waitFor(() => {
-        const notification = screen.getByTestId('notification');
-        expect(notification).toBeInTheDocument();
-        expect(notification).toHaveAttribute('aria-live', 'polite');
-        expect(notification.textContent).toMatch(testCase.expectedTextPattern);
-        expect(notification.textContent).toContain(testCase.expectedMonth);
-      });
+    // Wait for and check that an aria-live notification appears with the correct language message and month/year
+    await waitFor(() => {
+      const notification = screen.getByTestId('notification');
+      expect(notification).toBeInTheDocument();
+      expect(notification).toHaveAttribute('aria-live', 'polite');
+      expect(notification.textContent).toMatch(/Calendar page has changed to/);
+      expect(notification.textContent).toContain('February 2021');
+    });
 
-      // Clean up for next iteration
-      rerender(<div />);
-    }
+    // Clean up
+    rerender(<div />);
+  });
+
+  it('informs screen reader users when month is changed - Finnish', async () => {
+    const { rerender } = render(<DateInput id="date" label="Date" language="fi" />);
+
+    // Open the date picker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Valitse päivämäärä'));
+    });
+
+    // Wait for the date picker to be visible
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    // Click the next month button to change the month
+    const nextMonthButton = screen.getByLabelText('Seuraava kuukausi');
+    await act(async () => {
+      userEvent.click(nextMonthButton);
+    });
+
+    // Wait for and check that an aria-live notification appears with the correct language message and month/year
+    await waitFor(() => {
+      const notification = screen.getByTestId('notification');
+      expect(notification).toBeInTheDocument();
+      expect(notification).toHaveAttribute('aria-live', 'polite');
+      expect(notification.textContent).toMatch(/Kalenterisivu on vaihtunut kuukauteen/);
+      expect(notification.textContent).toContain('helmikuu 2021');
+    });
+
+    // Clean up
+    rerender(<div />);
+  });
+
+  it('informs screen reader users when month is changed - Swedish', async () => {
+    const { rerender } = render(<DateInput id="date" label="Date" language="sv" />);
+
+    // Open the date picker
+    await act(async () => {
+      userEvent.click(screen.getByLabelText('Välj datum'));
+    });
+
+    // Wait for the date picker to be visible
+    expect(screen.getByRole('dialog')).toBeInTheDocument();
+
+    // Click the next month button to change the month
+    const nextMonthButton = screen.getByLabelText('Nästa månad');
+    await act(async () => {
+      userEvent.click(nextMonthButton);
+    });
+
+    // Wait for and check that an aria-live notification appears with the correct language message and month/year
+    await waitFor(() => {
+      const notification = screen.getByTestId('notification');
+      expect(notification).toBeInTheDocument();
+      expect(notification).toHaveAttribute('aria-live', 'polite');
+      expect(notification.textContent).toMatch(/Kalendersidan har ändrats till/);
+      expect(notification.textContent).toContain('februari 2021');
+    });
+
+    // Clean up
+    rerender(<div />);
   });
 });

@@ -355,16 +355,16 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     },
   );
 
-  const getMonthChangeMessage = (month: Date, language: 'en' | 'fi' | 'sv') => {
-    const formattedMonth = format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(language) });
+  const getMonthChangeMessage = (month: Date, lang: 'en' | 'fi' | 'sv') => {
+    const formattedMonth = format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(lang) });
 
     const messages = {
       en: `Calendar page has changed to ${formattedMonth}`,
       fi: `Kalenterisivu on vaihtunut kuukauteen ${formattedMonth}`,
-      sv: `Kalendersidan har ändrats till ${formattedMonth}`
+      sv: `Kalendersidan har ändrats till ${formattedMonth}`,
     };
 
-    return messages[language];
+    return messages[lang];
   };
 
   return (
@@ -442,7 +442,6 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           aria-live="polite"
         />
       )}
-
     </div>
   );
 };
