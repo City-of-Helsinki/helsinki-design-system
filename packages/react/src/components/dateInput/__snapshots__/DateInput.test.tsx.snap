@@ -73,7 +73,6 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                 >
                   <select
                     aria-label="Month"
-                    aria-live="polite"
                   >
                     <option
                       value="0"
@@ -167,7 +166,6 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                 >
                   <select
                     aria-label="Year"
-                    aria-live="polite"
                   >
                     <option
                       value="2011"
@@ -351,7 +349,6 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
                 </div>
               </div>
               <table
-                aria-live="polite"
                 class="hds-datepicker__month-table"
               >
                 <thead>
@@ -1534,7 +1531,6 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                 >
                   <select
                     aria-label="Month"
-                    aria-live="polite"
                   >
                     <option
                       value="0"
@@ -1628,7 +1624,6 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                 >
                   <select
                     aria-label="Year"
-                    aria-live="polite"
                   >
                     <option
                       value="2011"
@@ -1812,7 +1807,6 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
                 </div>
               </div>
               <table
-                aria-live="polite"
                 class="hds-datepicker__month-table"
               >
                 <thead>

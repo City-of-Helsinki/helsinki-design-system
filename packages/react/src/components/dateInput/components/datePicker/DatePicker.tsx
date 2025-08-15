@@ -20,6 +20,7 @@ import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
 import { Legend } from '../legend';
 import { Button, ButtonSize, ButtonVariant } from '../../../button';
+import { Notification } from '../../../notification';
 import { IconCheck, IconCross } from '../../../../icons';
 import classNames from '../../../../utils/classNames';
 import { scrollIntoViewIfNeeded } from '../../../../utils/scrollIntoViewIfNeeded';
@@ -82,6 +83,11 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   const [selectedDate, setSelectedDate] = useState<Date>(selected || null);
 
   const [isPopperReady, setIsPopperReady] = useState<boolean>(false);
+
+  /**
+   * For invisible aria-live notifications
+   */
+  const [isAriaNotificationActive, setIsAriaNotificationActive] = useState<boolean>(false);
 
   /**
    * Update the selected date from props
@@ -208,6 +214,8 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     if (typeof onMonthChange === 'function') {
       onMonthChange(nextMonth, event);
     }
+
+    setIsAriaNotificationActive(true);
   };
 
   const findNextAvailableDate = (days: number, nextDate: Date) => {
@@ -347,6 +355,18 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     },
   );
 
+  const getMonthChangeMessage = (month: Date, language: 'en' | 'fi' | 'sv') => {
+    const formattedMonth = format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(language) });
+
+    const messages = {
+      en: `Calendar page has changed to ${formattedMonth}`,
+      fi: `Kalenterisivu on vaihtunut kuukauteen ${formattedMonth}`,
+      sv: `Kalendersidan har ändrats till ${formattedMonth}`
+    };
+
+    return messages[language];
+  };
+
   return (
     <div
       id={id}
@@ -410,6 +430,19 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           </div>
         </div>
       </DatePickerContext.Provider>
+      {isAriaNotificationActive && (
+        <Notification
+          position="top-left"
+          invisible
+          autoClose
+          autoCloseDuration={10000}
+          displayAutoCloseProgress={false}
+          onClose={() => setIsAriaNotificationActive(false)}
+          notificationAriaLabel={getMonthChangeMessage(currentMonth, language)}
+          aria-live="polite"
+        />
+      )}
+
     </div>
   );
 };

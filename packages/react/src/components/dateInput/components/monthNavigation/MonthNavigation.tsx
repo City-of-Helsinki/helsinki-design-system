@@ -95,7 +95,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
   return (
     <div className={styles['hds-datepicker__navigation']}>
       <div className={styles['hds-datepicker__navigation__select']}>
-        <select aria-label={getMonthAriaLabel()} aria-live="polite" onChange={onMonthChange} value={month.getMonth()}>
+        <select aria-label={getMonthAriaLabel()} onChange={onMonthChange} value={month.getMonth()}>
           {eachMonthOfInterval({ start: new Date(selectedYear, 0, 1), end: new Date(selectedYear, 11, 31) }).map(
             (monthDate) => {
               const monthNumber = monthDate.getMonth();
@@ -116,7 +116,7 @@ export const MonthNavigation = ({ month }: MonthCaptionProps) => {
         </div>
       </div>
       <div className={styles['hds-datepicker__navigation__select']}>
-        <select aria-label={getYearAriaLabel()} aria-live="polite" onChange={onYearChange} value={selectedYear}>
+        <select aria-label={getYearAriaLabel()} onChange={onYearChange} value={selectedYear}>
           {eachYearOfInterval({ start: startOfYear(minDate), end: endOfYear(maxDate) }).map((yearDate) => {
             const year = yearDate.getFullYear();
             return (
