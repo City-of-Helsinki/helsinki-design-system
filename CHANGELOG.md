@@ -143,6 +143,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
+- [Select] Add 'aria-live'-attribute to search/filter results on the Select component.
 
 #### Changed
 

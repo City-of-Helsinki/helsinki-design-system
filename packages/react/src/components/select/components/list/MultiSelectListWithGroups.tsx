@@ -121,6 +121,7 @@ export const createContainerProps = (
   };
   return {
     'aria-label': getAriaLabel(),
+    ...(listInputType ? { 'aria-live': 'polite' } : {}),
     id: elementIds.list,
     className: classNames(styles.list, styles.shiftOptions, styles.multiSelectList),
     ref: refs.list as unknown as RefObject<HTMLDivElement>,
