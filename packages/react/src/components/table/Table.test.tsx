@@ -311,6 +311,48 @@ describe('<Table /> spec', () => {
     expect(mockOnSort).toHaveBeenCalledTimes(1);
   });
 
+  it('Should have correct aria-labels on sorting buttons based on sort state', () => {
+    const colsWithSorting = [
+      { key: 'firstName', headerName: 'First name', isSortable: true },
+      { key: 'age', headerName: 'Age', isSortable: true },
+    ];
+
+    const { container } = render(
+      <Table
+        {...defaultProps}
+        ariaLabelSortButtonUnset="Not sorted"
+        ariaLabelSortButtonAscending="Sorted in ascending order"
+        ariaLabelSortButtonDescending="Sorted in descending order"
+        caption={caption}
+        cols={colsWithSorting}
+      />,
+    );
+
+    // Initially, all sorting buttons should have "Not sorted" aria-label
+    const firstNameButton = container.querySelector(
+      '[data-testid="hds-table-sorting-header-firstName"]',
+    ) as HTMLButtonElement;
+    const ageButton = container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLButtonElement;
+
+    expect(firstNameButton).toHaveAttribute('aria-label', 'Not sorted');
+    expect(ageButton).toHaveAttribute('aria-label', 'Not sorted');
+
+    // Click age button to sort ascending
+    userEvent.click(ageButton);
+    expect(ageButton).toHaveAttribute('aria-label', 'Sorted in ascending order');
+    expect(firstNameButton).toHaveAttribute('aria-label', 'Not sorted'); // Other columns should remain unsorted
+
+    // Click age button again to sort descending
+    userEvent.click(ageButton);
+    expect(ageButton).toHaveAttribute('aria-label', 'Sorted in descending order');
+    expect(firstNameButton).toHaveAttribute('aria-label', 'Not sorted');
+
+    // Click firstName button to sort ascending (should reset age to unsorted)
+    userEvent.click(firstNameButton);
+    expect(firstNameButton).toHaveAttribute('aria-label', 'Sorted in ascending order');
+    expect(ageButton).toHaveAttribute('aria-label', 'Not sorted');
+  });
+
   it('Should successfully select and deselect a single row', () => {
     const TableWithSelection = () => {
       const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
