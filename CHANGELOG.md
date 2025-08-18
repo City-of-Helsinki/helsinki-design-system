@@ -35,6 +35,7 @@ Changes that are not related to specific components
 - [Table] Aria-labels of sorting icons are now in sorting buttons.
 - [Tabs] Tabs has tabindex=0 to allow keyboard navigation
 - [Select] Select component didn't render last option on virtualize -mode.
+- [Select] Some aria-labels had no translations.
 
 ### Core
 
