@@ -16,6 +16,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
+- [DateInput] aria-live, aria-controls and aria-expanded -attributes.
 
 #### Changed
 
@@ -32,6 +33,8 @@ Changes that are not related to specific components
 - [Select] Mounting & unmounting sometimes prevented opening the dropdown.
 - [Select] Search cleared or messed up the previous selections made.
 - [Table] Aria-labels of sorting icons are now in sorting buttons.
+- [Tabs] Tabs has tabindex=0 to allow keyboard navigation
+- [Select] Select component didn't render last option on virtualize -mode.
 
 ### Core
 
@@ -141,6 +144,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
+- [Select] Add 'aria-live'-attribute to search/filter results on the Select component.
 
 #### Changed
 
@@ -149,6 +153,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [FileInput] `defaultValue` was wrongly typed (TypeScript)
+- [Header] Header logo had `role='link'` always, but now only when the logo is set as a link.
 
 ### Documentation
 

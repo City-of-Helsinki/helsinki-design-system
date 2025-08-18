@@ -151,7 +151,6 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
     >
       <span
         class="titleAndLogoContainer logo"
-        role="link"
       >
         <span
           class="logoWrapper"

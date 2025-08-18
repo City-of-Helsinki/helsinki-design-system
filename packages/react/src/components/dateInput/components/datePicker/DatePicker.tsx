@@ -36,6 +36,7 @@ const keyCode = {
 
 export const DatePicker = (providedProps: DayPickerProps) => {
   const {
+    id,
     initialMonth = new Date(),
     onMonthChange,
     onDaySelect,
@@ -348,6 +349,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
 
   return (
     <div
+      id={id}
       ref={pickerWrapperRef}
       className={classNames(styles.pickerWrapper, isPopperReady && styles.isVisible)}
       role="dialog"
