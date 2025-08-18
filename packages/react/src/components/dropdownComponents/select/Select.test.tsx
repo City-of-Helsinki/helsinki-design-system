@@ -411,6 +411,47 @@ describe('<Select />', () => {
     });
   });
 
+  describe('Aria-live attributes for search/filter results', () => {
+    it('should have aria-live="polite" when filter input is present (no groups)', async () => {
+      const { openList, getListElement } = renderWithHelpers({
+        groups: false,
+        multiSelect: false,
+        input: 'filter',
+      });
+      await openList();
+      const listElement = getListElement();
+      expect(listElement).toHaveAttribute('aria-live', 'polite');
+    });
+    it('should have aria-live="polite" when filter input is present (with groups)', async () => {
+      const { openList, getListElement } = renderWithHelpers({
+        groups: true,
+        multiSelect: false,
+        input: 'filter',
+      });
+      await openList();
+      const listElement = getListElement();
+      expect(listElement).toHaveAttribute('aria-live', 'polite');
+    });
+    it('should have aria-live="polite" when search input is present', async () => {
+      const { openList, getListElement } = renderWithHelpers({
+        groups: true,
+        multiSelect: true,
+        input: 'search',
+      });
+      await openList();
+      const listElement = getListElement();
+      expect(listElement).toHaveAttribute('aria-live', 'polite');
+    });
+    it('should not have aria-live attribute when no input is present', async () => {
+      const { openList, getListElement } = renderWithHelpers({
+        groups: true,
+        multiSelect: false,
+      });
+      await openList();
+      const listElement = getListElement();
+      expect(listElement).not.toHaveAttribute('aria-live');
+    });
+  });
   describe('Accessibility attributes are set correctly', () => {
     const singleSelectNoGroupsNoInput: TestScenario = {
       description: 'Single select no groups no inputs',

@@ -139,4 +139,14 @@ describe('<MultiSelectListWithGroups />', () => {
       await renderUpdatePromise;
     }
   });
+  it('should have aria-live="polite" attribute', () => {
+    const { container } = initTests({
+      renderComponentOnly: true,
+      selectProps: { multiSelect: true, filter: () => true },
+      testProps: { groups: true, input: 'filter' },
+    });
+    // Find the list element by ID pattern or class
+    const listElement = container.querySelector('[id$="-list"]') || container.querySelector('.list');
+    expect(listElement).toHaveAttribute('aria-live', 'polite');
+  });
 });

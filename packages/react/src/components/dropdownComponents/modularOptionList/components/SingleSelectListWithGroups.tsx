@@ -29,8 +29,14 @@ export function SingleSelectListWithGroups() {
   const { getData, trigger, getMetaData } = useModularOptionListDataHandlers();
   const { groups, multiSelect } = getData();
   const { getOptionId, refs, elementIds } = getMetaData();
-  const attr = createListElementProps<HTMLDivElement>({ refs, elementIds, multiSelect });
-  const shouldRenderOptions = true; // TODO !isSearching;
-  const children = shouldRenderOptions ? createGroups({ groups, trigger, getOptionId }) : null;
+  const attr = {
+    ...createListElementProps<HTMLDivElement>({
+      refs,
+      elementIds,
+      multiSelect,
+    }),
+    'aria-live': 'polite' as const,
+  };
+  const children = createGroups({ groups, trigger, getOptionId });
   return <div {...attr}>{children}</div>;
 }
