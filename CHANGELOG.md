@@ -16,7 +16,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Component] What is added?
-- [Select] Add 'aria-live'-attribute to search/filter results on the Select component.
 
 #### Changed
 
@@ -27,9 +26,6 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
-- [Select] Mounting & unmounting sometimes prevented opening the dropdown.
-- [Select] Search cleared or messed up the previous selections made.
-- [Select] Select component didn't render last option on virtualize -mode.
 
 ### Core
 
@@ -130,6 +126,18 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+## [4.7.0] - August, 27, 2025
+
+### React
+
+#### Fixed
+
+- [Select] Mounting & unmounting sometimes prevented opening the dropdown
+- [Select] Search cleared or messed up the previous selections made
+- [Select] Select component didn't render last option on virtualize -mode
+- [Select] Some aria-labels had no translations
+- [Select] Add 'aria-live'-attribute to search/filter results on the Select component
 
 ## [4.4.0] - April, 3rd, 2025
 

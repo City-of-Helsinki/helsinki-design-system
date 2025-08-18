@@ -42,6 +42,8 @@ const getTexts = (metaData: SelectMetaData) => {
     errorText: getter('error'),
     noSelectedOptionsText: getter('noSelectedOptions'),
     selectedOptionsCount: getter('selectedOptionsCount'),
+    and: getter('selectedOptionsCount_and'),
+    otherOptions: getter('selectedOptionsCount_otherOptions'),
     noSelectedOptions: getter('noSelectedOptions'),
     requiredText: getter('required'),
   };
@@ -60,6 +62,8 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     assistiveText,
     noSelectedOptions,
     selectedOptionsCount,
+    and,
+    otherOptions,
     requiredText,
   } = getTexts(metaData);
   const hasInput = !!listInputType;
@@ -70,16 +74,18 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     if (!length) {
       labels.push(`${placeholder}. ${noSelectedOptions}.`);
     } else {
-      labels.push(selectedOptionsCount);
+      const optionTexts = [];
+      optionTexts.push(`${selectedOptionsCount}:`);
       if (selectedOptions[0]) {
-        labels.push(`"${selectedOptions[0].label}"`);
+        optionTexts.push(`"${selectedOptions[0].label}"`);
       }
       if (selectedOptions[1]) {
-        labels.push(`and "${selectedOptions[1].label}"`);
+        optionTexts.push(`${and} "${selectedOptions[1].label}"`);
       }
       if (length > 2) {
-        labels.push(`and ${length - 2} other options.`);
+        optionTexts.push(`${and} ${length - 2} ${otherOptions}.`);
       }
+      labels.push(optionTexts.join(' '));
     }
     if (required) {
       labels.push(requiredText);

@@ -90,7 +90,9 @@ export type TextKey =
   | 'required'
   | 'selectedOptionsCount_multiple'
   | 'selectedOptionsCount_one'
-  | 'selectedOptionsCount_zero';
+  | 'selectedOptionsCount_zero'
+  | 'selectedOptionsCount_and'
+  | 'selectedOptionsCount_otherOptions';
 
 export type TextsWithNumberedVariations = 'choiceCount' | 'selectedOptionsCount';
 
