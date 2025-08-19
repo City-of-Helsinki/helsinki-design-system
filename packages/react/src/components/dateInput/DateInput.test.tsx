@@ -103,7 +103,6 @@ describe('<DateInput /> spec', () => {
       const notification = screen.getByTestId('notification');
       expect(notification).toBeInTheDocument();
       expect(notification).toHaveAttribute('aria-live', 'polite');
-      expect(notification.textContent).toMatch(/Calendar page has changed to/);
       expect(notification.textContent).toContain('February 2021');
     });
 
@@ -133,7 +132,6 @@ describe('<DateInput /> spec', () => {
       const notification = screen.getByTestId('notification');
       expect(notification).toBeInTheDocument();
       expect(notification).toHaveAttribute('aria-live', 'polite');
-      expect(notification.textContent).toMatch(/Kalenterisivu on vaihtunut kuukauteen/);
       expect(notification.textContent).toContain('helmikuu 2021');
     });
 
@@ -163,7 +161,6 @@ describe('<DateInput /> spec', () => {
       const notification = screen.getByTestId('notification');
       expect(notification).toBeInTheDocument();
       expect(notification).toHaveAttribute('aria-live', 'polite');
-      expect(notification.textContent).toMatch(/Kalendersidan har ändrats till/);
       expect(notification.textContent).toContain('februari 2021');
     });
 

@@ -356,15 +356,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   );
 
   const getMonthChangeMessage = (month: Date, lang: 'en' | 'fi' | 'sv') => {
-    const formattedMonth = format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(lang) });
-
-    const messages = {
-      en: `Calendar page has changed to ${formattedMonth}`,
-      fi: `Kalenterisivu on vaihtunut kuukauteen ${formattedMonth}`,
-      sv: `Kalendersidan har ändrats till ${formattedMonth}`,
-    };
-
-    return messages[lang];
+    return format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(lang) });
   };
 
   return (
