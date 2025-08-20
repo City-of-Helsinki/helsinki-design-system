@@ -52,7 +52,7 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           </button>
         </div>
         <div
-          aria-modal="true"
+          aria-label="Date picker"
           class="pickerWrapper isVisible"
           data-popper-escaped="true"
           data-popper-placement="bottom-end"
@@ -1510,7 +1510,7 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           </button>
         </div>
         <div
-          aria-modal="true"
+          aria-label="Date picker"
           class="pickerWrapper isVisible"
           data-popper-escaped="true"
           data-popper-placement="bottom-end"

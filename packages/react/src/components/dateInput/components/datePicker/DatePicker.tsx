@@ -81,7 +81,6 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    * Currently selected date
    */
   const [selectedDate, setSelectedDate] = useState<Date>(selected || null);
-
   const [isPopperReady, setIsPopperReady] = useState<boolean>(false);
 
   /**
@@ -359,13 +358,21 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     return format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(lang) });
   };
 
+  const getAriaLabel = (lang: 'en' | 'fi' | 'sv') => {
+    return {
+      en: 'Date picker',
+      fi: 'Päivämäärän valitsin',
+      sv: 'Datumväljare',
+    }[lang];
+  };
+
   return (
     <div
       id={id}
       ref={pickerWrapperRef}
       className={classNames(styles.pickerWrapper, isPopperReady && styles.isVisible)}
       role="dialog"
-      aria-modal="true"
+      aria-label={getAriaLabel(language)}
       aria-hidden={open ? undefined : true}
       style={datePickerPopperStyles.popper}
       {...datePickerPopperAttributes.popper}
