@@ -1,0 +1,480 @@
+@import '../../../styles/common.scss';
+@import './dropdown.helpers';
+
+.root {
+  @extend %dropdownRoot;
+
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+}
+
+.selectAndListContainer {
+  @extend %dropdownWrapper;
+
+  &.open {
+    .angleIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  &.invalid {
+    border-color: var(--computed-dropdown-border-color-invalid);
+
+    &:hover {
+      border-color: var(--computed-dropdown-border-color-hover-invalid);
+    }
+  }
+
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.visuallyHidden {
+  @extend %visuallyHidden;
+}
+
+.selectedOptionsContainer {
+  box-sizing: border-box;
+  display: flex;
+  min-height: var(--computed-menu-item-height);
+
+  .dropdownButton {
+    @extend %buttonReset;
+
+    align-items: center;
+    color: var(--computed-dropdown-color-default);
+    display: flex;
+    font-size: var(--fontsize-body-l);
+    outline: none;
+    padding: var(--spacing-xs);
+    padding-right: var(--spacing-xs);
+
+    &.withVisibleFocus {
+      align-self: center;
+      height: calc(calc(var(--computed-dropdown-height)) - 6px);
+
+      &:focus-visible {
+        @extend %dropdownFocusOutline;
+      }
+    }
+
+    .buttonIcon {
+      color: var(--computed-icon-color);
+    }
+
+    .labels {
+      box-sizing: border-box;
+      display: flex;
+      flex-flow: wrap;
+      flex-grow: 1;
+
+      /* this value must be higher than height of a selected item (.dropdownButtonOption) or none are considered visible in getIndexOfFirstVisibleChild() */
+      height: calc(var(--fontsize-body-l) * var(--lineheight-l) + 1px);
+      overflow: hidden;
+      padding-left: var(--spacing-3-xs);
+    }
+
+    .count.count {
+      display: none;
+      font-weight: bold;
+      padding: 0;
+      position: relative;
+      width: 1px;
+
+      /* This helps align the element vertically, when child is position:absolute */
+      &:after {
+        content: '\00a0';
+        display: inline-block;
+      }
+
+      span {
+        background-color: var(--computed-dropdown-background-default);
+        color: var(--computed-dropdown-color-default);
+        position: absolute;
+        right: 2px;
+        top: 0;
+      }
+    }
+
+    .arrowAndSpaceForClearButton {
+      align-items: center;
+      color: var(--computed-dropdown-icon-color);
+      display: flex;
+      flex-shrink: 1;
+
+      /* space reserved for the clear button:
+      * icon size + its paddings(x2) + left padding from "+3" and right padding to the arrow icon
+      */
+      padding-left: calc(var(--clear-button-size) + var(--spacing-2-xs) + var(--spacing-xs));
+
+      --clear-button-size: calc(var(--computed-icon-size) + var(--spacing-xs) + var(--spacing-xs));
+    }
+
+    &.singleSelect {
+      .arrowAndSpaceForClearButton {
+        padding-left: calc(var(--clear-button-size) + var(--spacing-3-xs) + var(--spacing-xs));
+      }
+    }
+
+    &:not(.clearable) {
+      .arrowAndSpaceForClearButton {
+        padding-left: var(--spacing-xs);
+      }
+    }
+
+    &.selectedOptions {
+      flex-grow: 1;
+      overflow: hidden;
+
+      // button icon
+      > span:first-child {
+        display: flex;
+        padding-right: var(--spacing-3-xs);
+      }
+    }
+
+    &.icon {
+      color: var(--computed-dropdown-icon-color);
+      flex-shrink: 1;
+      padding-left: var(--spacing-xs);
+      padding-right: var(--spacing-xs);
+    }
+
+    &.placeholder {
+      background-color: inherit;
+      color: var(--computed-placeholder-color);
+
+      .arrowAndSpaceForClearButton {
+        padding-left: var(--spacing-xs);
+      }
+    }
+
+    &.spaceForOneDigit .labels {
+      padding-right: calc(24px);
+    }
+
+    &.spaceForTwoDigits .labels {
+      padding-right: calc(34px);
+    }
+
+    &.spaceForThreeDigits .labels {
+      padding-right: calc(44px);
+    }
+
+    &.spaceForFourDigits .labels {
+      padding-right: calc(54px);
+    }
+
+    &.disabledButton {
+      background-color: var(--computed-dropdown-background-disabled);
+      border-color: var(--computed-dropdown-border-color-disabled);
+      color: var(--computed-dropdown-color-disabled);
+
+      &.icon {
+        color: var(--computed-menu-item-icon-color-disabled);
+      }
+
+      .count.count span {
+        background-color: var(--computed-dropdown-background-disabled);
+        color: var(--computed-dropdown-color-disabled);
+      }
+
+      &.placeholder {
+        color: var(--computed-dropdown-color-disabled);
+      }
+
+      .arrowAndSpaceForClearButton,
+      .buttonIcon {
+        color: var(--computed-dropdown-color-disabled);
+      }
+    }
+
+    &.hasHiddenItems {
+      .count {
+        display: block;
+      }
+    }
+  }
+
+  .clearButton {
+    position: absolute;
+    right: calc(var(--computed-icon-size) + var(--spacing-xs) + var(--spacing-xs));
+  }
+
+  .dropdownButtonOption {
+    max-width: 100%;
+    overflow: hidden;
+    padding: 0 var(--spacing-2-xs) 0 0;
+    position: relative;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+
+    &:not(:last-child):after {
+      content: ',';
+      display: inline-block;
+
+      /* "absolute", because comma is added/removed after render
+      and should not cause reflow of elements */
+      position: absolute;
+      right: var(--spacing-3-xs);
+      top: 0;
+    }
+
+    &:last-child {
+      margin-right: 0;
+    }
+
+    &.lastVisible {
+      &:after {
+        content: '';
+      }
+    }
+  }
+}
+
+
+  .listContainer {
+    display: flex;
+    flex-direction: column;
+    max-height: 238px;
+    overflow-y: auto;
+
+    .list {
+      display: flex;
+      flex-direction: column;
+      margin: 0;
+      padding: 0;
+      position: relative;
+
+      .listItem {
+        @extend %dropdownMenuItem;
+
+        &.disabledOption.disabledOption {
+          cursor: not-allowed;
+        }
+      }
+
+      .singleSelectListItem {
+        --computed-menu-item-background-color-hover: var(--menu-item-background-color-hover, var(--color-bus-light));
+        --computed-menu-item-background-color-selected: var(--menu-item-background-color-selected, var(--color-bus));
+        --computed-menu-item-background-color-selected-hover: var(
+          --menu-item-background-color-selected-hover,
+          var(--color-bus-dark)
+        );
+        --computed-menu-item-color-selected: var(--menu-item-color-selected, var(--color-white));
+        --computed-menu-item-color-selected-hover: var(--menu-item-color-selected-hover, var(--color-white));
+
+        .singleSelectListItemLabel {
+          align-items: center;
+          display: flex;
+          flex-grow: 1;
+          justify-content: space-between;
+
+          > span {
+            color: var(--computed-menu-item-icon-color-selected);
+            height: 24px;
+            width: 24px;
+          }
+        }
+
+        &.disabledOption .singleSelectListItemLabel > span {
+          color: var(--computed-menu-item-icon-color-disabled);
+        }
+      }
+
+      .multiSelectListItem {
+        position: relative;
+
+        .checkboxContainer {
+          display: flex;
+          flex-direction: row;
+
+          > div {
+            flex-shrink: 0;
+            pointer-events: none;
+            width: 24px;
+
+            --background-unselected: var(--background-default, var(--color-white));
+          }
+
+          label {
+            cursor: pointer;
+            flex-grow: 1;
+            padding-left: var(--spacing-xs);
+
+            &:after {
+              content: '';
+              inset: 0;
+              position: absolute;
+            }
+          }
+
+          .checkbox {
+            /* class to target checkbox theme */
+          }
+        }
+
+        &.disabledOption.disabledOption label {
+          cursor: not-allowed;
+        }
+      }
+
+      .groupLabel {
+        @extend %dropdownMenuItem;
+
+        background-color: var(--computed-menu-item-group-label-background-default);
+        font-weight: bold;
+
+        &.disabledOption.disabledOption {
+          background-color: var(--computed-menu-item-group-label-background-disabled);
+          color: var(--computed-menu-item-group-label-color-disabled);
+
+          &:hover {
+            background-color: var(--computed-menu-item-group-label-background-disabled-hover);
+          }
+        }
+      }
+
+      .selectableListItem:not(.selected) {
+        &:hover {
+          background-color: var(--computed-menu-item-background-color-hover);
+        }
+      }
+
+      .focusableListItem {
+        outline: none;
+
+        &:focus,
+        &:focus-within {
+          box-shadow: 0 0 0 2px var(--computed-menu-item-border-color-focus) inset;
+          outline: none;
+        }
+      }
+
+      &.shiftOptions {
+        .listItem:not(.groupLabel) {
+          padding-left: var(--spacing-layout-s);
+        }
+      }
+    }
+  }
+
+
+.searchOrFilterInput {
+  padding: var(--spacing-2-xs);
+}
+
+.searchAndFilterInfoContainer {
+  align-items: center;
+  color: var(--computed-dropdown-color-default);
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-l);
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  > span {
+    padding-top: var(--spacing-2-xs);
+    text-align: center;
+  }
+
+  > svg {
+    padding: var(--spacing-s) 0 var(--spacing-xs);
+  }
+
+  &.screenReaderOnly {
+    @extend %visuallyHidden;
+  }
+
+  &.withErrorMessage {
+    padding-top: 0;
+    /* stylelint-disable-next-line no-descending-specificity */
+    > span:first-of-type {
+      padding-top: 0;
+    }
+  }
+}
+
+.tagListContainer {
+  display: flex;
+  flex-direction: column;
+
+  .tagList {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -4px;
+    max-height: 80px;
+    overflow: hidden;
+    padding: var(--spacing-3-xs) 4px 0;
+
+    .tag {
+      margin-bottom: var(--spacing-xs);
+      margin-right: var(--spacing-xs);
+
+      &.disabledTag {
+        pointer-events: none;
+      }
+    }
+  }
+
+  &.tagListExpanded {
+    .tagList {
+      max-height: unset;
+    }
+
+    .arrowIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  .tagListButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--spacing-xs);
+
+    > button:first-child {
+      margin-right: var(--spacing-xs);
+    }
+
+    .hiddenButton {
+      display: none;
+    }
+
+    .showAllButton {
+      /* class to target button theme */
+    }
+
+    .clearAllButton {
+      /* theme will override these with css. Not "--computed" for that reason. */
+      --background-color-hover: var(--color-error-light);
+      --background-color: var(--color-white);
+      --border-color: var(--color-error);
+      --border-color-hover: var(--color-error);
+      --border-color-focus: var(--color-error);
+      --border-color-hover-focus: var(--color-error);
+      --color: var(--color-error);
+      --color-hover: var(--color-error);
+      --color-focus: var(--color-error);
+      --color-hover-focus: var(--color-error);
+    }
+  }
+}
+
+.errorText {
+  composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
+  margin-bottom: var(--spacing-2-xs);
+
+  --icon-size: var(--computed-icon-size);
+  --helper-color-invalid: var(--computed-error-text-color);
+  --helper-icon-color-invalid: var(--computed-error-icon-color);
+  --helper-background-color-invalid: var(--computed-error-background-color);
+  --color-error: var(--computed-error-border-color);
+}
+
+.assistiveText {
+  color: var(--computed-assistive-color);
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.screenReaderNotifications {
+  @extend %visuallyHidden;
+}

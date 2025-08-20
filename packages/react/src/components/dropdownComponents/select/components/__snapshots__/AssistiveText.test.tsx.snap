@@ -1,0 +1,11 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<AssistiveText /> Component is rendered when texts.assistive is set 1`] = `
+<DocumentFragment>
+  <div
+    class="assistiveText"
+  >
+    Assistive text
+  </div>
+</DocumentFragment>
+`;
