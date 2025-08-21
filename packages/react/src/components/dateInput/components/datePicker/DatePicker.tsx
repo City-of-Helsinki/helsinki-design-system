@@ -214,7 +214,10 @@ export const DatePicker = (providedProps: DayPickerProps) => {
       onMonthChange(nextMonth, event);
     }
 
-    setIsAriaNotificationActive(true);
+    // Close and open notification to make screen readers to understand
+    // that it have changed
+    setIsAriaNotificationActive(false);
+    setTimeout(() => setIsAriaNotificationActive(true), 1);
   };
 
   const findNextAvailableDate = (days: number, nextDate: Date) => {
@@ -434,7 +437,7 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           position="top-left"
           invisible
           autoClose
-          autoCloseDuration={10000}
+          autoCloseDuration={5000}
           displayAutoCloseProgress={false}
           onClose={() => setIsAriaNotificationActive(false)}
           notificationAriaLabel={getMonthChangeMessage(currentMonth, language)}
