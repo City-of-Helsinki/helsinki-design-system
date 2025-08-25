@@ -62,6 +62,10 @@
     text-overflow: ellipsis;
     white-space: nowrap;
   }
+
+  &[class*="hds-tag--statuslabel"] {
+    font-weight: normal;
+  }
 }
 
 .hds-tag--large {
@@ -137,4 +141,28 @@
 
 .hds-tag__icon:last-child {
   margin-right: var(--icon-reposition);
+}
+
+.hds-tag--statuslabel-neutral {
+  --background-color: var(--color-black-10);
+  --color: var(--color-black-90);
+}
+
+.hds-tag--statuslabel-info {
+  --background-color: var(--color-info);
+  --color: var(--color-white);
+}
+
+.hds-tag--statuslabel-success {
+  --background-color: var(--color-success);
+  --color: var(--color-white);
+}
+
+.hds-tag--statuslabel-alert {
+  --background-color: var(--color-alert);
+}
+
+.hds-tag--statuslabel-error {
+  --background-color: var(--color-error);
+  --color: var(--color-white);
 }
