@@ -14,8 +14,6 @@ Notification.propTypes = {
   label: PropTypes.string,
   className: PropTypes.string,
   style: PropTypes.object,
-  link: PropTypes.string,
-  linkText: PropTypes.string,
   size: PropTypes.oneOf(['default', 'small' , 'large']),
 };
 

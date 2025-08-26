@@ -23,9 +23,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 Changes that are not related to specific components
 
 - [Component] What has been changed
-- [Notification] body text size set to --fontsize-body-m all variations
-- [Notification] Heading size and gaps in default/basic size inline updated
-- [Notification] `link` prop added to enable native link in Notification.
 
 #### Fixed
 
@@ -37,6 +34,7 @@ Changes that are not related to specific components
 - [Tabs] Tabs has tabindex=0 to allow keyboard navigation
 - [Select] Select component didn't render last option on virtualize -mode.
 - [Select] Some aria-labels had no translations.
+- [Header] Header logo had `role='link'` always, but now only when the logo is set as a link.
 
 ### Core
 
@@ -47,7 +45,6 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
-- [Notification] New example on how to have a link inside notification.
 
 #### Changed
 
@@ -155,7 +152,6 @@ Changes that are not related to specific components
 #### Fixed
 
 - [FileInput] `defaultValue` was wrongly typed (TypeScript)
-- [Header] Header logo had `role='link'` always, but now only when the logo is set as a link.
 
 ### Documentation
 

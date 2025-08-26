@@ -31,18 +31,13 @@
 
   &__content {
     display: grid;
-    gap: var(--spacing-2-xs);
-  }
-
-  .hds-link {
-    color: inherit;
-    justify-self: flex-start;
+    gap: var(--spacing-s);
   }
 
   &__label {
     align-items: center;
     display: flex;
-    font-size: var(--fontsize-heading-xxs);
+    font-size: var(--fontsize-heading-xs);
     font-weight: bold;
     letter-spacing: 0;
     line-height: 24px;
@@ -60,7 +55,7 @@
   }
 
   &__body {
-    font-size: var(--fontsize-body-m);
+    font-size: var(--fontsize-body-s);
     line-height: 24px;
   }
 

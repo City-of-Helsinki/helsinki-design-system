@@ -196,17 +196,3 @@ export const WithClose = () => `
     </section>
 `;
 WithClose.storyName = 'With close button';
-
-export const WithLink = () => `
-    <section aria-label="Notification" class="hds-notification">
-      <div class="hds-notification__content">
-        <div class="hds-notification__label" role="heading" aria-level="2">
-            <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
-            <span>Info</span>
-        </div>
-        ${text}
-        <a href="#" class="hds-link">Link</a>
-      </div>
-    </section>
-`;
-

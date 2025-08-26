@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
@@ -8,7 +8,6 @@ import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 import { getPlainTextContent } from '../../utils/getPlainTextContent';
-import { Link, LinkSize } from '../link/Link';
 
 export type NotificationType = 'info' | 'error' | 'alert' | 'success';
 
@@ -67,10 +66,6 @@ type CommonProps = React.PropsWithChildren<
      * Note: Labels are not displayed visually for small notifications, but they are still accessible to assistive technology. This could be used to help screen reader users to better understand the context of the notification.
      */
     label?: string | React.ReactNode;
-    /**
-     * Link element to be displayed in the notification. If not provided, the link will not be displayed.
-     */
-    link?: typeof Link | React.ReactNode;
     /**
      * The aria-label of the notification region
      * @default "Notification"
@@ -210,7 +205,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       style,
       type = 'info',
       headingLevel = 2,
-      link = undefined,
       ...rest
     }: NotificationProps,
     ref,
@@ -276,17 +270,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
     const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
-    const linkInsideNotification = useMemo(
-      () =>
-        link && React.isValidElement(link)
-          ? React.cloneElement(link as React.ReactElement<React.ComponentProps<typeof Link>>, {
-              size: LinkSize.Medium,
-              className: classNames(styles.link),
-            })
-          : undefined,
-      [link],
-    );
-
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
         <animated.section
@@ -323,7 +306,6 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               </div>
             )}
             {children && <div className={styles.body}>{children}</div>}
-            {linkInsideNotification}
           </div>
           {dismissible && (
             <button

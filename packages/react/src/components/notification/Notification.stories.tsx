@@ -2,7 +2,6 @@ import React, { useEffect, useRef, useState } from 'react';
 
 import { Notification, NotificationProps, NotificationSize } from './Notification';
 import { Button } from '../button';
-import { Link } from '../link/Link';
 
 const props = {
   label: 'Label',
@@ -168,37 +167,6 @@ WithCustomHeadingLevel.parameters = {
 };
 
 WithCustomHeadingLevel.storyName = 'With a custom aria-level';
-
-export const WithLink = () => (
-  <Notification
-    {...props}
-    link={
-      <Link href="https://example.com" data-test="notification-link">
-        Link
-      </Link>
-    }
-  >
-    {content}
-  </Notification>
-);
-
-WithLink.storyName = 'With a link';
-
-// Test case for when link is undefined or not a valid element
-export const WithInvalidLink = () => (
-  <Notification
-    {...props}
-    // @ts-ignore - deliberately testing incorrect usage
-    link="not a valid React element"
-  >
-    {content}
-  </Notification>
-);
-
-WithInvalidLink.storyName = 'With invalid link (for testing)';
-WithInvalidLink.parameters = {
-  loki: { skip: true },
-};
 
 export const Playground = (args: NotificationProps & Record<string, string>) => {
   const [open, setOpen] = useState(true);

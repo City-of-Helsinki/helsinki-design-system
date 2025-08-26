@@ -31,10 +31,6 @@
   composes: hds-notification__content from 'hds-core/lib/components/notification/notification.css';
 }
 
-.link {
-  composes: hds-link from 'hds-core/lib/components/notification/notification.css';
-}
-
 .icon {
   background-color: transparent;
   composes: hds-icon from 'hds-core/lib/components/notification/notification.css';
