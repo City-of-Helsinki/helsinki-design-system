@@ -1,16 +1,16 @@
 {
   "name": "hds-react",
-  "version": "4.7.0",
+  "version": "4.7.1",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
   "engines": {
     "node": "^22.13.1"
   },
-  "main": "./lib/cjs/index.js",
-  "module": "./lib/index.js",
-  "esnext": "./lib/index.js",
-  "types": "./lib/index.d.ts",
+  "main": "./cjs/index.js",
+  "module": "./index.js",
+  "esnext": "./index.js",
+  "types": "./index.d.ts",
   "sideEffects": [
     "base.module*"
   ],
@@ -147,7 +147,7 @@
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
     "graphql": "^16.8.1",
-    "hds-core": "4.7.0",
+    "hds-core": "4.7.1",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash": "^4.17.21",
