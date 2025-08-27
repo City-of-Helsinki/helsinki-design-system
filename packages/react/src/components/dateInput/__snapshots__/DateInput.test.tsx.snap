@@ -28,6 +28,8 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           class="buttonWrapper"
         >
           <button
+            aria-controls="hds-date-picker"
+            aria-expanded="true"
             aria-label="Choose date"
             class="button"
             type="button"
@@ -50,11 +52,12 @@ exports[`<DateInput /> spec renders the component with additional props 1`] = `
           </button>
         </div>
         <div
-          aria-modal="true"
+          aria-label="Date picker"
           class="pickerWrapper isVisible"
           data-popper-escaped="true"
           data-popper-placement="bottom-end"
           data-popper-reference-hidden="true"
+          id="hds-date-picker"
           role="dialog"
           style="position: absolute; left: 0px; top: 0px; right: 0px; transform: translate(0px, 5px);"
         >
@@ -1483,6 +1486,8 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           class="buttonWrapper"
         >
           <button
+            aria-controls="hds-date-picker"
+            aria-expanded="true"
             aria-label="Choose date"
             class="button"
             type="button"
@@ -1505,11 +1510,12 @@ exports[`<DateInput /> spec renders the component with default props 1`] = `
           </button>
         </div>
         <div
-          aria-modal="true"
+          aria-label="Date picker"
           class="pickerWrapper isVisible"
           data-popper-escaped="true"
           data-popper-placement="bottom-end"
           data-popper-reference-hidden="true"
+          id="hds-date-picker"
           role="dialog"
           style="position: absolute; left: 0px; top: 0px; right: 0px; transform: translate(0px, 5px);"
         >

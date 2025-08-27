@@ -27,6 +27,10 @@ export type LegendItem = {
  */
 export interface DayPickerProps {
   /**
+   * Unique element id.
+   */
+  id?: string;
+  /**
    * CSS class to add to the root element.
    */
   className?: string;

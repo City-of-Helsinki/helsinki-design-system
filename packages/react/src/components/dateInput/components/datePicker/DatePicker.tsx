@@ -20,6 +20,7 @@ import { DayPickerProps } from './types';
 import { MonthTable } from '../monthTable';
 import { Legend } from '../legend';
 import { Button, ButtonSize, ButtonVariant } from '../../../button';
+import { Notification } from '../../../notification';
 import { IconCheck, IconCross } from '../../../../icons';
 import classNames from '../../../../utils/classNames';
 import { scrollIntoViewIfNeeded } from '../../../../utils/scrollIntoViewIfNeeded';
@@ -36,6 +37,7 @@ const keyCode = {
 
 export const DatePicker = (providedProps: DayPickerProps) => {
   const {
+    id,
     initialMonth = new Date(),
     onMonthChange,
     onDaySelect,
@@ -79,8 +81,12 @@ export const DatePicker = (providedProps: DayPickerProps) => {
    * Currently selected date
    */
   const [selectedDate, setSelectedDate] = useState<Date>(selected || null);
-
   const [isPopperReady, setIsPopperReady] = useState<boolean>(false);
+
+  /**
+   * For invisible aria-live notifications
+   */
+  const [isAriaNotificationActive, setIsAriaNotificationActive] = useState<boolean>(false);
 
   /**
    * Update the selected date from props
@@ -207,6 +213,11 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     if (typeof onMonthChange === 'function') {
       onMonthChange(nextMonth, event);
     }
+
+    // Close and open notification to make screen readers to understand
+    // that it have changed
+    setIsAriaNotificationActive(false);
+    setTimeout(() => setIsAriaNotificationActive(true), 1);
   };
 
   const findNextAvailableDate = (days: number, nextDate: Date) => {
@@ -346,12 +357,25 @@ export const DatePicker = (providedProps: DayPickerProps) => {
     },
   );
 
+  const getMonthChangeMessage = (month: Date, lang: 'en' | 'fi' | 'sv') => {
+    return format(month, 'LLLL yyyy', { locale: getLocaleByLanguage(lang) });
+  };
+
+  const getAriaLabel = (lang: 'en' | 'fi' | 'sv') => {
+    return {
+      en: 'Date picker',
+      fi: 'Päivämäärän valitsin',
+      sv: 'Datumväljare',
+    }[lang];
+  };
+
   return (
     <div
+      id={id}
       ref={pickerWrapperRef}
       className={classNames(styles.pickerWrapper, isPopperReady && styles.isVisible)}
       role="dialog"
-      aria-modal="true"
+      aria-label={getAriaLabel(language)}
       aria-hidden={open ? undefined : true}
       style={datePickerPopperStyles.popper}
       {...datePickerPopperAttributes.popper}
@@ -408,6 +432,18 @@ export const DatePicker = (providedProps: DayPickerProps) => {
           </div>
         </div>
       </DatePickerContext.Provider>
+      {isAriaNotificationActive && (
+        <Notification
+          position="top-left"
+          invisible
+          autoClose
+          autoCloseDuration={5000}
+          displayAutoCloseProgress={false}
+          onClose={() => setIsAriaNotificationActive(false)}
+          notificationAriaLabel={getMonthChangeMessage(currentMonth, language)}
+          aria-live="polite"
+        />
+      )}
     </div>
   );
 };

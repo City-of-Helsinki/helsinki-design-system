@@ -5,6 +5,38 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.7.0] - August, 27, 2025
+
+### React
+
+#### Added
+
+- [DateInput] Aria-live, aria-controls and aria-expanded -attributes
+
+#### Fixed
+
+- [Login] Token renewal
+- [Select] Mounting & unmounting sometimes prevented opening the dropdown
+- [Select] Search cleared or messed up the previous selections made
+- [Select] Select component didn't render last option on virtualize -mode
+- [Select] Some aria-labels had no translations
+- [Select] Add 'aria-live'-attribute to search/filter results on the Select component
+- [Table] Aria-labels of sorting icons are now in sorting buttons
+- [Tabs] Tabs has tabindex=0 to allow keyboard navigation
+- [Header] Header logo had `role='link'` always, but now only when the logo is set as a link
+
+### Figma
+
+#### Changed
+
+- [Koro] Added more instances of the wave to the component so it can be stretched into longer containers
+
+#### Fixed
+
+- [Accordion] Auto-layout fixes
+- [Accordion] Changed vertical paddings to 24px in size S to support multi-row titles
+- [Accordion] Adjusted padding for Close button chevron
+
 ## [4.6.0] - June, 5th, 2025
 
 ### React
