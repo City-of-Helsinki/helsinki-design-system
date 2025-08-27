@@ -73,6 +73,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+## [4.7.1] - August, 27, 2025
+
+### React
+
+#### Fixed
+
+- Bug in npm package path
+
 ## [4.7.0] - August, 27, 2025
 
 ### React
