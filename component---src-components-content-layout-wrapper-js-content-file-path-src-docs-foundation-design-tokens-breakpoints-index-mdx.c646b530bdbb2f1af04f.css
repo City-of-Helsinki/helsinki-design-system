@@ -1,0 +1,1 @@
+.page-tabs-list{margin:var(--spacing-2-xl) calc(var(--spacing-m)*-1) var(--spacing-l);padding:0 var(--spacing-m);position:relative}.page-tabs-list:before{border-bottom:1px solid var(--page-border-color);bottom:1px;content:"";height:1px;left:0;position:absolute;right:0;width:100%}
