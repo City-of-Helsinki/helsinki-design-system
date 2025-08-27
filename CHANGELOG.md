@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.7.0] - August, 26, 2025
+## [4.7.0] - August, 27, 2025
 
 ### React
 
@@ -20,6 +20,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Select] Search cleared or messed up the previous selections made
 - [Select] Select component didn't render last option on virtualize -mode
 - [Select] Some aria-labels had no translations
+- [Select] Add 'aria-live'-attribute to search/filter results on the Select component.
 - [Table] Aria-labels of sorting icons are now in sorting buttons
 - [Tabs] Tabs has tabindex=0 to allow keyboard navigation
 - [Header] Header logo had `role='link'` always, but now only when the logo is set as a link
@@ -31,7 +32,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Added
 
 - [Multiple components] Add `tooltip`-component -prop to replace deprecated separate tooltip-props.
-- [Select] Add 'aria-live'-attribute to search/filter results on the Select component.
 
 #### Changed
 
