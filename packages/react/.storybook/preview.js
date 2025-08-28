@@ -41,3 +41,13 @@ export const parameters = {
   },
   controls: { expanded: true, sort: 'alpha' },
 };
+
+export const decorators = [
+  (Story, context) => {
+    return (
+      <div role="main">
+        <Story {...context} />
+      </div>
+    );
+  },
+];

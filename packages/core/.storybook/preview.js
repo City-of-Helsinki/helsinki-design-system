@@ -29,3 +29,22 @@ export const parameters = {
     ],
   },
 };
+
+export const decorators = [
+  (Story, context) => {
+    // wrap all into a main landmark for axe accessibility testing
+    const wrapper = document.createElement('div');
+    wrapper.role = 'main';
+    
+    const storyElement = Story(context);
+    if (typeof storyElement === 'string') {
+      wrapper.innerHTML = storyElement;
+    } else if (storyElement instanceof Node) {
+      wrapper.appendChild(storyElement);
+    } else {
+      wrapper.textContent = String(storyElement);
+    }
+    
+    return wrapper;
+  },
+];

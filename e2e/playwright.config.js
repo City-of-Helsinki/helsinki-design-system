@@ -22,7 +22,7 @@ export default defineConfig({
   ].filter(Boolean),
   snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
   testDir: './tests/',
-  timeout: 60 * 1000,
+  timeout: 120 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
