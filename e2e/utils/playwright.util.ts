@@ -221,12 +221,10 @@ export const scanAccessibility = async (page: Page, locator?: Locator) => {
       }, scanClass);
 
       const accessibilityScanResults = await new AxeBuilder({ page }).include(`.${scanClass}`)
-        .disableRules(['color-contrast'])
         .analyze();
       await expect(accessibilityScanResults.violations).toEqual([]);
     } else {
       const accessibilityScanResults = await new AxeBuilder({ page })
-        .disableRules(['color-contrast'])
         .analyze();
       await expect(accessibilityScanResults.violations).toEqual([]);
     }

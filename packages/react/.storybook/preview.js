@@ -44,6 +44,9 @@ export const parameters = {
 
 export const decorators = [
   (Story, context) => {
+    if (context.parameters.skipMainWrapper) {
+      return <Story {...context} />;
+    }
     return (
       <div role="main">
         <Story {...context} />

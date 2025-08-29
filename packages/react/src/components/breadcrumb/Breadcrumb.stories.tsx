@@ -13,6 +13,7 @@ export default {
   parameters: {
     controls: { expanded: true },
     layout: 'fullscreen',
+    skipMainWrapper: true,
   },
   args: {
     'aria-label': 'Breadcrumb',

@@ -92,7 +92,7 @@ export const Toast = () =>
     .map(
       (position) =>
         `
-        <section aria-label="Notification" role="alert" class="hds-notification hds-notification--${position}">
+        <section aria-label="Notification-${position}" role="alert" class="hds-notification hds-notification--${position}">
           <div class="hds-notification__content">
             ${getToastLabel('info')}
             ${position}
@@ -107,7 +107,7 @@ export const Small = () =>
     .map(
       (type) =>
         `
-        <section aria-label="Notification" class="hds-notification hds-notification--small ${
+        <section aria-label="Notification-small-${type}" class="hds-notification hds-notification--small ${
           type ? `hds-notification--${type}` : ''
         }">
           <div class="hds-notification__content">
@@ -123,7 +123,7 @@ export const Large = () =>
     .map(
       (type) =>
         `
-        <section aria-label="Notification" class="hds-notification hds-notification--large ${
+        <section aria-label="Notification-large-${type}" class="hds-notification hds-notification--large ${
           type ? `hds-notification--${type}` : ''
         }">
           <div class="hds-notification__content">
@@ -174,7 +174,7 @@ export const WithClose = () => `
       ${closeButton}
     </section>
     <br>
-    <section aria-label="Notification" role="alert" class="hds-notification hds-notification--small">
+    <section aria-label="Notification-small" role="alert" class="hds-notification hds-notification--small">
       <div class="hds-notification__content">
         <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
@@ -184,7 +184,7 @@ export const WithClose = () => `
       ${closeButton}
     </section>
     <br>
-    <section aria-label="Notification" role="alert" class="hds-notification hds-notification--large">
+    <section aria-label="Notification-large" role="alert" class="hds-notification hds-notification--large">
       <div class="hds-notification__content">
        <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>

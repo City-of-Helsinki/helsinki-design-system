@@ -22,6 +22,7 @@ export default {
   parameters: {
     controls: { expanded: true },
     docs: { disable: true },
+    skipMainWrapper: true,
   },
   args: {},
 };
