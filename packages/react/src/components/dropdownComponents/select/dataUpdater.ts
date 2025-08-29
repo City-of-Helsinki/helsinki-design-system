@@ -53,7 +53,6 @@ const dataUpdater = (
   }
 
   if (isFilterChangeEvent(id, type)) {
-    console.log('isFilterChangeEvent');
     const filterValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ filter: filterValue });
     dataHandlers.updateData({

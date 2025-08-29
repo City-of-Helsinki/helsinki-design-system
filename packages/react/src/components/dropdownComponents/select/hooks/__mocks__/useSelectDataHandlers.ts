@@ -1,8 +1,8 @@
 import { uniqueId } from 'lodash';
 import { createRef } from 'react';
 
-import { getMockCalls } from '../../../../utils/testHelpers';
-import { ChangeEvent } from '../../../dataProvider/DataContext';
+import { getMockCalls } from '../../../../../utils/testHelpers';
+import { ChangeEvent } from '../../../../dataProvider/DataContext';
 import { changeHandler } from '../../dataUpdater';
 import { EventId, EventType } from '../../events';
 import { Group, OptionInProps, SelectData, SelectMetaData, Option, SelectDataHandlers } from '../../types';

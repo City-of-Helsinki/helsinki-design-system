@@ -18,6 +18,16 @@ import {
   getSelectedOptions,
 } from '../modularOptionList/utils';
 
+// Re-export commonly used utility functions
+export {
+  getAllOptions,
+  getSelectedOptions,
+  propsToGroups,
+  updateGroupLabelAndOptions,
+  updateOptionInGroup,
+  defaultFilter,
+} from '../modularOptionList/utils';
+
 type DomHandlerProps = {
   id: string;
   type?: string;
@@ -91,10 +101,6 @@ export function createScreenReaderNotification(type: string, content: string, de
     showTime: 0,
     addTime: Date.now(),
   };
-}
-
-export function defaultFilter(option: Option, filterStr: string) {
-  return option.label.toLowerCase().indexOf(filterStr.toLowerCase()) > -1;
 }
 
 export function filterOptions(groups: ModularOptionListData['groups'], filterStr: string, filterFunc: FilterFunction) {

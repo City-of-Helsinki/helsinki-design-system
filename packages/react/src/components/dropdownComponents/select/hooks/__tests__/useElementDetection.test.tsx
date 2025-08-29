@@ -19,7 +19,7 @@ import {
 import { GetSelectProps, renderWithHelpers } from '../../testUtil';
 import { Group, KnownElementType } from '../../types';
 import { getAllOptions, propsToGroups } from '../../utils';
-import { elementIsSelectable } from '../../../../utils/elementIsSelectable';
+import { elementIsSelectable } from '../../../../../utils/elementIsSelectable';
 
 const mockHookData = jest.fn();
 

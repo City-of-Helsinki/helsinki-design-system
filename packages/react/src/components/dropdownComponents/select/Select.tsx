@@ -2,7 +2,7 @@ import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
 
 import { SelectProps, SelectMetaData, SelectData } from './types';
-import { AcceptedNativeDivProps } from '../modularOptionList/types';
+import { AcceptedNativeDivProps, Option } from '../modularOptionList/types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
@@ -20,9 +20,7 @@ import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { eventIds } from './events';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
-import { Option } from '../modularOptionList/types';
 import { getSelectedOptions, convertPropsToGroups, mutateGroupLabelSelections } from '../modularOptionList/utils';
-import { SearchInput } from './components/searchInput/SearchInput';
 
 export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
   (

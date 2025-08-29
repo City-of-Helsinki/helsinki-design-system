@@ -3,16 +3,16 @@ import { render } from '@testing-library/react';
 
 import { SelectStorageProps, useSelectStorage } from '../useSelectStorage';
 import { Select } from '../../Select';
-import { getOptionLabels } from '../../batch.options';
+import { getOptionLabels } from '../../../modularOptionList/batch.options';
 import { defaultTexts } from '../../texts';
 import { mockedContainer, renderResultToHelpers, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
 import { useTextProvider } from '../useTextProvider';
 import { Group, SelectProps, Option } from '../../types';
-import { getLastMockCallArgs } from '../../../../utils/testHelpers';
+import { getLastMockCallArgs } from '../../../../../utils/testHelpers';
 import { getAllOptions } from '../../utils';
 import { eventIds, eventTypes } from '../../events';
-import useForceRender from '../../../../hooks/useForceRender';
-import { ChangeEvent } from '../../../dataProvider/DataContext';
+import useForceRender from '../../../../../hooks/useForceRender';
+import { ChangeEvent } from '../../../../dataProvider/DataContext';
 
 const mockHookData = jest.fn();
 

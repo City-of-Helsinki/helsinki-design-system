@@ -1,30 +1,13 @@
-import { waitFor, fireEvent, render, act, RenderResult } from '@testing-library/react';
+import { waitFor, fireEvent, RenderResult } from '@testing-library/react';
 import React from 'react';
 import { axe } from 'jest-axe';
 
-import { IconLocation } from '../../icons';
-import { getAllMockCallArgs, getLastMockCallArgs } from '../../utils/testHelpers';
+import { getAllMockCallArgs, getLastMockCallArgs } from '../../../utils/testHelpers';
 import { eventIds, eventTypes } from './events';
 import { useModularOptionListDataHandlers } from './hooks/useModularOptionListDataHandlers';
-import { defaultTexts } from './texts';
-import { ModularOptionListProps, ModularOptionListMetaData, ModularOptionListData, Group, Option, SearchResult } from './types';
-import {
-  getElementIds,
-  defaultFilter,
-  propsToGroups,
-  getAllOptions,
-  iterateAndCopyGroup,
-  OptionIterator,
-  validateOption,
-} from './utils';
-import { createTimedPromise } from '../login/testUtils/timerTestUtil';
-import { ChangeEvent } from '../dataProvider/DataContext';
-import useForceRender from '../../hooks/useForceRender';
-import { multiSelectGroupLabelSelector } from './components/listItems/MultiSelectGroupLabel';
-import { singleSelectGroupLabelSelector } from './components/listItems/SingleSelectGroupLabel';
-import { singleSelectOptionSelector } from './components/listItems/SingleSelectOption';
-import { multiSelectOptionSelector } from './components/listItems/MultiSelectOption';
-import { elementIsSelectable } from '../../utils/elementIsSelectable';
+import { ModularOptionListProps, ModularOptionListMetaData, ModularOptionListData, Group, Option } from './types';
+import { getAllOptions } from './utils';
+import { ChangeEvent } from '../../dataProvider/DataContext';
 
 export type GetModularOptionListProps = Parameters<typeof getModularOptionListProps>[0];
 
@@ -188,42 +171,21 @@ export const defaultId = 'test-select-component';
 
 export const getModularOptionListProps = ({
   groups,
-  open,
   hasSelections,
   multiSelect,
-  input,
-  searchResults,
-  clearable,
 }: {
   groups: boolean;
-  open?: boolean;
   multiSelect?: boolean;
   hasSelections?: boolean;
-  input?: ModularOptionListMetaData['listInputType'];
-  searchResults?: SearchResult[];
-  clearable?: boolean;
 }) => {
   const selectProps: ModularOptionListProps = {
     options,
     onChange: onChangeTracker,
-    icon: <IconLocation />,
-    required: false,
     texts: {
       label: defaultLabel,
-      placeholder: 'Choose one',
     },
-    open,
     multiSelect,
-    clearable,
   };
-  if (input === 'filter') {
-    selectProps.filter = defaultFilter;
-  } else if (input === 'search' || searchResults) {
-    selectProps.onSearch = () => {
-      const results = searchResults && searchResults.length > 0 ? searchResults.shift() : {};
-      return createTimedPromise(results, 300) as Promise<SearchResult>;
-    };
-  }
 
   if (groups) {
     selectProps.options = undefined;
@@ -362,60 +324,25 @@ export const renderResultToHelpers = (result: RenderResult) => {
 export const initTests = ({
   renderComponentOnly,
   selectProps = {},
-  testProps = { groups: false, clearable: true },
-  withForceRender,
+  testProps = { groups: false },
 }: {
   renderComponentOnly?: boolean;
   selectProps?: Partial<ModularOptionListProps>;
   testProps?: Parameters<typeof getModularOptionListProps>[0];
-  withForceRender?: boolean;
 } = {}) => {
   renderOnlyTheComponent.mockReturnValue(!!renderComponentOnly);
-  const props = { ...getModularOptionListProps({ input: undefined, ...testProps }), ...selectProps };
+  const props = { ...getModularOptionListProps(testProps), ...selectProps };
   if (selectProps.onChange) {
     const currentOnChange = props.onChange;
-    const onChangeListener = selectProps.onChange;
     props.onChange = (...args) => {
-      currentOnChange(...args);
-      return onChangeListener(...args);
+      if (currentOnChange) {
+        currentOnChange(...args);
+      }
     };
   }
 
-  // eslint-disable-next-line @typescript-eslint/no-use-before-define
-  const result = renderWithHelpers({ ...props, groups: testProps.groups, withForceRender });
-  const helpers = renderResultToHelpers(result);
-  const getOptionElement = (option: Option) => {
-    const labelEl = result.getByText(option.label) as HTMLElement;
-    if (props.multiSelect) {
-      if (option.isGroupLabel) {
-        // return ((labelEl.parentElement as HTMLElement).parentElement as HTMLElement).parentElement as HTMLElement;
-      }
-      // get parent of parent of <label>, which is <div>
-      return (labelEl.parentElement as HTMLElement).parentElement as HTMLElement;
-    }
-    // get parent of <span>, which is <li>
-    return labelEl.parentElement as HTMLElement;
-  };
-
-  const clickOptionElement = (option: Option) => {
-    const el = getOptionElement(option);
-    fireEvent.click(el);
-  };
-
-  return {
-    ...result,
-    ...helpers,
-    getProps: () => {
-      return props;
-    },
-    getGroups: () => {
-      return propsToGroups(props) as Group[];
-    },
-    getOptionElement,
-    clickOptionElement,
-  };
+  return props;
 };
-
 /*
 export const renderWithHelpers = (
   selectProps: Partial<Omit<ModularOptionListProps, 'groups'>> & {

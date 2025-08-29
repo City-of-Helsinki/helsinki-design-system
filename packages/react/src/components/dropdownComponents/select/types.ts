@@ -15,7 +15,6 @@ import {
   TextsWithNumberedVariations as ModularOptionListTextsWithNumberedVariations,
   ModularOptionListCustomTheme,
   KnownElementType as ModularOptionListKnownElementType,
-  TextInterpolationContent,
   SupportedLanguage,
   ThemeTarget as ModularOptionListThemeTarget,
 } from '../modularOptionList/types';
@@ -27,6 +26,9 @@ export type SearchFunction = (
   selectedOptions: Option[],
   data: ModularOptionListData,
 ) => Promise<SearchResult>;
+
+// Re-export commonly used types from ModularOptionList
+export type { Option, OptionInProps, Group, GroupInProps, ScreenReaderNotification } from '../modularOptionList/types';
 
 export type SelectProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement> | undefined> = {
   children?: P | P[];
@@ -174,6 +176,9 @@ export type TextsWithNumberedVariations =
   | 'tagsClearAllButtonAriaLabel'
   | 'tagsRemaining';
 
+export type TextInterpolationKeys = 'selectionCount' | 'value' | 'numberIndicator' | 'label';
+
+export type TextInterpolationContent = Record<TextInterpolationKeys, string | number>;
 export type TextProvider = (key: TextKey, contents: TextInterpolationContent) => string;
 export type Texts = Record<TextKey, string> & { language?: SupportedLanguage };
 

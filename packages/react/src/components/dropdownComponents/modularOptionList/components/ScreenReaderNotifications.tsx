@@ -1,7 +1,7 @@
 import React, { useCallback, useEffect, useRef } from 'react';
 
 import styles from '../ModularOptionList.module.scss';
-import useForceRender from '../../hooks/useForceRender';
+import useForceRender from '../../../../hooks/useForceRender';
 import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListDataHandlers';
 import { ScreenReaderNotification } from '../types';
 

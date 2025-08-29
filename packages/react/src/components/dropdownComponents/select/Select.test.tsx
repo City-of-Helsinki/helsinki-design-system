@@ -13,11 +13,11 @@ import {
 } from './testUtil';
 import { defaultFilter, getElementIds, OptionIterator } from './utils';
 import { Texts, SearchResult, SelectProps } from './types';
-import { Group, Option, AcceptedNativeDivProps, GroupInProps, OptionInProps } from '../modularOptionList/types';
-import { createTimedPromise } from '../login/testUtils/timerTestUtil';
-import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
+import { Option, AcceptedNativeDivProps, GroupInProps, OptionInProps } from '../modularOptionList/types';
+import { createTimedPromise } from '../../login/testUtils/timerTestUtil';
+import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../utils/testHelpers';
 import { Select } from './Select';
-import { getActiveElement } from '../../utils/test-utils';
+import { getActiveElement } from '../../../utils/test-utils';
 
 type ButtonAttributes = HTMLAttributes<HTMLButtonElement>;
 type DivAttributes = HTMLAttributes<HTMLDivElement>;

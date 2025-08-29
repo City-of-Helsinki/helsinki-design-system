@@ -1,11 +1,18 @@
 import { uniqueId } from 'lodash';
 import { createRef } from 'react';
 
-import { getMockCalls } from '../../../../utils/testHelpers';
-import { ChangeEvent } from '../../../dataProvider/DataContext';
+import { getMockCalls } from '../../../../../utils/testHelpers';
+import { ChangeEvent } from '../../../../dataProvider/DataContext';
 import { changeHandler } from '../../dataUpdater';
 import { EventId, EventType } from '../../events';
-import { Group, OptionInProps, ModularOptionListData, ModularOptionListMetaData, Option, ModularOptionListDataHandlers } from '../../types';
+import {
+  Group,
+  OptionInProps,
+  ModularOptionListData,
+  ModularOptionListMetaData,
+  Option,
+  ModularOptionListDataHandlers,
+} from '../../types';
 import { getSelectedOptions, propsToGroups } from '../../utils';
 
 export type OptionalModularOptionListData = Partial<ModularOptionListData>;
@@ -21,7 +28,6 @@ const mockData: { current: OptionalModularOptionListData; default: OptionalModul
     multiSelect: false,
     onChange: jest.fn(),
     visibleOptions: 5.5,
-    clearable: true,
   },
 };
 
@@ -56,29 +62,16 @@ const mockMetaData: { current: OptionalModularOptionListMetaData; default: Optio
   current: { elementIds: {}, refs: {} },
   default: {
     elementIds: {
-      label: 'label-id',
       list: 'list-id',
-      button: 'button-id',
-      clearButton: 'clear-id',
     },
     selectedOptions: [],
     refs: {
-      button: createRef<HTMLButtonElement>(),
-      listContainer: createRef<HTMLDivElement>(),
       list: createRef<HTMLUListElement>(),
-      selectionsAndListsContainer: createRef<HTMLDivElement>(),
-      tagList: createRef<HTMLDivElement>(),
-      showAllButton: createRef<HTMLButtonElement>(),
-      searchOrFilterInput: createRef<HTMLInputElement>(),
-      container: createRef<HTMLDivElement>(),
     },
     textContent: { selectionCount: 0, label: '', numberIndicator: 0, value: '' },
     textProvider: (key) => key,
     getOptionId: () => uniqueId('item'),
-    filter: '',
     screenReaderNotifications: [],
-    search: '',
-    focusTarget: undefined,
   },
 };
 

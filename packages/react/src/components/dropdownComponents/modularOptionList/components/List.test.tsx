@@ -5,11 +5,11 @@ import { List } from './List';
 // eslint-disable-next-line jest/no-mocks-import
 import {
   resetAllMocks,
-  mockUseSelectDataHandlersContents,
+  mockUseModularOptionListDataHandlersContents,
   getCurrentMockMetaData,
   getCurrentMockData,
-  OptionalSelectData,
-  OptionalSelectMetaData,
+  OptionalModularOptionListData,
+  OptionalModularOptionListMetaData,
   updateMockMetaData,
   updateMockData,
   createDataWithSelectedOptions,
@@ -20,7 +20,7 @@ import { Option } from '../types';
 import { isOptionClickEvent } from '../events';
 
 jest.mock('../../hooks/useSelectDataHandlers', () => ({
-  useSelectDataHandlers: () => mockUseSelectDataHandlersContents,
+  useSelectDataHandlers: () => mockUseModularOptionListDataHandlersContents,
 }));
 
 describe('<List />', () => {
@@ -50,10 +50,9 @@ describe('<List />', () => {
     const list = getList({ getElementById, metaData });
     return list.querySelectorAll('li') as unknown as HTMLLIElement[];
   };
-  const initTests = (data: OptionalSelectData = {}, metaData?: OptionalSelectMetaData) => {
+  const initTests = (data: OptionalModularOptionListData = {}, metaData?: OptionalModularOptionListMetaData) => {
     updateMockData({
       ...createDataWithSelectedOptions({ selectedOptionsCount: 10 }),
-      open: true,
       ...data,
     });
 
@@ -88,11 +87,11 @@ describe('<List />', () => {
       });
     });
     it('When there are no options', () => {
-      const { getElementById, metaData } = initTests({ groups: [], open: true });
+      const { getElementById, metaData } = initTests({ groups: [] });
       expect(getList({ getElementById, metaData })).not.toBeNull();
     });
     it('When data.open is false', () => {
-      const { getElementById, metaData } = initTests({ open: false });
+      const { getElementById, metaData } = initTests({});
       expect(getList({ getElementById, metaData })).not.toBeNull();
     });
   });

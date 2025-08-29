@@ -1,5 +1,12 @@
 import { appendTexts, createTextProvider, defaultTexts, getNumberedVariationsTextKey, getTextKey } from './texts';
-import { ModularOptionListDataHandlers, ModularOptionListMetaData, TextInterpolationContent, TextProvider, Texts, Option } from './types';
+import {
+  ModularOptionListDataHandlers,
+  ModularOptionListMetaData,
+  TextInterpolationContent,
+  TextProvider,
+  Texts,
+  Option,
+} from './types';
 // eslint-disable-next-line jest/no-mocks-import
 import {
   mockUseModularOptionListDataHandlersContents,

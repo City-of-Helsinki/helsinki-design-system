@@ -17,7 +17,6 @@ import {
   createInputOnChangeListener,
   createOnClickListener,
   getAllOptions,
-  getGroupLabelOption,
   getOptionGroupIndex,
   getSelectedOptions,
   getSelectedOptionsPerc,
@@ -31,7 +30,7 @@ import {
   validateOption,
 } from './utils';
 import { Group, Option, ModularOptionListDataHandlers } from './types';
-import { ChangeEvent, ChangeEventPayload } from '../dataProvider/DataContext';
+import { ChangeEvent, ChangeEventPayload } from '../../dataProvider/DataContext';
 import { eventTypes } from './events';
 
 describe('utils', () => {

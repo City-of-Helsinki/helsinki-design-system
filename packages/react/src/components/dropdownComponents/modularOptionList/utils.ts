@@ -489,3 +489,7 @@ export function createMetaDataAfterSelectionChange(
 
   return data;
 }
+
+export function defaultFilter(option: Option, filterStr: string): boolean {
+  return option.label.toLowerCase().indexOf(filterStr.toLowerCase()) > -1;
+}

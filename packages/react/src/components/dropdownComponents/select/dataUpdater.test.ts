@@ -1,7 +1,7 @@
 import { waitFor } from '@testing-library/react';
 
-import { getLastMockCallArgs } from '../../utils/testHelpers';
-import { createTimedPromise } from '../login/testUtils/timerTestUtil';
+import { getLastMockCallArgs } from '../../../utils/testHelpers';
+import { createTimedPromise } from '../../login/testUtils/timerTestUtil';
 import { changeHandler } from './dataUpdater';
 import { eventIds, eventTypes } from './events';
 // eslint-disable-next-line jest/no-mocks-import

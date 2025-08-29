@@ -16,8 +16,9 @@ export default {
 export const Example = () => {
   const options = getOptionLabels(200);
   const handleSearch: SelectProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    console.log(lastClickedOption);
+    console.log(data);
     // get search value from data
-    console.debug('Search value:', data);
     return Promise.resolve({ options: options.filter((t) => t.search(selectedOptions) > 0) });
   }, []);
 

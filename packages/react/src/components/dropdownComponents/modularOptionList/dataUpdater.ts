@@ -33,7 +33,6 @@ const dataUpdater = (
   };
 
   if (isOptionClickEvent(id, type)) {
-    console.log('option click');
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return returnValue;

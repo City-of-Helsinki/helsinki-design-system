@@ -8,7 +8,7 @@ import { singleSelectGroupLabelSelector } from '../components/listItems/SingleSe
 import { multiSelectGroupLabelSelector } from '../components/listItems/MultiSelectGroupLabel';
 import { multiSelectOptionSelector } from '../components/listItems/MultiSelectOption';
 import { singleSelectOptionSelector } from '../components/listItems/SingleSelectOption';
-import { elementIsSelectable } from '../../../utils/elementIsSelectable';
+import { elementIsSelectable } from '../../../../utils/elementIsSelectable';
 
 type UIEvent = MouseEvent<HTMLElement> | KeyboardEvent<HTMLElement> | FocusEvent<HTMLElement>;
 type HTMLElementSource = HTMLElement | HTMLElement | UIEvent;
