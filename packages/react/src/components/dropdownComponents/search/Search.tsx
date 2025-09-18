@@ -1,26 +1,23 @@
 import { uniqueId } from 'lodash';
 import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
 
-import { SelectProps, SelectMetaData, SelectData } from '../select/types';
+import { SearchProps, SearchMetaData, SearchData } from './types';
 import { AcceptedNativeDivProps, Option } from '../modularOptionList/types';
-import { Container } from '../select/components/Container';
-import { Label } from '../select/components/Label';
-import { changeHandler } from '../select/dataUpdater';
-import { getElementIds } from '../select/utils';
+import { Container } from './components/Container';
+import { Label } from './components/Label';
+import { changeHandler } from './dataUpdater';
+import { getElementIds } from './utils';
 import { DataProvider, DataProviderProps } from '../../dataProvider/DataProvider';
-import { SelectionsAndListsContainer } from '../select/components/SelectionsAndListsContainer';
+import { SearchContainer } from './components/SearchContainer';
 import { ModularOptionList } from '../modularOptionList';
-import { ListAndInputContainer } from '../select/components/ListAndInputContainer';
-import { TagList } from '../select/components/tagList/TagList';
-import { ErrorNotification } from '../select/components/Error';
-import { AssistiveText } from '../select/components/AssistiveText';
-import { createTextProvider } from '../select/texts';
-import { eventIds } from '../select/events';
-import { ScreenReaderNotifications } from '../select/components/ScreenReaderNotifications';
+import { ErrorNotification } from './components/Error';
+import { AssistiveText } from './components/AssistiveText';
+import { createTextProvider } from './texts';
+import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 import { getSelectedOptions, convertPropsToGroups, mutateGroupLabelSelections } from '../modularOptionList/utils';
-import { SearchInput } from '../select/components/searchInput/SearchInput';
+import { SearchInput } from './components/SearchInput';
 
-export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedNativeDivProps, 'ref'>>(
+export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNativeDivProps, 'ref'>>(
   (
     {
       options,
@@ -38,20 +35,19 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       texts,
       invalid,
       multiSelect,
-      noTags,
       visibleOptions,
       virtualize,
-      filter,
       onSearch,
       value,
       theme,
       clearable,
       tooltip,
+      placeholder,
       ...divElementProps
     },
     ref,
   ) => {
-    const initialData = useMemo<SelectData>(() => {
+    const initialData = useMemo<SearchData>(() => {
       const data = {
         groups: convertPropsToGroups({ groups, options, value, children }),
         open: !!open,
@@ -59,17 +55,16 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         invalid: !!invalid,
         disabled: !!disabled,
         multiSelect: !!multiSelect,
-        noTags: !!noTags,
         visibleOptions: visibleOptions || 5.5,
         virtualize: !!virtualize,
         onChange,
         onFocus,
         onBlur,
         onClose,
-        filterFunction: filter,
         onSearch,
         clearable: !!clearable,
         initialOpenValue: open,
+        placeholder,
       };
       if (data.multiSelect) {
         mutateGroupLabelSelections(data.groups);
@@ -83,7 +78,6 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       disabled,
       invalid,
       required,
-      noTags,
       virtualize,
       visibleOptions,
       onSearch,
@@ -93,33 +87,24 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       value,
       children,
       clearable,
+      placeholder,
     ]);
 
-    const metaData = useMemo((): SelectMetaData => {
-      const containerId = `${id || uniqueId('hds-select-')}`;
+    const metaData = useMemo((): SearchMetaData => {
+      const containerId = `${id || uniqueId('hds-search-')}`;
       const optionIds = new Map<string, string>();
       let optionIdCounter = 0;
-      const getListInputType = () => {
-        if (!initialData.onSearch && !initialData.filterFunction) {
-          return undefined;
-        }
-        return initialData.onSearch ? eventIds.search : eventIds.filter;
-      };
       return {
         lastToggleCommand: 0,
         lastClickedOption: undefined,
-        showAllTags: false,
         icon,
         activeDescendant: undefined,
         focusTarget: undefined,
         refs: {
-          button: typeof ref === 'function' ? createRef<HTMLButtonElement>() : ref || createRef<HTMLButtonElement>(),
+          searchInput: typeof ref === 'function' ? createRef<HTMLInputElement>() : ref || createRef<HTMLInputElement>(),
           listContainer: createRef<HTMLDivElement>(),
           list: createRef<HTMLUListElement>(),
-          selectionsAndListsContainer: createRef<HTMLDivElement>(),
-          tagList: createRef<HTMLDivElement>(),
-          showAllButton: createRef<HTMLButtonElement>(),
-          searchOrFilterInput: createRef<HTMLInputElement>(),
+          searchContainer: createRef<HTMLDivElement>(),
           container: createRef<HTMLDivElement>(),
         },
         selectedOptions: getSelectedOptions(initialData.groups),
@@ -136,9 +121,7 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
           }
           return current;
         },
-        listInputType: getListInputType(),
-        hasListInput: !!getListInputType(),
-        filter: '',
+        hasSearchInput: !!onSearch,
         search: '',
         isSearching: false,
         hasSearchError: false,
@@ -146,7 +129,7 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
         screenReaderNotifications: [],
         tooltip,
       };
-    }, [id, initialData.groups, initialData.filterFunction, initialData.onSearch, texts, ref]);
+    }, [id, initialData.groups, onSearch, texts, ref]);
 
     useEffect(() => {
       return () => {
@@ -156,7 +139,7 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       };
     }, []);
 
-    const onReset: DataProviderProps<SelectData, SelectMetaData>['onReset'] = useCallback(
+    const onReset: DataProviderProps<SearchData, SearchMetaData>['onReset'] = useCallback(
       ({ previousData, currentData, currentMetaData }) => {
         if (currentData) {
           if (previousData) {
@@ -180,7 +163,7 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
     );
 
     return (
-      <DataProvider<SelectData, SelectMetaData>
+      <DataProvider<SearchData, SearchMetaData>
         initialData={initialData}
         metaData={metaData}
         onChange={changeHandler}
@@ -188,15 +171,12 @@ export const Search = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
       >
         <Container {...divElementProps} theme={theme}>
           <Label />
-          <SelectionsAndListsContainer>
-            <SearchInput id={`${id}-searchInput`} />
-            <ListAndInputContainer>
-              <ModularOptionList {...divElementProps} theme={theme} />
-            </ListAndInputContainer>
-          </SelectionsAndListsContainer>
+          <SearchContainer>
+            <SearchInput />
+            <ModularOptionList {...divElementProps} theme={theme} />
+          </SearchContainer>
           <ErrorNotification />
           <AssistiveText />
-          <TagList />
           <ScreenReaderNotifications />
         </Container>
       </DataProvider>
