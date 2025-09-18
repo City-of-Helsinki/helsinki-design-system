@@ -1,6 +1,6 @@
-import { useContextDataHandlers } from '../../../dataProvider/hooks';
 import { SelectData, SelectMetaData } from '../types';
+import { useGenericDataHandlers } from '../../shared';
 
 export function useSelectDataHandlers() {
-  return useContextDataHandlers<SelectData, SelectMetaData>();
+  return useGenericDataHandlers<SelectData, SelectMetaData>();
 }

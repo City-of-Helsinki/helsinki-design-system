@@ -5,10 +5,8 @@ import { Group, Option, ModularOptionListData, ModularOptionListProps } from '..
 import { ChangeEvent } from '../../dataProvider/DataContext';
 import { eventTypes } from './events';
 import { getAllOptions, propsToGroups, getSelectedOptions } from '../modularOptionList/utils';
-import {
-  createElementIds,
-  ElementIdsConfig,
-} from '../shared/utils/elementIds';
+import { ElementIdsConfig } from '../shared/utils/elementIds';
+import { createGenericElementIds } from '../shared';
 
 // Configuration for Search component element IDs
 const searchElementIds: ElementIdsConfig = {
@@ -20,6 +18,9 @@ const searchElementIds: ElementIdsConfig = {
   searchInput: true,
   searchInputLabel: true,
 };
+
+// Create Search-specific element IDs function
+export const getElementIds = createGenericElementIds<SearchMetaData['elementIds']>(searchElementIds);
 
 // Re-export commonly used utility functions
 export {
@@ -65,10 +66,6 @@ export function createInputOnChangeListener(props: DomHandlerProps) {
       });
     },
   };
-}
-
-export function getElementIds(containerId: string): SearchMetaData['elementIds'] {
-  return createElementIds(containerId, searchElementIds);
 }
 
 export function countVisibleOptions(groups: SearchData['groups']): number {

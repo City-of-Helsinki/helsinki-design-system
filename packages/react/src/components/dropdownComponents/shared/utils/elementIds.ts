@@ -38,10 +38,7 @@ export interface ElementIdsConfig {
  * @param config - Configuration object specifying which IDs to generate
  * @returns Object with the requested element IDs
  */
-export function createElementIds<T extends Record<string, string>>(
-  containerId: string,
-  config: ElementIdsConfig
-): T {
+export function createElementIds<T extends Record<string, string>>(containerId: string, config: ElementIdsConfig): T {
   const elementIds: Record<string, string> = {};
 
   if (config.container) {

@@ -16,7 +16,9 @@ export default {
 export const Example = () => {
   const options = getOptionLabels(200);
   const handleSearch: SelectProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    // eslint-disable-next-line no-console
     console.log(lastClickedOption);
+    // eslint-disable-next-line no-console
     console.log(data);
     // get search value from data
     return Promise.resolve({ options: options.filter((t) => t.search(selectedOptions) > 0) });

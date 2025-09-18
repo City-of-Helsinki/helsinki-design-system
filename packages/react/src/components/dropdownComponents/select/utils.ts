@@ -11,7 +11,8 @@ import {
   propsToGroups,
   getSelectedOptions,
 } from '../modularOptionList/utils';
-import { createElementIds, ElementIdsConfig } from '../shared/utils/elementIds';
+import { ElementIdsConfig } from '../shared/utils/elementIds';
+import { createGenericElementIds } from '../shared';
 
 // Configuration for Select component element IDs
 const selectElementIds: ElementIdsConfig = {
@@ -27,6 +28,9 @@ const selectElementIds: ElementIdsConfig = {
   clearAllButton: true,
   showAllButton: true,
 };
+
+// Create Select-specific element IDs function
+export const getElementIds = createGenericElementIds<SelectMetaData['elementIds']>(selectElementIds);
 
 // Re-export commonly used utility functions
 export {
@@ -73,10 +77,6 @@ export function createInputOnChangeListener(props: DomHandlerProps) {
       });
     },
   };
-}
-
-export function getElementIds(containerId: string): SelectMetaData['elementIds'] {
-  return createElementIds(containerId, selectElementIds);
 }
 
 export function countVisibleOptions(groups: SelectData['groups']): number {

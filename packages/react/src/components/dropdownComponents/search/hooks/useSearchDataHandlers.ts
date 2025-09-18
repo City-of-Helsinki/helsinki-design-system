@@ -1,6 +1,6 @@
-import { useContextDataHandlers } from '../../../dataProvider/hooks';
 import { SearchData, SearchMetaData } from '../types';
+import { useGenericDataHandlers } from '../../shared';
 
 export function useSearchDataHandlers() {
-  return useContextDataHandlers<SearchData, SearchMetaData>();
+  return useGenericDataHandlers<SearchData, SearchMetaData>();
 }

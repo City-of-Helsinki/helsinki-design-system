@@ -2,7 +2,7 @@ import { waitFor } from '@testing-library/react';
 
 import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
 import { ScreenReaderNotification } from '../types';
-import { createScreenReaderNotification } from '../utils';
+import { createScreenReaderNotification } from '../../shared/utils/screenReader';
 import { ScreenReaderNotifications } from './ScreenReaderNotifications';
 
 jest.mock('./Container', () => {

@@ -1,8 +1,6 @@
 import { ReactElement, ReactNode, RefObject } from 'react';
 
-import { AllElementPropsWithoutRef } from '../../../utils/elementTypings';
 import { DataHandlers } from '../../dataProvider/DataContext';
-import { EventId } from './events';
 import { Tooltip, TooltipProps } from '../../tooltip/Tooltip';
 import {
   ModularOptionListProps,
@@ -16,7 +14,6 @@ import {
   ModularOptionListCustomTheme,
   KnownElementType as ModularOptionListKnownElementType,
   SupportedLanguage,
-  ThemeTarget as ModularOptionListThemeTarget,
 } from '../modularOptionList/types';
 
 export type SearchResult = Pick<ModularOptionListProps, 'groups' | 'options'>;
