@@ -4,8 +4,11 @@ import { SearchDataHandlers } from '../types';
 import { DivElementProps } from '../../modularOptionList/types';
 import { getTextFromDataHandlers } from '../texts';
 import { useSearchDataHandlers } from '../hooks/useSearchDataHandlers';
-import { addOrUpdateScreenReaderNotificationByType, createScreenReaderNotification } from '../utils';
 import { eventIds } from '../events';
+import {
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
+} from '../../shared/utils/screenReader';
 
 function createErrorProps(dataHandlers: SearchDataHandlers): DivElementProps & { children: string | null } {
   const { invalid } = dataHandlers.getData();

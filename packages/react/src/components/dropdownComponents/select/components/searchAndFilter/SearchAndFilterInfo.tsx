@@ -2,7 +2,10 @@ import React, { useRef } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
-import { addOrUpdateScreenReaderNotificationByType, removeScreenReaderNotification } from '../../utils';
+import {
+  addOrUpdateScreenReaderNotificationByType,
+  removeScreenReaderNotification,
+} from '../../../shared/utils/screenReader';
 import { countVisibleOptions } from '../../../modularOptionList/utils';
 import { LoadingSpinner } from '../../../../loadingSpinner';
 import { DivElementProps } from '../../../modularOptionList/types';

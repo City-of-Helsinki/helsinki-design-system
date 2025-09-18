@@ -6,9 +6,8 @@ import { ChangeEvent, ChangeHandler, DataHandlers } from '../../dataProvider/Dat
 import {
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
-  filterOptions,
-  mergeSearchResultsToCurrent,
-} from './utils';
+} from '../shared/utils/screenReader';
+import { filterOptions, mergeSearchResultsToCurrent } from './utils';
 import {
   getSelectedOptions,
   propsToGroups,

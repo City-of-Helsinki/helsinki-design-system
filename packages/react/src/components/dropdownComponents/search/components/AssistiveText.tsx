@@ -3,9 +3,12 @@ import React, { useRef } from 'react';
 import { DivElementProps } from '../../modularOptionList/types';
 import { getTextFromDataHandlers } from '../texts';
 import { useSearchDataHandlers } from '../hooks/useSearchDataHandlers';
-import { addOrUpdateScreenReaderNotificationByType, createScreenReaderNotification } from '../utils';
 import { eventIds } from '../events';
 import { SearchDataHandlers } from '../types';
+import {
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
+} from '../../shared/utils/screenReader';
 
 function createAssistiveTextProps(dataHandlers: SearchDataHandlers): DivElementProps & { children: string | null } {
   const assistive = getTextFromDataHandlers('assistive', dataHandlers);

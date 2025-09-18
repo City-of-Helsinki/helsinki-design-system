@@ -1,7 +1,7 @@
 import { getNumberedVariationsTextKey, getTextKey } from '../../texts';
 import { SelectData, SelectMetaData } from '../../types';
 import { ScreenReaderNotification, TextInterpolationContent } from '../../../modularOptionList/types';
-import { createScreenReaderNotification } from '../../utils';
+import { createScreenReaderNotification } from '../../../shared/utils/screenReader';
 import { countVisibleOptions } from '../../../modularOptionList/utils';
 import { getTextKeyWithType, typeIndicator } from './common';
 

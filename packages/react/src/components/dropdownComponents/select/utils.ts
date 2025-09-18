@@ -1,13 +1,7 @@
 import React from 'react';
 
-import { SelectData, SelectMetaData, SelectDataHandlers, FilterFunction } from './types';
-import {
-  Group,
-  Option,
-  ModularOptionListData,
-  ModularOptionListProps,
-  ScreenReaderNotification,
-} from '../modularOptionList/types';
+import { SelectData, SelectMetaData, FilterFunction } from './types';
+import { Group, Option, ModularOptionListData, ModularOptionListProps } from '../modularOptionList/types';
 import { ChangeEvent } from '../../dataProvider/DataContext';
 import { eventTypes } from './events';
 import {
@@ -17,6 +11,22 @@ import {
   propsToGroups,
   getSelectedOptions,
 } from '../modularOptionList/utils';
+import { createElementIds, ElementIdsConfig } from '../shared/utils/elementIds';
+
+// Configuration for Select component element IDs
+const selectElementIds: ElementIdsConfig = {
+  container: true,
+  button: true,
+  list: true,
+  clearButton: true,
+  label: true,
+  selectionsAndListsContainer: true,
+  tagList: true,
+  searchOrFilterInput: true,
+  searchOrFilterInputLabel: true,
+  clearAllButton: true,
+  showAllButton: true,
+};
 
 // Re-export commonly used utility functions
 export {
@@ -66,19 +76,7 @@ export function createInputOnChangeListener(props: DomHandlerProps) {
 }
 
 export function getElementIds(containerId: string): SelectMetaData['elementIds'] {
-  return {
-    container: containerId,
-    button: `${containerId}-main-button`,
-    list: `${containerId}-list`,
-    clearButton: `${containerId}-clear-button`,
-    label: `${containerId}-label`,
-    selectionsAndListsContainer: `${containerId}-sl-container`,
-    tagList: `${containerId}-tag-list`,
-    searchOrFilterInput: `${containerId}-input-element`,
-    searchOrFilterInputLabel: `${containerId}-input-element-label`,
-    clearAllButton: `${containerId}-clear-all-button`,
-    showAllButton: `${containerId}-show-all-button`,
-  };
+  return createElementIds(containerId, selectElementIds);
 }
 
 export function countVisibleOptions(groups: SelectData['groups']): number {
@@ -91,16 +89,6 @@ export function countVisibleOptions(groups: SelectData['groups']): number {
     });
   });
   return count;
-}
-
-export function createScreenReaderNotification(type: string, content: string, delay = 0): ScreenReaderNotification {
-  return {
-    type,
-    content,
-    delay,
-    showTime: 0,
-    addTime: Date.now(),
-  };
 }
 
 export function filterOptions(groups: ModularOptionListData['groups'], filterStr: string, filterFunc: FilterFunction) {
@@ -155,49 +143,4 @@ export function mergeSearchResultsToCurrent(
     : [];
 
   return [...currentHiddenOptionsInAGroup, ...newData];
-}
-
-/**
- *
- * @param notification
- * @param dataHandlers
- * @returns Returns true, if notification was added
- */
-export function addOrUpdateScreenReaderNotificationByType(
-  notification: ScreenReaderNotification,
-  dataHandlers: SelectDataHandlers,
-) {
-  const { screenReaderNotifications } = dataHandlers.getMetaData();
-  const indexOfSameType = screenReaderNotifications.findIndex((n) => n.type === notification.type);
-  if (indexOfSameType > -1) {
-    const updatedList = [...screenReaderNotifications];
-    const prev = updatedList[indexOfSameType];
-    if (prev.content === notification.content) {
-      return false;
-    }
-    updatedList[indexOfSameType] = notification;
-    dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
-    return false;
-  }
-  const updatedList = [...screenReaderNotifications, notification];
-  dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
-  return true;
-}
-
-export function removeScreenReaderNotification(
-  target: Partial<ScreenReaderNotification>,
-  dataHandlers: SelectDataHandlers,
-) {
-  const { screenReaderNotifications } = dataHandlers.getMetaData();
-  const indexOfMatch = screenReaderNotifications.findIndex((n) => {
-    const hasTypeMatch = !target.type || n.type === target.type;
-    const hasContentMatch = !target.content || n.content === target.content;
-    return hasTypeMatch && hasContentMatch;
-  });
-  if (indexOfMatch > -1) {
-    screenReaderNotifications.splice(indexOfMatch, 1);
-    dataHandlers.updateMetaData({ screenReaderNotifications });
-    return true;
-  }
-  return false;
 }

@@ -4,8 +4,11 @@ import styles from '../Select.module.scss';
 import { DivElementProps } from '../../modularOptionList/types';
 import { useTextProvider } from '../hooks/useTextProvider';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
-import { addOrUpdateScreenReaderNotificationByType, createScreenReaderNotification } from '../utils';
 import { eventIds } from '../events';
+import {
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
+} from '../../shared/utils/screenReader';
 
 function createAssistiveTextProps(): DivElementProps & { children: string | null } {
   const assistive = useTextProvider('assistive');

@@ -8,12 +8,16 @@ import {
   OptionInProps,
   ModularOptionListMetaData,
   GroupInProps,
-  ScreenReaderNotification,
-  ModularOptionListDataHandlers,
 } from './types';
 import { getChildrenAsArray } from '../../../utils/getChildren';
 import { ChangeEvent } from '../../dataProvider/DataContext';
 import { eventTypes } from './events';
+import { createElementIds, ElementIdsConfig } from '../shared/utils/elementIds';
+
+// Configuration for ModularOptionList element IDs
+const modularOptionListElementIds: ElementIdsConfig = {
+  list: true,
+};
 
 type DomHandlerProps = {
   id: string;
@@ -323,9 +327,7 @@ export function createSelectedOptionsList(currentSelections: Option[], groups: M
 }
 
 export function getElementIds(containerId: string): ModularOptionListMetaData['elementIds'] {
-  return {
-    list: `${containerId}-list`,
-  };
+  return createElementIds(containerId, modularOptionListElementIds);
 }
 
 export function countVisibleOptions(groups: ModularOptionListData['groups']): number {
@@ -343,61 +345,6 @@ export function countVisibleOptions(groups: ModularOptionListData['groups']): nu
 export function getGroupLabelOption(group: Group): Option | undefined {
   const firstOption = group.options[0];
   return firstOption && firstOption.isGroupLabel ? firstOption : undefined;
-}
-
-export function createScreenReaderNotification(type: string, content: string, delay = 0): ScreenReaderNotification {
-  return {
-    type,
-    content,
-    delay,
-    showTime: 0,
-    addTime: Date.now(),
-  };
-}
-
-/**
- *
- * @param notification
- * @param dataHandlers
- * @returns Returns true, if notification was added
- */
-export function addOrUpdateScreenReaderNotificationByType(
-  notification: ScreenReaderNotification,
-  dataHandlers: ModularOptionListDataHandlers,
-) {
-  const { screenReaderNotifications } = dataHandlers.getMetaData();
-  const indexOfSameType = screenReaderNotifications.findIndex((n) => n.type === notification.type);
-  if (indexOfSameType > -1) {
-    const updatedList = [...screenReaderNotifications];
-    const prev = updatedList[indexOfSameType];
-    if (prev.content === notification.content) {
-      return false;
-    }
-    updatedList[indexOfSameType] = notification;
-    dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
-    return false;
-  }
-  const updatedList = [...screenReaderNotifications, notification];
-  dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
-  return true;
-}
-
-export function removeScreenReaderNotification(
-  target: Partial<ScreenReaderNotification>,
-  dataHandlers: ModularOptionListDataHandlers,
-) {
-  const { screenReaderNotifications } = dataHandlers.getMetaData();
-  const indexOfMatch = screenReaderNotifications.findIndex((n) => {
-    const hasTypeMatch = !target.type || n.type === target.type;
-    const hasContentMatch = !target.content || n.content === target.content;
-    return hasTypeMatch && hasContentMatch;
-  });
-  if (indexOfMatch > -1) {
-    screenReaderNotifications.splice(indexOfMatch, 1);
-    dataHandlers.updateMetaData({ screenReaderNotifications });
-    return true;
-  }
-  return false;
 }
 
 export function findSelectableOptionIndex(

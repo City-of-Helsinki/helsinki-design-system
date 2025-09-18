@@ -5,8 +5,11 @@ import { SelectDataHandlers } from '../types';
 import { DivElementProps } from '../../modularOptionList/types';
 import { useTextProvider } from '../hooks/useTextProvider';
 import { useSelectDataHandlers } from '../hooks/useSelectDataHandlers';
-import { addOrUpdateScreenReaderNotificationByType, createScreenReaderNotification } from '../utils';
 import { eventIds } from '../events';
+import {
+  addOrUpdateScreenReaderNotificationByType,
+  createScreenReaderNotification,
+} from '../../shared/utils/screenReader';
 
 function createErrorProps({ getData }: SelectDataHandlers): DivElementProps & { children: string | null } {
   const { invalid } = getData();

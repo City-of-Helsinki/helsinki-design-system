@@ -1,16 +1,25 @@
 import React from 'react';
 
-import { SearchData, SearchMetaData, SearchDataHandlers } from './types';
-import {
-  Group,
-  Option,
-  ModularOptionListData,
-  ModularOptionListProps,
-  ScreenReaderNotification,
-} from '../modularOptionList/types';
+import { SearchData, SearchMetaData } from './types';
+import { Group, Option, ModularOptionListData, ModularOptionListProps } from '../modularOptionList/types';
 import { ChangeEvent } from '../../dataProvider/DataContext';
 import { eventTypes } from './events';
 import { getAllOptions, propsToGroups, getSelectedOptions } from '../modularOptionList/utils';
+import {
+  createElementIds,
+  ElementIdsConfig,
+} from '../shared/utils/elementIds';
+
+// Configuration for Search component element IDs
+const searchElementIds: ElementIdsConfig = {
+  container: true,
+  list: true,
+  clearButton: true,
+  label: true,
+  searchContainer: true,
+  searchInput: true,
+  searchInputLabel: true,
+};
 
 // Re-export commonly used utility functions
 export {
@@ -59,15 +68,7 @@ export function createInputOnChangeListener(props: DomHandlerProps) {
 }
 
 export function getElementIds(containerId: string): SearchMetaData['elementIds'] {
-  return {
-    container: containerId,
-    list: `${containerId}-list`,
-    clearButton: `${containerId}-clear-button`,
-    label: `${containerId}-label`,
-    searchContainer: `${containerId}-search-container`,
-    searchInput: `${containerId}-search-input`,
-    searchInputLabel: `${containerId}-search-input-label`,
-  };
+  return createElementIds(containerId, searchElementIds);
 }
 
 export function countVisibleOptions(groups: SearchData['groups']): number {
@@ -80,16 +81,6 @@ export function countVisibleOptions(groups: SearchData['groups']): number {
     });
   });
   return count;
-}
-
-export function createScreenReaderNotification(type: string, content: string, delay = 0): ScreenReaderNotification {
-  return {
-    type,
-    content,
-    delay,
-    showTime: 0,
-    addTime: Date.now(),
-  };
 }
 
 export function mergeSearchResultsToCurrent(
@@ -114,49 +105,4 @@ export function mergeSearchResultsToCurrent(
     : [];
 
   return [...currentHiddenOptionsInAGroup, ...newData];
-}
-
-/**
- *
- * @param notification
- * @param dataHandlers
- * @returns Returns true, if notification was added
- */
-export function addOrUpdateScreenReaderNotificationByType(
-  notification: ScreenReaderNotification,
-  dataHandlers: SearchDataHandlers,
-) {
-  const { screenReaderNotifications } = dataHandlers.getMetaData();
-  const indexOfSameType = screenReaderNotifications.findIndex((n) => n.type === notification.type);
-  if (indexOfSameType > -1) {
-    const updatedList = [...screenReaderNotifications];
-    const prev = updatedList[indexOfSameType];
-    if (prev.content === notification.content) {
-      return false;
-    }
-    updatedList[indexOfSameType] = notification;
-    dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
-    return false;
-  }
-  const updatedList = [...screenReaderNotifications, notification];
-  dataHandlers.updateMetaData({ screenReaderNotifications: updatedList });
-  return true;
-}
-
-export function removeScreenReaderNotification(
-  target: Partial<ScreenReaderNotification>,
-  dataHandlers: SearchDataHandlers,
-) {
-  const { screenReaderNotifications } = dataHandlers.getMetaData();
-  const indexOfMatch = screenReaderNotifications.findIndex((n) => {
-    const hasTypeMatch = !target.type || n.type === target.type;
-    const hasContentMatch = !target.content || n.content === target.content;
-    return hasTypeMatch && hasContentMatch;
-  });
-  if (indexOfMatch > -1) {
-    screenReaderNotifications.splice(indexOfMatch, 1);
-    dataHandlers.updateMetaData({ screenReaderNotifications });
-    return true;
-  }
-  return false;
 }
