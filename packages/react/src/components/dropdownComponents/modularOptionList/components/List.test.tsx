@@ -19,8 +19,8 @@ import { getAllOptions } from '../utils';
 import { Option } from '../types';
 import { isOptionClickEvent } from '../events';
 
-jest.mock('../../hooks/useSelectDataHandlers', () => ({
-  useSelectDataHandlers: () => mockUseModularOptionListDataHandlersContents,
+jest.mock('../hooks/useModularOptionListDataHandlers', () => ({
+  useModularOptionListDataHandlers: () => mockUseModularOptionListDataHandlersContents,
 }));
 
 describe('<List />', () => {

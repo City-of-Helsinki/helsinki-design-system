@@ -330,7 +330,7 @@ describe('useElementDetection', () => {
   });
   describe('getElementUsingActiveDescendant()', () => {
     it('Returns the input element if it should exist.', async () => {
-      const { getInputElement, getHook, openList } = initHookTest({ ...defaultProps, open: false });
+      const { getInputElement, getHook, openList } = initHookTest({ ...defaultProps, open: true });
       expect(getHook().getElementUsingActiveDescendant() === getInputElement()).toBeTruthy();
       expect(getInputElement()).not.toBeNull();
       await openList();

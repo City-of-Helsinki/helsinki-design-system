@@ -20,7 +20,7 @@ import {
   getSelectedOptions,
   iterateAndCopyGroup,
 } from '../modularOptionList/utils';
-import { FilterFunction, SelectDataHandlers } from './types';
+import { FilterFunction, SelectDataHandlers, Option } from './types';
 import { ChangeEvent, ChangeEventPayload } from '../../dataProvider/DataContext';
 import { eventTypes } from './events';
 

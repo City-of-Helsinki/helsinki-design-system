@@ -4,22 +4,22 @@ exports[`<Search /> spec renders the component 1`] = `
 <DocumentFragment>
   <div
     class="wrapper root"
-    id="hds-select-1"
+    id="hds-search-1"
     tabindex="-1"
   >
     <div
-      class="selectAndListContainer"
+      id="hds-search-1-search-container"
     >
       <div
-        class="root searchInput"
+        class="root"
       >
         <div
           class="inputWrapper"
         >
           <input
-            aria-label="Search"
+            aria-label="Hae"
             class="input hasClearButton"
-            id="test"
+            id="hds-search-1-search-input"
             placeholder="Anna teksti hakua varten"
             type="text"
             value=""
@@ -52,15 +52,23 @@ exports[`<Search /> spec renders the component 1`] = `
         </div>
       </div>
       <div
-        aria-hidden="true"
-        class="listAndInputContainer"
-        id="hds-select-1-sl-container"
-      />
+        class="listContainer"
+        style="max-height: 286px;"
+      >
+        <ul
+          aria-live="polite"
+          aria-multiselectable="false"
+          class="list"
+          id="hds-search-1-list"
+          role="listbox"
+          tabindex="-1"
+        />
+      </div>
     </div>
     <div
       aria-live="polite"
-      class="screenReaderNotifications"
-      data-testid="hds-select-screen-reader-notifications"
+      class="hds-search-screen-reader-notifications"
+      data-testid="hds-search-screen-reader-notifications"
     />
   </div>
 </DocumentFragment>

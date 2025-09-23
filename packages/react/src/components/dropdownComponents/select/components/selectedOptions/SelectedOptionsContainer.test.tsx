@@ -26,7 +26,7 @@ let mockIndexOfFirstVisibleChild = 1;
 jest.mock('../../hooks/useSelectDataHandlers', () => ({
   useSelectDataHandlers: () => mockUseSelectDataHandlersContents,
 }));
-jest.mock('../../../../utils/getIndexOfFirstVisibleChild', () => ({
+jest.mock('../../../../../utils/getIndexOfFirstVisibleChild', () => ({
   getIndexOfFirstVisibleChild: () => mockIndexOfFirstVisibleChild,
 }));
 

@@ -5,7 +5,7 @@ import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from 
 import { defaultFilter } from '../utils';
 import { ListAndInputContainer } from './ListAndInputContainer';
 
-jest.mock('../Container', () => {
+jest.mock('./Container', () => {
   return {
     __esModule: true,
     Container: () => mockedContainer(),

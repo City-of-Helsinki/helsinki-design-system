@@ -3,7 +3,7 @@ import { groupsAndOptions, initTests, mockedContainer, testUtilAfterAll, testUti
 import { Group, SelectMetaData } from '../../types';
 import { SearchAndFilterInfo } from './SearchAndFilterInfo';
 
-jest.mock('../../Container', () => {
+jest.mock('../Container', () => {
   return {
     __esModule: true,
     Container: () => mockedContainer(),

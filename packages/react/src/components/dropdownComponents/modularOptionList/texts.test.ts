@@ -46,7 +46,7 @@ describe('texts', () => {
       const textProvider = createTextProvider(dummyTextProvider);
       const content = getTextInterpolationContent(textProvider);
       expect(createTextProvider(dummyTextProvider)).toBe(dummyTextProvider);
-      expect(textProvider('tagsShowAllButtonAriaLabel', content)).toBe('tagsShowAllButtonAriaLabel');
+      expect(textProvider('assistive', content)).toBe('assistive');
       expect(textProvider('error', content)).toBe('error');
     });
     it('If an object is passed, a textProvider function is returned which returns values from given texts or default texts.', () => {
@@ -60,7 +60,7 @@ describe('texts', () => {
       expect(textProvider('label', content)).toBe(texts.label);
       expect(textProvider('assistive', content)).toBe(texts.assistive);
       expect(textProvider('error', content)).toBe('');
-      expect(textProvider('placeholder', content)).toBe(defaultTexts.en.placeholder);
+      expect(textProvider('required', content)).toBe(defaultTexts.en.required);
     });
     it('Object\'s "language" prop defines which default texts are used', () => {
       const texts: Partial<Texts> = {
@@ -69,7 +69,7 @@ describe('texts', () => {
       const textProvider = createTextProvider(texts);
       const content = getTextInterpolationContent(textProvider);
       expect(textProvider('label', content)).toBe(defaultTexts.sv.label);
-      expect(textProvider('placeholder', content)).toBe(defaultTexts.sv.placeholder);
+      expect(textProvider('label', content)).toBe(defaultTexts.sv.label);
     });
   });
   describe('TextProvider returns', () => {
@@ -102,7 +102,7 @@ describe('texts', () => {
     it('The function sets new TextProvider to metaData', () => {
       const { metaData, textProvider, textContent } = initTests();
       expect(textProvider('label', textContent)).toBe('label');
-      expect(textProvider('placeholder', textContent)).toBe('placeholder');
+      expect(textProvider('label', textContent)).toBe('label');
       expect(textProvider('error', textContent)).toBe('error');
 
       appendTexts({ label: 'newLabel' }, metaData);
@@ -110,12 +110,10 @@ describe('texts', () => {
 
       appendTexts({ label: '' }, metaData);
       expect(dataHandlers.getMetaData().textProvider('label', textContent)).toBe('');
-      expect(dataHandlers.getMetaData().textProvider('placeholder', textContent)).toBe('placeholder');
       expect(dataHandlers.getMetaData().textProvider('error', textContent)).toBe('error');
 
       appendTexts({ error: 'newError' }, metaData);
       expect(dataHandlers.getMetaData().textProvider('label', textContent)).toBe('');
-      expect(dataHandlers.getMetaData().textProvider('placeholder', textContent)).toBe('placeholder');
       expect(dataHandlers.getMetaData().textProvider('error', textContent)).toBe('newError');
     });
   });

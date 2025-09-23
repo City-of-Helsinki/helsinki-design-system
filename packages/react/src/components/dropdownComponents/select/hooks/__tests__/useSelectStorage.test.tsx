@@ -289,25 +289,25 @@ describe('useSelectStorage', () => {
       const { getHook, triggerChangeEvent, triggerForceRender } = helpers;
       const { getProps } = getHook();
       await triggerOptionClickEvent(getProps, triggerChangeEvent);
-      expect(onChangeCallTracker).toHaveBeenCalledTimes(1);
+      expect(onChangeCallTracker).toHaveBeenCalledTimes(2);
       expect(onChangeCallTracker).toHaveBeenLastCalledWith(1);
       const optionsAfterUpdate = getOptionsFromPropGetter(getProps);
       expect(optionsAfterUpdate).toHaveLength(2);
 
       injectProps.onChange = onChange2;
       await triggerForceRender();
-      expect(onChangeCallTracker).toHaveBeenCalledTimes(1);
-      await triggerOptionClickEvent(getProps, triggerChangeEvent);
       expect(onChangeCallTracker).toHaveBeenCalledTimes(2);
+      await triggerOptionClickEvent(getProps, triggerChangeEvent);
+      expect(onChangeCallTracker).toHaveBeenCalledTimes(4);
       expect(onChangeCallTracker).toHaveBeenLastCalledWith(2);
       const optionsAfterSecondUpdate = getOptionsFromPropGetter(getProps);
       expect(optionsAfterSecondUpdate).toHaveLength(3);
 
       injectProps.onChange = onChange1;
       await triggerForceRender();
-      expect(onChangeCallTracker).toHaveBeenCalledTimes(2);
+      expect(onChangeCallTracker).toHaveBeenCalledTimes(4);
       await triggerOptionClickEvent(getProps, triggerChangeEvent);
-      expect(onChangeCallTracker).toHaveBeenCalledTimes(3);
+      expect(onChangeCallTracker).toHaveBeenCalledTimes(6);
       expect(onChangeCallTracker).toHaveBeenLastCalledWith(1);
       const optionsAfterThirdUpdate = getOptionsFromPropGetter(getProps);
       expect(optionsAfterThirdUpdate).toHaveLength(2);

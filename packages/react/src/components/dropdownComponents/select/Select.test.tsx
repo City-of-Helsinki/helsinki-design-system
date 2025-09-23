@@ -442,14 +442,14 @@ describe('<Select />', () => {
       const listElement = getListElement();
       expect(listElement).toHaveAttribute('aria-live', 'polite');
     });
-    it('should not have aria-live attribute when no input is present', async () => {
+    it('should have aria-live="polite" when no input is present', async () => {
       const { openList, getListElement } = renderWithHelpers({
         groups: true,
         multiSelect: false,
       });
       await openList();
       const listElement = getListElement();
-      expect(listElement).not.toHaveAttribute('aria-live');
+      expect(listElement).toHaveAttribute('aria-live', 'polite');
     });
   });
   describe('Accessibility attributes are set correctly', () => {
