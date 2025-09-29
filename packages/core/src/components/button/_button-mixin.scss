@@ -31,7 +31,6 @@
   --computed-outline-color-focus: var(--outline-color-focus, transparent);
   --computed-icon-size: var(--icon-size, var(--spacing-m));
 
-  align-content: flex-start;
   align-items: center;
   background-color: var(--computed-background-color);
   border: var(--border-width) solid var(--computed-border-color);
@@ -47,7 +46,7 @@
   font-size: 100%;
   font-weight: 500;
   hyphens: auto;
-  justify-content: center;
+  place-content: flex-start center;
   line-height: var(--lineheight-l);
   margin: 0;
   min-height: var(--min-size);
@@ -80,31 +79,27 @@
     -webkit-appearance: button;
   }
 
-  /* focus */
-  &:focus-visible {
+  &:focus-visible { /* focus */
     background-color: var(--computed-background-color-focus);
     border-color: var(--computed-border-color-focus);
     color: var(--computed-color-focus);
     outline: var(--outline-width-focus) solid var(--computed-outline-color-focus);
   }
 
-  /* hover */
-  &:hover {
+  &:hover { /* hover */
     background-color: var(--computed-background-color-hover);
     border-color: var(--computed-border-color-hover);
     color: var(--computed-color-hover);
   }
 
-  /* active */
-  &:active {
+  &:active { /* active */
     background-color: var(--computed-background-color-active);
     border-color: var(--computed-border-color-active);
     color: var(--computed-color-active);
     outline: var(--outline-width-focus) solid var(--computed-outline-color-focus);
   }
 
-  /* disabled */
-  &:disabled {
+  &:disabled { /* disabled */
     --cursor: not-allowed;
 
     background-color: var(--computed-background-color-disabled);
@@ -124,8 +119,7 @@
     margin-left: var(--icon-reposition);
   }
 
-  /* end-side icon */
-  &:last-child:not(:first-child) {
+  &:last-child:not(:first-child) { /* end-side icon */
     margin-right: var(--icon-reposition);
   }
 }

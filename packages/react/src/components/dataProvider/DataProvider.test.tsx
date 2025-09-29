@@ -461,7 +461,7 @@ describe('DataContext', () => {
   };
 
   const getDataById = (testData: TestData, id: string): number => {
-    return Reflect.get(testData.componentData, id);
+    return Reflect.get(testData.componentData, id) as number;
   };
 
   afterEach(() => {

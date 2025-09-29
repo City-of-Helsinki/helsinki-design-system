@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
-import ts from 'rollup-plugin-ts';
+import typescript from 'rollup-plugin-typescript2';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
@@ -147,7 +147,7 @@ const getConfig = (format, extractCSS) => ({
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
-    ts(),
+    typescript(),
     isEsmOutputFormat(format) &&
       babel({
         babelHelpers: 'runtime',
