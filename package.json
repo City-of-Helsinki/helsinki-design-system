@@ -35,6 +35,8 @@
     "jpeg-js": "0.4.4",
     "json5@>=2.0.0": "2.2.3",
     "json5@>=1.0.0": "1.0.2",
-    "@mdx-js/loader/**/loader-utils": "2.0.4"
+    "@mdx-js/loader/**/loader-utils": "2.0.4",
+    "form-data@^3.0.0": "3.0.4",
+    "form-data@^4.0.0": "4.0.4"
   }
 }

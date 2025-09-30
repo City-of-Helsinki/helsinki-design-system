@@ -65,7 +65,7 @@ export const FooterUtilities = ({
             if (isValidElement(link)) {
               /* Set variant to null just in case user set it. It should be null for SoMelinks so it doesn't mess with the styles. */
               // eslint-disable-next-line react/no-array-index-key
-              return cloneElement(link, { variant: null, key: index });
+              return cloneElement(link as React.ReactElement<Record<string, unknown>>, { variant: null, key: index });
             }
             return null;
           })}

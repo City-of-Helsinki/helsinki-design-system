@@ -3,7 +3,7 @@ import fs from 'fs';
 
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
-import ts from 'rollup-plugin-ts';
+import typescript from 'rollup-plugin-typescript2';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
@@ -27,7 +27,6 @@ const hdsJsEsmOutput = 'hds-js-esm';
 const hdsJsCommonJsOutput = 'hds-js-cjs';
 
 const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
-const isHdsJsOutputFormat = (format) => format === hdsJsEsmOutput || format === hdsJsCommonJsOutput;
 const hdsJsPackageJSON = require('../hds-js/package.json');
 
 const insertCssEsm = () => {
@@ -145,7 +144,7 @@ const getConfig = (format, extractCSS) => ({
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
-    ts(),
+    typescript(),
     isEsmOutputFormat(format) &&
       babel({
         babelHelpers: 'runtime',
