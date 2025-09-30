@@ -160,6 +160,7 @@ export const SimpleSearchInput = (args: TextInputProps) => {
       buttonIcon={<IconSearch />}
       clearButtonAriaLabel="Clear search"
       label="Simple search"
+      aria-label="simple search"
       onButtonClick={onButtonClick}
       onChange={onChangeHandler}
       onKeyUp={onKeyUpHandler}

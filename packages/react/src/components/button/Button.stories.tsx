@@ -165,11 +165,11 @@ export const Themes = () => (
 export const CustomTheme = () => {
   const customTheme: ButtonTheme = {
     '--background-color-active': 'darkorange',
-    '--background-color-focus': 'orange',
-    '--background-color-hover': 'orange',
-    '--background-color': 'grey',
-    '--border-color-active': 'darkorange',
-    '--border-color': 'grey',
+    '--background-color-focus': 'green',
+    '--background-color-hover': 'green',
+    '--background-color': 'darkgreen',
+    '--border-color-active': 'darkgreen',
+    '--border-color': 'darkgreen',
   };
   return (
     <Button onClick={onClick} theme={customTheme} variant={ButtonVariant.Primary}>

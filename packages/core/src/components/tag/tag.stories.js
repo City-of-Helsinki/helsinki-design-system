@@ -37,8 +37,8 @@ const customB = `
     --outline-color: var(--color-black-90);`;
 
 const customC = `
-    --background-color: var(--color-copper-dark);
-    --background-color-hover: var(--color-tram-dark);
+    --background-color: var(--color-tram-dark);
+    --background-color-hover: color-mix(in srgb, var(--color-tram-dark) 80%, white);
     --color: var(--color-white);
     --outline-color: var(--color-metro);`;
 

@@ -1,5 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import {
+  scanAccessibility,
   createScreenshotFileName,
   getComponentStorybookUrls,
   gotoStorybookUrlByName,
@@ -48,6 +49,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       if (containerCount === 1) {
         const clip = await inputUtil.getBoundingBox();
         const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
+        await scanAccessibility(page, element);
         await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
 
         const hasButton = await inputUtil.getButtonLocator().isVisible();
@@ -55,6 +57,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
           //open the dialog
           await inputUtil.openDialog();
           const clipOpen = await inputUtil.getBoundingBox();
+          await scanAccessibility(page, element);
           await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: true });
         }
       }
@@ -71,6 +74,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'open');
     const clip = await inputUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     await waitFor(() => {
@@ -87,6 +91,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await inputUtil.selectDayWithKeyboard(12, 12, 2024);
     const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'day 12 selected');
     const clip = await inputUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
     await inputUtil.clickSelectButton();
     const value = await inputUtil.getSelectedDateString();
@@ -102,6 +107,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     await inputUtil.selectDayWithMouse(13);
     const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'day 13 selected');
     const clip = await inputUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
     await inputUtil.clickSelectButton();
     const value = await inputUtil.getSelectedDateString();

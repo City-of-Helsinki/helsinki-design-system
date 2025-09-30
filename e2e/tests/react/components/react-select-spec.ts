@@ -1,5 +1,6 @@
 import { test, expect, Page } from '@playwright/test';
 import {
+  scanAccessibility,
   getComponentStorybookUrls,
   waitFor,
   createScreenshotFileName,
@@ -51,6 +52,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       const clip = await selectUtil.getBoundingBox();
 
       const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
+      await scanAccessibility(page);
       await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
     }
   });
@@ -69,6 +71,7 @@ test.describe(`Selecting options and groups`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
   });
   test('Singleselect options one by one', async ({ page, hasTouch }, testInfo) => {
@@ -82,6 +85,7 @@ test.describe(`Selecting options and groups`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
   });
 });
@@ -118,6 +122,7 @@ test.describe(`Keyboard navigation`, () => {
     const screenshotName = createScreenshotFileName(testInfo, hasTouch);
 
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     await keyboard.home(); // moves focus to #0
@@ -154,6 +159,7 @@ test.describe(`Keyboard navigation`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'first non-label is focused');
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     await keyboard.up(); // moves focus to the last
@@ -167,6 +173,7 @@ test.describe(`Keyboard navigation`, () => {
 
     const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'last non-label is focused');
     const clip2 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
 
     await keyboard.home(); // moves focus to #1 (label is ignored)
@@ -206,6 +213,7 @@ test.describe(`Typing when focused and there is no input`, () => {
     await waitForStablePosition(options[2]);
 
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Option #2 is focused'), {
       clip,
       fullPage: true,
@@ -222,6 +230,7 @@ test.describe(`Typing when focused and there is no input`, () => {
     await waitForStablePosition(options[0]);
 
     const clip2 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Option #0 is focused'), {
       clip: clip2,
       fullPage: true,
@@ -253,6 +262,7 @@ test.describe(`Typing when focused and there is an input`, () => {
     expect(inputText).toBe(filterText);
 
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Filter text is seen'), {
       clip,
       fullPage: true,
@@ -272,6 +282,7 @@ test.describe(`Typing when focused and there is an input`, () => {
     await selectUtil.waitUntilSelectedOptionCountMatches(1);
     expect(await selectUtil.getSelectedGroupLabels()).toHaveLength(1);
     const clip2 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'Filtered option selected'), {
       clip: clip2,
       fullPage: true,
@@ -283,6 +294,7 @@ test.describe(`Typing when focused and there is an input`, () => {
     });
     expect(selectUtil.getSearchAndFilterInfo()).toBeVisible();
     const clip3 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch, 'No results'), {
       clip: clip3,
       fullPage: true,
@@ -305,6 +317,7 @@ test.describe(`Tags`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'tags rendered');
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     // click show all and take screenshot.
@@ -312,6 +325,7 @@ test.describe(`Tags`, () => {
     expect(page.getByLabel('Show less options.').isVisible()).toBeTruthy();
     const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'all tags shown');
     const clip2 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
   });
   test('When "show All" is clicked, focus is set to the first tag. When "show less" is clicked, focus stays and screen reader is notified.', async ({
@@ -360,6 +374,7 @@ test.describe(`Tags`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     const newTag1 = await selectUtil.getTag(1);
@@ -384,6 +399,7 @@ test.describe(`Tags`, () => {
 
     const screenshotName2 = createScreenshotFileName(testInfo, hasTouch, 'Focus is in the button');
     const clip2 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenshotName2, { clip: clip2, fullPage: true });
   });
 });
@@ -408,6 +424,7 @@ test.describe(`Search`, () => {
 
     const spinnerScreenShotName = createScreenshotFileName(testInfo, hasTouch, 'search spinner visible');
     const clip2 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(spinnerScreenShotName, { clip: clip2, fullPage: true });
 
     await waitFor(async () => {
@@ -434,6 +451,7 @@ test.describe(`Search`, () => {
 
     const noResultsScreenShotName = createScreenshotFileName(testInfo, hasTouch, 'no results');
     const clip3 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
   });
   test('Error is shown', async ({ page, hasTouch }, testInfo) => {
@@ -452,6 +470,7 @@ test.describe(`Search`, () => {
 
     const noResultsScreenShotName = createScreenshotFileName(testInfo, hasTouch, 'error');
     const clip3 = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(noResultsScreenShotName, { clip: clip3, fullPage: true });
   });
   test('Search results are selectable', async ({ page, hasTouch }, testInfo) => {
@@ -600,6 +619,7 @@ test.describe(`Element state snapshots`, () => {
     await selectUtil.openList();
     const menuOpenFilename = createScreenshotFileName(testInfo, hasTouch, 'menu open');
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(menuOpenFilename, { clip, fullPage: true });
     // takeStateScreenshots has noOutsideClicks=true,
     // so must manually move focus outside
@@ -670,6 +690,7 @@ test.describe(`Error and assistive text snapshots`, () => {
     await selectUtil.selectOptionByIndex({ index: 2, multiSelect: false });
     const screenShotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
   test('Error text is rendered', async ({ page, hasTouch }, testInfo) => {
@@ -678,6 +699,7 @@ test.describe(`Error and assistive text snapshots`, () => {
     await selectUtil.selectOptionByIndex({ index: 5, multiSelect: false });
     const screenShotName = createScreenshotFileName(testInfo, hasTouch);
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
 });
@@ -692,6 +714,7 @@ test.describe(`Changing language changes all related props`, () => {
 
     const screenShotName = createScreenshotFileName(testInfo, hasTouch, 'Finnish texts');
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
 
     const changeToEnglishButton = page.getByText('English');
@@ -701,6 +724,7 @@ test.describe(`Changing language changes all related props`, () => {
 
     const screenShotNameEn = createScreenshotFileName(testInfo, hasTouch, 'English texts');
     const clipEn = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenShotNameEn, { clip: clipEn, fullPage: true });
 
     const changeToSwedishhButton = page.getByText('Swedish');
@@ -710,6 +734,7 @@ test.describe(`Changing language changes all related props`, () => {
 
     const screenShotNameSv = createScreenshotFileName(testInfo, hasTouch, 'Swedish texts');
     const clipSv = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenShotNameSv, { clip: clipSv, fullPage: true });
   });
 });
@@ -725,6 +750,7 @@ test.describe(`Focus works with given reference`, () => {
 
     const screenShotName = createScreenshotFileName(testInfo, hasTouch, 'Reference focus');
     const clip = await selectUtil.getBoundingBox();
+    await scanAccessibility(page);
     await expect(page).toHaveScreenshot(screenShotName, { clip, fullPage: true });
   });
 });

@@ -236,7 +236,7 @@
       @include modifier('secondary') {
         @include compound-block-modifier('theme-coat') {
           --background-color: transparent;
-          --background-color-hover: var(--color-coat-of-arms-light);
+          --background-color-hover: color-mix(in srgb, var(--color-coat-of-arms-light) 80%, white);
           --background-color-focus: transparent;
           --border-color: var(--color-coat-of-arms);
           --color: var(--color-coat-of-arms);
@@ -246,7 +246,7 @@
       @include modifier('supplementary') {
         @include compound-block-modifier('theme-coat') {
           --background-color: transparent;
-          --background-color-hover: var(--color-coat-of-arms-light);
+          --background-color-hover: color-mix(in srgb, var(--color-coat-of-arms-light) 80%, white);
           --background-color-focus: transparent;
           --border-color: transparent;
           --color: var(--color-coat-of-arms);

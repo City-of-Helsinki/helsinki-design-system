@@ -1,4 +1,5 @@
 import { Locator, Page, expect, ElementHandle, TestInfo } from '@playwright/test';
+import { AxeBuilder } from '@axe-core/playwright';
 import { playWrightInitScript } from '../../packages/react/src/utils/playWrightHelpers';
 
 enum PackageServerPort {
@@ -102,6 +103,7 @@ export const takeScreenshotWithSpacing = async (
     height: elementBoundingBox.height + 2 * spacing,
   };
 
+  await scanAccessibility(page, element);
   return expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
 };
 
@@ -205,6 +207,34 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
   const targetUrl = filteredUrls[0];
   await page.goto(targetUrl);
   return targetUrl;
+};
+
+export const scanAccessibility = async (page: Page, locator?: Locator) => {
+  const scanClass = `a11y-scan-${Date.now()}`;
+  const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+
+  // console.info(`Running accessibility scan for ${locator ? 'locator' : 'page'}`);
+
+  try {
+    if (locator) {
+      await locator.first().evaluate((el, className) => {
+        el.classList.add(className);
+      }, scanClass);
+
+      const accessibilityScanResults = await new AxeBuilder({ page }).include(`.${scanClass}`)
+        .withTags(wcagTags)
+        .analyze();
+      await expect(accessibilityScanResults.violations).toEqual([]);
+    } else {
+      const accessibilityScanResults = await new AxeBuilder({ page })
+        .withTags(wcagTags)
+        .analyze();
+      await expect(accessibilityScanResults.violations).toEqual([]);
+    }
+  } catch (error) {
+    console.error('Accessibility scan failed:', error);
+    throw error;
+  }
 };
 
 export const getLocatorElement = async (locator: Locator): Promise<HTMLElement | SVGElement | null> => {

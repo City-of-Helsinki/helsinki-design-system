@@ -1,5 +1,6 @@
 import { test, expect } from '@playwright/test';
 import {
+  scanAccessibility,
   createScreenshotFileName,
   getComponentStorybookUrls,
   gotoStorybookUrlByName,
@@ -35,11 +36,13 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       if (containerCount === 1) {
         const clip = await accordionUtil.getBoundingBox();
         const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
+        await scanAccessibility(page, element);
         await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: false });
 
         //open the accordion
         await accordionUtil.open();
         const clipOpen = await accordionUtil.getBoundingBox();
+        await scanAccessibility(page, element);
         await expect(page).toHaveScreenshot(`${screenshotName}-open.png`, { clip: clipOpen, fullPage: false });
       }
     }
@@ -54,6 +57,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
 
     const screenshotName = createScreenshotFileName(testInfo, hasTouch, 'open');
     const clip = await accordionUtil.getBoundingBox();
+    await scanAccessibility(page, accordionUtil.getElementLocator());
     await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
 
     await waitFor(() => {
