@@ -1,0 +1,280 @@
+@import '../../../styles/common.scss';
+@import './dropdown.helpers';
+
+.root {
+  @extend %dropdownRoot;
+
+  display: flex;
+  flex-direction: column;
+  max-width: 420px;
+}
+
+.selectAndListContainer {
+  @extend %dropdownWrapper;
+
+  &.open {
+    .angleIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  &.invalid {
+    border-color: var(--computed-dropdown-border-color-invalid);
+
+    &:hover {
+      border-color: var(--computed-dropdown-border-color-hover-invalid);
+    }
+  }
+
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.visuallyHidden {
+  @extend %visuallyHidden;
+}
+
+
+.listContainer {
+  display: flex;
+  flex-direction: column;
+  max-height: 238px;
+  overflow-y: auto;
+
+  .list {
+    display: flex;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    position: relative;
+
+    .listItem {
+      @extend %dropdownMenuItem;
+
+      &.disabledOption.disabledOption {
+        cursor: not-allowed;
+      }
+    }
+
+    .singleSelectListItem {
+      --computed-menu-item-background-color-hover: var(--menu-item-background-color-hover, var(--color-bus-light));
+      --computed-menu-item-background-color-selected: var(--menu-item-background-color-selected, var(--color-bus));
+      --computed-menu-item-background-color-selected-hover: var(
+        --menu-item-background-color-selected-hover,
+        var(--color-bus-dark)
+      );
+      --computed-menu-item-color-selected: var(--menu-item-color-selected, var(--color-white));
+      --computed-menu-item-color-selected-hover: var(--menu-item-color-selected-hover, var(--color-white));
+
+      .singleSelectListItemLabel {
+        align-items: center;
+        display: flex;
+        flex-grow: 1;
+        justify-content: space-between;
+
+        > span {
+          color: var(--computed-menu-item-icon-color-selected);
+          height: 24px;
+          width: 24px;
+        }
+      }
+
+      &.disabledOption .singleSelectListItemLabel > span {
+        color: var(--computed-menu-item-icon-color-disabled);
+      }
+    }
+
+    .multiSelectListItem {
+      position: relative;
+
+      .checkboxContainer {
+        display: flex;
+        flex-direction: row;
+
+        > div {
+          flex-shrink: 0;
+          pointer-events: none;
+          width: 24px;
+
+          --background-unselected: var(--background-default, var(--color-white));
+        }
+
+        label {
+          cursor: pointer;
+          flex-grow: 1;
+          padding-left: var(--spacing-xs);
+
+          &:after {
+            content: '';
+            inset: 0;
+            position: absolute;
+          }
+        }
+
+        .checkbox {
+          /* class to target checkbox theme */
+        }
+      }
+
+      &.disabledOption.disabledOption label {
+        cursor: not-allowed;
+      }
+    }
+
+    .groupLabel {
+      @extend %dropdownMenuItem;
+
+      background-color: var(--computed-menu-item-group-label-background-default);
+      font-weight: bold;
+
+      &.disabledOption.disabledOption {
+        background-color: var(--computed-menu-item-group-label-background-disabled);
+        color: var(--computed-menu-item-group-label-color-disabled);
+
+        &:hover {
+          background-color: var(--computed-menu-item-group-label-background-disabled-hover);
+        }
+      }
+    }
+
+    .selectableListItem:not(.selected) {
+      &:hover {
+        background-color: var(--computed-menu-item-background-color-hover);
+      }
+    }
+
+    .focusableListItem {
+      outline: none;
+
+      &:focus,
+      &:focus-within {
+        box-shadow: 0 0 0 2px var(--computed-menu-item-border-color-focus) inset;
+        outline: none;
+      }
+    }
+
+    &.shiftOptions {
+      .listItem:not(.groupLabel) {
+        padding-left: var(--spacing-layout-s);
+      }
+    }
+  }
+}
+
+.searchOrFilterInput {
+  padding: var(--spacing-2-xs);
+}
+
+.searchAndFilterInfoContainer {
+  align-items: center;
+  color: var(--computed-dropdown-color-default);
+  display: flex;
+  flex-direction: column;
+  padding: var(--spacing-l);
+
+  /* stylelint-disable-next-line no-descending-specificity */
+  > span {
+    padding-top: var(--spacing-2-xs);
+    text-align: center;
+  }
+
+  > svg {
+    padding: var(--spacing-s) 0 var(--spacing-xs);
+  }
+
+  &.screenReaderOnly {
+    @extend %visuallyHidden;
+  }
+
+  &.withErrorMessage {
+    padding-top: 0;
+    /* stylelint-disable-next-line no-descending-specificity */
+    > span:first-of-type {
+      padding-top: 0;
+    }
+  }
+}
+
+.tagListContainer {
+  display: flex;
+  flex-direction: column;
+
+  .tagList {
+    display: flex;
+    flex-flow: row wrap;
+    margin: 0 -4px;
+    max-height: 80px;
+    overflow: hidden;
+    padding: var(--spacing-3-xs) 4px 0;
+
+    .tag {
+      margin-bottom: var(--spacing-xs);
+      margin-right: var(--spacing-xs);
+
+      &.disabledTag {
+        pointer-events: none;
+      }
+    }
+  }
+
+  &.tagListExpanded {
+    .tagList {
+      max-height: unset;
+    }
+
+    .arrowIcon {
+      transform: rotateX(180deg);
+    }
+  }
+
+  .tagListButtons {
+    display: flex;
+    flex-direction: row;
+    margin-top: var(--spacing-xs);
+
+    > button:first-child {
+      margin-right: var(--spacing-xs);
+    }
+
+    .hiddenButton {
+      display: none;
+    }
+
+    .showAllButton {
+      /* class to target button theme */
+    }
+
+    .clearAllButton {
+      /* theme will override these with css. Not "--computed" for that reason. */
+      --background-color-hover: var(--color-error-light);
+      --background-color: var(--color-white);
+      --border-color: var(--color-error);
+      --border-color-hover: var(--color-error);
+      --border-color-focus: var(--color-error);
+      --border-color-hover-focus: var(--color-error);
+      --color: var(--color-error);
+      --color-hover: var(--color-error);
+      --color-focus: var(--color-error);
+      --color-hover-focus: var(--color-error);
+    }
+  }
+}
+
+.errorText {
+  composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
+  margin-bottom: var(--spacing-2-xs);
+
+  --icon-size: var(--computed-icon-size);
+  --helper-color-invalid: var(--computed-error-text-color);
+  --helper-icon-color-invalid: var(--computed-error-icon-color);
+  --helper-background-color-invalid: var(--computed-error-background-color);
+  --color-error: var(--computed-error-border-color);
+}
+
+.assistiveText {
+  color: var(--computed-assistive-color);
+  margin-bottom: var(--spacing-2-xs);
+}
+
+.screenReaderNotifications {
+  @extend %visuallyHidden;
+}

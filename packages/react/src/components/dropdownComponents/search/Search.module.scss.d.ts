@@ -1,0 +1,23 @@
+declare const styles: {
+  readonly 'root': string;
+  readonly 'wrapper': string;
+  readonly 'selectAndListContainer': string;
+  readonly 'open': string;
+  readonly 'invalid': string;
+  readonly 'angleIcon': string;
+  readonly 'visuallyHidden': string;
+  readonly 'selectedOptionsContainer': string;
+  readonly 'listAndInputContainer': string;
+  readonly 'searchOrFilterInput': string;
+  readonly 'searchAndFilterInfoContainer': string;
+  readonly 'tagListContainer': string;
+  readonly 'errorText': string;
+  readonly 'assistiveText': string;
+  readonly 'screenReaderNotifications': string;
+  readonly 'checkbox': string;
+  readonly 'tag': string;
+  readonly 'showAllButton': string;
+  readonly 'clearAllButton': string;
+  readonly 'clearButton': string;
+};
+export = styles;
