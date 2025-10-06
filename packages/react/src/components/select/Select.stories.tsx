@@ -1326,6 +1326,39 @@ export const WithExternalLabel = () => {
   );
 };
 
+export const WithEmptyStringValue = () => {
+  const [selectedValue, setSelectedValue] = useState<OptionInProps | undefined>(undefined);
+
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions) => {
+    setSelectedValue(selectedOptions[0]);
+  }, []);
+
+  const options = [{ value: '', label: 'None (empty string)' }, ...getOptionLabels(5)];
+
+  return (
+    <div>
+      <Select
+        options={options}
+        onChange={onChange}
+        texts={{ ...defaultTexts, label: 'Select with empty string value option' }}
+        id="hds-select-empty-value"
+        clearable
+      />
+      <div style={{ marginTop: '20px', padding: '10px', backgroundColor: '#f0f0f0', borderRadius: '4px' }}>
+        <p>
+          <strong>Selected value:</strong> &quot;{selectedValue?.value}&quot;
+        </p>
+        <p>
+          <strong>Value type:</strong> {typeof selectedValue?.value}
+        </p>
+        <p>
+          <strong>Selected label:</strong> {selectedValue?.label || 'None'}
+        </p>
+      </div>
+    </div>
+  );
+};
+
 export const WithCustomTheme = (args: SelectProps) => {
   const groups: SelectProps['groups'] = [
     {
