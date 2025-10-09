@@ -46,21 +46,8 @@ const dataUpdater = (
       current.multiSelect,
     );
     updateGroups(newGroups, clickedOption);
-    /* TODO
-    if (isRemoveTagEventId(id)) {
-      const currentMetaData = dataHandlers.getMetaData();
-      const remainingOptions = currentMetaData.selectedOptions.length;
-      const hasSelectedItems = !!remainingOptions;
-      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
-      const removalText = getTextKey('tagRemoved', currentMetaData, {
-        value: clickedOption.label,
-      });
-      const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
-      const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
-
-      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
-    }
-    */
+    // Note: Tag removal focus handling is implemented in the Select-specific dataUpdater
+    // since it requires Select-specific metadata (focusTarget) and utilities.
     return {
       ...returnValue,
       didSelectionsChange: true,

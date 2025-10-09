@@ -26,12 +26,13 @@ import {
   isGenericBlurEvent,
   isOpenOrCloseEvent,
   isOutsideClickEvent,
+  isRemoveTagEventId,
   isSearchChangeEvent,
   isSearchSuccessEvent,
   isSearchErrorEvent,
   isShowAllClickEvent,
 } from './events';
-import { appendTexts, getTextKey } from './texts';
+import { appendTexts, getTextKey, getNumberedVariationsTextKey } from './texts';
 import { changeHandler as modularOptionListChangeHandler } from '../modularOptionList/dataUpdater';
 
 const MIN_USER_INTERACTION_TIME_IN_MS = 200;
@@ -132,6 +133,21 @@ const dataUpdater = (
     if (id === eventIds.listItem && !current.multiSelect) {
       openOrClose(false);
       setFocusTarget('button');
+    } else if (isRemoveTagEventId(id)) {
+      const currentMetaData = dataHandlers.getMetaData();
+      const remainingOptions = currentMetaData.selectedOptions.length;
+      const hasSelectedItems = !!remainingOptions;
+      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
+      const { lastClickedOption } = currentMetaData;
+      if (lastClickedOption) {
+        const removalText = getTextKey('tagRemoved', currentMetaData, {
+          value: lastClickedOption.label,
+        });
+        const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
+        const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
+
+        addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+      }
     }
     return {
       ...returnValue,
