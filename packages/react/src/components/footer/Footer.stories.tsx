@@ -81,7 +81,7 @@ const Base = () => (
     copyrightHolder="Copyright"
     copyrightText="All rights reserved"
     backToTopLabel="Back to top"
-    logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
+    logo={<Logo src={logoFi} size={LogoSize.Medium} alt="City of Helsinki" />}
   >
     {createArray(5).map((index) => (
       <Footer.Link
@@ -389,7 +389,7 @@ export const Minimal = (args: FooterProps) => (
   <Footer {...args}>
     <Footer.Base
       backToTopLabel="Back to top"
-      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="Helsingin kaupunki" />}
+      logo={<Logo src={logoFi} size={LogoSize.Medium} alt="City of Helsinki" />}
     />
   </Footer>
 );

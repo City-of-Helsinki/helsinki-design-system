@@ -65,7 +65,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Footer] Code examples now consistently use English
 
 ### Figma
 
