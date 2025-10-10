@@ -73,6 +73,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+## [4.X.X] - Month, XX, 202X
+
+### Documentation
+
+#### Fixed
+
+- [Footer] Code examples now consistently use English
+
 ## [4.7.1] - August, 27, 2025
 
 ### React
