@@ -47,10 +47,10 @@ const ButtonsForDataUpdates = () => {
     dataHandlers.updateData(getLastMockCallArgs(tempDataStorage)[0]);
     dataHandlers.updateMetaData({ lastToggleCommand: -1 });
     tempDataStorage.mockReset();
-    // trigger an event that re-renders
-    dataHandlers.trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+    // trigger generic events that don't affect MOL's data (events MOL doesn't handle)
+    dataHandlers.trigger({ id: eventIds.generic, type: eventTypes.blur });
     dataHandlers.updateMetaData({ lastToggleCommand: -1 });
-    dataHandlers.trigger({ id: eventIds.selectedOptions, type: eventTypes.click });
+    dataHandlers.trigger({ id: eventIds.search, type: eventTypes.change });
   };
 
   const onMetaDataClick = () => {

@@ -1,4 +1,19 @@
-import { eventIds, eventTypes, EventId, EventType, isOptionClickEvent, isGroupClickEvent } from './events';
+import {
+  eventIds,
+  eventTypes,
+  EventId,
+  EventType,
+  isOptionClickEvent,
+  isGroupClickEvent,
+  isOutsideClickEvent,
+  isCloseEvent,
+  isCloseOnFocusMoveEvent,
+  isGenericBlurEvent,
+  isSearchChangeEvent,
+  isSearchSuccessEvent,
+  isSearchErrorEvent,
+  isClearButtonClickEvent,
+} from './events';
 
 type TestProps = {
   func: (...args: never[]) => boolean;
@@ -9,7 +24,7 @@ type TestProps = {
 describe('events', () => {
   const ids = Object.keys(eventIds) as EventId[];
   const types = Object.keys(eventTypes) as EventType[];
-  // Test only the event checkers that ModularOptionList actually uses in its dataUpdater
+  // Test all event checkers that Search component uses
 
   const successfulFunctionProps: TestProps[] = [
     {
@@ -20,6 +35,46 @@ describe('events', () => {
     {
       func: isGroupClickEvent,
       ids: [eventIds.listGroup],
+      types: [eventTypes.click],
+    },
+    {
+      func: isOutsideClickEvent,
+      ids: [eventIds.generic],
+      types: [eventTypes.outSideClick],
+    },
+    {
+      func: isCloseEvent,
+      ids: [eventIds.generic],
+      types: [eventTypes.close],
+    },
+    {
+      func: isCloseOnFocusMoveEvent,
+      ids: [eventIds.generic],
+      types: [eventTypes.focusMovedToNonListElement],
+    },
+    {
+      func: isGenericBlurEvent,
+      ids: [eventIds.generic],
+      types: [eventTypes.blur],
+    },
+    {
+      func: isSearchChangeEvent,
+      ids: [eventIds.search],
+      types: [eventTypes.change],
+    },
+    {
+      func: isSearchSuccessEvent,
+      ids: [eventIds.searchResult],
+      types: [eventTypes.success],
+    },
+    {
+      func: isSearchErrorEvent,
+      ids: [eventIds.searchResult],
+      types: [eventTypes.error],
+    },
+    {
+      func: isClearButtonClickEvent,
+      ids: [eventIds.clearButton],
       types: [eventTypes.click],
     },
   ];

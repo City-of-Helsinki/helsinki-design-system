@@ -13,6 +13,7 @@ import {
   propsToGroups,
   createMetaDataAfterSelectionChange,
   clearAllSelectedOptions,
+  updateOptionInGroup,
 } from '../modularOptionList/utils';
 import {
   EventId,
@@ -98,8 +99,6 @@ const dataUpdater = (
     };
   }
 
-  const didModularOptionListChange = modularOptionListChangeHandler(event, dataHandlers);
-
   const openOrClose = (open: boolean) => {
     if (current.open === open) {
       return false;
@@ -129,25 +128,67 @@ const dataUpdater = (
     );
   };
 
+  // Handle tag removal (Select-specific, not delegated to ModularOptionList)
+  if (isRemoveTagEventId(id) && type === eventTypes.click) {
+    const clickedOption = payload && (payload.value as Option);
+    if (!clickedOption) {
+      return returnValue;
+    }
+    const newGroups = updateOptionInGroup(
+      current.groups,
+      {
+        ...clickedOption,
+        selected: false, // Deselect the option when tag is removed
+      },
+      current.multiSelect,
+    );
+    updateGroups(newGroups, clickedOption);
+
+    const currentMetaData = dataHandlers.getMetaData();
+    const remainingOptions = currentMetaData.selectedOptions.length;
+    const hasSelectedItems = !!remainingOptions;
+    setFocusTarget(hasSelectedItems ? 'tag' : 'button');
+
+    const removalText = getTextKey('tagRemoved', currentMetaData, {
+      value: clickedOption.label,
+    });
+    const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
+    const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
+
+    addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+
+    return {
+      ...returnValue,
+      didSelectionsChange: true,
+      didDataChange: true,
+    };
+  }
+
+  // Delegate list item and group clicks to ModularOptionList handler
+  // Create a compatible wrapper for ModularOptionList
+  const modularDataHandlers = {
+    getData: dataHandlers.getData,
+    updateData: dataHandlers.updateData,
+    getMetaData: () => {
+      const metaData = dataHandlers.getMetaData();
+      return {
+        ...metaData,
+        refs: { list: metaData.refs.list },
+        elementIds: { list: metaData.elementIds.list },
+      };
+    },
+    updateMetaData: (newData: unknown) => {
+      dataHandlers.updateMetaData(newData as Partial<SelectMetaData>);
+      return dataHandlers.getMetaData();
+    },
+    asyncRequestWithTrigger: dataHandlers.asyncRequestWithTrigger,
+  };
+  const didModularOptionListChange = modularOptionListChangeHandler(event, modularDataHandlers as never);
+
   if (didModularOptionListChange) {
     if (id === eventIds.listItem && !current.multiSelect) {
       openOrClose(false);
       setFocusTarget('button');
-    } else if (isRemoveTagEventId(id)) {
-      const currentMetaData = dataHandlers.getMetaData();
-      const remainingOptions = currentMetaData.selectedOptions.length;
-      const hasSelectedItems = !!remainingOptions;
-      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
-      const { lastClickedOption } = currentMetaData;
-      if (lastClickedOption) {
-        const removalText = getTextKey('tagRemoved', currentMetaData, {
-          value: lastClickedOption.label,
-        });
-        const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
-        const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
-
-        addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
-      }
     }
     return {
       ...returnValue,

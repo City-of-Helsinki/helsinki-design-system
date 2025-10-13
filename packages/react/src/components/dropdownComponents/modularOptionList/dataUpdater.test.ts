@@ -180,8 +180,9 @@ describe('dataUpdater', () => {
       ]);
     });
     it('is not called when selected options does not change.', () => {
-      changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
-      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
+      // Test with events that don't affect selections (events MOL doesn't handle)
+      changeHandler({ id: eventIds.generic, type: eventTypes.blur }, dataHandlers);
+      changeHandler({ id: eventIds.search, type: eventTypes.change }, dataHandlers);
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
     });
     it('can return a new set of options', () => {
@@ -260,12 +261,11 @@ describe('dataUpdater', () => {
       const dataBeforeChange = getCurrentMockData();
       const metadataBeforeChange = getCurrentMockMetaData();
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
-      // select option #1
+      // Try various events - all should be ignored when disabled
       selectOptionByIndex(1);
-      changeHandler({ id: eventIds.selectedOptions, type: eventTypes.click }, dataHandlers);
-      changeHandler({ id: eventIds.clearButton, type: eventTypes.click }, dataHandlers);
-      changeHandler({ id: eventIds.generic, type: eventTypes.close }, dataHandlers);
-      changeHandler({ id: eventIds.generic, type: eventTypes.outSideClick }, dataHandlers);
+      changeHandler({ id: eventIds.listGroup, type: eventTypes.click }, dataHandlers);
+      changeHandler({ id: eventIds.generic, type: eventTypes.blur }, dataHandlers);
+      changeHandler({ id: eventIds.search, type: eventTypes.change }, dataHandlers);
       expect(getCurrentMockData() === dataBeforeChange).toBeTruthy();
       expect(getCurrentMockMetaData() === metadataBeforeChange).toBeTruthy();
     });

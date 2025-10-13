@@ -9,8 +9,14 @@ import {
   isGroupClickEvent,
   isOutsideClickEvent,
   isCloseEvent,
+  isCloseOnFocusMoveEvent,
+  isGenericBlurEvent,
   isRemoveTagEventId,
   isShowAllClickEvent,
+  isFilterChangeEvent,
+  isSearchChangeEvent,
+  isSearchSuccessEvent,
+  isSearchErrorEvent,
 } from './events';
 
 type TestProps = {
@@ -20,7 +26,7 @@ type TestProps = {
 };
 
 describe('events', () => {
-  const ids = Object.keys(eventIds);
+  const ids = Object.keys(eventIds) as EventId[];
   const types = Object.keys(eventTypes) as EventType[];
   // given function return true when given id and type matches
 
@@ -56,6 +62,16 @@ describe('events', () => {
       types: [eventTypes.close],
     },
     {
+      func: isCloseOnFocusMoveEvent,
+      ids: [eventIds.generic],
+      types: [eventTypes.focusMovedToNonListElement],
+    },
+    {
+      func: isGenericBlurEvent,
+      ids: [eventIds.generic],
+      types: [eventTypes.blur],
+    },
+    {
       func: isRemoveTagEventId,
       ids: [eventIds.tag],
       types,
@@ -64,6 +80,26 @@ describe('events', () => {
       func: isShowAllClickEvent,
       ids: [eventIds.showAllButton],
       types: [eventTypes.click],
+    },
+    {
+      func: isFilterChangeEvent,
+      ids: [eventIds.filter],
+      types: [eventTypes.change],
+    },
+    {
+      func: isSearchChangeEvent,
+      ids: [eventIds.search],
+      types: [eventTypes.change],
+    },
+    {
+      func: isSearchSuccessEvent,
+      ids: [eventIds.searchResult],
+      types: [eventTypes.success],
+    },
+    {
+      func: isSearchErrorEvent,
+      ids: [eventIds.searchResult],
+      types: [eventTypes.error],
     },
   ];
   it('Func returns true only when certain ids and types match.', async () => {
