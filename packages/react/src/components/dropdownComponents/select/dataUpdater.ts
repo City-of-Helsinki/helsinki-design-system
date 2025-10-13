@@ -6,7 +6,9 @@ import { ChangeEvent, ChangeHandler, DataHandlers } from '../../dataProvider/Dat
 import {
   addOrUpdateScreenReaderNotificationByType,
   createScreenReaderNotification,
-} from '../shared/utils/screenReader';
+  MIN_USER_INTERACTION_TIME_IN_MS,
+  createIsCloseTriggerEvent,
+} from '../shared';
 import { filterOptions, mergeSearchResultsToCurrent } from './utils';
 import {
   getSelectedOptions,
@@ -35,8 +37,6 @@ import {
 } from './events';
 import { appendTexts, getTextKey, getNumberedVariationsTextKey } from './texts';
 import { changeHandler as modularOptionListChangeHandler } from '../modularOptionList/dataUpdater';
-
-const MIN_USER_INTERACTION_TIME_IN_MS = 200;
 
 const dataUpdater = (
   event: ChangeEvent,
@@ -360,20 +360,16 @@ const debouncedSearch = debounce(
   300,
 );
 
-const isCloseTriggerEvent = (event: ChangeEvent) => {
-  // check if the event is something that should trigger onClose
-  const onCloseTriggerEvents = [
-    'cancelled',
-    'close',
-    'clearButton',
-    'clearAllButton',
-    'tag',
-    'selectedOptions',
-    'focusMovedToNonListElement',
-  ];
-
-  return onCloseTriggerEvents.includes(event.type || '') || onCloseTriggerEvents.includes(event.id || '');
-};
+// Event IDs and types that should trigger the onClose callback for Select
+const isCloseTriggerEvent = createIsCloseTriggerEvent([
+  'cancelled',
+  'close',
+  'clearButton',
+  'clearAllButton',
+  'tag',
+  'selectedOptions',
+  'focusMovedToNonListElement',
+]);
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
