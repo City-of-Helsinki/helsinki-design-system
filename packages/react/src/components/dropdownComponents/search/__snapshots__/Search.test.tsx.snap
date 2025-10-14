@@ -1,0 +1,75 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`<Search /> spec renders the component 1`] = `
+<DocumentFragment>
+  <div
+    class="wrapper root"
+    id="hds-search-1"
+    tabindex="-1"
+  >
+    <div
+      id="hds-search-1-search-container"
+    >
+      <div
+        class="root"
+      >
+        <div
+          class="inputWrapper"
+        >
+          <input
+            aria-label="Hae"
+            class="input hasClearButton"
+            id="hds-search-1-search-input"
+            placeholder="Anna teksti hakua varten"
+            type="text"
+            value=""
+          />
+          <div
+            class="buttonWrapper"
+          >
+            <button
+              aria-label="Tyhjennä haku"
+              class="button clearButton"
+              type="button"
+            >
+              <svg
+                aria-hidden="true"
+                aria-label="cross-circle"
+                class="icon small"
+                role="img"
+                viewBox="0 0 24 24"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <path
+                  clip-rule="evenodd"
+                  d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15 7.5L16.5 9L13.5 12L16.5 15L15 16.5L12 13.5L9 16.5L7.5 15L10.5 12L7.5 9L9 7.5L12 10.5L15 7.5Z"
+                  fill="currentColor"
+                  fill-rule="evenodd"
+                />
+              </svg>
+            </button>
+          </div>
+        </div>
+      </div>
+      <div
+        class="listContainer"
+        style="max-height: 286px;"
+      >
+        <ul
+          aria-live="polite"
+          aria-multiselectable="false"
+          class="list"
+          id="hds-search-1-list"
+          role="listbox"
+          tabindex="-1"
+        />
+      </div>
+    </div>
+    <div
+      aria-live="polite"
+      class="hds-search-screen-reader-notifications"
+      data-testid="hds-search-screen-reader-notifications"
+    />
+  </div>
+</DocumentFragment>
+`;
