@@ -66,6 +66,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Footer] Code examples now consistently use English
+- [Login] Tables now display correctly on small screens
 
 ### Figma
 
