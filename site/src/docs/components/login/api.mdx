@@ -663,8 +663,6 @@ The `createGraphQLModule` function is a Generic Typescript function with two typ
 
 ##### Settings
 
-<div className="container-for-table-10-30-50-10">
-
 | Property                            | Type                                                                                                  | Description                                                                                                                                                                                                                            | Default value |
 | ----------------------------------- | ----------------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `graphQLClient`                     | <ExternalLink href="https://www.apollographql.com/docs/react/get-started">ApolloClient</ExternalLink> | Optional property, but must be set before the query is executed. Can be set with `setApolloClient` or when calling a `query(options)`. The <AnchorLink anchor="apolloclient-module">ApolloClient Module</AnchorLink> can also be used. | -             |
@@ -681,7 +679,6 @@ The `createGraphQLModule` function is a Generic Typescript function with two typ
 | `useApolloClientModule`             | `boolean`                                                                                             | If true, ApolloClient is picked from modules. The <AnchorLink anchor="apolloclient-module">ApolloClient Module</AnchorLink> must be created manually.                                                                                  | `false`       |
 | [Table 40: GraphQL module settings] |
 
-</div>
 
 ##### Methods
 
@@ -707,8 +704,6 @@ The `createGraphQLModule` function is a Generic Typescript function with two typ
 
 The following functions can be imported and used without the `GraphQL module` module:
 
-<div className="container-for-table-10-50-30-10">
-
 | Function                                     | Description                                                                                                       | Argument(s)                             | Return value    |
 | -------------------------------------------- | ----------------------------------------------------------------------------------------------------------------- | --------------------------------------- | --------------- |
 | `createGraphQLModule(options)`               | Creates the module.                                                                                               | `GraphQLModuleModuleProps`.             | `GraphQLModule` |
@@ -720,7 +715,6 @@ The following functions can be imported and used without the `GraphQL module` mo
 | `appendFetchOptions`                         | Appends fetchOptions to `queryOptions.context`.                                                                   | `QueryOptions, Partial<RequestInit>`    | QueryOptions    |
 | [Table 42: Other GraphQL module functions]   |
 
-</div>
 ##### State change signals
 
 The `GraphQL module` has no state changes.
@@ -825,8 +819,6 @@ The `createApolloClientModule` function is a Generic Typescript function: `creat
 
 ##### Settings
 
-<div className="container-for-table-10-30-50-10">
-
 | Property                                 | Type                                                         | Description                                                                                                                                                                     | Default value |
 | ---------------------------------------- | ------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------- |
 | `apiTokensWaitTime`                      | `number`                                                     | How long in milliseconds should api tokens be awaited before stopping the wait time. This will never reject any queries even if timeout is reached.                             | `15000`       |
@@ -836,7 +828,6 @@ The `createApolloClientModule` function is a Generic Typescript function: `creat
 | `tokenSetter`                            | `(headers:unknown,tokens:TokenData)=> Record<string,string>` | The returned object is appended to the headers. First argument type depends on the request. Can be an object or Headers.                                                        | -             |
 | [Table 49: ApolloClient module settings] |
 
-</div>
 
 ##### Methods
 
