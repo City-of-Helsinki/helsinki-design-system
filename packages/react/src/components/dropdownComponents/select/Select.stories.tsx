@@ -1323,6 +1323,27 @@ export const WithExternalLabel = () => {
   );
 };
 
+export const WithEmptyStringValue = () => {
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
+  }, []);
+
+  const options = [{ value: '', label: 'None (empty string)' }, ...getOptionLabels(5)];
+
+  return (
+    <div>
+      <Select
+        multiSelect
+        options={options}
+        onChange={onChange}
+        texts={{ ...defaultTexts, label: 'Select with empty string value option' }}
+        id="hds-select-empty-value"
+        clearable
+      />
+    </div>
+  );
+};
+
 export const WithCustomTheme = (args: SelectProps) => {
   const groups: SelectProps['groups'] = [
     {

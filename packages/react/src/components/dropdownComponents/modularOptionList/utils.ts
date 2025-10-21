@@ -90,7 +90,7 @@ function mutateGroupsWithOptions(
   isMultiSelect: boolean,
 ) {
   partialOptionsToUpdate.forEach((partial) => {
-    if (!partial.value) {
+    if (partial.value == null) {
       return;
     }
     const groupIndex = getOptionGroupIndex(groups, { ...partial, isGroupLabel: !!partial.isGroupLabel });
@@ -204,7 +204,8 @@ export function validateOption(option: OptionInProps | string): Option {
   }
 
   const label = option.label || option.value || '';
-  const value = option.value || label;
+  // Use label as fallback for value only if value is undefined, but allow empty string
+  const value = option.value !== undefined ? option.value : label;
 
   return {
     label,
@@ -386,7 +387,7 @@ export function convertPropsToGroups({
 }: Pick<ModularOptionListProps, 'groups' | 'options' | 'value' | 'children'>): Group[] {
   const fromGroupsAndOptions = propsToGroups({ options, groups });
   if (fromGroupsAndOptions) {
-    if (value) {
+    if (value != null) {
       const selectedOptions = getSelectedOptions(fromGroupsAndOptions);
       if (selectedOptions.length > 0) {
         // eslint-disable-next-line no-console

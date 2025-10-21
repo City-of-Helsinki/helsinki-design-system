@@ -85,6 +85,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Select] Removed aria-invalid property.
 
+#### Fixed
+
+- [Select] Select accepts options with an empty string value
+
 ### Documentation
 
 #### Fixed
