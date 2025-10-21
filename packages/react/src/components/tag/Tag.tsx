@@ -16,9 +16,14 @@ export interface TagTheme {
 }
 
 export enum TagVariant {
-  Action = 'action',
   Informative = 'informative',
+  Action = 'action',
   Link = 'link',
+  StatusLabelNeutral = 'statusLabelNeutral',
+  StatusLabelInfo = 'statusLabelInfo',
+  StatusLabelSuccess = 'statusLabelSuccess',
+  StatusLabelAlert = 'statusLabelAlert',
+  StatusLabelError = 'statusLabelError',
 }
 
 export enum TagSize {
@@ -77,6 +82,11 @@ export type TagProps<E extends ElementType = 'div'> = MergeAndOverrideProps<
      */
     theme?: TagTheme;
     /**
+     * Variant of the tag
+     * @default TagVariant.Informative
+     */
+    variant?: TagVariant;
+    /**
      * Ref is set to the main element
      */
     ref?: React.Ref<React.ElementRef<E>>;
@@ -96,6 +106,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
       iconStart,
       iconEnd,
       multiline = false,
+      variant = TagVariant.Informative,
       ...rest
     },
     ref: React.Ref<HTMLDivElement | HTMLAnchorElement>,
@@ -104,14 +115,14 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
     const onAction = onDelete || onClick;
     const hasAction = !!onAction;
 
-    let variant: TagVariant = TagVariant.Informative;
+    let computedVariant: TagVariant = variant;
     let role: string | null = null;
 
     if (onAction) {
-      variant = TagVariant.Action;
+      computedVariant = TagVariant.Action;
       role = 'button';
     } else if (href) {
-      variant = TagVariant.Link;
+      computedVariant = TagVariant.Link;
     }
 
     // custom theme class that is applied to the root element
@@ -122,7 +133,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
       size === TagSize.Large && largeClass,
       customThemeClass,
       className,
-      styles[variant],
+      styles[computedVariant],
       multiline && styles.multiline,
     );
 

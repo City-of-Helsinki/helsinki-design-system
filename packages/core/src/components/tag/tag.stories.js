@@ -110,6 +110,45 @@ export const InformativeTagsSmall = () => `
   </div>
 `;
 
+export const StatusLabelTags = () => `
+  <div style="display: flex; gap: 12px; flex-direction: column;">
+    <div style="${tagWrapperStyle}">
+      <div class="hds-tag hds-tag--statuslabel-neutral" id="statuslabel-1">
+      <span>Neutral</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-info" id="statuslabel-2">
+        <span>Info</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-success" id="statuslabel-3">
+        <span>Success</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-alert" id="statuslabel-4">
+        <span>Alert</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-error" id="statuslabel-5">
+        <span>Error</span>
+      </div>
+    </div>
+    <div style="${tagWrapperStyle}">
+      <div class="hds-tag hds-tag--statuslabel-neutral hds-icon--info-circle hds-icon-start--info-circle" id="statuslabel-1">
+      <span>Neutral</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-info hds-icon--info-circle hds-icon-start--info-circle" id="statuslabel-2">
+        <span>Info</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-success hds-icon--check-circle hds-icon-start--check-circle" id="statuslabel-3">
+        <span>Success</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-alert hds-icon--alert-circle hds-icon-start--alert-circle" id="statuslabel-4">
+        <span>Alert</span>
+      </div>
+      <div class="hds-tag hds-tag--statuslabel-error hds-icon--error hds-icon-start--error" id="statuslabel-5">
+        <span>Error</span>
+      </div>
+    </div>
+  </div>
+`;
+
 export const LinkTags = () => `
   <div style="${tagWrapperStyle}">
     <a href="#" target="_blank" class="hds-tag hds-tag--link hds-icon--share hds-icon-end--share" id="link-1" data-playwright="true">
