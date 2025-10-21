@@ -94,6 +94,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Footer] Code examples now consistently use English
+- [Login] Tables now display correctly on small screens
 
 ## [4.7.1] - August, 27, 2025
 
