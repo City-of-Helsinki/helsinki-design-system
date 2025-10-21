@@ -732,6 +732,15 @@ export class CookieConsentCore {
       });
     });
 
+    // Add accordion button events for toggling aria-expanded
+    shadowRoot.querySelectorAll('.hds-cc__accordion-button').forEach((button) => {
+      button.addEventListener('click', (e) => {
+        const currentButton = e.currentTarget;
+        const isExpanded = currentButton.getAttribute('aria-expanded') === 'true';
+        currentButton.setAttribute('aria-expanded', !isExpanded);
+      });
+    });
+
     if (isBanner) {
       this.#bannerElements.bannerContainer = container;
 

@@ -33,6 +33,7 @@ Changes that are not related to specific components
 - [Select] onClose was not triggered when navigating away with keyboard
 - [Select] Keyboard navigation problems.
 - [Login] TokenizedFetchModule exports were missing.
+- [CookieConsent] Replaced inline event handlers with proper event listeners.
 
 ### Core
 
