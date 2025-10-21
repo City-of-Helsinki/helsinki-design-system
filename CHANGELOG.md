@@ -75,6 +75,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.X.X] - Month, XX, 202X
 
+### React
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+- [Select] Removed aria-invalid property.
+
 ### Documentation
 
 #### Fixed

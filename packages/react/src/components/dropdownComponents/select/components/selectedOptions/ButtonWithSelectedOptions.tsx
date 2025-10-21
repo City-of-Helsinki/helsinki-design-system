@@ -121,7 +121,6 @@ const createButtonWithSelectedOptionsProps = (dataHandlers: SelectDataHandlers):
     'aria-controls': elementIds.selectionsAndListsContainer,
     'aria-expanded': open,
     'aria-haspopup': 'listbox',
-    'aria-invalid': invalid,
     'aria-label': getAriaLabel(),
     'aria-activedescendant': hasInput ? undefined : activeDescendant,
     buttonRef: refs.button,
