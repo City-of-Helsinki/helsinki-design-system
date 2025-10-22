@@ -29,6 +29,7 @@ export function SingleSelectListWithGroups() {
   const { getData, trigger, getMetaData } = useModularOptionListDataHandlers();
   const { groups, multiSelect } = getData();
   const { getOptionId, refs, elementIds } = getMetaData();
+
   const attr = {
     ...createListElementProps<HTMLDivElement>({
       refs,

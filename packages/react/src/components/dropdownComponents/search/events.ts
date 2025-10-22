@@ -5,6 +5,7 @@ export type EventType = keyof typeof eventTypes;
 
 export const eventIds = {
   ...baseEventIds,
+  searchInputField: 'searchInputField',
   clearButton: 'clearButton',
 } as const;
 

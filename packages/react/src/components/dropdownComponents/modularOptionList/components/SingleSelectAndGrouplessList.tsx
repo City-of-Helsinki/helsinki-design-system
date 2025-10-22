@@ -10,20 +10,22 @@ import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListD
 import { SingleSelectGroupLabel } from './listItems/SingleSelectGroupLabel';
 import { ModularOptionListItemProps } from './common';
 
-export const createOptionElements = ({
-  groups,
-  multiSelect,
-  getOptionId,
-  trigger,
-}: Pick<ModularOptionListData, 'groups' | 'multiSelect'> &
-  Pick<ModularOptionListMetaData, 'getOptionId'> &
-  Pick<ModularOptionListDataHandlers, 'trigger'>) => {
+export const createOptionElements = (
+  {
+    groups,
+    multiSelect,
+    getOptionId,
+    trigger,
+  }: Pick<ModularOptionListData, 'groups' | 'multiSelect'> &
+    Pick<ModularOptionListMetaData, 'getOptionId'> &
+    Pick<ModularOptionListDataHandlers, 'trigger'> /* & { search?: string } */,
+) => {
   return getAllOptions(groups, false)
     .map((option) => {
       if (!option.visible) {
         return null;
       }
-      const props: ModularOptionListItemProps & { key: string } = {
+      const props: ModularOptionListItemProps & { key: string } & { search?: string } = {
         option,
         trigger,
         key: option.value,

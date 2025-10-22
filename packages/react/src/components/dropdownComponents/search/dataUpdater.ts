@@ -29,12 +29,37 @@ const dataUpdater = (
 ): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
+  const metaData = dataHandlers.getMetaData();
   const returnValue = {
     didSearchChange: false,
     didSelectionsChange: false,
     didDataChange: false,
   };
   if (current.disabled) {
+    return returnValue;
+  }
+
+  console.log('DataUpdater received event:', event, metaData.refs.searchInput);
+
+  if (event.id === eventIds.searchInputField && event.type === eventTypes.focus) {
+    if (!current.open) {
+      dataHandlers.updateData({ open: true });
+      return {
+        ...returnValue,
+        didDataChange: true,
+      };
+    }
+    return returnValue;
+  }
+
+  if (event.id === eventIds.searchInputField && event.type === eventTypes.close) {
+    if (current.open) {
+      dataHandlers.updateData({ open: false });
+      return {
+        ...returnValue,
+        didDataChange: true,
+      };
+    }
     return returnValue;
   }
 
@@ -77,7 +102,7 @@ const dataUpdater = (
     getData: dataHandlers.getData,
     updateData: dataHandlers.updateData,
     getMetaData: () => {
-      const metaData = dataHandlers.getMetaData();
+      // const metaData = dataHandlers.getMetaData();
       return {
         ...metaData,
         refs: { list: metaData.refs.list },
@@ -265,6 +290,20 @@ export const changeHandler: ChangeHandler<SearchData, SearchMetaData> = (event, 
   }
   if (didSelectionsChange) {
     const { lastClickedOption } = getMetaData();
+
+    // is used as search
+    const searchInput = getMetaData().refs.searchInput.current;
+
+    // if searchInput is present, do not make selection -> set as search
+    if (searchInput) {
+      updateMetaData({ search: lastClickedOption?.label });
+      // set focus to searchInput
+      searchInput.focus();
+      // close the dropdown, trigger groups change not to show anything selected later
+      updateData({ open: false, groups: [] });
+      return true;
+    }
+
     const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     let newPropsHasChanges = false;
     if (newProps) {

@@ -11,6 +11,7 @@ export const eventIds = {
   showAllButton: 'showAllButton',
   tag: 'tag',
   filter: 'filter',
+  searchInputField: 'searchInputField',
 } as const;
 
 export { eventTypes };

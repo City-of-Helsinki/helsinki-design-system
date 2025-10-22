@@ -155,6 +155,18 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       wrapperProps['data-hds-textinput-filled'] = true;
     }
 
+    // Update clear button visibility when value prop changes
+    React.useEffect(() => {
+      if (!hasClearButton || !innerWrapperRef.current) return;
+
+      const currentValue = rest.value || '';
+      if (currentValue.length > 0) {
+        innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
+      } else {
+        innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
+      }
+    }, [rest.value, hasClearButton]);
+
     return (
       <InputWrapper {...wrapperProps} ref={innerWrapperRef}>
         <input

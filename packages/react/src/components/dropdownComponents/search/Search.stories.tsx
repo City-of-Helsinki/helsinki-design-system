@@ -1,8 +1,6 @@
 import React, { useCallback, useState } from 'react';
 
-import { Search } from './Search';
-import { SelectProps } from '../select/types';
-import { getOptionLabels } from './batch.options';
+import { Search, SearchProps } from './Search';
 
 export default {
   component: Search,
@@ -14,19 +12,48 @@ export default {
 };
 
 export const Example = () => {
-  const options = getOptionLabels(200);
-  const handleSearch: SelectProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
-    // eslint-disable-next-line no-console
-    console.log(lastClickedOption);
-    // eslint-disable-next-line no-console
-    console.log(data);
-    // get search value from data
-    return Promise.resolve({ options: options.filter((t) => t.search(selectedOptions) > 0) });
+  const [value, setValue] = useState('');
+
+  const handleSearch: SearchProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
+    console.log('Search event:', { selectedOptions, lastClickedOption, data });
+    return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
   }, []);
 
-  const [props] = useState<Partial<SelectProps>>({
+  const onSend = (val: string) => {
+    console.log('Search submitted test:', val);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    console.log('ONCHANGE --> Search changed:', e.target.value);
+    setValue(e.target.value);
+  };
+
+  const onBlur = () => {
+    console.log('ONBLUR --> Search blurred');
+  };
+
+  const onFocus = () => {
+    console.log('ONFOCUS --> Search focused');
+  };
+
+  const [props] = useState({
     id: 'hds-search-component',
   });
 
-  return <Search {...props} onSearch={handleSearch} />;
+  return (
+    <>
+      {/* <Search {...props} historyId="test" onSearch={handleSearch} onSend={onSend} /> */}
+      <Search
+        {...props}
+        historyId="test2"
+        onSend={onSend}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onChange={onChange}
+        value={value}
+        onSearch={handleSearch}
+      />
+      <span>Value: {value}</span>
+    </>
+  );
 };

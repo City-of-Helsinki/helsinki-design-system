@@ -97,6 +97,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> &
       searchOrFilterInput: RefObject<HTMLInputElement>;
       selectionsAndListsContainer: RefObject<HTMLDivElement>;
       container: RefObject<HTMLDivElement>;
+      searchInput: RefObject<HTMLInputElement>;
     };
     elementIds: ModularOptionListMetaData['elementIds'] & {
       button: string;
@@ -109,6 +110,7 @@ export type SelectMetaData = Pick<SelectProps, 'icon'> &
       clearAllButton: string;
       clearButton: string;
       selectionsAndListsContainer: string;
+      searchInput: string;
     };
     textProvider: TextProvider;
     search: string;

@@ -6,6 +6,8 @@ import { LiElementProps } from '../../types';
 import { eventIds, eventTypes } from '../../events';
 import { ModularOptionListItemProps } from '../common';
 import { IconCheck } from '../../../../../icons';
+import { useModularOptionListDataHandlers } from '../../hooks/useModularOptionListDataHandlers';
+import { highlightMatch } from '../../utils/highlightMatch';
 
 export const singleSelectOptionSelector = `li.${styles.singleSelectListItem}`;
 
@@ -14,16 +16,17 @@ export const isSingleSelectOption = (element: HTMLElement | null | undefined) =>
 };
 
 const Label = ({ text, selected }: { text: string; selected: boolean }) => {
+  const dataHandlers = useModularOptionListDataHandlers();
+  const { isSearching, search } = dataHandlers.getMetaData();
+
   return (
     <span className={styles.singleSelectListItemLabel}>
-      {text}
+      <span>{!isSearching ? highlightMatch(text, search) : text}</span>
       {selected ? (
-        <span>
+        <span className={styles.selected}>
           <IconCheck aria-hidden />
         </span>
-      ) : (
-        ''
-      )}
+      ) : null}
     </span>
   );
 };

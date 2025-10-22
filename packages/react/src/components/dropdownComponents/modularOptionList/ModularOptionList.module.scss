@@ -71,14 +71,14 @@
         flex-grow: 1;
         justify-content: space-between;
 
-        > span {
+        > span.selected {
           color: var(--computed-menu-item-icon-color-selected);
           height: 24px;
           width: 24px;
         }
       }
 
-      &.disabledOption .singleSelectListItemLabel > span {
+      &.disabledOption .singleSelectListItemLabel > span.selected {
         color: var(--computed-menu-item-icon-color-disabled);
       }
     }

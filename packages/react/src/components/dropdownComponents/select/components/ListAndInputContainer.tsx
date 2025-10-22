@@ -1,4 +1,4 @@
-import React, { useCallback } from 'react';
+import React, { useCallback, useRef } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -49,11 +49,30 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
 
 export const ListAndInputContainer = (props: DivElementProps) => {
   const { children, outsideClickTrigger, ...attr } = createListAndInputContainerProps(props, useSelectDataHandlers());
+  // Determine if search input is included based on children count
+  const includesSearchInput = React.Children.count(children) > 1;
+  const wrapperRef = useRef<HTMLDivElement>(null);
+
   const callback = () => {
     outsideClickTrigger();
   };
 
-  useOutsideClick({ ref: attr.ref, callback });
+  useOutsideClick({ ref: wrapperRef, callback });
 
-  return <div {...attr}>{attr.open && children}</div>;
+  // Render content based on whether search input is included
+  const renderContent = () => {
+    if (includesSearchInput) {
+      const childrenArray = React.Children.toArray(children);
+      return (
+        <>
+          {childrenArray[0]}
+          <div {...attr}>{attr.open && childrenArray[1]}</div>
+        </>
+      );
+    }
+    return <div {...attr}>{attr.open && children}</div>;
+  };
+
+  // Single wrapper handles outside click for all scenarios
+  return <div ref={wrapperRef}>{renderContent()}</div>;
 };
