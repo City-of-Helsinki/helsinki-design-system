@@ -123,6 +123,7 @@ export const Select = forwardRef<HTMLButtonElement, Omit<SelectProps & AcceptedN
           showAllButton: createRef<HTMLButtonElement>(),
           searchOrFilterInput: createRef<HTMLInputElement>(),
           container: createRef<HTMLDivElement>(),
+          searchInput: createRef<HTMLInputElement>(),
         },
         selectedOptions: getSelectedOptions(initialData.groups),
         elementIds: getElementIds(containerId),

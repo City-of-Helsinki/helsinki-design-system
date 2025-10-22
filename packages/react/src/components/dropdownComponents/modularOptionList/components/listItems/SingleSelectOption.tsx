@@ -6,6 +6,8 @@ import { LiElementProps } from '../../types';
 import { eventIds, eventTypes } from '../../events';
 import { ModularOptionListItemProps } from '../common';
 import { IconCheck } from '../../../../../icons';
+import { useModularOptionListDataHandlers } from '../../hooks/useModularOptionListDataHandlers';
+import { highlightMatch } from '../../utils/highlightMatch';
 
 export const singleSelectOptionSelector = `li.${styles.singleSelectListItem}`;
 
@@ -14,17 +16,24 @@ export const isSingleSelectOption = (element: HTMLElement | null | undefined) =>
 };
 
 const Label = ({ text, selected, iconStart }: { text: string; selected: boolean; iconStart?: React.ReactNode }) => {
+  const dataHandlers = useModularOptionListDataHandlers();
+  const { isSearching, search } = dataHandlers.getMetaData();
+
   return (
     <span className={styles.singleSelectListItemLabel}>
       {iconStart ? (
         <span className={styles.labelContent}>
           <span className={styles.iconStart}>{iconStart}</span>
-          <span className={styles.labelText}>{text}</span>
+          <span className={styles.labelText}>{!isSearching ? highlightMatch(text, search) : text}</span>
         </span>
       ) : (
-        text
+        !isSearching ? highlightMatch(text, search) : text
       )}
-      {selected ? <IconCheck aria-hidden /> : null}
+      {selected ? (
+        <span className={styles.selected}>
+          <IconCheck aria-hidden />
+        </span>
+      ) : null}
     </span>
   );
 };
