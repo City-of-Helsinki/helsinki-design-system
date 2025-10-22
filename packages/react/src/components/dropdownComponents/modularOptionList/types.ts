@@ -58,6 +58,7 @@ export type ModularOptionListMetaData = {
   isSearching?: boolean;
   refs: {
     list: RefObject<HTMLUListElement>;
+    searchInput?: RefObject<HTMLInputElement>;
   };
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
