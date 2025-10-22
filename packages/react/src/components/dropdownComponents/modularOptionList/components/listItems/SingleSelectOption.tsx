@@ -17,11 +17,13 @@ export const isSingleSelectOption = (element: HTMLElement | null | undefined) =>
 
 const Label = ({ text, selected }: { text: string; selected: boolean }) => {
   const dataHandlers = useModularOptionListDataHandlers();
-  const { isSearching, search } = dataHandlers.getMetaData();
+  const { isSearching, search, refs } = dataHandlers.getMetaData();
+
+  const hasSearchInput = refs.searchInput.current;
 
   return (
     <span className={styles.singleSelectListItemLabel}>
-      <span>{!isSearching ? highlightMatch(text, search) : text}</span>
+      <span>{!isSearching && hasSearchInput ? highlightMatch(text, search) : text}</span>
       {selected ? (
         <span className={styles.selected}>
           <IconCheck aria-hidden />
