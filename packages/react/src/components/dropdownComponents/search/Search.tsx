@@ -20,7 +20,7 @@ import { getSelectedOptions, convertPropsToGroups } from '../modularOptionList/u
 import { SearchInput } from './components/SearchInput';
 
 export type SearchFieldProps = Omit<SearchPropsType & AcceptedNativeDivProps, 'ref' | 'onChange' | 'value'> & {
-  onSend: (value: string) => void;
+  onSend?: (value: string) => void;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   value?: string;
 };

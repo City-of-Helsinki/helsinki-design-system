@@ -39,8 +39,6 @@ const dataUpdater = (
     return returnValue;
   }
 
-  console.log('DataUpdater received event:', event, metaData.refs.searchInput);
-
   if (event.id === eventIds.searchInputField && event.type === eventTypes.focus) {
     if (!current.open) {
       dataHandlers.updateData({ open: true });

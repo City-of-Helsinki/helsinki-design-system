@@ -81,10 +81,10 @@ export const WithExternalButton = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  const handleSearch: SearchProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
-    console.log('Search event:', { selectedOptions, lastClickedOption, data });
-    return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
-  }, []);
+  // const handleSearch: SearchProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
+  //   console.log('Search event:', { selectedOptions, lastClickedOption, data });
+  //   return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
+  // }, []);
 
   const onSend = (val: string) => {
     setNotificationMessage(`Search submitted: "${val}"`);
@@ -117,7 +117,7 @@ export const WithExternalButton = () => {
           {notificationMessage}
         </Notification>
       )}
-      <Search {...props} historyId="test" onSend={onSend} onSearch={handleSearch} ref={searchInputRef} />
+      <Search {...props} historyId="test" ref={searchInputRef} />
       <Button onClick={handleExternalButtonClick}>Send search</Button>
     </>
   );
