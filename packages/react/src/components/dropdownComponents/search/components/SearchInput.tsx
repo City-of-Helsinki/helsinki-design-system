@@ -162,9 +162,10 @@ export const SearchInput = forwardRef<
         placeholder={placeholder}
         aria-label="Search"
         value={inputValue}
+        clearButton
         clearButtonAriaLabel={clearButtonAriaLabel}
-        type="search"
-        buttonIcon={<IconSearch />}
+        type={onSend ? 'search' : 'text'}
+        buttonIcon={onSend ? <IconSearch /> : undefined}
         onButtonClick={handleSearch}
       />
     </div>
