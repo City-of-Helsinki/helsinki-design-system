@@ -124,6 +124,7 @@ export type TextKey =
   | 'searching'
   | 'searchLabel'
   | 'searchPlaceholder'
+  | 'searchButtonAriaLabel'
   | 'searchWithAnotherTerm'
   | 'searchResults_multiple'
   | 'searchResults_one';
