@@ -138,11 +138,6 @@ export const SearchInput = forwardRef<
     } else {
       dataHandlers.trigger({ id: eventIds.searchInputField, type: 'close' });
     }
-
-    // dataHandlers.trigger({ id: eventIds.searchInputField, type: !value ? 'focus' : 'close' });
-
-    // // Trigger search event
-    // dataHandlers.trigger({ id: eventIds.search, type: 'change', payload: { value } });
   };
 
   const handleSearch = () => {
