@@ -3,22 +3,20 @@ import React, { forwardRef } from 'react';
 import styles from './SearchInput.module.scss';
 import classNames from '../../../../utils/classNames';
 import { TextInput, TextInputProps } from '../../../textInput/TextInput';
-import { useSelectDataHandlers } from '../../select/hooks/useSelectDataHandlers';
-import { eventIds } from '../../select/events';
-import { getTextKey } from '../../select/texts';
-import { getTextKeyWithType, typeIndicator } from '../../select/components/searchAndFilter/common';
-// import { createInputOnChangeListener } from '../../../select/utils';
+import { useSearchDataHandlers } from '../hooks/useSearchDataHandlers';
+import { eventIds } from '../events';
+import { getTextKey } from '../texts';
 import { convertPropsToGroups } from '../../modularOptionList/utils';
 import { useSearchHistory } from '../SearchHistoryContext';
 import { IconSearch } from '../../../../icons/IconSearch';
-import { SearchFunction } from '../../select/types';
+import { SearchFunction } from '../types';
 
 export const SearchInput = forwardRef<
   HTMLInputElement,
   TextInputProps & { onSearch?: SearchFunction; onSend?: (value: string) => void }
 >((props, ref) => {
   const classes = classNames(styles.searchInput, props.className || '');
-  const dataHandlers = useSelectDataHandlers();
+  const dataHandlers = useSearchDataHandlers();
   const { getMetaData /* , trigger */ } = dataHandlers;
   const metaData = getMetaData();
   const [innerValue, setInnerValue] = React.useState(metaData.search || '');
@@ -79,8 +77,8 @@ export const SearchInput = forwardRef<
     });
   }, [searchHistory]);
 
-  const placeholder = getTextKey(getTextKeyWithType(`${typeIndicator}Placeholder`, true), metaData);
-  const clearButtonAriaLabel = getTextKey(getTextKeyWithType(`${typeIndicator}ClearButtonAriaLabel`, true), metaData);
+  const placeholder = getTextKey('searchPlaceholder', metaData);
+  const clearButtonAriaLabel = getTextKey('searchClearButtonAriaLabel', metaData);
   // const handleChange = createInputOnChangeListener({ id: eventIds.search, trigger });
 
   const handleInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {
@@ -165,15 +163,16 @@ export const SearchInput = forwardRef<
       onFocus={handleInputFocus}
       onBlur={handleInputBlur}
       className={classes}
-      id="test"
+      id={metaData.elementIds.searchInput}
       placeholder={placeholder}
-      aria-label="Search"
+      aria-label={getTextKey('searchLabel', metaData)}
       value={inputValue}
       clearButton
       clearButtonAriaLabel={clearButtonAriaLabel}
       type={onSend ? 'search' : 'text'}
       buttonIcon={onSend ? <IconSearch /> : undefined}
       onButtonClick={handleSearch}
+      buttonAriaLabel={getTextKey('searchButtonAriaLabel', metaData)}
     />
   );
 });
