@@ -24,7 +24,15 @@ export const SearchInput = forwardRef<
   const [innerValue, setInnerValue] = React.useState(metaData.search || '');
 
   // Extract props first
-  const { onSearch, onSend, onChange: onChangeFromProps, value: externalValue, ...rest } = props;
+  const {
+    onSearch,
+    onSend,
+    onChange: onChangeFromProps,
+    value: externalValue,
+    onFocus: onFocusFromProps,
+    onBlur: onBlurFromProps,
+    ...rest
+  } = props;
 
   // Determine if component is controlled
   const isControlled = externalValue !== undefined;
@@ -75,7 +83,13 @@ export const SearchInput = forwardRef<
   const clearButtonAriaLabel = getTextKey(getTextKeyWithType(`${typeIndicator}ClearButtonAriaLabel`, true), metaData);
   // const handleChange = createInputOnChangeListener({ id: eventIds.search, trigger });
 
-  const handleFocus = () => {
+  const handleInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {
+    // Call the user's onFocus callback if provided
+    if (onFocusFromProps) {
+      onFocusFromProps(event);
+    }
+
+    // Focus is on the input element - open dropdown only if input is empty
     const currentValue = isControlled ? externalValue : innerValue;
     if (!currentValue) {
       dataHandlers.updateData({ groups: historyData });
@@ -83,24 +97,21 @@ export const SearchInput = forwardRef<
     }
   };
 
-  // const handleBlur = (event: React.FocusEvent) => {
-  //   // Check if the blur is moving focus to a child element
-  //   if (event.currentTarget.contains(event.relatedTarget as Node)) {
-  //     // return; // Don't hide if focus is moving to a child
-  //   }
+  const handleInputBlur = (event: React.FocusEvent<HTMLInputElement>) => {
+    const relatedTarget = event.relatedTarget as HTMLElement | null;
 
-  //   // Check if focus moved to a search history option
-  //   // const relatedTarget = event.relatedTarget as HTMLElement;
-  //   // if (relatedTarget && relatedTarget.matches('[role="option"]')) {
-  //   //   // Get the option text content and update search metadata
-  //   //   const optionText = relatedTarget.textContent?.trim();
-  //   //   if (optionText) {
-  //   //     dataHandlers.updateMetaData({ search: optionText });
-  //   //   }
-  //   // }
+    // Call the user's onBlur callback if provided
+    if (onBlurFromProps) {
+      onBlurFromProps(event);
+    }
 
-  //   // dataHandlers.trigger({ id: eventIds.searchInputField, type: 'close' });
-  // };
+    // Check if focus is moving to a button within the TextInput
+    if (relatedTarget && relatedTarget.tagName === 'BUTTON') {
+      // Close dropdown when tabbing/clicking to clear button or search button
+      dataHandlers.trigger({ id: eventIds.searchInputField, type: 'close' });
+    }
+    // Note: If relatedTarget is null or outside the component, the Container's blur handler will close the dropdown
+  };
 
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
@@ -152,23 +163,23 @@ export const SearchInput = forwardRef<
   const inputValue = isControlled ? externalValue : innerValue;
 
   return (
-    <div onFocus={handleFocus} /* onBlur={handleBlur} */>
-      <TextInput
-        {...rest}
-        ref={ref}
-        onChange={handleChange}
-        className={classes}
-        id="test"
-        placeholder={placeholder}
-        aria-label="Search"
-        value={inputValue}
-        clearButton
-        clearButtonAriaLabel={clearButtonAriaLabel}
-        type={onSend ? 'search' : 'text'}
-        buttonIcon={onSend ? <IconSearch /> : undefined}
-        onButtonClick={handleSearch}
-      />
-    </div>
+    <TextInput
+      {...rest}
+      ref={ref}
+      onChange={handleChange}
+      onFocus={handleInputFocus}
+      onBlur={handleInputBlur}
+      className={classes}
+      id="test"
+      placeholder={placeholder}
+      aria-label="Search"
+      value={inputValue}
+      clearButton
+      clearButtonAriaLabel={clearButtonAriaLabel}
+      type={onSend ? 'search' : 'text'}
+      buttonIcon={onSend ? <IconSearch /> : undefined}
+      onButtonClick={handleSearch}
+    />
   );
 });
 
