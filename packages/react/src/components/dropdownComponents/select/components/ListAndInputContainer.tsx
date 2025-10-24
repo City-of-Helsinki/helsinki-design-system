@@ -66,7 +66,7 @@ export const ListAndInputContainer = (props: DivElementProps) => {
       return (
         <>
           {childrenArray[0]}
-          <div {...attr}>{attr.open && childrenArray[1]}</div>
+          <div {...attr}>{attr.open && childrenArray.slice(1)}</div>
         </>
       );
     }

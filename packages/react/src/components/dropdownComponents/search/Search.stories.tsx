@@ -18,8 +18,10 @@ export const Example = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  const handleSearch: SearchProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
-    console.log('Search event:', { selectedOptions, lastClickedOption, data });
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue, lastClickedOption, data) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
     return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
   }, []);
 
