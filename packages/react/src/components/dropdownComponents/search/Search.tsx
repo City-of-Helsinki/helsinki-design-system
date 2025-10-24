@@ -18,6 +18,7 @@ import { createTextProvider } from './texts';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 import { getSelectedOptions, convertPropsToGroups } from '../modularOptionList/utils';
 import { SearchInput } from './components/SearchInput';
+import { SearchInfo } from './components/SearchInfo';
 
 export type SearchFieldProps = Omit<SearchPropsType & AcceptedNativeDivProps, 'ref' | 'onChange' | 'value'> & {
   onSend?: (value: string) => void;
@@ -155,6 +156,7 @@ const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
                 ref={metaData.refs.searchInput}
               />
               <ModularOptionList {...divElementProps} theme={theme} />
+              <SearchInfo />
             </ListAndInputContainer>
           </SelectionsAndListsContainer>
           <ErrorNotification />

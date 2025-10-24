@@ -125,7 +125,11 @@ export const SearchInput = forwardRef<
     }
 
     if (!value) {
-      // Clear the search metadata when input is cleared
+      // Clear the search when input is cleared
+      if (onSearch) {
+        // Trigger search change event with empty value to cancel ongoing search
+        dataHandlers.trigger({ id: eventIds.search, type: 'change', payload: { value: '' } });
+      }
       dataHandlers.updateMetaData({ search: '' });
       dataHandlers.updateData({ groups: historyData, open: false });
       dataHandlers.trigger({ id: eventIds.searchInputField, type: 'focus' });

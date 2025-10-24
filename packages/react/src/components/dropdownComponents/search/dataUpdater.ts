@@ -77,6 +77,12 @@ const dataUpdater = (
     const searchValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ search: searchValue, hasSearchError: false });
     if (!searchValue) {
+      // Cancel any ongoing search when input is cleared
+      const { cancelCurrentSearch } = dataHandlers.getMetaData();
+      if (cancelCurrentSearch) {
+        cancelCurrentSearch();
+        dataHandlers.updateMetaData({ cancelCurrentSearch: undefined, isSearching: false });
+      }
       dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
     }
     return {
