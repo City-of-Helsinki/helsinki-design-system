@@ -1,6 +1,6 @@
 import React from 'react';
 
-import styles from '../../select/Select.module.scss';
+import styles from '../Search.module.scss';
 import { SearchCustomTheme, SearchDataHandlers } from '../types';
 import { DivElementProps } from '../../modularOptionList/types';
 import { useFocusHandling } from '../hooks/useFocusHandling';
