@@ -163,7 +163,7 @@ export const MainLevel = ({
 
   const subLevels = childElements.map((child, childIndex) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'SubLevel') {
-      return cloneElement(child, {
+      return cloneElement(child as React.ReactElement<Record<string, unknown>>, {
         mainLevelIndex: index,
         // eslint-disable-next-line react/no-array-index-key
         key: childIndex,

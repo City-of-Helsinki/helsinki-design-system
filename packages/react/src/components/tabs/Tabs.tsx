@@ -70,7 +70,7 @@ export const Tabs = ({ children, initiallyActiveTab = 0, small = false, theme, c
       if (React.isValidElement(child)) {
         // Pass index prop to the TabPanel
         // eslint-disable-next-line react/no-array-index-key
-        return React.cloneElement(child, { index, key: index });
+        return React.cloneElement(child as React.ReactElement<Record<string, unknown>>, { index, key: index });
       }
       return child;
     });

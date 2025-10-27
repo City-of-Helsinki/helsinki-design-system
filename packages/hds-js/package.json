@@ -10,7 +10,7 @@
   "types": "./index.d.ts",
   "dependencies": {
     "@apollo/client": "^3.10.1",
-    "@babel/runtime": "7.17.9",
+    "@babel/runtime": "^7.26.10",
     "await-to-js": "^3.0.0",
     "cookie": "^0.4.1",
     "graphql": "^16.8.1",

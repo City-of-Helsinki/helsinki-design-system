@@ -91,7 +91,7 @@ export const SideNavigation = ({
   const mainLevels = childElements.map((child, index) => {
     if (isValidElement(child) && (child.type as FCWithName).componentName === 'MainLevel') {
       // eslint-disable-next-line react/no-array-index-key
-      return cloneElement(child, { key: index, index });
+      return cloneElement(child as React.ReactElement<Record<string, unknown>>, { key: index, index });
     }
     return null;
   });

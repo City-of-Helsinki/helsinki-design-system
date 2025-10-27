@@ -20,7 +20,7 @@ const defaultProps: SelectProps<{ label: string; value: string }> = {
   selectedItemSrLabel: 'Selected item {value}',
 };
 
-const getWrapper = (props?: unknown) => render(<Select {...defaultProps} {...props} />);
+const getWrapper = (props?: Record<string, unknown>) => render(<Select {...defaultProps} {...props} />);
 
 describe('<Select /> spec', () => {
   it('renders the component', () => {

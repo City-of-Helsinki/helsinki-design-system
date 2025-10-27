@@ -40,7 +40,7 @@ export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, on
     >
       {React.Children.toArray(children).map((child) => {
         return isValidElement(child)
-          ? cloneElement(child, {
+          ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {
               // add class name(s) to child
               className: `${styles.item} ${child.props.className || ''}`,
               // add onclick handler(s) to child

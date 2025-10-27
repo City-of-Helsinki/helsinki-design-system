@@ -1,11 +1,10 @@
 @import "~hds-design-tokens/lib/all.scss";
 
 .linkbox-list {
-  column-gap: var(--spacing-layout-xs);
   display: grid;
+  gap: var(--spacing-layout-xs);
   grid-template-columns: repeat(auto-fit, minmax(216px, 1fr));
   margin-top: var(--spacing-layout-m);
-  row-gap: var(--spacing-layout-xs);
   width: 100%;
 }
 
