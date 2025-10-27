@@ -49,7 +49,7 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
 
 export const ListAndInputContainer = (props: DivElementProps) => {
   const { children, outsideClickTrigger, ...attr } = createListAndInputContainerProps(props, useSelectDataHandlers());
-  // Determine if search input is included based on children count
+  // Determine if search input is included based on children count TODO: REMOVE OR NOT? should Search have it's own component?
   const includesSearchInput = React.Children.count(children) > 1;
   const wrapperRef = useRef<HTMLDivElement>(null);
 

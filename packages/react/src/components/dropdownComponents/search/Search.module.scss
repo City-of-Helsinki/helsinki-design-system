@@ -358,6 +358,7 @@
       &.shiftOptions {
         .listItem:not(.groupLabel) {
           padding-left: var(--spacing-layout-s);
+          color: red;
         }
       }
     }
