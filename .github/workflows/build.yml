@@ -84,7 +84,7 @@ jobs:
         working-directory: ./packages/react
 
       - name: Store all artifacts
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: build-${{ github.sha }}
           path: |
