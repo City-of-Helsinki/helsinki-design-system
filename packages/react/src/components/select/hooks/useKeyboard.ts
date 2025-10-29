@@ -43,6 +43,9 @@ const isHomekey = (e: KeyboardEvent<HTMLElement>) => {
 const isEndKey = (e: KeyboardEvent<HTMLElement>) => {
   return e.key === 'End';
 };
+const isTabKey = (e: KeyboardEvent<HTMLElement>) => {
+  return e.key === 'Tab';
+};
 export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
   return ['Enter', ' '].includes(e.key);
 };
@@ -434,11 +437,73 @@ export function useKeyboard() {
     (e: KeyboardEvent<HTMLElement>) => {
       const { type } = getEventElementType(e);
       keyDownElementType.current = type;
+
+      const isOpen = getData().open;
+      const { refs } = getMetaData();
+
+      // Handle Tab/Shift+Tab when dropdown is open
+      if (isTabKey(e) && isOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
+        const wasShiftKey = e.shiftKey;
+        const buttonRef = refs.button;
+
+        if (buttonRef && buttonRef.current) {
+          // Get the root document (handle iframes like Storybook)
+          const rootDoc = buttonRef.current.ownerDocument;
+
+          // Get all tabbable elements in the correct document
+          const selector =
+            'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+          const allElements = Array.from(rootDoc.querySelectorAll(selector)) as HTMLElement[];
+
+          // Filter out elements with tabindex="-1" (querySelector doesn't handle this perfectly with comma-separated selectors)
+          const tabbableElements = allElements.filter((el) => {
+            const tabIndex = el.getAttribute('tabindex');
+            return tabIndex !== '-1';
+          });
+
+          // Find the button's position
+          const currentIndex = tabbableElements.indexOf(buttonRef.current);
+
+          let targetElement: HTMLElement | null = null;
+
+          if (wasShiftKey) {
+            // Shift+Tab: go to previous element
+            if (currentIndex > 0) {
+              targetElement = tabbableElements[currentIndex - 1];
+            }
+          } else {
+            // Tab: go to next element
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < tabbableElements.length) {
+              targetElement = tabbableElements[nextIndex];
+            }
+          }
+
+          // Close the dropdown
+          trigger({ id: eventIds.generic, type: eventTypes.close });
+
+          if (targetElement) {
+            const savedTarget = targetElement;
+
+            // Immediately focus the target and clear activeDescendant to prevent restoration
+            savedTarget.focus();
+            updateMetaData({ activeDescendant: '', focusTarget: undefined });
+          } else {
+            buttonRef.current.focus();
+            updateMetaData({ activeDescendant: '', focusTarget: undefined });
+          }
+        }
+      }
+
       if (type && isAnyListChildType(type) && isClickKey(e)) {
         e.preventDefault();
       }
     },
-    [getEventElementType],
+    [getEventElementType, getData, getMetaData],
   );
 
   useEffect(() => {
