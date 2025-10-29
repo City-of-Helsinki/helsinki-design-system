@@ -3,7 +3,7 @@ import { debounce } from 'lodash';
 import { SearchData, SearchDataHandlers, SearchMetaData, SearchFunction, SearchResult } from './types';
 import { Option } from '../modularOptionList/types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../../dataProvider/DataContext';
-import { MIN_USER_INTERACTION_TIME_IN_MS, createIsCloseTriggerEvent } from '../shared';
+import { MIN_USER_INTERACTION_TIME_IN_MS } from '../shared';
 import { mergeSearchResultsToCurrent } from './utils';
 import { getSelectedOptions, propsToGroups, createMetaDataAfterSelectionChange } from '../modularOptionList/utils';
 import {
@@ -240,23 +240,13 @@ const debouncedSearch = debounce(
   300,
 );
 
-// Event IDs and types that should trigger the onClose callback for Search
-const isCloseTriggerEvent = createIsCloseTriggerEvent([
-  'cancelled',
-  'close',
-  'clearButton',
-  'focusMovedToNonListElement',
-]);
-
 export const changeHandler: ChangeHandler<SearchData, SearchMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
 
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
+  const { onSearch, onChange, onClose } = current;
 
-  const { onSearch, onChange, onClose, multiSelect, open } = current;
-
-  const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;
 
   if (didSearchChange && onSearch) {
@@ -264,7 +254,7 @@ export const changeHandler: ChangeHandler<SearchData, SearchMetaData> = (event, 
     debouncedSearch(dataHandlers, onSearch);
   }
 
-  if (closeChange && onClose) {
+  if (onClose) {
     const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);
     if (closeProps) {
       const { groups, options, invalid, texts } = closeProps;
