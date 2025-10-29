@@ -88,6 +88,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Select] Select accepts options with an empty string value
+- [Select] onClose was not triggered when navigating away with keyboard
 
 ### Documentation
 

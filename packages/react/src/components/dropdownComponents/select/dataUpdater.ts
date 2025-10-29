@@ -369,6 +369,7 @@ const isCloseTriggerEvent = createIsCloseTriggerEvent([
   'tag',
   'selectedOptions',
   'focusMovedToNonListElement',
+  'blur',
 ]);
 
 export const changeHandler: ChangeHandler<SelectData, SelectMetaData> = (event, dataHandlers): boolean => {
