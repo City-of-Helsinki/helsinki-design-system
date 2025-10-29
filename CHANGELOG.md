@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Select] Select accepts options with an empty string value
+- [Select] onClose was not triggered when navigating away with keyboard
 
 ### Core
 
