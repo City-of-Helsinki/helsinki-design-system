@@ -451,6 +451,15 @@ export function useKeyboard() {
         const buttonRef = refs.button;
 
         if (buttonRef && buttonRef.current) {
+          // Ensure button has proper focus for consistent keyboard navigation
+          // This handles cases where focus was disrupted by mouse interactions
+          if (document.activeElement !== buttonRef.current) {
+            buttonRef.current.focus();
+          }
+
+          // Clear activeDescendant BEFORE closing dropdown to prevent focus restoration issues
+          updateMetaData({ activeDescendant: undefined });
+
           // Get the root document (handle iframes like Storybook)
           const rootDoc = buttonRef.current.ownerDocument;
 
@@ -459,17 +468,38 @@ export function useKeyboard() {
             'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
           const allElements = Array.from(rootDoc.querySelectorAll(selector)) as HTMLElement[];
 
-          // Filter out elements with tabindex="-1" (querySelector doesn't handle this perfectly with comma-separated selectors)
+          // Filter out elements with tabindex="-1" and truly hidden elements
           const tabbableElements = allElements.filter((el) => {
             const tabIndex = el.getAttribute('tabindex');
-            return tabIndex !== '-1';
+            // Skip elements with tabindex="-1"
+            if (tabIndex === '-1') return false;
+
+            // Skip Select component's internal elements (filter input, clear buttons, etc.)
+            // These should not be part of external tab navigation
+            const buttonId = buttonRef.current?.id;
+
+            // Filter by ID for elements that have Select component IDs
+            if (buttonId && el.id && el.id !== buttonId && el.id.startsWith(buttonId.split('-main-button')[0])) {
+              return false;
+            }
+
+            // Filter by CSS class for internal clear buttons that don't have component IDs
+            if (el.className && el.className.includes('clearButton')) {
+              return false;
+            }
+
+            // For elements with explicit tabIndex >= 0, they're focusable even if offsetParent is null
+            if (el.tabIndex >= 0) return true;
+
+            // For elements without explicit tabIndex, check if they're visible
+            if (el.offsetParent === null) return false;
+            return true;
           });
 
           // Find the button's position
           const currentIndex = tabbableElements.indexOf(buttonRef.current);
 
           let targetElement: HTMLElement | null = null;
-
           if (wasShiftKey) {
             // Shift+Tab: go to previous element
             if (currentIndex > 0) {
@@ -484,17 +514,28 @@ export function useKeyboard() {
           }
 
           // Close the dropdown
-          trigger({ id: eventIds.generic, type: eventTypes.close });
+          trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
 
           if (targetElement) {
             const savedTarget = targetElement;
 
-            // Immediately focus the target and clear activeDescendant to prevent restoration
-            savedTarget.focus();
-            updateMetaData({ activeDescendant: '', focusTarget: undefined });
+            // Check what type of element we're targeting
+            if (savedTarget.classList.contains('Tag_tag__Hkb9W') || savedTarget.closest('[class*="Tag_tag"]')) {
+              // Target is a tag - use the focus system to focus first tag
+              updateMetaData({ focusTarget: 'tag' });
+            } else {
+              // Target is not a tag - focus it directly after a brief delay
+              setTimeout(() => {
+                updateMetaData({ focusTarget: undefined });
+                savedTarget.focus();
+              }, 50);
+            }
           } else {
+            // No target element, focus the button
             buttonRef.current.focus();
-            updateMetaData({ activeDescendant: '', focusTarget: undefined });
+            setTimeout(() => {
+              updateMetaData({ focusTarget: undefined });
+            }, 0);
           }
         }
       }

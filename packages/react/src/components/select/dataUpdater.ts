@@ -122,7 +122,12 @@ const dataUpdater = (
       const currentMetaData = dataHandlers.getMetaData();
       const remainingOptions = currentMetaData.selectedOptions.length;
       const hasSelectedItems = !!remainingOptions;
-      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
+
+      // Always move focus to first remaining tag (or button if no tags left)
+      // This provides consistent behavior for both mouse and keyboard deletion
+      const focusTarget = hasSelectedItems ? 'tag' : 'button';
+      setFocusTarget(focusTarget);
+
       const removalText = getTextKey('tagRemoved', currentMetaData, {
         value: clickedOption.label,
       });
