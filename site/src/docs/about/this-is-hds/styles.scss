@@ -281,14 +281,13 @@
 }
 
 .info-page-card-grid-item {
-  align-content: center;
   background-position: right center;
   background-repeat: no-repeat;
   background-size: 44%;
   display: flex;
   flex-direction: column;
-  justify-content: center;
   min-height: 200px;
+  place-content: center;
 
   @include medium-and-above-screen {
     background-position: right top;

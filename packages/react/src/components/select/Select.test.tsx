@@ -948,6 +948,153 @@ describe('<Select />', () => {
       expect(getSelectionsInButton()).toEqual([getPresetOption(1, 1).label, getPresetOption(2, 2).label]);
     });
   });
+  describe('Empty string value support', () => {
+    it('can select an option with empty string value in single select', async () => {
+      const onChangeMock = jest.fn();
+      const options = [
+        { value: '', label: 'None (empty string)' },
+        { value: 'option1', label: 'Option 1' },
+        { value: 'option2', label: 'Option 2' },
+      ];
+
+      const { openList, clickOptionAndWaitForRerender, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: false,
+        options,
+        onChange: onChangeMock,
+      });
+
+      await openList();
+      await clickOptionAndWaitForRerender(0); // Click the empty string option
+
+      // Verify the option was selected
+      expect(onChangeMock).toHaveBeenCalled();
+      const selectedOptions = onChangeMock.mock.calls[0][0] as Option[];
+      expect(selectedOptions).toHaveLength(1);
+      expect(selectedOptions[0].value).toBe('');
+      expect(selectedOptions[0].label).toBe('None (empty string)');
+      expect(getSelectionsInButton()).toEqual(['None (empty string)']);
+    });
+
+    it('can select an option with empty string value in multiselect', async () => {
+      const onChangeMock = jest.fn();
+      const options = [
+        { value: '', label: 'None' },
+        { value: 'option1', label: 'Option 1' },
+        { value: 'option2', label: 'Option 2' },
+      ];
+
+      const { openList, clickOptionAndWaitForRerender, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: true,
+        options,
+        onChange: onChangeMock,
+      });
+
+      await openList();
+      await clickOptionAndWaitForRerender(0); // Select empty string option
+      await clickOptionAndWaitForRerender(1); // Select option1
+
+      // Verify both options were selected
+      expect(onChangeMock).toHaveBeenCalledTimes(2);
+      const lastCallSelections = onChangeMock.mock.calls[1][0] as Option[];
+      expect(lastCallSelections).toHaveLength(2);
+      expect(lastCallSelections.find((opt) => opt.value === '')).toBeDefined();
+      expect(lastCallSelections.find((opt) => opt.value === 'option1')).toBeDefined();
+      const selections = getSelectionsInButton();
+      expect(selections).toContain('None');
+      expect(selections).toContain('Option 1');
+    });
+
+    it('can preset an option with empty string value using value prop', async () => {
+      const options = [
+        { value: '', label: 'None' },
+        { value: 'option1', label: 'Option 1' },
+        { value: 'option2', label: 'Option 2' },
+      ];
+
+      const { openList, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: false,
+        options,
+        value: '', // Preset with empty string
+      });
+
+      await openList();
+      expect(getSelectionsInButton()).toEqual(['None']);
+    });
+
+    it('can preset multiple options including empty string using value prop', async () => {
+      const options = [
+        { value: '', label: 'None' },
+        { value: 'option1', label: 'Option 1' },
+        { value: 'option2', label: 'Option 2' },
+      ];
+
+      const { openList, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: true,
+        options,
+        value: ['', 'option1'], // Preset with empty string and option1
+      });
+
+      await openList();
+      const selections = getSelectionsInButton();
+      expect(selections).toContain('None');
+      expect(selections).toContain('Option 1');
+      expect(selections).toHaveLength(2);
+    });
+
+    it('distinguishes between empty string, null, and undefined', async () => {
+      const onChangeMock = jest.fn();
+      const options = [
+        { value: '', label: 'Empty string' },
+        { value: 'defined', label: 'Defined value' },
+      ];
+
+      const { openList, clickOptionAndWaitForRerender } = renderWithHelpers({
+        multiSelect: false,
+        options,
+        onChange: onChangeMock,
+      });
+
+      await openList();
+      await clickOptionAndWaitForRerender(0); // Click empty string option
+
+      const selectedOptions = onChangeMock.mock.calls[0][0] as Option[];
+      expect(selectedOptions[0].value).toBe('');
+      expect(selectedOptions[0].value).not.toBe(null);
+      expect(selectedOptions[0].value).not.toBe(undefined);
+      expect(typeof selectedOptions[0].value).toBe('string');
+    });
+
+    it('can clear selection of empty string value', async () => {
+      const onChangeMock = jest.fn();
+      const options = [
+        { value: '', label: 'None' },
+        { value: 'option1', label: 'Option 1' },
+      ];
+
+      const { openList, getClearButton, getSelectionsInButton } = renderWithHelpers({
+        multiSelect: false,
+        options,
+        value: '',
+        clearable: true,
+        onChange: onChangeMock,
+      });
+
+      await openList();
+      expect(getSelectionsInButton()).toEqual(['None']);
+
+      const clearButton = getClearButton();
+      await act(async () => {
+        fireEvent.click(clearButton);
+      });
+
+      // Verify the selection was cleared
+      await waitFor(() => {
+        const lastCall = onChangeMock.mock.calls[onChangeMock.mock.calls.length - 1];
+        const selectedOptions = lastCall[0] as Option[];
+        expect(selectedOptions).toHaveLength(0);
+      });
+    });
+  });
   describe('Search functionality with multiselect preserves selections', () => {
     it('preserves selected items during search mode when some selections are missing from options', async () => {
       const initialOptions = ['Initial Option 1', 'Initial Option 2'];

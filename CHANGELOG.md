@@ -5,6 +5,28 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.8.0] - October, 30, 2025
+
+- Security related updates and changes necessary due to them.
+
+### React
+
+#### Changed
+
+- [Select] Removed aria-invalid property.
+
+#### Fixed
+
+- [Select] Select accepts options with an empty string value
+- [Select] onClose was not triggered when navigating away with keyboard
+
+### Documentation
+
+#### Fixed
+
+- [Footer] Code examples now consistently use English
+- [Login] Tables now display correctly on small screens
+
 ## [4.7.1] - August, 27, 2025
 
 ### React

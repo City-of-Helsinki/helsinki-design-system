@@ -320,6 +320,7 @@ const isCloseTriggerEvent = (event: ChangeEvent) => {
     'tag',
     'selectedOptions',
     'focusMovedToNonListElement',
+    'blur',
   ];
 
   return onCloseTriggerEvents.includes(event.type || '') || onCloseTriggerEvents.includes(event.id || '');

@@ -2,7 +2,7 @@ import React from 'react';
 import { action } from '@storybook/addon-actions';
 
 import { IconShare, IconTrash } from '../../icons';
-import { Tag, TagProps, TagSize, TagTheme } from './Tag';
+import { Tag, TagAsDiv, TagAsLink, TagProps, TagSize, TagTheme } from './Tag';
 
 export default {
   component: Tag,
@@ -28,10 +28,10 @@ export const InformativeTagsSmall = (args: TagProps) => (
   </TagWrapper>
 );
 
-export const InformativeTagsLarge = (args: TagProps) => <InformativeTagsSmall {...args} />;
+export const InformativeTagsLarge = (args: TagAsDiv) => <InformativeTagsSmall {...args} />;
 InformativeTagsLarge.args = { size: TagSize.Large };
 
-export const LinkTags = (args: TagProps) => (
+export const LinkTags = (args: TagAsLink) => (
   <TagWrapper>
     <Tag
       data-playwright
@@ -96,7 +96,7 @@ export const ActionTags = (args: TagProps) => (
   </TagWrapper>
 );
 
-export const DeletableTags = (args: TagProps) => {
+export const DeletableTags = (args: TagAsDiv) => {
   return (
     <TagWrapper>
       <Tag
@@ -174,7 +174,7 @@ export const CustomThemeTags = (args: TagProps) => {
         {args.children}
       </Tag>
       <Tag
-        {...args}
+        {...(args as TagAsLink)}
         theme={customD}
         size={TagSize.Large}
         iconStart={<IconShare />}
@@ -203,13 +203,13 @@ const LongTextTags = (args: TagProps) => (
       <Tag {...args} iconStart={<IconShare />} iconEnd={<IconTrash />}>
         {longText}
       </Tag>
-      <Tag {...args} onDelete={() => action(`Delete item: ${args.children}`)()} aria-label="delete item">
+      <Tag {...(args as TagAsDiv)} onDelete={() => action(`Delete item: ${args.children}`)()} aria-label="delete item">
         {longText}
       </Tag>
       <Tag {...args} onClick={() => action(`Click item: ${args.children}`)()} aria-label="run custom action">
         {longText}
       </Tag>
-      <Tag {...args} href="#linkTagsSmall" aria-label="open custom link">
+      <Tag {...(args as TagAsLink)} href="#linkTagsSmall" aria-label="open custom link">
         {longText}
       </Tag>
     </TagWrapper>

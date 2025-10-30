@@ -1,4 +1,5 @@
 // COMMON FOOTER STYLES AND UTILS
+@use 'sass:map';
 @import "../../styles/common.scss";
 
 /**
@@ -60,7 +61,7 @@
     grid-column: span 2;
 
     // center orphan items
-    @each $orphans, $columnEnd in map-get($centeringOptions, $columns) {
+    @each $orphans, $columnEnd in map.get($centeringOptions, $columns) {
       &:nth-last-child(#{$orphans}):nth-child(#{$columns}n + 1) {
         grid-column-end: $columnEnd;
       }
