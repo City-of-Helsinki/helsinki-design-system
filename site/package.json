@@ -2,7 +2,7 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "4.7.1",
+  "version": "4.8.0",
   "engines": {
     "node": "^22.13.1"
   },
@@ -61,9 +61,9 @@
     "hds-2-react": "npm:hds-react@2.17.1",
     "hds-3-core": "npm:hds-core@3.12.0",
     "hds-3-react": "npm:hds-react@3.12.0",
-    "hds-core": "4.7.1",
-    "hds-design-tokens": "4.7.1",
-    "hds-react": "4.7.1",
+    "hds-core": "4.8.0",
+    "hds-design-tokens": "4.8.0",
+    "hds-react": "4.8.0",
     "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",
