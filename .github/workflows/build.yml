@@ -64,8 +64,17 @@ jobs:
         working-directory: ./packages/react
 
       - name: test react package
-        run: yarn test
+        run: yarn test:coverage
         working-directory: ./packages/react
+
+      - name: SonarQube Cloud Scan
+        uses: SonarSource/sonarqube-scan-action@v6
+        continue-on-error: true
+        with:
+          projectBaseDir: ./packages/react
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: build hds-js package
         run: yarn build:hds-js
