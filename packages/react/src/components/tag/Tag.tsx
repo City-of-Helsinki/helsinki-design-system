@@ -1,11 +1,10 @@
-import React, { ElementType, forwardRef } from 'react';
+import React, { forwardRef } from 'react';
 
 import '../../styles/base.module.css';
 import styles from './Tag.module.scss';
 import { IconCross } from '../../icons';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
 export interface TagTheme {
   '--background-color-hover'?: string;
@@ -26,62 +25,78 @@ export enum TagSize {
   Large = 'large',
 }
 
-export type TagProps<E extends ElementType = 'div'> = MergeAndOverrideProps<
-  AllElementPropsWithoutRef<E>,
-  {
-    /**
-     * The label for the tag
-     */
-    children: string;
-    /**
-     * Additional class names to apply to the tag
-     */
-    className?: string;
-    /**
-     * Url to go to after Link variant is clicked
-     */
-    href?: string;
-    /**
-     * Link's _target -attribute
-     */
-    target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
-    /**
-     * Element placed on the starting side of the label
-     */
-    iconStart?: React.ReactNode;
-    /**
-     * Element placed on the ending side of the label
-     */
-    iconEnd?: React.ReactNode;
-    /**
-     * Should Tag span to multiple lines
-     * @default false
-     */
-    multiline?: boolean;
-    /**
-     * Callback function fired when the tag is clicked. If set, the tag will be clickable.
-     */
-    onClick?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
-    /**
-     * Callback function fired when the tag is clicked. If set, a delete button will be shown.
-     */
-    onDelete?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
-    /**
-     * Size variant for the Tag.
-     * @default TagSize.Small
-     */
-    size?: TagSize;
-    /**
-     * Custom theme styles
-     * Will contain more properties in the next major release.
-     */
-    theme?: TagTheme;
-    /**
-     * Ref is set to the main element
-     */
-    ref?: React.Ref<React.ElementRef<E>>;
-  }
->;
+// Common props shared by both variants
+type BaseTagProps = {
+  /**
+   * The label for the tag
+   */
+  children: string;
+  /**
+   * Additional class names to apply to the tag
+   */
+  className?: string;
+  /**
+   * Element placed on the starting side of the label
+   */
+  iconStart?: React.ReactNode;
+  /**
+   * Element placed on the ending side of the label
+   */
+  iconEnd?: React.ReactNode;
+  /**
+   * Should Tag span to multiple lines
+   * @default false
+   */
+  multiline?: boolean;
+  /**
+   * Size variant for the Tag.
+   * @default TagSize.Small
+   */
+  size?: TagSize;
+  /**
+   * Custom theme styles
+   * Will contain more properties in the next major release.
+   */
+  theme?: TagTheme;
+  /**
+   * Callback function fired when the lement is clicked. If set, the element will be clickable.
+   */
+  onClick?: (event: React.MouseEvent<HTMLElement, MouseEvent> | React.KeyboardEvent<HTMLElement>) => void;
+};
+
+// Tag as a link (when href is provided)
+export type TagAsLink = BaseTagProps & {
+  /**
+   * Url to go to after Link variant is clicked
+   */
+  href: string;
+  /**
+   * Link's _target -attribute
+   */
+  target?: React.AnchorHTMLAttributes<HTMLAnchorElement>['target'];
+  /**
+   * Callback function fired when the tag is clicked. If set, a delete button will be shown.
+   */
+  onDelete?: never;
+} & Omit<React.AnchorHTMLAttributes<HTMLAnchorElement>, 'children'>;
+
+// Tag as a div (when href is not provided)
+export type TagAsDiv = BaseTagProps & {
+  /**
+   * Url to go to after Link variant is clicked
+   */
+  href?: never;
+  /**
+   * Link's _target -attribute
+   */
+  target?: never;
+  /**
+   * Callback function fired when the tag is clicked. If set, a delete button will be shown.
+   */
+  onDelete?: (event: React.MouseEvent<HTMLDivElement, MouseEvent> | React.KeyboardEvent<HTMLDivElement>) => void;
+} & Omit<React.HTMLAttributes<HTMLDivElement>, 'children'>;
+
+export type TagProps = TagAsLink | TagAsDiv;
 
 export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
   (
@@ -151,7 +166,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
           ref={ref as React.Ref<HTMLAnchorElement>}
           className={classNames(containerClassName, styles.link)}
           href={href}
-          {...(rest as unknown as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
+          {...(rest as React.AnchorHTMLAttributes<HTMLAnchorElement>)}
         >
           {props.children}
         </a>
@@ -164,7 +179,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
           className={containerClassName}
           ref={ref as React.Ref<HTMLDivElement>}
           {...(hasAction && { tabIndex: 0, role, onClick: onAction, onKeyDown })}
-          {...rest}
+          {...(rest as React.HTMLAttributes<HTMLDivElement>)}
         >
           {props.children}
         </div>

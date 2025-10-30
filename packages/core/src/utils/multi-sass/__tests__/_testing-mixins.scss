@@ -1,7 +1,7 @@
 @use '../exports' as *;
 
 @mixin SimpleBlockModifiersElements($args...) {
-  @include multi-sass($args..., $block: 'simple-simple-block') {
+  @include multi-sass($block: 'simple-simple-block', $args...) {
     @include block {
       --simple-block: var(--var-simple-block);
 
@@ -45,7 +45,7 @@
 }
 
 @mixin SimpleContainer($args...) {
-  @include multi-sass($args..., $block: 'simple-container') {
+  @include multi-sass($block: 'simple-container', $args...) {
     section {
       @include block {
         @include if-content-allowed {
@@ -78,7 +78,7 @@
 }
 
 @mixin SimpleButton($args...) {
-  @include multi-sass($args..., $block: 'simple-button') {
+  @include multi-sass($block: 'simple-button', $args...) {
     button {
       @include block {
         @include if-content-allowed {

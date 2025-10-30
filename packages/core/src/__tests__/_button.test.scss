@@ -41,7 +41,6 @@
             --computed-outline-color-focus: var(--outline-color-focus, transparent);
             --computed-icon-size: var(--icon-size, var(--spacing-m));
 
-            align-content: flex-start;
             align-items: center;
             background-color: var(--computed-background-color);
             border: var(--border-width) solid var(--computed-border-color);
@@ -57,7 +56,7 @@
             font-size: 100%;
             font-weight: 500;
             hyphens: auto;
-            justify-content: center;
+            place-content: flex-start center;
             line-height: var(--lineheight-l);
             margin: 0;
             min-height: var(--min-size);
@@ -74,14 +73,6 @@
             vertical-align: top;
 
             /* repositioning the icons, after & before usage */
-
-            /* focus */
-
-            /* hover */
-
-            /* active */
-
-            /* disabled */
           }
 
           .hds-button:after {
@@ -100,6 +91,7 @@
           }
 
           .hds-button:focus-visible {
+            /* focus */
             background-color: var(--computed-background-color-focus);
             border-color: var(--computed-border-color-focus);
             color: var(--computed-color-focus);
@@ -107,12 +99,14 @@
           }
 
           .hds-button:hover {
+            /* hover */
             background-color: var(--computed-background-color-hover);
             border-color: var(--computed-border-color-hover);
             color: var(--computed-color-hover);
           }
 
           .hds-button:active {
+            /* active */
             background-color: var(--computed-background-color-active);
             border-color: var(--computed-border-color-active);
             color: var(--computed-color-active);
@@ -120,6 +114,7 @@
           }
 
           .hds-button:disabled {
+            /* disabled */
             --cursor: not-allowed;
 
             background-color: var(--computed-background-color-disabled);
@@ -138,8 +133,6 @@
             width: var(--computed-icon-size);
 
             /* start-side icon */
-
-            /* end-side icon */
           }
 
           .hds-button .hds-icon:first-child:not(:last-child) {
@@ -147,6 +140,7 @@
           }
 
           .hds-button .hds-icon:last-child:not(:first-child) {
+            /* end-side icon */
             margin-right: var(--icon-reposition);
           }
 

@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.X.X] - Month, XX, 202X
 
+- Security related updates and changes necessary due to them.
+
 ### React
 
 #### Breaking

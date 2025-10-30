@@ -43,9 +43,9 @@ describe('useOutsideClick', () => {
       tracker(id);
     };
     const ref = useRef<HTMLSpanElement>(null);
-    const props = useOutsideClick({ callback, ref });
+    useOutsideClick({ callback, ref });
     return (
-      <span id={id} ref={ref} {...props}>
+      <span id={id} ref={ref}>
         <button type="button" id={`${id}Button`} onClick={jest.fn()}>
           Click
         </button>
