@@ -1,5 +1,6 @@
 // @import url('hds-design-tokens/lib/breakpoint/breakpoint.scss');
 // toimii use '../../node_modules/hds-design-tokens/lib/breakpoint/breakpoint.scss' as *;
+@use 'sass:list';
 @use 'hds-design-tokens/lib/breakpoint/breakpoint.scss' as *;
 
 //  MEDIA QUERIES
@@ -11,7 +12,7 @@ $breakpoints: ($breakpoint-xs, $breakpoint-s, $breakpoint-m, $breakpoint-l, $bre
 
 // @include respond-above($breakpoint.s) {}
 @mixin respond-above($breakpoint) {
-  @if not index($breakpoints, $breakpoint) {
+  @if not list.index($breakpoints, $breakpoint) {
     // If the breakpoint doesn't exist in the list.
     // Log a warning.
     @warn 'Invalid breakpoint: #{$breakpoint}.';
@@ -28,7 +29,7 @@ $breakpoints: ($breakpoint-xs, $breakpoint-s, $breakpoint-m, $breakpoint-l, $bre
 
 // @include respond-below($breakpoint.s) {}
 @mixin respond-below($breakpoint) {
-  @if not index($breakpoints, $breakpoint) {
+  @if not list.index($breakpoints, $breakpoint) {
     // If the breakpoint doesn't exist in the list.
     // Log a warning.
     @warn 'Invalid breakpoint: #{$breakpoint}.';

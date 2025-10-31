@@ -214,7 +214,7 @@ export const WithCustomStyles = (args: TextInputProps) => {
       buttonAriaLabel="Search"
       buttonIcon={<IconSearch />}
       onButtonClick={() => undefined}
-      defaultValue={"I'm customised!"}
+      defaultValue="I'm customised!"
       data-playwright
       successText="Success!"
       errorText="Error!"
