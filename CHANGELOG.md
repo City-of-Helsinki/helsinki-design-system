@@ -73,13 +73,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-## [4.X.X] - Month, XX, 202X
+## [4.8.0] - October, 30, 2025
+
+- Security related updates and changes necessary due to them.
 
 ### React
-
-#### Breaking
-
-#### Added
 
 #### Changed
 
