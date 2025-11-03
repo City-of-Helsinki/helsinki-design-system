@@ -17,6 +17,10 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
           resource.request = resource.request.replace('hds-core', 'hds-3-core');
           resource.request = resource.request.replace('hds-react', 'hds-3-react');
         }
+        if (resource.context.includes('.cache/gatsby-source-git/docs-release-4.')) {
+          resource.request = resource.request.replace('hds-core', 'hds-4-core');
+          resource.request = resource.request.replace('hds-react', 'hds-4-react');
+        }
       }
     )
   );
