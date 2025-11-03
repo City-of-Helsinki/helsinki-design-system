@@ -138,6 +138,8 @@ export const SearchInput = forwardRef<
       dataHandlers.updateData({ groups: [] });
       dataHandlers.trigger({ id: eventIds.search, type: 'change', payload: { value } });
     } else {
+      // Update metaData.search even when onSearch is not provided
+      dataHandlers.updateMetaData({ search: value });
       dataHandlers.trigger({ id: eventIds.searchInputField, type: 'close' });
     }
   };
