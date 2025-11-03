@@ -18,7 +18,7 @@ export const Example = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue, lastClickedOption, data) => {
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue /* , lastClickedOption, data */) => {
     if (searchValue === 'error') {
       return Promise.reject(new Error('Simulated error'));
     }
