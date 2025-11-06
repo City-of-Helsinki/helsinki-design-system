@@ -22,7 +22,7 @@ declare global {
 }
 
 export type CookieConsentReactProps = Omit<CreateProps, 'settingsPageSelector'> & {
-  onChange: (changeProps: CookieConsentChangeEvent) => void;
+  onChange?: (changeProps: CookieConsentChangeEvent) => void;
   settingsPageId?: string;
 };
 type GroupConsentData = { group: string; consented: boolean };
@@ -74,7 +74,7 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
 
   const onChangeListener = useCallback(
     (e: CookieConsentChangeEvent) => {
-      onChange(e);
+      onChange?.(e);
       forceRender();
     },
     [onChange, forceRender],
@@ -82,9 +82,9 @@ export function useCookieConsent(props: CookieConsentReactProps): CookieConsentR
 
   const onMonitorEvent = useCallback(
     (e: CookieConsentChangeEvent) => {
-      onChange(e);
+      onChange?.(e);
     },
-    [useCallback],
+    [onChange],
   );
 
   const onReady = useCallback(() => {

@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [CookieConsentContextProvider, useCookieConsent] Make `onChange`-prop optional (in `CookieConsentReactProps`)
 
 ### Core
 
@@ -66,6 +67,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [CookieConsent] Add `onChange` prop to Code-tab properties table.
 
 ### Figma
 
