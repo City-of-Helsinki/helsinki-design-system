@@ -73,6 +73,22 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+## [4.8.1] - November, 10, 2025
+
+Small fix to build process to output correct Typescript typings for some components which missed them.
+
+### React
+
+#### Fixed
+
+- [CookieConsentContextProvider, useCookieConsent] Make `onChange`-prop optional (in `CookieConsentReactProps`)
+
+### Documentation
+
+#### Fixed
+
+- [CookieConsent] Add `onChange` prop to Code-tab properties table.
+
 ## [4.8.0] - October, 30, 2025
 
 - Security related updates and changes necessary due to them.
