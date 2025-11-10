@@ -177,7 +177,7 @@
     }
 
     &.shiftOptions {
-      .listItem:not(.groupLabel) {
+      .listItem.multiSelectListItem:not(.groupLabel) {
         padding-left: var(--spacing-layout-s);
       }
     }
