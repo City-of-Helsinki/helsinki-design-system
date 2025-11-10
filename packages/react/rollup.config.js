@@ -147,7 +147,13 @@ const getConfig = (format, extractCSS) => ({
   plugins: [
     includePaths({ paths: ['src'], extensions }),
     resolve(),
-    typescript(),
+    typescript({
+      clean: true,
+      useTsconfigDeclarationDir: true,
+      tsconfigOverride: {
+        exclude: ['**/*.test.tsx', '**/*.test.ts', '**/*.stories.tsx', 'node_modules'],
+      },
+    }),
     isEsmOutputFormat(format) &&
       babel({
         babelHelpers: 'runtime',

@@ -9,6 +9,7 @@
     "forceConsistentCasingInFileNames": true,
     "sourceMap": true,
     "declaration": true,
+    "declarationDir": "lib",
     "esModuleInterop": true,
     "resolveJsonModule": true,
     "jsx": "react",
