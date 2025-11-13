@@ -73,6 +73,74 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+## [4.X.X] - Month, XX, 202X
+
+### React
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+- [Storybook] Loading HelsinkiGrotesk font from CDN
+
+#### Fixed
+
+### Core
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+- [Storybook] Loading HelsinkiGrotesk font from CDN
+
+#### Fixed
+
+### Documentation
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+- Loading HelsinkiGrotesk font from CDN
+
+#### Fixed
+
+### Figma
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+#### Fixed
+
+### Icon kit
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+#### Fixed
+
+### Hds-js
+
+#### Breaking
+
+#### Added
+
+#### Changed
+
+#### Fixed
+
 ## [4.8.1] - November, 10, 2025
 
 Small fix to build process to output correct Typescript typings for some components which missed them.
