@@ -6,64 +6,11 @@
 @import '~hds-design-tokens/lib/all.scss';
 @import 'utils.scss';
 
+/* Import HelsinkiGrotesk fonts from CDN */
+@import 'https://new-makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css';
+
 :root {
   --page-border-color: var(--color-black-20);
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: 400;
-  src: url('../fonts/565d73a693abe0776c801607ac28f0bf.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: 400;
-  src: url('../fonts/5bb29e3b7b1d3ef30121229bbe67c3e1.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: 500;
-  src: url('../fonts/7c46f288e8133b87e6b12b45dac71865.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: 500;
-  src: url('../fonts/e62dc97e83a385e4d8cdc939cf1e4213.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: 700;
-  src: url('../fonts/533af26cf28d7660f24c2884d3c27eac.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: 700;
-  src: url('../fonts/20d494430c87e15e194932b729d48270.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: normal;
-  font-weight: 900;
-  src: url('../fonts/a50a1bd245ce63abcc0d1da80ff790d2.woff') format('woff');
-}
-
-@font-face {
-  font-family: HelsinkiGrotesk;
-  font-style: italic;
-  font-weight: 900;
-  src: url('../fonts/62a1781d8b396fbb025b0552cf6304d2.woff') format('woff');
 }
 
 html {
