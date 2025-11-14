@@ -56,6 +56,7 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
+- [Cookie Consent] Example of adding `hds-*` namespace to personalised cookies group.
 
 #### Changed
 
