@@ -16,7 +16,38 @@
       ]
     }
   ],
-  "optionalGroups": [],
+  "optionalGroups": [
+    {
+      "groupId": "preferences",
+      "title": {
+        "fi": "Personointi",
+        "sv": "Preferens",
+        "en": "Preference"
+      },
+      "description": {
+        "fi": "Mieltymysevästeet mukauttavat sivuston ulkoasua ja toimintaa käyttäjän aiemman käytön perusteella.",
+        "sv": "Preferenscookies ändrar webbplatsens utseende och funktioner enligt användarens tidigare användning.",
+        "en": "Preference cookies modify the visuals and functions of the website based on the user's previous sessions."
+      },
+      "cookies": [
+        {
+          "name": "hds-*",
+          "host": "-",
+          "description": {
+            "fi": "Helsinki Design System -evästeet.",
+            "sv": "Helsingfors designsystemets kakor.",
+            "en": "Helsinki Design System cookies."
+          },
+          "expiration": {
+            "fi": "1826 päivää",
+            "sv": "1826 dagar",
+            "en": "1826 days"
+          },
+          "storageType": 2
+        }
+      ]
+    }
+  ],
   "robotCookies": [],
   "groupsWhitelistedForApi": [],
   "translations": {
