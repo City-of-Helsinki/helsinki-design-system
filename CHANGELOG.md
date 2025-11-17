@@ -26,6 +26,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Select] Jumping to the end of Virtualized lists with END press.
 
 ### Core
 
