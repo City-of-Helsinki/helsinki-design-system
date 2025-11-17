@@ -11,9 +11,13 @@ import {
   isAnyListChildType,
 } from './useElementDetection';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
+import tagStyles from '../../tag/Tag.module.scss';
 
 // what key presses should do.
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role#keyboard_interactions
+
+// Delay to allow dropdown close animation and DOM updates to complete before moving focus
+const FOCUS_TRANSITION_DELAY = 50;
 
 const alphanumRegExp = /[a-z0-9äöå]/i;
 
@@ -520,15 +524,15 @@ export function useKeyboard() {
             const savedTarget = targetElement;
 
             // Check what type of element we're targeting
-            if (savedTarget.classList.contains('Tag_tag__Hkb9W') || savedTarget.closest('[class*="Tag_tag"]')) {
+            if (savedTarget.closest(`.${tagStyles.tag}`)) {
               // Target is a tag - use the focus system to focus first tag
               updateMetaData({ focusTarget: 'tag' });
             } else {
-              // Target is not a tag - focus it directly after a brief delay
+              // Target is not a tag - wait for dropdown to close before focusing
               setTimeout(() => {
                 updateMetaData({ focusTarget: undefined });
                 savedTarget.focus();
-              }, 50);
+              }, FOCUS_TRANSITION_DELAY);
             }
           } else {
             // No target element, focus the button
@@ -544,7 +548,7 @@ export function useKeyboard() {
         e.preventDefault();
       }
     },
-    [getEventElementType, getData, getMetaData],
+    [getEventElementType, getData, getMetaData, updateMetaData, trigger],
   );
 
   useEffect(() => {
