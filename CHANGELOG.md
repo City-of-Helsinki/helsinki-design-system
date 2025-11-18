@@ -63,6 +63,7 @@ Changes that are not related to specific components
 Changes that are not related to specific components
 
 - Loading HelsinkiGrotesk font from CDN
+- Updated the accessibility statement to remove the mention of a resolved table-related issue
 
 #### Fixed
 
