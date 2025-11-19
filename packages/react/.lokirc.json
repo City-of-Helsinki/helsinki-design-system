@@ -1,5 +1,6 @@
 {
   "chromeRetries": 2,
+  "chromeDockerImage": "browserless/chrome:latest",
   "configurations": {
     "chrome.laptop": {
       "target": "chrome.docker",
