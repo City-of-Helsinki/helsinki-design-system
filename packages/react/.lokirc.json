@@ -1,15 +1,14 @@
 {
   "chromeRetries": 2,
-  "chromeDockerImage": "browserless/chrome:latest",
   "configurations": {
     "chrome.laptop": {
-      "target": "chrome.docker",
+      "target": "chrome.app",
       "width": 1366,
       "height": 768,
       "mobile": false
     },
     "chrome.iphone7": {
-      "target": "chrome.docker",
+      "target": "chrome.app",
       "preset": "iPhone 7"
     }
   },
