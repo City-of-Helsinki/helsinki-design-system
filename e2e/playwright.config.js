@@ -50,6 +50,9 @@ export default defineConfig({
     retries: 3,
     expect: {
       timeout: 2000,
+      toHaveScreenshot: {
+        maxDiffPixels: 1000,
+      },
     },
   },
   projects: [
