@@ -1,5 +1,6 @@
 {
   "chromeRetries": 2,
+  "chromeDockerImage": "yukinying/chrome-headless-browser-stable:120.0.6099.109",
   "configurations": {
     "chrome.laptop": {
       "target": "chrome.docker",
