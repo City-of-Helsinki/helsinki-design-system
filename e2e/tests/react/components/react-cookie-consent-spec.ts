@@ -1,5 +1,5 @@
 import { test, expect, Page, Locator } from '@playwright/test';
-import { getFocusedElement, isLocatorSelectedOrChecked } from '../../../utils/element.util';
+import { getFocusedElement, isLocatorSelectedOrChecked, waitForStablePosition } from '../../../utils/element.util';
 import {
   gotoStorybookUrlByName,
   createScreenshotFileName,
@@ -250,9 +250,11 @@ test.describe(`Banner`, () => {
     const banner = getBannerOrPageLocator(page);
     // isVisible does not seem to work with shadow dom
     expect(banner).toHaveCount(1);
+    await waitForStablePosition(banner);
     const screenshotName = createScreenshotFileName(testInfo, hasTouch);
     await takeScreenshotWithSpacing(page, banner, screenshotName);
     await changeLanguage(page, 'sv');
+    await waitForStablePosition(banner);
     const screenshotNameSV = createScreenshotFileName(testInfo, hasTouch, 'sv language');
     await takeScreenshotWithSpacing(page, banner, screenshotNameSV);
   });
