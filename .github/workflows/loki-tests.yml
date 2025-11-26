@@ -20,6 +20,9 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v4
 
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@v3
+
       - name: download all artifacts
         uses: actions/download-artifact@v4
         with:
@@ -60,7 +63,7 @@ jobs:
         run: |
           sudo apt update
           sudo apt install graphicsmagick -y
-          yarn add loki@0.32.0
+          yarn add loki@0.35.1
         working-directory: ./packages/react
 
       - name: Sanitize artifact name. Backslash not allowed
