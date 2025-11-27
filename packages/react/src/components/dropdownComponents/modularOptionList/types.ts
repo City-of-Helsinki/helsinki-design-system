@@ -1,4 +1,4 @@
-import { ReactElement, RefObject } from 'react';
+import { ReactElement, ReactNode, RefObject } from 'react';
 
 import { AllElementPropsWithoutRef } from '../../../utils/elementTypings';
 import { DataHandlers } from '../../dataProvider/DataContext';
@@ -10,6 +10,7 @@ export type Option = {
   isGroupLabel: boolean;
   visible: boolean;
   disabled: boolean;
+  iconStart?: ReactNode;
 };
 export type OptionInProps = Partial<Option>;
 export type Group = { options: Option[] };

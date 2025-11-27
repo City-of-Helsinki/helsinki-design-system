@@ -573,6 +573,14 @@ test.describe(`Element state snapshots`, () => {
       true,
     );
   });
+  test('Singleselect with icons - dropdown open', async ({ page, hasTouch }, testInfo) => {
+    await gotoStorybookUrlByName(page, 'Singleselect With Icons', componentName, storybook);
+    const selectUtil = createSelectHelpers(page, selectId);
+    await selectUtil.openList();
+    const screenshotName = createScreenshotFileName(testInfo, hasTouch);
+    const clip = await selectUtil.getBoundingBox();
+    await expect(page).toHaveScreenshot(screenshotName, { clip, fullPage: true });
+  });
   test('Tag buttons', async ({ page, hasTouch }, testInfo) => {
     await gotoStorybookUrlByName(page, storyWithMultiSelectAndGroupsWithFilter, componentName, storybook);
     const selectUtil = createSelectHelpers(page, selectId);

@@ -4,13 +4,15 @@ import { action } from '@storybook/addon-actions';
 import { ModularOptionList } from './ModularOptionList';
 import { getOptionLabels } from './batch.options';
 import { ModularOptionListProps, Texts, Option } from './types';
+import { IconDocument, IconUser } from '../../../icons';
 
 export default {
   component: ModularOptionList,
   title: 'Components/DropdownComponents/ModularOptionList',
 };
 
-const genericOnChangeCallback: ModularOptionListProps['onChange'] = () => {
+// eslint-disable-next-line @typescript-eslint/no-unused-vars
+const genericOnChangeCallback: ModularOptionListProps['onChange'] = (selectedOptions, clickedOption, data) => {
   action('onChange');
 };
 
@@ -125,4 +127,28 @@ export const MultiselectWithGroups = () => {
       id="hds-select-component"
     />
   );
+};
+
+export const WithIcons = () => {
+  const groups: ModularOptionListProps['groups'] = [
+    {
+      label: 'Users',
+      options: [
+        { value: 'user1', label: 'John Doe', iconStart: <IconUser aria-hidden /> },
+        { value: 'user2', label: 'Jane Smith', iconStart: <IconUser aria-hidden /> },
+        { value: 'user3', label: 'Bob Johnson', iconStart: <IconUser aria-hidden /> },
+      ],
+    },
+    {
+      label: 'Documents',
+      options: [
+        { value: 'doc1', label: 'Report.pdf', iconStart: <IconDocument aria-hidden /> },
+        { value: 'doc2', label: 'Presentation.pptx', iconStart: <IconDocument aria-hidden /> },
+      ],
+    },
+  ];
+  const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
+    genericOnChangeCallback(selectedOptions, lastClickedOption, props);
+  }, []);
+  return <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />;
 };

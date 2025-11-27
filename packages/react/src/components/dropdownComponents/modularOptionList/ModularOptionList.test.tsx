@@ -18,6 +18,7 @@ import {
 import { getAllOptions } from './utils';
 import { Option } from './types';
 import { isOptionClickEvent } from './events';
+import { IconHome } from '../../../icons';
 
 jest.mock('./hooks/useModularOptionListDataHandlers', () => ({
   useModularOptionListDataHandlers: () => mockUseModularOptionListDataHandlersContents,
@@ -49,6 +50,24 @@ describe('<ModularOptionList />', () => {
   const getOptionElements = ({ getElementById, metaData }: Partial<ReturnType<typeof initTests>>) => {
     const list = getList({ getElementById, metaData });
     return list.querySelectorAll('li') as unknown as HTMLLIElement[];
+  };
+  const getMultiSelectOptionElements = ({ getElementById, metaData }: Partial<ReturnType<typeof initTests>>) => {
+    // Multiselect options can be either div (in groups) or li (not in groups)
+    const list = getList({ getElementById, metaData });
+    const groups = list.querySelectorAll('div[role="group"]');
+    const optionElements: HTMLElement[] = [];
+
+    // Get options from groups (div[role="checkbox"])
+    groups.forEach((group) => {
+      const groupOptions = group.querySelectorAll('div[role="checkbox"]');
+      optionElements.push(...(Array.from(groupOptions) as HTMLElement[]));
+    });
+
+    // Get options not in groups (li[role="option"])
+    const listOptions = list.querySelectorAll('li[role="option"]');
+    optionElements.push(...(Array.from(listOptions) as HTMLElement[]));
+
+    return optionElements;
   };
   const initTests = (data: OptionalModularOptionListData = {}, metaData?: OptionalModularOptionListMetaData) => {
     updateMockData({
@@ -150,6 +169,43 @@ describe('<ModularOptionList />', () => {
       optionElements.forEach((optionEl) => {
         fireEvent.click(optionEl);
         expect(getTriggeredEvents()).toHaveLength(0);
+      });
+    });
+  });
+
+  describe('IconStart support', () => {
+    it('Renders iconStart in single select options', () => {
+      const initData = createDataWithSelectedOptions({ totalOptionsCount: 3 });
+      const options = getAllOptions(initData.groups);
+      options[0].iconStart = <IconHome aria-label="home icon" />;
+      initData.groups[0].options = [initData.groups[0].options[0], ...options];
+      const { getElementById, metaData } = initTests(initData);
+      const optionElements = getOptionElements({ getElementById, metaData });
+      const firstOption = optionElements[0];
+      expect(firstOption.querySelector('[aria-label="home icon"]')).toBeTruthy();
+    });
+    it('Does not render iconStart in multiselect options', () => {
+      const initData = createDataWithSelectedOptions({ totalOptionsCount: 3 });
+      const options = getAllOptions(initData.groups);
+      // Add iconStart to all options (create new objects to avoid mutation)
+      const optionsWithIcons = options.map((option) => ({
+        ...option,
+        iconStart: <IconHome aria-label="home icon" />,
+      }));
+      initData.groups[0].options = optionsWithIcons;
+      const { getElementById, metaData } = initTests({ ...initData, multiSelect: true });
+      const optionElements = getMultiSelectOptionElements({ getElementById, metaData });
+
+      // Verify that no icons are present in multiselect options
+      expect(optionElements.length).toBeGreaterThan(0);
+      optionElements.forEach((optionEl) => {
+        // Check that the option doesn't contain any SVG elements (icons are typically SVG)
+        const svgElements = optionEl.querySelectorAll('svg');
+        expect(svgElements.length).toBe(0);
+
+        // Check that the option doesn't contain elements with aria-label="home icon"
+        const iconElements = optionEl.querySelectorAll('[aria-label="home icon"]');
+        expect(iconElements.length).toBe(0);
       });
     });
   });

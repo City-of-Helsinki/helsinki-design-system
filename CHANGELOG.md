@@ -13,6 +13,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
+- [ModularOptionsList, Select] Single-select `Option` can now be given an `iconStart`-prop which renders preferably an icon to the start-side of the label. (type of `ReactNode`, designed to be used with 24px x 24px icons)
+
 #### Changed
 
 - [Notification] body text size set to --fontsize-body-m all variations
@@ -38,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Breaking
 
 #### Added
+
+- [Select] Examples of `iconStart`-usage in Single select options.
 
 #### Changed
 

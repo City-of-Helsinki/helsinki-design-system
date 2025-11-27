@@ -13,23 +13,24 @@ export const isSingleSelectOption = (element: HTMLElement | null | undefined) =>
   return element && element.matches(singleSelectOptionSelector);
 };
 
-const Label = ({ text, selected }: { text: string; selected: boolean }) => {
+const Label = ({ text, selected, iconStart }: { text: string; selected: boolean; iconStart?: React.ReactNode }) => {
   return (
     <span className={styles.singleSelectListItemLabel}>
-      {text}
-      {selected ? (
-        <span>
-          <IconCheck aria-hidden />
+      {iconStart ? (
+        <span className={styles.labelContent}>
+          <span className={styles.iconStart}>{iconStart}</span>
+          <span className={styles.labelText}>{text}</span>
         </span>
       ) : (
-        ''
+        text
       )}
+      {selected ? <IconCheck aria-hidden /> : null}
     </span>
   );
 };
 
 const createSingleSelectItemProps = ({ option, trigger, getOptionId }: ModularOptionListItemProps): LiElementProps => {
-  const { label, selected, disabled } = option;
+  const { label, selected, disabled, iconStart } = option;
   return {
     className: classNames(
       styles.listItem,
@@ -39,7 +40,7 @@ const createSingleSelectItemProps = ({ option, trigger, getOptionId }: ModularOp
       selected && styles.selected,
       disabled && styles.disabledOption,
     ),
-    children: <Label text={label} selected={selected} />,
+    children: <Label text={label} selected={selected} iconStart={iconStart} />,
     onClick: (originalEvent: React.MouseEvent) => {
       if (option.selected) {
         return;

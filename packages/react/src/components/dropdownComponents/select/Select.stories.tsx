@@ -12,7 +12,7 @@ import {
   getSelectedOptions,
 } from '../modularOptionList/utils';
 import { Option, OptionInProps, Group, SupportedLanguage } from '../modularOptionList/types';
-import { IconBell, IconCogwheels, IconLocation, IconMoneyBag } from '../../../icons';
+import { IconBell, IconCogwheels, IconDocument, IconLocation, IconMoneyBag, IconUser } from '../../../icons';
 import { Button } from '../../button/Button';
 import {
   getOptionLabels,
@@ -128,6 +128,39 @@ export const Singleselect = () => {
   return (
     <Select
       options={options}
+      onChange={onChange}
+      icon={<IconLocation />}
+      required
+      texts={defaultTexts}
+      id="hds-select-component"
+    />
+  );
+};
+
+export const SingleselectWithIcons = () => {
+  const groups: SelectProps['groups'] = [
+    {
+      label: 'Users',
+      options: [
+        { value: 'user1', label: 'John Doe', iconStart: <IconUser aria-hidden /> },
+        { value: 'user2', label: 'Jane Smith', iconStart: <IconUser aria-hidden /> },
+        { value: 'user3', label: 'Bob Johnson', iconStart: <IconUser aria-hidden /> },
+      ],
+    },
+    {
+      label: 'Documents',
+      options: [
+        { value: 'doc1', label: 'Report.pdf', iconStart: <IconDocument aria-hidden /> },
+        { value: 'doc2', label: 'Presentation.pptx', iconStart: <IconDocument aria-hidden /> },
+      ],
+    },
+  ];
+  const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
+    return requireOneSelection(selectedOptions, lastClickedOption, props);
+  }, []);
+  return (
+    <Select
+      groups={groups}
       onChange={onChange}
       icon={<IconLocation />}
       required

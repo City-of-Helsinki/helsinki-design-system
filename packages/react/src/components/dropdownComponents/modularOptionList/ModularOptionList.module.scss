@@ -55,6 +55,24 @@
       }
     }
 
+    .groupLabel {
+      @extend %dropdownMenuItem;
+
+      align-items: center;
+      background-color: var(--computed-menu-item-group-label-background-default);
+      display: flex;
+      font-weight: bold;
+
+      &.disabledOption.disabledOption {
+        background-color: var(--computed-menu-item-group-label-background-disabled);
+        color: var(--computed-menu-item-group-label-color-disabled);
+
+        &:hover {
+          background-color: var(--computed-menu-item-group-label-background-disabled-hover);
+        }
+      }
+    }
+
     .singleSelectListItem {
       --computed-menu-item-background-color-hover: var(--menu-item-background-color-hover, var(--color-bus-light));
       --computed-menu-item-background-color-selected: var(--menu-item-background-color-selected, var(--color-bus));
@@ -71,10 +89,23 @@
         flex-grow: 1;
         justify-content: space-between;
 
-        > span {
-          color: var(--computed-menu-item-icon-color-selected);
-          height: 24px;
-          width: 24px;
+        .labelContent {
+          align-items: center;
+          display: flex;
+          flex-shrink: 1;
+          gap: var(--spacing-xs);
+          min-width: fit-content;
+        }
+
+        .labelText {
+          flex-shrink: 1;
+          min-width: 0;
+        }
+
+        .iconStart {
+          align-items: center;
+          display: flex;
+          flex-shrink: 0;
         }
       }
 
@@ -87,6 +118,7 @@
       position: relative;
 
       .checkboxContainer {
+        align-items: center;
         display: flex;
         flex-direction: row;
 
@@ -101,6 +133,8 @@
         label {
           cursor: pointer;
           flex-grow: 1;
+          flex-shrink: 1;
+          min-width: 0;
           padding-left: var(--spacing-xs);
 
           &:after {
@@ -117,22 +151,6 @@
 
       &.disabledOption.disabledOption label {
         cursor: not-allowed;
-      }
-    }
-
-    .groupLabel {
-      @extend %dropdownMenuItem;
-
-      background-color: var(--computed-menu-item-group-label-background-default);
-      font-weight: bold;
-
-      &.disabledOption.disabledOption {
-        background-color: var(--computed-menu-item-group-label-background-disabled);
-        color: var(--computed-menu-item-group-label-color-disabled);
-
-        &:hover {
-          background-color: var(--computed-menu-item-group-label-background-disabled-hover);
-        }
       }
     }
 
