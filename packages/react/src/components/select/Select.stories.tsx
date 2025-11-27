@@ -641,9 +641,10 @@ export const VirtualizedMultiselectWithGroups = () => {
     },
     {
       label: 'More healthy choices',
-      options: getLargeBatchOfUniqueValues(1000),
+      options: getLargeBatchOfUniqueValues(1000, 1000),
     },
   ];
+
   const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
@@ -668,7 +669,7 @@ export const VirtualizedSingleselectWithGroups = () => {
     },
     {
       label: 'More healthy choices',
-      options: getLargeBatchOfUniqueValues(1000),
+      options: getLargeBatchOfUniqueValues(1000, 1000),
     },
   ];
   const onChange: SelectProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
