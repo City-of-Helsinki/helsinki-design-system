@@ -3,7 +3,7 @@
 /* Do not remove this file, it is needed for storybook to build */
 
 /* Import HelsinkiGrotesk fonts from CDN */
-@import 'https://new-makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css';
+@import 'https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css';
 
 body {
   font-family: var(--font-default);

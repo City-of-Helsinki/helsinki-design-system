@@ -27,6 +27,7 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 - [Select] Jumping to the end of Virtualized lists with END press.
+- [Login] TokenizedFetchModule exports were missing.
 
 ### Core
 

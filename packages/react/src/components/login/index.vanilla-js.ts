@@ -8,6 +8,7 @@ export { ApiTokenClientProps, TokenData, ApiTokenClient, ApiTokensClientEvent } 
 export { SessionPoller, SessionPollerEvent, SessionPollerOptions } from './sessionPoller/sessionPoller';
 export { GraphQLModule, GraphQLModuleModuleProps, GraphQLModuleEvent } from './graphQLModule/index';
 export { ApolloClientModule, ApolloClientModuleProps, ApolloClientModuleEvent } from './apolloClient/index';
+export { TokenizedFetchModule, TokenizedFetchModuleProps, TokenizedFetchModuleEvent } from './tokenizedFetch/index';
 export {
   OidcClient,
   OidcClientEvent,
@@ -50,6 +51,7 @@ export * from './apiTokensClient/apiTokensClient';
 export { createSessionPoller } from './sessionPoller/sessionPoller';
 export { createGraphQLModule } from './graphQLModule/graphQLModule';
 export { createApolloClientModule } from './apolloClient/apolloClientModule';
+export { createTokenizedFetchModule } from './tokenizedFetch/tokenizedFetch';
 
 // beacon
 export { createBeacon, createSignalTrigger } from './beacon/beacon';
@@ -59,6 +61,7 @@ export * from './apiTokensClient/apiTokensClientError';
 export * from './client/oidcClientError';
 export * from './sessionPoller/sessionPollerError';
 export * from './graphQLModule/graphQLModuleError';
+export * from './tokenizedFetch/tokenizedFetchError';
 
 // utils
 export { isHandlingLoginCallbackError } from './components/LoginCallbackHandler.util';
@@ -78,6 +81,7 @@ export { oidcClientEvents } from './client/index';
 export { sessionPollerEvents } from './sessionPoller/sessionPoller';
 export { graphQLModuleEvents } from './graphQLModule/index';
 export { apolloClientModuleEvents } from './apolloClient/index';
+export { tokenizedFetchModuleEvents } from './tokenizedFetch/index';
 
 // stateChanges
 export { oidcClientStates } from './client/index';
@@ -91,12 +95,14 @@ export { oidcClientNamespace } from './client/index';
 export { sessionPollerNamespace } from './sessionPoller/sessionPoller';
 export { graphQLModuleNamespace } from './graphQLModule/index';
 export { apolloClientModuleNamespace } from './apolloClient/index';
+export { tokenizedFetchModuleNamespace } from './tokenizedFetch/index';
 
 // signals
 export * from './apiTokensClient/signals';
 export * from './client/signals';
 export * from './sessionPoller/signals';
 export * from './graphQLModule/signals';
+export * from './tokenizedFetch/signals';
 export {
   initSignalType,
   errorSignalType,
