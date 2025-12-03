@@ -32,7 +32,7 @@
     $font-weight-700: false, // Bold
     $font-weight-900: false, // Black
   ){
-    $font-cdn-base: 'https://new-makasiini.hel.ninja/delivery/HelsinkiGrotesk';
+    $font-cdn-base: 'https://makasiini.hel.ninja/delivery/HelsinkiGrotesk';
 
     @if $all or ($font-weight-400) {
       @font-face {
