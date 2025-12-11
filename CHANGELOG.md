@@ -87,6 +87,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+- [Select] Jumping to the end of Virtualized lists with END press.
 - [Login] TokenizedFetchModule exports were missing.
 
 ### Core
@@ -113,6 +114,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - Loading HelsinkiGrotesk font from CDN
+- Updated the accessibility statement to remove the mention of a resolved table-related issue
 
 #### Fixed
 

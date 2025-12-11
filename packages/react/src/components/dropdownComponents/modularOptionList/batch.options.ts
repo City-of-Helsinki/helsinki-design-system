@@ -535,22 +535,22 @@ export const getOptions = (count = 20): OptionInProps[] => {
   });
 };
 
-export const getLargeBatchOfUniqueValues = (count: number): OptionInProps[] => {
+export const getLargeBatchOfUniqueValues = (count: number, startIndex = 0): OptionInProps[] => {
   const maxNow = optionLabels.length;
   const batch: OptionInProps[] = [];
 
-  let uid = 0;
+  let uid = startIndex;
   const makeUniqueOption = (label: string) => {
     uid += 1;
     const value = `${label} ${uid}`;
     return {
-      label,
+      label: `${label} ${uid}`,
       value,
     };
   };
 
   for (let i = 0; i < count; i += 1) {
-    const arrIndex = i % maxNow;
+    const arrIndex = (startIndex + i) % maxNow;
     batch.push(makeUniqueOption(optionLabels[arrIndex]));
   }
   return batch;

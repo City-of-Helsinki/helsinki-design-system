@@ -26,7 +26,7 @@ export const createOptionElements = ({
       const props: ModularOptionListItemProps & { key: string } = {
         option,
         trigger,
-        key: option.value,
+        key: getOptionId(option),
         getOptionId,
       };
       if (multiSelect) {

@@ -2,7 +2,7 @@ import { KeyboardEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
 import { KnownElementType } from '../types';
-import { defaultFilter, filterSelectableOptions } from '../utils';
+import { defaultFilter, filterSelectableOptions, getAllOptions } from '../utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,
@@ -138,6 +138,21 @@ export function useKeyboard() {
   // The keydown element type is stored to prevent this.
   // If keydown type is different that keyup, then keydown shifted focus and keyup should be ignored.
   const keyDownElementType = useRef<KnownElementType | null>(null);
+  // Store MutationObserver refs for END key element detection so we can clean them up
+  const endKeyObserverRef = useRef<MutationObserver | null>(null);
+  const endKeyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cleanup function for END key MutationObserver and timeout
+  const disconnectEndKeyObserver = useCallback(() => {
+    if (endKeyObserverRef.current) {
+      endKeyObserverRef.current.disconnect();
+      endKeyObserverRef.current = null;
+    }
+    if (endKeyTimeoutRef.current) {
+      clearTimeout(endKeyTimeoutRef.current);
+      endKeyTimeoutRef.current = null;
+    }
+  }, []);
 
   const scrollToFocusedElement = useCallback(() => {
     if (document.activeElement) {
@@ -177,6 +192,26 @@ export function useKeyboard() {
       }
 
       const moveFocusToFirstListItem = () => {
+        const data = getData();
+
+        // In virtualize mode, get first option from data instead of DOM
+        if (data.virtualize) {
+          const allOptions = getAllOptions(data.groups).filter((opt) => opt.visible && !opt.disabled);
+          const firstOption = allOptions[0];
+
+          if (firstOption) {
+            const optionId = getMetaData().getOptionId(firstOption);
+            const el = document.getElementById(optionId);
+
+            if (el) {
+              el.focus();
+              scrollToFocusedElement();
+              return;
+            }
+          }
+        }
+
+        // Fallback to DOM query for non-virtualized mode
         const listItems = getSelectableListItems();
         const el = listItems[0];
         if (el) {
@@ -186,6 +221,72 @@ export function useKeyboard() {
       };
 
       const moveFocusToLastListItem = () => {
+        const data = getData();
+
+        // In virtualize mode, get last option from data instead of DOM
+        if (data.virtualize) {
+          const allOptions = getAllOptions(data.groups).filter((opt) => opt.visible && !opt.disabled);
+          const lastOption = allOptions[allOptions.length - 1];
+
+          if (lastOption) {
+            const optionId = getMetaData().getOptionId(lastOption);
+            const el = document.getElementById(optionId);
+
+            if (el) {
+              // Element already rendered, just focus it
+              el.focus();
+              scrollToFocusedElement();
+            } else {
+              // Element not yet rendered, scroll to bottom to trigger chunk loading
+              // Clean up any existing observer first
+              disconnectEndKeyObserver();
+
+              const { refs } = getMetaData();
+              const listElement = refs.list.current;
+              if (listElement) {
+                listElement.scrollTop = listElement.scrollHeight;
+
+                // Set up MutationObserver to watch for the element to appear
+                // Chunk rendering can take 300-500ms for large datasets
+                const checkForElement = () => {
+                  const elAfterScroll = document.getElementById(optionId);
+                  if (elAfterScroll) {
+                    elAfterScroll.focus();
+                    scrollToFocusedElement();
+                    disconnectEndKeyObserver();
+                  }
+                };
+
+                // Set up timeout to disconnect observer after 10 seconds
+                endKeyTimeoutRef.current = setTimeout(() => {
+                  disconnectEndKeyObserver();
+                }, 10000);
+
+                // Set up MutationObserver to watch for DOM changes
+                const observer = new MutationObserver(() => {
+                  checkForElement();
+                });
+
+                // Observe the list container for child additions
+                const observeTarget = refs.listContainer?.current || listElement;
+                if (observeTarget) {
+                  observer.observe(observeTarget, {
+                    childList: true,
+                    subtree: true,
+                  });
+
+                  endKeyObserverRef.current = observer;
+
+                  // Check immediately in case element is already rendered
+                  checkForElement();
+                }
+              }
+            }
+            return;
+          }
+        }
+
+        // Fallback to DOM query for non-virtualized mode
         const listItems = getSelectableListItems();
         const el = listItems.pop();
         if (el) {
@@ -314,7 +415,19 @@ export function useKeyboard() {
         focusToFirstFilteredOption(keyCache.getValue());
       }
     },
-    [trigger, getData, getMetaData, updateMetaData],
+    [
+      trigger,
+      getData,
+      getMetaData,
+      updateMetaData,
+      getEventElementType,
+      getSelectableListItems,
+      getSelectableListItemSiblings,
+      scrollToFocusedElement,
+      focusToFirstFilteredOption,
+      disconnectEndKeyObserver,
+      keyCache,
+    ],
   );
 
   const onKeyDown = useCallback(
@@ -333,6 +446,18 @@ export function useKeyboard() {
       focusToFirstFilteredOption(keyCache.getValue());
     }
   });
+
+  // Cleanup MutationObserver when dropdown closes or component unmounts
+  const isOpen = getData().open;
+  useEffect(() => {
+    if (!isOpen) {
+      disconnectEndKeyObserver();
+    }
+    // Cleanup on unmount
+    return () => {
+      disconnectEndKeyObserver();
+    };
+  }, [isOpen, disconnectEndKeyObserver]);
 
   return {
     onKeyUp,

@@ -4,7 +4,7 @@ import { useRenderChildrenInChunks } from '../hooks/useRenderChildrenInChunks';
 import { createContainerProps, createGroups } from './MultiSelectListWithGroups';
 import { Group } from '../types';
 import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListDataHandlers';
-import { getAllOptions } from '../utils';
+import { getAllOptions, getVisibleGroupLabels } from '../utils';
 import { createListElementProps, createOptionElements } from './SingleSelectAndGrouplessList';
 
 export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectWithGroups: boolean }) => {
@@ -13,17 +13,22 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
   const { groups, multiSelect } = getData();
   const { getOptionId, refs, elementIds } = getMetaData();
 
-  const allOptions = getAllOptions(groups);
-  const shouldRenderOptions = true; // TODO !isSearching;
+  // In multiselect with groups, group labels are rendered, so include them in the count
+  // For single select with groups, group labels are also rendered, so include them
+  // Otherwise, exclude them as they're not focusable/rendered
+  const hasVisibleGroupLabels = getVisibleGroupLabels(groups).length > 0;
+  const filterOutGroupLabels = !(forMultiSelectWithGroups || (!multiSelect && hasVisibleGroupLabels));
+  const allOptions = getAllOptions(groups, filterOutGroupLabels);
+  const shouldRenderOptions = true;
   const currentChildren = useRenderChildrenInChunks(shouldRenderOptions ? allOptions : []);
 
   const createVirtualGroups = (): Group[] => {
     let childrenLeft = currentChildren.length;
-    if (!shouldRenderOptions) {
-      return [];
-    }
     return groups.map((group) => {
+      // Filter visible options (this includes group label if visible)
       const options = group.options.filter((opt) => opt.visible);
+      // Calculate how many items we can render from this group
+      // The options array already includes the group label as first element if visible
       const allowedLength = Math.min(options.length, childrenLeft);
       childrenLeft -= allowedLength;
       return {
