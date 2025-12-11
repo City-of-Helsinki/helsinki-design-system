@@ -28,6 +28,7 @@ import {
   isFilterChangeEvent,
   isGenericBlurEvent,
   isOpenOrCloseEvent,
+  isOptionClickEvent,
   isOutsideClickEvent,
   isRemoveTagEventId,
   isSearchChangeEvent,
@@ -128,8 +129,19 @@ const dataUpdater = (
     );
   };
 
-  // Handle tag removal (Select-specific, not delegated to ModularOptionList)
-  if (isRemoveTagEventId(id) && type === eventTypes.click) {
+  if (isOpenOrCloseEvent(id, type)) {
+    const willOpen = !current.open;
+    const didUpdate = openOrClose(willOpen);
+    if (didUpdate && willOpen) {
+      setFocusTarget(dataHandlers.getMetaData().listInputType ? 'searchOrFilterInput' : 'list');
+    }
+    return {
+      ...returnValue,
+      didDataChange: didUpdate,
+    };
+  }
+
+  if (isOptionClickEvent(id, type)) {
     const clickedOption = payload && (payload.value as Option);
     if (!clickedOption) {
       return returnValue;
@@ -138,25 +150,31 @@ const dataUpdater = (
       current.groups,
       {
         ...clickedOption,
-        selected: false, // Deselect the option when tag is removed
+        selected: !clickedOption.selected,
       },
       current.multiSelect,
     );
     updateGroups(newGroups, clickedOption);
+    openOrClose(id !== eventIds.tag && current.multiSelect);
+    if (id === eventIds.listItem && !current.multiSelect) {
+      setFocusTarget('button');
+    } else if (isRemoveTagEventId(id)) {
+      const currentMetaData = dataHandlers.getMetaData();
+      const remainingOptions = currentMetaData.selectedOptions.length;
+      const hasSelectedItems = !!remainingOptions;
 
-    const currentMetaData = dataHandlers.getMetaData();
-    const remainingOptions = currentMetaData.selectedOptions.length;
-    const hasSelectedItems = !!remainingOptions;
-    setFocusTarget(hasSelectedItems ? 'tag' : 'button');
+      // Always move focus to first remaining tag (or button if no tags left)
+      // This provides consistent behavior for both mouse and keyboard deletion
+      setFocusTarget(hasSelectedItems ? 'tag' : 'button');
 
-    const removalText = getTextKey('tagRemoved', currentMetaData, {
-      value: clickedOption.label,
-    });
-    const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
-    const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
+      const removalText = getTextKey('tagRemoved', currentMetaData, {
+        value: clickedOption.label,
+      });
+      const currentCountText = getNumberedVariationsTextKey('tagsRemaining', currentMetaData, 'selectionCount');
+      const notification = createScreenReaderNotification(eventIds.tag, `${removalText} ${currentCountText}`);
 
-    addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
-
+      addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+    }
     return {
       ...returnValue,
       didSelectionsChange: true,

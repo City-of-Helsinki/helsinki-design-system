@@ -811,6 +811,7 @@ export const FocusListenerExample = () => {
 
         `}
       </style>
+      <Button>This is just a focus target</Button>
       <div className={isFocused ? 'focused' : 'blurred'}>
         <Select
           options={memoizedProps.options}
