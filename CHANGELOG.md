@@ -89,6 +89,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Select] Jumping to the end of Virtualized lists with END press.
 - [Login] TokenizedFetchModule exports were missing.
+- [CookieConsent] Replaced inline event handlers with proper event listeners.
 
 ### Core
 
