@@ -75,7 +75,7 @@ jobs:
         working-directory: ./packages/react
 
       - name: upload reference and actual images with ${{ matrix.loki_configuration }} and ${{ matrix.loki_test_group }} in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: loki_images_${{ matrix.loki_configuration }}_${{ steps.sanitize_artifact_name.outputs.value }}
           path: ./packages/react/.loki/difference/*.*

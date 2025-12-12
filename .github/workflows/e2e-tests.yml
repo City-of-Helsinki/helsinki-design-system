@@ -71,7 +71,7 @@ jobs:
         working-directory: ./e2e
 
       - name: upload test results in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: e2e_test_report
           path: e2e/report/
@@ -79,7 +79,7 @@ jobs:
         if: failure()
 
       - name: upload screenshot differences in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v5
         with:
           name: e2e_test_results
           path: e2e/test-results/
