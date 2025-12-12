@@ -1,8 +1,9 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
 import { useResizeObserver } from '../../../../../hooks/useResizeObserver';
+import useIsomorphicLayoutEffect from '../../../../../hooks/useIsomorphicLayoutEffect';
 import { eventIds, eventTypes } from '../../events';
 import { useSelectDataHandlers } from '../../hooks/useSelectDataHandlers';
 import {
@@ -200,7 +201,7 @@ export function ButtonWithSelectedOptions() {
 
   const [resizeRef] = useResizeObserver(calculateElements);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     calculateElements();
   });
 

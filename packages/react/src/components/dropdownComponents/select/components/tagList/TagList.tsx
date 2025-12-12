@@ -1,8 +1,9 @@
-import React, { useCallback, useLayoutEffect } from 'react';
+import React, { useCallback } from 'react';
 
 import styles from '../../Select.module.scss';
 import classNames from '../../../../../utils/classNames';
 import { useResizeObserver } from '../../../../../hooks/useResizeObserver';
+import useIsomorphicLayoutEffect from '../../../../../hooks/useIsomorphicLayoutEffect';
 import { Tags } from './Tags';
 import { SelectMetaData } from '../../types';
 import { DivElementProps } from '../../../modularOptionList/types';
@@ -88,7 +89,7 @@ export function TagList() {
 
   const [ref] = useResizeObserver(calculateElements);
 
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     calculateElements();
   });
 

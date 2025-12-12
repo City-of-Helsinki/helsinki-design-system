@@ -1,6 +1,7 @@
-import { useContext, useCallback, useState, useLayoutEffect, useRef, useMemo } from 'react';
+import { useContext, useCallback, useState, useRef, useMemo } from 'react';
 
 import { LoginContext, LoginContextData } from '../components/LoginContext';
+import useIsomorphicLayoutEffect from '../../../hooks/useIsomorphicLayoutEffect';
 import {
   ConnectedModule,
   Signal,
@@ -46,7 +47,7 @@ export const useSignalListener = (listener: SignalTrigger): [Signal | undefined,
   }, [setLastSignal]);
   // not using useEffect or some signals might be missed,
   // because useEffect is ran after first render
-  useLayoutEffect(() => {
+  useIsomorphicLayoutEffect(() => {
     const disposer = addListener('*:*', memoizedListener);
     return disposer;
   }, [memoizedListener, addListener]);
