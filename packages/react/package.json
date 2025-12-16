@@ -35,6 +35,7 @@
     "storybook": "yarn ts-check-storybook && yarn start-storybook -p 6006 --quiet",
     "build-storybook": "yarn ts-check-storybook && build-storybook --loglevel error",
     "test": "jest --env=jest-environment-jsdom-sixteen",
+    "test:coverage": "jest --env=jest-environment-jsdom-sixteen --coverage",
     "prepublishOnly": "cp -r ./lib/. .",
     "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
     "update-story-images": "loki update --requireReference --verboseRenderer --reactUri file:./storybook-static --storiesFilter ",
