@@ -214,6 +214,7 @@ export function validateOption(option: OptionInProps | string): Option {
     isGroupLabel: false,
     visible: typeof option.visible === 'boolean' ? option.visible : true,
     disabled: typeof option.disabled === 'boolean' ? option.disabled : false,
+    iconStart: option.iconStart,
   };
 }
 

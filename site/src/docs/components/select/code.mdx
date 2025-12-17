@@ -95,7 +95,8 @@ Options can also be individually hidden with the `visible` property or made unse
 | Property                     | Description                                                                | Values    | Default value |
 | ---------------------------- | -------------------------------------------------------------------------- | --------- | ------------- |
 | `disabled`                   | Can the option be selected or unselected.                                  | `boolean` | false         |
-| `isGropLabel`                | Internal. Indicates is a group label option. Should not be edited.         | `boolean` | false         |
+| `iconStart`                  | Icon to display at the start of the option label. Only applies to single-select options. Ignored for multi-select options. The icon should have the `aria-hidden` attribute set to `true`. | `ReactNode` | undefined |
+| `isGroupLabel`               | Internal. Indicates is a group label option. Should not be edited.         | `boolean` | false         |
 | `label`                      | Label, visible to the user.                                                | `string`  | -             |
 | `selected`                   | Is the option selected.                                                    | `boolean` | false         |
 | `value`                      | Value, not visible to the user.                                            | `string`  | false         |
@@ -527,7 +528,7 @@ The functions are usually called inside the onChange function. <ExternalLink hre
 | `clearable`                  | If set to true, clear selections button is displayed                                                                                            | `boolean`                                                       | false         |
 | `disabled`                   | If set to true, the component is disabled.                                                                                                      | `boolean`                                                       | false         |
 | `filter`                     | Function used for filtering options. If set, an input field is shown above the option list.                                                     | `(option, filter)=>boolean`                                     | -             |
-| `groups`                     | If options need to be grouped, options should be passed as groups. Cannot be used with `options`.                                               | `[{label:'Group label', options:[<option objects>]}]`           | -             |
+| `groups`                     | If options need to be grouped, options should be passed as groups. Cannot be used with `options`. Groups can have `label` and `options` properties.                                               | `[{label:'Group label', options:[<option objects>]}]`           | -             |
 | `icon`                       | Icon shown before in the button.                                                                                                                | `React.ReactNode`                                               | -             |
 | `id`                         | The id of the element. Given id is used as a prefix for child elements. See getIds().                                                           | `string`                                                        | -             |
 | `invalid`                    | If set to true, the component shows an error.                                                                                                   | `boolean`                                                       | false         |
