@@ -79,6 +79,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.X.X] - Month, XX, 202X
 
+- Security related updates and changes necessary due to them.
+
 ### React
 
 #### Breaking
@@ -93,6 +95,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Select] Jumping to the end of Virtualized lists with END press.
+- [Select] Select accepts options with an empty string value
+- [Select] onClose was not triggered when navigating away with keyboard
+- [Select] Keyboard navigation problems.
 - [Login] TokenizedFetchModule exports were missing.
 - [CookieConsent] Replaced inline event handlers with proper event listeners.
 
