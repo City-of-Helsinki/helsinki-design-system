@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "4.8.1",
+  "version": "4.9.0",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -103,7 +103,7 @@
     "jest-axe": "^5.0.1",
     "jest-environment-jsdom-sixteen": "^2.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "loki": "0.32.0",
+    "loki": "0.35.1",
     "path": "0.12.7",
     "postcss-import": "^12.0.1",
     "prettier": "3.2.2",
@@ -148,7 +148,7 @@
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
     "graphql": "^16.8.1",
-    "hds-core": "4.8.1",
+    "hds-core": "4.9.0",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash": "^4.17.21",
@@ -172,7 +172,7 @@
   },
   "peerDependencies": {
     "postcss": "^8.4.21",
-    "react": "^16.8.0 || ^17",
-    "react-dom": "^16.8.0 || ^17"
+    "react": "^16.8.0 || ^17 || ^18 || ^19",
+    "react-dom": "^16.8.0 || ^17 || ^18 || ^19"
   }
 }

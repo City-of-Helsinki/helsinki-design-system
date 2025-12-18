@@ -2,7 +2,7 @@ import { KeyboardEvent, useCallback, useEffect, useMemo, useRef } from 'react';
 
 import { eventIds, eventTypes } from '../events';
 import { KnownElementType } from '../types';
-import { defaultFilter, filterSelectableOptions } from '../utils';
+import { defaultFilter, filterSelectableOptions, getAllOptions } from '../utils';
 import {
   useElementDetection,
   isSearchOrFilterInputType,
@@ -11,9 +11,13 @@ import {
   isAnyListChildType,
 } from './useElementDetection';
 import { useSelectDataHandlers } from './useSelectDataHandlers';
+import tagStyles from '../../tag/Tag.module.scss';
 
 // what key presses should do.
 // developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/listbox_role#keyboard_interactions
+
+// Delay to allow dropdown close animation and DOM updates to complete before moving focus
+const FOCUS_TRANSITION_DELAY = 50;
 
 const alphanumRegExp = /[a-z0-9äöå]/i;
 
@@ -42,6 +46,9 @@ const isHomekey = (e: KeyboardEvent<HTMLElement>) => {
 };
 const isEndKey = (e: KeyboardEvent<HTMLElement>) => {
   return e.key === 'End';
+};
+const isTabKey = (e: KeyboardEvent<HTMLElement>) => {
+  return e.key === 'Tab';
 };
 export const isClickKey = (e: KeyboardEvent<HTMLElement>) => {
   return ['Enter', ' '].includes(e.key);
@@ -138,6 +145,21 @@ export function useKeyboard() {
   // The keydown element type is stored to prevent this.
   // If keydown type is different that keyup, then keydown shifted focus and keyup should be ignored.
   const keyDownElementType = useRef<KnownElementType | null>(null);
+  // Store MutationObserver refs for END key element detection so we can clean them up
+  const endKeyObserverRef = useRef<MutationObserver | null>(null);
+  const endKeyTimeoutRef = useRef<ReturnType<typeof setTimeout> | null>(null);
+
+  // Cleanup function for END key MutationObserver and timeout
+  const disconnectEndKeyObserver = useCallback(() => {
+    if (endKeyObserverRef.current) {
+      endKeyObserverRef.current.disconnect();
+      endKeyObserverRef.current = null;
+    }
+    if (endKeyTimeoutRef.current) {
+      clearTimeout(endKeyTimeoutRef.current);
+      endKeyTimeoutRef.current = null;
+    }
+  }, []);
 
   const scrollToFocusedElement = useCallback(() => {
     if (document.activeElement) {
@@ -177,6 +199,26 @@ export function useKeyboard() {
       }
 
       const moveFocusToFirstListItem = () => {
+        const data = getData();
+
+        // In virtualize mode, get first option from data instead of DOM
+        if (data.virtualize) {
+          const allOptions = getAllOptions(data.groups).filter((opt) => opt.visible && !opt.disabled);
+          const firstOption = allOptions[0];
+
+          if (firstOption) {
+            const optionId = getMetaData().getOptionId(firstOption);
+            const el = document.getElementById(optionId);
+
+            if (el) {
+              el.focus();
+              scrollToFocusedElement();
+              return;
+            }
+          }
+        }
+
+        // Fallback to DOM query for non-virtualized mode
         const listItems = getSelectableListItems();
         const el = listItems[0];
         if (el) {
@@ -186,6 +228,72 @@ export function useKeyboard() {
       };
 
       const moveFocusToLastListItem = () => {
+        const data = getData();
+
+        // In virtualize mode, get last option from data instead of DOM
+        if (data.virtualize) {
+          const allOptions = getAllOptions(data.groups).filter((opt) => opt.visible && !opt.disabled);
+          const lastOption = allOptions[allOptions.length - 1];
+
+          if (lastOption) {
+            const optionId = getMetaData().getOptionId(lastOption);
+            const el = document.getElementById(optionId);
+
+            if (el) {
+              // Element already rendered, just focus it
+              el.focus();
+              scrollToFocusedElement();
+            } else {
+              // Element not yet rendered, scroll to bottom to trigger chunk loading
+              // Clean up any existing observer first
+              disconnectEndKeyObserver();
+
+              const { refs } = getMetaData();
+              const listElement = refs.list.current;
+              if (listElement) {
+                listElement.scrollTop = listElement.scrollHeight;
+
+                // Set up MutationObserver to watch for the element to appear
+                // Chunk rendering can take 300-500ms for large datasets
+                const checkForElement = () => {
+                  const elAfterScroll = document.getElementById(optionId);
+                  if (elAfterScroll) {
+                    elAfterScroll.focus();
+                    scrollToFocusedElement();
+                    disconnectEndKeyObserver();
+                  }
+                };
+
+                // Set up timeout to disconnect observer after 10 seconds
+                endKeyTimeoutRef.current = setTimeout(() => {
+                  disconnectEndKeyObserver();
+                }, 10000);
+
+                // Set up MutationObserver to watch for DOM changes
+                const observer = new MutationObserver(() => {
+                  checkForElement();
+                });
+
+                // Observe the list container for child additions
+                const observeTarget = refs.listContainer?.current || listElement;
+                if (observeTarget) {
+                  observer.observe(observeTarget, {
+                    childList: true,
+                    subtree: true,
+                  });
+
+                  endKeyObserverRef.current = observer;
+
+                  // Check immediately in case element is already rendered
+                  checkForElement();
+                }
+              }
+            }
+            return;
+          }
+        }
+
+        // Fallback to DOM query for non-virtualized mode
         const listItems = getSelectableListItems();
         const el = listItems.pop();
         if (el) {
@@ -314,18 +422,133 @@ export function useKeyboard() {
         focusToFirstFilteredOption(keyCache.getValue());
       }
     },
-    [trigger, getData, getMetaData, updateMetaData],
+    [
+      trigger,
+      getData,
+      getMetaData,
+      updateMetaData,
+      getEventElementType,
+      getSelectableListItems,
+      getSelectableListItemSiblings,
+      scrollToFocusedElement,
+      focusToFirstFilteredOption,
+      disconnectEndKeyObserver,
+      keyCache,
+    ],
   );
 
   const onKeyDown = useCallback(
     (e: KeyboardEvent<HTMLElement>) => {
       const { type } = getEventElementType(e);
       keyDownElementType.current = type;
+
+      const isOpen = getData().open;
+      const { refs } = getMetaData();
+
+      // Handle Tab/Shift+Tab when dropdown is open
+      if (isTabKey(e) && isOpen) {
+        e.preventDefault();
+        e.stopPropagation();
+        e.nativeEvent.stopImmediatePropagation();
+
+        const wasShiftKey = e.shiftKey;
+        const buttonRef = refs.button;
+
+        if (buttonRef && buttonRef.current) {
+          // Ensure button has proper focus for consistent keyboard navigation
+          // This handles cases where focus was disrupted by mouse interactions
+          if (document.activeElement !== buttonRef.current) {
+            buttonRef.current.focus();
+          }
+
+          // Clear activeDescendant BEFORE closing dropdown to prevent focus restoration issues
+          updateMetaData({ activeDescendant: undefined });
+
+          // Get the root document (handle iframes like Storybook)
+          const rootDoc = buttonRef.current.ownerDocument;
+
+          // Get all tabbable elements in the correct document
+          const selector =
+            'a[href], button:not([disabled]), textarea:not([disabled]), input:not([disabled]), select:not([disabled]), [tabindex]:not([tabindex="-1"])';
+          const allElements = Array.from(rootDoc.querySelectorAll(selector)) as HTMLElement[];
+
+          // Filter out elements with tabindex="-1" and truly hidden elements
+          const tabbableElements = allElements.filter((el) => {
+            const tabIndex = el.getAttribute('tabindex');
+            // Skip elements with tabindex="-1"
+            if (tabIndex === '-1') return false;
+
+            // Skip Select component's internal elements (filter input, clear buttons, etc.)
+            // These should not be part of external tab navigation
+            const buttonId = buttonRef.current?.id;
+
+            // Filter by ID for elements that have Select component IDs
+            if (buttonId && el.id && el.id !== buttonId && el.id.startsWith(buttonId.split('-main-button')[0])) {
+              return false;
+            }
+
+            // Filter by CSS class for internal clear buttons that don't have component IDs
+            if (el.className && el.className.includes('clearButton')) {
+              return false;
+            }
+
+            // For elements with explicit tabIndex >= 0, they're focusable even if offsetParent is null
+            if (el.tabIndex >= 0) return true;
+
+            // For elements without explicit tabIndex, check if they're visible
+            if (el.offsetParent === null) return false;
+            return true;
+          });
+
+          // Find the button's position
+          const currentIndex = tabbableElements.indexOf(buttonRef.current);
+
+          let targetElement: HTMLElement | null = null;
+          if (wasShiftKey) {
+            // Shift+Tab: go to previous element
+            if (currentIndex > 0) {
+              targetElement = tabbableElements[currentIndex - 1];
+            }
+          } else {
+            // Tab: go to next element
+            const nextIndex = currentIndex + 1;
+            if (nextIndex < tabbableElements.length) {
+              targetElement = tabbableElements[nextIndex];
+            }
+          }
+
+          // Close the dropdown
+          trigger({ id: eventIds.generic, type: eventTypes.outSideClick });
+
+          if (targetElement) {
+            const savedTarget = targetElement;
+
+            // Check what type of element we're targeting
+            if (savedTarget.closest(`.${tagStyles.tag}`)) {
+              // Target is a tag - use the focus system to focus first tag
+              updateMetaData({ focusTarget: 'tag' });
+            } else {
+              // Target is not a tag - wait for dropdown to close before focusing
+              setTimeout(() => {
+                updateMetaData({ focusTarget: undefined });
+                savedTarget.focus();
+              }, FOCUS_TRANSITION_DELAY);
+            }
+          } else {
+            // No target element, focus the button
+            buttonRef.current.focus();
+            setTimeout(() => {
+              updateMetaData({ focusTarget: undefined });
+            }, 0);
+          }
+        }
+      }
+
       if (type && isAnyListChildType(type) && isClickKey(e)) {
         e.preventDefault();
       }
     },
-    [getEventElementType],
+    [getEventElementType, getData, getMetaData, updateMetaData, trigger],
   );
 
   useEffect(() => {
@@ -333,6 +556,18 @@ export function useKeyboard() {
       focusToFirstFilteredOption(keyCache.getValue());
     }
   });
+
+  // Cleanup MutationObserver when dropdown closes or component unmounts
+  const isOpen = getData().open;
+  useEffect(() => {
+    if (!isOpen) {
+      disconnectEndKeyObserver();
+    }
+    // Cleanup on unmount
+    return () => {
+      disconnectEndKeyObserver();
+    };
+  }, [isOpen, disconnectEndKeyObserver]);
 
   return {
     onKeyUp,

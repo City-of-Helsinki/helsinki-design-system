@@ -1,17 +1,11 @@
-$font-path: '../fonts';
+$font-cdn-base: 'https://makasiini.hel.ninja/delivery/HelsinkiGrotesk';
 
 /* Webfont: HelsinkiGrotesk-Regular */
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: $font-weight-regular;
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-Regular.svg#HelsinkiGrotesk-Regular') format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/565d73a693abe0776c801607ac28f0bf.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -20,15 +14,7 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: $font-weight-regular;
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.ttf')
-      format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Regular/HelsinkiGrotesk-RegularItalic.svg#HelsinkiGrotesk-RegularItalic')
-      format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/5bb29e3b7b1d3ef30121229bbe67c3e1.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -37,13 +23,7 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: $font-weight-medium;
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-Medium.svg#HelsinkiGrotesk-Medium') format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/7c46f288e8133b87e6b12b45dac71865.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -52,15 +32,7 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: $font-weight-medium;
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.ttf')
-      format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Medium/HelsinkiGrotesk-MediumItalic.svg#HelsinkiGrotesk-MediumItalic')
-      format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/e62dc97e83a385e4d8cdc939cf1e4213.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -69,13 +41,7 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: $font-weight-bold;
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.ttf') format('truetype'),
-    /* Safari, Android, iOS */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-Bold.svg#HelsinkiGrotesk-Bold')
-      format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/533af26cf28d7660f24c2884d3c27eac.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -84,13 +50,7 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: $font-weight-bold;
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Bold/HelsinkiGrotesk-BoldItalic.svg#HelsinkiGrotesk-BoldItalic') format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/20d494430c87e15e194932b729d48270.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -99,13 +59,7 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: $font-weight-black;
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-Black.svg#HelsinkiGrotesk-Black') format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/a50a1bd245ce63abcc0d1da80ff790d2.woff') format('woff');
   text-rendering: optimizelegibility;
 }
 
@@ -114,13 +68,6 @@ $font-path: '../fonts';
   font-family: HelsinkiGrotesk;
   font-style: italic;
   font-weight: $font-weight-black;
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.eot'); /* IE9 Compat Modes */
-  src: url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.eot?#iefix') format('embedded-opentype'),
-    /* IE6-IE8 */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.woff') format('woff'),
-    /* Modern Browsers */ url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.ttf') format('truetype'),
-    /* Safari, Android, iOS */
-      url('#{$font-path}/HelsinkiGrotesk-Black/HelsinkiGrotesk-BlackItalic.svg#HelsinkiGrotesk-BlackItalic')
-      format('svg'); /* Legacy iOS */
-
+  src: url('#{$font-cdn-base}/62a1781d8b396fbb025b0552cf6304d2.woff') format('woff');
   text-rendering: optimizelegibility;
 }

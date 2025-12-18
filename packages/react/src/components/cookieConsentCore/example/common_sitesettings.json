@@ -575,6 +575,21 @@
       },
       "cookies": [
         {
+          "name": "hds-*",
+          "host": "-",
+          "description": {
+            "fi": "Helsinki Design System -evästeet.",
+            "sv": "Helsingfors designsystemets kakor.",
+            "en": "Helsinki Design System cookies."
+          },
+          "expiration": {
+            "fi": "1826 päivää",
+            "sv": "1826 dagar",
+            "en": "1826 days"
+          },
+          "storageType": 2
+        },
+        {
           "name": "httpskartta.hel.fi.SWCulture",
           "host": "kartta.hel.fi",
           "description": {

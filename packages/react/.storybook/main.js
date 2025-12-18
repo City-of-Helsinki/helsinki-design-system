@@ -21,7 +21,6 @@ module.exports = {
     '@storybook/addon-outline',
   ],
   staticDirs: [
-    '../src/fonts',
     { from: '../src/components/login/storybookStatic', to: '/static-login' },
     { from: '../src/components/cookieConsentCore/example', to: '/static-cookie-consent' },
     { from: '../src/components/cookieConsentCore/siteSettingsEditor', to: '/static-cookie-consent-editor' },

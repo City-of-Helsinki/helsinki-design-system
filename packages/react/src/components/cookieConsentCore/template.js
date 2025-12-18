@@ -167,7 +167,6 @@ export function getCookieBannerHtml(
       <button
         type="button"
         class="hds-cc__accordion-button ${CONSTANTS.accordionButtonDetailsClass} hds-button hds-button--small hds-button--supplementary"
-        onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');"
         aria-controls="hds-cc-form"
         aria-expanded="false"
         aria-live="polite">
@@ -314,7 +313,6 @@ export function getGroupHtml(
               <button
                 type="button"
                 class="hds-cc__accordion-button hds-cc__accordion-button--group-details hds-button hds-button--small hds-button--supplementary"
-                onclick="this.setAttribute('aria-expanded', this.getAttribute('aria-expanded') === 'false' ? 'true' : 'false');"
                 aria-controls="hds-cc-group-details-${groupId}"
                 aria-expanded="false"
                 aria-live="polite">

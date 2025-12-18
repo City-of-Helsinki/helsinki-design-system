@@ -5,6 +5,50 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.9.0] - December, 18, 2025
+
+- Security related updates and changes necessary due to them.
+
+### React
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Storybook] Loading HelsinkiGrotesk font from CDN
+- Instead of using useLayoutEffect, use useIsomorphicLayoutEffect to handle SSR better.
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+- [Select] Jumping to the end of Virtualized lists with END press.
+- [Select] Select accepts options with an empty string value
+- [Select] onClose was not triggered when navigating away with keyboard
+- [Select] Keyboard navigation problems.
+- [Login] TokenizedFetchModule exports were missing.
+- [CookieConsent] Replaced inline event handlers with proper event listeners.
+
+### Core
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Storybook] Loading HelsinkiGrotesk font from CDN
+
+### Documentation
+
+#### Added
+
+- [Cookie Consent] Example of adding `hds-*` namespace to personalised cookies group.
+
+#### Changed
+
+Changes that are not related to specific components
+
+- Loading HelsinkiGrotesk font from CDN
+- Updated the accessibility statement to remove the mention of a resolved table-related issue
+
 ## [4.8.1] - November, 10, 2025
 
 Small fix to build process to output correct Typescript typings for some components which missed them.
