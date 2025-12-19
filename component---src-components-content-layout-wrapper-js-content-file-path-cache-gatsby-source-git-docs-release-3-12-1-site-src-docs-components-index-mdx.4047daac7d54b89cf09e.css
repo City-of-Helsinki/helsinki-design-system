@@ -1,0 +1,1 @@
+.linkbox-list{display:grid;gap:var(--spacing-layout-xs);grid-template-columns:repeat(auto-fit,minmax(216px,1fr));margin-top:var(--spacing-layout-m);width:100%}.linkbox-list-item{width:100%}.linkbox-list-link{height:100%}
