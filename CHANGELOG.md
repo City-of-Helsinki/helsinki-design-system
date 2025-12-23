@@ -77,82 +77,49 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-## [4.X.X] - Month, XX, 202X
+## [4.9.0] - December, 18, 2025
+
+- Security related updates and changes necessary due to them.
 
 ### React
 
-#### Breaking
-
-#### Added
-
 #### Changed
+
+Changes that are not related to specific components
 
 - [Storybook] Loading HelsinkiGrotesk font from CDN
 - Instead of using useLayoutEffect, use useIsomorphicLayoutEffect to handle SSR better.
 
 #### Fixed
 
+- [Component] What bugs/typos are fixed?
 - [Select] Jumping to the end of Virtualized lists with END press.
+- [Select] Select accepts options with an empty string value
+- [Select] onClose was not triggered when navigating away with keyboard
+- [Select] Keyboard navigation problems.
 - [Login] TokenizedFetchModule exports were missing.
 - [CookieConsent] Replaced inline event handlers with proper event listeners.
 
 ### Core
 
-#### Breaking
-
-#### Added
-
 #### Changed
+
+Changes that are not related to specific components
 
 - [Storybook] Loading HelsinkiGrotesk font from CDN
 
-#### Fixed
-
 ### Documentation
-
-#### Breaking
 
 #### Added
 
-- [Component] What is added?
 - [Cookie Consent] Example of adding `hds-*` namespace to personalised cookies group.
 
 #### Changed
 
+Changes that are not related to specific components
+
 - Loading HelsinkiGrotesk font from CDN
 - Updated the accessibility statement to remove the mention of a resolved table-related issue
-
-#### Fixed
-
-### Figma
-
-#### Breaking
-
-#### Added
-
-#### Changed
-
-#### Fixed
-
-### Icon kit
-
-#### Breaking
-
-#### Added
-
-#### Changed
-
-#### Fixed
-
-### Hds-js
-
-#### Breaking
-
-#### Added
-
-#### Changed
-
-#### Fixed
 
 ## [4.8.1] - November, 10, 2025
 
