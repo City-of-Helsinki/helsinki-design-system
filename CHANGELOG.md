@@ -81,6 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - Security related updates and changes necessary due to them.
 
+- Security related updates and changes necessary due to them.
+
 ### React
 
 #### Changed
