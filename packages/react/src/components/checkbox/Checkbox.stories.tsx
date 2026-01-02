@@ -22,26 +22,73 @@ export default {
   },
 };
 
-export const Default = () => <Checkbox id="default" label="Label" />;
+export const Default = () => {
+  const [checked, setChecked] = useState(false);
+  return <Checkbox id="default" label="Label" checked={checked} onChange={(e) => setChecked(e.target.checked)} />;
+};
 
-export const Selected = () => <Checkbox id="selected" label="Label" checked />;
+export const Selected = () => {
+  const [checked, setChecked] = useState(true);
+  return <Checkbox id="selected" label="Label" checked={checked} onChange={(e) => setChecked(e.target.checked)} />;
+};
 
-export const Indeterminate = () => (
-  <Checkbox id="indeterminate" label="Label" indeterminate onChange={(event) => event.preventDefault()} />
-);
+export const Indeterminate = () => {
+  const [indeterminate, setIndeterminate] = useState(true);
+  const [checked, setChecked] = useState(false);
+
+  const handleChange = () => {
+    if (indeterminate) {
+      setIndeterminate(false);
+      setChecked(true);
+    } else if (checked) {
+      setChecked(false);
+    } else {
+      setChecked(true);
+    }
+  };
+
+  return (
+    <Checkbox
+      id="indeterminate"
+      label="Label"
+      indeterminate={indeterminate}
+      checked={checked}
+      onChange={handleChange}
+    />
+  );
+};
 
 export const Disabled = () => <Checkbox id="disabled" label="Label" disabled />;
 
-export const Invalid = (args: CheckboxProps) => <Checkbox style={{ width: '300px' }} {...args} />;
+export const Invalid = (args: CheckboxProps) => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Checkbox style={{ width: '300px' }} {...args} checked={checked} onChange={(e) => setChecked(e.target.checked)} />
+  );
+};
 Invalid.args = {
   id: 'Invalid',
   label: 'Label',
   errorText: 'Error text',
 };
 
-export const WithHelperText = () => <Checkbox id="helper-text" label="Label" helperText="Assistive text" />;
+export const WithHelperText = () => {
+  const [checked, setChecked] = useState(false);
+  return (
+    <Checkbox
+      id="helper-text"
+      label="Label"
+      helperText="Assistive text"
+      checked={checked}
+      onChange={(e) => setChecked(e.target.checked)}
+    />
+  );
+};
 
-export const WithTooltip = (args: CheckboxProps) => <Checkbox {...args} id="with-tooltip" />;
+export const WithTooltip = (args: CheckboxProps) => {
+  const [checked, setChecked] = useState(false);
+  return <Checkbox {...args} id="with-tooltip" checked={checked} onChange={(e) => setChecked(e.target.checked)} />;
+};
 WithTooltip.args = {
   label: 'Label',
   tooltip: (
@@ -87,7 +134,9 @@ export const GroupWithParent = () => {
     indeterminate,
   }
 
-  const areAllChecked = (state) => {
+  type CheckboxStateType = Record<string, CheckboxState>;
+
+  const areAllChecked = (state: CheckboxStateType): boolean => {
     let checkedCount = 0;
     Object.keys(state).forEach((key) => {
       if (key === 'controllerCheckbox') {
@@ -101,7 +150,7 @@ export const GroupWithParent = () => {
     return checkedCount === 4;
   };
 
-  const areAllUnchecked = (state) => {
+  const areAllUnchecked = (state: CheckboxStateType): boolean => {
     let checkedCount = 0;
     Object.keys(state).forEach((key) => {
       if (key === 'controllerCheckbox') {
@@ -112,10 +161,12 @@ export const GroupWithParent = () => {
       }
     });
 
-    return checkedCount === 1;
+    return checkedCount === 0;
   };
 
-  const reducer = (state, action) => {
+  type Action = { type: 'check'; payload: string } | { type: 'uncheck'; payload: string };
+
+  const reducer = (state: CheckboxStateType, action: Action): CheckboxStateType => {
     switch (action.type) {
       case 'check': {
         if (action.payload === 'controllerCheckbox') {
@@ -217,6 +268,7 @@ export const GroupWithParent = () => {
 GroupWithParent.storyName = 'Group with a parent';
 
 export const WithExternalLabel = () => {
+  const [checked, setChecked] = useState(false);
   const customStyle = {
     '--background-unselected': 'teal',
     'margin-right': 'var(--spacing-2-xs)',
@@ -224,7 +276,12 @@ export const WithExternalLabel = () => {
 
   return (
     <div style={{ display: 'flex', alignItems: 'center' }}>
-      <Checkbox id="withExternalLabel" style={customStyle} />
+      <Checkbox
+        id="withExternalLabel"
+        style={customStyle}
+        checked={checked}
+        onChange={(e) => setChecked(e.target.checked)}
+      />
       <label htmlFor="withExternalLabel">
         <h3>External label</h3>
       </label>
@@ -232,11 +289,11 @@ export const WithExternalLabel = () => {
   );
 };
 
-export const Playground = (args: Record<string, string>) => {
-  const [checkedItems, setCheckedItems] = useState({});
+export const Playground = (args: Record<string, string | number>) => {
+  const [checkedItems, setCheckedItems] = useState<Record<string, boolean>>({});
   const options = ['Option 1', 'Option 2', 'Option 3'];
 
-  const handleChange = (e) => {
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const item = e.target.name;
     const isChecked = e.target.checked;
     setCheckedItems({ ...checkedItems, [item]: isChecked });
