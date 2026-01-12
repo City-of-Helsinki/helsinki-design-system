@@ -235,7 +235,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     const inputUtil = createDateInputHelpers(page, selector);
     await inputUtil.setSelectedDateString({ month: 2, day: 2 });
     const value = await inputUtil.getSelectedDateString();
-    expect(value).toBe('02.02.2025');
+    expect(value).toBe('02.02.2026');
     await page.getByTestId('external-clear-button').click();
     await waitFor(async () => {
       return (await inputUtil.getSelectedDateString()) === '';
