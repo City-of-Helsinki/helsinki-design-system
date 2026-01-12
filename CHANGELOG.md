@@ -77,6 +77,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+## [4.10.0] - X, X, XXXX
+
+### Documentation
+
+#### Fixed
+
+- [Checkbox] Stories to include full interactivities.
+
 ## [4.9.0] - December, 18, 2025
 
 - Security related updates and changes necessary due to them.

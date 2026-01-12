@@ -76,7 +76,7 @@ exports[`<Footer /> spec renders the component 1`] = `
             <span
               class="copyrightHolder"
             >
-              © Copyright 2025
+              © Copyright 2026
             </span>
             <span
               class="copyrightDot"
