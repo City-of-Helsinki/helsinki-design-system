@@ -27,6 +27,10 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 
+#### Deprecated
+
+- [SearchInput] Component is now deprecated and will be removed in the next major release.
+
 ### Core
 
 #### Breaking
