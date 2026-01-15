@@ -32,7 +32,6 @@ const esmInput = {
   'components/PhoneInput/index': 'src/components/phoneInput/index.ts',
   'components/RadioButton/index': 'src/components/radioButton/index.ts',
   'components/Search/index': 'src/components/dropdownComponents/search/index.ts',
-  'components/SearchInput/index': 'src/components/searchInput/index.ts',
   'components/Section/index': 'src/components/section/index.ts',
   'components/Select/index': 'src/components/dropdownComponents/select/index.ts',
   'components/SelectionGroup/index': 'src/components/selectionGroup/index.ts',

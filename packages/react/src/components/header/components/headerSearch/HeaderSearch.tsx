@@ -1,7 +1,8 @@
-import React, { useEffect, useState } from 'react';
+import React, { KeyboardEvent, useEffect, useState } from 'react';
 
 import styles from './HeaderSearch.module.scss';
-import { SearchInput } from '../../../searchInput';
+import { TextInput } from '../../../textInput';
+import { IconSearch } from '../../../../icons';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../../../utils/elementTypings';
 import classNames from '../../../../utils/classNames';
 
@@ -29,15 +30,37 @@ export const HeaderSearch = ({ onChange, onSubmit, label, className, ...rest }: 
 
   useEffect(() => {
     if (onChange) onChange(inputValue);
-  }, [inputValue]);
+  }, [inputValue, onChange]);
 
   const handleSubmit = () => {
     if (onSubmit) onSubmit(inputValue);
   };
 
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setInputValue(e.target.value);
+  };
+
+  const handleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    if (e.key === 'Enter') {
+      e.preventDefault();
+      handleSubmit();
+    }
+  };
+
   return (
     <div {...rest} className={classNames(styles.searchContainer, className)} role="search">
-      <SearchInput label={label} onSubmit={handleSubmit} onChange={setInputValue} />
+      <TextInput
+        id="header-search"
+        label={label}
+        value={inputValue}
+        onChange={handleChange}
+        onKeyDown={handleKeyDown}
+        buttonIcon={<IconSearch />}
+        buttonAriaLabel="Search"
+        onButtonClick={handleSubmit}
+        clearButton
+        clearButtonAriaLabel="Clear search field"
+      />
     </div>
   );
 };
