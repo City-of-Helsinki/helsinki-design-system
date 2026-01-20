@@ -326,6 +326,7 @@ WithParent.storyName = 'With a parent';
 WithParent.parameters = {
   loki: { skip: true }, // There is an identical story in checkbox
 };
+
 export const WithHelperText = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
   const [radioValue, setRadioValue] = useState('radio0');
@@ -349,5 +350,86 @@ export const WithHelperText = ({ numberOfItems, ...args }) => {
   );
 };
 WithHelperText.args = {
+  helperText: 'Assistive text',
+};
+
+export const InvalidWithHelperText = ({ numberOfItems, ...args }) => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const [radioValue, setRadioValue] = useState('radio0');
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+  const checkboxes = getCheckboxItems(numberOfItems, checkedItems, handleCheckboxChange);
+  const radiobuttons = getRadioButtonItems(numberOfItems, radioValue, handleRadioChange);
+  return (
+    <>
+      <SelectionGroup {...args}>{checkboxes}</SelectionGroup>
+      <br />
+      <br />
+      <SelectionGroup {...args}>{radiobuttons}</SelectionGroup>
+    </>
+  );
+};
+InvalidWithHelperText.args = {
+  required: true,
+  errorText: 'Error text',
+  helperText: 'Assistive text',
+};
+
+export const WithDescriptionText = ({ numberOfItems, ...args }) => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const [radioValue, setRadioValue] = useState('radio0');
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+  const checkboxes = getCheckboxItems(numberOfItems, checkedItems, handleCheckboxChange);
+  const radiobuttons = getRadioButtonItems(numberOfItems, radioValue, handleRadioChange);
+  return (
+    <>
+      <SelectionGroup {...args}>{checkboxes}</SelectionGroup>
+      <br />
+      <br />
+      <SelectionGroup {...args}>{radiobuttons}</SelectionGroup>
+    </>
+  );
+};
+WithDescriptionText.args = {
+  descriptionText: 'Description text',
+};
+
+export const WithDescriptionTextAndHelperText = ({ numberOfItems, ...args }) => {
+  const [checkedItems, setCheckedItems] = useState({});
+  const [radioValue, setRadioValue] = useState('radio0');
+  const handleCheckboxChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const item = e.target.name;
+    const isChecked = e.target.checked;
+    setCheckedItems({ ...checkedItems, [item]: isChecked });
+  };
+  const handleRadioChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setRadioValue(e.target.value);
+  };
+  const checkboxes = getCheckboxItems(numberOfItems, checkedItems, handleCheckboxChange);
+  const radiobuttons = getRadioButtonItems(numberOfItems, radioValue, handleRadioChange);
+  return (
+    <>
+      <SelectionGroup {...args}>{checkboxes}</SelectionGroup>
+      <br />
+      <br />
+      <SelectionGroup {...args}>{radiobuttons}</SelectionGroup>
+    </>
+  );
+};
+WithDescriptionTextAndHelperText.args = {
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
 };

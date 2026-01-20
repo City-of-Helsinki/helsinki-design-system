@@ -40,6 +40,7 @@ import { DateInput } from 'hds-react';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState(format(dateValue, dateFormat));
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
+  const descriptionText = 'Description text';
 
   const littleSpaceLeftDate = {
     elementId: 'little-space-left',
@@ -85,6 +86,7 @@ import { DateInput } from 'hds-react';
       <DateInput
         value={value}
         onChange={setValue}
+        descriptionText={descriptionText}
         helperText={helperText}
         setDateClassName={setDateClassName}
         setDateAriaDescribedBy={setDateAriaDescribedBy}

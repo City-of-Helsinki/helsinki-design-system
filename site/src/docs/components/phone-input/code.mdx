@@ -23,6 +23,7 @@ import { PhoneInput } from 'hds-react';
 () => (
   <PhoneInput
     defaultValue="0451234567"
+    descriptionText="Description text"
     helperText="Assistive text"
     id="phone-input-1"
     label="Phone number"
@@ -34,6 +35,7 @@ import { PhoneInput } from 'hds-react';
 ```html
 <div class="hds-text-input" style="max-width:320px">
   <label for="phone-input-1-core" class="hds-text-input__label"> Phone number </label>
+  <span class="hds-text-input__description-text">Description text</span>
   <div class="hds-text-input__input-wrapper">
     <input id="phone-input-1-core" class="hds-text-input__input" type="tel" autocomplete="tel" value="0451234567" />
   </div>

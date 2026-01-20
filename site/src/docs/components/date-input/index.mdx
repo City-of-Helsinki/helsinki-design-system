@@ -16,6 +16,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <div style={{ maxWidth: '400px' }}>
     <DateInput
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-1"
       initialMonth={new Date()}
@@ -51,6 +52,7 @@ Out of the box, HDS date input will include an openable date picker which allows
 <PlaygroundPreview>
   <div style={{ maxWidth: '400px' }}>
     <DateInput
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-2"
       initialMonth={new Date()}
@@ -74,6 +76,7 @@ In all other types of services, it is recommended to not disable the confirmatio
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       disableConfirmation
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-3"
       initialMonth={new Date()}
@@ -93,6 +96,7 @@ It is possible to disable the date picker functionality by supplying a `disableD
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       disableDatePicker
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-4"
       initialMonth={new Date()}

@@ -15,6 +15,7 @@ export default {
     label: 'Label',
     hoursLabel: 'hours',
     minutesLabel: 'minutes',
+    descriptionText: 'Description text',
     helperText: 'Assistive text',
     value: '00:00',
     disabled: false,

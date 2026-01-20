@@ -12,6 +12,12 @@ exports[`<NumberInput /> spec renders the component 1`] = `
       Test label number input
     </label>
     <div
+      class="descriptionText"
+      id="numberInputTestId-description"
+    >
+      Description text
+    </div>
+    <div
       class="inputWrapper"
     >
       <div
@@ -54,6 +60,12 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
     >
       Test label number input
     </label>
+    <div
+      class="descriptionText"
+      id="numberInputTestId-description"
+    >
+      Description text
+    </div>
     <div
       class="inputWrapper"
     >

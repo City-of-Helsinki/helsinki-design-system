@@ -71,6 +71,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
       disabled = false,
       defaultValue,
       errorText,
+      descriptionText,
       helperText,
       hideLabel,
       invalid,
@@ -99,6 +100,7 @@ export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
     const wrapperProps = {
       className,
       errorText,
+      descriptionText,
       helperText,
       hideLabel,
       id,

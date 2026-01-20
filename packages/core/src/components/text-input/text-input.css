@@ -8,6 +8,7 @@
   --textarea-height: 149px;
   --icon-size: var(--spacing-m);
   --icon-color: var(--color-black);
+  --description-color-default: var(--color-black-60);
   --helper-color-default: var(--color-black-60);
   --helper-color-invalid: var(--color-black);
   --helper-background-color-invalid: var(--color-error-light);
@@ -160,6 +161,18 @@
   color: var(--placeholder-color);
   opacity: 1;
 }
+
+/* DESCRIPTION TEXT */
+
+.hds-text-input__description-text {
+  color: var(--description-color-default);
+  display: block;
+  font-size: var(--fontsize-body-m);
+  line-height: var(--lineheight-l);
+  margin-bottom: var(--spacing-3-xs);
+  white-space: pre-line;
+}
+
 
 /* HELPER TEXT */
 

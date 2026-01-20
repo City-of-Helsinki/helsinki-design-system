@@ -13,6 +13,12 @@ exports[`<TextInput /> spec renders the component 1`] = `
       HDS input field
     </label>
     <div
+      class="descriptionText"
+      id="hdsInput-description"
+    >
+      Description text
+    </div>
+    <div
       class="inputWrapper"
     >
       <input
@@ -53,6 +59,12 @@ exports[`<TextInput /> spec renders the component with search clear button 1`] =
     >
       HDS input field
     </label>
+    <div
+      class="descriptionText"
+      id="hdsInput-description"
+    >
+      Description text
+    </div>
     <div
       class="inputWrapper"
     >
@@ -148,6 +160,12 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
           </svg>
         </span>
       </button>
+    </div>
+    <div
+      class="descriptionText"
+      id="hdsInput-description"
+    >
+      Description text
     </div>
     <div
       class="inputWrapper"

@@ -15,6 +15,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       className = '',
       disabled = false,
       defaultValue,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,
@@ -37,6 +38,7 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
   ) => {
     const wrapperProps = {
       className,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,

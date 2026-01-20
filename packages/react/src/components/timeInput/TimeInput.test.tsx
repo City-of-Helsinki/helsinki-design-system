@@ -11,6 +11,7 @@ describe('<TimeInput /> spec', () => {
     id: 'time',
     hoursLabel: 'hours',
     minutesLabel: 'minutes',
+    descriptionText: 'Description text',
     helperText: 'Helper text',
     errorText: 'Error text',
   };

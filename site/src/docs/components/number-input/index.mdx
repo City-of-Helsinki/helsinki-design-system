@@ -16,6 +16,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 <PlaygroundPreview>
   <NumberInput
     id="example"
+    descriptionText="Description text"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -47,6 +48,7 @@ When applicable, a unit can be set for the input by using the `unit` prop.
 <PlaygroundPreview>
   <NumberInput
     id="default"
+    descriptionText="Description text"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -62,6 +64,7 @@ Steppers can be enabled via providing a `step` property. Use this variant when v
 <PlaygroundPreview>
   <NumberInput
     id="stepper"
+    descriptionText="Description text"
     helperText="Assistive text"
     label="Number of attendees"
     minusStepButtonAriaLabel="Decrease by one"
@@ -81,6 +84,7 @@ If your input has special requirements, it is a good practice to describe them i
 <PlaygroundPreview>
   <NumberInput
     id="stepper-minmax"
+    descriptionText="Description text"
     helperText="At least 3 attendees are required"
     label="Number of attendees"
     min={3}

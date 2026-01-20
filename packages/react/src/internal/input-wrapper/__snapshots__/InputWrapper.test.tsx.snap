@@ -12,6 +12,12 @@ exports[`<InputWrapper /> spec renders the component 1`] = `
       label text
     </label>
     <div
+      class="descriptionText"
+      id="test-description"
+    >
+      description text
+    </div>
+    <div
       class="inputWrapper"
     >
       <input

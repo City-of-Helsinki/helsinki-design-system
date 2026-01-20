@@ -83,6 +83,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       clearButtonAriaLabel = 'Clear',
       clearButton = false,
       defaultValue,
+      descriptionText,
       disabled = false,
       errorText,
       helperText,
@@ -108,6 +109,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
   ) => {
     const wrapperProps = {
       className,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,

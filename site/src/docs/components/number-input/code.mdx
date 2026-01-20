@@ -23,6 +23,7 @@ import { NumberInput } from 'hds-react';
 () => (<>
   <NumberInput
     id="default"
+    descriptionText="Description text"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -33,6 +34,7 @@ import { NumberInput } from 'hds-react';
   <NumberInput
     disabled
     id="disabled"
+    descriptionText="Description text"
     helperText="Assistive text"
     label="Total compensation"
     unit="€"
@@ -46,6 +48,7 @@ import { NumberInput } from 'hds-react';
 <div style="max-width:320px;">
   <div class="hds-text-input">
     <label for="core-default" class="hds-text-input__label"> Total compensation (€) </label>
+    <span class="hds-text-input__description-text">Description text</span>
     <div class="hds-text-input__input-wrapper">
       <input id="core-default" value="1000" class="hds-text-input__input" type="number" placeholder="Placeholder" />
     </div>
@@ -54,6 +57,7 @@ import { NumberInput } from 'hds-react';
 
   <div class="hds-text-input" style="margin-top:var(--spacing-s);">
     <label for="core-disabled" class="hds-text-input__label"> Total compensation (€) </label>
+    <span class="hds-text-input__description-text">Description text</span>
     <div class="hds-text-input__input-wrapper">
       <input
         id="core-disabled"
@@ -80,6 +84,7 @@ import { NumberInput } from 'hds-react';
 
 () => (<NumberInput
   id="stepper"
+  descriptionText="Description text"
   helperText="Assistive text"
   label="Number of attendees"
   minusStepButtonAriaLabel="Decrease by one"
@@ -93,6 +98,7 @@ import { NumberInput } from 'hds-react';
 ```html
 <div class="hds-text-input" style="max-width:320px;">
   <label for="core-stepper" class="hds-text-input__label"> Number of attendees </label>
+  <span class="hds-text-input__description-text">Description text</span>
   <div class="hds-text-input__input-wrapper">
     <input id="core-stepper" value="5" class="hds-text-input__input" type="number" step="1" placeholder="Placeholder" />
   </div>
@@ -111,6 +117,7 @@ import { NumberInput } from 'hds-react';
 
 () => (<NumberInput
   id="stepper-minmax"
+  descriptionText="Description text"
   helperText="At least 3 attendees are required"
   label="Number of attendees"
   min={3}
@@ -126,6 +133,7 @@ import { NumberInput } from 'hds-react';
 ```html
 <div class="hds-text-input" style="max-width:320px;">
   <label for="core-stepper-minmax" class="hds-text-input__label"> Number of attendees </label>
+  <span class="hds-text-input__description-text">Description text</span>
   <div class="hds-text-input__input-wrapper">
     <input
       id="core-stepper-minmax"

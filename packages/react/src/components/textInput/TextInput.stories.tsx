@@ -8,6 +8,7 @@ import { IconSearch } from '../../icons';
 import { Tooltip } from '../tooltip';
 
 const textInputProps = {
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   id: 'hdsInput',
   label: 'Label',
@@ -90,6 +91,7 @@ export const Playground = (args: TextInputProps & { tooltipButtonAriaLabelText: 
   <TextInput
     id={args.id}
     label={args.label}
+    descriptionText={args.descriptionText}
     helperText={args.helperText}
     placeholder={args.placeholder}
     readOnly={args.readOnly}

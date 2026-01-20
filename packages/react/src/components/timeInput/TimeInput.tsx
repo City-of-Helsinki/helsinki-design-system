@@ -66,6 +66,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
       defaultValue,
       value,
       errorText,
+      descriptionText,
       helperText,
       hideLabel,
       invalid,
@@ -105,6 +106,7 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
     const wrapperProps = {
       className,
       errorText,
+      descriptionText,
       helperText,
       hideLabel,
       id,

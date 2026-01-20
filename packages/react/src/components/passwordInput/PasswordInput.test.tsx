@@ -10,6 +10,7 @@ import { getCommonElementTestProps, getElementAttributesMisMatches } from '../..
 describe('<PasswordInput /> spec', () => {
   const defaultInputProps: PasswordInputProps = {
     defaultValue: '0451234567',
+    descriptionText: 'Description text',
     helperText: 'Assistive text',
     id: 'passwordInputId',
     label: 'passwordInput label',

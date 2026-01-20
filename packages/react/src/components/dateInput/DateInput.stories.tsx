@@ -33,6 +33,7 @@ export default {
   args: {
     id: 'date',
     label: 'Choose a date',
+    descriptionText: 'Description text',
     helperText: formatHelperTextEnglish,
     language: 'en',
     disableConfirmation: false,
@@ -75,6 +76,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-fi`}
           language="fi"
           label="Valitse päivämäärä"
+          descriptionText="Kuvausteksti"
           helperText="Käytä muotoa P.K.VVVV"
         />
       </div>
@@ -84,6 +86,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-sv`}
           language="sv"
           label="Välj ett datum"
+          descriptionText="Beskrivningstext"
           helperText="Använd ett format D.M.ÅÅÅÅ"
         />
       </div>
@@ -93,6 +96,7 @@ export const Localisation = (args: DateInputProps) => {
           id={`${args.id}-en`}
           language="en"
           label="Choose a date"
+          descriptionText="Description text"
           helperText={formatHelperTextEnglish}
         />
       </div>
@@ -130,6 +134,7 @@ export const WithDisabledDates = (args: DateInputProps) => {
   const [value, setValue] = useState<string>('');
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
   const dateHelperText = 'Only weekdays are available.';
+  const descriptionText = 'Description text';
   const helperText = `${dateHelperText} ${formatHelperTextEnglish}`;
 
   React.useEffect(() => {
@@ -151,6 +156,7 @@ export const WithDisabledDates = (args: DateInputProps) => {
       value={value}
       onChange={setValue}
       isDateDisabledBy={isWeekend}
+      descriptionText={descriptionText}
       helperText={helperText}
       errorText={errorText}
       invalid={!!errorText}
@@ -166,6 +172,7 @@ export const WithSelectedDisabledDates = (args: DateInputProps) => {
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
   const [errorText, setErrorText] = useState<string | undefined>(undefined);
   const disabledDates = [addDays(dateValue, 12), addDays(dateValue, 14)];
+  const descriptionText = 'Description text';
   const helperText = `Dates ${disabledDates
     .map((d) => format(d, dateFormat))
     .join(' and ')} are disabled. Use other dates instead. ${formatHelperTextEnglish}`;
@@ -190,6 +197,7 @@ export const WithSelectedDisabledDates = (args: DateInputProps) => {
       value={value}
       onChange={setValue}
       isDateDisabledBy={isDisabledDate}
+      descriptionText={descriptionText}
       helperText={helperText}
       errorText={errorText}
       invalid={!!errorText}
@@ -221,6 +229,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   const dateFormat = 'd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
   const [value, setValue] = useState<string>(format(dateValue, dateFormat));
+  const descriptionText = 'Description text';
   const helperText = `Custom styles for days with limited available timeslots in the date picker calendar. Use format D.M.YYYY.`;
 
   const littleSpaceLeftDate: LegendItem = {
@@ -269,6 +278,7 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
         {...args}
         value={value}
         onChange={setValue}
+        descriptionText={descriptionText}
         helperText={helperText}
         setDateClassName={setDateClassName}
         setDateAriaDescribedBy={setDateAriaDescribedBy}
@@ -355,6 +365,7 @@ export const WithRange = (args: DateInputProps) => {
         maxDate={startMaxDate}
         label="Select start date"
         onChange={setMinDate}
+        descriptionText=""
         helperText=""
         invalid={!!errors[0]}
         errorText={errors[0]}
@@ -366,6 +377,7 @@ export const WithRange = (args: DateInputProps) => {
         maxDate={endMaxDate}
         label="Select end date"
         onChange={setMaxDate}
+        descriptionText=""
         helperText=""
         invalid={!!errors[1]}
         errorText={errors[1]}
@@ -385,6 +397,7 @@ WithCustomDateFormat.storyName = 'With custom date format';
 WithCustomDateFormat.args = {
   id: 'WithCustomDateFormat',
   dateFormat: 'yyyy-MM-dd',
+  descriptionText: 'Description text',
   helperText: 'Use format YYYY-MM-DD',
 };
 

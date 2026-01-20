@@ -33,6 +33,12 @@
   composes: hds-selection-group__error-text from 'hds-core/lib/components/selection-group/selection-group.css';
 }
 
+.descriptionText {
+  composes: description-text from 'hds-core/lib/utils/helpers.css';
+  composes: hds-selection-group__description-text-gap from 'hds-core/lib/components/selection-group/selection-group.css';
+}
+
+
 .helperText {
   composes: helper-text from 'hds-core/lib/utils/helpers.css';
   composes: hds-selection-group__helper-text-gap from 'hds-core/lib/components/selection-group/selection-group.css';

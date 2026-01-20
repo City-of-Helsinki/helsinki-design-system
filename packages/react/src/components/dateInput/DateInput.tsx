@@ -13,6 +13,10 @@ export type DateInputProps = Omit<TextInputProps, 'onChange'> & {
    */
   closeButtonLabel?: string;
   /**
+   * The description text content that will be shown above the input
+   */
+  descriptionText?: string;
+  /**
    * Select the date from date picker without confirmation button.
    */
   disableConfirmation?: boolean;

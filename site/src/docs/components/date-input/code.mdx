@@ -49,6 +49,7 @@ import { DateInput } from 'hds-react';
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       disableConfirmation
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-2"
       initialMonth={new Date()}
@@ -74,6 +75,7 @@ import { DateInput } from 'hds-react';
   <div style={{ maxWidth: '400px' }}>
     <DateInput
       disableDatePicker
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-3"
       initialMonth={new Date()}
@@ -98,6 +100,7 @@ import { DateInput } from 'hds-react';
 () => (
   <div style={{ maxWidth: '400px' }}>
     <DateInput
+      descriptionText="Description text"
       helperText="Use format D.M.YYYY"
       id="date-input-example-4"
       initialMonth={new Date()}
@@ -109,6 +112,7 @@ import { DateInput } from 'hds-react';
     />
 
     <DateInput
+      descriptionText="Kuvausteksti"
       helperText="Käytä muotoa P.K.VVVV"
       id="date-input-example-5"
       initialMonth={new Date()}
@@ -120,6 +124,7 @@ import { DateInput } from 'hds-react';
     />
 
     <DateInput
+      descriptionText="Beskrivningstext"
       helperText="Använd ett format D.M.ÅÅÅÅ"
       id="date-input-example-6"
       initialMonth={new Date()}
@@ -148,6 +153,7 @@ import { DateInput } from 'hds-react';
   const [value, setValue] = React.useState('');
   const [errorText, setErrorText] = React.useState(undefined);
   const dateHelperText = 'Only weekdays are available.';
+  const descriptionText = 'Description text';
   const helperText = `${dateHelperText} Use format D.M.YYYY.`;
 
   React.useEffect(() => {
@@ -169,6 +175,7 @@ import { DateInput } from 'hds-react';
         value={value}
         onChange={setValue}
         isDateDisabledBy={isWeekend}
+        descriptionText={descriptionText}
         helperText={helperText}
         errorText={errorText}
         invalid={!!errorText}
@@ -263,6 +270,7 @@ import { DateInput } from 'hds-react';
         maxDate={startMaxDate}
         label="Select start date"
         onChange={setMinDate}
+        descriptionText=""
         helperText=""
         invalid={!!errors[0]}
         errorText={errors[0]}
@@ -273,6 +281,7 @@ import { DateInput } from 'hds-react';
         maxDate={endMaxDate}
         label="Select end date"
         onChange={setMaxDate}
+        descriptionText=""
         helperText=""
         invalid={!!errors[1]}
         errorText={errors[1]}

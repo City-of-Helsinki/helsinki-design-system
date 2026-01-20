@@ -35,6 +35,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       className = '',
       disabled = false,
       defaultValue,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,
@@ -56,6 +57,7 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
   ) => {
     const wrapperProps = {
       className,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,

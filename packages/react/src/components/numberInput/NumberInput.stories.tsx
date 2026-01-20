@@ -11,6 +11,7 @@ export default {
     controls: { expanded: true },
   },
   args: {
+    descriptionText: 'Description text',
     helperText: 'Assistive text',
     label: 'Label',
     minusStepButtonAriaLabel: 'Decrease by one',
@@ -35,6 +36,7 @@ CustomStep.storyName = 'With a custom step value';
 CustomStep.args = {
   id: 'CustomStep',
   step: 10,
+  descriptionText: 'Description text for input with steps of 10',
   helperText: 'Assistive text for input with steps of 10',
   label: 'Label for step test',
   minusStepButtonAriaLabel: 'Decrease by ten',
