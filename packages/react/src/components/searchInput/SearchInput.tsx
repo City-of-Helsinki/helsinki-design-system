@@ -13,6 +13,9 @@ import { useShowLoadingSpinner } from '../../hooks/useShowLoadingSpinner';
 import { LoadingSpinner } from '../loadingSpinner';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
+/**
+ * @deprecated Will be removed in the next major release.
+ */
 export type SearchInputProps<SuggestionItem> = MergeAndOverrideProps<
   AllElementPropsWithoutRef<'div'>,
   {
@@ -115,6 +118,10 @@ export type SearchInputProps<SuggestionItem> = MergeAndOverrideProps<
     visibleSuggestions?: number;
   }
 >;
+
+/**
+ * @deprecated Will be removed in the next major release.
+ */
 export const SearchInput = <SuggestionItem,>({
   className,
   clearButtonAriaLabel = 'Clear',
@@ -142,6 +149,13 @@ export const SearchInput = <SuggestionItem,>({
   const [lastAction, updateLastAction] = useState<UseComboboxStateChangeTypes | typeof userEnterKeyAction>(undefined);
   const [internalValue, setInternalValue] = useState<string>('');
   const inputValue = value || internalValue;
+
+  useEffect(() => {
+    if (typeof process !== 'undefined' && process.env && process.env.NODE_ENV !== 'production') {
+      // eslint-disable-next-line no-console
+      console.warn('SearchInput is deprecated and will be removed in the next major release.');
+    }
+  }, []);
 
   const wasLastActionStateChangeEnterKey = () => {
     return lastAction === useCombobox.stateChangeTypes.InputKeyDownEnter;
