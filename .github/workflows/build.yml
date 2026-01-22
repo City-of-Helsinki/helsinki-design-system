@@ -49,7 +49,7 @@ jobs:
       - name: install dependencies
         run: |
           yarn config set network-timeout 300000 
-          yarn
+          yarn --frozen-lockfile --ignore-scripts
 
       - name: build design tokens package
         run: yarn build

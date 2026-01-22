@@ -25,7 +25,7 @@ jobs:
           registry-url: 'https://registry.npmjs.org'
 
       - name: install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile --ignore-scripts
 
       - name: build design tokens package
         run: yarn build
