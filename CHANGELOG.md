@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [4.10.0] - Month, XX, 202X
+## [4.10.0] - January, XX, 2026
 
 ### React
 
@@ -25,7 +25,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Login] Fixed missing export for `useTokenizedFetch` and related hooks (`useTokenizedFetchModule`, `useTokenizedFetchWithSignals`, `useTokenizedFetchTracking`, `useTokenizedFetchResponseTracking`) in the build output. These hooks are now properly exported and available when importing from `hds-react`.
 
 #### Deprecated
 
@@ -73,6 +73,7 @@ Changes that are not related to specific components
 
 - [Component] What bugs/typos are fixed?
 - [Checkbox] Stories to include full interactivities.
+- [Login] Fixed incorrect hook name in documentation: `useTokenizedFetchModuleTracking` should be `useTokenizedFetchTracking`.
 
 ### Figma
 
