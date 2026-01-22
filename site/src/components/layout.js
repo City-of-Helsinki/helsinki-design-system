@@ -7,7 +7,7 @@
 
 import * as React from 'react';
 import PropTypes from 'prop-types';
-import { withPrefix, Link as GatsbyLink, navigate } from 'gatsby';
+import { withPrefix, Link as GatsbyLink, navigate, useStaticQuery, graphql } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
 import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi } from 'hds-react';
 import Seo from './Seo';
@@ -18,7 +18,6 @@ import InternalLink from './InternalLink';
 import ExternalLink from './ExternalLink';
 import AnchorLink from './AnchorLink';
 import './layout.scss';
-import { documentationVersion, versionsFromGit } from '../version';
 
 const classNames = (...args) => args.filter((e) => e).join(' ');
 
@@ -156,6 +155,24 @@ const isMatchingParentLink = (link, slug) => {
 };
 
 const Layout = ({ location, children, pageContext }) => {
+  // Get versions from siteMetadata via GraphQL
+  const { site } = useStaticQuery(graphql`
+    query VersionsQuery {
+      site {
+        siteMetadata {
+          versions
+        }
+      }
+    }
+  `);
+  
+  // The versions array already reflects the build mode:
+  // - Single version: [currentVersion]
+  // - Multi version: [currentVersion, ...previousVersions]
+  const versionsToShow = site.siteMetadata.versions || [];
+  // First version in the array is always the current version
+  const documentationVersion = versionsToShow[0] || '';
+  
   const { title: pageTitle, slug: pathName, customLayout } = pageContext.frontmatter;
   const pathParts = pathName.split('/');
   const version = pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
@@ -234,7 +251,7 @@ const Layout = ({ location, children, pageContext }) => {
             logo={<Logo src={logoFi} alt="Helsinki: Helsinki Design System" />}
           >
             <Header.ActionBarItem label={versionLabel} fixedRightPosition>
-              {[documentationVersion, ...versionsFromGit].map((itemVersion, index) => (
+              {versionsToShow.map((itemVersion, index) => (
                 <Header.ActionBarSubItem
                   label={`Version ${itemVersion}`}
                   key={`Version ${itemVersion}`}

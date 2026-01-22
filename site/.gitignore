@@ -39,3 +39,6 @@ yarn-error.log
 
 # icon&group mapping 
 icon_group.json
+
+# Local version downloads
+.previous-versions
