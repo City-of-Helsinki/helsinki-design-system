@@ -81,6 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### Documentation
 
+- Remove obsolete Dropdown link from components listing
+
 #### Fixed
 
 - [Checkbox] Stories to include full interactivities.
@@ -100,7 +102,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Select] Jumping to the end of Virtualized lists with END press.
 - [Select] Select accepts options with an empty string value
 - [Select] onClose was not triggered when navigating away with keyboard
