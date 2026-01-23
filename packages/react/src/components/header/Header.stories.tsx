@@ -1,7 +1,9 @@
 /* eslint-disable no-console */
-import React, { useEffect, useState } from 'react';
+import React, { useEffect, useState, useCallback } from 'react';
 import { action } from '@storybook/addon-actions';
 import type { Meta } from '@storybook/react';
+
+import { SearchProps } from '../dropdownComponents/search';
 
 import { LanguageSelectorProps } from '.';
 import { Header, HeaderProps } from './Header';
@@ -793,6 +795,55 @@ export const WithCustomMenu = (args: HeaderProps) => {
               <Header.ActionBarSubItem label={version} selected={version === selectedVersion} href="/" />
             ))}
           </Header.ActionBarItem>
+        </Header.ActionBar>
+      </Header>
+      <div id="content" />
+    </>
+  );
+};
+
+export const WithSearch = (args: HeaderProps) => {
+  const lang = 'fi';
+  const I18n = translations[lang];
+  const versions = ['Version 4.0.0', 'Version 3.11.0', 'Version 2.17.1'];
+  const selectedVersion = 'Version 3.11.0';
+  const serviceTitle = 'Helsingin kaupunki';
+
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue /* , lastClickedOption, data */) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
+    return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
+  }, []);
+
+  return (
+    <>
+      <Header {...args}>
+        <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
+        <Header.ActionBar
+          frontPageLabel={I18n.frontPage}
+          title={serviceTitle}
+          titleHref="https://hel.fi"
+          logoAriaLabel="Service logo"
+          logoHref="https://hel.fi"
+          logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+          menuButtonAriaLabel="Menu"
+          onMenuClick={(e) => e.stopPropagation()}
+        >
+          <Header.ActionBarItem id="VersionMenu" label={selectedVersion} fixedRightPosition>
+            {versions.map((version) => (
+              <Header.ActionBarSubItem label={version} selected={version === selectedVersion} href="/" />
+            ))}
+          </Header.ActionBarItem>
+          <Header.Search
+            heading={`Hae palvelusta: ${serviceTitle}`}
+            label='Mitä etsit?'
+            buttonLabel='Hae'
+            placeholder='Anna teksti hakua varten'
+            onChange={() => {}}
+            onSubmit={() => {}}
+            onSearch={handleSearch}
+          />
         </Header.ActionBar>
       </Header>
       <div id="content" />

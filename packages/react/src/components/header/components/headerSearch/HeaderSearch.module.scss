@@ -1,10 +1,67 @@
 @import "../../../../styles/common.scss";
 
+.headerSearchButton {
+  // Hide angle-down and angle-up icons (they appear as direct children in buttonContent after activeStateContent)
+  :global(button > div > svg:nth-last-child(2)) {
+    display: none !important;
+  }
+}
+
+// Increase specificity to override HeaderActionBarItem dropdown styles
+:global([class*="HeaderActionBarItem_dropdown"]) ul > .searchContainer {
+  padding: var(--spacing-2-xl) var(--spacing-m);
+}
+
 .searchContainer {
   align-items: center;
   border-radius: 0;
   color: var(--nav-search-color);
   display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  margin: 0 0 2px 0;
   position: relative;
   width: 100%;
+  min-height: 509px;
+  background: var(--color-white);
+  outline: none !important;
+  border-bottom: 1px solid var(--color-black-80) !important;
+  box-sizing: border-box;
+
+  h3 {
+    font-size: var(--fontsize-heading-l);
+    font-weight: 400;
+    margin: 0;
+    width: 551px;
+    text-align: left;
+    max-width: 100%;
+  }
+
+  .searchRow {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-end;
+    max-width: 100%;
+
+    > :first-child {
+      width: 420px;
+      max-width: 100%;
+      input {
+        height: 52px;
+      }
+    }
+
+    > button {
+      height: 56px;
+      width: 115px;
+      margin: 8px;
+      white-space: nowrap
+    }
+
+    @media only screen and (max-width: 319.98px) {
+      > :first-child {
+        width: 100%;
+      }
+    }
+  }
 }
