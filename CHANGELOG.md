@@ -79,6 +79,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.10.0] - X, X, XXXX
 
+### React
+
+#### Fixed
+
+- [Login] Fixed missing export for `useTokenizedFetch` and related hooks (`useTokenizedFetchModule`, `useTokenizedFetchWithSignals`, `useTokenizedFetchTracking`, `useTokenizedFetchResponseTracking`) in the build output. These hooks are now properly exported and available when importing from `hds-react`.
+
 ### Documentation
 
 - Remove obsolete Dropdown link from components listing
@@ -86,6 +92,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Checkbox] Stories to include full interactivities.
+- [Login] Fixed incorrect hook name in documentation: `useTokenizedFetchModuleTracking` should be `useTokenizedFetchTracking`.
 
 ## [4.9.0] - December, 18, 2025
 
