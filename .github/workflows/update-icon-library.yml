@@ -102,7 +102,7 @@ jobs:
 
       - name: Install React package NPM dependencies
         if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
-        run: (cd ./packages/react && yarn)
+        run: (cd ./packages/react && yarn --frozen-lockfile --ignore-scripts)
 
       - name: Lint React files
         if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'

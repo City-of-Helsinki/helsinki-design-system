@@ -54,7 +54,7 @@ jobs:
           key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}          
 
       - name: install dependencies
-        run: yarn
+        run: yarn --frozen-lockfile --ignore-scripts
 
       - name: release npm packages
         run: yarn release

@@ -55,7 +55,7 @@ jobs:
       - name: install e2e dependencies
         run: |
           yarn config set network-timeout 300000 
-          yarn
+          yarn --frozen-lockfile --ignore-scripts
         working-directory: ./e2e
 
       - name: install playwright browser and OS dependencies
