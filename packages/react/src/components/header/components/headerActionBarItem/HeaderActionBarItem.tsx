@@ -34,6 +34,11 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
      */
     fullWidth?: boolean;
     /**
+     * Makes only the dropdown full-width without affecting the button styling.
+     * Use this when you want a full-width dropdown but keep the normal button appearance.
+     */
+    fullWidthDropdown?: boolean;
+    /**
      * Icon for the action bar item.
      */
     icon?: JSX.Element;
@@ -66,6 +71,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     children,
     label,
     fullWidth,
+    fullWidthDropdown,
     className: classNameProp,
     iconClassName: iconClassNameProp,
     dropdownClassName: dropdownClassNameProp,
@@ -123,17 +129,28 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
   const iconLabel = closeLabel && visible && !preventButtonResize ? closeLabel : label;
   const iconClass = closeIcon && visible && !preventButtonResize ? closeIcon : icon;
   const hasSubItems = React.Children.count(children) > 0;
+  const isFullWidth = fullWidth || (isSmallScreen && fixedRightPosition);
+  const isDropdownFullWidth = isFullWidth || fullWidthDropdown;
+  
   const visibilityClasses = {
     visible,
     [classes.visible]: visible,
     [classes.hasContent]: hasContent,
-    [classes.fullWidth]: fullWidth || (isSmallScreen && fixedRightPosition),
+    [classes.fullWidth]: isFullWidth,
+    [classes.fullWidthDropdown]: fullWidthDropdown,
     [classes.hasSubItems]: hasSubItems,
     [classes.menuItem]: id === 'Menu',
   };
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
-  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, visibilityClasses);
+  
+  // Dropdown gets fullWidth class if either fullWidth OR fullWidthDropdown is true
+  const dropdownVisibilityClasses = {
+    ...visibilityClasses,
+    [classes.fullWidth]: isDropdownFullWidth,
+  };
+  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, dropdownVisibilityClasses);
+  
   const buttonOverlayProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' | 'activeStateLabel'> =
     preventButtonResize
       ? {
@@ -141,7 +158,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
           activeStateLabel: closeLabel,
         }
       : {};
-  const heading = visible && !fullWidth && label && avatar;
+  const heading = visible && !isFullWidth && label && avatar;
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
