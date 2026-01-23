@@ -2,22 +2,94 @@ require("dotenv").config({
   path: `.env.${process.env.NODE_ENV}`,
 })
 
-const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
-const versionsFromGit = buildSingleVersion ? [] : require('./src/data/versionsFromGit.json');
+const fs = require('node:fs');
+const path = require('node:path');
 
-const gitSources = versionsFromGit.map(version => ({
-  resolve: 'gatsby-source-git',
-  options: {
-    name: `docs-release-${version}`,
-    remote: `https://github.com/City-of-Helsinki/helsinki-design-system`,
-    branch: `release-${version}`,
-    patterns: 'site/src/docs/**',
-  },
-}));
+const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
+
+// Extract version number from directory name
+function extractVersionFromDir(dir) {
+  const versionPart = dir.replace('helsinki-design-system-', '');
+  // Extract only the semantic version part (X.Y.Z)
+  // This ensures we extract just the version even if there's extra text after it
+  const match = versionPart.match(/^(\d+\.\d+\.\d+)/);
+  return match ? match[1] : null;
+}
+
+// Sort versions descending (newest first)
+function sortVersionsDesc(a, b) {
+  const aParts = a.split('.').map(Number);
+  const bParts = b.split('.').map(Number);
+  for (let i = 0; i < 3; i++) {
+    if (bParts[i] !== aParts[i]) return bParts[i] - aParts[i];
+  }
+  return 0;
+}
+
+// Auto-detect versions from .previous-versions directory
+function getPreviousVersions() {
+  const previousVersionsDir = path.join(__dirname, '.previous-versions');
+  if (!fs.existsSync(previousVersionsDir)) return [];
+  
+  try {
+    return fs.readdirSync(previousVersionsDir)
+      .filter(item => {
+        const itemPath = path.join(previousVersionsDir, item);
+        try {
+          return fs.statSync(itemPath).isDirectory() && item.startsWith('helsinki-design-system-');
+        } catch {
+          return false;
+        }
+      })
+      .map(extractVersionFromDir)
+      .filter(Boolean)
+      .sort(sortVersionsDesc)
+      .reduce((acc, version) => {
+        // Ensure we only keep the latest minor for each major version
+        const major = version.split('.')[0];
+        if (!acc.some(v => v.split('.')[0] === major)) {
+          acc.push(version);
+        }
+        return acc;
+      }, [])
+      .slice(0, 2); // Get latest minors from the previous two majors
+  } catch (error) {
+    console.warn('Warning: Could not read .previous-versions directory:', error.message);
+    return [];
+  }
+}
+
+const previousVersions = buildSingleVersion ? [] : getPreviousVersions();
+
+// Get current version from package.json for siteMetadata
+const packageJsonPath = path.join(__dirname, 'package.json');
+const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+const currentVersion = packageJson.version;
+
+// Combine current and previous versions into a single array
+const versions = buildSingleVersion ? [currentVersion] : [currentVersion, ...previousVersions];
+
+// Create local sources using gatsby-source-filesystem
+const previousVersionSources = previousVersions.map(version => {
+  const docsPath = path.join(__dirname, `.previous-versions/helsinki-design-system-${version}/site/src/docs`);
+  
+  // Verify the path exists before adding it
+  if (fs.existsSync(docsPath)) {
+    return {
+      resolve: `gatsby-source-filesystem`,
+      options: {
+        name: `docs-release-${version}`,
+        path: docsPath,
+      },
+    };
+  }
+  return null;
+}).filter(Boolean);
 
 module.exports = {
   pathPrefix: process.env.PATH_PREFIX,
   siteMetadata: {
+    versions,
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
     siteUrl: process.env.SITE_URL,
@@ -163,7 +235,7 @@ module.exports = {
         path: `${__dirname}/src/docs`,
       },
     },
-    ...gitSources,
+    ...previousVersionSources,
     {
       resolve: `gatsby-plugin-mdx`,
       options: {
