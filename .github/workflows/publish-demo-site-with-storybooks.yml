@@ -70,6 +70,9 @@ jobs:
           yarn config set network-timeout 300000 
           yarn --frozen-lockfile --ignore-scripts
 
+      - name: rebuild native modules
+        run: npm rebuild
+
       # Build site
       - name: build site package
         run: yarn ${{ inputs.build_single_version && 'build-single-version' || 'build' }} --prefix-paths
