@@ -5,6 +5,30 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [4.10.0] - January, 29, 2026
+
+Updated documentation build process for multi-version docs by replacing the `gatsby-source-git` setup with a local filesystem-based source and adding automatic version detection from the documentation directory structure.
+
+### React
+
+#### Fixed
+
+- [Login] Fixed missing export for `useTokenizedFetch` and related hooks (`useTokenizedFetchModule`, `useTokenizedFetchWithSignals`, `useTokenizedFetchTracking`, `useTokenizedFetchResponseTracking`) in the build output. These hooks are now properly exported and available when importing from `hds-react`.
+
+#### Deprecated
+
+- [SearchInput] Will be removed in the next major release.
+- [Dropdown, Combobox] Will be removed in next major release.
+
+### Documentation
+
+- Remove obsolete Dropdown link from components listing
+
+#### Fixed
+
+- [Checkbox] Stories to include full interactivities.
+- [Login] Fixed incorrect hook name in documentation: `useTokenizedFetchModuleTracking` should be `useTokenizedFetchTracking`.
+
 ## [4.9.0] - December, 18, 2025
 
 - Security related updates and changes necessary due to them.
@@ -20,7 +44,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Select] Jumping to the end of Virtualized lists with END press.
 - [Select] Select accepts options with an empty string value
 - [Select] onClose was not triggered when navigating away with keyboard

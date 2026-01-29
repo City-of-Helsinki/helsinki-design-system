@@ -23,11 +23,13 @@ type FilterFunction<OptionType> = (options: OptionType[], search: string) => Opt
 export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
   /**
    * Custom aria-describedby added to the input element
+   * @deprecated Will be removed in the next major release.
    */
   'aria-describedby'?: string;
   /**
    * Prevents further propagation of the 'Escape' onKeyDown event when the menu is closed by pressing Esc.
    * Useful e.g. when the component is used inside a modal.
+   * @deprecated Will be removed in the next major release.
    */
   catchEscapeKey?: boolean;
   /**
@@ -36,14 +38,17 @@ export type ComboboxProps<OptionType> = SelectProps<OptionType> & {
    * filter implementation is used. The default implementation assumes
    * that the `optionLabelField` prop points to a string value that it
    * can compare with the search value.
+   * @deprecated Will be removed in the next major release.
    */
   filter?: FilterFunction<OptionType>;
   /**
    * If `true`, displays a menu toggle button in the combobox.
+   * @deprecated Will be removed in the next major release.
    */
   showToggleButton?: boolean;
   /**
    * aria-label for the menu toggle button. The label for the combobox will be prepended to the given value.
+   * @deprecated Will be removed in the next major release.
    */
   toggleButtonAriaLabel: string;
 };

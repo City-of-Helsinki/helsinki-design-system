@@ -285,6 +285,7 @@ export type SelectProps<OptionType> = SingleSelectProps<OptionType> | MultiSelec
 
 /**
  * Multi-select state change handler
+ * @deprecated Will be removed in the next major release.
  * @param type
  * @param activeIndex
  * @param currentActiveIndex
@@ -306,6 +307,7 @@ export function onMultiSelectStateChange<T>(
 
 /**
  * Multi-select reducer function
+ * @deprecated Will be removed in the next major release.
  * @param state
  * @param type
  * @param changes
@@ -341,6 +343,9 @@ export function multiSelectReducer<T>(
   return changes;
 }
 
+/**
+ * @deprecated Will be removed in the next major release. Please use the Select component from @hds/react instead.
+ */
 export const Select = <OptionType,>(props: SelectProps<OptionType>) => {
   // we can't destructure all the props. after destructuring, the link
   // between the multiselect prop and the value, onChange etc. props would vanish

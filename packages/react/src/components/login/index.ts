@@ -15,6 +15,7 @@ export * from './apiTokensClient/hooks';
 export * from './sessionPoller/hooks';
 export * from './graphQLModule/hooks';
 export * from './apolloClient/hooks';
+export * from './tokenizedFetch/hooks';
 
 // vanilla js code
 export * from './index.vanilla-js';
