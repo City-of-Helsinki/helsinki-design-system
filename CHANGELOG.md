@@ -7,6 +7,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [4.10.0] - January, XX, 2026
 
+Updated documentation build process for multi-version docs by replacing the `gatsby-source-git` setup with a local filesystem-based source and adding automatic version detection from the documentation directory structure.
+
 ### React
 
 #### Breaking
@@ -71,7 +73,6 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Checkbox] Stories to include full interactivities.
 - [Login] Fixed incorrect hook name in documentation: `useTokenizedFetchModuleTracking` should be `useTokenizedFetchTracking`.
 

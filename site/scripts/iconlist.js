@@ -1,4 +1,4 @@
-const fs = require('fs');
+const fs = require('node:fs');
 const chalk = require('chalk');
 
 // This script generates icon list.mdx file from exists icon files
