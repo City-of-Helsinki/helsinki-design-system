@@ -77,13 +77,20 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
-## [4.10.0] - X, X, XXXX
+## [4.10.0] - January, 29, 2026
+
+Updated documentation build process for multi-version docs by replacing the `gatsby-source-git` setup with a local filesystem-based source and adding automatic version detection from the documentation directory structure.
 
 ### React
 
 #### Fixed
 
 - [Login] Fixed missing export for `useTokenizedFetch` and related hooks (`useTokenizedFetchModule`, `useTokenizedFetchWithSignals`, `useTokenizedFetchTracking`, `useTokenizedFetchResponseTracking`) in the build output. These hooks are now properly exported and available when importing from `hds-react`.
+
+#### Deprecated
+
+- [SearchInput] Will be removed in the next major release.
+- [Dropdown, Combobox] Will be removed in next major release.
 
 ### Documentation
 

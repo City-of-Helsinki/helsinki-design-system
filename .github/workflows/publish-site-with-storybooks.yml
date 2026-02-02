@@ -58,6 +58,9 @@ jobs:
           yarn config set network-timeout 300000 
           yarn --frozen-lockfile --ignore-scripts
 
+      - name: rebuild native modules
+        run: npm rebuild
+
       - name: build documentation site
         run: yarn build
         working-directory: ./site
