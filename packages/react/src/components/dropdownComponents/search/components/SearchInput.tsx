@@ -176,7 +176,7 @@ export const SearchInput = forwardRef<
       clearButton
       clearButtonAriaLabel={clearButtonAriaLabel}
       type={onSend ? 'search' : 'text'}
-      buttonIcon={onSend ? <IconSearch /> : undefined}
+      buttonIcon={onSend ? <IconSearch className={styles.searchButtonIcon} /> : undefined}
       onButtonClick={handleSearch}
       buttonAriaLabel={getTextKey('searchButtonAriaLabel', metaData)}
     />

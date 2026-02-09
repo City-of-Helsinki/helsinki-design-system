@@ -131,7 +131,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
   const hasSubItems = React.Children.count(children) > 0;
   const isFullWidth = fullWidth || (isSmallScreen && fixedRightPosition);
   const isDropdownFullWidth = isFullWidth || fullWidthDropdown;
-  
+
   const visibilityClasses = {
     visible,
     [classes.visible]: visible,
@@ -143,14 +143,14 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
   };
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
-  
+
   // Dropdown gets fullWidth class if either fullWidth OR fullWidthDropdown is true
   const dropdownVisibilityClasses = {
     ...visibilityClasses,
     [classes.fullWidth]: isDropdownFullWidth,
   };
   const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, dropdownVisibilityClasses);
-  
+
   const buttonOverlayProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' | 'activeStateLabel'> =
     preventButtonResize
       ? {

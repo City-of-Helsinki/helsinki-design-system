@@ -18,6 +18,10 @@
     min-width: 320px;
     transition-duration: var(--animation-duration-dropwdown);
     transition-timing-function: ease;
+
+    @media only screen and (max-width: 320px) {
+      min-width: 100%;
+    }
   }
 
   &.visible .dropdownWrapper {
@@ -55,11 +59,11 @@
 
     > .dropdownWrapper {
       left: 0;
+      outline: none;
       position: absolute;
       right: 0;
       transform: translateY(100%) translateY(1px);
       width: 100%;
-      outline: none;
     }
   }
 

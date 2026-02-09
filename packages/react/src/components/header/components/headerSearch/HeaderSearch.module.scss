@@ -7,61 +7,80 @@
   }
 }
 
-// Increase specificity to override HeaderActionBarItem dropdown styles
-:global([class*="HeaderActionBarItem_dropdown"]) ul > .searchContainer {
-  padding: var(--spacing-2-xl) var(--spacing-m);
-}
-
 .searchContainer {
   align-items: center;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-black-80) !important;
   border-radius: 0;
+  box-sizing: border-box;
   color: var(--nav-search-color);
   display: flex;
   flex-direction: column;
   gap: var(--spacing-s);
-  margin: 0 0 2px 0;
+  margin: 0 0 2px;
+  min-height: 509px;
+  outline: none !important;
   position: relative;
   width: 100%;
-  min-height: 509px;
-  background: var(--color-white);
-  outline: none !important;
-  border-bottom: 1px solid var(--color-black-80) !important;
-  box-sizing: border-box;
 
   h3 {
     font-size: var(--fontsize-heading-l);
     font-weight: 400;
     margin: 0;
-    width: 551px;
+    max-width: 100%;
     text-align: left;
+  }
+
+  > div {
     max-width: 100%;
   }
 
   .searchRow {
+    align-items: flex-start;
     display: flex;
     flex-direction: row;
-    align-items: flex-end;
-    max-width: 100%;
+    gap: var(--spacing-s);
+    margin-top: var(--spacing-l);
 
     > :first-child {
       width: 420px;
-      max-width: 100%;
+
       input {
         height: 52px;
       }
     }
 
     > button {
-      height: 56px;
-      width: 115px;
-      margin: 8px;
-      white-space: nowrap
+      padding: var(--spacing-s) var(--spacing-m);
+      white-space: nowrap;
     }
 
-    @media only screen and (max-width: 319.98px) {
+    &:has(label) > button {
+      margin-top: calc(var(--lineheight-l) * var(--fontsize-body-m) + var(--spacing-3-xs));
+    }
+
+    @media only screen and (max-width: 576px) {
+      flex-direction: column;
+      width: 100%;
+
       > :first-child {
+        max-width: 100%;
         width: 100%;
+      }
+
+      > button {
+        margin-top: 0;
+        width: 100%;
+      }
+
+      &:has(label) > button {
+        margin-top: 0;
       }
     }
   }
+}
+
+// Increase specificity to override HeaderActionBarItem dropdown styles
+:global([class*="HeaderActionBarItem_dropdown"]) ul > .searchContainer {
+  padding: var(--spacing-2-xl) var(--spacing-m);
 }

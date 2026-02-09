@@ -1,58 +1,45 @@
-import React, { useCallback, useState, useRef, useEffect } from 'react';
+import React, { useState, useRef } from 'react';
 
 import styles from './HeaderSearch.module.scss';
-import { Search, SearchProps } from '../../../dropdownComponents/search';
+import { Search, SearchFunction, TextKey as SearchTextKey } from '../../../dropdownComponents/search';
+import { SupportedLanguage } from '../../../dropdownComponents/modularOptionList/types';
 import { Button } from '../../../button';
 import { Notification } from '../../../notification';
 import { MergeAndOverrideProps } from '../../../../utils/elementTypings';
 import classNames from '../../../../utils/classNames';
 import { HeaderActionBarItem, HeaderActionBarItemProps } from '../headerActionBarItem';
 import { IconSearch, IconCross } from '../../../../icons';
-import { useMobile } from '../../../../hooks/useMobile';
 
-export type NavigationSearchProps = MergeAndOverrideProps<
+export type TextKey = SearchTextKey | 'heading' | 'buttonLabel' | 'placeholder';
+export type Texts = Record<TextKey, string> & { language?: SupportedLanguage };
+
+export type HeaderSearchProps = MergeAndOverrideProps<
   Omit<HeaderActionBarItemProps, 'children' | 'id'>,
   {
-    /**
-     * Callback fired when the search button or Enter key is pressed
-     */
-    onSubmit?: (value: string) => void;
-    /**
-     * Callback fired when the search input value is changed
-     */
-    onChange?: (inputValue: string) => void;
-    /**
-     * Callback for search function
-     */
-    onSearch?: SearchProps['onSearch'];
-    /**
-     * Heading for the search container.
-     */
-    heading: string | JSX.Element;
-    /**
-     * Label for the search element.
-     */
-    label: string;
-    /**
-     * Placeholder for the search input.
-     */
-    placeholder: string;
-    /**
-     * Label for the action bar button.
-     * @default "Haku"
-     */
-    buttonLabel?: string;
-    /**
-     * Icon for the action bar button.
-     */
-    buttonIcon?: JSX.Element;
     /**
      * ID for the search component.
      * @default "header-search"
      */
     id?: string;
     /**
-     * Label for the close button when dropdown is open.
+     * Callback fired when the search button or Enter key is pressed
+     */
+    onSubmit?: (value: string) => void;
+    /**
+     * Callback for search function
+     */
+    onSearch?: SearchFunction;
+    /**
+     * All texts.
+     */
+    texts?: Partial<Texts>;
+    /**
+     * Icon for the Search button in the Header.
+     * @default "Close"
+     */
+    buttonIcon?: JSX.Element;
+    /**
+     * Label or Icon for the close button in the Header when dropdown is open.
      * @default "Close"
      */
     closeLabel?: string | JSX.Element;
@@ -61,27 +48,20 @@ export type NavigationSearchProps = MergeAndOverrideProps<
 
 export const HeaderSearch = ({
   onSubmit,
-  onChange,
   onSearch,
-  heading,
-  label,
-  placeholder = '',
-  buttonLabel = 'Search',
+  texts,
   buttonIcon = <IconSearch />,
   id = 'header-search',
   className,
   fullWidthDropdown = true,
   closeLabel = 'Close',
   ...rest
-}: NavigationSearchProps) => {
-  const [value, setValue] = useState('');
+}: HeaderSearchProps) => {
   const searchInputRef = useRef<HTMLInputElement>(null);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
-  const isMobile = useMobile();
 
   const onSend = (val: string) => {
-    console.log('Search submitted test:', val);
     setNotificationMessage(`Search submitted: "${val}"`);
     setShowNotification(true);
     if (onSearch) {
@@ -92,22 +72,6 @@ export const HeaderSearch = ({
     }
   };
 
-  const onChangeWrap = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('ONCHANGE --> Search changed:', e.target.value);
-    setValue(e.target.value);
-    if (onChange) {
-      onChange(value);
-    }
-  };
-
-  const onBlurWrap = () => {
-    console.log('ONBLUR --> Search blurred');
-  };
-
-  const onFocusWrap = () => {
-    console.log('ONFOCUS --> Search focused');
-  };
-
   const onSearchButtonClick = () => {
     const currentValue = searchInputRef.current?.value;
     if (currentValue) {
@@ -115,9 +79,9 @@ export const HeaderSearch = ({
     }
   };
 
-  const [props] = useState({
+  const searchProps = {
     id: `${id}-search-component`,
-  });
+  };
 
   return (
     <>
@@ -137,7 +101,7 @@ export const HeaderSearch = ({
       <HeaderActionBarItem
         {...rest}
         id={id}
-        label={buttonLabel}
+        label={texts?.buttonLabel || 'Search'}
         icon={buttonIcon}
         closeIcon={<IconCross />}
         closeLabel={closeLabel}
@@ -146,24 +110,18 @@ export const HeaderSearch = ({
         className={styles.headerSearchButton}
       >
         <div className={classNames(styles.searchContainer, className)} role="search">
-          <h3>{heading}</h3>
-          <div className={classNames(styles.searchRow)} >
-            <Search
-              {...props}
-              historyId={`${id}-search-input`}
-              ref={searchInputRef}
-              texts={{
-                label: label,
-                searchPlaceholder: placeholder,
-                language: 'fi',
-              }}
-              onBlur={onBlurWrap}
-              onFocus={onFocusWrap}
-              onSearch={onSearch}
-
-              {...(isMobile ? { onSend } : {})}
-            />
-            {!isMobile && <Button onClick={onSearchButtonClick}>{buttonLabel}</Button>}
+          <div>
+            <h3>{texts.heading}</h3>
+            <div className={classNames(styles.searchRow)}>
+              <Search
+                {...searchProps}
+                historyId={`${id}-search-input`}
+                ref={searchInputRef}
+                texts={texts}
+                onSearch={onSearch}
+              />
+              <Button onClick={onSearchButtonClick}>{texts?.buttonLabel || 'Search'}</Button>
+            </div>
           </div>
         </div>
       </HeaderActionBarItem>

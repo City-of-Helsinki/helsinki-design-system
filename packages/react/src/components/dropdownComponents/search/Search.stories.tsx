@@ -3,6 +3,7 @@ import React, { useCallback, useRef, useState } from 'react';
 import { Search, SearchProps } from './Search';
 import { Notification } from '../../notification';
 import { Button } from '../../button';
+import { getOptions } from '../modularOptionList/batch.options';
 
 export default {
   component: Search,
@@ -22,7 +23,14 @@ export const Example = () => {
     if (searchValue === 'error') {
       return Promise.reject(new Error('Simulated error'));
     }
-    return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
+    return Promise.resolve({
+      groups: [
+        {
+          label: 'Hakuehdotukset',
+          options: getOptions(100).filter((s) => s.value.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+        },
+      ],
+    });
   }, []);
 
   const onSend = (val: string) => {
@@ -83,10 +91,19 @@ export const WithExternalButton = () => {
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  // const handleSearch: SearchProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
-  //   console.log('Search event:', { selectedOptions, lastClickedOption, data });
-  //   return Promise.resolve({ groups: [{ label: 'Search suggestions', options: ['tuomo', 'testaa', 'tuomo testaa'] }] });
-  // }, []);
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue /* , lastClickedOption, data */) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
+    return Promise.resolve({
+      groups: [
+        {
+          label: 'Hakuehdotukset',
+          options: getOptions(100).filter((s) => s.value.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+        },
+      ],
+    });
+  }, []);
 
   const onSend = (val: string) => {
     setNotificationMessage(`Search submitted: "${val}"`);
@@ -119,7 +136,7 @@ export const WithExternalButton = () => {
           {notificationMessage}
         </Notification>
       )}
-      <Search {...props} historyId="test" ref={searchInputRef} />
+      <Search {...props} historyId="test" onSearch={handleSearch} ref={searchInputRef} />
       <Button onClick={handleExternalButtonClick}>Send search</Button>
     </>
   );

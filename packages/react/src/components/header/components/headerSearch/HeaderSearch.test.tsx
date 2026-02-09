@@ -2,7 +2,7 @@ import React, { HTMLAttributes } from 'react';
 import { render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
-import { HeaderSearch, NavigationSearchProps } from './HeaderSearch';
+import { HeaderSearch, HeaderSearchProps as NavigationSearchProps } from './HeaderSearch';
 import { HeaderWrapper } from '../../../../utils/test-utils';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 

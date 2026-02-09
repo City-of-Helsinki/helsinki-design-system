@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 
+import styles from '../Search.module.scss';
 import { DivElementProps } from '../../modularOptionList/types';
 import { getTextFromDataHandlers } from '../texts';
 import { useSearchDataHandlers } from '../hooks/useSearchDataHandlers';
@@ -13,7 +14,7 @@ import {
 function createAssistiveTextProps(dataHandlers: SearchDataHandlers): DivElementProps & { children: string | null } {
   const assistive = getTextFromDataHandlers('assistive', dataHandlers);
   return {
-    className: 'hds-search-assistive-text',
+    className: styles.assistiveText,
     children: assistive || null,
   };
 }
