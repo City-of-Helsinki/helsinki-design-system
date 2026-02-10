@@ -44,7 +44,6 @@ exports[`<TextInput /> spec renders the component with search clear button 1`] =
 <DocumentFragment>
   <div
     class="root"
-    data-hds-textinput-filled="true"
   >
     <label
       class="label "

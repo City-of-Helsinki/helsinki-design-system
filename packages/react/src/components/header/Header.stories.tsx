@@ -847,6 +847,7 @@ export const WithSearch = (args: HeaderProps) => {
               heading: `Hae palvelusta: ${serviceTitle}`,
               label: 'Mitä etsit?',
               buttonLabel: 'Hae',
+              closeLabel: 'Sulje',
               placeholder: 'Anna teksti hakua varten',
               assistive: 'Avustava teksti',
             }}

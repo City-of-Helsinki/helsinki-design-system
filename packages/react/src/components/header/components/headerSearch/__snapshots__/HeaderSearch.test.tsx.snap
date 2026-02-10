@@ -9,55 +9,22 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
       class="headerBackgroundWrapper"
     >
       <div
-        class="searchContainer"
-        role="search"
+        class="container headerSearchButton hasContent fullWidthDropdown hasSubItems"
+        id="header-search"
       >
-        <div
-          class="root"
+        <button
+          aria-controls="header-search-dropdown"
+          aria-expanded="false"
+          aria-label="Hae"
+          class="actionBarItemButton icon hasSubItems"
+          type="button"
         >
-          <label
-            class="label "
-            for="header-search"
-          >
-            Haku
-          </label>
           <div
-            class="inputWrapper"
+            class="buttonContent"
           >
-            <input
-              class="input hasButton hasClearButton"
-              id="header-search"
-              type="text"
-              value=""
-            />
-            <div
-              class="buttonWrapper"
-            >
-              <button
-                aria-label="Clear search field"
-                class="button clearButton"
-                type="button"
-              >
-                <svg
-                  aria-hidden="true"
-                  aria-label="cross-circle"
-                  class="icon small"
-                  role="img"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    clip-rule="evenodd"
-                    d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15 7.5L16.5 9L13.5 12L16.5 15L15 16.5L12 13.5L9 16.5L7.5 15L10.5 12L7.5 9L9 7.5L12 10.5L15 7.5Z"
-                    fill="currentColor"
-                    fill-rule="evenodd"
-                  />
-                </svg>
-              </button>
-              <button
-                aria-label="Search"
-                class="button"
-                type="button"
+            <span>
+              <span
+                class="actionBarItemButtonIcon"
               >
                 <svg
                   aria-hidden="true"
@@ -74,8 +41,168 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
                     fill-rule="evenodd"
                   />
                 </svg>
-              </button>
+              </span>
+              <span
+                class="actionBarItemButtonLabel"
+              >
+                Hae
+              </span>
+            </span>
+            <svg
+              aria-hidden="true"
+              aria-label="angle-down"
+              class="icon small"
+              role="img"
+              viewBox="0 0 24 24"
+              xmlns="http://www.w3.org/2000/svg"
+            >
+              <path
+                clip-rule="evenodd"
+                d="M12 13.5L17 8.5L18.5 10L12 16.5L5.5 10L7 8.5L12 13.5Z"
+                fill="currentColor"
+                fill-rule="evenodd"
+              />
+            </svg>
+            <div
+              class="activeStateContent"
+            >
+              <span
+                class="actionBarItemButtonIcon"
+              >
+                <svg
+                  aria-hidden="true"
+                  aria-label="cross"
+                  class="icon small"
+                  role="img"
+                  viewBox="0 0 24 24"
+                  xmlns="http://www.w3.org/2000/svg"
+                >
+                  <path
+                    clip-rule="evenodd"
+                    d="M18 7.5L13.5 12L18 16.5L16.5 18L12 13.5L7.5 18L6 16.5L10.5 12L6 7.5L7.5 6L12 10.5L16.5 6L18 7.5Z"
+                    fill="currentColor"
+                    fill-rule="evenodd"
+                  />
+                </svg>
+              </span>
+              <span
+                aria-hidden="true"
+                class="actionBarItemButtonLabel activeStateContentLabel"
+              >
+                Close
+              </span>
             </div>
+          </div>
+        </button>
+        <div
+          class="dropdownWrapper"
+        >
+          <div
+            class="dropdown hasContent fullWidth fullWidthDropdown hasSubItems"
+            id="header-search-dropdown"
+          >
+            <ul>
+              <li
+                style="padding: 0px;"
+              >
+                <div
+                  class="searchContainer"
+                  role="search"
+                >
+                  <div>
+                    <h3>
+                      Hae palvelusta
+                    </h3>
+                    <div
+                      class="searchRow"
+                    >
+                      <div
+                        class="wrapper root"
+                        id="header-search-search-component-container"
+                        tabindex="-1"
+                      >
+                        <label
+                          class="label "
+                          for="header-search-search-component-search-input"
+                          id="header-search-search-component-label"
+                        >
+                          Mitä etsit?
+                        </label>
+                        <div
+                          class="selectAndListContainer"
+                        >
+                          <div>
+                            <div
+                              class="root searchInput"
+                            >
+                              <div
+                                class="inputWrapper"
+                              >
+                                <input
+                                  aria-label="Hae"
+                                  class="input hasClearButton"
+                                  id="header-search-search-component-search-input"
+                                  placeholder="Anna teksti hakua varten"
+                                  type="text"
+                                  value=""
+                                />
+                                <div
+                                  class="buttonWrapper"
+                                >
+                                  <button
+                                    aria-label="Tyhjennä haku"
+                                    class="button clearButton"
+                                    type="button"
+                                  >
+                                    <svg
+                                      aria-hidden="true"
+                                      aria-label="cross-circle"
+                                      class="icon small"
+                                      role="img"
+                                      viewBox="0 0 24 24"
+                                      xmlns="http://www.w3.org/2000/svg"
+                                    >
+                                      <path
+                                        clip-rule="evenodd"
+                                        d="M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4ZM15 7.5L16.5 9L13.5 12L16.5 15L15 16.5L12 13.5L9 16.5L7.5 15L10.5 12L7.5 9L9 7.5L12 10.5L15 7.5Z"
+                                        fill="currentColor"
+                                        fill-rule="evenodd"
+                                      />
+                                    </svg>
+                                  </button>
+                                </div>
+                              </div>
+                            </div>
+                            <div
+                              aria-hidden="true"
+                              class="listAndInputContainer"
+                            />
+                          </div>
+                        </div>
+                        <div
+                          class="assistiveText"
+                        >
+                          Avustava teksti
+                        </div>
+                        <div
+                          aria-live="polite"
+                          class="screenReaderNotifications"
+                          data-testid="hds-search-screen-reader-notifications"
+                        />
+                      </div>
+                      <button
+                        class="button primary theme-bus size-medium"
+                        type="button"
+                      >
+                        <span>
+                          Hae
+                        </span>
+                      </button>
+                    </div>
+                  </div>
+                </div>
+              </li>
+            </ul>
           </div>
         </div>
       </div>

@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React, { forwardRef, useImperativeHandle, useRef } from 'react';
 
 import styles from './SearchInput.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -11,8 +11,12 @@ import { useSearchHistory } from '../SearchHistoryContext';
 import { IconSearch } from '../../../../icons/IconSearch';
 import { SearchFunction } from '../types';
 
+export interface SearchInputHandle extends HTMLInputElement {
+  submit: () => void;
+}
+
 export const SearchInput = forwardRef<
-  HTMLInputElement,
+  SearchInputHandle,
   TextInputProps & { onSearch?: SearchFunction; onSend?: (value: string) => void }
 >((props, ref) => {
   const classes = classNames(styles.searchInput, props.className || '');
@@ -20,6 +24,7 @@ export const SearchInput = forwardRef<
   const { getMetaData /* , trigger */ } = dataHandlers;
   const metaData = getMetaData();
   const [innerValue, setInnerValue] = React.useState(metaData.search || '');
+  const inputRef = useRef<HTMLInputElement>(null);
 
   // Extract props first
   const {
@@ -161,10 +166,23 @@ export const SearchInput = forwardRef<
   // Use controlled value if provided, otherwise use internal state
   const inputValue = isControlled ? externalValue : innerValue;
 
+  // Expose both the input element and submit method via ref
+  useImperativeHandle(
+    ref,
+    () => {
+      const inputElement = inputRef.current as SearchInputHandle;
+      if (inputElement) {
+        inputElement.submit = handleSearch;
+      }
+      return inputElement;
+    },
+    [handleSearch],
+  );
+
   return (
     <TextInput
       {...rest}
-      ref={ref}
+      ref={inputRef}
       onChange={handleChange}
       onFocus={handleInputFocus}
       onBlur={handleInputBlur}

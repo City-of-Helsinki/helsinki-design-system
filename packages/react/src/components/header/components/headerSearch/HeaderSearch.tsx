@@ -1,7 +1,12 @@
 import React, { useState, useRef } from 'react';
 
 import styles from './HeaderSearch.module.scss';
-import { Search, SearchFunction, TextKey as SearchTextKey } from '../../../dropdownComponents/search';
+import {
+  Search,
+  SearchFunction,
+  TextKey as SearchTextKey,
+  SearchInputHandle,
+} from '../../../dropdownComponents/search';
 import { SupportedLanguage } from '../../../dropdownComponents/modularOptionList/types';
 import { Button } from '../../../button';
 import { Notification } from '../../../notification';
@@ -10,7 +15,7 @@ import classNames from '../../../../utils/classNames';
 import { HeaderActionBarItem, HeaderActionBarItemProps } from '../headerActionBarItem';
 import { IconSearch, IconCross } from '../../../../icons';
 
-export type TextKey = SearchTextKey | 'heading' | 'buttonLabel' | 'placeholder';
+export type TextKey = SearchTextKey | 'heading' | 'buttonLabel' | 'closeLabel' | 'placeholder';
 export type Texts = Record<TextKey, string> & { language?: SupportedLanguage };
 
 export type HeaderSearchProps = MergeAndOverrideProps<
@@ -35,14 +40,8 @@ export type HeaderSearchProps = MergeAndOverrideProps<
     texts?: Partial<Texts>;
     /**
      * Icon for the Search button in the Header.
-     * @default "Close"
      */
     buttonIcon?: JSX.Element;
-    /**
-     * Label or Icon for the close button in the Header when dropdown is open.
-     * @default "Close"
-     */
-    closeLabel?: string | JSX.Element;
   }
 >;
 
@@ -51,36 +50,45 @@ export const HeaderSearch = ({
   onSearch,
   texts,
   buttonIcon = <IconSearch />,
-  id = 'header-search',
+  id,
   className,
-  fullWidthDropdown = true,
-  closeLabel = 'Close',
-  ...rest
+  // HeaderActionBarItem specific props
+  fixedRightPosition,
+  labelOnRight,
+  iconClassName,
+  dropdownClassName,
+  // Native HTML attributes for the search container div
+  ...nativeDivProps
 }: HeaderSearchProps) => {
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchInputRef = useRef<SearchInputHandle>(null);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
-  const onSend = (val: string) => {
-    setNotificationMessage(`Search submitted: "${val}"`);
-    setShowNotification(true);
-    if (onSearch) {
-      onSearch(val, [], undefined);
-    }
-    if (onSubmit) {
-      onSubmit(val);
-    }
-  };
+  // Use id for internal element IDs, or use default
+  const internalId = id || 'header-search';
 
   const onSearchButtonClick = () => {
+    // Call the submit method on the search input which will add to history
+    if (searchInputRef.current?.submit) {
+      searchInputRef.current.submit();
+    }
+
+    // Handle notification and callbacks
     const currentValue = searchInputRef.current?.value;
     if (currentValue) {
-      onSend(currentValue);
+      setNotificationMessage(`Search submitted: "${currentValue}"`);
+      setShowNotification(true);
+      if (onSearch) {
+        onSearch(currentValue, [], undefined);
+      }
+      if (onSubmit) {
+        onSubmit(currentValue);
+      }
     }
   };
 
   const searchProps = {
-    id: `${id}-search-component`,
+    id: `${internalId}-search-component`,
   };
 
   return (
@@ -99,31 +107,36 @@ export const HeaderSearch = ({
         </Notification>
       )}
       <HeaderActionBarItem
-        {...rest}
-        id={id}
+        id={internalId}
         label={texts?.buttonLabel || 'Search'}
         icon={buttonIcon}
         closeIcon={<IconCross />}
-        closeLabel={closeLabel}
-        fullWidthDropdown={fullWidthDropdown}
-        preventButtonResize
+        closeLabel={texts?.closeLabel || 'Close'}
+        fixedRightPosition={fixedRightPosition}
+        labelOnRight={labelOnRight}
+        iconClassName={iconClassName}
+        dropdownClassName={dropdownClassName}
         className={styles.headerSearchButton}
+        preventButtonResize
+        fullWidthDropdown
       >
-        <div className={classNames(styles.searchContainer, className)} role="search">
-          <div>
-            <h3>{texts.heading}</h3>
-            <div className={classNames(styles.searchRow)}>
-              <Search
-                {...searchProps}
-                historyId={`${id}-search-input`}
-                ref={searchInputRef}
-                texts={texts}
-                onSearch={onSearch}
-              />
-              <Button onClick={onSearchButtonClick}>{texts?.buttonLabel || 'Search'}</Button>
+        <li style={{ padding: 0 }}>
+          <div {...nativeDivProps} id={id} className={classNames(styles.searchContainer, className)} role="search">
+            <div>
+              <h3>{texts.heading}</h3>
+              <div className={classNames(styles.searchRow)}>
+                <Search
+                  {...searchProps}
+                  historyId={`${internalId}-search-input`}
+                  ref={searchInputRef}
+                  texts={texts}
+                  onSearch={onSearch}
+                />
+                <Button onClick={onSearchButtonClick}>{texts?.buttonLabel || 'Search'}</Button>
+              </div>
             </div>
           </div>
-        </div>
+        </li>
       </HeaderActionBarItem>
     </>
   );

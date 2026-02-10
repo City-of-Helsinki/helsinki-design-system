@@ -84,7 +84,7 @@ export type SearchData = ModularOptionListData &
 export type SearchMetaData = Pick<SearchProps, 'icon'> &
   ModularOptionListMetaData & {
     refs: ModularOptionListMetaData['refs'] & {
-      searchInput: RefObject<HTMLInputElement>;
+      searchInput: RefObject<HTMLInputElement & { submit: () => void }>;
       listContainer: RefObject<HTMLDivElement>;
       searchContainer: RefObject<HTMLDivElement>;
       container: RefObject<HTMLDivElement>;

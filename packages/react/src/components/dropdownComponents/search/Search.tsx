@@ -17,8 +17,10 @@ import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
 import { getSelectedOptions, convertPropsToGroups } from '../modularOptionList/utils';
-import { SearchInput } from './components/SearchInput';
+import { SearchInput, SearchInputHandle } from './components/SearchInput';
 import { SearchInfo } from './components/SearchInfo';
+
+export type { SearchInputHandle };
 
 export type SearchFieldProps = Omit<SearchPropsType & AcceptedNativeDivProps, 'ref' | 'onChange' | 'value'> & {
   onSend?: (value: string) => void;
@@ -26,7 +28,7 @@ export type SearchFieldProps = Omit<SearchPropsType & AcceptedNativeDivProps, 'r
   value?: string;
 };
 
-const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
+const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
   (
     {
       options,
@@ -98,7 +100,8 @@ const SearchField = forwardRef<HTMLInputElement, SearchFieldProps>(
           listContainer: createRef<HTMLDivElement>(),
           list: createRef<HTMLUListElement>(),
           searchContainer: createRef<HTMLDivElement>(),
-          searchInput: typeof ref === 'function' ? createRef<HTMLInputElement>() : ref || createRef<HTMLInputElement>(),
+          searchInput:
+            typeof ref === 'function' ? createRef<SearchInputHandle>() : ref || createRef<SearchInputHandle>(),
           container: createRef<HTMLDivElement>(),
         },
         selectedOptions: getSelectedOptions(initialData.groups),
@@ -172,7 +175,7 @@ export type SearchProps = SearchFieldProps & {
   historyId?: string;
 };
 
-export const Search = forwardRef<HTMLInputElement, SearchProps>((props, ref) => {
+export const Search = forwardRef<SearchInputHandle, SearchProps>((props, ref) => {
   const { historyId, ...rest } = props;
   return (
     <SearchHistoryProvider historyId={historyId}>

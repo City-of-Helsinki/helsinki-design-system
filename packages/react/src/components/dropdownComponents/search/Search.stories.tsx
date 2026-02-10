@@ -1,6 +1,6 @@
 import React, { useCallback, useRef, useState } from 'react';
 
-import { Search, SearchProps } from './Search';
+import { Search, SearchProps, SearchInputHandle } from './Search';
 import { Notification } from '../../notification';
 import { Button } from '../../button';
 import { getOptions } from '../modularOptionList/batch.options';
@@ -87,7 +87,7 @@ export const Example = () => {
 };
 
 export const WithExternalButton = () => {
-  const searchInputRef = useRef<HTMLInputElement>(null);
+  const searchInputRef = useRef<SearchInputHandle>(null);
   const [showNotification, setShowNotification] = useState(false);
   const [notificationMessage, setNotificationMessage] = useState('');
 
@@ -111,6 +111,12 @@ export const WithExternalButton = () => {
   };
 
   const handleExternalButtonClick = () => {
+    // Call the submit method to add to history
+    if (searchInputRef.current?.submit) {
+      searchInputRef.current.submit();
+    }
+
+    // Handle notification
     const currentValue = searchInputRef.current?.value;
     if (currentValue) {
       onSend(currentValue);

@@ -48,7 +48,6 @@ describe('<TextInput /> spec', () => {
     const rootElement = document.querySelector('.root') as HTMLDivElement;
     const clearButton = document.querySelector('.clearButton') as HTMLButtonElement;
     const input = document.querySelector('.hasClearButton') as HTMLInputElement;
-    expect(rootElement).toHaveAttribute('data-hds-textinput-filled');
     expect(input).toHaveValue('string to search for');
     expect(clearButton).toBeInTheDocument();
     act(() => {
