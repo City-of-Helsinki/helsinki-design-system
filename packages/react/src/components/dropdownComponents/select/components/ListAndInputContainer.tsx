@@ -1,4 +1,4 @@
-import React, { useCallback, useRef } from 'react';
+import React, { useCallback, useRef, RefObject } from 'react';
 
 import styles from '../Select.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -11,7 +11,12 @@ import { countVisibleOptions } from '../utils';
 import { getVisibleGroupLabels } from '../../modularOptionList/utils';
 import { getNumberedVariationsTextKey, getTextFromDataHandlers } from '../texts';
 
-const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: SelectDataHandlers) => {
+export type ListAndInputContainerProps = DivElementProps & {
+  /** When set (e.g. by Search), outside-click is detected relative to this ref so the input can stay inside the boundary. */
+  outsideClickRef?: RefObject<HTMLElement | null>;
+};
+
+const createListAndInputContainerProps = (props: ListAndInputContainerProps, dataHandlers: SelectDataHandlers) => {
   const { getData, getMetaData, trigger } = dataHandlers;
   const { open, groups, multiSelect } = getData();
   const metaData = getMetaData();
@@ -47,32 +52,23 @@ const createListAndInputContainerProps = (props: DivElementProps, dataHandlers: 
   };
 };
 
-export const ListAndInputContainer = (props: DivElementProps) => {
-  const { children, outsideClickTrigger, ...attr } = createListAndInputContainerProps(props, useSelectDataHandlers());
-  // Determine if search input is included based on children count TODO: REMOVE OR NOT? should Search have it's own component?
-  const includesSearchInput = React.Children.count(children) > 1;
+export const ListAndInputContainer = (props: ListAndInputContainerProps) => {
+  const { children, outsideClickTrigger, outsideClickRef, ...attr } = createListAndInputContainerProps(
+    props,
+    useSelectDataHandlers(),
+  );
   const wrapperRef = useRef<HTMLDivElement>(null);
+  const refForOutsideClick = outsideClickRef ?? wrapperRef;
 
   const callback = () => {
     outsideClickTrigger();
   };
 
-  useOutsideClick({ ref: wrapperRef, callback });
+  useOutsideClick({ ref: refForOutsideClick, callback });
 
-  // Render content based on whether search input is included
-  const renderContent = () => {
-    if (includesSearchInput) {
-      const childrenArray = React.Children.toArray(children);
-      return (
-        <>
-          {childrenArray[0]}
-          <div {...attr}>{attr.open && childrenArray.slice(1)}</div>
-        </>
-      );
-    }
-    return <div {...attr}>{attr.open && children}</div>;
-  };
-
-  // Single wrapper handles outside click for all scenarios
-  return <div ref={wrapperRef}>{renderContent()}</div>;
+  const content = <div {...attr}>{attr.open && children}</div>;
+  if (outsideClickRef) {
+    return content;
+  }
+  return <div ref={wrapperRef}>{content}</div>;
 };

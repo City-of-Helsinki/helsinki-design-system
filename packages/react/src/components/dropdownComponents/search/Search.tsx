@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import React, { useMemo, createRef, useEffect, forwardRef } from 'react';
+import React, { useMemo, createRef, useEffect, forwardRef, useRef } from 'react';
 
 import { SearchData, SearchMetaData, SearchProps as SearchPropsType } from './types';
 import { SearchHistoryProvider } from './SearchHistoryContext';
@@ -55,6 +55,7 @@ const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
     },
     ref,
   ) => {
+    const searchContainerRef = useRef<HTMLDivElement>(null);
     const initialData = useMemo<SearchData>(() => {
       return {
         groups: convertPropsToGroups({ groups, options, children }),
@@ -149,7 +150,7 @@ const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
         <Container {...divElementProps} theme={theme}>
           <Label />
           <SelectionsAndListsContainer>
-            <ListAndInputContainer>
+            <div ref={searchContainerRef}>
               <SearchInput
                 id={`${id}-search-input`}
                 onSearch={onSearch}
@@ -158,9 +159,11 @@ const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
                 value={value}
                 ref={metaData.refs.searchInput}
               />
-              <ModularOptionList {...divElementProps} theme={theme} />
-              <SearchInfo />
-            </ListAndInputContainer>
+              <ListAndInputContainer outsideClickRef={searchContainerRef}>
+                <ModularOptionList {...divElementProps} theme={theme} />
+                <SearchInfo />
+              </ListAndInputContainer>
+            </div>
           </SelectionsAndListsContainer>
           <ErrorNotification />
           <AssistiveText />
