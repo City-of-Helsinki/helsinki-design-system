@@ -13,9 +13,12 @@ import {
 
 function createAssistiveTextProps(dataHandlers: SearchDataHandlers): DivElementProps & { children: string | null } {
   const assistive = getTextFromDataHandlers('assistive', dataHandlers);
+  const { getMetaData } = useSearchDataHandlers();
+  const { elementIds } = getMetaData();
   return {
     className: styles.assistiveText,
     children: assistive || null,
+    id: elementIds.assistiveText,
   };
 }
 

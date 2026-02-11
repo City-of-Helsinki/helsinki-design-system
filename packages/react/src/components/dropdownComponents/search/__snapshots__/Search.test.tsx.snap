@@ -18,6 +18,7 @@ exports[`<Search /> spec renders the component 1`] = `
             class="inputWrapper"
           >
             <input
+              aria-describedby="hds-search-1-assistive-text"
               aria-label="Hae"
               class="input hasClearButton"
               id="hds-search-1-search-input"

@@ -96,6 +96,7 @@ export type SearchMetaData = Pick<SearchProps, 'icon'> &
       container: string;
       searchContainer: string;
       clearButton: string;
+      assistiveText: string;
     };
     textProvider: TextProvider;
     search: string;

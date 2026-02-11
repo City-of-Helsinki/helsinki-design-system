@@ -197,6 +197,7 @@ export const SearchInput = forwardRef<
       buttonIcon={onSend ? <IconSearch className={styles.searchButtonIcon} /> : undefined}
       onButtonClick={handleSearch}
       buttonAriaLabel={getTextKey('searchButtonAriaLabel', metaData)}
+      aria-describedby={metaData.elementIds.assistiveText}
     />
   );
 });

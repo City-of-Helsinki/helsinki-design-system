@@ -139,6 +139,7 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
                                 class="inputWrapper"
                               >
                                 <input
+                                  aria-describedby="header-search-search-component-assistive-text"
                                   aria-label="Hae"
                                   class="input hasClearButton"
                                   id="header-search-search-component-search-input"
@@ -181,6 +182,7 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
                         </div>
                         <div
                           class="assistiveText"
+                          id="header-search-search-component-assistive-text"
                         >
                           Avustava teksti
                         </div>
