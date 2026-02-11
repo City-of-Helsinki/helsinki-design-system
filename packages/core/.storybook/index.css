@@ -1,10 +1,10 @@
-/* Import HelsinkiGrotesk fonts from CDN */
-@import 'https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css';
+/* Import HelsinkiGroteskPro fonts */
+@import url('../src/fonts/fonts.css');
 
 body {
+  color: var(--color-black-90);
   font-family: var(--font-default);
   font-size: var(--fontsize-body-m);
-  color: var(--color-black-90);
   line-height: var(--lineheight-l);
 }
 

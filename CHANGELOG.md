@@ -17,6 +17,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+- Use Helsinki Grotesk Pro font instead of the old
+
 - [Notification] body text size set to --fontsize-body-m all variations
 - [Notification] Heading size and gaps in default/basic size inline updated
 - [Notification] `link` prop added to enable native link in Notification.
@@ -24,6 +26,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 ### Core
+
+- Use Helsinki Grotesk Pro font instead of the old
 
 #### Breaking
 
@@ -36,6 +40,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 ### Documentation
+
+- Use Helsinki Grotesk Pro font instead of the old
 
 #### Breaking
 
