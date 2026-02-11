@@ -151,11 +151,7 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       innerOnChange(e as React.ChangeEvent<HTMLInputElement>);
     };
 
-    if (defaultValue?.length > 0 && hasClearButton) {
-      wrapperProps['data-hds-textinput-filled'] = true;
-    }
-
-    // Update clear button visibility when value prop changes
+    // Update clear button visibility when value prop changes (controlled component)
     React.useEffect(() => {
       if (!hasClearButton || !innerWrapperRef.current) return;
 
@@ -166,6 +162,18 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
         innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
       }
     }, [rest.value, hasClearButton]);
+
+    // Update clear button visibility on mount when defaultValue is used (uncontrolled component)
+    React.useEffect(() => {
+      if (!hasClearButton || !innerWrapperRef.current) return;
+
+      const input = innerWrapperRef.current.querySelector('input') as HTMLInputElement;
+      if (input && input.value.length > 0) {
+        innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
+      } else {
+        innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
+      }
+    }, [hasClearButton]);
 
     return (
       <InputWrapper {...wrapperProps} ref={innerWrapperRef}>
