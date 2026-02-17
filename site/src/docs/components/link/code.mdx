@@ -29,11 +29,9 @@ import { Link } from 'hds-react';
       href="https://github.com/City-of-Helsinki/helsinki-design-system"
       external
       openInExternalDomainAriaLabel="Opens a different website"
-      style={{ fontSize: 'var(--fontsize-body-s)' }}
     >
       HDS Github
-    </Link>
-    consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+    </Link> consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
   </p>
 )
@@ -41,11 +39,10 @@ import { Link } from 'hds-react';
 
 ```html
 <p style="font-size: var(--fontsize-body-s)">
-  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore
-  magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco
-  <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--small" aria-label="HDS Github. Opens in external domain">
-  HDS Github<span class="hds-icon icon hds-icon--link-external hds-icon--size-xs vertical-align-small-icon" aria-hidden="true"></span></a>
-  laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
+  Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+  aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
+  <a href="https://github.com/City-of-Helsinki/helsinki-design-system" class="hds-link hds-link--small hds-icon--link-external hds-icon-end--link-external" aria-label="HDS Github. Opens in external domain">HDS Github</a>
+  consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
   Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
 </p>
 ```
@@ -69,7 +66,7 @@ import { Link, LinkSize } from 'hds-react';
 ```
 
 ```html
-<a href="https://hds.hel.fi/" class="hds-link hds-link--medium" style="display:block;">Standalone link</a>
+<a href="https://hds.hel.fi/" class="hds-link hds-link--medium" style="display:block;">Link to HDS</a>
 ```
 
 </Playground>
@@ -84,20 +81,19 @@ import { Link, LinkSize } from 'hds-react';
 import { Link } from 'hds-react';
 
 () => (<>
-  <Link href="https://hds.hel.fi/" size="M" style={{ display: 'block', width: 'fit-content' }}>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium}>
     Internal link
   </Link>
-
+  <br />
   <Link
     href="https://github.com/City-of-Helsinki/helsinki-design-system"
     size={LinkSize.Medium}
     external
     openInExternalDomainAriaLabel="Opens a different website."
-    style={{ display: 'block', width: 'fit-content' }}
   >
     External link
   </Link>
-
+  <br />
   <Link
     href="https://github.com/City-of-Helsinki/helsinki-design-system"
     size={LinkSize.Medium}
@@ -105,7 +101,6 @@ import { Link } from 'hds-react';
     openInNewTab
     openInExternalDomainAriaLabel="Opens a different website."
     openInNewTabAriaLabel="Opens in a new tab."
-    style={{ display: 'block', width: 'fit-content' }}
   >
     Link that opens in a new tab
   </Link>
@@ -113,36 +108,21 @@ import { Link } from 'hds-react';
 ```
 
 ```html
-<p>
-  <a href="https://hds.hel.fi/" class="hds-link hds-link--medium" style="display:block;">Internal link</a>
-
-  <a
-    href="https://github.com/City-of-Helsinki/helsinki-design-system"
-    class="hds-link hds-link--medium"
-    aria-label="Opens a different website."
-    style="display:block;"
-  >
-    External link
-    <span
-      class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-medium-icon"
-      aria-hidden="true"
-    ></span>
-  </a>
-
-  <a
-    href="https://github.com/City-of-Helsinki/helsinki-design-system"
-    class="hds-link hds-link--medium"
-    rel="noopener"
-    target="_blank"
-    aria-label="Opens a different website. Opens in a new tab."
-  >
-    Link that opens in a new tab
-    <span
-      class="hds-icon icon hds-icon--link-external hds-icon--size-s vertical-align-small-icon"
-      aria-hidden="true"
-    ></span>
-  </a>
-</p>
+<a href="https://hds.hel.fi/" class="hds-link hds-link--medium">Internal link</a>
+<br />
+<a
+  href="https://github.com/City-of-Helsinki/helsinki-design-system"
+  class="hds-link hds-link--medium hds-icon--link-external hds-icon-end--link-external"
+  aria-label="Opens a different website."
+>External link</a>
+<br />
+<a
+  href="https://github.com/City-of-Helsinki/helsinki-design-system"
+  class="hds-link hds-link--medium hds-icon--link-external hds-icon-end--link-external"
+  rel="noopener"
+  target="_blank"
+  aria-label="Opens a different website. Opens in a new tab."
+>Link that opens in a new tab</a>
 ```
 
 </Playground>
@@ -158,46 +138,47 @@ import { Link, LinkSize, IconDocument, IconPhone, IconEnvelope, IconPhoto, IconS
 
 () => (<>
   <Link
-    iconStart={<IconDocument size={IconSize.Small} />}
+    iconStart={<IconDocument />}
     size={LinkSize.Medium}
     href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
   >
     Document link
   </Link>
+  <br />
   <Link
-    iconStart={<IconPhone size={IconSize.Small} />}
+    iconStart={<IconPhone />}
     size={LinkSize.Medium}
     href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
   >
     Phone link
   </Link>
+  <br />
   <Link
-    iconStart={<IconEnvelope size={IconSize.Small} />}
+    iconEnd={<IconEnvelope />}
     size={LinkSize.Medium}
     href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
   >
     Email link
   </Link>
+  <br />
   <Link
-    iconStart={<IconPhoto size={IconSize.Small} />}
+    iconEnd={<IconPhoto />}
     size={LinkSize.Medium}
     href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
   >
     Photo link
-  </Link>
-</>)
+  </Link></>)
 ```
 
 ```html
 <div>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--document hds-icon--size-s" aria-hidden="true"></span></span>Document link</a>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--phone hds-icon--size-s" aria-hidden="true"></span></span>Phone link</a>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--envelope hds-icon--size-s" aria-hidden="true"></span></span>Email link</a>
-  <a href="/#" class="hds-link hds-link--medium" style="display: block; width: fit-content;"><span class="hds-icon-start"><span class="hds-icon hds-icon--photo hds-icon--size-s" aria-hidden="true"></span></span>Photo link</a>
+  <a href="/#" class="hds-link hds-link--medium hds-icon--document hds-icon-start--document">Document link</a>
+  <br />
+  <a href="/#" class="hds-link hds-link--medium hds-icon--phone hds-icon-start--phone">Phone link</a>
+  <br />
+  <a href="/#" class="hds-link hds-link--medium hds-icon--envelope hds-icon-end--envelope">Email link</a>
+  <br />
+  <a href="/#" class="hds-link hds-link--medium hds-icon--photo hds-icon-end--photo">Photo link</a>
 </div>
 ```
 
@@ -241,13 +222,14 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property                        | Description                                                                    | Values              | Default value |
 | ------------------------------- | ------------------------------------------------------------------------------ | ------------------- | ------------- |
-| `external`                      | If set to true, the link is marked as external (points outside of the domain). | `boolean`           | false         |
+| `external`                      | If set to true, the link is marked as external (points outside of the domain). Will override the `iconEnd` if it is given. | `boolean`           | false         |
 | `href`                          | Hypertext reference of the link.                                               | `string`            | -             |
+| `iconEnd`                       | An icon or element placed on the end side of the link text. Will not display if the link given the `external` prop.  | `ReactNode`         | -             |
 | `iconStart`                     | An icon placed on the start side of the link.                                  | `ReactNode`         | -             |
 | `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                              | `string`            | -             |
 | `openInNewTab`                  | If set to true, the link opens in a new tab.                                   | `boolean`           | false         |
 | `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                   | `string`            | -             |
-| `size`                          | Controls the size of the link.                                                 | `LinkSize` or (`"small"`, `"medium"`, `"large"`) | `"large"` |
+| `size`                          | Controls the size of the link. If unset, inherits from parent.                 | `LinkSize` or (`"small"`, `"medium"`, `"large"`) | - |
 | `useButtonStyles`               | Change the appearance to button.                                               | `boolean`           | false         |
 
 <NativeElementPropsInfo nodeName="a" notAllowed={['target', 'onPointerEnterCapture', 'onPointerLeaveCapture']} />

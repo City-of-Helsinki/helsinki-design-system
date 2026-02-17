@@ -11,7 +11,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
+- [Link] Link styling has changed. **What has changed:**
+  - **Spacing.** Icon spacing is applied on the anchor's direct children (first/last child). If you relied on specific wrapper or icon selectors for spacing, update them.
+  - **Icons inherit size.** Inline link icons now follow the link's font size; previous size classes on the icon element may no longer apply as before.
+
 #### Added
+
+- [Link] `iconEnd` prop to place an icon or element on the end side of the link text.
 
 - [ModularOptionsList, Select] Single-select `Option` can now be given an `iconStart`-prop which renders preferably an icon to the start-side of the label. (type of `ReactNode`, designed to be used with 24px x 24px icons)
 
@@ -27,7 +33,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
+- [Link] The **`.icon`** class was removed altogether from the link component; do not use it on link icons.
+- [Link] The **`.vertical-...`** classes (e.g. `vertical-align-small-icon`, `vertical-align-medium-icon`) were also removed; icon alignment is now handled automatically not by using utility classes on the icon element.
+
 #### Added
+
+- [Link] Icons can be added with a **class on the anchor** in addition to the old way (an icon element inside the link). Use `hds-icon--<name>` with `hds-icon-start--<name>` or `hds-icon-end--<name>` on the `<a>` for pseudo-element icons (e.g. `hds-icon--link-external hds-icon-end--link-external` for the external link icon, or `hds-icon--document hds-icon-start--document` for a document icon). The previous pattern (e.g. `<span class="hds-icon ...">` or `<i class="hds-icon ...">` inside the link) still works.
 
 - [Notification] New example on how to have a link inside notification.
 
@@ -44,6 +55,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Select] Examples of `iconStart`-usage in Single select options.
 
 #### Changed
+
+- [Link] Code examples for Core use class-based external icon (`hds-icon--link-external hds-icon-end--link-external`) with no inner `<span>` or `<i>`. React props table updated with `iconEnd` and corrected `size` default.
 
 #### Fixed
 

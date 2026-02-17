@@ -6,7 +6,6 @@ import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getPlainTextContent } from '../../utils/getPlainTextContent';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
-import { IconSize } from '../../icons/Icon.interface';
 
 export enum LinkSize {
   Small = 'small',
@@ -34,9 +33,13 @@ export type LinkProps = MergeAndOverrideProps<
      */
     href: string;
     /**
-     * Element placed on the left side of the link text
+     * Element placed on the start side of the link text
      */
     iconStart?: React.ReactNode;
+    /**
+     * Element placed on the end side of the link text
+     */
+    iconEnd?: React.ReactNode;
     /**
      * Boolean indicating whether the link will open in new tab or not.
      */
@@ -76,11 +79,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       external = false,
       href,
       iconStart,
+      iconEnd,
       openInNewTab = false,
       openInExternalDomainAriaLabel,
       openInNewTabAriaLabel,
       style = {},
-      size = LinkSize.Medium,
+      size,
       useButtonStyles = false,
       ...rest
     }: LinkProps,
@@ -98,21 +102,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
     };
 
-    const mapLinkSizeToExternalIconSize = {
-      [LinkSize.Large]: IconSize.Large,
-      [LinkSize.Medium]: IconSize.Small,
-      [LinkSize.Small]: IconSize.ExtraSmall,
-    };
-    const mapLinkSizeToIconVerticalStyling = {
-      [LinkSize.Large]: styles.verticalAlignBigIcon,
-      [LinkSize.Medium]: styles.verticalAlignMediumIcon,
-      [LinkSize.Small]: styles.verticalAlignSmallIcon,
-    };
-
     const linkStyles = classNames(
       styles.link,
-      styles[`link-${size}`],
+      size ? styles[`link-${size}`] : '',
       disableVisitedStyles ? styles.disableVisitedStyles : '',
+      iconStart ? styles.hasIconStart : '',
+      iconEnd || external ? styles.hasIconEnd : '',
     );
 
     return (
@@ -125,18 +120,17 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         ref={ref}
         {...rest}
       >
-        {iconStart && (
-          <span className={styles.iconStart} aria-hidden="true">
+        {iconStart ? (
+          <div style={{ display: 'contents' }} aria-hidden>
             {iconStart}
-          </span>
-        )}
+          </div>
+        ) : null}
         {useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children}
-        {external && (
-          <IconLinkExternal
-            size={mapLinkSizeToExternalIconSize[size]}
-            className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
-          />
-        )}
+        {external || iconEnd ? (
+          <div style={{ display: 'contents' }} aria-hidden>
+            {external ? <IconLinkExternal /> : iconEnd}
+          </div>
+        ) : null}
       </a>
     );
   },
