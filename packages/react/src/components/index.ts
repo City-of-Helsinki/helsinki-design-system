@@ -26,7 +26,6 @@ export * from './pagination';
 export * from './passwordInput';
 export * from './phoneInput';
 export * from './radioButton';
-export * from './searchInput';
 export * from './section';
 export * from './selectionGroup';
 export * from './sideNavigation';
