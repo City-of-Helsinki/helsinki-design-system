@@ -1252,7 +1252,8 @@ describe('<Select />', () => {
       );
 
       const buttonEl = container.querySelector(`#${elementIds.button}`) as HTMLButtonElement;
-      const isOpen = () => buttonEl.getAttribute('aria-expanded') === 'true' && !!container.querySelector(`#${elementIds.list}`);
+      const isOpen = () =>
+        buttonEl.getAttribute('aria-expanded') === 'true' && !!container.querySelector(`#${elementIds.list}`);
 
       // Open the dropdown with real timers
       act(() => {
@@ -1302,7 +1303,8 @@ describe('<Select />', () => {
       );
 
       const buttonEl = container.querySelector(`#${elementIds.button}`) as HTMLButtonElement;
-      const isOpen = () => buttonEl.getAttribute('aria-expanded') === 'true' && !!container.querySelector(`#${elementIds.list}`);
+      const isOpen = () =>
+        buttonEl.getAttribute('aria-expanded') === 'true' && !!container.querySelector(`#${elementIds.list}`);
 
       // Open the dropdown with real timers
       act(() => {
