@@ -1200,4 +1200,143 @@ describe('<Select />', () => {
       expect(visibleLabels).not.toContain('External Option');
     });
   });
+
+  describe('Tab/Shift+Tab keyboard navigation', () => {
+    it('pressing Tab when dropdown is open closes the dropdown', async () => {
+      const { openList, isListOpen, getButtonElement } = renderWithHelpers({ groups: false });
+      await openList();
+      expect(isListOpen()).toBe(true);
+
+      act(() => {
+        fireEvent.keyDown(getButtonElement(), { key: 'Tab', code: 'Tab' });
+      });
+
+      await waitFor(() => {
+        expect(isListOpen()).toBe(false);
+      });
+    });
+
+    it('pressing Shift+Tab when dropdown is open closes the dropdown', async () => {
+      const { openList, isListOpen, getButtonElement } = renderWithHelpers({ groups: false });
+      await openList();
+      expect(isListOpen()).toBe(true);
+
+      act(() => {
+        fireEvent.keyDown(getButtonElement(), { key: 'Tab', code: 'Tab', shiftKey: true });
+      });
+
+      await waitFor(() => {
+        expect(isListOpen()).toBe(false);
+      });
+    });
+
+    it('pressing Tab when dropdown is closed does not affect the dropdown state', () => {
+      const { isListOpen, getButtonElement } = renderWithHelpers({ groups: false });
+      expect(isListOpen()).toBe(false);
+
+      fireEvent.keyDown(getButtonElement(), { key: 'Tab', code: 'Tab' });
+
+      expect(isListOpen()).toBe(false);
+    });
+
+    it('pressing Tab when dropdown is open moves focus to the next tabbable element', async () => {
+      const externalButtonId = 'external-next-button';
+      const elementIds = getElementIds(defaultId);
+      const { container, unmount } = render(
+        <>
+          <Select id={defaultId} onChange={jest.fn()} options={[{ value: 'v1', label: 'Option 1' }]} />
+          <button id={externalButtonId} type="button">
+            Next
+          </button>
+        </>,
+      );
+
+      const buttonEl = container.querySelector(`#${elementIds.button}`) as HTMLButtonElement;
+      const isOpen = () => buttonEl.getAttribute('aria-expanded') === 'true' && !!container.querySelector(`#${elementIds.list}`);
+
+      // Open the dropdown with real timers
+      act(() => {
+        buttonEl.focus();
+        fireEvent.click(buttonEl);
+      });
+      await waitFor(() => expect(isOpen()).toBe(true));
+      await act(async () => {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 250);
+        });
+      });
+
+      // Fire keyDown and wait for the FOCUS_TRANSITION_DELAY (50ms) all within a
+      // single act() so React state updates from the timer stay inside act and
+      // never leak as uncontrolled updates into subsequent test files.
+      await act(async () => {
+        fireEvent.keyDown(buttonEl, { key: 'Tab', code: 'Tab' });
+        // Wait longer than FOCUS_TRANSITION_DELAY (50ms) so the setTimeout fires
+        // and calls updateMetaData + focus() while we are still inside act().
+        await new Promise((resolve) => {
+          setTimeout(resolve, 200);
+        });
+      });
+
+      expect(isOpen()).toBe(false);
+      const externalButton = container.querySelector(`#${externalButtonId}`) as HTMLButtonElement;
+      expect(document.activeElement).toBe(externalButton);
+
+      // Unmount inside act() so the Select component's internal setInterval
+      // (in ScreenReaderNotifications) is cleared before leaving the test.
+      act(() => {
+        unmount();
+      });
+    });
+
+    it('pressing Shift+Tab when dropdown is open moves focus to the previous tabbable element', async () => {
+      const prevButtonId = 'external-prev-button';
+      const elementIds = getElementIds(defaultId);
+      const { container, unmount } = render(
+        <>
+          <button id={prevButtonId} type="button">
+            Previous
+          </button>
+          <Select id={defaultId} onChange={jest.fn()} options={[{ value: 'v1', label: 'Option 1' }]} />
+        </>,
+      );
+
+      const buttonEl = container.querySelector(`#${elementIds.button}`) as HTMLButtonElement;
+      const isOpen = () => buttonEl.getAttribute('aria-expanded') === 'true' && !!container.querySelector(`#${elementIds.list}`);
+
+      // Open the dropdown with real timers
+      act(() => {
+        buttonEl.focus();
+        fireEvent.click(buttonEl);
+      });
+      await waitFor(() => expect(isOpen()).toBe(true));
+      await act(async () => {
+        await new Promise((resolve) => {
+          setTimeout(resolve, 250);
+        });
+      });
+
+      // Fire keyDown and wait for the FOCUS_TRANSITION_DELAY (50ms) all within a
+      // single act() so React state updates from the timer stay inside act and
+      // never leak as uncontrolled updates into subsequent test files.
+      await act(async () => {
+        fireEvent.keyDown(buttonEl, { key: 'Tab', code: 'Tab', shiftKey: true });
+        // Wait longer than FOCUS_TRANSITION_DELAY (50ms) so the setTimeout fires
+        // and calls updateMetaData + focus() while we are still inside act().
+        await new Promise((resolve) => {
+          setTimeout(resolve, 200);
+        });
+      });
+
+      expect(isOpen()).toBe(false);
+      const prevButton = container.querySelector(`#${prevButtonId}`) as HTMLButtonElement;
+      expect(document.activeElement).toBe(prevButton);
+
+      // Unmount inside act() so the Select component's internal setInterval
+      // (in ScreenReaderNotifications) is cleared before leaving the test.
+      act(() => {
+        unmount();
+      });
+    });
+  });
 });

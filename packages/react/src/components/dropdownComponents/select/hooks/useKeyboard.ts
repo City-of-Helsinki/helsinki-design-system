@@ -483,7 +483,7 @@ export function useKeyboard() {
             const buttonId = buttonRef.current?.id;
 
             // Filter by ID for elements that have Select component IDs
-            if (buttonId && el.id && el.id !== buttonId && el.id.startsWith(buttonId.split('-main-button')[0])) {
+            if (buttonId && el.id && el.id !== buttonId && el.id.startsWith(buttonId.replace(/-main-button$/, ''))) {
               return false;
             }
 
