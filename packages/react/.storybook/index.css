@@ -2,8 +2,8 @@
 
 /* Do not remove this file, it is needed for storybook to build */
 
-/* Import HelsinkiGrotesk fonts from CDN */
-@import 'https://makasiini.hel.ninja/delivery/HelsinkiGrotesk/HelsinkiGrotesk.css';
+/* Import HelsinkiGroteskPro fonts */
+@import '~hds-core/lib/fonts/fonts.css';
 
 body {
   font-family: var(--font-default);

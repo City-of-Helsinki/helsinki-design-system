@@ -1,73 +1,73 @@
-$font-cdn-base: 'https://makasiini.hel.ninja/delivery/HelsinkiGrotesk';
+@use '../../fonts/font-variables' as fontVars;
 
-/* Webfont: HelsinkiGrotesk-Regular */
+/* Webfont: HelsinkiGroteskPro-Regular */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: normal;
   font-weight: $font-weight-regular;
-  src: url('#{$font-cdn-base}/565d73a693abe0776c801607ac28f0bf.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-RegularItalic */
+/* Webfont: HelsinkiGroteskPro-RegularItalic */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: italic;
   font-weight: $font-weight-regular;
-  src: url('#{$font-cdn-base}/5bb29e3b7b1d3ef30121229bbe67c3e1.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-Medium */
+/* Webfont: HelsinkiGroteskPro-Medium */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: normal;
   font-weight: $font-weight-medium;
-  src: url('#{$font-cdn-base}/7c46f288e8133b87e6b12b45dac71865.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-MediumItalic */
+/* Webfont: HelsinkiGroteskPro-MediumItalic */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: italic;
   font-weight: $font-weight-medium;
-  src: url('#{$font-cdn-base}/e62dc97e83a385e4d8cdc939cf1e4213.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-Bold */
+/* Webfont: HelsinkiGroteskPro-Bold */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: normal;
   font-weight: $font-weight-bold;
-  src: url('#{$font-cdn-base}/533af26cf28d7660f24c2884d3c27eac.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-BoldItalic */
+/* Webfont: HelsinkiGroteskPro-BoldItalic */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: italic;
   font-weight: $font-weight-bold;
-  src: url('#{$font-cdn-base}/20d494430c87e15e194932b729d48270.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-Black */
+/* Webfont: HelsinkiGroteskPro-Black */
 @font-face {
   font-family: HelsinkiGrotesk;
   font-style: normal;
   font-weight: $font-weight-black;
-  src: url('#{$font-cdn-base}/a50a1bd245ce63abcc0d1da80ff790d2.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
 
-/* Webfont: HelsinkiGrotesk-BlackItalic */
+/* Webfont: HelsinkiGroteskPro-BlackItalic */
 @font-face {
-  font-family: HelsinkiGrotesk;
+  font-family: HelsinkiGroteskPro;
   font-style: italic;
   font-weight: $font-weight-black;
-  src: url('#{$font-cdn-base}/62a1781d8b396fbb025b0552cf6304d2.woff') format('woff');
+  src: fontVars.$font-src;
   text-rendering: optimizelegibility;
 }
