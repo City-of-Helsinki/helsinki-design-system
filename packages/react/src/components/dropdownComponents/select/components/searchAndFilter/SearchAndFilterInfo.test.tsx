@@ -28,7 +28,13 @@ describe('<SearchAndFilterInfo />', () => {
         open: true,
         onSearch:
           inputType === 'search'
-            ? () => Promise.resolve({ options: returnResults ? (groupsAndOptions as Group[])[0].options : [] })
+            ? () =>
+                new Promise((resolve) => {
+                  setTimeout(
+                    () => resolve({ options: returnResults ? (groupsAndOptions as Group[])[0].options : [] }),
+                    50,
+                  );
+                })
             : undefined,
         texts: (key) => key,
         filter: inputType === 'filter' ? () => returnResults : undefined,

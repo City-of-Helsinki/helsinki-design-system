@@ -305,7 +305,7 @@ describe('dataUpdater', () => {
       expect(getOnChangeMock()).toHaveBeenCalledTimes(0);
       // select option #1
       const { selectedOption, updatedGroups, selectedOptions } = selectOptionByIndex(1);
-      expect(getOnChangeMock()).toHaveBeenCalledTimes(2);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(1);
       expect(getOnChangeCallArgs()).toMatchObject([
         selectedOptions,
         selectedOption,
@@ -319,7 +319,7 @@ describe('dataUpdater', () => {
         updatedGroups: updatedGroups2,
         selectedOptions: selectedOptions2,
       } = selectOptionByIndex(2);
-      expect(getOnChangeMock()).toHaveBeenCalledTimes(4);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(2);
       expect(getOnChangeCallArgs()).toMatchObject([
         selectedOptions2,
         selectedOption2,
@@ -333,7 +333,7 @@ describe('dataUpdater', () => {
         updatedGroups: updatedGroups3,
         selectedOptions: selectedOptions3,
       } = selectOptionByIndex(2);
-      expect(getOnChangeMock()).toHaveBeenCalledTimes(6);
+      expect(getOnChangeMock()).toHaveBeenCalledTimes(3);
       expect(getOnChangeCallArgs()).toMatchObject([
         selectedOptions3,
         selectedOption3,

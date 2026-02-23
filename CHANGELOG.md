@@ -85,6 +85,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Updated documentation build process for multi-version docs by replacing the `gatsby-source-git` setup with a local filesystem-based source and adding automatic version detection from the documentation directory structure.
 
+- Security related updates and changes necessary due to them.
+
 ### React
 
 #### Fixed
