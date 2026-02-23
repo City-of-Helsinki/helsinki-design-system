@@ -18,10 +18,14 @@ jobs:
       - name: Checkout repo
         uses: actions/checkout@v4
 
-      - name: Setup Node.js environment
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
         uses: actions/setup-node@v4
         with:
-          node-version: '20.3.1'
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
 
       # Don't do anything if we're on development, main or master branches
