@@ -1,6 +1,6 @@
 // Jest Snapshot v1, https://goo.gl/fbAQLP
 
-exports[`HeaderLogoutSubmenuButton The button is rendered 1`] = `
+exports[`HeaderUserMenuButton The button is rendered 1`] = `
 <button
   aria-controls="user-menu-dropdown"
   aria-expanded="false"

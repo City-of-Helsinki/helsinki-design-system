@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, fireEvent } from '@testing-library/react';
+import { render, screen, fireEvent, act } from '@testing-library/react';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 
 import { getDefaultOidcClientTestProps } from '../testUtils/oidcClientTestUtil';
@@ -24,8 +24,10 @@ const props: Omit<LoginButtonProps, 'children'> = {
 beforeEach(() => {
   jest.useFakeTimers();
 });
-afterEach(() => {
-  jest.runOnlyPendingTimers();
+afterEach(async () => {
+  await act(async () => {
+    jest.runOnlyPendingTimers();
+  });
   jest.useRealTimers();
   jest.restoreAllMocks();
   sessionStorage.clear();
@@ -41,21 +43,25 @@ afterAll(() => {
 
 describe('LoginButton', () => {
   let beacon: Beacon;
-  const renderComponent = (extraProps?: Partial<LoginButtonProps>) => {
+  const renderComponent = async (extraProps?: Partial<LoginButtonProps>) => {
     const helperModule: ConnectedModule = {
       namespace: 'helper',
       connect: (targetBeacon) => {
         beacon = targetBeacon;
       },
     };
-    return render(
-      <LoginContextProvider loginProps={loginProps} modules={[helperModule]}>
-        <div id="root">
-          <p>Some content</p>
-          <LoginButton {...({ ...props, ...extraProps } as LoginButtonProps)}>{buttonText}</LoginButton>
-        </div>
-      </LoginContextProvider>,
-    );
+    let result: ReturnType<typeof render>;
+    await act(async () => {
+      result = render(
+        <LoginContextProvider loginProps={loginProps} modules={[helperModule]}>
+          <div id="root">
+            <p>Some content</p>
+            <LoginButton {...({ ...props, ...extraProps } as LoginButtonProps)}>{buttonText}</LoginButton>
+          </div>
+        </LoginContextProvider>,
+      );
+    });
+    return result!;
   };
 
   const getButtonElement = () => (screen.getByText(buttonText) as HTMLElement).parentNode as HTMLElement;
@@ -67,18 +73,18 @@ describe('LoginButton', () => {
   };
 
   it('the button text is rendered', async () => {
-    renderComponent();
+    await renderComponent();
     expect(getButtonElement()).toMatchSnapshot();
   });
   it('Click calls oidcClient.login() and error is not visible', async () => {
-    renderComponent();
+    await renderComponent();
     const spy = spyOnOidcClientLogin(false);
     fireEvent.click(getButtonElement());
     expect(spy).toHaveBeenCalledTimes(1);
     expect(getErrorElement).toThrow();
   });
   it('Given redirectionParams are appended. "language" is converted in oidcClient to "ui_locales"', async () => {
-    renderComponent();
+    await renderComponent();
     const spy = spyOnOidcClientLogin(false);
     fireEvent.click(getButtonElement());
     expect(spy).toHaveBeenCalledWith({
@@ -91,7 +97,7 @@ describe('LoginButton', () => {
   });
   it('If onClick is set, it is called with the event when button is clicked', async () => {
     const onClick = jest.fn();
-    renderComponent({ onClick });
+    await renderComponent({ onClick });
     const spy = spyOnOidcClientLogin(false);
     fireEvent.click(getButtonElement());
     expect(spy).toHaveBeenCalledTimes(1);
@@ -99,7 +105,7 @@ describe('LoginButton', () => {
     expect(getErrorElement).toThrow();
   });
   it('when error occurs the error text is shown', async () => {
-    renderComponent();
+    await renderComponent();
     const spy = spyOnOidcClientLogin(true);
     fireEvent.click(getButtonElement());
     expect(spy).toHaveBeenCalledTimes(1);

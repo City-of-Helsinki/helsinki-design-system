@@ -20,15 +20,17 @@ export const jestHelpers = {
   beforeEach: () => {
     jest.useFakeTimers();
   },
-  afterEach: () => {
-    jest.runOnlyPendingTimers();
+  afterEach: async () => {
+    await act(async () => {
+      jest.runOnlyPendingTimers();
+    });
     jest.useRealTimers();
     jest.restoreAllMocks();
     sessionStorage.clear();
   },
 };
 
-export function initTests(
+export async function initTests(
   props: HeaderLoginButtonProps | HeaderLogoutSubmenuButtonProps | Record<string, unknown>,
   Component: (
     props: HeaderLoginButtonProps | HeaderLogoutSubmenuButtonProps | Record<string, unknown>,
@@ -40,23 +42,26 @@ export function initTests(
   loginProps.userManagerSettings.automaticSilentRenew = false;
 
   let beacon: Beacon;
-  const renderComponent = () => {
+  const renderComponent = async () => {
     const helperModule: ConnectedModule = {
       namespace: 'helper',
       connect: (targetBeacon) => {
         beacon = targetBeacon;
       },
     };
-    const result = render(
-      <Header>
-        <LoginContextProvider loginProps={loginProps} modules={[helperModule]}>
-          <div id="root">
-            <Component {...props} />
-          </div>
-        </LoginContextProvider>
-        ,
-      </Header>,
-    );
+    let result: ReturnType<typeof render>;
+    await act(async () => {
+      result = render(
+        <Header>
+          <LoginContextProvider loginProps={loginProps} modules={[helperModule]}>
+            <div id="root">
+              <Component {...props} />
+            </div>
+          </LoginContextProvider>
+          ,
+        </Header>,
+      );
+    });
     const getButtonElement = () => {
       return result.container.querySelector(`#${props.id}`) as HTMLButtonElement;
     };
@@ -79,11 +84,11 @@ export function initTests(
       const closeButtons = Array.from(
         result.container.querySelectorAll(`button[aria-label="${props.errorCloseAriaLabel}"]`),
       );
-      const focusShifterButton = closeButtons.filter((btn) => !errorNotification.contains(btn))[0];
+      const focusShifterButton = closeButtons.filter((btn: Element) => !errorNotification.contains(btn))[0];
       return focusShifterButton || null;
     };
     return {
-      ...result,
+      ...result!,
       getButtonElement,
       getErrorElement,
       getErrorElementButton,
@@ -113,7 +118,10 @@ export function initTests(
     return { mock, promise };
   };
 
-  const clickAndAdvanceUntilErrorShown = async (result: ReturnType<typeof renderComponent>, login: boolean) => {
+  const clickAndAdvanceUntilErrorShown = async (
+    result: Awaited<ReturnType<typeof renderComponent>>,
+    login: boolean,
+  ) => {
     const { getButtonElement, getErrorElement, getLoadIndicator } = result;
     expect(getErrorElement).toThrow();
     expect(getLoadIndicator).toThrow();
@@ -148,7 +156,7 @@ export function initTests(
     setUser();
   }
 
-  const result = renderComponent();
+  const result = await renderComponent();
 
   return {
     ...result,

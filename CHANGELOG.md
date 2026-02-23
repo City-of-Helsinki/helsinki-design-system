@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Breaking
 
 - [SearchInput] Removed `SearchInput` component from React package. Use the new `Search` component instead. The Core (HTML/CSS) version of SearchInput remains available.
+- [Select, Combobox] Removed deprecated `Select` and `Combobox` components from `components/dropdown/` directory. Use the new `Select` component from `components/dropdownComponents/select/` instead. The old components were deprecated in favor of the new modular dropdown components architecture.
 
 #### Added
 
