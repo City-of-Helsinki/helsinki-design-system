@@ -1,5 +1,5 @@
 import { waitFor, fireEvent, render, act, RenderResult } from '@testing-library/react';
-import React from 'react';
+import React, { useRef } from 'react';
 import { axe } from 'jest-axe';
 
 import { IconLocation } from '../../../icons';
@@ -95,7 +95,10 @@ const ButtonsForDataUpdates = () => {
 const UpdateChecker = () => {
   // hook usage will cause update when context re-renders
   useSelectDataHandlers();
-  return <span id="render-time">{Date.now()}</span>;
+  // Incrementing counter so createRenderUpdatePromise() reliably sees a new value each re-render (Date.now() can repeat within same ms)
+  const renderCountRef = useRef(0);
+  renderCountRef.current += 1;
+  return <span id="render-time">{renderCountRef.current}</span>;
 };
 
 const ExportedData = () => {

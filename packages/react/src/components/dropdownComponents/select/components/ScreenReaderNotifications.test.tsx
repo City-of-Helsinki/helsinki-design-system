@@ -36,6 +36,7 @@ describe('<ScreenReaderNotifications />', () => {
         await triggerDataChange({});
       },
       getScreenReaderNotifications,
+      triggerMetaDataChange,
     };
   };
   it('Component is always rendered', async () => {
@@ -52,20 +53,30 @@ describe('<ScreenReaderNotifications />', () => {
     expect(getScreenReaderNotifications()).toHaveLength(3);
   });
   it('Old notifications are not rendered', async () => {
-    const { getScreenReaderNotifications, updateAndWait } = initTestSuite();
+    const { getScreenReaderNotifications, triggerMetaDataChange } = initTestSuite();
     const oldNotification = createScreenReaderNotification('test', 'content');
     oldNotification.showTime = Date.now() - 10 * 1000;
-    await updateAndWait([oldNotification]);
+    // Only update metadata; skip triggerDataChange to avoid "Time not updated" (empty data may not re-render UpdateChecker)
+    await triggerMetaDataChange({ screenReaderNotifications: [oldNotification] });
     expect(getScreenReaderNotifications()).toHaveLength(0);
   });
   it('Delayed notifications are rendered after the delay', async () => {
-    const { getScreenReaderNotifications, updateAndWait } = initTestSuite();
+    const { getScreenReaderNotifications, triggerMetaDataChange } = initTestSuite();
     const delayedNotification = createScreenReaderNotification('test', 'content');
-    delayedNotification.delay = 100;
-    await updateAndWait([delayedNotification]);
+    // Use a delay long enough that we reliably see 0 before the delay, and longer than
+    // the hook's setInterval(tick, 200) so the notification appears after one tick.
+    delayedNotification.delay = 300;
+    // Only update metadata; skip triggerDataChange so we avoid "Time not updated" (empty data
+    // may not cause a re-render of UpdateChecker). Metadata update already triggers context re-render.
+    await triggerMetaDataChange({ screenReaderNotifications: [delayedNotification] });
     expect(getScreenReaderNotifications()).toHaveLength(0);
-    await waitFor(() => {
-      expect(getScreenReaderNotifications()).toHaveLength(1);
-    });
+    // Wait for delay (300ms) + hook's setInterval(tick, 200) to run; waitFor wraps in act() so the
+    // interval-driven state update does not trigger an act warning
+    await waitFor(
+      () => {
+        expect(getScreenReaderNotifications()).toHaveLength(1);
+      },
+      { timeout: 2000 },
+    );
   });
 });

@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useRef } from 'react';
 import { render } from '@testing-library/react';
 
 import { SelectStorageProps, useSelectStorage } from '../useSelectStorage';
@@ -70,6 +70,9 @@ describe('useSelectStorage', () => {
   const ComponentWithHook = (props: SelectStorageProps) => {
     const forceRender = useForceRender();
     const storage = useSelectStorage({ ...props, ...injectProps });
+    // Counter so createRenderUpdatePromise(true) sees a new value each re-render (this test has no #render-time, only #force-render-time)
+    const renderCountRef = useRef(0);
+    renderCountRef.current += 1;
 
     return (
       <>
@@ -77,7 +80,7 @@ describe('useSelectStorage', () => {
         <button type="button" onClick={forceRender} id="force-render">
           Update data
         </button>
-        <span id="force-render-time">{Date.now()}</span>;
+        <span id="force-render-time">{renderCountRef.current}</span>;
       </>
     );
   };
@@ -148,7 +151,7 @@ describe('useSelectStorage', () => {
       const data = getDataFromElement();
       const { options } = data.groups[0];
       expect(options.filter((e) => !e.disabled)).toHaveLength(21);
-      const promise = createRenderUpdatePromise();
+      const promise = createRenderUpdatePromise(true);
       renderInHook();
       await promise;
       // component has been re-rendered
@@ -158,7 +161,7 @@ describe('useSelectStorage', () => {
 
       updateAllOptions(toggleDisable);
       expect(getOptionsFromPropGetter(getProps).filter((e) => !e.disabled)).toHaveLength(21);
-      const updatePromise = createRenderUpdatePromise();
+      const updatePromise = createRenderUpdatePromise(true);
       renderInHook();
       await updatePromise;
       // component has been re-rendered
@@ -180,7 +183,7 @@ describe('useSelectStorage', () => {
 
       const assistive = 'new assistive text';
       updateTexts({ assistive });
-      const promise = createRenderUpdatePromise();
+      const promise = createRenderUpdatePromise(true);
       renderInHook();
       await promise;
       expect(getAssistiveText()).toBe(assistive);
@@ -192,14 +195,14 @@ describe('useSelectStorage', () => {
       const errorText = 'new error text';
       expect(getDataFromElement().invalid).toBeFalsy();
       setError(errorText);
-      const promise = createRenderUpdatePromise();
+      const promise = createRenderUpdatePromise(true);
       renderInHook();
       await promise;
       expect(getDataFromElement().invalid).toBeTruthy();
       expect(getErrorText()).toBe(errorText);
 
       setError(false);
-      const updatePromise = createRenderUpdatePromise();
+      const updatePromise = createRenderUpdatePromise(true);
       renderInHook();
       await updatePromise;
       expect(getDataFromElement().invalid).toBeFalsy();
@@ -208,7 +211,7 @@ describe('useSelectStorage', () => {
 
       // setting "true", means text stays the same, only invalid updates
       setError(true);
-      const lastPromise = createRenderUpdatePromise();
+      const lastPromise = createRenderUpdatePromise(true);
       renderInHook();
       await lastPromise;
       expect(getDataFromElement().invalid).toBeTruthy();
@@ -221,13 +224,13 @@ describe('useSelectStorage', () => {
 
       expect(getDataFromElement().open).toBeFalsy();
       setOpen(true);
-      const promise = createRenderUpdatePromise();
+      const promise = createRenderUpdatePromise(true);
       renderInHook();
       await promise;
       expect(getDataFromElement().open).toBeTruthy();
 
       setOpen(false);
-      const newPromise = createRenderUpdatePromise();
+      const newPromise = createRenderUpdatePromise(true);
       renderInHook();
       await newPromise;
       expect(getDataFromElement().open).toBeFalsy();
@@ -238,13 +241,13 @@ describe('useSelectStorage', () => {
 
       expect(getDataFromElement().disabled).toBeFalsy();
       setDisabled(true);
-      const promise = createRenderUpdatePromise();
+      const promise = createRenderUpdatePromise(true);
       renderInHook();
       await promise;
       expect(getDataFromElement().disabled).toBeTruthy();
 
       setDisabled(false);
-      const newPromise = createRenderUpdatePromise();
+      const newPromise = createRenderUpdatePromise(true);
       renderInHook();
       await newPromise;
       expect(getDataFromElement().disabled).toBeFalsy();
@@ -255,13 +258,13 @@ describe('useSelectStorage', () => {
 
       expect(getDataFromElement().invalid).toBeFalsy();
       setInvalid(true);
-      const promise = createRenderUpdatePromise();
+      const promise = createRenderUpdatePromise(true);
       renderInHook();
       await promise;
       expect(getDataFromElement().invalid).toBeTruthy();
 
       setInvalid(false);
-      const newPromise = createRenderUpdatePromise();
+      const newPromise = createRenderUpdatePromise(true);
       renderInHook();
       await newPromise;
       expect(getDataFromElement().invalid).toBeFalsy();

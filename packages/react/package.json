@@ -146,7 +146,6 @@
     "cookie": "^0.4.1",
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
-    "downshift": "6.0.6",
     "graphql": "^16.8.1",
     "hds-core": "5.0.0",
     "jwt-decode": "^3.1.2",
@@ -159,14 +158,12 @@
     "react-merge-refs": "1.1.0",
     "react-popper": "2.2.5",
     "react-use-measure": "2.0.1",
-    "react-virtual": "2.10.4",
     "uuid": "^9.0.0",
     "yup": "^1.0.2"
   },
   "resolutions": {
     "babel-jest": "^26.0.1",
     "jest": "^26.0.1",
-    "downshift/react-is": "^16.13.1",
     "react-scripts": "^5.0.0",
     "ts-jest": "^26.0.1"
   },

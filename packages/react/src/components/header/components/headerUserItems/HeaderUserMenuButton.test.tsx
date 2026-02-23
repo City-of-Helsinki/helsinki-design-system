@@ -6,7 +6,7 @@ import { HeaderActionBarItem, HeaderActionBarItemProps } from '../headerActionBa
 import { HeaderUserMenuButton } from './HeaderUserMenuButton';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../../../utils/testHelpers';
 
-describe('HeaderLogoutSubmenuButton', () => {
+describe('HeaderUserMenuButton', () => {
   const defaultUserProfile = { given_name: 'ABC', family_name: 'ZYX', email: 'email@domain.com' };
 
   const initTestsWithComponent = (
@@ -28,8 +28,8 @@ describe('HeaderLogoutSubmenuButton', () => {
   beforeEach(() => {
     jestHelpers.beforeEach();
   });
-  afterEach(() => {
-    jestHelpers.afterEach();
+  afterEach(async () => {
+    await jestHelpers.afterEach();
   });
 
   const getRenderedInitials = (button: HTMLElement) => {
@@ -40,12 +40,12 @@ describe('HeaderLogoutSubmenuButton', () => {
   };
 
   it('The button is rendered', async () => {
-    const { getUserMenuButton } = initTestsWithComponent();
+    const { getUserMenuButton } = await initTestsWithComponent();
     expect(getUserMenuButton()).toMatchSnapshot();
   });
 
   it('The button is not rendered if user is not logged in', async () => {
-    const { getUserMenuButton } = initTestsWithComponent(false);
+    const { getUserMenuButton } = await initTestsWithComponent(false);
     expect(getUserMenuButton()).toBeNull();
   });
 
@@ -53,24 +53,24 @@ describe('HeaderLogoutSubmenuButton', () => {
     const buttonProps = getCommonElementTestProps('button');
     // aria-label goes to a descendant in HeaderActionBarItem
     buttonProps['aria-label'] = undefined;
-    const { getByTestId } = initTestsWithComponent(true, {}, buttonProps);
+    const { getByTestId } = await initTestsWithComponent(true, {}, buttonProps);
     const element = getByTestId(buttonProps['data-testid']);
     expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Initials are rendered', async () => {
-    const { getUserMenuButton } = initTestsWithComponent(true);
+    const { getUserMenuButton } = await initTestsWithComponent(true);
     expect(getRenderedInitials(getUserMenuButton())).toBe('AZ');
   });
 
   it('Email is used if initials are not set', async () => {
-    const { getUserMenuButton } = initTestsWithComponent(true, { given_name: undefined, family_name: undefined });
+    const { getUserMenuButton } = await initTestsWithComponent(true, { given_name: undefined, family_name: undefined });
     expect(getRenderedInitials(getUserMenuButton())).toBe('E');
   });
 
   it('Name is displayed when menu is open', async () => {
     const user = { name: 'User Fullname' };
-    const { getUserMenuButton, container } = initTestsWithComponent(true, user);
+    const { getUserMenuButton, container } = await initTestsWithComponent(true, user);
     act(() => {
       fireEvent.click(getUserMenuButton());
     });
@@ -80,7 +80,7 @@ describe('HeaderLogoutSubmenuButton', () => {
   });
 
   it('Email is displayed when menu is open and name is not set', async () => {
-    const { getUserMenuButton, container } = initTestsWithComponent(true, { name: undefined });
+    const { getUserMenuButton, container } = await initTestsWithComponent(true, { name: undefined });
     act(() => {
       fireEvent.click(getUserMenuButton());
     });

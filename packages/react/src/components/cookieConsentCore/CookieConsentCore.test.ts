@@ -1135,6 +1135,14 @@ describe('cookieConsentCore', () => {
     await waitForConsole('log', "Cookie consent: found unapproved indexedDB(s): 'indexedDb_unapproved'");
 
     expect((await indexedDB.databases())[0].name).toEqual('indexedDb_unapproved');
+
+    // Clean up so the next tests do not see this DB (test isolation)
+    jest.useRealTimers();
+    await new Promise<void>((resolve, reject) => {
+      const req = indexedDB.deleteDatabase('indexedDb_unapproved');
+      req.onsuccess = () => resolve();
+      req.onerror = () => reject(req.error);
+    });
   });
 
   it('should monitor and report cache storage items that have not been consented to if monitor interval parameter is set in siteSettings above 0', async () => {
