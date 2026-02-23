@@ -37,6 +37,18 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Fixed
 
+### Design Tokens
+
+#### Breaking
+
+- `alert-dark` UI helper colour changed from `#986700` to `#d18200` (affects Notification and any custom use of `--color-alert-dark`).
+
+#### Added
+
+#### Changed
+
+#### Fixed
+
 ### Documentation
 
 #### Breaking
