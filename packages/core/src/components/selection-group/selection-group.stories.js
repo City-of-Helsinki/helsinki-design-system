@@ -4,6 +4,9 @@ import '../../icons/share.css';
 import '../../icons/angle-right.css';
 import { useEffect } from '@storybook/client-api';
 
+const getDescriptionText = (text = 'Description text') =>
+  `<div class="hds-selection-group__description-text-gap description-text">${text}</div>`;
+
 const getHelperText = (text = 'Assistive text') =>
   `<div class="hds-selection-group__helper-text-gap helper-text">${text}</div>`;
 
@@ -218,6 +221,46 @@ export const WithHelperText = () => `
   <br/>
   <fieldset class="hds-selection-group">
     <legend class="hds-selection-group__legend">Label</legend>
+    <div class="hds-selection-group__items">
+      ${getRadios('Default')}
+    </div>
+    ${getHelperText()}
+  </fieldset>
+`;
+
+export const WithDescriptionText = () => `
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">Label</legend>
+    ${getDescriptionText('Description text')}
+    <div class="hds-selection-group__items">
+      ${getCheckboxes('Default')}
+    </div>
+  </fieldset>
+  <br/>
+  <br/>
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">Label</legend>
+    ${getDescriptionText('Description text')}
+    <div class="hds-selection-group__items">
+      ${getRadios('Default')}
+    </div>
+  </fieldset>
+`;
+
+export const WithDescriptionTextAndHelperText = () => `
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">Label</legend>
+    ${getDescriptionText('Description text')}
+    <div class="hds-selection-group__items">
+      ${getCheckboxes('Default')}
+    </div>
+    ${getHelperText()}
+  </fieldset>
+  <br/>
+  <br/>
+  <fieldset class="hds-selection-group">
+    <legend class="hds-selection-group__legend">Label</legend>
+    ${getDescriptionText('Description text')}
     <div class="hds-selection-group__items">
       ${getRadios('Default')}
     </div>

@@ -12,6 +12,12 @@ exports[`<Textarea /> spec renders the component 1`] = `
       HDS input field
     </label>
     <div
+      class="descriptionText"
+      id="hdsInput-description"
+    >
+      Description text
+    </div>
+    <div
       class="inputWrapper"
     >
       <textarea
@@ -78,6 +84,12 @@ exports[`<Textarea /> spec renders the component with tooltip 1`] = `
           </svg>
         </span>
       </button>
+    </div>
+    <div
+      class="descriptionText"
+      id="hdsInput-description"
+    >
+      Description text
     </div>
     <div
       class="inputWrapper"

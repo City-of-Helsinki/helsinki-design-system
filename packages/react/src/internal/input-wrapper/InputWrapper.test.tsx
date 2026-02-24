@@ -5,6 +5,7 @@ import { axe } from 'jest-axe';
 import { InputWrapper } from './InputWrapper';
 
 const wrapperProps = {
+  descriptionText: 'description text',
   helperText: 'helper text',
   label: 'label text',
   id: 'test',

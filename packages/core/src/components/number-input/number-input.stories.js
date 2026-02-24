@@ -14,6 +14,7 @@ export default {
 export const Default = () => `
    <div class="hds-text-input">
      ${getLabel('input1')}
+     <span class="hds-text-input__description-text">Description text</span>
      <div class="hds-text-input__input-wrapper">
        <input
          id="input1"
@@ -28,6 +29,7 @@ export const Default = () => `
 export const Invalid = () => `
    <div class="hds-text-input">
      ${getLabel('input1')}
+     <span class="hds-text-input__description-text">Description text</span>
      <div class="hds-text-input__input-wrapper">
        <input
          id="input1"
@@ -43,6 +45,7 @@ export const Invalid = () => `
 export const Success = () => `
    <div class="hds-text-input">
      ${getLabel('input1')}
+     <span class="hds-text-input__description-text">Description text</span>
      <div class="hds-text-input__input-wrapper">
        <input
          id="input1"

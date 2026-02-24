@@ -21,11 +21,15 @@ export type SelectionGroupProps = React.PropsWithChildren<
      */
     direction?: Direction;
     /**
-     * The error text content that will be shown below the selection group
+     * The error text content that will be shown below the selection group.
      */
     errorText?: string;
     /**
-     * The helper text content that will be shown below the radiobutton
+     * The description text content that will be shown above the selection group.
+     */
+    descriptionText?: string;
+    /**
+     * The helper text content that will be shown below the selection group.
      */
     helperText?: string;
     /**
@@ -97,6 +101,7 @@ export const SelectionGroup = ({
   label,
   direction = 'vertical',
   errorText,
+  descriptionText,
   helperText,
   required,
   tooltipLabel,
@@ -120,6 +125,7 @@ export const SelectionGroup = ({
   return (
     <fieldset className={classNames(styles.selectionGroup, className)} {...fieldSetProps}>
       <LegendAndToolTip {...labelAndToolTipProps} />
+      {descriptionText && <div className={styles.descriptionText}>{descriptionText}</div>}
       <div className={classNames(styles.items, styles[direction])}>
         {childElements.map(
           (child) =>

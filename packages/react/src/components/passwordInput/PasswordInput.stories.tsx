@@ -18,6 +18,7 @@ export default {
 export const Default = (args: PasswordInputProps) => <PasswordInput {...args} />;
 Default.args = {
   id: 'Default',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label',
   revealPasswordButtonAriaLabel: 'Show password',
@@ -27,6 +28,7 @@ Default.args = {
 export const WithTooltip = (args: PasswordInputProps) => <PasswordInput {...args} />;
 WithTooltip.args = {
   id: 'Default',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label',
   revealPasswordButtonAriaLabel: 'Show password',
@@ -38,6 +40,7 @@ export const Disabled = (args: PasswordInputProps) => <PasswordInput {...args} /
 Disabled.storyName = 'Disabled';
 Disabled.args = {
   id: 'Disabled',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   defaultValue: '0451234567',
   label: 'Label for disabled',
@@ -50,6 +53,7 @@ export const WithDefaultValue = (args: PasswordInputProps) => <PasswordInput {..
 WithDefaultValue.storyName = 'WithDefaultValue';
 WithDefaultValue.args = {
   id: 'WithDefaultValue',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   defaultValue: '0451234567',
   label: 'Label for with default value',
@@ -61,6 +65,7 @@ export const InitiallyRevealed = (args: PasswordInputProps) => <PasswordInput {.
 InitiallyRevealed.storyName = 'InitiallyRevealed';
 InitiallyRevealed.args = {
   id: 'InitiallyRevealed',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   defaultValue: '0451234567',
   label: 'Label for initially revealed',
@@ -72,6 +77,7 @@ export const AutoCompleteOn = (args: PasswordInputProps) => <PasswordInput {...a
 AutoCompleteOn.storyName = 'Autocomplete on';
 AutoCompleteOn.args = {
   id: 'Autocomplete on',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label for autocomplete on',
   autoComplete: 'on',
@@ -83,6 +89,7 @@ export const Success = (args: PasswordInputProps) => <PasswordInput {...args} />
 Success.storyName = 'Success';
 Success.args = {
   id: 'Success',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label for success input',
   successText: 'Success text',
@@ -95,6 +102,7 @@ Invalid.storyName = 'Invalid';
 Invalid.args = {
   id: 'Error',
   invalid: true,
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label for invalid input',
   errorText: 'Error text',
@@ -108,6 +116,7 @@ export const WithExternalShowPasswordButton = () => {
     <div className="password-input--external-show-password-button">
       <PasswordInput
         label="Label for external show password button"
+        descriptionText="Description text"
         id="external-password-button"
         includeShowPasswordButton={false}
         helperText="Assistive text"

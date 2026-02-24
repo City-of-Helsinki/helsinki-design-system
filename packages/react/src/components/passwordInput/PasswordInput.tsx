@@ -50,6 +50,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
   (
     {
       className,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,
@@ -77,6 +78,7 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
   ) => {
     const wrapperProps = {
       className,
+      descriptionText,
       errorText,
       helperText,
       hideLabel,

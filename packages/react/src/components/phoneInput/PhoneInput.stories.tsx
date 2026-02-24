@@ -17,6 +17,7 @@ export default {
 export const Default = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Default.args = {
   id: 'Default',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label',
 };
@@ -24,6 +25,7 @@ Default.args = {
 export const WithTooltip = (args: PhoneInputProps) => <PhoneInput {...args} />;
 WithTooltip.args = {
   id: 'WithTooltip',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label',
   tooltip: <Tooltip>This is a tooltip</Tooltip>,
@@ -33,6 +35,7 @@ export const Disabled = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Disabled.storyName = 'Disabled';
 Disabled.args = {
   id: 'Disabled',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   defaultValue: '0451234567',
   label: 'Label for disabled',
@@ -44,6 +47,7 @@ WithDefaultValue.storyName = 'With a default value';
 WithDefaultValue.args = {
   id: 'WithDefaultValue',
   defaultValue: '0451234567',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label for default value',
 };
@@ -93,6 +97,7 @@ export const Invalid = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Invalid.args = {
   id: 'Invalid',
   invalid: true,
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label',
   errorText: 'Invalid value',
@@ -101,6 +106,7 @@ Invalid.args = {
 export const Success = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Success.args = {
   id: 'Default',
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   label: 'Label',
   successText: 'Valid value',

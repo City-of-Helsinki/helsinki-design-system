@@ -11,7 +11,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Default
 <Playground scope={{ TimeInput }}>
@@ -25,6 +25,7 @@ import { TimeInput } from 'hds-react';
     label="Label"
     hoursLabel="hours"
     minutesLabel="minutes"
+    descriptionText="Description text"
     helperText="Assistive text"
     defaultValue="12:00"
     required
@@ -47,6 +48,7 @@ import { Select } from 'hds-react';
     required
     label="Label"
     placeholder="Placeholder"
+    descriptionText="Description text"
     helper="Assistive text"
     options={[
       { label: '12:00' },
@@ -79,7 +81,7 @@ Also, note that this component is an input. All features supported by the HDS Te
 | `minutesLabel` | A visually hidden label for the minutes. Helps to navigate the component with screen readers. | `string`    | -             |
 [Table 1:TimeInput properties]|
 
-<NativeElementPropsInfo 
-  nodeName="input" 
+<NativeElementPropsInfo
+  nodeName="input"
   splitProps={['id', 'className', 'style']}
 />

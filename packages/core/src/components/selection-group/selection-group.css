@@ -87,6 +87,10 @@
   width: var(--icon-size);
 }
 
+.hds-selection-group__description-text-gap {
+  margin-bottom: var(--spacing-legend);
+}
+
 .hds-selection-group__helper-text-gap {
   margin-top: var(--spacing-legend);
 }

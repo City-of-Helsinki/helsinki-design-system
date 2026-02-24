@@ -5,6 +5,7 @@ import { TextArea, TextAreaProps } from './TextArea';
 import { Tooltip } from '../tooltip';
 
 const textAreaProps = {
+  descriptionText: 'Description text',
   helperText: 'Assistive text',
   id: 'textArea',
   label: 'Label',
@@ -63,6 +64,7 @@ export const Playground = (args: TextAreaProps & Record<string, string>) => (
   <TextArea
     id={args.id}
     label={args.label}
+    descriptionText={args.descriptionText}
     helperText={args.helperText}
     placeholder={args.placeholder}
     disabled={args.disabled}

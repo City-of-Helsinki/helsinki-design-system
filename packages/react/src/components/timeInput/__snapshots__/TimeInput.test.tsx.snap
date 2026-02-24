@@ -6,6 +6,12 @@ exports[`<TimeInput /> spec renders the component 1`] = `
     class="root"
   >
     <div
+      class="descriptionText"
+      id="time-description"
+    >
+      Description text
+    </div>
+    <div
       class="inputWrapper"
     >
       <div

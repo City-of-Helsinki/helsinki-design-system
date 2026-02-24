@@ -11,6 +11,7 @@ describe('<Textarea /> spec', () => {
     id: 'hdsInput',
     label: 'HDS input field',
     placeholder: 'A placeholder text',
+    descriptionText: 'Description text',
     helperText: 'Helper text',
     errorText: 'Error text',
   };

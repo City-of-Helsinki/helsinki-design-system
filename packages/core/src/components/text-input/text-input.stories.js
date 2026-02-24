@@ -5,6 +5,7 @@ const getLabel = (id = 'input', required = false, label = 'Label text') =>
   `<label for="${id}" class="hds-text-input__label">${label}${
     required ? '<span class="hds-text-input__required">*</span>' : ''
   }</label>`;
+const getDescriptionText = (text = 'Description text') => `<span class="hds-text-input__description-text">${text}</span>`;
 const getHelperText = (text = 'Assistive text') => `<span class="hds-text-input__helper-text">${text}</span>`;
 const getErrorText = (text = 'Error text') => `<span class="hds-text-input__error-text">${text}</span>`;
 const getSuccessText = (text = 'Success text') => `<span class="hds-text-input__success-text">${text}</span>`;
@@ -18,6 +19,7 @@ export default {
 export const Default = () => `
     <div class="hds-text-input">
       ${getLabel()}
+      ${getDescriptionText()}
       <div class="hds-text-input__input-wrapper">
         <input
           id="input"
@@ -34,6 +36,7 @@ export const Default = () => `
 export const ReadOnly = () => `
     <div class="hds-text-input">
       ${getLabel('input2')}
+      ${getDescriptionText()}
       <div class="hds-text-input__input-wrapper">
         <input
           id="input2"
@@ -52,6 +55,7 @@ ReadOnly.storyName = 'Read-only';
 export const Disabled = () => `
     <div class="hds-text-input">
       ${getLabel('input3')}
+      ${getDescriptionText()}
       <div class="hds-text-input__input-wrapper">
         <input
           id="input3"
@@ -69,6 +73,7 @@ export const Disabled = () => `
 export const Invalid = () => `
    <div class="hds-text-input hds-text-input--invalid">
      ${getLabel('input4')}
+     ${getDescriptionText()}
      <div class="hds-text-input__input-wrapper">
        <input
          id="input4"
@@ -85,6 +90,7 @@ export const Invalid = () => `
 export const Success = () => `
    <div class="hds-text-input hds-text-input--success">
      ${getLabel('input4')}
+     ${getDescriptionText()}
      <div class="hds-text-input__input-wrapper">
        <input
          id="input4"
@@ -101,6 +107,7 @@ export const Success = () => `
 export const Info = () => `
    <div class="hds-text-input hds-text-input--info">
      ${getLabel('input4')}
+     ${getDescriptionText()}
      <div class="hds-text-input__input-wrapper">
        <input
          id="input4"
@@ -117,6 +124,7 @@ export const Info = () => `
 export const Required = () => `
    <div class="hds-text-input">
      ${getLabel('input5', true)}
+     ${getDescriptionText()}
      <div class="hds-text-input__input-wrapper">
        <input
          id="input5"

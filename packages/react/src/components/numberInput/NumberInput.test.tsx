@@ -11,6 +11,7 @@ describe('<NumberInput /> spec', () => {
   const numberInputProps: NumberInputProps = {
     id: 'numberInputTestId',
     label: 'Test label number input',
+    descriptionText: 'Description text',
     plusStepButtonAriaLabel: 'Add 10 euros',
     minusStepButtonAriaLabel: 'Decrease 10 euros',
     helperText: 'Helper text',

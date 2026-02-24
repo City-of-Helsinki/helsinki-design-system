@@ -11,7 +11,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Default
 <Playground scope={{ PasswordInput }}>
@@ -24,6 +24,7 @@ import { PasswordInput } from 'hds-react';
   <div style={{maxWidth: '320px'}}>
     <PasswordInput
       concealPasswordButtonAriaLabel="Hide password"
+      descriptionText="Description text"
       helperText="Assistive text"
       id="password-input-1"
       includeShowPasswordButton
@@ -38,6 +39,7 @@ import { PasswordInput } from 'hds-react';
 ```html
 <div class="hds-text-input" style="max-width:320px;">
   <label for="password-input-2" class="hds-text-input__label">Password<span class="hds-text-input__required">*</span></label>
+  <span class="hds-text-input__description-text">Description text</span>
   <div class="hds-text-input__input-wrapper">
     <input
       id="password-input-2"
@@ -76,6 +78,7 @@ import { PasswordInput, Button, IconEyeCrossed, IconEye } from 'hds-react';
         label="Password"
         id="password-input-3"
         includeShowPasswordButton={false}
+        descriptionText="Description text"
         helperText="Assistive text"
         type={revealPassword ? 'text' : 'password'}
         required

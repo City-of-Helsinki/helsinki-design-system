@@ -12,7 +12,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Vertical group (Checkbox)
 <Playground scope={{ SelectionGroup, Checkbox, useState }}>
@@ -39,6 +39,7 @@ import { SelectionGroup, Checkbox } from 'hds-react';
 ```html
 <fieldset class="hds-selection-group">
   <legend class="hds-selection-group__legend">Vertical checkbox group</legend>
+  <div class="hds-selection-group__description-text-gap description-text">Description text</div>
   <div class="hds-selection-group__items">
     <div class="hds-selection-group__item">
       <div class="hds-checkbox">
@@ -65,7 +66,7 @@ import { SelectionGroup, Checkbox } from 'hds-react';
       </div>
     </div>
   </div>
-  <div class="helper-text">Assistive text</div>
+  <div class="hds-selection-group__helper-text-gap helper-text">Assistive text</div>
 </fieldset>
 ```
 
@@ -153,6 +154,7 @@ import { SelectionGroup, Checkbox } from 'hds-react';
 ```html
 <fieldset class="hds-selection-group">
   <legend class="hds-selection-group__legend">Horizontal checkbox group</legend>
+  <div class="hds-selection-group__description-text-gap description-text">Description text</div>
   <div class="hds-selection-group__items hds-selection-group__items--horizontal">
     <div class="hds-selection-group__item">
       <div class="hds-checkbox">
@@ -173,7 +175,7 @@ import { SelectionGroup, Checkbox } from 'hds-react';
       </div>
     </div>
   </div>
-  <div class="helper-text">Assistive text</div>
+  <div class="hds-selection-group__helper-text-gap helper-text">Assistive text</div>
 </fieldset>
 ```
 
@@ -239,11 +241,12 @@ import { SelectionGroup, RadioButton } from 'hds-react';
 ### Properties
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-selectiongroup--default">React Storybook.</Link>
 
-| Property    | Description                                                                 | Values                      | Default value |
-| ----------- | --------------------------------------------------------------------------- | --------------------------- | ------------- |
-| `label`     | The label for the selection group.                                          | `string`                    | -             |
-| `direction` | The direction in which child components should be rendered in.              | `"vertical"` `"horizontal"` | `"vertical"`  |
-| `helperText`| The help text content that will be shown below the selection group content. | `string`                    | -             |
+| Property          | Description                                                                           | Values                      | Default value |
+| ----------------- | ------------------------------------------------------------------------------------- | --------------------------- | ------------- |
+| `label`           | The label for the selection group.                                                    | `string`                    | -             |
+| `direction`       | The direction in which child components should be rendered in.                        | `"vertical"` `"horizontal"` | `"vertical"`  |
+| `descriptionText` | The description text content that will be shown above the selection group content.    | `string`                    | -             |
+| `helperText`      | The help text content that will be shown below the selection group content.           | `string`                    | -             |
 [Table 1:SelectionGroup properties]|
 
 <NativeElementPropsInfo nodeName="fieldset" />

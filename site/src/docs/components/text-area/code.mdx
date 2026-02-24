@@ -11,7 +11,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ## Code
 
-### Code examples 
+### Code examples
 
 #### Default
 <Playground scope={{ TextArea }}>
@@ -25,6 +25,7 @@ import { TextArea } from 'hds-react';
       id="textarea"
       label="Label"
       placeholder="Placeholder"
+      descriptionText="Description text"
       helperText="Assistive text"
       required
     />
@@ -32,6 +33,7 @@ import { TextArea } from 'hds-react';
       id="textarea-disabled"
       label="Label"
       defaultValue="Text area value"
+      descriptionText="Description text"
       helperText="Assistive text"
       style={{marginTop: 'var(--spacing-s)'}}
       disabled
@@ -40,6 +42,7 @@ import { TextArea } from 'hds-react';
       id="textarea-invalid"
       label="Label"
       defaultValue="Text area value"
+      descriptionText="Description text"
       errorText="Error text"
       helperText="Assistive text"
       style={{marginTop: 'var(--spacing-s)'}}
@@ -53,6 +56,7 @@ import { TextArea } from 'hds-react';
 <div style="max-width:320px;">
   <div class="hds-text-input">
     <label for="textarea-core" class="hds-text-input__label">Label<span class="hds-text-input__required">*</span></label>
+    <span class="hds-text-input__description-text">Description text</span>
     <div class="hds-text-input__input-wrapper">
       <textarea id="textarea-core" class="hds-text-input__input" placeholder="Placeholder" required></textarea>
     </div>
@@ -63,6 +67,7 @@ import { TextArea } from 'hds-react';
     <label for="textarea-disabled-core" class="hds-text-input__label">
       Label
     </label>
+    <span class="hds-text-input__description-text">Description text</span>
     <div class="hds-text-input__input-wrapper">
       <textarea id="textarea-disabled-core" class="hds-text-input__input" disabled>Text area value</textarea>
     </div>
@@ -73,6 +78,7 @@ import { TextArea } from 'hds-react';
     <label for="textarea-invalid-core" class="hds-text-input__label">
       Label
     </label>
+    <span class="hds-text-input__description-text">Description text</span>
     <div class="hds-text-input__input-wrapper">
       <textarea id="textarea-invalid-core" class="hds-text-input__input">Text area value</textarea>
     </div>
@@ -112,19 +118,20 @@ import { TextArea, Tooltip } from 'hds-react';
 ### Properties
 Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/docs/components-textarea--default">React Storybook.</Link>
 
-| Property             | Description                                                      | Values      | Default value |
-| -------------------- | ---------------------------------------------------------------- | ----------- | ------------- |
-| `label`              | The label for the input.                                         | `ReactNode` | -             |
-| `errorText`          | The error text content that will be shown below the input.       | `string`    | -             |
-| `helperText`         | The error text content that will be shown below the input.       | `string`    | -             |
-| `hideLabel`          | Hides the label above the input.                                 | `boolean`   | false         |
-| `invalid`            | If set to true, the input will be displayed in an invalid state. | `boolean`   | false         |
-| `successText`        | The success text content that will be shown below the input.     | `string`    | -             |
-| `infoText`           | The info text content that will be shown below the input.        | `string`    | -             |
-| `tooltipLabel`       | The aria-label text for the tooltip. **Deprecated, will be removed in next major release** | `string`    | -             |
-| `tooltipButtonLabel` | The aria-label text for the tooltip trigger button. **Deprecated, will be removed in next major release** | `string`    | -             |
-| `tooltipText`        | The text content of the tooltip. **Deprecated, will be removed in next major release**   | `string`    | -             |
-| `tooltip`            | The tooltip component.                                           | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/components/tooltip/">`Tooltip`</Link> | -             |
+| Property             | Description                                                                                                  | Values                                                                                                     | Default value |
+| -------------------- | ------------------------------------------------------------------------------------------------------------ | ---------------------------------------------------------------------------------------------------------- | ------------- |
+| `label`              | The label for the input.                                                                                     | `ReactNode`                                                                                                | -             |
+| `errorText`          | The error text content that will be shown below the input.                                                   | `string`                                                                                                   | -             |
+| `descriptionText`    | The description text content that will be shown below the label and above the input.                         | `string`                                                                                                   | -             |
+| `helperText`         | The error text content that will be shown below the input.                                                   | `string`                                                                                                   | -             |
+| `hideLabel`          | Hides the label above the input.                                                                             | `boolean`                                                                                                  | false         |
+| `invalid`            | If set to true, the input will be displayed in an invalid state.                                             | `boolean`                                                                                                  | false         |
+| `successText`        | The success text content that will be shown below the input.                                                 | `string`                                                                                                   | -             |
+| `infoText`           | The info text content that will be shown below the input.                                                    | `string`                                                                                                   | -             |
+| `tooltipLabel`       | The aria-label text for the tooltip. **Deprecated, will be removed in next major release**                   | `string`                                                                                                   | -             |
+| `tooltipButtonLabel` | The aria-label text for the tooltip trigger button. **Deprecated, will be removed in next major release**    | `string`                                                                                                   | -             |
+| `tooltipText`        | The text content of the tooltip. **Deprecated, will be removed in next major release**                       | `string`                                                                                                   | -             |
+| `tooltip`            | The tooltip component.                                                                                       | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/components/tooltip/">`Tooltip`</Link> | -             |
 [Table 1:TextArea properties]|
 
 <NativeElementPropsInfo

@@ -20,6 +20,10 @@ export type InputWrapperProps = AllElementPropsWithoutRef<'div'> &
      */
     errorText?: string;
     /**
+     * The description text content that will be shown above the input
+     */
+    descriptionText?: string;
+    /**
      * The helper text content that will be shown below the input
      */
     helperText?: string;
@@ -67,6 +71,7 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
       children,
       className = '',
       errorText,
+      descriptionText,
       helperText,
       hideLabel = false,
       id,
@@ -107,6 +112,11 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
             tooltipText={tooltipText}
             tooltip={tooltip}
           />
+        )}
+        {descriptionText && (
+          <div className={styles.descriptionText} id={`${id}-description`}>
+            {descriptionText}
+          </div>
         )}
         <div className={classNames(styles.inputWrapper)}>{children}</div>
         {errorText && (
