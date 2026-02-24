@@ -19,18 +19,19 @@ const Label = ({ text, selected, iconStart }: { text: string; selected: boolean;
   const dataHandlers = useModularOptionListDataHandlers();
   const { isSearching, search, refs } = dataHandlers.getMetaData();
 
-  const hasSearchInput = refs.searchInput.current;
+  const hasSearchInput = refs.searchInput?.current;
   const hasSearchText = !isSearching && hasSearchInput;
+  const labelText = hasSearchText ? highlightMatch(text, search) : text;
 
   return (
     <span className={styles.singleSelectListItemLabel}>
       {iconStart ? (
         <span className={styles.labelContent}>
           <span className={styles.iconStart}>{iconStart}</span>
-          <span className={styles.labelText}>{hasSearchText ? highlightMatch(text, search) : text}</span>
+          <span className={styles.labelText}>{labelText}</span>
         </span>
       ) : (
-        hasSearchText ? highlightMatch(text, search) : text
+        <span className={styles.labelText}>{labelText}</span>
       )}
       {selected ? (
         <span className={styles.selected}>

@@ -34,23 +34,17 @@ export const Example = () => {
   }, []);
 
   const onSend = (val: string) => {
-    console.log('Search submitted test:', val);
     setNotificationMessage(`Search submitted: "${val}"`);
     setShowNotification(true);
   };
 
   const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    console.log('ONCHANGE --> Search changed:', e.target.value);
     setValue(e.target.value);
   };
 
-  const onBlur = () => {
-    console.log('ONBLUR --> Search blurred');
-  };
+  const onBlur = () => {};
 
-  const onFocus = () => {
-    console.log('ONFOCUS --> Search focused');
-  };
+  const onFocus = () => {};
 
   const [props] = useState({
     id: 'hds-search-component',

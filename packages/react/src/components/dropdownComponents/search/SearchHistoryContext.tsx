@@ -28,8 +28,8 @@ export const SearchHistoryProvider: React.FC<SearchHistoryProviderProps> = ({
         if (Array.isArray(parsedHistory)) {
           setSearchHistory(parsedHistory.slice(0, 10));
         }
-      } catch (error) {
-        console.warn('Failed to parse search history from localStorage');
+      } catch {
+        localStorage.removeItem(hdsStorageId);
       }
     }
   }, [historyId]);
