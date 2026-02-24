@@ -25,7 +25,7 @@
         display: flex;
         height: 52px;
         justify-content: center;
-        outline-offset: -5px;
+        outline-offset: -5px !important;
         width: 52px;
 
         &:has(.searchButtonIcon) {

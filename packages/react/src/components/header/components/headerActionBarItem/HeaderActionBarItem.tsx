@@ -132,13 +132,18 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     const eventTargetNode = event.relatedTarget;
     // close the dropdown if the focus is outside the container on large screens
     // but not if focus moved to the backdrop
-    if (!container.contains(eventTargetNode) && eventTargetNode !== backdrop && !isSmallScreen) {
+    // Also keep open if relatedTarget is null — this happens during click-triggered DOM updates
+    if (eventTargetNode && !container.contains(eventTargetNode) && eventTargetNode !== backdrop && !isSmallScreen) {
       setDisplayProperty(false);
     }
   };
 
   const handleKeyDown = (event) => {
     if (event.key === 'Escape' && visible) {
+      // Don't close if event was already handled by an inner component (e.g. Search dropdown)
+      if (event.defaultPrevented) {
+        return;
+      }
       event.preventDefault();
       setDisplayProperty(false);
     }

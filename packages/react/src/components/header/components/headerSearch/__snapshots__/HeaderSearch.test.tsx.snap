@@ -144,7 +144,7 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
                                   class="input hasClearButton"
                                   id="header-search-search-component-search-input"
                                   placeholder="Anna teksti hakua varten"
-                                  type="text"
+                                  type="search"
                                   value=""
                                 />
                                 <div

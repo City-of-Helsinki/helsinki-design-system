@@ -84,8 +84,25 @@ export function useKeyboard() {
 
       if (isEscKey(e) && open) {
         e.preventDefault();
+        e.stopPropagation();
         trigger({ id: eventIds.generic, type: eventTypes.close });
+        // Return focus to search input
+        const { refs } = getMetaData();
+        refs.searchInput.current?.focus();
         return;
+      }
+
+      // When search input is focused and dropdown is closed
+      if (!open && isSearchInputFocused()) {
+        // Enter triggers submit when dropdown is closed and there is text
+        if (isEnterKey(e)) {
+          e.preventDefault();
+          const { refs } = getMetaData();
+          if (refs.searchInput.current?.submit) {
+            refs.searchInput.current.submit();
+          }
+          return;
+        }
       }
 
       // When search input is focused and dropdown is open

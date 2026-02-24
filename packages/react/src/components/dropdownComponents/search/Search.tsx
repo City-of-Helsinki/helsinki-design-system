@@ -24,6 +24,7 @@ export type { SearchInputHandle };
 
 export type SearchFieldProps = Omit<SearchPropsType & AcceptedNativeDivProps, 'ref' | 'onChange' | 'value'> & {
   onSend?: (value: string) => void;
+  hideSubmitButton?: boolean;
   onChange?: React.ChangeEventHandler<HTMLInputElement>;
   value?: string;
 };
@@ -48,6 +49,7 @@ const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
       virtualize,
       onSearch,
       onSend,
+      hideSubmitButton,
       value,
       theme,
       tooltip,
@@ -156,6 +158,7 @@ const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
                 id={`${id}-search-input`}
                 onSearch={onSearch}
                 onSend={onSend}
+                hideSubmitButton={hideSubmitButton}
                 onChange={onChange}
                 value={value}
                 ref={metaData.refs.searchInput}

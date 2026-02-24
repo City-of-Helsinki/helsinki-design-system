@@ -67,23 +67,24 @@ export const HeaderSearch = ({
   // Use id for internal element IDs, or use default
   const internalId = id || 'header-search';
 
-  const onSearchButtonClick = () => {
-    // Call the submit method on the search input which will add to history
-    if (searchInputRef.current?.submit) {
-      searchInputRef.current.submit();
-    }
-
-    // Handle notification and callbacks
-    const currentValue = searchInputRef.current?.value;
-    if (currentValue) {
-      setNotificationMessage(`Search submitted: "${currentValue}"`);
+  // Called by Search's onSend (Enter key) and indirectly by the external button via submit()
+  const handleSubmit = (value: string) => {
+    if (value) {
+      setNotificationMessage(`Search submitted: "${value}"`);
       setShowNotification(true);
       if (onSearch) {
-        onSearch(currentValue, [], undefined);
+        onSearch(value, [], undefined);
       }
       if (onSubmit) {
-        onSubmit(currentValue);
+        onSubmit(value);
       }
+    }
+  };
+
+  // External button click: submit() closes dropdown + adds to history + calls onSend (handleSubmit)
+  const onSearchButtonClick = () => {
+    if (searchInputRef.current?.submit) {
+      searchInputRef.current.submit();
     }
   };
 
@@ -131,6 +132,8 @@ export const HeaderSearch = ({
                   ref={searchInputRef}
                   texts={texts}
                   onSearch={onSearch}
+                  onSend={handleSubmit}
+                  hideSubmitButton
                 />
                 <Button onClick={onSearchButtonClick}>{texts?.buttonLabel || 'Search'}</Button>
               </div>

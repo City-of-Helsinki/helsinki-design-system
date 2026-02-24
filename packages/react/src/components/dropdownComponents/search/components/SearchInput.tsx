@@ -17,7 +17,7 @@ export interface SearchInputHandle extends HTMLInputElement {
 
 export const SearchInput = forwardRef<
   SearchInputHandle,
-  TextInputProps & { onSearch?: SearchFunction; onSend?: (value: string) => void }
+  TextInputProps & { onSearch?: SearchFunction; onSend?: (value: string) => void; hideSubmitButton?: boolean }
 >((props, ref) => {
   const classes = classNames(styles.searchInput, props.className || '');
   const dataHandlers = useSearchDataHandlers();
@@ -30,6 +30,7 @@ export const SearchInput = forwardRef<
   const {
     onSearch,
     onSend,
+    hideSubmitButton,
     onChange: onChangeFromProps,
     value: externalValue,
     onFocus: onFocusFromProps,
@@ -86,16 +87,37 @@ export const SearchInput = forwardRef<
   const clearButtonAriaLabel = getTextKey('searchClearButtonAriaLabel', metaData);
   // const handleChange = createInputOnChangeListener({ id: eventIds.search, trigger });
 
+  const isMouseClickRef = React.useRef(false);
+
+  const handleInputMouseDown = () => {
+    isMouseClickRef.current = true;
+  };
+
   const handleInputFocus = (event: React.FocusEvent<HTMLInputElement>) => {
     // Call the user's onFocus callback if provided
     if (onFocusFromProps) {
       onFocusFromProps(event);
     }
 
-    // Focus is on the input element - open dropdown only if input is empty
-    const currentValue = isControlled ? externalValue : innerValue;
-    if (!currentValue) {
-      dataHandlers.updateData({ groups: historyData });
+    // Open dropdown on mouse/touch click, but NOT on keyboard Tab focus.
+    if (isMouseClickRef.current) {
+      isMouseClickRef.current = false;
+      const currentValue = isControlled ? externalValue : innerValue;
+      if (!currentValue) {
+        dataHandlers.updateData({ groups: historyData });
+      }
+      dataHandlers.trigger({ id: eventIds.searchInputField, type: 'focus' });
+    }
+  };
+
+  const handleInputKeyDown = (event: React.KeyboardEvent<HTMLInputElement>) => {
+    const { open } = dataHandlers.getData();
+    if (!open && event.key === 'ArrowDown') {
+      // Open dropdown with history when pressing ArrowDown on closed dropdown
+      const currentValue = isControlled ? externalValue : innerValue;
+      if (!currentValue) {
+        dataHandlers.updateData({ groups: historyData });
+      }
       dataHandlers.trigger({ id: eventIds.searchInputField, type: 'focus' });
     }
   };
@@ -186,6 +208,8 @@ export const SearchInput = forwardRef<
       onChange={handleChange}
       onFocus={handleInputFocus}
       onBlur={handleInputBlur}
+      onKeyDown={handleInputKeyDown}
+      onMouseDown={handleInputMouseDown}
       className={classes}
       id={metaData.elementIds.searchInput}
       placeholder={placeholder}
@@ -194,7 +218,7 @@ export const SearchInput = forwardRef<
       clearButton
       clearButtonAriaLabel={clearButtonAriaLabel}
       type={onSend ? 'search' : 'text'}
-      buttonIcon={onSend ? <IconSearch className={styles.searchButtonIcon} /> : undefined}
+      buttonIcon={onSend && !hideSubmitButton ? <IconSearch className={styles.searchButtonIcon} /> : undefined}
       onButtonClick={handleSearch}
       buttonAriaLabel={getTextKey('searchButtonAriaLabel', metaData)}
       aria-describedby={metaData.elementIds.assistiveText}
