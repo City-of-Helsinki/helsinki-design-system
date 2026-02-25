@@ -92,9 +92,8 @@ export function useKeyboard() {
         return;
       }
 
-      // When search input is focused and dropdown is closed
-      if (!open && isSearchInputFocused()) {
-        // Enter triggers submit when dropdown is closed and there is text
+      // When search input is focused, Enter submits (whether dropdown is open or closed)
+      if (isSearchInputFocused()) {
         if (isEnterKey(e)) {
           e.preventDefault();
           const { refs } = getMetaData();
