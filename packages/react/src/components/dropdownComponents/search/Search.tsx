@@ -117,6 +117,7 @@ const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
           clearButton: `${containerId}-clear-button`,
           label: `${containerId}-label`,
           assistiveText: `${containerId}-assistive-text`,
+          historyInfo: `${containerId}-history-info`,
         },
         textProvider: createTextProvider(texts),
         getOptionId: (option: Option) => {

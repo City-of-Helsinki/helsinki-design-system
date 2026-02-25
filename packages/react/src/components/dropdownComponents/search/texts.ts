@@ -38,6 +38,9 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     searching: 'Searching for "{{value}}".',
     searchResults_one: 'Found one option for search term "{{value}}".',
     searchResults_multiple: 'Found {{numberIndicator}} options for search term "{{value}}".',
+    historyInfo: 'Recent searches available. Press Down Arrow to open history.',
+    searchHistoryLabel: 'Recent searches',
+    searchSuggestionsLabel: 'Search suggestions',
   },
   fi: {
     assistive: '',
@@ -67,6 +70,9 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     searching: 'Etsitään haulla "{{value}}".',
     searchResults_one: 'Löytyi yksi vaihtoehto hakusanalle "{{value}}".',
     searchResults_multiple: 'Löytyi {{numberIndicator}} vaihtoehtoa hakusanalle "{{value}}".',
+    historyInfo: 'Viimeaikaiset haut saatavilla. Paina nuoli alas avataksesi hakuhistorian.',
+    searchHistoryLabel: 'Viimeaikaiset haut',
+    searchSuggestionsLabel: 'Hakuehdotukset',
   },
   sv: {
     assistive: '',
@@ -96,6 +102,9 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
     searching: 'Söker efter "{{value}}".',
     searchResults_one: 'Hittade ett alternativ för söktermen "{{value}}".',
     searchResults_multiple: 'Hittade {{numberIndicator}} alternativ för söktermen "{{value}}".',
+    historyInfo: 'Senaste sökningar tillgängliga. Tryck nedåtpil för att öppna historiken.',
+    searchHistoryLabel: 'Senaste sökningar',
+    searchSuggestionsLabel: 'Sökförslag',
   },
 };
 

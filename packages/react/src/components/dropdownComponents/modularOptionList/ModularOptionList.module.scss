@@ -171,7 +171,8 @@
       outline: none;
 
       &:focus,
-      &:focus-within {
+      &:focus-within,
+      &.virtualFocus {
         box-shadow: 0 0 0 2px var(--computed-menu-item-border-color-focus) inset;
         outline: none;
       }

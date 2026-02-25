@@ -18,11 +18,15 @@ exports[`<Search /> spec renders the component 1`] = `
             class="inputWrapper"
           >
             <input
+              aria-autocomplete="list"
+              aria-controls="hds-search-1-list"
               aria-describedby="hds-search-1-assistive-text"
+              aria-expanded="false"
               aria-label="Hae"
               class="input hasClearButton"
               id="hds-search-1-search-input"
               placeholder="Anna teksti hakua varten"
+              role="combobox"
               type="text"
               value=""
             />

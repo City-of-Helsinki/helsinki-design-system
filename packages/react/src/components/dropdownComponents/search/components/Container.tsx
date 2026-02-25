@@ -35,7 +35,8 @@ export const Container = (props: Partial<DivElementProps> & { theme?: SearchCust
   useCustomThemes(theme || {});
   const dataHandlers = useSearchDataHandlers();
   const trackingProps = useFocusHandling();
-  const keyTrackingProps = useKeyboard();
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars
+  const { clearVirtualFocus, ...keyTrackingProps } = useKeyboard();
   const { children, ...rest } = createContainerProps(restProps as DivElementProps, dataHandlers);
   return (
     <div {...rest} {...trackingProps} {...keyTrackingProps}>

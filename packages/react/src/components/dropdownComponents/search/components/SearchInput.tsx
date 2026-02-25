@@ -141,6 +141,9 @@ export const SearchInput = forwardRef<
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
+    // Clear virtual focus when user types
+    inputRef.current?.removeAttribute('aria-activedescendant');
+
     // Only update internal state if uncontrolled
     if (!isControlled) {
       setInnerValue(value);
@@ -188,6 +191,9 @@ export const SearchInput = forwardRef<
   // Use controlled value if provided, otherwise use internal state
   const inputValue = isControlled ? externalValue : innerValue;
 
+  // Read open state for aria-expanded
+  const { open } = dataHandlers.getData();
+
   // Expose both the input element and submit method via ref
   useImperativeHandle(
     ref,
@@ -201,27 +207,46 @@ export const SearchInput = forwardRef<
     [handleSearch],
   );
 
+  // Determine if history info should be announced (history available + input empty)
+  const hasHistory = searchHistory.length > 0;
+  const showHistoryInfo = hasHistory && !inputValue;
+  const historyInfoId = metaData.elementIds.historyInfo;
+  const ariaDescribedBy = showHistoryInfo
+    ? `${metaData.elementIds.assistiveText} ${historyInfoId}`
+    : metaData.elementIds.assistiveText;
+
   return (
-    <TextInput
-      {...rest}
-      ref={inputRef}
-      onChange={handleChange}
-      onFocus={handleInputFocus}
-      onBlur={handleInputBlur}
-      onKeyDown={handleInputKeyDown}
-      onMouseDown={handleInputMouseDown}
-      className={classes}
-      id={metaData.elementIds.searchInput}
-      placeholder={placeholder}
-      aria-label={getTextKey('searchLabel', metaData)}
-      value={inputValue}
-      clearButton
-      clearButtonAriaLabel={clearButtonAriaLabel}
-      type={onSend ? 'search' : 'text'}
-      buttonIcon={onSend && !hideSubmitButton ? <IconSearch className={styles.searchButtonIcon} /> : undefined}
-      onButtonClick={handleSearch}
-      buttonAriaLabel={getTextKey('searchButtonAriaLabel', metaData)}
-      aria-describedby={metaData.elementIds.assistiveText}
-    />
+    <>
+      <TextInput
+        {...rest}
+        ref={inputRef}
+        onChange={handleChange}
+        onFocus={handleInputFocus}
+        onBlur={handleInputBlur}
+        onKeyDown={handleInputKeyDown}
+        onMouseDown={handleInputMouseDown}
+        className={classes}
+        id={metaData.elementIds.searchInput}
+        placeholder={placeholder}
+        role="combobox"
+        aria-autocomplete="list"
+        aria-expanded={open}
+        aria-controls={metaData.elementIds.list}
+        aria-label={getTextKey('searchLabel', metaData)}
+        value={inputValue}
+        clearButton
+        clearButtonAriaLabel={clearButtonAriaLabel}
+        type={onSend ? 'search' : 'text'}
+        buttonIcon={onSend && !hideSubmitButton ? <IconSearch className={styles.searchButtonIcon} /> : undefined}
+        onButtonClick={handleSearch}
+        buttonAriaLabel={getTextKey('searchButtonAriaLabel', metaData)}
+        aria-describedby={ariaDescribedBy}
+      />
+      {hasHistory && (
+        <div id={historyInfoId} className={styles.historyInfo} hidden={!showHistoryInfo}>
+          {getTextKey('historyInfo', metaData)}
+        </div>
+      )}
+    </>
   );
 });

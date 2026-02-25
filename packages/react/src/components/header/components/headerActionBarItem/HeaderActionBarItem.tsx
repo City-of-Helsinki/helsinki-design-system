@@ -63,6 +63,11 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
      * Menu button resizing is prevented by rendering button's active state to a separate element.
      */
     preventButtonResize?: boolean;
+    /**
+     * Role attribute for the dropdown list element.
+     * Use "presentation" to remove list semantics (e.g. for search panels).
+     */
+    listRole?: React.HTMLAttributes<HTMLUListElement>['role'];
   }
 >;
 
@@ -84,6 +89,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     fixedRightPosition,
     preventButtonResize,
     avatar,
+    listRole,
     ...rest
   } = properties;
   const dropdownContentElementRef = useRef<HTMLDivElement>(null);
@@ -252,7 +258,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
           <div className={classes.dropdownWrapper}>
             <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
               {heading && <h3>{label}</h3>}
-              <ul>{children}</ul>
+              <ul role={listRole}>{children}</ul>
             </div>
           </div>
         )}

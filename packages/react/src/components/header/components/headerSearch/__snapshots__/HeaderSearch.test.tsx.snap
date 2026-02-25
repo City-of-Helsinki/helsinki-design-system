@@ -101,16 +101,21 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
             class="dropdown hasContent fullWidth fullWidthDropdown hasSubItems"
             id="header-search-dropdown"
           >
-            <ul>
+            <ul
+              role="presentation"
+            >
               <li
                 style="padding: 0px;"
               >
                 <div
+                  aria-labelledby="header-search-heading"
                   class="searchContainer"
                   role="search"
                 >
                   <div>
-                    <h3>
+                    <h3
+                      id="header-search-heading"
+                    >
                       Hae palvelusta
                     </h3>
                     <div
@@ -139,11 +144,15 @@ exports[`<Header.HeaderSearch /> spec renders the component 1`] = `
                                 class="inputWrapper"
                               >
                                 <input
+                                  aria-autocomplete="list"
+                                  aria-controls="header-search-search-component-list"
                                   aria-describedby="header-search-search-component-assistive-text"
+                                  aria-expanded="false"
                                   aria-label="Hae"
                                   class="input hasClearButton"
                                   id="header-search-search-component-search-input"
                                   placeholder="Anna teksti hakua varten"
+                                  role="combobox"
                                   type="search"
                                   value=""
                                 />

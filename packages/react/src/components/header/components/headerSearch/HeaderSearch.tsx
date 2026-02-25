@@ -120,11 +120,18 @@ export const HeaderSearch = ({
         className={styles.headerSearchButton}
         preventButtonResize
         fullWidthDropdown
+        listRole="presentation"
       >
         <li style={{ padding: 0 }}>
-          <div {...nativeDivProps} id={id} className={classNames(styles.searchContainer, className)} role="search">
+          <div
+            {...nativeDivProps}
+            id={id}
+            className={classNames(styles.searchContainer, className)}
+            role="search"
+            aria-labelledby={`${internalId}-heading`}
+          >
             <div>
-              <h3>{texts.heading}</h3>
+              <h3 id={`${internalId}-heading`}>{texts.heading}</h3>
               <div className={classNames(styles.searchRow)}>
                 <Search
                   {...searchProps}

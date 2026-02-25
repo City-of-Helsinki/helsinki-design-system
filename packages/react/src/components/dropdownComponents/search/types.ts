@@ -97,6 +97,7 @@ export type SearchMetaData = Pick<SearchProps, 'icon'> &
       searchContainer: string;
       clearButton: string;
       assistiveText: string;
+      historyInfo: string;
     };
     textProvider: TextProvider;
     search: string;
@@ -128,7 +129,10 @@ export type TextKey =
   | 'searchButtonAriaLabel'
   | 'searchWithAnotherTerm'
   | 'searchResults_multiple'
-  | 'searchResults_one';
+  | 'searchResults_one'
+  | 'historyInfo'
+  | 'searchHistoryLabel'
+  | 'searchSuggestionsLabel';
 
 export type TextsWithNumberedVariations =
   | ModularOptionListTextsWithNumberedVariations
