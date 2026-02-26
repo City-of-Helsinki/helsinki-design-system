@@ -21,21 +21,39 @@ describe('<Search /> spec', () => {
   });
 
   describe('ARIA combobox attributes', () => {
-    it('search input has role="combobox" and aria-autocomplete="list"', () => {
-      const { container } = render(<Search texts={{ label: 'Search' }} />);
+    it('search input has role="combobox" when onSearch is provided', () => {
+      const { container } = render(
+        <Search texts={{ label: 'Search' }} onSearch={() => Promise.resolve({ groups: [] })} />,
+      );
       const input = container.querySelector('input');
       expect(input).toHaveAttribute('role', 'combobox');
       expect(input).toHaveAttribute('aria-autocomplete', 'list');
     });
 
-    it('search input has aria-expanded="false" when dropdown is closed', () => {
+    it('search input has role="combobox" when historyId is provided', () => {
+      const { container } = render(<Search texts={{ label: 'Search' }} historyId="test" />);
+      const input = container.querySelector('input');
+      expect(input).toHaveAttribute('role', 'combobox');
+      expect(input).toHaveAttribute('aria-autocomplete', 'list');
+    });
+
+    it('search input has role="searchbox" when no onSearch and no historyId', () => {
       const { container } = render(<Search texts={{ label: 'Search' }} />);
+      const input = container.querySelector('input');
+      expect(input).toHaveAttribute('role', 'searchbox');
+      expect(input).not.toHaveAttribute('aria-autocomplete');
+      expect(input).not.toHaveAttribute('aria-expanded');
+      expect(input).not.toHaveAttribute('aria-controls');
+    });
+
+    it('search input has aria-expanded="false" when dropdown is closed', () => {
+      const { container } = render(<Search texts={{ label: 'Search' }} historyId="test" />);
       const input = container.querySelector('input');
       expect(input).toHaveAttribute('aria-expanded', 'false');
     });
 
     it('search input has aria-controls attribute', () => {
-      const { container } = render(<Search id="test-search" texts={{ label: 'Search' }} />);
+      const { container } = render(<Search id="test-search" texts={{ label: 'Search' }} historyId="test" />);
       const input = container.querySelector('input');
       expect(input).toHaveAttribute('aria-controls', 'test-search-list');
     });
@@ -82,7 +100,7 @@ describe('<Search /> spec', () => {
 
   describe('keyboard navigation', () => {
     it('does not open dropdown on Tab focus (keyboard)', () => {
-      const { container } = render(<Search id="kb-test" texts={{ label: 'Search' }} />);
+      const { container } = render(<Search id="kb-test" historyId="tab-test" texts={{ label: 'Search' }} />);
       const input = container.querySelector('input') as HTMLInputElement;
 
       // Just focus without mousedown = keyboard tab

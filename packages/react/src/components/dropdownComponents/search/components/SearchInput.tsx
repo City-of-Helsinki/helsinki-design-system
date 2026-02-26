@@ -61,7 +61,7 @@ export const SearchInput = forwardRef<
     }
   }, [currentSearchValue, isControlled, externalValue, onChangeFromProps]);
 
-  const { searchHistory, addSearchItem } = useSearchHistory();
+  const { searchHistory, addSearchItem, historyEnabled } = useSearchHistory();
 
   // form group from searchHistory strings
   const historyData = React.useMemo(() => {
@@ -215,6 +215,9 @@ export const SearchInput = forwardRef<
     ? `${metaData.elementIds.assistiveText} ${historyInfoId}`
     : metaData.elementIds.assistiveText;
 
+  // The input is a combobox only when it can have a popup (search suggestions or history enabled)
+  const hasPopup = !!onSearch || historyEnabled;
+
   return (
     <>
       <TextInput
@@ -228,10 +231,10 @@ export const SearchInput = forwardRef<
         className={classes}
         id={metaData.elementIds.searchInput}
         placeholder={placeholder}
-        role="combobox"
-        aria-autocomplete="list"
-        aria-expanded={open}
-        aria-controls={metaData.elementIds.list}
+        role={hasPopup ? 'combobox' : 'searchbox'}
+        aria-autocomplete={hasPopup ? 'list' : undefined}
+        aria-expanded={hasPopup ? open : undefined}
+        aria-controls={hasPopup ? metaData.elementIds.list : undefined}
         aria-label={getTextKey('searchLabel', metaData)}
         value={inputValue}
         clearButton

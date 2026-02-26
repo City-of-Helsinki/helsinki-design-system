@@ -4,6 +4,7 @@ interface SearchHistoryContextType {
   searchHistory: string[];
   addSearchItem: (item: string) => void;
   clearHistory: () => void;
+  historyEnabled: boolean;
 }
 
 const SearchHistoryContext = createContext<SearchHistoryContextType | undefined>(undefined);
@@ -54,9 +55,11 @@ export const SearchHistoryProvider: React.FC<SearchHistoryProviderProps> = ({ ch
     setSearchHistory([]);
   }, [storageKey]);
 
+  const historyEnabled = storageKey !== null;
+
   const value = useMemo(
-    () => ({ searchHistory, addSearchItem, clearHistory }),
-    [searchHistory, addSearchItem, clearHistory],
+    () => ({ searchHistory, addSearchItem, clearHistory, historyEnabled }),
+    [searchHistory, addSearchItem, clearHistory, historyEnabled],
   );
 
   return <SearchHistoryContext.Provider value={value}>{children}</SearchHistoryContext.Provider>;
