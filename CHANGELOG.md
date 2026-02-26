@@ -23,6 +23,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Notification] body text size set to --fontsize-body-m all variations
 - [Notification] Heading size and gaps in default/basic size inline updated
 - [Notification] `link` prop added to enable native link in Notification.
+- [Checkbox] Disabled state color changes due to accessibility (background and tick colours).
 
 #### Fixed
 
@@ -35,6 +36,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Notification] New example on how to have a link inside notification.
 
 #### Changed
+
+- [Checkbox] Disabled state color changes due to accessibility (background and tick colours).
 
 #### Fixed
 
