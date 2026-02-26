@@ -1,4 +1,4 @@
-import React, { createContext, useContext, useState, useEffect, ReactNode } from 'react';
+import React, { createContext, useCallback, useContext, useEffect, useMemo, useState, ReactNode } from 'react';
 
 interface SearchHistoryContextType {
   searchHistory: string[];
@@ -10,18 +10,16 @@ const SearchHistoryContext = createContext<SearchHistoryContextType | undefined>
 
 interface SearchHistoryProviderProps {
   children: ReactNode;
-  historyId: string;
+  historyId?: string;
 }
 
-export const SearchHistoryProvider: React.FC<SearchHistoryProviderProps> = ({
-  children,
-  historyId = 'hds-search-history',
-}) => {
+export const SearchHistoryProvider: React.FC<SearchHistoryProviderProps> = ({ children, historyId }) => {
   const [searchHistory, setSearchHistory] = useState<string[]>([]);
-  const hdsStorageId = `hds-search-history-${historyId}`;
+  const storageKey = historyId != null && historyId !== '' ? `hds-search-history-${historyId}` : null;
 
   useEffect(() => {
-    const storedHistory = localStorage.getItem(hdsStorageId);
+    if (storageKey === null) return;
+    const storedHistory = localStorage.getItem(storageKey);
     if (storedHistory) {
       try {
         const parsedHistory = JSON.parse(storedHistory);
@@ -29,33 +27,39 @@ export const SearchHistoryProvider: React.FC<SearchHistoryProviderProps> = ({
           setSearchHistory(parsedHistory.slice(0, 10));
         }
       } catch {
-        localStorage.removeItem(hdsStorageId);
+        localStorage.removeItem(storageKey);
       }
     }
-  }, [historyId]);
+  }, [storageKey]);
 
-  const addSearchItem = (item: string) => {
-    if (!item.trim()) return;
+  const addSearchItem = useCallback(
+    (item: string) => {
+      if (storageKey === null || !item.trim()) return;
 
-    setSearchHistory((prev) => {
-      const lowerCaseItem = item.toLowerCase();
-      const filtered = prev.filter((historyItem) => historyItem !== lowerCaseItem);
-      const updated = [lowerCaseItem, ...filtered].slice(0, 10);
-      localStorage.setItem(hdsStorageId, JSON.stringify(updated));
-      return updated;
-    });
-  };
-
-  const clearHistory = () => {
-    setSearchHistory([]);
-    localStorage.removeItem(hdsStorageId);
-  };
-
-  return (
-    <SearchHistoryContext.Provider value={{ searchHistory, addSearchItem, clearHistory }}>
-      {children}
-    </SearchHistoryContext.Provider>
+      setSearchHistory((prev) => {
+        const lowerCaseItem = item.toLowerCase();
+        const filtered = prev.filter((historyItem) => historyItem !== lowerCaseItem);
+        const updated = [lowerCaseItem, ...filtered].slice(0, 10);
+        localStorage.setItem(storageKey, JSON.stringify(updated));
+        return updated;
+      });
+    },
+    [storageKey],
   );
+
+  const clearHistory = useCallback(() => {
+    if (storageKey !== null) {
+      localStorage.removeItem(storageKey);
+    }
+    setSearchHistory([]);
+  }, [storageKey]);
+
+  const value = useMemo(
+    () => ({ searchHistory, addSearchItem, clearHistory }),
+    [searchHistory, addSearchItem, clearHistory],
+  );
+
+  return <SearchHistoryContext.Provider value={value}>{children}</SearchHistoryContext.Provider>;
 };
 
 export const useSearchHistory = () => {
