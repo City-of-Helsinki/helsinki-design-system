@@ -130,9 +130,7 @@ export type TextKey =
   | 'searchWithAnotherTerm'
   | 'searchResults_multiple'
   | 'searchResults_one'
-  | 'historyInfo'
-  | 'searchHistoryLabel'
-  | 'searchSuggestionsLabel';
+  | 'historyInfo';
 
 export type TextsWithNumberedVariations =
   | ModularOptionListTextsWithNumberedVariations

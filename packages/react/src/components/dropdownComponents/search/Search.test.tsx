@@ -57,6 +57,29 @@ describe('<Search /> spec', () => {
       const input = container.querySelector('input');
       expect(input).toHaveAttribute('aria-controls', 'test-search-list');
     });
+
+    it('listbox has aria-labelledby pointing to the label element', () => {
+      const historyId = 'listbox-label-test';
+      const storageKey = `hds-search-history-${historyId}`;
+      localStorage.setItem(storageKey, JSON.stringify(['react']));
+
+      const { container } = render(<Search id="lb-test" historyId={historyId} texts={{ label: 'Search' }} />);
+      const input = container.querySelector('input') as HTMLInputElement;
+
+      // Open dropdown to render the listbox
+      fireEvent.mouseDown(input);
+      fireEvent.focus(input);
+
+      const listbox = container.querySelector('[role="listbox"]');
+      expect(listbox).toBeInTheDocument();
+      expect(listbox).toHaveAttribute('aria-labelledby', 'lb-test-label');
+
+      // The label element should exist with matching id
+      const label = container.querySelector('#lb-test-label');
+      expect(label).toBeInTheDocument();
+
+      localStorage.clear();
+    });
   });
 
   describe('history info for screen readers', () => {

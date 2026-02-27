@@ -29,7 +29,7 @@ export const Example = () => {
       groups: [
         {
           label: 'Hakuehdotukset',
-          options: getOptions(100).filter((s) => s.value.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+          options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
     });
@@ -50,6 +50,8 @@ export const Example = () => {
 
   const [props] = useState({
     id: 'hds-search-component',
+    historyId: 'hds-search-history',
+    texts: { label: 'Mitä etsit?' },
   });
 
   return (
@@ -69,7 +71,6 @@ export const Example = () => {
       )}
       <Search
         {...props}
-        historyId="test"
         onSend={onSend}
         onBlur={onBlur}
         onFocus={onFocus}
@@ -95,7 +96,7 @@ export const WithExternalButton = () => {
       groups: [
         {
           label: 'Hakuehdotukset',
-          options: getOptions(100).filter((s) => s.value.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+          options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
     });
@@ -121,6 +122,8 @@ export const WithExternalButton = () => {
 
   const [props] = useState({
     id: 'hds-search-component',
+    historyId: 'hds-search-history',
+    texts: { label: 'Mitä etsit?' },
   });
 
   return (
@@ -138,14 +141,7 @@ export const WithExternalButton = () => {
           {notificationMessage}
         </Notification>
       )}
-      <Search
-        {...props}
-        historyId="test"
-        onSearch={handleSearch}
-        onSend={onSend}
-        hideSubmitButton
-        ref={searchInputRef}
-      />
+      <Search {...props} onSearch={handleSearch} onSend={onSend} hideSubmitButton ref={searchInputRef} />
       <Button onClick={handleExternalButtonClick}>Send search</Button>
     </>
   );
@@ -167,6 +163,7 @@ export const WithoutHistoryAndSuggestions = () => {
 
   const [props] = useState({
     id: 'hds-search-component',
+    texts: { label: 'Mitä etsit?' },
   });
 
   return (
@@ -202,7 +199,7 @@ export const WithCookieConsent = () => {
       groups: [
         {
           label: 'Hakuehdotukset',
-          options: getOptions(100).filter((s) => s.value.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+          options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
     });
@@ -219,6 +216,8 @@ export const WithCookieConsent = () => {
 
   const [props] = useState({
     id: 'hds-search-component',
+    historyId: 'hds-search-history',
+    texts: { label: 'Mitä etsit?' },
   });
 
   return (
@@ -239,7 +238,7 @@ export const WithCookieConsent = () => {
           {notificationMessage}
         </Notification>
       )}
-      <Search {...props} historyId="test" onSend={onSend} onChange={onChange} value={value} onSearch={handleSearch} />
+      <Search {...props} onSend={onSend} onChange={onChange} value={value} onSearch={handleSearch} />
       <CookieBanner />
     </CookieConsentContextProvider>
   );

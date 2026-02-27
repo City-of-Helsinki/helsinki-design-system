@@ -11,7 +11,12 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
   const dataHandlers = useModularOptionListDataHandlers();
   const { getData, getMetaData, trigger } = dataHandlers;
   const { groups, multiSelect } = getData();
-  const { getOptionId, refs, elementIds } = getMetaData();
+  const metaData = getMetaData();
+  const { getOptionId, refs, elementIds } = metaData;
+
+  // Use aria-labelledby to share the same accessible name as the search input
+  const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
+  const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
 
   // In multiselect with groups, group labels are rendered, so include them in the count
   // For single select with groups, group labels are also rendered, so include them
@@ -42,7 +47,7 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
     const children = shouldRenderOptions ? createGroups({ groups: createVirtualGroups(), getOptionId, trigger }) : null;
     return <div {...attr}>{children}</div>;
   }
-  const attr = createListElementProps({ refs, elementIds, multiSelect });
+  const attr = createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId });
   const children = shouldRenderOptions
     ? createOptionElements({ groups: createVirtualGroups(), trigger, multiSelect, getOptionId })
     : null;

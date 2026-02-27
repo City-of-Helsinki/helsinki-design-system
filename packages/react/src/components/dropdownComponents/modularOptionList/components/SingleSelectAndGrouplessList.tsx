@@ -46,16 +46,16 @@ export function createListElementProps<T = HTMLUListElement>({
   refs,
   elementIds,
   multiSelect,
-  listLabel,
+  labelledBy,
 }: Pick<ModularOptionListMetaData, 'refs' | 'elementIds'> &
-  Pick<ModularOptionListData, 'multiSelect'> & { listLabel?: string }) {
+  Pick<ModularOptionListData, 'multiSelect'> & { labelledBy?: string }) {
   return {
     className: classNames(styles.list),
     ref: refs.list as unknown as RefObject<T>,
     id: elementIds.list,
     role: 'listbox',
     'aria-multiselectable': multiSelect,
-    ...(listLabel && { 'aria-label': listLabel }),
+    ...(labelledBy && { 'aria-labelledby': labelledBy }),
     tabIndex: -1,
   };
 }
@@ -66,17 +66,12 @@ export function SingleSelectAndGrouplessList() {
   const metaData = getMetaData();
   const { getOptionId, refs, elementIds } = metaData;
 
-  // Determine listbox aria-label for search context
+  // Use aria-labelledby to share the same accessible name as the search input
   const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
-  const search = (metaData as Record<string, unknown>).search as string | undefined;
-  let listAriaLabel: string | undefined;
-  if (hasSearchInput) {
-    const textKey = search ? 'searchSuggestionsLabel' : 'searchHistoryLabel';
-    listAriaLabel = metaData.textProvider(textKey as never, {} as never) || undefined;
-  }
+  const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
 
   const attr = {
-    ...createListElementProps({ refs, elementIds, multiSelect, listLabel: listAriaLabel }),
+    ...createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId }),
     'aria-live': 'polite' as const,
   };
 

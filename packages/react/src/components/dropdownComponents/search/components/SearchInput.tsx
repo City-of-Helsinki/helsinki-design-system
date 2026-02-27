@@ -235,7 +235,7 @@ export const SearchInput = forwardRef<
         aria-autocomplete={hasPopup ? 'list' : undefined}
         aria-expanded={hasPopup ? open : undefined}
         aria-controls={hasPopup ? metaData.elementIds.list : undefined}
-        aria-label={getTextKey('searchLabel', metaData)}
+        aria-labelledby={metaData.elementIds.label}
         value={inputValue}
         clearButton
         clearButtonAriaLabel={clearButtonAriaLabel}

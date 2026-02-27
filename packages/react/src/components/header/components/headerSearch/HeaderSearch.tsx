@@ -1,4 +1,4 @@
-import React, { useState, useRef } from 'react';
+import React, { useState, useRef, useMemo } from 'react';
 
 import styles from './HeaderSearch.module.scss';
 import {
@@ -67,6 +67,16 @@ export const HeaderSearch = ({
   // Use id for internal element IDs, or use default
   const internalId = id || 'header-search';
 
+  // Stabilize props passed to Search to prevent DataProvider from recreating storage on every render
+  const searchProps = useMemo(
+    () => ({
+      id: `${internalId}-search-component`,
+      historyId: `${internalId}-search-input`,
+      texts,
+    }),
+    [internalId, JSON.stringify(texts)],
+  );
+
   // Called by Search's onSend (Enter key) and indirectly by the external button via submit()
   const handleSubmit = (value: string) => {
     if (value) {
@@ -86,10 +96,6 @@ export const HeaderSearch = ({
     if (searchInputRef.current?.submit) {
       searchInputRef.current.submit();
     }
-  };
-
-  const searchProps = {
-    id: `${internalId}-search-component`,
   };
 
   return (
@@ -135,9 +141,7 @@ export const HeaderSearch = ({
               <div className={classNames(styles.searchRow)}>
                 <Search
                   {...searchProps}
-                  historyId={`${internalId}-search-input`}
                   ref={searchInputRef}
-                  texts={texts}
                   onSearch={onSearch}
                   onSend={handleSubmit}
                   hideSubmitButton
