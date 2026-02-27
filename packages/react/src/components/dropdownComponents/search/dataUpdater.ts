@@ -40,7 +40,9 @@ const dataUpdater = (
   }
 
   if (event.id === eventIds.searchInputField && event.type === eventTypes.focus) {
-    if (!current.open) {
+    // Only open if there are options to display (e.g. history items or search results)
+    const hasOptions = current.groups.some((group) => group.options && group.options.length > 0);
+    if (!current.open && hasOptions) {
       dataHandlers.updateData({ open: true });
       return {
         ...returnValue,
