@@ -42,7 +42,6 @@ export function SingleSelectListWithGroups() {
       multiSelect,
       labelledBy: labelId,
     }),
-    'aria-live': 'polite' as const,
   };
   const children = createGroups({ groups, trigger, getOptionId });
   return <div {...attr}>{children}</div>;

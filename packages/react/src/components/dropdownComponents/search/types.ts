@@ -130,12 +130,14 @@ export type TextKey =
   | 'searchWithAnotherTerm'
   | 'searchResults_multiple'
   | 'searchResults_one'
-  | 'historyInfo';
+  | 'historyInfo'
+  | 'selectedOptionAnnouncement';
 
 export type TextsWithNumberedVariations =
   | ModularOptionListTextsWithNumberedVariations
   | 'clearButtonAriaLabel'
-  | 'searchResults';
+  | 'searchResults'
+  | 'selectedOptionAnnouncement';
 
 export type TextInterpolationKeys = 'selectionCount' | 'value' | 'numberIndicator' | 'label';
 

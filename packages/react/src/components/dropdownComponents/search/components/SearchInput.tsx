@@ -10,6 +10,10 @@ import { convertPropsToGroups } from '../../modularOptionList/utils';
 import { useSearchHistory } from '../SearchHistoryContext';
 import { IconSearch } from '../../../../icons/IconSearch';
 import { SearchFunction } from '../types';
+import {
+  createScreenReaderNotification,
+  addOrUpdateScreenReaderNotificationByType,
+} from '../../shared/utils/screenReader';
 
 export interface SearchInputHandle extends HTMLInputElement {
   submit: () => void;
@@ -105,6 +109,12 @@ export const SearchInput = forwardRef<
       const currentValue = isControlled ? externalValue : innerValue;
       if (!currentValue) {
         dataHandlers.updateData({ groups: historyData });
+        // Announce history count if history is available
+        if (historyData.length > 0 && historyData[0].options && historyData[0].options.length > 0) {
+          const content = getTextKey('historyInfo', dataHandlers.getMetaData());
+          const notification = createScreenReaderNotification('history', content, 0);
+          addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+        }
       }
       dataHandlers.trigger({ id: eventIds.searchInputField, type: 'focus' });
     }

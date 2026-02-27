@@ -72,7 +72,6 @@ export function SingleSelectAndGrouplessList() {
 
   const attr = {
     ...createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId }),
-    'aria-live': 'polite' as const,
   };
 
   const children = createOptionElements({ groups, trigger, multiSelect, getOptionId });

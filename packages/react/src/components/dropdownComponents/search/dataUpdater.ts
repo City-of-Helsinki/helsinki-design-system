@@ -7,6 +7,10 @@ import { MIN_USER_INTERACTION_TIME_IN_MS } from '../shared';
 import { mergeSearchResultsToCurrent } from './utils';
 import { getSelectedOptions, propsToGroups, createMetaDataAfterSelectionChange } from '../modularOptionList/utils';
 import {
+  createScreenReaderNotification,
+  addOrUpdateScreenReaderNotificationByType,
+} from '../shared/utils/screenReader';
+import {
   EventId,
   eventIds,
   EventType,
@@ -147,6 +151,22 @@ const dataUpdater = (
 
   if (didModularOptionListChange) {
     if (id === eventIds.listItem && !current.multiSelect) {
+      // Announce option selection for accessibility
+      const { lastClickedOption } = dataHandlers.getMetaData();
+      if (lastClickedOption && lastClickedOption.label) {
+        // Use textProvider for localized announcement
+        const { textProvider } = dataHandlers.getMetaData();
+        const content = textProvider
+          ? textProvider('selectedOptionAnnouncement', {
+              value: lastClickedOption.label,
+              label: lastClickedOption.label,
+              selectionCount: 1,
+              numberIndicator: '',
+            })
+          : `Selected: ${lastClickedOption.label}`;
+        const notification = createScreenReaderNotification('selection', content, 0);
+        addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+      }
       openOrClose(false);
       setFocusTarget('searchInput');
     }
