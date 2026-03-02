@@ -90,6 +90,7 @@ export function useKeyboard() {
   const onKeyDown = useCallback(
     (e: KeyboardEvent<HTMLDivElement>) => {
       const { open } = getData();
+      const { refs } = getMetaData();
 
       if (isEscKey(e) && open) {
         e.preventDefault();
@@ -97,13 +98,18 @@ export function useKeyboard() {
         clearVirtualFocus();
         trigger({ id: eventIds.generic, type: eventTypes.close });
         // Return focus to search input
-        const { refs } = getMetaData();
         refs.searchInput.current?.focus();
         return;
       }
 
       // All keyboard handling below requires search input to have DOM focus
       if (!isSearchInputFocused()) return;
+
+      // If aria-activedescendant was cleared (e.g. user typed in the input),
+      // reset the tracked index so ArrowDown starts from the first item.
+      if (activeIndexRef.current >= 0 && !refs.searchInput.current?.getAttribute('aria-activedescendant')) {
+        activeIndexRef.current = -1;
+      }
 
       const items = getSelectableListItems();
       const currentIndex = activeIndexRef.current;
@@ -116,12 +122,9 @@ export function useKeyboard() {
           // Select the virtually focused item
           items[currentIndex].click();
           clearVirtualFocus();
-        } else {
+        } else if (refs.searchInput.current?.submit) {
           // Submit search
-          const { refs } = getMetaData();
-          if (refs.searchInput.current?.submit) {
-            refs.searchInput.current.submit();
-          }
+          refs.searchInput.current.submit();
         }
         return;
       }

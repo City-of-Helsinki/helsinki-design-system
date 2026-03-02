@@ -151,7 +151,7 @@ export const SearchInput = forwardRef<
   const handleChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const { value } = event.target;
 
-    // Clear virtual focus when user types
+    // Clear virtual focus when user types so ArrowDown restarts from the first item
     inputRef.current?.removeAttribute('aria-activedescendant');
 
     // Only update internal state if uncontrolled
