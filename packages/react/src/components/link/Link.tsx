@@ -6,7 +6,6 @@ import { IconLinkExternal } from '../../icons';
 import classNames from '../../utils/classNames';
 import { getPlainTextContent } from '../../utils/getPlainTextContent';
 import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
-import { IconSize } from '../../icons/Icon.interface';
 
 export enum LinkSize {
   Small = 'small',
@@ -34,17 +33,21 @@ export type LinkProps = MergeAndOverrideProps<
      */
     href: string;
     /**
-     * Element placed on the left side of the link text
+     * Element placed on the start side of the link text
      */
     iconStart?: React.ReactNode;
+    /**
+     * Element placed on the end side of the link text
+     */
+    iconEnd?: React.ReactNode;
     /**
      * Boolean indicating whether the link will open in new tab or not.
      */
     openInNewTab?: boolean;
     /**
-     * The aria-label for opening link in a new tab
+     * Visible label appended when the link opens in a new tab (default: '(avautuu uudessa välilehdessä)').
      */
-    openInNewTabAriaLabel?: string;
+    openInNewTabLabel?: string;
     /**
      * The aria-label for opening link in an external domain
      */
@@ -76,11 +79,12 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
       external = false,
       href,
       iconStart,
+      iconEnd,
       openInNewTab = false,
       openInExternalDomainAriaLabel,
-      openInNewTabAriaLabel,
+      openInNewTabLabel,
       style = {},
-      size = LinkSize.Medium,
+      size,
       useButtonStyles = false,
       ...rest
     }: LinkProps,
@@ -88,32 +92,49 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
   ) => {
     const composeAriaLabel = () => {
       let childrenText = ariaLabel || getPlainTextContent(children);
-      const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
       const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
 
       if (childrenText && childrenText.slice(-1) !== '.') {
         childrenText = `${childrenText}.`;
       }
 
-      return [childrenText, newTabText, externalText].filter((text) => text).join(' ');
+      return [childrenText, externalText].filter((text) => text).join(' ');
     };
 
-    const mapLinkSizeToExternalIconSize = {
-      [LinkSize.Large]: IconSize.Large,
-      [LinkSize.Medium]: IconSize.Small,
-      [LinkSize.Small]: IconSize.ExtraSmall,
-    };
-    const mapLinkSizeToIconVerticalStyling = {
-      [LinkSize.Large]: styles.verticalAlignBigIcon,
-      [LinkSize.Medium]: styles.verticalAlignMediumIcon,
-      [LinkSize.Small]: styles.verticalAlignSmallIcon,
+    const newTabLabel = openInNewTabLabel ?? 'avautuu uudessa välilehdessä';
+
+    const renderChildren = () => {
+      if (!openInNewTab) {
+        return useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children;
+      }
+      if (typeof children === 'string' && children.endsWith(')')) {
+        const lastParen = children.lastIndexOf(')');
+        const modified = `${children.slice(0, lastParen)}, ${newTabLabel}${children.slice(lastParen)}`;
+        return useButtonStyles ? <span className={styles.buttonLabel}>{modified}</span> : modified;
+      }
+      const newTabFragment = <span style={{ whiteSpace: 'pre' }}> {`(${newTabLabel})`}</span>;
+      return useButtonStyles ? (
+        <span className={styles.buttonLabel}>
+          {children}
+          {newTabFragment}
+        </span>
+      ) : (
+        <>
+          {children}
+          {newTabFragment}
+        </>
+      );
     };
 
     const linkStyles = classNames(
       styles.link,
-      styles[`link-${size}`],
+      size ? styles[`link-${size}`] : '',
       disableVisitedStyles ? styles.disableVisitedStyles : '',
+      iconStart ? styles.hasIconStart : '',
+      iconEnd || external ? styles.hasIconEnd : '',
     );
+
+    const resolvedAriaLabel = external ? composeAriaLabel() : ariaLabel ?? undefined;
 
     return (
       <a
@@ -121,22 +142,21 @@ export const Link = React.forwardRef<HTMLAnchorElement, LinkProps>(
         href={href}
         style={style}
         {...(openInNewTab && { target: '_blank', rel: 'noopener' })}
-        {...((openInNewTab || external || ariaLabel) && { 'aria-label': composeAriaLabel() })}
+        {...(resolvedAriaLabel && { 'aria-label': resolvedAriaLabel })}
         ref={ref}
         {...rest}
       >
-        {iconStart && (
-          <span className={styles.iconStart} aria-hidden="true">
+        {iconStart ? (
+          <div style={{ display: 'contents' }} aria-hidden>
             {iconStart}
-          </span>
-        )}
-        {useButtonStyles ? <span className={styles.buttonLabel}>{children}</span> : children}
-        {external && (
-          <IconLinkExternal
-            size={mapLinkSizeToExternalIconSize[size]}
-            className={classNames(styles.icon, mapLinkSizeToIconVerticalStyling[size])}
-          />
-        )}
+          </div>
+        ) : null}
+        {renderChildren()}
+        {external || iconEnd ? (
+          <div style={{ display: 'contents' }} aria-hidden>
+            {external ? <IconLinkExternal /> : iconEnd}
+          </div>
+        ) : null}
       </a>
     );
   },

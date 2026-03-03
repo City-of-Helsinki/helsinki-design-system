@@ -5,9 +5,9 @@ import { navigate, withPrefix } from 'gatsby';
 
 import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
 
-const InternalLink = ({ href, children, openInNewTab, openInNewTabAriaLabel, size }) => {
+const InternalLink = ({ href, children, openInNewTab, openInNewTabLabel, size }) => {
   const openInNewTabProps = openInNewTab
-    ? { openInNewTab, openInNewTabAriaLabel: openInNewTabAriaLabel || 'Opens in a new tab.' }
+    ? { openInNewTab, openInNewTabLabel: openInNewTabLabel || 'Opens in a new tab.' }
     : {};
 
   return (
@@ -29,7 +29,7 @@ InternalLink.propTypes = {
   href: PropTypes.string.isRequired,
   children: PropTypes.node.isRequired,
   openInNewTab: PropTypes.bool,
-  openInNewTabAriaLabel: PropTypes.string,
+  openInNewTabLabel: PropTypes.string,
   size: PropTypes.string,
 };
 

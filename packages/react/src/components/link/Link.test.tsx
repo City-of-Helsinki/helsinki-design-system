@@ -41,7 +41,7 @@ describe('<Link /> spec', () => {
     expect(
       getElementAttributesMisMatches(element, {
         ...linkProps,
-        'aria-label': `${linkProps['aria-label']}. Avautuu uudessa välilehdessä. Siirtyy toiseen sivustoon.`,
+        'aria-label': `${linkProps['aria-label']}. Siirtyy toiseen sivustoon.`,
       }),
     ).toHaveLength(0);
   });

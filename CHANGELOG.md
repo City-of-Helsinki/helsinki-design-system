@@ -13,8 +13,14 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [SearchInput] Removed `SearchInput` component from React package. Use the new `Search` component instead. The Core (HTML/CSS) version of SearchInput remains available.
 - [Select, Combobox] Removed deprecated `Select` and `Combobox` components from `components/dropdown/` directory. Use the new `Select` component from `components/dropdownComponents/select/` instead. The old components were deprecated in favor of the new modular dropdown components architecture.
+- [Link] Link styling has changed.
+  - **Spacing.** Icon spacing is applied on the anchor's direct children (first/last child). If you relied on specific wrapper or icon selectors for spacing, update them.
+  - **Icons inherit size.** Inline link icons now follow the link's font size; previous size classes on the icon element may no longer apply as before.
+- [Link] `openInNewTabAriaLabel` was renamed to `openInNewTabLabel`. The new prop controls the **visible** text appended when the link opens in a new tab (e.g. "(avautuu uudessa välilehdessä)"); that text is no longer added to the aria-label. The old prop was included in the composed aria-label for screen readers. Migrate by renaming the prop to `openInNewTabLabel`; use the same value if it was suitable as visible text (e.g. "opens in a new tab").
 
 #### Added
+
+- [Link] `iconEnd` prop to place an icon or element on the end side of the link text.
 
 - [ModularOptionsList, Select] Single-select `Option` can now be given an `iconStart`-prop which renders preferably an icon to the start-side of the label. (type of `ReactNode`, designed to be used with 24px x 24px icons)
 
@@ -35,7 +41,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
+- [Link] The **`.icon`** class was removed altogether from the link component; do not use it on link icons.
+- [Link] The **`.vertical-...`** classes (e.g. `vertical-align-small-icon`, `vertical-align-medium-icon`) were also removed; icon alignment is now handled automatically not by using utility classes on the icon element.
+
 #### Added
+
+- [Link] Icons can be added with a **class on the anchor** in addition to the old way (an icon element inside the link). Use `hds-icon--<name>` with `hds-icon-start--<name>` or `hds-icon-end--<name>` on the `<a>` for pseudo-element icons (e.g. `hds-icon--link-external hds-icon-end--link-external` for the external link icon, or `hds-icon--document hds-icon-start--document` for a document icon). The previous pattern (e.g. `<span class="hds-icon ...">` or `<i class="hds-icon ...">` inside the link) still works.
 
 - [Notification] New example on how to have a link inside notification.
 
@@ -70,6 +81,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Changed
 
 - [SearchInput] Updated documentation to only cover Core (HTML/CSS) version. Examples now use vanilla JavaScript for interactivity.
+- [Link] Code examples for Core use class-based external icon (`hds-icon--link-external hds-icon-end--link-external`) with no inner `<span>` or `<i>`. React props table updated with `iconEnd` and corrected `size` default.
+- [Link] Accessibility and Code docs updated: `aria-label` behaviour is documented (internal links receive the prop as given; external links use the composed label), and the prop is listed in the React props table.
 
 #### Fixed
 
