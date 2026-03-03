@@ -30,7 +30,7 @@ const renderSideNavigation = () =>
         label={labels.mainLevel2}
         external
         openInNewTab
-        openInNewTabAriaLabel="Opens in a new tab."
+        openInNewTabLabel="Opens in a new tab."
         openInExternalDomainAriaLabel="Url points to external website."
       />
     </SideNavigation>,

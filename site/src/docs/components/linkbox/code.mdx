@@ -126,7 +126,7 @@ import { Linkbox } from 'hds-react';
         href="https://hds.hel.fi"
         heading="External link"
         openInNewTab
-        openInNewTabAriaLabel="Opens in a new tab."
+        openInNewTabLabel="Opens in a new tab."
         text="This link points to another page and opens in a new tab."
         openInExternalDomainAriaLabel="Opens a different website."
         external
@@ -214,11 +214,11 @@ import { Linkbox, LinkboxSize } from 'hds-react';
 ### Packages
 | Package           | Included                                                                                        | Storybook link                                                                                                                           | Source link                                                                                                                                               |
 | ----------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-linkbox-empty-for-custom-content--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/link">View source</ExternalLink> |
+| **HDS React**     | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-linkbox-empty-for-custom-content--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/link">View source</ExternalLink> |
 | **HDS Core**      | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                        | -                                                                                                                                                         |
 
 ### Properties
-Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-linkbox-empty-for-custom-content--default">React Storybook.</Link>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-linkbox-empty-for-custom-content--default">React Storybook.</Link>
 
 | Property                        | Description                                                                                                                                                             | Values                           | Default value |
 | ------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------- | -------------------------------- | ------------- |
@@ -227,7 +227,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `external`                      | If set to true, the link is marked as external (points outside of the domain).                                                                                          | `boolean`                        | false         |
 | `openInExternalDomainAriaLabel` | Aria-label which is read if the link is external.                                                                                                                       | `string`                         | -             |
 | `openInNewTab`                  | If set to true, the link opens in a new tab.                                                                                                                            | `boolean`                        | false         |
-| `openInNewTabAriaLabel`         | Aria-label which is read if the link is opened in a new tab.                                                                                                            | `string`                         | -             |
+| `openInNewTabLabel`         | Aria-label which is read if the link is opened in a new tab.                                                                                                            | `string`                         | -             |
 | `size`                          | Controls the size of the Linkbox.                                                                                                                                       | `LinkboxSize` or (`"small"`, `"medium"`, `"large"`) | `"medium"` |
 | `href`                          | Hypertext reference of the link.                                                                                                                                        | `string`                         | -             |
 | `linkAriaLabel`                 | Aria-label for the link (arrow or external icon) that is located at the bottom of the linkbox.                                                                          | `string`                         | -             |

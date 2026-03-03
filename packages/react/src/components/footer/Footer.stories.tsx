@@ -21,7 +21,6 @@ const Utilities = () => {
         title="Helsingin kaupungin Facebook-tili"
         aria-label="Helsingin kaupungin Facebook-tili"
         external
-        openInNewTab
         icon={<IconFacebook />}
         href="https://facebook.com"
       />,
@@ -29,7 +28,6 @@ const Utilities = () => {
         title="Helsingin kaupungin Twitter-tili"
         aria-label="Helsingin kaupungin Twitter-tili"
         external
-        openInNewTab
         icon={<IconTwitter />}
         href="https://twitter.com"
       />,
@@ -37,7 +35,6 @@ const Utilities = () => {
         title="Helsingin kaupungin Instagram-tili"
         aria-label="Helsingin kaupungin Instagram-tili"
         external
-        openInNewTab
         icon={<IconInstagram />}
         href="https://instagram.com"
       />,
@@ -45,7 +42,6 @@ const Utilities = () => {
         title="Helsingin kaupungin Youtube-tili"
         aria-label="Helsingin kaupungin Youtube-tili"
         external
-        openInNewTab
         icon={<IconYoutube />}
         href="https://youtube.com"
       />,
@@ -53,7 +49,6 @@ const Utilities = () => {
         title="Helsingin kaupungin Tiktok-tili"
         aria-label="Helsingin kaupungin Tiktok-tili"
         external
-        openInNewTab
         icon={<IconTiktok />}
         href="https://tiktok.com"
       />,
@@ -65,13 +60,7 @@ const Utilities = () => {
       <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="Give feedback" />
       <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="Support" />
       <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="About" />
-      <Footer.Link
-        href="https://google.com"
-        onClick={(e) => e.preventDefault()}
-        label="Github page"
-        external
-        openInNewTab
-      />
+      <Footer.Link href="https://google.com" onClick={(e) => e.preventDefault()} label="Github page" external />
     </Footer.Utilities>
   );
 };
@@ -90,7 +79,7 @@ const Base = () => (
         onClick={(e) => e.preventDefault()}
         label="Link"
         className="test"
-        {...(index === 4 && { external: true, openInNewTab: true })}
+        {...(index === 4 && { external: true })}
       />
     ))}
   </Footer.Base>
@@ -202,7 +191,6 @@ export const Example = (args: FooterProps) => (
           title="Helsingin kaupungin Facebook-tili"
           aria-label="Helsingin kaupungin Facebook-tili"
           external
-          openInNewTab
           icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
         />,
@@ -210,7 +198,6 @@ export const Example = (args: FooterProps) => (
           title="Helsingin kaupungin Twitter-tili"
           aria-label="Helsingin kaupungin Twitter-tili"
           external
-          openInNewTab
           icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
         />,
@@ -218,7 +205,6 @@ export const Example = (args: FooterProps) => (
           title="Helsingin kaupungin Instagram-tili"
           aria-label="Helsingin kaupungin Instagram-tili"
           external
-          openInNewTab
           icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
         />,
@@ -226,7 +212,6 @@ export const Example = (args: FooterProps) => (
           title="Helsingin kaupungin LinkedIn-tili"
           aria-label="Helsingin kaupungin LinkedIn-tili"
           external
-          openInNewTab
           icon={<IconLinkedin />}
           href="https://linkedin.com/company/city-of-helsinki"
         />,
@@ -234,7 +219,6 @@ export const Example = (args: FooterProps) => (
           title="Helsingin kaupungin Youtube-tili"
           aria-label="Helsingin kaupungin Youtube-tili"
           external
-          openInNewTab
           icon={<IconYoutube />}
           href="https://youtube.com/channel/UCzJFvpjRB62oRoep4oRgwjg"
         />,
@@ -310,7 +294,6 @@ export const UtilityGroups = (args: FooterProps) => (
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
           aria-label="Helsingin kaupungin Facebook-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
@@ -319,7 +302,6 @@ export const UtilityGroups = (args: FooterProps) => (
           title="Helsingin kaupungin Facebook-tili"
           label="Facebook"
           aria-label="Helsingin kaupungin Facebook-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconFacebook />}
           href="https://facebook.com/helsinginkaupunki/"
@@ -328,7 +310,6 @@ export const UtilityGroups = (args: FooterProps) => (
           title="Helsingin kaupungin Twitter-tili"
           label="Twitter"
           aria-label="Helsingin kaupungin Twitter-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconTwitter />}
           href="https://twitter.com/helsinki"
@@ -337,7 +318,6 @@ export const UtilityGroups = (args: FooterProps) => (
           title="Helsingin kaupungin Instagram-tili"
           label="Instagram"
           aria-label="Helsingin kaupungin Instagram-tili"
-          openInNewTabAriaLabel="Avautuu uudessa välilehdessä."
           openInExternalDomainAriaLabel="Siirtyy toiseen sivustoon."
           icon={<IconInstagram />}
           href="https://instagram.com/helsinki/"
@@ -376,9 +356,9 @@ export const CustomSection = (args: FooterProps) => (
         aria-label="partners"
         style={{ display: 'flex', flexDirection: 'row', gap: '12px 24px', flexWrap: 'wrap', marginTop: '8px' }}
       >
-        <Footer.Link href="www.google.com" label="Partner 1" external openInNewTab />
-        <Footer.Link href="www.google.com" label="Partner 1" external openInNewTab />
-        <Footer.Link href="www.google.com" label="Partner 1" external openInNewTab />
+        <Footer.Link href="www.google.com" label="Partner 1" external />
+        <Footer.Link href="www.google.com" label="Partner 1" external />
+        <Footer.Link href="www.google.com" label="Partner 1" external />
       </div>
     </Footer.Custom>
     <Base />
