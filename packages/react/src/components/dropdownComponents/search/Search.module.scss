@@ -357,6 +357,7 @@
 
       &.shiftOptions {
         .listItem:not(.groupLabel) {
+          color: red;
           padding-left: var(--spacing-layout-s);
         }
       }
@@ -485,8 +486,9 @@
 }
 
 .assistiveText {
-  color: var(--computed-assistive-color);
+  color: var(--color-black-60);
   margin-bottom: var(--spacing-2-xs);
+  margin-top: 0;
 }
 
 .screenReaderNotifications {

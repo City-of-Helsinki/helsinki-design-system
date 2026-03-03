@@ -13,7 +13,7 @@
       "preset": "iPhone 7"
     }
   },
-  "skipStories": "Icons/.*|Button/*|Tag/*|Hero/*|Koros/*|Checkbox/*|SelectionGroup/*|Breadcrumb/*|TextInput/*|FileInput/*|NumberInput/*|PasswordInput/*|PhoneInput/*|TimeInput/*|TextArea/*|Table/*|Notification/*|Select/*|CookieConsentCore/*|CookieConsent/*|DateInput/*|Footer/*",
+  "skipStories": "Icons/.*|Button/*|Tag/*|Hero/*|Koros/*|Checkbox/*|SelectionGroup/*|Breadcrumb/*|TextInput/*|FileInput/*|NumberInput/*|PasswordInput/*|PhoneInput/*|TimeInput/*|TextArea/*|Table/*|Notification/*|Select/*|Search/*|CookieConsentCore/*|CookieConsent/*|DateInput/*|Footer/*",
   "pixelmatch": {
     "threshold": 0.2,
     "alpha": 1,

@@ -24,66 +24,9 @@ import { useHeaderContext, useSetHeaderContext } from '../../HeaderContext';
 import { HeaderActionBarItemProps } from '../headerActionBarItem/HeaderActionBarItem';
 import { IconCross, IconMenuHamburger } from '../../../../icons';
 import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
+import { addDocumentFocusPrevention } from '../../utils/focusPrevention';
 
 const classNames = styleBoundClassNames(styles);
-
-const addDocumentFocusPrevention = (
-  modalContainer: HTMLElement,
-  originalTabIndexes: React.MutableRefObject<Map<Element, string | null>>,
-) => {
-  const isFocusableByDefault = (element: Element): boolean => {
-    const focusableElements = [
-      'a[href]',
-      'area[href]',
-      'input:not([disabled])',
-      'select:not([disabled])',
-      'textarea:not([disabled])',
-      'button:not([disabled])',
-      'iframe',
-      'object',
-      'embed',
-      '[contenteditable]',
-      '[tabindex]:not([tabindex="-1"])',
-    ];
-    return focusableElements.some((selector) => element.matches(selector));
-  };
-
-  const isFocusableByTabIndex = (element: Element): boolean => {
-    const tabIndex = window.getComputedStyle(element).getPropertyValue('tabindex');
-    return tabIndex !== '' && tabIndex !== '-1';
-  };
-
-  const isFocusableByScroll = (element: Element): boolean => {
-    const { overflowX, overflowY } = window.getComputedStyle(element);
-    return overflowY === 'auto' || overflowY === 'scroll' || overflowX === 'auto' || overflowX === 'scroll';
-  };
-
-  if (modalContainer) {
-    const allElements = document.querySelectorAll('*');
-
-    Array.from(allElements)
-      .filter((element) => !modalContainer.contains(element))
-      .filter(
-        (element) => isFocusableByDefault(element) || isFocusableByTabIndex(element) || isFocusableByScroll(element),
-      )
-      .forEach((element) => {
-        originalTabIndexes.current.set(element, element.getAttribute('tabindex'));
-        element.setAttribute('tabindex', '-1');
-      });
-
-    return () => {
-      originalTabIndexes.current.forEach((tabIndex, element) => {
-        if (tabIndex === null) {
-          element.removeAttribute('tabindex');
-        } else {
-          element.setAttribute('tabindex', tabIndex);
-        }
-      });
-      originalTabIndexes.current.clear();
-    };
-  }
-  return null;
-};
 
 const addDocumentScrollPrevention = (actionBar?: HTMLElement) => {
   if (document && actionBar) {

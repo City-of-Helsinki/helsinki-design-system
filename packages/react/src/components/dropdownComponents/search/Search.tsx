@@ -1,27 +1,38 @@
 import { uniqueId } from 'lodash';
-import React, { useMemo, createRef, useEffect, forwardRef, useCallback } from 'react';
+import React, { useMemo, createRef, useEffect, forwardRef, useRef } from 'react';
 
-import { SearchProps, SearchMetaData, SearchData } from './types';
+import { SearchData, SearchMetaData, SearchProps as SearchPropsType } from './types';
+import { SearchHistoryProvider } from './SearchHistoryContext';
 import { AcceptedNativeDivProps, Option } from '../modularOptionList/types';
 import { Container } from './components/Container';
 import { Label } from './components/Label';
 import { changeHandler } from './dataUpdater';
 import { getElementIds } from './utils';
-import { DataProvider, DataProviderProps } from '../../dataProvider/DataProvider';
-import { SearchContainer } from './components/SearchContainer';
+import { DataProvider } from '../../dataProvider/DataProvider';
+import { SelectionsAndListsContainer } from '../select/components/SelectionsAndListsContainer';
 import { ModularOptionList } from '../modularOptionList';
+import { ListAndInputContainer } from '../select/components/ListAndInputContainer';
 import { ErrorNotification } from './components/Error';
 import { AssistiveText } from './components/AssistiveText';
 import { createTextProvider } from './texts';
 import { ScreenReaderNotifications } from './components/ScreenReaderNotifications';
-import { getSelectedOptions, convertPropsToGroups, mutateGroupLabelSelections } from '../modularOptionList/utils';
-import { SearchInput } from './components/SearchInput';
+import { getSelectedOptions, convertPropsToGroups } from '../modularOptionList/utils';
+import { SearchInput, SearchInputHandle } from './components/SearchInput';
+import { SearchInfo } from './components/SearchInfo';
 
-export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNativeDivProps, 'ref'>>(
+export type { SearchInputHandle };
+
+export type SearchFieldProps = Omit<SearchPropsType & AcceptedNativeDivProps, 'ref' | 'onChange' | 'value'> & {
+  onSend?: (value: string) => void;
+  hideSubmitButton?: boolean;
+  onChange?: React.ChangeEventHandler<HTMLInputElement>;
+  value?: string;
+};
+
+const SearchField = forwardRef<SearchInputHandle, SearchFieldProps>(
   (
     {
       options,
-      open,
       groups,
       icon,
       required,
@@ -34,60 +45,48 @@ export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNa
       disabled,
       texts,
       invalid,
-      multiSelect,
       visibleOptions,
       virtualize,
       onSearch,
+      onSend,
+      hideSubmitButton,
       value,
       theme,
-      clearable,
       tooltip,
-      placeholder,
       ...divElementProps
     },
     ref,
   ) => {
+    const searchContainerRef = useRef<HTMLDivElement>(null);
     const initialData = useMemo<SearchData>(() => {
-      const data = {
-        groups: convertPropsToGroups({ groups, options, value, children }),
-        open: !!open,
+      return {
+        groups: convertPropsToGroups({ groups, options, children }),
+        open: false,
         required: !!required,
         invalid: !!invalid,
         disabled: !!disabled,
-        multiSelect: !!multiSelect,
+        multiSelect: false,
         visibleOptions: visibleOptions || 5.5,
         virtualize: !!virtualize,
-        onChange,
+        onChange: undefined,
         onFocus,
         onBlur,
         onClose,
         onSearch,
-        clearable: !!clearable,
-        initialOpenValue: open,
-        placeholder,
+        clearable: false,
+        initialOpenValue: false,
       };
-      if (data.multiSelect) {
-        mutateGroupLabelSelections(data.groups);
-      }
-      return data;
     }, [
+      // Note: DO NOT include props that change frequently (open, value, callbacks)
+      // They would cause recalculation and reset internal DataProvider state
       options,
-      open,
       groups,
-      onChange,
       disabled,
       invalid,
       required,
       virtualize,
       visibleOptions,
-      onSearch,
-      onFocus,
-      onBlur,
-      onClose,
-      value,
       children,
-      clearable,
-      placeholder,
     ]);
 
     const metaData = useMemo((): SearchMetaData => {
@@ -101,14 +100,25 @@ export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNa
         activeDescendant: undefined,
         focusTarget: undefined,
         refs: {
-          searchInput: typeof ref === 'function' ? createRef<HTMLInputElement>() : ref || createRef<HTMLInputElement>(),
           listContainer: createRef<HTMLDivElement>(),
           list: createRef<HTMLUListElement>(),
           searchContainer: createRef<HTMLDivElement>(),
+          searchInput:
+            typeof ref === 'function' ? createRef<SearchInputHandle>() : ref || createRef<SearchInputHandle>(),
           container: createRef<HTMLDivElement>(),
         },
         selectedOptions: getSelectedOptions(initialData.groups),
-        elementIds: getElementIds(containerId),
+        elementIds: {
+          ...getElementIds(containerId),
+          searchInput: `${containerId}-search-input`,
+          searchContainer: `${containerId}-search-container`,
+          container: `${containerId}-container`,
+          searchInputLabel: `${containerId}-search-input-label`,
+          clearButton: `${containerId}-clear-button`,
+          label: `${containerId}-label`,
+          assistiveText: `${containerId}-assistive-text`,
+          historyInfo: `${containerId}-history-info`,
+        },
         textProvider: createTextProvider(texts),
         getOptionId: (option: Option) => {
           const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
@@ -121,7 +131,7 @@ export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNa
           }
           return current;
         },
-        hasSearchInput: !!onSearch,
+        hasSearchInput: true,
         search: '',
         isSearching: false,
         hasSearchError: false,
@@ -129,7 +139,7 @@ export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNa
         screenReaderNotifications: [],
         tooltip,
       };
-    }, [id, initialData.groups, onSearch, texts, ref]);
+    }, [id, initialData.groups, initialData.onSearch, texts, ref]);
 
     useEffect(() => {
       return () => {
@@ -139,42 +149,27 @@ export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNa
       };
     }, []);
 
-    const onReset: DataProviderProps<SearchData, SearchMetaData>['onReset'] = useCallback(
-      ({ previousData, currentData, currentMetaData }) => {
-        if (currentData) {
-          if (previousData) {
-            // if the "open"-prop is explicitly set and has changed, it must be deliberate.
-            if (
-              typeof currentData.initialOpenValue !== 'undefined' &&
-              previousData.initialOpenValue !== currentData.initialOpenValue
-            ) {
-              return { ...currentData, open: currentData.initialOpenValue };
-            }
-            // if the list was open prior to the re-render, it should still be
-            if (previousData.open) {
-              return { ...currentData, open: true };
-            }
-          }
-          return currentData;
-        }
-        return currentMetaData;
-      },
-      [],
-    );
-
     return (
-      <DataProvider<SearchData, SearchMetaData>
-        initialData={initialData}
-        metaData={metaData}
-        onChange={changeHandler}
-        onReset={onReset}
-      >
+      <DataProvider<SearchData, SearchMetaData> initialData={initialData} metaData={metaData} onChange={changeHandler}>
         <Container {...divElementProps} theme={theme}>
           <Label />
-          <SearchContainer>
-            <SearchInput />
-            <ModularOptionList {...divElementProps} theme={theme} />
-          </SearchContainer>
+          <SelectionsAndListsContainer>
+            <div ref={searchContainerRef}>
+              <SearchInput
+                id={`${id}-search-input`}
+                onSearch={onSearch}
+                onSend={onSend}
+                hideSubmitButton={hideSubmitButton}
+                onChange={onChange}
+                value={value}
+                ref={metaData.refs.searchInput}
+              />
+              <ListAndInputContainer outsideClickRef={searchContainerRef}>
+                <ModularOptionList {...divElementProps} theme={theme} />
+                <SearchInfo />
+              </ListAndInputContainer>
+            </div>
+          </SelectionsAndListsContainer>
           <ErrorNotification />
           <AssistiveText />
           <ScreenReaderNotifications />
@@ -183,3 +178,16 @@ export const Search = forwardRef<HTMLInputElement, Omit<SearchProps & AcceptedNa
     );
   },
 );
+
+export type SearchProps = SearchFieldProps & {
+  historyId?: string;
+};
+
+export const Search = forwardRef<SearchInputHandle, SearchProps>((props, ref) => {
+  const { historyId, ...rest } = props;
+  return (
+    <SearchHistoryProvider historyId={historyId}>
+      <SearchField {...rest} ref={ref} />
+    </SearchHistoryProvider>
+  );
+});

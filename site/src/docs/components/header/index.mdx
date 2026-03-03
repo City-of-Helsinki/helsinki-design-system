@@ -11,6 +11,36 @@ import Notification from '../../../components/Notification';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
+export const handleSearch = (searchValue) => {
+  if (searchValue === 'error') {
+    return Promise.reject(new Error('Simulated error'));
+  }
+  
+  // Simple mock options for demo purposes
+  const mockOptions = [
+    'Hakutulos 1',
+    'Hakutulos 2',
+    'Hakutulos 3',
+    'Sosiaali- ja terveyspalvelut',
+    'Kasvatus ja koulutus',
+    'Asuminen ja ympäristö',
+    'Kulttuuri ja vapaa-aika',
+    'Liikenne ja kartat',
+    'Työ ja yritystoiminta',
+    'Päätöksenteko ja hallinto'
+  ].filter((label) => label.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0)
+   .map((label) => ({ value: label, label }));
+
+  return Promise.resolve({
+    groups: [
+      {
+        label: 'Hakuehdotukset',
+        options: mockOptions,
+      },
+    ],
+  });
+};
+
 ## Usage
 
 ### Example
@@ -333,9 +363,19 @@ The Header.Search component is to be used for whole site wide search. Currently 
       menuButtonAriaLabel="Menu"
       onMenuClick={(e) => e.stopPropagation()}
     >
-      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-        <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
-      </Header.ActionBarItem>
+      <Header.Search
+        texts={{
+          heading: `Hae palvelusta: Helsingin kaupunki`,
+          label: 'Mitä etsit?',
+          buttonLabel: 'Hae',
+          closeLabel: 'Sulje',
+          placeholder: 'Anna teksti hakua varten',
+          assistive: 'Avustava teksti',
+        }}
+        onChange={() => {}}
+        onSubmit={() => {}}
+        onSearch={handleSearch}
+      />
     </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
@@ -343,10 +383,6 @@ The Header.Search component is to be used for whole site wide search. Currently 
 **Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.
 
 ##### ActionBarItem and ActionBarButton
-
-<Notification label="A work in progress!" className="siteNotification">
-  The Header.ActionBarItem and Header.ActionBarButton components are subject to change.
-</Notification>
 
 The Header.ActionBarItem is a generic component for displaying icon buttons on the action bar accompanied with dropdowns.
 Header.ActionBarButton is a generic button component for displaying buttons without dropdowns.

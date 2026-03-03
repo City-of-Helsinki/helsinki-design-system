@@ -55,8 +55,10 @@ export type ModularOptionListData = Required<
 };
 
 export type ModularOptionListMetaData = {
+  isSearching?: boolean;
   refs: {
     list: RefObject<HTMLUListElement>;
+    searchInput?: RefObject<HTMLInputElement>;
   };
   lastClickedOption: Option | undefined;
   lastToggleCommand: number;
@@ -71,6 +73,7 @@ export type ModularOptionListMetaData = {
   getOptionId: (option: Option) => string;
   screenReaderNotifications: ScreenReaderNotification[];
   themes?: Record<ThemeTarget, undefined | string>;
+  search?: string;
 };
 
 export type DivElementProps = AllElementPropsWithoutRef<'div'>;

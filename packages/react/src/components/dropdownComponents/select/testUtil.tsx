@@ -582,7 +582,7 @@ export const renderWithHelpers = (
 
   const getListItemLabels = () => {
     return Array.from(getOptionElements()).map((node) =>
-      node.children.length ? node.children[0].innerHTML : node.innerHTML,
+      node.children.length ? node.children[0].textContent : node.textContent,
     );
   };
 

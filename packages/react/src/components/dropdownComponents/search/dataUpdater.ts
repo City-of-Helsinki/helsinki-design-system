@@ -3,9 +3,13 @@ import { debounce } from 'lodash';
 import { SearchData, SearchDataHandlers, SearchMetaData, SearchFunction, SearchResult } from './types';
 import { Option } from '../modularOptionList/types';
 import { ChangeEvent, ChangeHandler, DataHandlers } from '../../dataProvider/DataContext';
-import { MIN_USER_INTERACTION_TIME_IN_MS, createIsCloseTriggerEvent } from '../shared';
+import { MIN_USER_INTERACTION_TIME_IN_MS } from '../shared';
 import { mergeSearchResultsToCurrent } from './utils';
 import { getSelectedOptions, propsToGroups, createMetaDataAfterSelectionChange } from '../modularOptionList/utils';
+import {
+  createScreenReaderNotification,
+  addOrUpdateScreenReaderNotificationByType,
+} from '../shared/utils/screenReader';
 import {
   EventId,
   eventIds,
@@ -29,12 +33,37 @@ const dataUpdater = (
 ): { didSearchChange: boolean; didSelectionsChange: boolean; didDataChange: boolean } => {
   const { id, type, payload } = event as ChangeEvent<EventId, EventType>;
   const current = dataHandlers.getData();
+  const metaData = dataHandlers.getMetaData();
   const returnValue = {
     didSearchChange: false,
     didSelectionsChange: false,
     didDataChange: false,
   };
   if (current.disabled) {
+    return returnValue;
+  }
+
+  if (event.id === eventIds.searchInputField && event.type === eventTypes.focus) {
+    // Only open if there are options to display (e.g. history items or search results)
+    const hasOptions = current.groups.some((group) => group.options && group.options.length > 0);
+    if (!current.open && hasOptions) {
+      dataHandlers.updateData({ open: true });
+      return {
+        ...returnValue,
+        didDataChange: true,
+      };
+    }
+    return returnValue;
+  }
+
+  if (event.id === eventIds.searchInputField && event.type === eventTypes.close) {
+    if (current.open) {
+      dataHandlers.updateData({ open: false });
+      return {
+        ...returnValue,
+        didDataChange: true,
+      };
+    }
     return returnValue;
   }
 
@@ -54,6 +83,12 @@ const dataUpdater = (
     const searchValue = (payload && (payload.value as string)) || '';
     dataHandlers.updateMetaData({ search: searchValue, hasSearchError: false });
     if (!searchValue) {
+      // Cancel any ongoing search when input is cleared
+      const { cancelCurrentSearch } = dataHandlers.getMetaData();
+      if (cancelCurrentSearch) {
+        cancelCurrentSearch();
+        dataHandlers.updateMetaData({ cancelCurrentSearch: undefined, isSearching: false });
+      }
       dataHandlers.updateData({ groups: mergeSearchResultsToCurrent({}, current.groups) });
     }
     return {
@@ -77,7 +112,7 @@ const dataUpdater = (
     getData: dataHandlers.getData,
     updateData: dataHandlers.updateData,
     getMetaData: () => {
-      const metaData = dataHandlers.getMetaData();
+      // const metaData = dataHandlers.getMetaData();
       return {
         ...metaData,
         refs: { list: metaData.refs.list },
@@ -116,6 +151,22 @@ const dataUpdater = (
 
   if (didModularOptionListChange) {
     if (id === eventIds.listItem && !current.multiSelect) {
+      // Announce option selection for accessibility
+      const { lastClickedOption } = dataHandlers.getMetaData();
+      if (lastClickedOption && lastClickedOption.label) {
+        // Use textProvider for localized announcement
+        const { textProvider } = dataHandlers.getMetaData();
+        const content = textProvider
+          ? textProvider('selectedOptionAnnouncement', {
+              value: lastClickedOption.label,
+              label: lastClickedOption.label,
+              selectionCount: 1,
+              numberIndicator: '',
+            })
+          : `Selected: ${lastClickedOption.label}`;
+        const notification = createScreenReaderNotification('selection', content, 0);
+        addOrUpdateScreenReaderNotificationByType(notification, dataHandlers);
+      }
       openOrClose(false);
       setFocusTarget('searchInput');
     }
@@ -211,23 +262,13 @@ const debouncedSearch = debounce(
   300,
 );
 
-// Event IDs and types that should trigger the onClose callback for Search
-const isCloseTriggerEvent = createIsCloseTriggerEvent([
-  'cancelled',
-  'close',
-  'clearButton',
-  'focusMovedToNonListElement',
-]);
-
 export const changeHandler: ChangeHandler<SearchData, SearchMetaData> = (event, dataHandlers): boolean => {
   const { updateData, updateMetaData, getData, getMetaData } = dataHandlers;
 
   const { didSearchChange, didSelectionsChange, didDataChange } = dataUpdater(event, dataHandlers);
   const current = getData();
+  const { onSearch, onChange, onClose } = current;
 
-  const { onSearch, onChange, onClose, multiSelect, open } = current;
-
-  const closeChange = multiSelect && isCloseTriggerEvent(event) && !open;
   let closeHasChanges = false;
 
   if (didSearchChange && onSearch) {
@@ -235,7 +276,7 @@ export const changeHandler: ChangeHandler<SearchData, SearchMetaData> = (event, 
     debouncedSearch(dataHandlers, onSearch);
   }
 
-  if (closeChange && onClose) {
+  if (onClose) {
     const closeProps = onClose(getSelectedOptions(current.groups), undefined, current);
     if (closeProps) {
       const { groups, options, invalid, texts } = closeProps;
@@ -265,6 +306,20 @@ export const changeHandler: ChangeHandler<SearchData, SearchMetaData> = (event, 
   }
   if (didSelectionsChange) {
     const { lastClickedOption } = getMetaData();
+
+    // is used as search
+    const searchInput = getMetaData().refs.searchInput.current;
+
+    // if searchInput is present, do not make selection -> set as search
+    if (searchInput) {
+      updateMetaData({ search: lastClickedOption?.label });
+      // set focus to searchInput
+      searchInput.focus();
+      // close the dropdown, trigger groups change not to show anything selected later
+      updateData({ open: false, groups: [] });
+      return true;
+    }
+
     const newProps = onChange?.(getSelectedOptions(current.groups), lastClickedOption as Option, current);
     let newPropsHasChanges = false;
     if (newProps) {
