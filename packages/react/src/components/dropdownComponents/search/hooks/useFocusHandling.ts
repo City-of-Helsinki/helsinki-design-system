@@ -32,8 +32,8 @@ export function useFocusHandling(): ReturnObject {
       if (type === eventTypes.blur && getIsElementBlurred(e as FocusEvent<HTMLDivElement>)) {
         if (onBlur) {
           onBlur();
-          trigger({ id: eventIds.generic, type: eventTypes.blur });
         }
+        trigger({ id: eventIds.generic, type: eventTypes.blur });
       }
       if (type === eventTypes.focus && getIsElementFocused(e as FocusEvent<HTMLDivElement>)) {
         if (onFocus) {

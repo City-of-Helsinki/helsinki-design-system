@@ -84,7 +84,7 @@ export type SearchData = ModularOptionListData &
 export type SearchMetaData = Pick<SearchProps, 'icon'> &
   ModularOptionListMetaData & {
     refs: ModularOptionListMetaData['refs'] & {
-      searchInput: RefObject<HTMLInputElement>;
+      searchInput: RefObject<HTMLInputElement & { submit: () => void }>;
       listContainer: RefObject<HTMLDivElement>;
       searchContainer: RefObject<HTMLDivElement>;
       container: RefObject<HTMLDivElement>;
@@ -96,6 +96,8 @@ export type SearchMetaData = Pick<SearchProps, 'icon'> &
       container: string;
       searchContainer: string;
       clearButton: string;
+      assistiveText: string;
+      historyInfo: string;
     };
     textProvider: TextProvider;
     search: string;
@@ -124,14 +126,18 @@ export type TextKey =
   | 'searching'
   | 'searchLabel'
   | 'searchPlaceholder'
+  | 'searchButtonAriaLabel'
   | 'searchWithAnotherTerm'
   | 'searchResults_multiple'
-  | 'searchResults_one';
+  | 'searchResults_one'
+  | 'historyInfo'
+  | 'selectedOptionAnnouncement';
 
 export type TextsWithNumberedVariations =
   | ModularOptionListTextsWithNumberedVariations
   | 'clearButtonAriaLabel'
-  | 'searchResults';
+  | 'searchResults'
+  | 'selectedOptionAnnouncement';
 
 export type TextInterpolationKeys = 'selectionCount' | 'value' | 'numberIndicator' | 'label';
 

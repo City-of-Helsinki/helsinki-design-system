@@ -1,0 +1,55 @@
+@import '../../../../styles/common.scss';
+
+.searchInput {
+  > div {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    max-width: 100%;
+
+    input {
+      --box-shadow: none;
+      --border-width: none;
+      --outline-width: none;
+
+      flex-grow: 1;
+      height: 52px !important;
+      padding: 0 var(--spacing-s) !important;
+      width: auto;
+    }
+
+    > div {
+      margin-right: 0;
+      position: relative;
+
+      button[type="button"] {
+        align-items: center;
+        display: flex;
+        height: 52px;
+        justify-content: center;
+        outline-offset: -5px !important;
+        width: 52px;
+
+        &:has(.searchButtonIcon) {
+          margin-left: -1px;
+          position: relative;
+
+          &:before {
+            background-color: var(--color-black-20);
+            bottom: 0;
+            content: '';
+            left: -1px;
+            position: absolute;
+            top: 0;
+            width: 1px;
+          }
+        }
+      }
+    }
+  }
+
+}
+
+.historyInfo {
+  @extend %visuallyHidden;
+}

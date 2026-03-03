@@ -1,8 +1,11 @@
-import React, { useCallback, useState } from 'react';
+import React, { useCallback, useRef, useState } from 'react';
 
-import { Search } from './Search';
-import { SelectProps } from '../select/types';
-import { getOptionLabels } from './batch.options';
+import { Search, SearchProps, SearchInputHandle } from './Search';
+import { Notification } from '../../notification';
+import { Button } from '../../button';
+import { getOptions } from '../modularOptionList/batch.options';
+import { CookieConsentContextProvider, CookieBanner } from '../../cookieConsent';
+import siteSettings from '../../cookieConsentCore/example/minimal_sitesettings.json';
 
 export default {
   component: Search,
@@ -14,19 +17,229 @@ export default {
 };
 
 export const Example = () => {
-  const options = getOptionLabels(200);
-  const handleSearch: SelectProps['onSearch'] = useCallback((selectedOptions, lastClickedOption, data) => {
-    // eslint-disable-next-line no-console
-    console.log(lastClickedOption);
-    // eslint-disable-next-line no-console
-    console.log(data);
-    // get search value from data
-    return Promise.resolve({ options: options.filter((t) => t.search(selectedOptions) > 0) });
+  const [value, setValue] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue /* , lastClickedOption, data */) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
+    return Promise.resolve({
+      groups: [
+        {
+          label: 'Hakuehdotukset',
+          options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+        },
+      ],
+    });
   }, []);
 
-  const [props] = useState<Partial<SelectProps>>({
+  const onSend = (val: string) => {
+    setNotificationMessage(`Search submitted: "${val}"`);
+    setShowNotification(true);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const onBlur = () => {};
+
+  const onFocus = () => {};
+
+  const [props] = useState({
     id: 'hds-search-component',
+    historyId: 'hds-search-history',
+    texts: { label: 'Mitä etsit?' },
   });
 
-  return <Search {...props} onSearch={handleSearch} />;
+  return (
+    <>
+      {showNotification && (
+        <Notification
+          label="Search submitted"
+          type="success"
+          position="bottom-right"
+          autoClose
+          closeButtonLabelText="Close notification"
+          dismissible
+          onClose={() => setShowNotification(false)}
+        >
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        {...props}
+        onSend={onSend}
+        onBlur={onBlur}
+        onFocus={onFocus}
+        onChange={onChange}
+        value={value}
+        onSearch={handleSearch}
+      />
+      <span>Value: {value}</span>
+    </>
+  );
+};
+
+export const WithExternalButton = () => {
+  const searchInputRef = useRef<SearchInputHandle>(null);
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue /* , lastClickedOption, data */) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
+    return Promise.resolve({
+      groups: [
+        {
+          label: 'Hakuehdotukset',
+          options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+        },
+      ],
+    });
+  }, []);
+
+  const onSend = (val: string) => {
+    setNotificationMessage(`Search submitted: "${val}"`);
+    setShowNotification(true);
+  };
+
+  const handleExternalButtonClick = () => {
+    // Call the submit method to add to history
+    if (searchInputRef.current?.submit) {
+      searchInputRef.current.submit();
+    }
+
+    // Handle notification
+    const currentValue = searchInputRef.current?.value;
+    if (currentValue) {
+      onSend(currentValue);
+    }
+  };
+
+  const [props] = useState({
+    id: 'hds-search-component',
+    historyId: 'hds-search-history',
+    texts: { label: 'Mitä etsit?' },
+  });
+
+  return (
+    <>
+      {showNotification && (
+        <Notification
+          label="Search submitted"
+          type="success"
+          position="bottom-right"
+          autoClose
+          closeButtonLabelText="Close notification"
+          dismissible
+          onClose={() => setShowNotification(false)}
+        >
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search {...props} onSearch={handleSearch} onSend={onSend} hideSubmitButton ref={searchInputRef} />
+      <Button onClick={handleExternalButtonClick}>Send search</Button>
+    </>
+  );
+};
+
+export const WithoutHistoryAndSuggestions = () => {
+  const [value, setValue] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  const onSend = (val: string) => {
+    setNotificationMessage(`Search submitted: "${val}"`);
+    setShowNotification(true);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const [props] = useState({
+    id: 'hds-search-component',
+    texts: { label: 'Mitä etsit?' },
+  });
+
+  return (
+    <>
+      {showNotification && (
+        <Notification
+          label="Search submitted"
+          type="success"
+          position="bottom-right"
+          autoClose
+          closeButtonLabelText="Close notification"
+          dismissible
+          onClose={() => setShowNotification(false)}
+        >
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search {...props} onSend={onSend} onChange={onChange} value={value} />
+    </>
+  );
+};
+
+export const WithCookieConsent = () => {
+  const [value, setValue] = useState('');
+  const [showNotification, setShowNotification] = useState(false);
+  const [notificationMessage, setNotificationMessage] = useState('');
+
+  const handleSearch: SearchProps['onSearch'] = useCallback((searchValue /* , lastClickedOption, data */) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
+    return Promise.resolve({
+      groups: [
+        {
+          label: 'Hakuehdotukset',
+          options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
+        },
+      ],
+    });
+  }, []);
+
+  const onSend = (val: string) => {
+    setNotificationMessage(`Search submitted: "${val}"`);
+    setShowNotification(true);
+  };
+
+  const onChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    setValue(e.target.value);
+  };
+
+  const [props] = useState({
+    id: 'hds-search-component',
+    historyId: 'hds-search-history',
+    texts: { label: 'Mitä etsit?' },
+  });
+
+  return (
+    <CookieConsentContextProvider
+      siteSettings={{ ...siteSettings, cookieName: 'helfi-cookie-consents', remove: true, monitorInterval: 1 }}
+      options={{ focusTargetSelector: 'main h1' }}
+    >
+      {showNotification && (
+        <Notification
+          label="Search submitted"
+          type="success"
+          position="bottom-right"
+          autoClose
+          closeButtonLabelText="Close notification"
+          dismissible
+          onClose={() => setShowNotification(false)}
+        >
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search {...props} onSend={onSend} onChange={onChange} value={value} onSearch={handleSearch} />
+      <CookieBanner />
+    </CookieConsentContextProvider>
+  );
 };

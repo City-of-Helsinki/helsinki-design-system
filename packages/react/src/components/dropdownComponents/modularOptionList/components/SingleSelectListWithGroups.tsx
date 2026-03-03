@@ -28,14 +28,20 @@ const createGroups = ({
 export function SingleSelectListWithGroups() {
   const { getData, trigger, getMetaData } = useModularOptionListDataHandlers();
   const { groups, multiSelect } = getData();
-  const { getOptionId, refs, elementIds } = getMetaData();
+  const metaData = getMetaData();
+  const { getOptionId, refs, elementIds } = metaData;
+
+  // Use aria-labelledby to share the same accessible name as the search input
+  const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
+  const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
+
   const attr = {
     ...createListElementProps<HTMLDivElement>({
       refs,
       elementIds,
       multiSelect,
+      labelledBy: labelId,
     }),
-    'aria-live': 'polite' as const,
   };
   const children = createGroups({ groups, trigger, getOptionId });
   return <div {...attr}>{children}</div>;

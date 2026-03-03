@@ -10,20 +10,22 @@ import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListD
 import { SingleSelectGroupLabel } from './listItems/SingleSelectGroupLabel';
 import { ModularOptionListItemProps } from './common';
 
-export const createOptionElements = ({
-  groups,
-  multiSelect,
-  getOptionId,
-  trigger,
-}: Pick<ModularOptionListData, 'groups' | 'multiSelect'> &
-  Pick<ModularOptionListMetaData, 'getOptionId'> &
-  Pick<ModularOptionListDataHandlers, 'trigger'>) => {
+export const createOptionElements = (
+  {
+    groups,
+    multiSelect,
+    getOptionId,
+    trigger,
+  }: Pick<ModularOptionListData, 'groups' | 'multiSelect'> &
+    Pick<ModularOptionListMetaData, 'getOptionId'> &
+    Pick<ModularOptionListDataHandlers, 'trigger'> /* & { search?: string } */,
+) => {
   return getAllOptions(groups, false)
     .map((option) => {
       if (!option.visible) {
         return null;
       }
-      const props: ModularOptionListItemProps & { key: string } = {
+      const props: ModularOptionListItemProps & { key: string } & { search?: string } = {
         option,
         trigger,
         key: getOptionId(option),
@@ -44,13 +46,16 @@ export function createListElementProps<T = HTMLUListElement>({
   refs,
   elementIds,
   multiSelect,
-}: Pick<ModularOptionListMetaData, 'refs' | 'elementIds'> & Pick<ModularOptionListData, 'multiSelect'>) {
+  labelledBy,
+}: Pick<ModularOptionListMetaData, 'refs' | 'elementIds'> &
+  Pick<ModularOptionListData, 'multiSelect'> & { labelledBy?: string }) {
   return {
     className: classNames(styles.list),
     ref: refs.list as unknown as RefObject<T>,
     id: elementIds.list,
     role: 'listbox',
     'aria-multiselectable': multiSelect,
+    ...(labelledBy && { 'aria-labelledby': labelledBy }),
     tabIndex: -1,
   };
 }
@@ -58,10 +63,15 @@ export function createListElementProps<T = HTMLUListElement>({
 export function SingleSelectAndGrouplessList() {
   const { getData, trigger, getMetaData } = useModularOptionListDataHandlers();
   const { groups, multiSelect } = getData();
-  const { getOptionId, refs, elementIds } = getMetaData();
+  const metaData = getMetaData();
+  const { getOptionId, refs, elementIds } = metaData;
+
+  // Use aria-labelledby to share the same accessible name as the search input
+  const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
+  const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
+
   const attr = {
-    ...createListElementProps({ refs, elementIds, multiSelect }),
-    'aria-live': 'polite' as const,
+    ...createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId }),
   };
 
   const children = createOptionElements({ groups, trigger, multiSelect, getOptionId });

@@ -116,7 +116,7 @@ const defaultTextsForMultiSelect: Partial<Texts> = {
 
 /**
  *
- * Visual Playwright tests depend on these stories. Changing option labels or other props may brake the tests.
+ * Visual Playwright tests depend on these stories. Changing option labels or other props may break the tests.
  *
  */
 

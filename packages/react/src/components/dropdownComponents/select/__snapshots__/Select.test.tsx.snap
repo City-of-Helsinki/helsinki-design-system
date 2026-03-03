@@ -87,11 +87,13 @@ exports[`<Select /> spec renders multiSelect component with groups and filter in
           </div>
         </button>
       </div>
-      <div
-        aria-hidden="true"
-        class="listAndInputContainer"
-        id="test-select-component-sl-container"
-      />
+      <div>
+        <div
+          aria-hidden="true"
+          class="listAndInputContainer"
+          id="test-select-component-sl-container"
+        />
+      </div>
     </div>
     <div
       class="errorText"
@@ -199,11 +201,13 @@ exports[`<Select /> spec renders single select component with groups and filter 
           </div>
         </button>
       </div>
-      <div
-        aria-hidden="true"
-        class="listAndInputContainer"
-        id="test-select-component-sl-container"
-      />
+      <div>
+        <div
+          aria-hidden="true"
+          class="listAndInputContainer"
+          id="test-select-component-sl-container"
+        />
+      </div>
     </div>
     <div
       class="errorText"
