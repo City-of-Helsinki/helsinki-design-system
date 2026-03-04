@@ -60,7 +60,7 @@ exports[`<Footer /> spec renders the component 1`] = `
             class="logoWrapper"
           >
             <a
-              class="link link-medium item"
+              class="link item"
             >
               <img
                 alt="Helsingin kaupunki"
