@@ -64,7 +64,7 @@ type MainLevelLinkProps = {
   active?: boolean;
   external?: undefined;
   openInNewTab?: undefined;
-  openInNewTabAriaLabel?: undefined;
+  openInNewTabLabel?: undefined;
   openInExternalDomainAriaLabel?: undefined;
 };
 
@@ -84,7 +84,7 @@ type MainLevelExternalLinkProps = {
   /**
    * The aria-label for opening main level link in a new tab
    */
-  openInNewTabAriaLabel?: string;
+  openInNewTabLabel?: string;
   /**
    * The aria-label for opening main level link in an external domain
    */
@@ -97,7 +97,7 @@ type MainLevelAccordionProps = {
   active?: undefined;
   external?: undefined;
   openInNewTab?: undefined;
-  openInNewTabAriaLabel?: undefined;
+  openInNewTabLabel?: undefined;
   openInExternalDomainAriaLabel?: undefined;
 };
 
@@ -106,16 +106,16 @@ export type MainLevelProps = MainLevelCommonProps &
 
 const composeAriaLabel = ({
   openInNewTab,
-  openInNewTabAriaLabel,
+  openInNewTabLabel,
   openInExternalDomainAriaLabel,
   label,
 }: {
   openInNewTab?: boolean;
-  openInNewTabAriaLabel?: string;
+  openInNewTabLabel?: string;
   openInExternalDomainAriaLabel?: string;
   label;
 }) => {
-  const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+  const newTabText = openInNewTab ? openInNewTabLabel || 'Avautuu uudessa välilehdessä.' : '';
   const externalText = openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.';
 
   return [label.slice(-1) !== '.' ? `${label}.` : label, newTabText, externalText].filter((text) => text).join(' ');
@@ -147,7 +147,7 @@ export const MainLevel = ({
   withDivider,
   external,
   openInNewTab,
-  openInNewTabAriaLabel,
+  openInNewTabLabel,
   openInExternalDomainAriaLabel,
   onClick,
   style,
@@ -239,7 +239,7 @@ export const MainLevel = ({
               'aria-label': composeAriaLabel({
                 label,
                 openInNewTab,
-                openInNewTabAriaLabel,
+                openInNewTabLabel,
                 openInExternalDomainAriaLabel,
               }),
             })}

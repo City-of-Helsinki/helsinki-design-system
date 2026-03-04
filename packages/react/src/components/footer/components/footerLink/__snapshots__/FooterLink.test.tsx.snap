@@ -3,7 +3,7 @@
 exports[`<Link /> spec renders the base variant 1`] = `
 <DocumentFragment>
   <a
-    class="link link-medium item base"
+    class="link item base"
   >
     <span>
       Link
@@ -62,7 +62,7 @@ exports[`<Link /> spec renders the component 1`] = `
           Bar
         </h2>
         <a
-          class="link link-medium item"
+          class="link item"
         >
           <span>
             Link
@@ -77,7 +77,7 @@ exports[`<Link /> spec renders the component 1`] = `
 exports[`<Link /> spec renders the navigation variant 1`] = `
 <DocumentFragment>
   <a
-    class="link link-medium item navigation"
+    class="link item navigation"
   >
     <span>
       Link
@@ -89,7 +89,7 @@ exports[`<Link /> spec renders the navigation variant 1`] = `
 exports[`<Link /> spec renders the utility variant 1`] = `
 <DocumentFragment>
   <a
-    class="link link-medium item utility"
+    class="link item utility"
   >
     <span>
       Link

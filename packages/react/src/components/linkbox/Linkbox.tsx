@@ -53,7 +53,7 @@ export type LinkboxProps = {
   /**
    * The aria-label for opening link in a new tab
    */
-  openInNewTabAriaLabel?: string;
+  openInNewTabLabel?: string;
   /**
    * Optional text of the linkbox.
    */
@@ -81,7 +81,7 @@ export const Linkbox = ({
   noBackground = false,
   openInExternalDomainAriaLabel,
   openInNewTab = false,
-  openInNewTabAriaLabel,
+  openInNewTabLabel,
   text,
   border = false,
   size = LinkboxSize.Medium,
@@ -90,7 +90,7 @@ export const Linkbox = ({
   const linkRef = useRef(null);
 
   const composeAriaLabel = (ariaLabel) => {
-    const newTabText = openInNewTab ? openInNewTabAriaLabel || 'Avautuu uudessa välilehdessä.' : '';
+    const newTabText = openInNewTab ? openInNewTabLabel || 'Avautuu uudessa välilehdessä.' : '';
     const externalText = external ? openInExternalDomainAriaLabel || 'Siirtyy toiseen sivustoon.' : '';
     let extendedAriaLabel = '';
 

@@ -1,25 +1,23 @@
 .link {
   composes: hds-link from 'hds-core/lib/components/link/link.css';
-}
 
-.icon {
-  composes: icon from 'hds-core/lib/components/link/link.css';
-}
+  /* Match core: icon size, alignment and spacing for inline links */
+  svg {
+    /* stylelint-disable-next-line declaration-no-important */
+    --icon-size: inherit !important;
 
-.iconStart {
-  composes: hds-icon-start from 'hds-core/lib/components/link/link.css';
-}
+    vertical-align: sub;
+  }
 
-.verticalAlignMediumIcon {
-  composes: vertical-align-medium-icon from 'hds-core/lib/components/link/link.css';
-}
+  /* Same spacing as core .hds-link .hds-icon (spacing-4-xs).
+     Use classes so spacing works when the adjacent sibling is a text node. */
+  &.hasIconStart > :first-child > * {
+    margin-right: var(--spacing-4-xs);
+  }
 
-.verticalAlignBigIcon {
-  composes: vertical-align-big-icon from 'hds-core/lib/components/link/link.css';
-}
-
-.verticalAlignSmallIcon {
-  composes: vertical-align-small-icon from 'hds-core/lib/components/link/link.css';
+  &.hasIconEnd > :last-child > * {
+    margin-left: var(--spacing-4-xs);
+  }
 }
 
 .disableVisitedStyles {
