@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
+- [Hero] Responsive container and content max-widths have changed to match the design spec. Layout may differ from previous versions: the outer container is no longer constrained to `--container-width-xl` below the xl breakpoint (1248px); the heading and lead block use a content max-width (690px by default, overridable via `--hero-content-max-width`) with breakpoint-specific behavior per variant (single-column, image-bottom, image-left/right, background-image). Both React Hero and Core (HTML/CSS) Hero are affected.
 - [SearchInput] Removed `SearchInput` component from React package. Use the new `Search` component instead. The Core (HTML/CSS) version of SearchInput remains available.
 - [Select, Combobox] Removed deprecated `Select` and `Combobox` components from `components/dropdown/` directory. Use the new `Select` component from `components/dropdownComponents/select/` instead. The old components were deprecated in favor of the new modular dropdown components architecture.
 - [Link] Link styling has changed.
@@ -41,6 +42,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
+- [Hero] Responsive container and content max-widths have changed to match the design spec. Container uses `--container-width-xl` only at xl/xxl (≥1248px); the heading and lead block use a content max-width (690px by default, overridable via `--hero-content-max-width`) from breakpoint-m up for single-column and image-bottom variants, and only at breakpoint-m for image-left/right and background-image variants. Layout may differ from previous versions.
 - [Link] The **`.icon`** class was removed altogether from the link component; do not use it on link icons.
 - [Link] The **`.vertical-...`** classes (e.g. `vertical-align-small-icon`, `vertical-align-medium-icon`) were also removed; icon alignment is now handled automatically not by using utility classes on the icon element.
 
@@ -80,6 +82,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+- [Breakpoints] Breakpoint tokens page updated: added `--breakpoint-xxl` (≥1440px) to the tokens table; container width tokens section simplified (deprecation notice and deprecated container-width-xs/s/m/l table removed).
+- [Grid] Grid guidelines updated to six breakpoints (xxl added); breakpoint and container-width table now includes the xxl row.
 - [SearchInput] Updated documentation to only cover Core (HTML/CSS) version. Examples now use vanilla JavaScript for interactivity.
 - [Link] Code examples for Core use class-based external icon (`hds-icon--link-external hds-icon-end--link-external`) with no inner `<span>` or `<i>`. React props table updated with `iconEnd` and corrected `size` default.
 - [Link] Accessibility and Code docs updated: `aria-label` behaviour is documented (internal links receive the prop as given; external links use the composed label), and the prop is listed in the React props table.
