@@ -9,10 +9,10 @@ import Notification from '../../../components/Notification';
 
 # Migrate to version 5.0.0
 
-This guide helps you migrate from HDS v4 to v5. It covers the main breaking changes for **Link**, **font**, **Hero**, and the **alert-dark** design token.
+This guide helps you migrate from HDS v4 to v5. It covers the main breaking changes for **Link**, **SearchInput**, **font**, **Hero**, and the **alert-dark** design token.
 
 <Notification label=";tldr; Check at least these" className="siteNotification">
-  When updating to HDS 5.0.0 check and test at least these: Link styling and props changed (icon spacing, openInNewTabLabel, Core classes removed); font switched to Helsinki Grotesk Pro; Hero container and content max-widths and layout changed; alert-dark colour token value changed (#986700 → #d18200).
+  When updating to HDS 5.0.0 check and test at least these: Link styling and props changed (icon spacing, openInNewTabLabel, Core classes removed); SearchInput (React) replaced by Search component; font switched to Helsinki Grotesk Pro; Hero container and content max-widths and layout changed; alert-dark colour token value changed (#986700 → #d18200).
 </Notification>
 
 ## Breaking changes
@@ -43,6 +43,26 @@ This guide helps you migrate from HDS v4 to v5. It covers the main breaking chan
 - The **`.vertical-...`** classes (e.g. `vertical-align-small-icon`, `vertical-align-medium-icon`) were removed. Icon alignment is now automatic; remove these classes from icon elements.
 
 **Migration:** Remove `.icon` and any `vertical-align-*` classes from link icons. Icons can still be added with an element inside the link, or with classes on the anchor (e.g. `hds-icon--link-external hds-icon-end--link-external`).
+
+---
+
+### SearchInput replaced by Search (React)
+
+The **`SearchInput`** component has been removed from the React package. Use the new **Search** component instead.
+
+The Core (HTML/CSS) version of SearchInput remains available if you are not using React for search.
+
+**Migration:** Replace React `SearchInput` usage with the new `Search` component. Update imports and adjust props/API to match the Search component; refer to the documentation and Storybook for the new API and examples.
+
+- <InternalLink size="M" href="/components/search-input">
+    Search documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-dropdowncomponents-search">
+    React Search storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-search-input">
+    Core SearchInput storybook examples
+  </InternalLink>
 
 ---
 
@@ -108,8 +128,9 @@ This token is used by the Notification component and any custom use of `--color-
 | Area        | Change |
 |------------|--------|
 | **Link**   | React: styling and icon behaviour; `openInNewTabAriaLabel` → `openInNewTabLabel`. Core: `.icon` and `.vertical-...` classes removed. |
+| **SearchInput** | React: removed; use the new Search component. Core SearchInput remains. |
 | **Font**   | Helsinki Grotesk Pro replaces the previous default font. |
 | **Hero**   | Container and content max-widths and layout updated; 690px content max-width, container width at xl only. |
 | **alert-dark** | Token value changed from `#986700` to `#d18200`. |
 
-For other breaking changes in 5.0.0 (e.g. SearchInput, Select/Combobox), see the [Changelog](/about/releases).
+For other breaking changes in 5.0.0 (e.g. Select/Combobox), see the [Changelog](/about/releases).
