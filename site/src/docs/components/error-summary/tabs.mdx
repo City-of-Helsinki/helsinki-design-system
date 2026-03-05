@@ -9,14 +9,20 @@ import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 import StatusLabel from '../../../components/StatusLabel';
 import TechTags from '../../../components/TechTags';
+import Notification from '../../../components/Notification';
 
 # ErrorSummary
 
 <div className="status-label-description">
-<StatusLabel type="info">Stable</StatusLabel>
+<StatusLabel type="info">Deprecated</StatusLabel>
 <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
+<StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-xs)' }}>Deprecated</StatusLabel>
 <StatusLabelTooltip/>
 </div>
+
+<Notification type="alert" label="React component deprecated" style={{ marginTop: 'var(--spacing-m)' }}>
+  The ErrorSummary component is deprecated and will be replaced by using the Notification component.
+</Notification>
 
 <LeadParagraph>
   The error summary is notification-like element which lists all errors (and their descriptions) found in a form or other inputs and provides anchor links to each erroneous input for easy access.
