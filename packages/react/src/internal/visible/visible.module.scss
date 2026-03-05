@@ -25,6 +25,12 @@
   }
 }
 
+.aboveXXL {
+  @include respond_below($breakpoint-xxl) {
+    display: none !important;
+  }
+}
+
 .belowS {
   @include respond_above($breakpoint-s) {
     display: none !important;
@@ -49,3 +55,8 @@
   }
 }
 
+.belowXXL {
+  @include respond_above($breakpoint-xxl) {
+    display: none !important;
+  }
+}

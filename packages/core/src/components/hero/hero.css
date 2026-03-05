@@ -4,6 +4,7 @@
   --background-color: var(--color-white);
   --color: var(--color-black-90);
   --diagonal-koros-position: 45%;
+  --hero-content-max-width: 690px;
   --horizontal-padding-large: var(--spacing-layout-xs);
   --horizontal-padding-medium: var(--spacing-layout-xs);
   --horizontal-padding-small: var(--spacing-layout-2-xs);
@@ -90,11 +91,12 @@
 .hds-hero__container {
   margin-left: auto;
   margin-right: auto;
-  max-width: var(--container-width-xl);
 }
 
 .hds-hero__content {
   display: flex;
+  margin: auto;
+  max-width: var(--container-width-xl);
   padding: var(--padding-vertical) var(--padding-horizontal);
 }
 
@@ -113,8 +115,8 @@
 }
 
 .hds-hero__card {
+  box-sizing: border-box;
   display: block;
-  max-width: var(--container-width-xl);
 }
 
 .hds-hero__koros-container,
@@ -189,7 +191,6 @@
 .hds-hero--with-background__content-columns {
   display: flex;
   margin: 0 auto;
-  max-width: var(--container-width-xl);
 }
 
 .hds-hero--with-background__empty-column {
@@ -261,6 +262,7 @@
   height: 300px;
 }
 
+/* min-width values match --breakpoint-m (768px), --breakpoint-l (992px), --breakpoint-xl (1248px); var() not valid in media queries */
 @media only screen and (min-width: 768px) {
   .hds-hero {
     --padding-horizontal: var(--horizontal-padding-medium);
@@ -277,6 +279,10 @@
     padding-bottom: var(--spacing-xs);
     padding-right: var(--spacing-m);
     padding-top: var(--spacing-xs);
+  }
+
+  .hds-hero__card {
+    max-width: var(--hero-content-max-width);
   }
 }
 
@@ -301,19 +307,14 @@
   }
 
   .hds-hero__content--two-columns {
-    flex-direction: row;
+    align-items: center;
+    display: grid;
+    gap: var(--spacing-xl);
+    grid-template-columns: minmax(0, var(--hero-content-max-width)) minmax(50%, 1fr);
   }
 
-  .hds-hero__content--two-columns > * {
-    width: 50%;
-  }
-
-  .hds-hero__content--two-columns > *:first-child {
-    margin-right: var(--spacing-xl);
-  }
-
-  .hds-hero__content--two-columns > *:last-child {
-    margin-left: var(--spacing-xl);
+  .hds-hero--image-left .hds-hero__content--two-columns {
+    grid-template-columns: minmax(50%, 1fr) minmax(0, var(--hero-content-max-width));
   }
 
   .hds-hero__content--two-columns__image-container {
@@ -327,14 +328,21 @@
   .hds-hero--background-image .hds-hero__content {
     --padding-vertical: var(--spacing-2-xl);
 
-    display: flex;
-    flex-direction: row;
+    display: grid;
+    grid-template-columns: minmax(0, var(--hero-content-max-width)) 1fr;
     margin: 0 auto;
-    max-width: var(--container-width-xl);
   }
 
-  .hds-hero--background-image .hds-hero__card {
-    width: 50%;
+  /* Background image hero: align arrow with content (same width as card column, left-aligned) */
+  .hds-hero--background-image .hds-hero__bottom-content-aligner {
+    margin-left: 0;
+    margin-right: auto;
+    max-width: var(--hero-content-max-width);
+    padding-left: 0;
+  }
+
+  .hds-hero--background-image .hds-hero--arrow-icon {
+    margin-left: calc(-1 * (var(--arrow-icon-size) / 4));
   }
 
   .hds-hero--with-background__background {
@@ -347,7 +355,6 @@
 
   .hds-hero--with-background__empty-column {
     display: block;
-    width: 45%;
   }
 
   .hds-hero--diagonal-koros .hds-hero__content {
@@ -416,6 +423,15 @@
     --padding-horizontal: var(--horizontal-padding-x-large);
   }
 
+  /* Container max-width at xl/xxl for all hero variants */
+  .hds-hero__container {
+    max-width: var(--container-width-xl);
+  }
+
+  .hds-hero--with-background__content-columns {
+    max-width: var(--container-width-xl);
+  }
+
   .hds-hero__title {
     font-size: var(--fontsize-heading-xxl);
     letter-spacing: -1.2px;
@@ -426,11 +442,13 @@
     padding-right: var(--spacing-l);
   }
 
-  .hds-hero__content--two-columns > *:first-child {
-    margin-right: var(--spacing-2-xl);
+  .hds-hero__content--two-columns {
+    gap: var(--spacing-2-xl);
   }
 
-  .hds-hero__content--two-columns > *:last-child {
-    margin-left: var(--spacing-2-xl);
+  /* Background image hero at xl: bg from hero left to content right edge; pad so arrow aligns with content (100% = hero width for Storybook/wrappers) */
+  .hds-hero--background-image .hds-hero__bottom-container {
+    padding-left: calc((100% - var(--container-width-xl)) / 2);
+    width: calc(50% + (var(--container-width-xl) / 2));
   }
 }
