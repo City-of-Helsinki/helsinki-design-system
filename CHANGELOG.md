@@ -5,6 +5,10 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [3.13.0] - March, 5th, 2025
+
+- Major version 3 end of life release.
+
 ## [3.12.1] - October, 27, 2025
 
 - Security related updates and changes necessary due to them.
