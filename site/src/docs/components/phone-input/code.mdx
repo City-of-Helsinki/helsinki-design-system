@@ -3,7 +3,7 @@ slug: '/components/phone-input/code'
 title: 'PhoneInput - Code'
 ---
 
-import { PhoneInput, Select } from 'hds-react';
+import { PhoneInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -39,51 +39,6 @@ import { PhoneInput } from 'hds-react';
   </div>
   <span class="hds-text-input__helper-text">Assistive text</span>
 </div>
-```
-
-</Playground>
-
-#### With a country code selection
-
-<Playground scope={{ PhoneInput, Select }}>
-
-```jsx
-import { PhoneInput } from 'hds-react';
-
-() => {
-  const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
-  return (
-    <>
-      <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
-        Work phone
-      </p>
-      <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
-        <Select
-          id="hds-select-1"
-          texts={{
-            language: 'en',
-            label: 'Country code',
-            assistive: 'Assistive text',
-            placeholder: 'Choose country code',
-          }}
-          aria-describedby="work-phone"
-          options={options}
-          value={[options[0]]}
-          onChange={() =>{}}
-          required
-	  clearable={false}
-        />
-        <PhoneInput
-          id="phone-input-2"
-          defaultValue="0451234567"
-          aria-describedby="work-phone"
-          label="Phone number"
-          required={true}
-        />
-      </div>
-    </>
-  )
-}
 ```
 
 </Playground>
