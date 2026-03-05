@@ -83,6 +83,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [SearchInput] Updated documentation to only cover Core (HTML/CSS) version. Examples now use vanilla JavaScript for interactivity.
 - [Link] Code examples for Core use class-based external icon (`hds-icon--link-external hds-icon-end--link-external`) with no inner `<span>` or `<i>`. React props table updated with `iconEnd` and corrected `size` default.
 - [Link] Accessibility and Code docs updated: `aria-label` behaviour is documented (internal links receive the prop as given; external links use the composed label), and the prop is listed in the React props table.
+- [PhoneInput] Documentation updated: country code selection variant has been removed.
 
 #### Fixed
 
