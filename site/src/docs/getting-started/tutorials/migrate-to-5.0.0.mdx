@@ -9,10 +9,10 @@ import Notification from '../../../components/Notification';
 
 # Migrate to version 5.0.0
 
-This guide helps you migrate from HDS v4 to v5. It covers the main breaking changes for **Link**, **SearchInput**, **font**, **Hero**, and the **alert-dark** design token.
+This guide helps you migrate from HDS v4 to v5. It covers the main breaking changes for **Link**, **SearchInput**, **Header.Search**, **font**, **Hero**, and the **alert-dark** design token.
 
 <Notification label=";tldr; Check at least these" className="siteNotification">
-  When updating to HDS 5.0.0 check and test at least these: Link styling and props changed (icon spacing, openInNewTabLabel, Core classes removed); SearchInput (React) replaced by Search component; font switched to Helsinki Grotesk Pro; Hero container and content max-widths and layout changed; alert-dark colour token value changed (#986700 → #d18200).
+  When updating to HDS 5.0.0 check and test at least these: Link styling and props changed (icon spacing, openInNewTabLabel, Core classes removed); SearchInput (React) replaced by Search component with new API (`onSubmit` → `onSend`, `onChange` signature changed, labels moved to `texts` prop); Header.Search now uses the new Search component (`label` → `texts`, `onSearch` added for suggestions); font switched to Helsinki Grotesk Pro; Hero container and content max-widths and layout changed; alert-dark colour token value changed (#986700 → #d18200).
 </Notification>
 
 ## Breaking changes
@@ -48,20 +48,236 @@ This guide helps you migrate from HDS v4 to v5. It covers the main breaking chan
 
 ### SearchInput replaced by Search (React)
 
-The **`SearchInput`** component has been removed from the React package. Use the new **Search** component instead.
+The **`SearchInput`** component has been removed from the React package. Use the new **Search** component instead. The new Search is built on the same modular dropdown architecture as the new Select component and offers a significantly expanded API.
 
 The Core (HTML/CSS) version of SearchInput remains available if you are not using React for search.
 
-**Migration:** Replace React `SearchInput` usage with the new `Search` component. Update imports and adjust props/API to match the Search component; refer to the documentation and Storybook for the new API and examples.
+#### Import
 
-- <InternalLink size="M" href="/components/search-input">
+```diff
+- import { SearchInput } from 'hds-react';
++ import { Search } from 'hds-react';
+```
+
+#### Prop mapping
+
+The following table shows how SearchInput props map to the new Search component:
+
+| SearchInput (v4)                 | Search (v5)                                           | Notes                                                                  |
+| -------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| `label`                          | `texts={{ label: '...' }}`                            | Moved into the `texts` prop object.                                    |
+| `onSubmit`                       | `onSend`                                              | **Renamed.** Same signature: `(value: string) => void`.                |
+| `onChange`                       | `onChange`                                             | **Signature changed.** Receives `ChangeEvent<HTMLInputElement>`, not a raw string. Use `e.target.value` to get the value. |
+| `value`                          | `value`                                               | Same usage for controlled mode.                                        |
+| `placeholder`                    | `texts={{ searchPlaceholder: '...' }}`                | Moved into `texts`.                                                    |
+| `helperText`                     | `texts={{ assistive: '...' }}`                        | Moved into `texts` as `assistive`.                                     |
+| `getSuggestions`                 | `onSearch`                                            | **Different API.** Returns `Promise<{ groups?, options? }>` instead of a flat array. See below. |
+| `hideSearchButton`               | `hideSubmitButton`                                    | **Renamed.**                                                           |
+| `clearButtonAriaLabel`           | `texts={{ searchClearButtonAriaLabel: '...' }}`       | Moved into `texts`.                                                    |
+| `searchButtonAriaLabel`          | `texts={{ searchButtonAriaLabel: '...' }}`            | Moved into `texts`.                                                    |
+| `visibleSuggestions`             | `visibleOptions`                                      | **Renamed.** Default changed from `8` to `5.5`.                       |
+| `suggestionLabelField`           | —                                                     | **Removed.** Options use `{ label, value }` objects.                   |
+| `suggestionKeyField`             | —                                                     | **Removed.** Options use `{ label, value }` objects.                   |
+| `highlightSuggestions`           | —                                                     | **Removed.** Not available in the new component.                       |
+| `loadingSpinnerText`             | `texts={{ searching: '...' }}`                        | Moved into `texts`.                                                    |
+| `inputProps`                     | —                                                     | **Removed.** Use native HTML attributes on the Search root element.    |
+| —                                | `historyId`                                           | **New.** Enables search history stored in `localStorage`.              |
+| —                                | `groups`                                              | **New.** Supports grouped options.                                     |
+| —                                | `theme`                                               | **New.** CSS variable theming.                                         |
+
+#### Migrating `getSuggestions` → `onSearch`
+
+The old `getSuggestions` returned a flat array of generic items. The new `onSearch` returns a promise resolving to `{ options }` or `{ groups }`, where each option is an `{ label, value }` object.
+
+```diff
+- // v4: getSuggestions returned a flat array
+- const getSuggestions = (inputValue) => {
+-   return fetch(`/api/search?q=${inputValue}`)
+-     .then((res) => res.json());
+- };
+-
+- <SearchInput
+-   label="Search"
+-   getSuggestions={getSuggestions}
+-   suggestionLabelField="name"
+-   onSubmit={(value) => console.log(value)}
+- />
+
++ // v5: onSearch returns { options } with { label, value } objects
++ // Wrap in useCallback to prevent unnecessary re-fetches
++ const handleSearch = useCallback((searchValue) => {
++   return fetch(`/api/search?q=${searchValue}`)
++     .then((res) => res.json())
++     .then((results) => ({
++       options: results.map((item) => ({ label: item.name, value: item.id })),
++     }));
++ }, []);
++
++ // Memoize texts and other object props with useState
++ const [props] = useState({
++   texts: { label: 'Search' },
++ });
++
++ <Search
++   {...props}
++   onSearch={handleSearch}
++   onSend={(value) => console.log(value)}
++ />
+```
+
+#### Full before / after example
+
+```jsx
+// ❌ v4 — SearchInput
+import { SearchInput } from 'hds-react';
+
+<SearchInput
+  label="Search the site"
+  placeholder="Type to search..."
+  helperText="Search for services and information"
+  searchButtonAriaLabel="Search"
+  clearButtonAriaLabel="Clear"
+  getSuggestions={getSuggestions}
+  suggestionLabelField="name"
+  onSubmit={(value) => navigateToResults(value)}
+  onChange={(value) => setSearchValue(value)}
+  value={searchValue}
+/>
+```
+
+```jsx
+// ✅ v5 — Search
+import { useState, useCallback } from 'react';
+import { Search } from 'hds-react';
+
+const MySearch = () => {
+  const [searchValue, setSearchValue] = useState('');
+
+  // Memoize props that include objects like `texts` with useState.
+  // This prevents the Search component from resetting its internal
+  // state on every parent re-render.
+  const [props] = useState({
+    id: 'my-search',
+    texts: {
+      label: 'Search the site',
+      searchPlaceholder: 'Type to search...',
+      assistive: 'Search for services and information',
+      searchButtonAriaLabel: 'Search',
+      searchClearButtonAriaLabel: 'Clear',
+      language: 'en',
+    },
+  });
+
+  const handleSearch = useCallback((searchValue) => {
+    return fetch(`/api/search?q=${searchValue}`)
+      .then((res) => res.json())
+      .then((results) => ({
+        options: results.map((item) => ({ label: item.name, value: item.id })),
+      }));
+  }, []);
+
+  return (
+    <Search
+      {...props}
+      onSearch={handleSearch}
+      onSend={(value) => navigateToResults(value)}
+      onChange={(e) => setSearchValue(e.target.value)}
+      value={searchValue}
+    />
+  );
+};
+```
+
+**Key differences to note:**
+- Props containing objects (like `texts`) should be **memoized** using `useState` or `useMemo`, or defined outside the component. Spread them with `{...props}`. Passing inline objects on every render will reset the component's internal state.
+- Wrap `onSearch` and other callbacks in `useCallback` to prevent unnecessary re-fetches.
+- `onChange` now receives a standard React `ChangeEvent`, not a plain string.
+- The new Search supports **search history** via `historyId`, **grouped suggestions** via `groups`, and **error handling** (reject the `onSearch` promise to show an error).
+
+- <InternalLink size="M" href="/components/search">
     Search documentation
   </InternalLink>
 - <InternalLink size="M" href="/storybook/react/?path=/story/components-dropdowncomponents-search">
     React Search storybook examples
   </InternalLink>
-- <InternalLink size="M" href="/storybook/core/?path=/story/components-search-input">
-    Core SearchInput storybook examples
+- <InternalLink size="M" href="/components/search-input">
+    Core SearchInput documentation (unchanged)
+  </InternalLink>
+
+---
+
+### Header.Search
+
+The **Header.Search** component has been rewritten to use the new Search component internally. If you were using `Header.Search` in v4, you need to update your props.
+
+#### Prop mapping
+
+| Header.Search (v4)              | Header.Search (v5)                                    | Notes                                                            |
+| ------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------- |
+| `label`                         | `texts={{ heading: '...', label: '...' }}`            | **Replaced** by `texts`. `heading` is the panel heading, `label` is the input label. |
+| `onChange`                       | —                                                     | **Removed** from public API. Input changes handled internally.   |
+| `onSubmit`                      | `onSubmit`                                            | Same name, same signature.                                       |
+| —                                | `onSearch`                                            | **New.** Async function that provides search suggestions in the dropdown. |
+| —                                | `texts.buttonLabel`                                   | **New.** Label for the search button.                            |
+| —                                | `texts.closeLabel`                                    | **New.** Label for the close button.                             |
+| —                                | `id`                                                  | **New.** ID prefix. Default: `"header-search"`.                  |
+| —                                | `buttonIcon`                                          | **New.** Custom icon for the action bar button.                  |
+
+#### Before / after example
+
+```jsx
+// ❌ v4
+<Header.Search
+  label="Search"
+  onChange={(value) => console.log(value)}
+  onSubmit={(value) => navigateToResults(value)}
+/>
+```
+
+```jsx
+// ✅ v5
+import { useState, useCallback } from 'react';
+
+const MyHeader = () => {
+  // Memoize texts and other object props with useState
+  const [searchProps] = useState({
+    texts: {
+      heading: 'Search the service',
+      label: 'What are you looking for?',
+      buttonLabel: 'Search',
+      closeLabel: 'Close',
+    },
+  });
+
+  const handleSearch = useCallback((searchValue) => {
+    return fetch(`/api/search?q=${searchValue}`)
+      .then((res) => res.json())
+      .then((results) => ({
+        options: results.map((item) => ({ label: item.name, value: item.id })),
+      }));
+  }, []);
+
+  return (
+    <Header.Search
+      {...searchProps}
+      onSubmit={(value) => navigateToResults(value)}
+      onSearch={handleSearch}
+    />
+  );
+};
+```
+
+**Key differences:**
+- Memoize `texts` and other object props with `useState` (or `useMemo`), the same way as the standalone Search component. Spread them with `{...searchProps}`.
+- The dropdown panel now has a **heading** (`texts.heading`), a **search input with suggestions** (via `onSearch`), and an external **submit button** (`texts.buttonLabel`).
+- `onChange` is no longer exposed. Input value changes are managed internally by the Search component.
+- The `onSearch` prop enables real-time search suggestions, which was not available in v4.
+
+- <InternalLink size="M" href="/components/header/code#headersearch">
+    Header.Search documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-header--with-search">
+    Header with Search storybook example
   </InternalLink>
 
 ---
@@ -128,7 +344,8 @@ This token is used by the Notification component and any custom use of `--color-
 | Area        | Change |
 |------------|--------|
 | **Link**   | React: styling and icon behaviour; `openInNewTabAriaLabel` → `openInNewTabLabel`. Core: `.icon` and `.vertical-...` classes removed. |
-| **SearchInput** | React: removed; use the new Search component. Core SearchInput remains. |
+| **SearchInput** | React: removed; use the new Search component (`onSubmit` → `onSend`, `getSuggestions` → `onSearch`, labels moved to `texts` prop). Core SearchInput remains. |
+| **Header.Search** | Rewritten to use new Search component. `label` → `texts`, `onChange` removed, `onSearch` added for suggestions. |
 | **Font**   | Helsinki Grotesk Pro replaces the previous default font. |
 | **Hero**   | Container and content max-widths and layout updated; 690px content max-width, container width at xl only. |
 | **alert-dark** | Token value changed from `#986700` to `#d18200`. |
