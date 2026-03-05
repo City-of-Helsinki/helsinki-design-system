@@ -4,10 +4,18 @@ title: 'Home page'
 customLayout: true
 ---
 
-import { Button, Container, Hero } from 'hds-react';
+import { Button, Container, Hero, Notification } from 'hds-react';
 import { navigate } from 'gatsby';
 import Image from '../components/Image';
 import FrontPageLinksList from '../components/FrontPageLinkList';
+import InternalLink from '../components/InternalLink';
+
+<Container style={{ padding: 'var(--spacing-m)' }}>
+  <Notification label="Support for HDS v3 has ended" type="alert">
+    Support for Helsinki Design System v3 has ended. Please migrate to v4 or v5 (v5 is preferred).
+    <InternalLink href="https://hds.hel.fi/getting-started/"><span style={{ fontSize: 'var(--fontsize-body-s)'}}>More information about migrating</span></InternalLink>.
+  </Notification>
+</Container>
 
 <Hero
   imageSrc="/images/homepage/amos58.jpg"
