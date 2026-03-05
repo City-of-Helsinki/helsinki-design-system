@@ -6,6 +6,7 @@ const breakpointValues = {
   m: 768,
   l: 992,
   xl: 1248,
+  xxl: 1440,
 };
 
 const getWindowInnerWidth: () => undefined | number = () =>
@@ -43,7 +44,7 @@ const useMediaQuery = (breakpointCheck: () => boolean): boolean => {
   return matches;
 };
 
-export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl';
+export type Breakpoint = 'xs' | 's' | 'm' | 'l' | 'xl' | 'xxl';
 
 /**
  * Hook for listening to when the viewport is less than given breakpoint.
