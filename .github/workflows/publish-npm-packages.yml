@@ -57,6 +57,26 @@ jobs:
         run: yarn --frozen-lockfile --ignore-scripts
 
       - name: release npm packages
+        id: release_npm
         run: yarn release
+        env:
+          NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
+
+      - name: deprecate unsupported versions
+        if: ${{ steps.release_npm.conclusion == 'success' }}
+        run: |
+          for pkg in packages/*; do
+            if [ -f "$pkg/package.json" ]; then
+              NAME=$(node -p "require('./$pkg/package.json').name")
+              MAJOR=$(node -p "require('./$pkg/package.json').version.split('.')[0]")
+
+              if [ "$MAJOR" -gt 1 ]; then
+                PREV_MAJOR=$((MAJOR-1))
+                echo "Deprecating $NAME versions < $PREV_MAJOR.0.0"
+                npm deprecate "$NAME@<$PREV_MAJOR.0.0" \
+                  "Versions prior to v$PREV_MAJOR are deprecated, please update."
+              fi
+            fi
+          done
         env:
           NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}
