@@ -1,6 +1,6 @@
 {
   "name": "@jorilindell/hds-react",
-  "version": "4.10.0",
+  "version": "4.10.1",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "license": "MIT",
@@ -136,6 +136,7 @@
     "@babel/runtime": "^7.26.10",
     "@emotion/styled-base": "^11.0.0",
     "@hookform/resolvers": "^2.9.11",
+    "@jorilindell/hds-core": "4.10.1",
     "@juggle/resize-observer": "3.2.0",
     "@popperjs/core": "2.11.5",
     "@react-aria/visually-hidden": "3.8.16",
@@ -148,7 +149,6 @@
     "date-fns": "2.16.1",
     "downshift": "6.0.6",
     "graphql": "^16.8.1",
-    "@jorilindell/hds-core": "4.10.0",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash": "^4.17.21",
