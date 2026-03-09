@@ -116,6 +116,12 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       return;
     }
 
+    // Click on the backdrop is handled by the backdrop's own onClick
+    const backdrop = backdropRef.current;
+    if (backdrop && backdrop.contains(eventTargetNode)) {
+      return;
+    }
+
     // For Menu item, also check if click is inside the controlled element (mobile menu)
     if (id === 'Menu') {
       const controlledElement = document.getElementById('hds-mobile-menu');
@@ -161,9 +167,12 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       document.addEventListener('click', handleDocumentClick, true);
       document.addEventListener('keydown', handleKeyDown);
 
-      // Use the shared utility function to prevent focus and pointer events on elements outside the header
+      // Use the shared utility function to prevent keyboard focus on elements outside the header.
+      // Only block tabindex (not pointer events) — the capturing click listener already handles
+      // closing on outside clicks. Blocking pointer events would break pages with multiple
+      // Header instances (e.g. documentation site with example Headers).
       const header = containerElementRef.current?.closest('header') as HTMLElement;
-      const cleanupFocusPrevention = header ? addDocumentFocusPrevention(header, originalTabIndexes, true) : null;
+      const cleanupFocusPrevention = header ? addDocumentFocusPrevention(header, originalTabIndexes) : null;
 
       return () => {
         document.removeEventListener('click', handleDocumentClick, true);
@@ -225,14 +234,22 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
           ref={backdropRef}
           className={classes.backdrop}
           aria-hidden="true"
+          role="presentation"
+          onClick={(e) => {
+            // Clicking the backdrop closes the dropdown without propagating
+            // the click to elements underneath.
+            e.preventDefault();
+            e.stopPropagation();
+            setDisplayProperty(false);
+          }}
           style={{
             position: 'fixed',
             top: 0,
             left: 0,
             right: 0,
             bottom: 0,
-            zIndex: 99,
-            pointerEvents: 'none',
+            // Sit above page content but below the header (headerBackgroundWrapper z-index: 10)
+            zIndex: 9,
           }}
         />
       )}

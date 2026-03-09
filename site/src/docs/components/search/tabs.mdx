@@ -1,0 +1,38 @@
+---
+slug: '/components/search/tabs'
+title: 'Search'
+---
+
+import StatusLabelTooltip from '../../../components/StatusLabelTooltip';
+import LeadParagraph from '../../../components/LeadParagraph';
+import Layout from '../../../components/layout';
+import PageTabs from '../../../components/PageTabs';
+import StatusLabel from '../../../components/StatusLabel';
+import TechTags from '../../../components/TechTags';
+
+# Search
+
+<div className="status-label-description">
+  <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>
+    Accessible
+  </StatusLabel>
+  <StatusLabelTooltip />
+</div>
+
+<LeadParagraph>
+  The Search component provides a search input with support for asynchronous search suggestions, search history, and
+  option selection from results. It is built on top of the same foundation as the Select component and is designed for
+  search-oriented use cases.
+</LeadParagraph>
+
+<TechTags componentName="Search" />
+
+<PageTabs pageContext={props.pageContext}>
+  <PageTabs.TabList>
+    <PageTabs.Tab href="/">Usage</PageTabs.Tab>
+    <PageTabs.Tab href="/code">Code</PageTabs.Tab>
+    <PageTabs.Tab href="/accessibility">Accessibility</PageTabs.Tab>
+    <PageTabs.Tab href="/customisation">Customisation</PageTabs.Tab>
+  </PageTabs.TabList>
+  <PageTabs.TabPanel>{props.children}</PageTabs.TabPanel>
+</PageTabs>
