@@ -34,7 +34,7 @@ export const handleSearch = (searchValue) => {
   return Promise.resolve({
     groups: [
       {
-        label: 'Hakuehdotukset',
+        label: '',
         options: mockOptions,
       },
     ],
@@ -344,12 +344,12 @@ The button must be placed inside an [ActionBarItem](#actionbaritem). There is no
 
 ##### With search
 
-<Notification label="A work in progress!" className="siteNotification">
-  The Header.Search component is still in design process! We are working on it and will provide a full-featured
-  component later on.
-</Notification>
+The Header.Search component integrates the <InternalLink href="/components/search">Search</InternalLink> component into the Header. Clicking the search icon in the action bar opens a full-width dropdown panel with a search input and suggestions. The component uses the same `onSearch` asynchronous function as the standalone Search component.
 
-The Header.Search component is to be used for whole site wide search. Currently HDS recommends putting the SearchIcon inside the Header.ActionBar, and making it open search in separate search page by pressing the search icon. This enables using all needed search functionalities. A code example can be found in the <InternalLink href="/components/header/code/#with-all-the-components">Code</InternalLink> page.
+- Header.Search is placed inside Header.ActionBar as a child component.
+- The `texts` prop provides labels for the heading, button, close button, and the inner search input.
+- The `onSubmit` callback is called when the user submits a search.
+- The `onSearch` callback provides asynchronous search suggestions in the dropdown.
 
 <PlaygroundPreview clipped>
   <Header>
@@ -365,22 +365,21 @@ The Header.Search component is to be used for whole site wide search. Currently 
     >
       <Header.Search
         texts={{
-          heading: `Hae palvelusta: Helsingin kaupunki`,
+          heading: 'Hae palvelusta: Helsingin kaupunki',
           label: 'Mitä etsit?',
           buttonLabel: 'Hae',
           closeLabel: 'Sulje',
           placeholder: 'Anna teksti hakua varten',
           assistive: 'Avustava teksti',
         }}
-        onChange={() => {}}
-        onSubmit={() => {}}
+        onSubmit={(value) => console.log('Search submitted:', value)}
         onSearch={handleSearch}
       />
     </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-search">View header with search example in Storybook</Link>.
 
 ##### ActionBarItem and ActionBarButton
 

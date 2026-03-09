@@ -131,6 +131,7 @@ export type TextKey =
   | 'searchResults_multiple'
   | 'searchResults_one'
   | 'historyInfo'
+  | 'historyLabel'
   | 'selectedOptionAnnouncement';
 
 export type TextsWithNumberedVariations =

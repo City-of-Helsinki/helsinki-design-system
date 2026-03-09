@@ -8,6 +8,7 @@ import { eventIds } from '../events';
 import { getTextKey } from '../texts';
 import { convertPropsToGroups } from '../../modularOptionList/utils';
 import { useSearchHistory } from '../SearchHistoryContext';
+import { IconClock } from '../../../../icons/IconClock';
 import { IconSearch } from '../../../../icons/IconSearch';
 import { SearchFunction } from '../types';
 import {
@@ -67,13 +68,15 @@ export const SearchInput = forwardRef<
 
   const { searchHistory, addSearchItem, historyEnabled } = useSearchHistory();
 
+  const historyLabel = getTextKey('historyLabel', metaData) ?? 'Recent searches';
+
   // form group from searchHistory strings
   const historyData = React.useMemo(() => {
     if (searchHistory.length === 0) return [];
     return convertPropsToGroups({
       groups: [
         {
-          label: 'Recent searches',
+          label: historyLabel,
           options: searchHistory.map((term) => ({
             value: term,
             label: term,
@@ -81,15 +84,15 @@ export const SearchInput = forwardRef<
             isGroupLabel: false,
             visible: true,
             disabled: false,
+            iconStart: <IconClock aria-hidden />,
           })),
         },
       ],
     });
-  }, [searchHistory]);
+  }, [searchHistory, historyLabel]);
 
   const placeholder = getTextKey('searchPlaceholder', metaData);
   const clearButtonAriaLabel = getTextKey('searchClearButtonAriaLabel', metaData);
-  // const handleChange = createInputOnChangeListener({ id: eventIds.search, trigger });
 
   const isMouseClickRef = React.useRef(false);
 

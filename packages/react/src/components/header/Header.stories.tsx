@@ -816,7 +816,7 @@ export const WithSearch = (args: HeaderProps) => {
     return Promise.resolve({
       groups: [
         {
-          label: 'Hakuehdotukset',
+          label: '',
           options: getOptions(100).filter((s) => s.value.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
