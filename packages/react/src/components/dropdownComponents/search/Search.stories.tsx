@@ -28,7 +28,7 @@ export const Example = () => {
     return Promise.resolve({
       groups: [
         {
-          label: 'Hakuehdotukset',
+          label: '',
           options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
@@ -95,7 +95,7 @@ export const WithExternalButton = () => {
     return Promise.resolve({
       groups: [
         {
-          label: 'Hakuehdotukset',
+          label: '',
           options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
@@ -198,7 +198,7 @@ export const WithCookieConsent = () => {
     return Promise.resolve({
       groups: [
         {
-          label: 'Hakuehdotukset',
+          label: '',
           options: getOptions(100).filter((s) => (s.value ?? '').toUpperCase().indexOf(searchValue.toUpperCase()) >= 0),
         },
       ],
