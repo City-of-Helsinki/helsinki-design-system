@@ -339,6 +339,83 @@ This token is used by the Notification component and any custom use of `--color-
 
 ---
 
+## Figma Design Kit
+
+This guide will help you understand how to transition an existing project from using an older version of HDS Figma Design Kit to using the latest 5.0.0 version.
+
+### What's changing?
+
+This HDS Design Kit update follows the changes deployed in the code for the 5.0.0 release of HDS. In this version we introduce changes to the Header, Search, Select, Link, Hero and Notification components, a new set of Figma Variables and the new font Helsinki Pro VAR. Check the version Changelog in HDS GitHub for a complete list of changes.
+
+### Introducing
+
+- **New official font:** Helsinki Grotesk Pro VAR
+- **Figma variables:** Breakpoint, Colour, Spacing and Typography — Colour and Typography variables have been linked to our local Figma styles, enabling Dev Mode to show them within the CSS code.
+- A more accessible Search input and Search in Header pattern
+- **ModularOptionList:** A common dependency used by Search and Select components.
+- Updated list of components and assets in HDS Overview in Figma
+
+### What to consider before updating to HDS Kit v5?
+
+Update or swap libraries safely by first duplicating your design files.
+
+- Font-family variable with new Helsinki Grotesk Pro VAR is linked to the font property of each typography style, thus it should be present in all components using styles.
+- New font will not update into layers to layout layers using directly Helsinki Grotesk font. To fix this, you will need to either link these layers into styles or manually add the font-family variable to the font property of the text layer.
+- In some cases, Figma may break auto-layout settings in instances using the new font. If you encounter any of these issues please report it to the HDS team.
+- Different versions of HDS library might have differently named styles or assets. If previous versions are still used in your files, you might need to do manual updates.
+
+### Breaking changes in Figma
+
+- **SearchInput** → in Figma is renamed as Search in HDS v5, and its structure has been modified. See Figma HDS Kit Changelog for more details.
+- **Header** → features now Search and several modifications were made to its structure in Figma. See Figma HDS Kit Changelog for more details.
+- **Select** → Several changes made in Select and MultiSelect dependencies. See Figma HDS Kit Changelog for more details.
+- **Notification** → Sizing, spacing and font-size related modifications. See Figma HDS Kit Changelog for more details.
+- **Link** → New variants for different interaction states, changes in underlining styles. See Figma HDS Kit Changelog for more details.
+
+### Removed components and variants that need replacement
+
+- **Dropdown** (Deprecated in v3) → This component is no longer included in HDS Kit 5.0.0 file. If you still use it, switch to Select, which was introduced already in v4.
+- **PhoneInput / Country code variant** (Deprecated in v4.1.0) → This component variant is no longer included in HDS Kit 5.0.0 file. Instead use the default PhoneInput and guide users through assistive text in case country code inclusion is required.
+
+### How to safely update from v4 to v5?
+
+#### 1. Duplicate your current design file
+
+In order to avoid disruptions to your workflow, it is recommended that you duplicate your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file. A guide for duplicating files can be found in Figma Learn.
+
+#### 2. Review and accept updates
+
+In your duplicate file, review and accept the HDS Design Kit library updates.
+
+#### 3. Check results
+
+Successful update should include the new font as a variable in all the updated HDS components. You can do this by selecting the text layers in Dev-mode.
+
+### How can I continue using HDS v4?
+
+Although we recommend to use the latest HDS version, in case your project is not ready to take the new v5, then you can either:
+
+a. Leave your files with pending update (no further tasks required)
+
+b. Swap to the new separate HDS Design v4.10.0 fallback library (follow steps below)
+
+In case you choose option b. your file will no longer receive v5 updates.
+
+#### Swap library
+
+1. Duplicate first your current design file
+2. Instead of taking the v5.0.0 updates, swap in assets/libraries the HDS Design Kit v5.0.0 library into HDS Design Kit v4.10.0. Swapping libraries allows you to quickly update instances in a file to use components from another library. The guide for swapping components can be found in Figma Learn.
+
+### How to migrate from HDS v3 to v5?
+
+If you are using the separate HDS v3 file in your designs, swap the v3 library to the new HDS Kit v5.0.0.
+
+### Can I continue using HDS v3?
+
+Although the library is still available for reference it is no longer recommended to use it since we no longer support it.
+
+---
+
 ## Summary
 
 | Area        | Change |
@@ -349,5 +426,6 @@ This token is used by the Notification component and any custom use of `--color-
 | **Font**   | Helsinki Grotesk Pro replaces the previous default font. |
 | **Hero**   | Container and content max-widths and layout updated; 690px content max-width, container width at xl only. |
 | **alert-dark** | Token value changed from `#986700` to `#d18200`. |
+| **Figma Design Kit** | New font Helsinki Grotesk Pro VAR, new Figma variables, updated Search/Header/Select/Link/Notification/Hero components, Dropdown and PhoneInput country code variant removed. |
 
 For other breaking changes in 5.0.0 (e.g. Select/Combobox), see the [Changelog](/about/releases).
