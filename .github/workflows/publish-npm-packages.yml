@@ -6,6 +6,10 @@ on:
       commit_sha:
         required: true
         type: string
+      release_command:
+        required: false
+        type: string
+        default: "yarn release"
     secrets:
       NPM_TOKEN:
         required: true
