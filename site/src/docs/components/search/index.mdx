@@ -170,6 +170,17 @@ The primary use case for Search: the user types a query and receives asynchronou
 
 When a `historyId` is provided, the component stores previous searches in `localStorage` and shows them when the input is focused or the user presses ArrowDown on an empty input. This makes it easy for users to repeat previous searches.
 
+Since the search history is stored in `localStorage`, it requires the user to accept the **Preferences** cookie group via the <InternalLink href="/components/cookie-consent">CookieConsent</InternalLink> component. If the user has not given consent, the `historyId` prop has no effect and no search history is stored. Make sure your service includes the `hds-search-history-*` entry in the preferences cookie group of your cookie consent settings.
+
+<ExternalLink
+  href="/storybook/react/?path=/story/components-search--with-cookie-consent"
+  openInExternalDomainAriaLabel="Opens in a new domain"
+  openInNewTab
+  openInNewTabLabel="Opens in a new tab"
+>
+  View search with cookie consent example in Storybook
+</ExternalLink>
+
 <PlaygroundPreview>
   <SearchWithHistoryExample />
 </PlaygroundPreview>

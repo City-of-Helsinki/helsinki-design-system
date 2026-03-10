@@ -9,7 +9,9 @@ import * as React from 'react';
 import PropTypes from 'prop-types';
 import { withPrefix, Link as GatsbyLink, navigate, useStaticQuery, graphql } from 'gatsby';
 import { MDXProvider } from '@mdx-js/react';
-import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi } from 'hds-react';
+import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi, CookieConsentContextProvider, CookieBanner } from 'hds-react';
+import MatomoTracker from './MatomoTracker';
+import cookieConsentSettings from './cookieConsentSettings';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
 import SyntaxHighlighter from './SyntaxHighlighter';
@@ -226,7 +228,10 @@ const Layout = ({ location, children, pageContext }) => {
   const contentId = 'content';
 
   return (
-    <>
+    <CookieConsentContextProvider
+      siteSettings={cookieConsentSettings}
+      options={{ language: 'en', focusTargetSelector: '#content h1' }}
+    >
       <Seo
         title={siteTitle}
         pageTitle={pageTitle}
@@ -238,6 +243,8 @@ const Layout = ({ location, children, pageContext }) => {
           },
         ]}
       />
+      <MatomoTracker />
+      <CookieBanner />
       <div className="page text-body">
         <Header id="page-header" className="pageHeader" aria-label="Page header">
           <Header.SkipLink skipTo={`#${contentId}`} label="Skip to content" />
@@ -349,11 +356,21 @@ const Layout = ({ location, children, pageContext }) => {
               href={hrefWithVersion('/getting-started/contributing/how-to-contribute', version)}
             />
             <Footer.Link label="Accessibility statement" href={hrefWithVersion('/about/accessibility/statement', version)} />
+            <Footer.Link
+              label="Cookie settings"
+              href="#"
+              onClick={(e) => {
+                e.preventDefault();
+                if (typeof window !== 'undefined' && window.hds && window.hds.cookieConsent) {
+                  window.hds.cookieConsent.openBanner();
+                }
+              }}
+            />
             <Footer.Link label="GitHub" href="https://github.com/City-of-Helsinki/helsinki-design-system" />
           </Footer.Base>
         </Footer>
       </div>
-    </>
+    </CookieConsentContextProvider>
   );
 };
 
