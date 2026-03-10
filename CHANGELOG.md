@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.0.0] - Month, XX, 202X
+## [5.0.0] - March, 11, 2026
 
 ### React
 
@@ -90,9 +90,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Breakpoints] [Design-only] Token-based breakpoint variables were added to the library.
 - [Spacing] [Design-only] Token-based spacing variables were added to the library.
 - [Local styles] Added 4 styles for Link hover state, which were applied to Link component
-- [Patterns / Search Results] New pattern documentation for Search results page. Includes specifications, variations, accessibility notes and prototypes 
-- [Card] New breakpoint variants for card with Image
-- [Card] New skeleton state (loading) variants
 - [Link] now has complete range of states inside the component
 - [Grid and Breakpoints] Added note about Grid visualization in Figma
 - [Grid and Breakpoints] Added a XXL breakpoint (≥ 1440px)
@@ -105,7 +102,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Hero] Added a comparison table with details on where the max-width is applied within the different variants
 - [SearchInput] The SearchInput offers now also a filter variant. The filter variant serves the filter functionality of select and multiselect components.
 - [SearchInput] The input structure includes also an icon on the left side. 
-- [ModularOptionList] New component that provides building blocks for SearchInput and Select
+- [.ModularOptionList] New component dependency that provides building blocks for SearchInput and Select
 
 #### Changed
 
@@ -131,8 +128,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Header] .Header.Navigationmenu L-breakpoint now uses the same subcomponent that all the other variants do
 - [Header] Removed size variants and property from .Header.Navigationmenu.List, renamed the component
 - [Header] New subcomponent .Header.Navigationmenu.ListItem divided from .Header.Navigationmenu.List now allows the  changing of item states inside the navigation menu
-- [Card] Title fontsizes changed to H4 size, and if link: underlined by default
-- [Card] Text card category tag placement unified with image card
 - [Select][Multiselect] Components now use ModularOptionList & SearchInput. Old subcomponents deleted
 - [Grid and Breakpoints] Breakpoint XXL included a centered container with max-width of 1440px
 - [Grid and Breakpoints] Spec table updated to better match development
@@ -151,7 +146,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Placeholder] Locked aspect-ratio in each variant. This affects all components in Figma using placeholder.
 - [Hero] The Placeholder aspect-ratio fix implicated breaks in Hero design, thus auto-layout settings were added to make the breakpoint versions work better and avoid Koros breaking. These fixes could possibly bring changes to the layouts using the Hero in Figma. 
-- [Card] Text card fixed to be more responsive
 - [Design kit] Couple of fixes to Grid/breakpoint and Footer documentation
 - [Link] Fixed incomplete state documentation
 - [ModularOptionList] Text properties fixed
@@ -163,6 +157,29 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [PhoneInput, variant] Removed CountryCode variant from library after ending deprecation period
 - [Dropdown] Removed from library after ending deprecation period
+
+#### Unreleased
+
+##### Added
+
+- [Card] New breakpoint variants for card with Image
+- [Card] New skeleton state (loading) variants
+- [Patterns / Search Results] New pattern documentation for Search results page. Includes specifications, variations, accessibility notes and prototypes 
+
+##### Changed
+
+- [Card] Title fontsizes changed to H4 size, and if link: underlined by default
+- [Card] Text card category tag placement unified with image card
+- [Footer] Updated footer documentation with new guide on usage of optional sections and theme support
+- [Footer] Footer component properties support now hiding/showing optional sections
+- [Footer] Introducing a new "Custom section" (hidden by default), with 4 groups combining linked headings, text layers and navigation links
+- [Footer] Auto layout improvements for Navigation and Utility S/M sizes
+- [Table] Introducing new table specification for use of lateral shadows in case of overflow scrolling.
+- [Table] Table header, cell backgrounds and borders updated to improve consistency across services
+
+##### Fixed
+
+- [Card] Text card fixed to be more responsive
 
 ## [4.10.0] - January, 29, 2026
 
