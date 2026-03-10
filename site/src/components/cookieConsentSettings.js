@@ -94,6 +94,36 @@ const cookieConsentSettings = {
         },
       ],
     },
+    {
+      groupId: 'preferences',
+      title: {
+        en: 'Preferences',
+        fi: 'Asetukset',
+        sv: 'Inställningar',
+      },
+      description: {
+        en: 'Preference cookies allow the website to remember choices you have made, such as search history.',
+        fi: 'Asetusevästeet muistavat tekemäsi valinnat, kuten hakuhistorian.',
+        sv: 'Inställningskakor gör att webbplatsen kan komma ihåg val du har gjort, till exempel sökhistorik.',
+      },
+      cookies: [
+        {
+          name: 'hds-search-history-*',
+          host: 'hds.hel.fi',
+          description: {
+            en: 'Stores search history for the search component.',
+            fi: 'Tallentaa hakukomponentin hakuhistorian.',
+            sv: 'Lagrar sökhistorik för sökkomponenten.',
+          },
+          expiration: {
+            en: 'Persistent',
+            fi: 'Pysyvä',
+            sv: 'Bestående',
+          },
+          storageType: 2,
+        },
+      ],
+    },
   ],
   translations: {
     // Banner

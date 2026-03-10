@@ -2,10 +2,10 @@ import React, { useCallback, useRef, useState } from 'react';
 
 import { Search, SearchProps, SearchInputHandle } from './Search';
 import { Notification } from '../../notification';
-import { Button } from '../../button';
+import { Button, ButtonVariant, ButtonSize } from '../../button';
 import { getOptions } from '../modularOptionList/batch.options';
 import { CookieConsentContextProvider, CookieBanner } from '../../cookieConsent';
-import siteSettings from '../../cookieConsentCore/example/minimal_sitesettings.json';
+import siteSettings from '../../cookieConsentCore/example/hds_sitesettings.json';
 
 export default {
   component: Search,
@@ -222,7 +222,7 @@ export const WithCookieConsent = () => {
 
   return (
     <CookieConsentContextProvider
-      siteSettings={{ ...siteSettings, cookieName: 'helfi-cookie-consents', remove: true, monitorInterval: 1 }}
+      siteSettings={{ ...siteSettings, remove: true, monitorInterval: 1 }}
       options={{ focusTargetSelector: 'main h1' }}
     >
       {showNotification && (
@@ -240,6 +240,18 @@ export const WithCookieConsent = () => {
       )}
       <Search {...props} onSend={onSend} onChange={onChange} value={value} onSearch={handleSearch} />
       <CookieBanner />
+      <br />
+      <Button
+        variant={ButtonVariant.Secondary}
+        size={ButtonSize.Small}
+        onClick={() => {
+          if (window.hds?.cookieConsent) {
+            window.hds.cookieConsent.openBanner();
+          }
+        }}
+      >
+        Cookie settings
+      </Button>
     </CookieConsentContextProvider>
   );
 };
