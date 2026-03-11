@@ -6,6 +6,7 @@ import { HeaderActionBarItemButton, HeaderActionBarItemButtonProps } from './Hea
 import { useHeaderContext } from '../../HeaderContext';
 import classNames from '../../../../utils/classNames';
 import { AllElementPropsWithRef } from '../../../../utils/elementTypings';
+import { addDocumentFocusPrevention } from '../../utils/focusPrevention';
 
 export type HeaderActionBarItemProps = React.PropsWithChildren<
   AllElementPropsWithRef<'div'> & {
@@ -34,6 +35,11 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
      */
     fullWidth?: boolean;
     /**
+     * Makes only the dropdown full-width without affecting the button styling.
+     * Use this when you want a full-width dropdown but keep the normal button appearance.
+     */
+    fullWidthDropdown?: boolean;
+    /**
      * Icon for the action bar item.
      */
     icon?: JSX.Element;
@@ -57,6 +63,11 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
      * Menu button resizing is prevented by rendering button's active state to a separate element.
      */
     preventButtonResize?: boolean;
+    /**
+     * Role attribute for the dropdown list element.
+     * Use "presentation" to remove list semantics (e.g. for search panels).
+     */
+    listRole?: React.HTMLAttributes<HTMLUListElement>['role'];
   }
 >;
 
@@ -66,6 +77,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     children,
     label,
     fullWidth,
+    fullWidthDropdown,
     className: classNameProp,
     iconClassName: iconClassNameProp,
     dropdownClassName: dropdownClassNameProp,
@@ -77,10 +89,13 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     fixedRightPosition,
     preventButtonResize,
     avatar,
+    listRole,
     ...rest
   } = properties;
   const dropdownContentElementRef = useRef<HTMLDivElement>(null);
   const containerElementRef = useRef<HTMLDivElement>(null);
+  const backdropRef = useRef<HTMLDivElement>(null);
+  const originalTabIndexes = useRef<Map<Element, string | null>>(new Map());
   const [hasContent, setHasContent] = useState(false);
   const { isSmallScreen } = useHeaderContext();
   const [visible, setDisplayProperty] = useState(false);
@@ -95,25 +110,82 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     if (!visible) return;
     const container = getContainer();
     const eventTargetNode = event.target;
-    if (!container.contains(eventTargetNode)) {
-      setDisplayProperty(false);
+
+    // Check if click is inside the container
+    if (container.contains(eventTargetNode)) {
+      return;
     }
+
+    // Click on the backdrop is handled by the backdrop's own onClick
+    const backdrop = backdropRef.current;
+    if (backdrop && backdrop.contains(eventTargetNode)) {
+      return;
+    }
+
+    // For Menu item, also check if click is inside the controlled element (mobile menu)
+    if (id === 'Menu') {
+      const controlledElement = document.getElementById('hds-mobile-menu');
+      if (controlledElement && controlledElement.contains(eventTargetNode)) {
+        return;
+      }
+    }
+
+    // Click is outside - close the dropdown and prevent this click from doing anything else
+    event.preventDefault();
+    event.stopPropagation();
+    event.stopImmediatePropagation();
+    setDisplayProperty(false);
   };
 
   const handleBlur = (event) => {
     if (!visible) return;
     const container = getContainer();
+    const backdrop = backdropRef.current;
     const eventTargetNode = event.relatedTarget;
     // close the dropdown if the focus is outside the container on large screens
-    if (!container.contains(eventTargetNode) && !isSmallScreen) {
+    // but not if focus moved to the backdrop
+    // Also keep open if relatedTarget is null — this happens during click-triggered DOM updates
+    if (eventTargetNode && !container.contains(eventTargetNode) && eventTargetNode !== backdrop && !isSmallScreen) {
+      setDisplayProperty(false);
+    }
+  };
+
+  const handleKeyDown = (event) => {
+    if (event.key === 'Escape' && visible) {
+      // Don't close if event was already handled by an inner component (e.g. Search dropdown)
+      if (event.defaultPrevented) {
+        return;
+      }
+      event.preventDefault();
       setDisplayProperty(false);
     }
   };
 
   useEffect(() => {
-    document.addEventListener('click', handleDocumentClick);
-    return () => document.removeEventListener('click', handleDocumentClick);
-  }, [containerElementRef.current]);
+    if (visible) {
+      // Only add the listener when dropdown is visible
+      document.addEventListener('click', handleDocumentClick, true);
+      document.addEventListener('keydown', handleKeyDown);
+
+      // Use the shared utility function to prevent keyboard focus on elements outside the header.
+      // Only block tabindex (not pointer events) — the capturing click listener already handles
+      // closing on outside clicks. Blocking pointer events would break pages with multiple
+      // Header instances (e.g. documentation site with example Headers).
+      const header = containerElementRef.current?.closest('header') as HTMLElement;
+      const cleanupFocusPrevention = header ? addDocumentFocusPrevention(header, originalTabIndexes) : null;
+
+      return () => {
+        document.removeEventListener('click', handleDocumentClick, true);
+        document.removeEventListener('keydown', handleKeyDown);
+
+        // Cleanup focus prevention
+        if (cleanupFocusPrevention) {
+          cleanupFocusPrevention();
+        }
+      };
+    }
+    return undefined;
+  }, [visible]);
 
   // Hide the component if there is no content
   useEffect(() => {
@@ -123,17 +195,28 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
   const iconLabel = closeLabel && visible && !preventButtonResize ? closeLabel : label;
   const iconClass = closeIcon && visible && !preventButtonResize ? closeIcon : icon;
   const hasSubItems = React.Children.count(children) > 0;
+  const isFullWidth = fullWidth || (isSmallScreen && fixedRightPosition);
+  const isDropdownFullWidth = isFullWidth || fullWidthDropdown;
+
   const visibilityClasses = {
     visible,
     [classes.visible]: visible,
     [classes.hasContent]: hasContent,
-    [classes.fullWidth]: fullWidth || (isSmallScreen && fixedRightPosition),
+    [classes.fullWidth]: isFullWidth,
+    [classes.fullWidthDropdown]: fullWidthDropdown,
     [classes.hasSubItems]: hasSubItems,
     [classes.menuItem]: id === 'Menu',
   };
   const className = classNames(classes.container, classNameProp, visibilityClasses);
   const iconClassName = classNames(classes.icon, iconClassNameProp);
-  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, visibilityClasses);
+
+  // Dropdown gets fullWidth class if either fullWidth OR fullWidthDropdown is true
+  const dropdownVisibilityClasses = {
+    ...visibilityClasses,
+    [classes.fullWidth]: isDropdownFullWidth,
+  };
+  const dropdownClassName = classNames(classes.dropdown, dropdownClassNameProp, dropdownVisibilityClasses);
+
   const buttonOverlayProps: Pick<HeaderActionBarItemButtonProps, 'activeStateIcon' | 'activeStateLabel'> =
     preventButtonResize
       ? {
@@ -141,37 +224,63 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
           activeStateLabel: closeLabel,
         }
       : {};
-  const heading = visible && !fullWidth && label && avatar;
+  const heading = visible && !isFullWidth && label && avatar;
 
   /* eslint-disable jsx-a11y/no-noninteractive-tabindex */
   return (
-    <div {...rest} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
-      <HeaderActionBarItemButton
-        className={iconClassName}
-        onClick={handleButtonClick}
-        label={iconLabel}
-        icon={iconClass}
-        aria-expanded={visible}
-        aria-label={ariaLabel !== undefined ? ariaLabel : String(label)}
-        aria-controls={id === 'Menu' ? `hds-mobile-menu` : `${id}-dropdown`}
-        labelOnRight={labelOnRight}
-        fixedRightPosition={fixedRightPosition}
-        isActive={visible}
-        fullWidth={fullWidth}
-        hasSubItems={hasSubItems}
-        avatar={avatar}
-        preventButtonResize={preventButtonResize}
-        {...buttonOverlayProps}
-      />
-      {hasSubItems && (
-        <div className={classes.dropdownWrapper}>
-          <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
-            {heading && <h3>{label}</h3>}
-            <ul>{children}</ul>
-          </div>
-        </div>
+    <>
+      {visible && hasSubItems && (
+        <div
+          ref={backdropRef}
+          className={classes.backdrop}
+          aria-hidden="true"
+          role="presentation"
+          onClick={(e) => {
+            // Clicking the backdrop closes the dropdown without propagating
+            // the click to elements underneath.
+            e.preventDefault();
+            e.stopPropagation();
+            setDisplayProperty(false);
+          }}
+          style={{
+            position: 'fixed',
+            top: 0,
+            left: 0,
+            right: 0,
+            bottom: 0,
+            // Sit above page content but below the header (headerBackgroundWrapper z-index: 10)
+            zIndex: 9,
+          }}
+        />
       )}
-    </div>
+      <div {...rest} id={id} className={className} ref={containerElementRef} onBlur={handleBlur}>
+        <HeaderActionBarItemButton
+          className={iconClassName}
+          onClick={handleButtonClick}
+          label={iconLabel}
+          icon={iconClass}
+          aria-expanded={visible}
+          aria-label={ariaLabel !== undefined ? ariaLabel : String(label)}
+          aria-controls={id === 'Menu' ? `hds-mobile-menu` : `${id}-dropdown`}
+          labelOnRight={labelOnRight}
+          fixedRightPosition={fixedRightPosition}
+          isActive={visible}
+          fullWidth={fullWidth}
+          hasSubItems={hasSubItems}
+          avatar={avatar}
+          preventButtonResize={preventButtonResize}
+          {...buttonOverlayProps}
+        />
+        {hasSubItems && (
+          <div className={classes.dropdownWrapper}>
+            <div id={`${id}-dropdown`} className={dropdownClassName} ref={dropdownContentElementRef}>
+              {heading && <h3>{label}</h3>}
+              <ul role={listRole}>{children}</ul>
+            </div>
+          </div>
+        )}
+      </div>
+    </>
   );
 };
 

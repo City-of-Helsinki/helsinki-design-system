@@ -38,7 +38,7 @@ exports[`<StepByStep /> spec renders the component 1`] = `
           </p>
           <p>
             <a
-              class="link link-medium"
+              class="link"
               href="https://hel.fi"
             >
               Esimerkki lisätietolinkistä

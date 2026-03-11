@@ -130,7 +130,7 @@ const DemoPage = () => {
             >
               <Link
                 ariaLabel="Learn more about applying to daycare"
-                openInNewTabAriaLabel="Opens in new tab"
+                openInNewTabLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
                 href="https://asti.hel.fi"
@@ -147,7 +147,7 @@ const DemoPage = () => {
             >
               <Link
                 ariaLabel="Learn more about events"
-                openInNewTabAriaLabel="Opens in new tab"
+                openInNewTabLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
                 href="https://tapahtumat.hel.fi/en/home"
@@ -164,7 +164,7 @@ const DemoPage = () => {
             >
               <Link
                 ariaLabel="Learn more about renting a berth for a boat"
-                openInNewTabAriaLabel="Opens in new tab"
+                openInNewTabLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
                 href="https://venepaikat.hel.fi/fi/berths"
@@ -183,7 +183,7 @@ const DemoPage = () => {
             >
               <Link
                 ariaLabel="Learn more about becoming a culture kid"
-                openInNewTabAriaLabel="Opens in new tab"
+                openInNewTabLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
                 href="https://kummilapset.hel.fi/en/"
@@ -202,7 +202,7 @@ const DemoPage = () => {
             >
               <Link
                 ariaLabel="Learn more about hel.fi site"
-                openInNewTabAriaLabel="Opens in new tab"
+                openInNewTabLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
                 href="https://hel.fi"
@@ -219,7 +219,7 @@ const DemoPage = () => {
             >
               <Link
                 ariaLabel="Learn more about parking permits"
-                openInNewTabAriaLabel="Opens in new tab"
+                openInNewTabLabel="Opens in new tab"
                 openInExternalDomainAriaLabel="Directs to another site"
                 className="info-page-card-grid-link-button"
                 href="https://www.hel.fi/en/urban-environment-and-traffic/parking/resident-parking"

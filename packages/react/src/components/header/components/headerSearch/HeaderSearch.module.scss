@@ -1,10 +1,90 @@
 @import "../../../../styles/common.scss";
 
+.headerSearchButton {
+  // Hide angle-down and angle-up icons (they appear as direct children in buttonContent after activeStateContent)
+  :global(button > div > svg:nth-last-child(2)) {
+    display: none !important;
+  }
+}
+
 .searchContainer {
   align-items: center;
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-black-80) !important;
   border-radius: 0;
+  box-sizing: border-box;
   color: var(--nav-search-color);
   display: flex;
+  flex-direction: column;
+  gap: var(--spacing-s);
+  margin: 0 0 2px;
+  min-height: 509px;
+  outline: none !important;
+  padding-top: var(--spacing-2-xl);
   position: relative;
   width: 100%;
+
+  h3 {
+    background: var(--header-background-color);
+    color: var(--header-color);
+    font-size: var(--fontsize-heading-l);
+    font-weight: 400;
+    margin: 0;
+    max-width: 100%;
+    text-align: left;
+  }
+
+  > div {
+    max-width: 100%;
+  }
+
+  .searchRow {
+    align-items: flex-start;
+    display: flex;
+    flex-direction: row;
+    gap: var(--spacing-s);
+    margin-top: var(--spacing-m);
+
+    > :first-child {
+      width: 420px;
+
+      input {
+        height: 52px;
+      }
+    }
+
+    > button {
+      border: 0;
+      padding: var(--spacing-s) var(--spacing-m);
+      white-space: nowrap;
+    }
+
+    &:has(label) > button {
+      margin-top: calc(var(--lineheight-l) * var(--fontsize-body-m) + var(--spacing-3-xs));
+    }
+
+    @media only screen and (max-width: 576px) {
+      flex-direction: column;
+      width: 100%;
+
+      > :first-child {
+        max-width: 100%;
+        width: 100%;
+      }
+
+      > button {
+        margin-top: 0;
+        width: 100%;
+      }
+
+      &:has(label) > button {
+        margin-top: 0;
+      }
+    }
+  }
+}
+
+// Increase specificity to override HeaderActionBarItem dropdown styles
+:global([class*="HeaderActionBarItem_dropdown"]) ul > .searchContainer {
+  padding: var(--spacing-2-xl) var(--spacing-m);
 }

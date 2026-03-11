@@ -1,0 +1,307 @@
+---
+slug: '/components/search/code'
+title: 'Search - Code'
+---
+
+import { Search, Notification } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import InternalLink from '../../../components/InternalLink';
+import ExternalLink from '../../../components/ExternalLink';
+import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Code
+
+<Playground scope={{ Search, Notification }}>
+
+```jsx
+import { Search, Notification } from 'hds-react';
+
+() => {
+  const [value, setValue] = React.useState('');
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+
+  const fruits = [
+    'Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut',
+    'Cranberry', 'Dragon fruit', 'Fig', 'Grape', 'Grapefruit', 'Guava', 'Honeydew', 'Kiwi',
+    'Lemon', 'Lime', 'Lychee', 'Mango', 'Nectarine', 'Orange', 'Papaya', 'Passion fruit',
+    'Peach', 'Pear', 'Pineapple', 'Plum', 'Pomegranate', 'Raspberry', 'Starfruit',
+    'Strawberry', 'Tangerine', 'Watermelon',
+  ];
+
+  const handleSearch = React.useCallback((searchValue) => {
+    if (searchValue === 'error') {
+      return Promise.reject(new Error('Simulated error'));
+    }
+    return Promise.resolve({
+      groups: [
+        {
+          label: '',
+          options: fruits
+            .filter((s) => s.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+            .map((s) => ({ label: s, value: s })),
+        },
+      ],
+    });
+  }, []);
+
+  const [props] = React.useState({
+    id: 'search-playground',
+    historyId: 'search-playground-history',
+    texts: {
+      label: 'Search for fruits',
+      language: 'en',
+    },
+  });
+
+  return (
+    <>
+      {showNotification && (
+        <Notification
+          label="Search submitted"
+          type="success"
+          position="bottom-right"
+          autoClose
+          closeButtonLabelText="Close notification"
+          dismissible
+          onClose={() => setShowNotification(false)}
+        >
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        {...props}
+        value={value}
+        onChange={(e) => setValue(e.target.value)}
+        onSearch={handleSearch}
+        onSend={(val) => {
+          setNotificationMessage(`Search submitted: "${val}"`);
+          setShowNotification(true);
+        }}
+      />
+    </>
+  );
+};
+```
+
+</Playground>
+
+### The onSearch function
+
+The `onSearch` function is asynchronous and is called each time the user types text in the input. It should return a promise that resolves to an object containing `groups` or `options`.
+
+Search results are shown as a dropdown list of suggestions. If the search returns an error (the promise rejects), an error message is displayed to the user.
+
+```jsx
+const handleSearch = (searchValue, selectedOptions, data) => {
+  // Return a promise that resolves to groups or options
+  return fetch(`/api/search?q=${searchValue}`)
+    .then((response) => response.json())
+    .then((results) => ({
+      options: results.map((item) => ({ label: item.name, value: item.id })),
+    }));
+};
+
+<Search onSearch={handleSearch} />
+```
+
+The function is called with the following arguments:
+
+| Argument                                      | Description                          | Values                |
+| --------------------------------------------- | ------------------------------------ | --------------------- |
+| `searchValue`                                 | The text the user has typed.         | `string`              |
+| `selectedOptions`                             | Currently selected options.          | `Option[]`            |
+| `data`                                        | All data of the Search component.    | `SearchData`          |
+| [Table 1: Arguments of the onSearch function] |
+
+The function should return a promise that resolves with either `groups` or `options`:
+
+| Property                                       | Description                                                              | Values     |
+| ---------------------------------------------- | ------------------------------------------------------------------------ | ---------- |
+| `groups`                                       | Array of groups in the same format as passed to the component.           | `Group[]`  |
+| `options`                                      | Array of options in the same format as passed to the component.          | `Option[]` |
+| [Table 2: Return values of the onSearch function] |
+
+### Passing options
+
+Search suggestions (from `onSearch`) follow the same option format as the <InternalLink href="../select/code#passing-options">Select component</InternalLink>. Options can be strings, objects, or grouped.
+
+#### Properties of the option object
+
+| Property                     | Description                                                        | Values    | Default value |
+| ---------------------------- | ------------------------------------------------------------------ | --------- | ------------- |
+| `disabled`                   | Can the option be selected.                                        | `boolean` | false         |
+| `isGroupLabel`               | Internal. Indicates a group label option. Should not be edited.    | `boolean` | false         |
+| `label`                      | Label, visible to the user.                                        | `string`  | -             |
+| `selected`                   | Is the option selected.                                            | `boolean` | false         |
+| `value`                      | Value, not visible to the user.                                    | `string`  | -             |
+| `visible`                    | Is the option visible.                                             | `boolean` | true          |
+| [Table 3: Option properties] |
+
+### Options as groups
+
+Options can be grouped by providing them in the search result. Groups have `label` and `options` properties.
+
+```jsx
+const handleSearch = (searchValue) => {
+  return Promise.resolve({
+    groups: [
+      {
+        label: 'Category A',
+        options: [{ label: 'Option 1' }, { label: 'Option 2' }],
+      },
+      {
+        label: 'Category B',
+        options: [{ label: 'Option 3' }, { label: 'Option 4' }],
+      },
+    ],
+  });
+};
+```
+
+### Controlled input value
+
+The Search component supports controlled mode via `value` and `onChange` props. When `value` is provided, the component is controlled and the parent is responsible for updating the value.
+
+```jsx
+const [value, setValue] = React.useState('');
+
+<Search
+  value={value}
+  onChange={(e) => setValue(e.target.value)}
+  onSearch={handleSearch}
+  onSend={(val) => console.log('Submitted:', val)}
+/>
+```
+
+### Submitting the search
+
+The `onSend` callback is called when the user submits the search, either by pressing Enter (when no suggestion is focused) or by clicking the search button.
+
+```jsx
+<Search
+  onSend={(value) => {
+    // Navigate to results page or perform search
+    console.log('User searched for:', value);
+  }}
+/>
+```
+
+### Search history
+
+When a `historyId` is provided, the component stores submitted searches in `localStorage` under the key `hds-search-history-{historyId}`. Up to 10 recent searches are stored.
+
+History items are shown when:
+- The input is empty and the user clicks on it
+- The input is empty and the user presses ArrowDown
+
+```jsx
+<Search
+  historyId="my-search"
+  onSearch={handleSearch}
+  onSend={(value) => console.log('Submitted:', value)}
+/>
+```
+
+The history is stored per `historyId`, so different search instances can have separate or shared histories.
+
+### Submitting programmatically
+
+You can use a ref to call the `submit()` method on the search input. This is useful when the submit button is external to the component.
+
+```jsx
+const searchRef = React.useRef(null);
+
+<Search ref={searchRef} hideSubmitButton onSearch={handleSearch} onSend={onSend} />
+<Button onClick={() => searchRef.current?.submit()}>Search</Button>
+```
+
+### Texts
+
+The component has default texts in Finnish, English, and Swedish. The language is set via `texts.language` (`fi`, `en`, or `sv`). Default is `fi`.
+
+If additional texts are passed, those values are used first and any missing texts fall back to the defaults for the given language.
+
+**Important:** The `texts` object must be memoized or defined outside the render cycle. Passing an inline object as the `texts` prop will cause React to re-render the component on every render, resetting its internal state. Use `useState`, `useMemo`, or define the object outside the component.
+
+**Note:** This limitation will be resolved in HDS 6.0, which upgrades to React 19. The React Compiler in React 19 automatically memoizes inline objects, so manual memoization will no longer be necessary.
+
+```jsx
+// ✅ Correct: texts object is stable across renders
+const [props] = React.useState({
+  id: 'my-search',
+  texts: {
+    language: 'en',
+    label: 'Search for something',
+    searchPlaceholder: 'Type to search...',
+  },
+});
+
+<Search {...props} onSearch={handleSearch} onSend={onSend} />
+```
+
+```jsx
+// ❌ Wrong: inline texts object causes re-renders and resets component state
+<Search
+  texts={{
+    language: 'en',
+    label: 'Search for something',
+  }}
+  onSearch={handleSearch}
+/>
+```
+
+#### Text keys
+
+| Key                                    | Purpose                                                                                        |
+| -------------------------------------- | ---------------------------------------------------------------------------------------------- |
+| `assistive`                            | Assistive text shown below the input.                                                          |
+| `error`                                | Error text. Shown only if `invalid` is `true`.                                                 |
+| `historyInfo`                          | Screenreader information about available search history.                                       |
+| `historyLabel`                         | Label for the recent-searches items when search history is shown (e.g. "Recent searches").     |
+| `label`                                | Label of the component.                                                                        |
+| `searchButtonAriaLabel`                | The `aria-label` for the search/submit button.                                                 |
+| `searchClearButtonAriaLabel`           | The `aria-label` for the clear button of the search input.                                     |
+| `searchedWithoutResultsInfo`           | Text shown when there are no options for the given search.                                     |
+| `searchErrorText`                      | Text shown when the search resulted in an error.                                               |
+| `searchErrorTitle`                     | Title shown when the search resulted in an error.                                              |
+| `searching`                            | Screenreader information shown when search started.                                            |
+| `searchLabel`                          | Label of the search input field.                                                               |
+| `searchPlaceholder`                    | Placeholder of the search input field.                                                         |
+| `searchResults_multiple`               | Screenreader information shown when search resulted in multiple options.                       |
+| `searchResults_one`                    | Screenreader information shown when search resulted in one option.                             |
+| `searchWithAnotherTerm`                | Suggestion shown when there are no results for the search.                                     |
+| `selectedOptionAnnouncement`           | Screenreader announcement when an option is selected.                                          |
+| [Table 4: Text keys]                   |                                                                                                |
+
+### Component properties
+
+| Property                        | Description                                                                                                                                | Values                                          | Default value |
+| ------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------ | ----------------------------------------------- | ------------- |
+| `disabled`                      | If set to true, the component is disabled.                                                                                                 | `boolean`                                        | false         |
+| `hideSubmitButton`              | If set to true, the built-in search/submit button is hidden.                                                                               | `boolean`                                        | false         |
+| `historyId`                     | Identifier for search history. When provided, search history is stored in `localStorage`. Multiple components can share the same history.  | `string`                                         | -             |
+| `id`                            | The id of the element. Used as a prefix for child element ids.                                                                             | `string`                                         | -             |
+| `invalid`                       | If set to true, the component shows an error.                                                                                              | `boolean`                                        | false         |
+| `onChange`                      | Called when the input value changes. Receives a standard React `ChangeEvent`.                                                              | `(event: ChangeEvent<HTMLInputElement>) => void` | -             |
+| `onBlur`                        | Called when the component loses focus.                                                                                                     | `() => void`                                     | -             |
+| `onFocus`                       | Called when the component gets focus.                                                                                                      | `() => void`                                     | -             |
+| `onSearch`                      | Asynchronous function that returns search suggestions. If set, suggestions are shown as a dropdown.                                        | `(searchValue, selectedOptions, data) => Promise` | -            |
+| `onSend`                        | Called when the user submits the search (Enter or button click).                                                                           | `(value: string) => void`                        | -             |
+| `required`                      | If set to true, `*` is shown with the label.                                                                                               | `boolean`                                        | false         |
+| `texts`                         | Overrides for default texts or a function that returns a text for given key.                                                                | `Partial<Texts>` or `(key, contents) => string`  | -             |
+| `theme`                         | Custom theme styles.                                                                                                                       | `SearchCustomTheme`                              | -             |
+| `tooltip`                       | Tooltip as a HDS Tooltip component.                                                                                                        | `ReactElement<TooltipProps, typeof Tooltip>`     | -             |
+| `value`                         | Controlled input value. When provided, the component is in controlled mode.                                                                | `string`                                         | -             |
+| `visibleOptions`                | Number of visible options in the dropdown before scrolling. Use decimals so a part of the next option is shown.                             | `number`                                         | 5.5           |
+| [Table 5: Search properties]    |
+
+<NativeElementPropsInfo nodeName="div" notAllowed={['tabIndex']} />{' '}
+
+### Packages
+
+| Package       | Included                                                                                        | Storybook link                                                                                                                                                           | Source link                                                                                                                                                                                                                                      |
+| ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------ | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------ |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-dropdowncomponents-search--example">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/blob/master/packages/react/src/components/dropdownComponents/search/Search.tsx">View source</ExternalLink> |

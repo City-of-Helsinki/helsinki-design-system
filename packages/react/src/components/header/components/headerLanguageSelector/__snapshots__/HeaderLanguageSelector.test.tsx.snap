@@ -111,25 +111,30 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component correct
                 </h4>
                 <a
                   aria-label="Selkosuomi. Siirtyy toiseen sivustoon."
-                  class="link link-medium"
+                  class="link hasIconEnd"
                   href="www.example.com"
                 >
                   Selkosuomi
-                  <svg
+                  <div
                     aria-hidden="true"
-                    aria-label="link-external"
-                    class="icon small icon verticalAlignMediumIcon"
-                    role="img"
-                    viewBox="0 0 24 24"
-                    xmlns="http://www.w3.org/2000/svg"
+                    style="display: contents;"
                   >
-                    <path
-                      clip-rule="evenodd"
-                      d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-                      fill="currentColor"
-                      fill-rule="evenodd"
-                    />
-                  </svg>
+                    <svg
+                      aria-hidden="true"
+                      aria-label="link-external"
+                      class="icon small"
+                      role="img"
+                      viewBox="0 0 24 24"
+                      xmlns="http://www.w3.org/2000/svg"
+                    >
+                      <path
+                        clip-rule="evenodd"
+                        d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+                        fill="currentColor"
+                        fill-rule="evenodd"
+                      />
+                    </svg>
+                  </div>
                 </a>
               </div>
             </li>
@@ -286,25 +291,30 @@ exports[`<Header.LanguageSelector /> spec renders the consumer component with pr
                       </h4>
                       <a
                         aria-label="Selkosuomi. Siirtyy toiseen sivustoon."
-                        class="link link-medium"
+                        class="link hasIconEnd"
                         href="www.example.com"
                       >
                         Selkosuomi
-                        <svg
+                        <div
                           aria-hidden="true"
-                          aria-label="link-external"
-                          class="icon small icon verticalAlignMediumIcon"
-                          role="img"
-                          viewBox="0 0 24 24"
-                          xmlns="http://www.w3.org/2000/svg"
+                          style="display: contents;"
                         >
-                          <path
-                            clip-rule="evenodd"
-                            d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
-                            fill="currentColor"
-                            fill-rule="evenodd"
-                          />
-                        </svg>
+                          <svg
+                            aria-hidden="true"
+                            aria-label="link-external"
+                            class="icon small"
+                            role="img"
+                            viewBox="0 0 24 24"
+                            xmlns="http://www.w3.org/2000/svg"
+                          >
+                            <path
+                              clip-rule="evenodd"
+                              d="M5 3V19H21V21H3V3H5ZM21 3V12H19V6.413L9.91421 15.5L8.5 14.0858L17.585 5H12V3H21Z"
+                              fill="currentColor"
+                              fill-rule="evenodd"
+                            />
+                          </svg>
+                        </div>
                       </a>
                     </div>
                   </li>

@@ -15,7 +15,7 @@
   max-width: var(--header-max-width);
   padding-left: var(--header-margin);
   padding-right: var(--header-margin);
-  position: relative;
+  position: static;
   z-index: var(--header-z-index);
 
   hr {
@@ -31,6 +31,7 @@
 .headerActionBarContainer {
   background-color: var(--actionbar-background-color);
   border-bottom: 1px solid var(--header-divider-color);
+  position: relative;
   width: 100%;
 }
 

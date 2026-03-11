@@ -1,0 +1,87 @@
+@charset "UTF-8";
+
+/*
+ * HelsinkiGroteskPro variable font (font file served from CDN).
+ * Regular (400), Medium (500), Bold (700), Black (900), each normal and italic.
+ * Font axes (fvar): wght 200–900, ital 0–1.
+ */
+
+/* Webfont: HelsinkiGroteskPro-Regular */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: normal;
+  font-weight: 400;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-RegularItalic */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: italic;
+  font-weight: 400;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-Medium */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: normal;
+  font-weight: 500;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-MediumItalic */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: italic;
+  font-weight: 500;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-Bold */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: normal;
+  font-weight: 700;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-BoldItalic */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: italic;
+  font-weight: 700;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-Black */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: normal;
+  font-weight: 900;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}
+
+/* Webfont: HelsinkiGroteskPro-BlackItalic */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: italic;
+  font-weight: 900;
+  src: url("") format("woff2");
+  text-rendering: optimizelegibility;
+}

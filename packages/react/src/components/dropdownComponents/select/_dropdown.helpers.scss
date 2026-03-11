@@ -1,0 +1,200 @@
+// focus outline
+%dropdownFocusOutline {
+  box-shadow: 0 0 0 var(--computed-focus-outline-width) var(--computed-focus-outline-color);
+}
+
+/**
+ * ROOT
+ */
+%dropdownRoot {
+  /*
+  * Generic style vars
+  */
+  --computed-border-width: var(--border-width, 2px);
+  --computed-divider-width: var(--divider-width, 1px);
+  --computed-focus-outline-width: var(--focus-outline-width, 3px);
+  --computed-dropdown-height: var(--spacing-3-xl);
+  --default-menu-item-height: calc(var(--computed-dropdown-height) - var(--computed-border-width) * 2);
+  --computed-menu-item-height: var(--menu-item-height, var(--default-menu-item-height));
+  --computed-menu-z-index: var(--menu-z-index, 10);
+  --computed-assistive-color: var(--assistive-color, var(--color-black-90));
+  --computed-focus-outline-color: var(--focus-outline-color, var(--color-focus-outline));
+  --computed-placeholder-color: var(--placeholder-color, var(--color-black-60));
+  --computed-border-color-invalid: var(--border-color-invalid, var(--color-error));
+
+  /*
+  * Color for the icon settable by the user
+  * Same icon size is used in all icons
+  */
+  --computed-icon-color: var(--icon-color, var(--color-black-90));
+  --computed-icon-size: var(--icon-size, var(--spacing-m));
+
+  /*
+  * Dropdown and menu items vars
+  * Icon-color of the other icons in the dropdown button
+  */
+  --computed-dropdown-icon-color: var(--dropdown-icon-color, var(--color-black-90));
+  --computed-dropdown-background-default: var(--dropdown-background-default, var(--color-white));
+  --computed-dropdown-background-disabled: var(--dropdown-background-disabled, var(--color-black-10));
+  --computed-dropdown-border-color-default: var(--dropdown-border-color-default, var(--color-black-50));
+  --computed-dropdown-border-color-hover: var(--dropdown-border-color-hover, var(--color-black-90));
+  --computed-dropdown-border-color-hover-invalid: var(--dropdown-border-color-hover-invalid, var(--color-error));
+  --computed-dropdown-border-color-focus: var(--dropdown-border-color-focus, var(--color-black-90));
+  --computed-dropdown-border-color-invalid: var(--dropdown-border-color-invalid, var(--color-error));
+  --computed-dropdown-border-color-disabled: var(--dropdown-border-color-disabled, var(--color-black-10));
+  --computed-dropdown-color-default: var(--dropdown-color-default, var(--color-black-90));
+  --computed-dropdown-color-disabled: var(--dropdown-color-disabled, var(--color-black-40));
+  --computed-menu-divider-color: var(--menu-divider-color, var(--color-black-20));
+  --computed-menu-item-background-color-default: var(--menu-item-background-color-default, var(--color-white));
+  --computed-menu-item-background-color-hover: var(--menu-item-background-color-hover, var(--color-bus-light));
+  --computed-menu-item-background-color-selected: var(--menu-item-background-color-selected, transparent);
+  --computed-menu-item-background-color-selected-hover: var(
+    --menu-item-background-color-selected-hover,
+    var(--color-bus-light)
+  );
+  --computed-menu-item-background-color-disabled: var(--menu-item-background-color-disabled, var(--color-white));
+  --computed-menu-item-background-color-disabled-hover: var(--menu-item-background-color-disabled-hover, transparent);
+  --computed-menu-item-color-default: var(--menu-item-color-default, var(--color-black-90));
+  --computed-menu-item-color-hover: var(--menu-item-color-hover, var(--color-black-90));
+  --computed-menu-item-color-selected: var(--menu-item-color-selected, var(--color-black-90));
+  --computed-menu-item-color-selected-hover: var(--menu-item-color-selected-hover, var(--color-black-90));
+  --computed-menu-item-color-disabled: var(--menu-item-color-disabled, var(--color-black-40));
+  --computed-menu-item-icon-color-selected: var(--menu-item-icon-color-selected, var(--color-white));
+  --computed-menu-item-icon-color-disabled: var(--menu-item-icon-color-disabled, var(--color-black-40));
+  --computed-menu-item-border-color-focus: var(--menu-item-border-color-focus, var(--color-coat-of-arms));
+  --computed-menu-item-group-label-background-default: var(
+    --menu-item-group-label-background-default,
+    var(--color-black-5)
+  );
+  --computed-menu-item-group-label-background-disabled: var(
+    --menu-item-group-label-background-disabled,
+    var(--color-black-5)
+  );
+  --computed-menu-item-group-label-background-disabled-hover: var(
+    --menu-item-group-label-background-disabled-hover,
+    var(--color-black-5)
+  );
+  --computed-menu-item-group-label-color-disabled: var(--menu-item-group-label-color-disabled, var(--color-black-90));
+
+  /*
+  * Error text vars
+  */
+  --computed-error-text-color: var(--error-text-color, var(--color-black));
+  --computed-error-icon-color: var(--error-icon-color, var(--color-error));
+  --computed-error-background-color: var(--error-background-color, var(--color-error-light));
+  --computed-error-border-color: var(--error-border-color, var(--color-error));
+
+  /*
+  *   Actual css
+  */
+  position: relative;
+
+  input {
+    /*
+    * Normalize.css rule
+    * 1. Change the font styles in all browsers.
+    * 2. Remove the margin in Firefox and Safari.
+    */
+    font-family: inherit; /* 1 */
+    margin: 0; /* 2 */
+
+    /*
+    * Normalize.css rule
+    * Remove the default vertical scrollbar in IE 10+.
+    */
+    overflow: auto;
+  }
+}
+
+/**
+ * WRAPPER
+ */
+
+%dropdownWrapper {
+  background-color: var(--computed-dropdown-background-default);
+  border: var(--computed-border-width) solid var(--computed-dropdown-border-color-default);
+  box-sizing: border-box;
+  min-height: var(--computed-dropdown-height);
+  position: relative;
+  width: 100%;
+
+  &:focus-within {
+    @extend %dropdownFocusOutline;
+
+    border-color: var(--computed-dropdown-border-color-focus);
+  }
+
+  &:hover {
+    border-color: var(--computed-dropdown-border-color-hover);
+  }
+
+  &:hover,
+  &:focus-within {
+    transition: border-color 85ms ease-out;
+  }
+}
+
+/**
+ * MENU
+ */
+
+%dropdownMenu {
+  border: solid var(--computed-dropdown-border-color-focus);
+  border-top-color: var(--computed-menu-divider-color);
+  border-width: var(--computed-divider-width) var(--computed-border-width) var(--computed-border-width);
+  bottom: 0;
+  display: none;
+  left: 0;
+  list-style: none;
+  margin: 0;
+  outline: none;
+  overflow-y: auto;
+  padding: 0;
+  position: absolute;
+  transform: translate(calc(var(--computed-border-width) * -1), 100%);
+  width: 100%;
+  z-index: var(--computed-menu-z-index);
+}
+
+/**
+ * MENU ITEM
+ */
+
+%dropdownMenuItem {
+  align-items: center;
+  background-color: var(--computed-menu-item-background-color-default);
+  box-sizing: border-box;
+  color: var(--computed-menu-item-color-default);
+  cursor: pointer;
+  display: flex;
+  font-size: var(--fontsize-body-l);
+  justify-content: space-between;
+  line-height: var(--lineheight-m);
+  min-height: var(--computed-menu-item-height);
+  padding: var(--spacing-xs) var(--spacing-s);
+
+  &.selected {
+    background-color: var(--computed-menu-item-background-color-selected);
+    color: var(--computed-menu-item-color-selected);
+  }
+
+  &.disabledOption {
+    background-color: var(--computed-menu-item-background-color-disabled);
+    color: var(--computed-menu-item-color-disabled);
+    cursor: not-allowed;
+  }
+
+  &:hover {
+    color: var(--computed-menu-item-color-hover);
+
+    &.selected {
+      background-color: var(--computed-menu-item-background-color-selected-hover);
+      color: var(--computed-menu-item-color-selected-hover);
+    }
+
+    &.disabledOption {
+      background-color: var(--computed-menu-item-background-color-disabled-hover);
+      color: var(--computed-menu-item-color-disabled);
+    }
+  }
+}

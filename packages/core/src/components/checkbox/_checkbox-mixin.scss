@@ -12,19 +12,21 @@
   --background-unselected: transparent;
   --background-selected: var(--color-bus);
   --background-hover: var(--color-bus-dark);
-  --background-disabled: var(--color-black-10);
+  --background-disabled: var(--color-white);
+  --background-disabled-selected: var(--color-black-10);
   --border-color-selected: var(--color-bus);
   --border-color-selected-hover: var(--color-bus-dark);
   --border-color-selected-focus: var(--color-bus);
   --border-color-unselected: var(--color-black-50);
   --border-color-unselected-hover: var(--color-black-90);
   --border-color-unselected-focus: var(--color-black-90);
-  --border-color-disabled: var(--color-black-10);
+  --border-color-disabled: var(--color-black-20);
+  --border-color-disabled-selected: var(--color-black-10);
   --icon-color-unselected: transparent;
   --icon-color-selected: var(--color-white);
-  --icon-color-disabled: var(--color-white);
+  --icon-color-disabled: var(--color-black-50);
   --label-color: var(--color-black-90);
-  --label-color-disabled: var(--color-black-40);
+  --label-color-disabled: var(--color-black-50);
   --icon-size: var(--spacing-m);
 
   display: flex;
@@ -113,6 +115,12 @@
   &:disabled + label:after {
     background-color: var(--background-disabled);
     border-color: var(--border-color-disabled);
+  }
+
+  &:disabled:checked + label:after,
+  &:disabled:indeterminate + label:after {
+    background-color: var(--background-disabled-selected);
+    border-color: var(--border-color-disabled-selected);
   }
 
   // background - unselected - focus

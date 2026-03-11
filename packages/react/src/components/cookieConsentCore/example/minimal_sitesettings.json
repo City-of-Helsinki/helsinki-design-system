@@ -1,5 +1,22 @@
 {
   "siteName": "Minimal siteSettings",
+  "languages": [
+    {
+      "code": "fi",
+      "name": "Finnish",
+      "direction": "ltr"
+    },
+    {
+      "code": "sv",
+      "name": "Swedish",
+      "direction": "ltr"
+    },
+    {
+      "code": "en",
+      "name": "English",
+      "direction": "ltr"
+    }
+  ],
   "requiredGroups": [
     {
       "groupId": "essential",

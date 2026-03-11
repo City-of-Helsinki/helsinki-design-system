@@ -32,17 +32,17 @@ describe('HeaderLoginButton', () => {
   beforeEach(() => {
     jestHelpers.beforeEach();
   });
-  afterEach(() => {
-    jestHelpers.afterEach();
+  afterEach(async () => {
+    await jestHelpers.afterEach();
   });
 
   it('The button is rendered', async () => {
-    const { getButtonElement } = initTestsWithComponent();
+    const { getButtonElement } = await initTestsWithComponent();
     expect(getButtonElement()).toMatchSnapshot();
   });
 
   it('The button is not rendered if user is logged in', async () => {
-    const { getButtonElement } = initTestsWithComponent(true);
+    const { getButtonElement } = await initTestsWithComponent(true);
     expect(getButtonElement()).toBeNull();
   });
 
@@ -50,13 +50,13 @@ describe('HeaderLoginButton', () => {
     const buttonProps = getCommonElementTestProps<'button'>('button');
     // aria-label is constructed inside the component
     buttonProps['aria-label'] = undefined;
-    const { getByTestId } = initTestsWithComponent(false, buttonProps);
+    const { getByTestId } = await initTestsWithComponent(false, buttonProps);
     const element = getByTestId(buttonProps['data-testid']);
     expect(getElementAttributesMisMatches(element, buttonProps)).toHaveLength(0);
   });
 
   it('Click calls oidcClient.login(). Loading is indicated', async () => {
-    const { getButtonElement, getLoadIndicator, spyOnOidcClientLogin } = initTestsWithComponent();
+    const { getButtonElement, getLoadIndicator, spyOnOidcClientLogin } = await initTestsWithComponent();
     expect(getLoadIndicator).toThrow();
     const { mock, promise } = spyOnOidcClientLogin(false);
     act(() => {
@@ -69,7 +69,7 @@ describe('HeaderLoginButton', () => {
     await advanceUntilPromiseResolved(promise);
   });
   it('Given redirectionParams are appended. "language" is converted in oidcClient to "ui_locales"', async () => {
-    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent();
+    const { getButtonElement, spyOnOidcClientLogin } = await initTestsWithComponent();
     const { mock, promise } = spyOnOidcClientLogin(false);
     act(() => {
       fireEvent.click(getButtonElement());
@@ -84,7 +84,7 @@ describe('HeaderLoginButton', () => {
   });
 
   it('When redirectWithLanguage is true, active language is appended to login props', async () => {
-    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent(false, {
+    const { getButtonElement, spyOnOidcClientLogin } = await initTestsWithComponent(false, {
       redirectWithLanguage: true,
     });
     const { mock, promise } = spyOnOidcClientLogin(false);
@@ -103,7 +103,7 @@ describe('HeaderLoginButton', () => {
   });
   it('If onClick is set, it is called with the event when button is clicked', async () => {
     const onClick = jest.fn();
-    const { getButtonElement, spyOnOidcClientLogin } = initTestsWithComponent(false, {
+    const { getButtonElement, spyOnOidcClientLogin } = await initTestsWithComponent(false, {
       onClick,
     });
     const { promise } = spyOnOidcClientLogin(false);
@@ -118,7 +118,7 @@ describe('HeaderLoginButton', () => {
 
   describe('When error occurs', () => {
     it('error text is shown and focus stays in the button', async () => {
-      const result = initTestsWithComponent();
+      const result = await initTestsWithComponent();
       const { getButtonElement, getErrorElement, getLoadIndicator, clickAndAdvanceUntilErrorShown } = result;
       expect(getErrorElement).toThrow();
       await clickAndAdvanceUntilErrorShown(result, true);
@@ -127,7 +127,7 @@ describe('HeaderLoginButton', () => {
     });
 
     it('When focus moves from the button to the shifter, the error element gets focus', async () => {
-      const result = initTestsWithComponent();
+      const result = await initTestsWithComponent();
       const { getButtonElement, getErrorElementButton, getFocusShifter, clickAndAdvanceUntilErrorShown } = result;
       await clickAndAdvanceUntilErrorShown(result, true);
       fireEvent.focus(getFocusShifter(), { relatedTarget: getButtonElement() });
@@ -135,7 +135,7 @@ describe('HeaderLoginButton', () => {
     });
 
     it('When error is cleared, focus moves back to the button. Focus shifter is removed.', async () => {
-      const result = initTestsWithComponent();
+      const result = await initTestsWithComponent();
       const { getButtonElement, getErrorElementButton, getFocusShifter, clickAndAdvanceUntilErrorShown } = result;
       await clickAndAdvanceUntilErrorShown(result, true);
       expect(getFocusShifter()).not.toBeNull();

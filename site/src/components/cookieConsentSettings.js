@@ -1,0 +1,261 @@
+/**
+ * Cookie consent settings for the HDS documentation site.
+ * Configures the HDS CookieConsent component with required and optional cookie groups.
+ *
+ * Translation keys match the HDS CookieConsent component's expected schema.
+ * See: packages/react/src/components/cookieConsentCore/siteSettingsEditor/siteSettings.schema.json
+ */
+const cookieConsentSettings = {
+  siteName: 'Helsinki Design System',
+  cookieName: 'helfi-cookie-consents',
+  fallbackLanguage: 'en',
+  monitorInterval: 0,
+  remove: false,
+  languages: [
+    { code: 'en', name: 'English', direction: 'ltr' },
+    { code: 'fi', name: 'Suomi', direction: 'ltr' },
+    { code: 'sv', name: 'Svenska', direction: 'ltr' },
+  ],
+  requiredGroups: [
+    {
+      groupId: 'essential',
+      title: {
+        en: 'Essential cookies',
+        fi: 'Välttämättömät evästeet',
+        sv: 'Nödvändiga kakor',
+      },
+      description: {
+        en: 'Essential cookies are necessary for the website to function properly. These cookies do not collect any personal information.',
+        fi: 'Välttämättömät evästeet ovat tarpeellisia sivuston toiminnan kannalta. Nämä evästeet eivät kerää henkilötietoja.',
+        sv: 'Nödvändiga kakor krävs för att webbplatsen ska fungera korrekt. Dessa kakor samlar inte in personuppgifter.',
+      },
+      cookies: [
+        {
+          name: 'helfi-cookie-consents',
+          host: 'hds.hel.fi',
+          description: {
+            en: 'Stores cookie consent preferences.',
+            fi: 'Tallentaa evästeasetukset.',
+            sv: 'Lagrar kakinställningar.',
+          },
+          expiration: {
+            en: '1 year',
+            fi: '1 vuosi',
+            sv: '1 år',
+          },
+          storageType: 1,
+        },
+      ],
+    },
+  ],
+  optionalGroups: [
+    {
+      groupId: 'statistics',
+      title: {
+        en: 'Statistics',
+        fi: 'Tilastointi',
+        sv: 'Statistik',
+      },
+      description: {
+        en: 'Statistical cookies help us understand how visitors use our website. The information is collected anonymously.',
+        fi: 'Tilastointievästeet auttavat meitä ymmärtämään, miten kävijät käyttävät verkkosivustoamme. Tiedot kerätään nimettömästi.',
+        sv: 'Statistikkakor hjälper oss att förstå hur besökare använder vår webbplats. Informationen samlas in anonymt.',
+      },
+      cookies: [
+        {
+          name: '_pk_id.*',
+          host: 'matomo.hel.fi',
+          description: {
+            en: 'Matomo Analytics - unique visitor identification.',
+            fi: 'Matomo Analytics - yksilöllinen kävijätunniste.',
+            sv: 'Matomo Analytics - unik besöksidentifiering.',
+          },
+          expiration: {
+            en: '393 days',
+            fi: '393 päivää',
+            sv: '393 dagar',
+          },
+          storageType: 1,
+        },
+        {
+          name: '_pk_ses.*',
+          host: 'matomo.hel.fi',
+          description: {
+            en: 'Matomo Analytics - session cookie.',
+            fi: 'Matomo Analytics - istuntoeväste.',
+            sv: 'Matomo Analytics - sessionskaka.',
+          },
+          expiration: {
+            en: '30 minutes',
+            fi: '30 minuuttia',
+            sv: '30 minuter',
+          },
+          storageType: 1,
+        },
+      ],
+    },
+    {
+      groupId: 'preferences',
+      title: {
+        en: 'Preferences',
+        fi: 'Asetukset',
+        sv: 'Inställningar',
+      },
+      description: {
+        en: 'Preference cookies allow the website to remember choices you have made, such as search history.',
+        fi: 'Asetusevästeet muistavat tekemäsi valinnat, kuten hakuhistorian.',
+        sv: 'Inställningskakor gör att webbplatsen kan komma ihåg val du har gjort, till exempel sökhistorik.',
+      },
+      cookies: [
+        {
+          name: 'hds-search-history-*',
+          host: 'hds.hel.fi',
+          description: {
+            en: 'Stores search history for the search component.',
+            fi: 'Tallentaa hakukomponentin hakuhistorian.',
+            sv: 'Lagrar sökhistorik för sökkomponenten.',
+          },
+          expiration: {
+            en: 'Persistent',
+            fi: 'Pysyvä',
+            sv: 'Bestående',
+          },
+          storageType: 2,
+        },
+      ],
+    },
+  ],
+  translations: {
+    // Banner
+    bannerAriaLabel: {
+      en: 'Cookie settings',
+      fi: 'Evästeasetukset',
+      sv: 'Inställningar för kakor',
+    },
+    heading: {
+      en: '{{siteName}} uses cookies',
+      fi: '{{siteName}} käyttää evästeitä',
+      sv: '{{siteName}} använder kakor',
+    },
+    description: {
+      en: 'This website uses required cookies to ensure the basic functionality of the site and optional cookies to enhance your experience. You can accept all cookies or only the required ones.',
+      fi: 'Tämä sivusto käyttää välttämättömiä evästeitä sivuston perustoimintojen takaamiseksi sekä valinnaisia evästeitä käyttökokemuksen parantamiseksi. Voit hyväksyä kaikki evästeet tai vain välttämättömät.',
+      sv: 'Denna webbplats använder obligatoriska kakor för att säkerställa webbplatsens grundläggande funktionalitet och valfria kakor för att förbättra din upplevelse. Du kan acceptera alla kakor eller bara de nödvändiga.',
+    },
+    // Details accordion
+    showDetails: {
+      en: 'Show details',
+      fi: 'Näytä yksityiskohdat',
+      sv: 'Visa detaljer',
+    },
+    hideDetails: {
+      en: 'Hide details',
+      fi: 'Piilota yksityiskohdat',
+      sv: 'Stäng detaljer',
+    },
+    // Form (inside details)
+    formHeading: {
+      en: 'About the cookies used on the website',
+      fi: 'Tietoa sivustolla käytetyistä evästeistä',
+      sv: 'Information om kakor som används på webbplatsen',
+    },
+    formText: {
+      en: 'The cookies used on the website have been classified according to their purpose. You can choose which cookie categories you want to accept.',
+      fi: 'Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksensa mukaan. Voit valita, mitkä evästekategoriat haluat hyväksyä.',
+      sv: 'Kakorna som används på webbplatsen har klassificerats enligt deras syfte. Du kan välja vilka kakategorier du vill acceptera.',
+    },
+    // Highlighted group
+    highlightedGroup: {
+      en: 'You need to accept this category to use this feature.',
+      fi: 'Sinun on hyväksyttävä tämä kategoria käyttääksesi tätä toimintoa.',
+      sv: 'Du måste acceptera den här kategorin för att använda den här funktionen.',
+    },
+    highlightedGroupAria: {
+      en: 'Good to know for category: {{title}}',
+      fi: 'Hyvä tietää kategorialle: {{title}}',
+      sv: 'Bra att veta för kategorin: {{title}}',
+    },
+    // Cookie group accordion
+    showCookieSettings: {
+      en: 'Show cookie settings',
+      fi: 'Näytä evästeasetukset',
+      sv: 'Visa kakinställningarna',
+    },
+    hideCookieSettings: {
+      en: 'Hide cookie settings',
+      fi: 'Piilota evästeasetukset',
+      sv: 'Stäng kakinställningarna',
+    },
+    // Timestamp
+    acceptedAt: {
+      en: 'You have accepted this category: {{date}} at {{time}}.',
+      fi: 'Olet hyväksynyt tämän kategorian: {{date}} klo {{time}}.',
+      sv: 'Du har accepterat denna kategori: {{date}} kl. {{time}}.',
+    },
+    // Cookie table headings
+    tableHeadingsName: {
+      en: 'Name',
+      fi: 'Nimi',
+      sv: 'Namn',
+    },
+    tableHeadingsHostName: {
+      en: 'Cookie set by',
+      fi: 'Evästeen asettaja',
+      sv: 'Den som lagrat kakan',
+    },
+    tableHeadingsDescription: {
+      en: 'Purpose of use',
+      fi: 'Käyttötarkoitus',
+      sv: 'Användning',
+    },
+    tableHeadingsExpiration: {
+      en: 'Period of validity',
+      fi: 'Voimassaoloaika',
+      sv: 'Giltighetstid',
+    },
+    tableHeadingsType: {
+      en: 'Type',
+      fi: 'Tyyppi',
+      sv: 'Typ',
+    },
+    // Action buttons
+    approveAllConsents: {
+      en: 'Accept all cookies',
+      fi: 'Hyväksy kaikki evästeet',
+      sv: 'Acceptera alla kakor',
+    },
+    approveRequiredAndSelectedConsents: {
+      en: 'Accept selected cookies',
+      fi: 'Hyväksy valitut evästeet',
+      sv: 'Acceptera valda kakor',
+    },
+    approveOnlyRequiredConsents: {
+      en: 'Accept required cookies only',
+      fi: 'Hyväksy vain välttämättömät evästeet',
+      sv: 'Acceptera endast nödvändiga kakor',
+    },
+    // Notification / ARIA
+    settingsSaved: {
+      en: 'Settings saved!',
+      fi: 'Asetukset tallennettu!',
+      sv: 'Inställningar sparade!',
+    },
+    notificationAriaLabel: {
+      en: 'Announcement',
+      fi: 'Ilmoitus',
+      sv: 'Meddelande',
+    },
+    // Storage types
+    storageType1: {
+      en: 'Cookie',
+      fi: 'Eväste',
+      sv: 'Kaka',
+    },
+    storageType2: 'localStorage',
+    storageType3: 'sessionStorage',
+    storageType4: 'IndexedDB',
+    storageType5: 'Cache Storage',
+  },
+};
+
+export default cookieConsentSettings;

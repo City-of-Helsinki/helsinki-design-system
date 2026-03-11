@@ -9,20 +9,14 @@ import Layout from '../../../components/layout';
 import PageTabs from '../../../components/PageTabs';
 import StatusLabel from '../../../components/StatusLabel';
 import TechTags from '../../../components/TechTags';
-import Notification from '../../../components/Notification';
 
 # SearchInput
 
 <div className="status-label-description">
   <StatusLabel type="info">Stable</StatusLabel>
   <StatusLabel type="success" style={{ marginLeft: 'var(--spacing-xs)' }}>Accessible</StatusLabel>
-  <StatusLabel type="alert" style={{ marginLeft: 'var(--spacing-xs)' }}>Deprecated</StatusLabel>
   <StatusLabelTooltip/>
 </div>
-
-<Notification type="alert" label="React component deprecated" style={{ marginTop: 'var(--spacing-m)' }}>
-  The React SearchInput component is deprecated and will be removed in the next major release. The Core CSS version remains available and supported.
-</Notification>
 
 <LeadParagraph>A search input allows the user to find relevant content. The user can filter content using different words or phrases as keywords.</LeadParagraph>
 

@@ -4,11 +4,14 @@
 .hds-link {
   --link-visited-color: #551a8b;
   --link-color: var(--color-bus);
+  --icon-size: calc(1em + var(--spacing-4-xs));
+  --text-decoration-thickness: 0.0625rem;
+  --text-decoration-thickness-hover: calc(var(--text-decoration-thickness) * 2);
 
-  border: 3px solid transparent;
-  box-sizing: border-box;
   color: var(--link-color);
   text-decoration: underline;
+  text-decoration-thickness: var(--text-decoration-thickness);
+  text-underline-offset: 10%;
 }
 
 .hds-link:visited {
@@ -20,24 +23,11 @@
 }
 
 .hds-link:focus {
-  border: 3px solid var(--color-focus-outline);
-  outline: none;
+  outline: 3px solid var(--color-focus-outline);
 }
 
-.hds-link:focus-visible {
-  outline: none;
-}
-
-.hds-link .vertical-align-medium-icon {
-  vertical-align: sub;
-}
-
-.hds-link .vertical-align-big-icon {
-  vertical-align: middle;
-}
-
-.hds-link .vertical-align-small-icon {
-  vertical-align: text-top;
+.hds-link:hover {
+  text-decoration-thickness: var(--text-decoration-thickness-hover);
 }
 
 .hds-link--disable-visited-styles:visited {
@@ -45,45 +35,42 @@
 }
 
 .hds-link--small {
-  font-size: 14px;
+  font-size: var(--fontsize-body-s);
 }
 
 .hds-link--medium {
-  font-size: 16px;
+  font-size: var(--fontsize-body-m);
 }
 
 .hds-link--large {
-  display: block;
-  font-size: 18px;
-  width: fit-content;
+  font-size: var(--fontsize-body-l);
 }
 
 /* ICONS */
 
-.hds-link--small .icon {
-  margin-left: 7px;
-}
-
-.hds-link--medium .icon {
-  margin-left: var(--spacing-2-xs);
-  margin-top: -3px; /* Fixes lineheight problem for external inline link */
-}
-
-.hds-link--large .icon {
-  margin-left: var(--spacing-s);
-}
-
-.hds-link--small .hds-icon-start {
-  margin-right: 4px;
-  vertical-align: text-top;
-}
-
-.hds-link--medium .hds-icon-start {
-  margin-right: 8px;
+.hds-link[class*="hds-icon-start--"]:before,
+.hds-link[class*="hds-icon-end--"]:after {
   vertical-align: sub;
 }
 
-.hds-link--large .hds-icon-start {
-  margin-right: 16px;
-  vertical-align: middle;
+.hds-link[class*="hds-icon-start--"]:before {
+  margin-right: var(--spacing-4-xs);
+}
+
+.hds-link[class*="hds-icon-end--"]:after {
+  margin-left: var(--spacing-4-xs);
+}
+
+.hds-link .hds-icon {
+  vertical-align: sub;
+
+    /* start-side icon */
+    &:first-child:not(:last-child) {
+      margin-right: var(--spacing-4-xs);
+    }
+
+    /* end-side icon */
+    &:last-child:not(:first-child) {
+      margin-left: var(--spacing-4-xs);
+    } 
 }

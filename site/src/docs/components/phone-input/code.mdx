@@ -3,7 +3,7 @@ slug: '/components/phone-input/code'
 title: 'PhoneInput - Code'
 ---
 
-import { PhoneInput, Select } from 'hds-react';
+import { PhoneInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -43,61 +43,16 @@ import { PhoneInput } from 'hds-react';
 
 </Playground>
 
-#### With a country code selection
-
-<Playground scope={{ PhoneInput, Select }}>
-
-```jsx
-import { PhoneInput } from 'hds-react';
-
-() => {
-  const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
-  return (
-    <>
-      <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
-        Work phone
-      </p>
-      <div style={{ display: 'grid', gridTemplateColumns: '200px 300px', columnGap: '16px' }}>
-        <Select
-          id="hds-select-1"
-          texts={{
-            language: 'en',
-            label: 'Country code',
-            assistive: 'Assistive text',
-            placeholder: 'Choose country code',
-          }}
-          aria-describedby="work-phone"
-          options={options}
-          value={[options[0]]}
-          onChange={() =>{}}
-          required
-	  clearable={false}
-        />
-        <PhoneInput
-          id="phone-input-2"
-          defaultValue="0451234567"
-          aria-describedby="work-phone"
-          label="Phone number"
-          required={true}
-        />
-      </div>
-    </>
-  )
-}
-```
-
-</Playground>
-
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                             | Source link                                                                                                                                                                                                             |
 | ------------- | ----------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-phoneinput--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/phoneInput">View source</ExternalLink> |
-| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-phone-input--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/phone-input">View source</ExternalLink> |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-phoneinput--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/phoneInput">View source</ExternalLink> |
+| **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/core/?path=/story/components-phone-input--default">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/core/src/components/phone-input">View source</ExternalLink> |
 
 ### Properties
 
-Note! You can find the full list of properties in the <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-phoneinput--default">React Storybook.</Link>
+Note! You can find the full list of properties in the <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-phoneinput--default">React Storybook.</Link>
 
 Also, note that this component is an input. All features supported by the HDS TextInput are also supported by this component. See <InternalLink href="/components/text-input">TextInput documentation page</InternalLink> for more information.
 

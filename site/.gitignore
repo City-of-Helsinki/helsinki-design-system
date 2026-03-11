@@ -42,3 +42,6 @@ icon_group.json
 
 # Local version downloads
 .previous-versions
+
+# fonts
+static/fonts/

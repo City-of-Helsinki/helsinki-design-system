@@ -1,8 +1,7 @@
 import React from 'react';
-import { action } from '@storybook/addon-actions';
 
 import { PhoneInput, PhoneInputProps } from './PhoneInput';
-import { Select, Tooltip } from '../../index';
+import { Tooltip } from '../../index';
 
 export default {
   component: PhoneInput,
@@ -47,47 +46,6 @@ WithDefaultValue.args = {
   helperText: 'Assistive text',
   label: 'Label for default value',
 };
-
-export const WithCountryCode = (args: PhoneInputProps) => {
-  const options = [{ label: 'Finland (+358)' }, { label: 'UK (+46)' }];
-  return (
-    <>
-      <p id="work-phone" style={{ fontSize: '18px', fontWeight: 'bold' }}>
-        Work phone
-      </p>
-      <div style={{ display: 'grid', gridTemplateColumns: '250px 250px', columnGap: '16px' }}>
-        <Select
-          id="hds-select-1"
-          texts={{
-            language: 'en',
-            label: 'Country code',
-            assistive: 'Assistive text',
-            placeholder: 'Choose country code',
-          }}
-          aria-describedby="work-phone"
-          options={options}
-          value={[options[0]]}
-          onBlur={() => action('onBlur')}
-          onChange={(change) => action('onChange')(change)}
-          onFocus={() => action('onFocus')}
-          required
-          clearable={false}
-        />
-        <PhoneInput {...args} />
-      </div>
-    </>
-  );
-};
-
-WithCountryCode.storyName = 'With select countrycode';
-WithCountryCode.args = {
-  id: 'WithCountryCode',
-  defaultValue: '0451234567',
-  'aria-describedby': 'work-phone',
-  label: 'Phone number',
-  required: true,
-};
-WithCountryCode.decorators = [(storyFn) => <div style={{ maxWidth: '516px' }}>{storyFn()}</div>];
 
 export const Invalid = (args: PhoneInputProps) => <PhoneInput {...args} />;
 Invalid.args = {

@@ -32,6 +32,8 @@ const sanitizeConfig = {
       'id',
       'name',
       'onclick',
+      'oninput',
+      'onkeydown',
       'patternUnits',
       'patternunits',
       'placeholder',

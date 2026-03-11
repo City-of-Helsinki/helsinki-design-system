@@ -392,8 +392,22 @@
     "tags": ["core", "react"]
   },
   {
+    "name": "Search",
+    "text": "Search provides a text input with asynchronous search suggestions, search history, and keyboard-navigable results.",
+    "linkboxAriaLabel": "Search component",
+    "linkAriaLabel": "Go to the Search component page",
+    "href": "/components/search",
+    "imgProps": {
+      "src": "/images/components/overview/search@2x.png",
+      "alt": "An illustration of the Search component.",
+      "height": 180,
+      "width": 280
+    },
+    "tags": ["react"]
+  },
+  {
     "name": "SearchInput",
-    "text": "A search input allows the user to find relevant content.",
+    "text": "SearchInput provides CSS styling for a search input field for non-React (core) use.",
     "linkboxAriaLabel": "SearchInput component",
     "linkAriaLabel": "Go to the SearchInput component page",
     "href": "/components/search-input",
@@ -403,7 +417,7 @@
       "height": 180,
       "width": 280
     },
-    "tags": ["core", "react"]
+    "tags": ["core"]
   },
   {
     "name": "Select",
