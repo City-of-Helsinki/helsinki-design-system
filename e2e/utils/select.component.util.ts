@@ -1,6 +1,6 @@
-import { getElementIds } from '../../packages/react/src/components/select/utils';
-import { SelectMetaData, TextKey } from '../../packages/react/src/components/select/types';
-import { defaultTexts } from '../../packages/react/src/components/select/texts';
+import { getElementIds } from '../../packages/react/src/components/dropdownComponents/select/utils';
+import { SelectMetaData, TextKey } from '../../packages/react/src/components/dropdownComponents/select/types';
+import { defaultTexts } from '../../packages/react/src/components/dropdownComponents/select/texts';
 import { Locator, Page } from '@playwright/test';
 import {
   isElementVisible,
@@ -14,7 +14,7 @@ import {
   waitForStablePosition,
 } from './element.util';
 import { filterLocators, waitFor } from './playwright.util';
-import { tagSelectorForTagList } from '../../packages/react/src/components/select/components/tagList/TagListItem';
+import { tagSelectorForTagList } from '../../packages/react/src/components/dropdownComponents/select/components/tagList/TagListItem';
 
 type OptionFiltering = {
   includeOptions?: boolean;

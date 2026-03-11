@@ -4,7 +4,7 @@ title: 'Select'
 navTitle: 'Select'
 ---
 
-import { Select, defaultFilter } from 'hds-react';
+import { Select, defaultFilter, IconUser, IconDocument } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import ExternalLink from '../../../components/ExternalLink';
 import InternalLink from '../../../components/InternalLink';
@@ -239,6 +239,42 @@ When options are selected in multiselect, they appear below the select field. Th
 Selected options can be displayed in another section of the page. This approach allows options to be grouped in the same location with multiple select components, such as in filtering search pages.
 
 An example of this complex variant is <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--multiselect-with-custom-tags">in the Storybook.</ExternalLink>
+
+#### Select with icons
+
+Icons can be added to single-select options using the `iconStart` property. Icons are displayed at the start of the label, before the text. This feature is only available for single-select options; multi-select options ignore the `iconStart` property.
+
+**Note:** The `iconStart` property should have the `aria-hidden` attribute set to `true` for accessibility purposes.
+
+<PlaygroundPreview>
+  <Select
+    texts={{
+      label: 'Select one option',
+      placeholder: 'Choose one',
+      language: 'en',
+    }}
+    groups={[
+      {
+        label: 'Users',
+        options: [
+          { label: 'John Doe', iconStart: <IconUser aria-hidden /> },
+          { label: 'Jane Smith', iconStart: <IconUser aria-hidden /> },
+          { label: 'Bob Johnson', iconStart: <IconUser aria-hidden /> },
+        ],
+      },
+      {
+        label: 'Documents',
+        options: [
+          { label: 'Report.pdf', iconStart: <IconDocument aria-hidden /> },
+          { label: 'Presentation.pptx', iconStart: <IconDocument aria-hidden /> },
+        ],
+      },
+    ]}
+    onChange={(selectedOptions) => {
+      console.log('selectedOptions:' + selectedOptions.map((option) => option.value).join(', '));
+    }}
+  />
+</PlaygroundPreview>
 
 ### Keyboard usage
 

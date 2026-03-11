@@ -14,9 +14,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Example
 
 <PlaygroundPreview>
-  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>
-    Link to HDS
-  </Link>
+  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>Link to HDS</Link>
 </PlaygroundPreview>
 
 ### Principles
@@ -36,12 +34,61 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-These links are the default link variant. Inline links are used within a sentence or paragraph and are underlined.
-
-The underlining helps differentiate them from the text they are placed next to and makes it clear users can interact with them. Inline links should not be used on their own.
+By default links are internal and do not show icons. Internal links point to content within the currently navigated website.
 
 <PlaygroundPreview>
-  <div style={{ fontSize: '14px' }}>
+  <Link href="#default">Default link</Link>
+</PlaygroundPreview>
+
+#### External links
+
+External links navigate to a different site. External links must be differentiated with an external link icon placed at the end.
+
+<PlaygroundPreview>
+  <Link href="https://hel.fi/" external>City of Helsinki</Link>
+</PlaygroundPreview>
+
+#### Standalone use
+
+Standalone links are listed on their own and usually directly after the content.
+It can be useful to pair standalone links with icons, especially if the link has an unusual
+target such as a phone number, an email address (mailto link), a PDF document or a photo.
+
+Note! These icons are meant to describe the link target.
+
+<PlaygroundPreview>
+  <Link
+    size={LinkSize.Medium}
+    iconStart={<IconDocument size={IconSize.Small} />}
+    href="/#"
+  >Document - PDF (3.4 MB)</Link>
+  <br />
+  <Link
+    size={LinkSize.Medium}
+    iconStart={<IconPhone size={IconSize.Small} />}
+    href="tel:+1234567890"
+  >Call +1234567890</Link>
+  <br />
+  <Link
+    size={LinkSize.Medium}
+    iconStart={<IconEnvelope size={IconSize.Small} />}
+    href="mailto:info@example.com"
+  >Email example</Link>
+  <br />
+  <Link
+    size={LinkSize.Medium}
+    iconStart={<IconPhoto size={IconSize.Small} />}
+    href="/#"
+  >Photo link</Link>
+</PlaygroundPreview>
+
+#### Inline links
+
+Inline links are used within a sentence or paragraph. HDS recommends avoiding the use of inline links, since too many of them can clutter a page,
+interrupt the reading experience and increase overall cognitive load.
+
+<PlaygroundPreview>
+  <p style={{ fontSize: 'var(--fontsize-body-s)' }}>
     Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
     aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo
     <Link
@@ -51,79 +98,5 @@ The underlining helps differentiate them from the text they are placed next to a
     >HDS Github</Link>
     consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur.
     Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
-  </div>
-</PlaygroundPreview>
-
----
-
-#### Standalone
-
-Standalone links are used on their own or directly after the content, and they are underlined. If you wish not to have an underline, consider using a button instead.
-
-Standalone links should not be used within sentences or paragraphs.
-
-<PlaygroundPreview>
-  <Link href="https://hds.hel.fi/" size={LinkSize.Medium} style={{ display: 'block', width: 'fit-content' }}>Link to HDS</Link>
-</PlaygroundPreview>
-
-#### Internal and external links
-
-All HDS links can either be internal or external. Internal links point to the currently active website. External links navigate to an entirely different site. You can also make the link open in a new tab.
-
-<PlaygroundPreview>
-<Link 
-  href="https://hds.hel.fi/" 
-  size={LinkSize.Medium} 
-  style={{ display: 'block', width: 'fit-content' }}
->Internal link</Link>
-
-<Link
-  href="https://github.com/City-of-Helsinki/helsinki-design-system"
-  size={LinkSize.Medium}
-  external
-  openInExternalDomainAriaLabel="Opens a different website."
-  style={{ display: 'block', width: 'fit-content' }}
->External link</Link>
-
-<Link 
-  href="https://github.com/City-of-Helsinki/helsinki-design-system" 
-  size={LinkSize.Medium}
-  external 
-  openInNewTab
-  openInExternalDomainAriaLabel="Opens a different website."
-  openInNewTabAriaLabel="Opens in a new tab."
-  style={{ display: 'block', width: 'fit-content' }}>Link that opens in a new tab</Link>
-</PlaygroundPreview>
-
-#### Links with icons
-
-HDS Links can be paired with an icon. This can be useful if the link has unusual target such as a phone number, an email address (mailto link), a PDF document or a photo.
-
-Note! These icons are meant to describe the link target. If you need a directional icon for the link (e.g. an arrow), you should instead use (<InternalLink href="/components/button#supplementary">a supplementary button</InternalLink> with `role="link"`.
-
-<PlaygroundPreview>
-  <Link
-    size={LinkSize.Medium}
-    iconStart={<IconDocument size={IconSize.Small} />}
-    href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
-  >Document link</Link>
-  <Link
-    size={LinkSize.Medium}
-    iconStart={<IconPhone size={IconSize.Small} />}
-    href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
-  >Phone link</Link>
-  <Link
-    size={LinkSize.Medium}
-    iconStart={<IconEnvelope size={IconSize.Small} />}
-    href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
-  >Email link</Link>
-  <Link
-    size={LinkSize.Medium}
-    iconStart={<IconPhoto size={IconSize.Small} />}
-    href="/#"
-    style={{ display: 'block', width: 'fit-content' }}
-  >Photo link</Link>
+  </p>
 </PlaygroundPreview>

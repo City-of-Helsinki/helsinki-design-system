@@ -1,0 +1,431 @@
+---
+slug: '/getting-started/tutorials/migrate-to-5.0.0'
+title: 'Migrate to 5.0.0'
+navTitle: 'Migrate to 5.0.0'
+---
+
+import InternalLink from '../../../components/InternalLink';
+import Notification from '../../../components/Notification';
+
+# Migrate to version 5.0.0
+
+This guide helps you migrate from HDS v4 to v5. It covers the main breaking changes for **Link**, **SearchInput**, **Header.Search**, **font**, **Hero**, and the **alert-dark** design token.
+
+<Notification label=";tldr; Check at least these" className="siteNotification">
+  When updating to HDS 5.0.0 check and test at least these: Link styling and props changed (icon spacing, openInNewTabLabel, Core classes removed); SearchInput (React) replaced by Search component with new API (`onSubmit` → `onSend`, `onChange` signature changed, labels moved to `texts` prop); Header.Search now uses the new Search component (`label` → `texts`, `onSearch` added for suggestions); font switched to Helsinki Grotesk Pro; Hero container and content max-widths and layout changed; alert-dark colour token value changed (#986700 → #d18200).
+</Notification>
+
+## Breaking changes
+
+### Link component
+
+#### React
+
+- **Link styling has changed.** Icon spacing is applied on the anchor’s direct children (first/last child). If you relied on specific wrapper or icon selectors for spacing, update your selectors.
+- **Icons inherit size.** Inline link icons now follow the link’s font size. Previous size classes on the icon element may no longer apply; remove or replace them.
+- **`openInNewTabAriaLabel` renamed to `openInNewTabLabel`.** The new prop controls the **visible** text appended when the link opens in a new tab (e.g. "(avautuu uudessa välilehdessä)"); that text is no longer added to the aria-label. Migrate by renaming the prop to `openInNewTabLabel` and use the same value if it was suitable as visible text.
+
+**Migration:** Rename `openInNewTabAriaLabel` → `openInNewTabLabel`. Review any custom CSS or tests that target link icons or spacing and align with the new behaviour.
+
+- <InternalLink size="M" href="/components/link">
+    Link documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-link">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-link">
+    Core storybook examples
+  </InternalLink>
+
+#### Core
+
+- The **`.icon`** class was removed from the link component. Do not use it on link icons.
+- The **`.vertical-...`** classes (e.g. `vertical-align-small-icon`, `vertical-align-medium-icon`) were removed. Icon alignment is now automatic; remove these classes from icon elements.
+
+**Migration:** Remove `.icon` and any `vertical-align-*` classes from link icons. Icons can still be added with an element inside the link, or with classes on the anchor (e.g. `hds-icon--link-external hds-icon-end--link-external`).
+
+---
+
+### SearchInput replaced by Search (React)
+
+The **`SearchInput`** component has been removed from the React package. Use the new **Search** component instead. The new Search is built on the same modular dropdown architecture as the new Select component and offers a significantly expanded API.
+
+The Core (HTML/CSS) version of SearchInput remains available if you are not using React for search.
+
+#### Import
+
+```diff
+- import { SearchInput } from 'hds-react';
++ import { Search } from 'hds-react';
+```
+
+#### Prop mapping
+
+The following table shows how SearchInput props map to the new Search component:
+
+| SearchInput (v4)                 | Search (v5)                                           | Notes                                                                  |
+| -------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------------- |
+| `label`                          | `texts={{ label: '...' }}`                            | Moved into the `texts` prop object.                                    |
+| `onSubmit`                       | `onSend`                                              | **Renamed.** Same signature: `(value: string) => void`.                |
+| `onChange`                       | `onChange`                                             | **Signature changed.** Receives `ChangeEvent<HTMLInputElement>`, not a raw string. Use `e.target.value` to get the value. |
+| `value`                          | `value`                                               | Same usage for controlled mode.                                        |
+| `placeholder`                    | `texts={{ searchPlaceholder: '...' }}`                | Moved into `texts`.                                                    |
+| `helperText`                     | `texts={{ assistive: '...' }}`                        | Moved into `texts` as `assistive`.                                     |
+| `getSuggestions`                 | `onSearch`                                            | **Different API.** Returns `Promise<{ groups?, options? }>` instead of a flat array. See below. |
+| `hideSearchButton`               | `hideSubmitButton`                                    | **Renamed.**                                                           |
+| `clearButtonAriaLabel`           | `texts={{ searchClearButtonAriaLabel: '...' }}`       | Moved into `texts`.                                                    |
+| `searchButtonAriaLabel`          | `texts={{ searchButtonAriaLabel: '...' }}`            | Moved into `texts`.                                                    |
+| `visibleSuggestions`             | `visibleOptions`                                      | **Renamed.** Default changed from `8` to `5.5`.                       |
+| `suggestionLabelField`           | —                                                     | **Removed.** Options use `{ label, value }` objects.                   |
+| `suggestionKeyField`             | —                                                     | **Removed.** Options use `{ label, value }` objects.                   |
+| `highlightSuggestions`           | —                                                     | **Removed.** Not available in the new component.                       |
+| `loadingSpinnerText`             | `texts={{ searching: '...' }}`                        | Moved into `texts`.                                                    |
+| `inputProps`                     | —                                                     | **Removed.** Use native HTML attributes on the Search root element.    |
+| —                                | `historyId`                                           | **New.** Enables search history stored in `localStorage`.              |
+| —                                | `groups`                                              | **New.** Supports grouped options.                                     |
+| —                                | `theme`                                               | **New.** CSS variable theming.                                         |
+
+#### Migrating `getSuggestions` → `onSearch`
+
+The old `getSuggestions` returned a flat array of generic items. The new `onSearch` returns a promise resolving to `{ options }` or `{ groups }`, where each option is an `{ label, value }` object.
+
+```diff
+- // v4: getSuggestions returned a flat array
+- const getSuggestions = (inputValue) => {
+-   return fetch(`/api/search?q=${inputValue}`)
+-     .then((res) => res.json());
+- };
+-
+- <SearchInput
+-   label="Search"
+-   getSuggestions={getSuggestions}
+-   suggestionLabelField="name"
+-   onSubmit={(value) => console.log(value)}
+- />
+
++ // v5: onSearch returns { options } with { label, value } objects
++ // Wrap in useCallback to prevent unnecessary re-fetches
++ const handleSearch = useCallback((searchValue) => {
++   return fetch(`/api/search?q=${searchValue}`)
++     .then((res) => res.json())
++     .then((results) => ({
++       options: results.map((item) => ({ label: item.name, value: item.id })),
++     }));
++ }, []);
++
++ // Memoize texts and other object props with useState
++ const [props] = useState({
++   texts: { label: 'Search' },
++ });
++
++ <Search
++   {...props}
++   onSearch={handleSearch}
++   onSend={(value) => console.log(value)}
++ />
+```
+
+#### Full before / after example
+
+```jsx
+// ❌ v4 — SearchInput
+import { SearchInput } from 'hds-react';
+
+<SearchInput
+  label="Search the site"
+  placeholder="Type to search..."
+  helperText="Search for services and information"
+  searchButtonAriaLabel="Search"
+  clearButtonAriaLabel="Clear"
+  getSuggestions={getSuggestions}
+  suggestionLabelField="name"
+  onSubmit={(value) => navigateToResults(value)}
+  onChange={(value) => setSearchValue(value)}
+  value={searchValue}
+/>
+```
+
+```jsx
+// ✅ v5 — Search
+import { useState, useCallback } from 'react';
+import { Search } from 'hds-react';
+
+const MySearch = () => {
+  const [searchValue, setSearchValue] = useState('');
+
+  // Memoize props that include objects like `texts` with useState.
+  // This prevents the Search component from resetting its internal
+  // state on every parent re-render.
+  const [props] = useState({
+    id: 'my-search',
+    texts: {
+      label: 'Search the site',
+      searchPlaceholder: 'Type to search...',
+      assistive: 'Search for services and information',
+      searchButtonAriaLabel: 'Search',
+      searchClearButtonAriaLabel: 'Clear',
+      language: 'en',
+    },
+  });
+
+  const handleSearch = useCallback((searchValue) => {
+    return fetch(`/api/search?q=${searchValue}`)
+      .then((res) => res.json())
+      .then((results) => ({
+        options: results.map((item) => ({ label: item.name, value: item.id })),
+      }));
+  }, []);
+
+  return (
+    <Search
+      {...props}
+      onSearch={handleSearch}
+      onSend={(value) => navigateToResults(value)}
+      onChange={(e) => setSearchValue(e.target.value)}
+      value={searchValue}
+    />
+  );
+};
+```
+
+**Key differences to note:**
+- Props containing objects (like `texts`) should be **memoized** using `useState` or `useMemo`, or defined outside the component. Spread them with `{...props}`. Passing inline objects on every render will reset the component's internal state.
+- Wrap `onSearch` and other callbacks in `useCallback` to prevent unnecessary re-fetches.
+- `onChange` now receives a standard React `ChangeEvent`, not a plain string.
+- The new Search supports **search history** via `historyId`, **grouped suggestions** via `groups`, and **error handling** (reject the `onSearch` promise to show an error).
+
+- <InternalLink size="M" href="/components/search">
+    Search documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-dropdowncomponents-search">
+    React Search storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/components/search-input">
+    Core SearchInput documentation (unchanged)
+  </InternalLink>
+
+---
+
+### Header.Search
+
+The **Header.Search** component has been rewritten to use the new Search component internally. If you were using `Header.Search` in v4, you need to update your props.
+
+#### Prop mapping
+
+| Header.Search (v4)              | Header.Search (v5)                                    | Notes                                                            |
+| ------------------------------- | ----------------------------------------------------- | ---------------------------------------------------------------- |
+| `label`                         | `texts={{ heading: '...', label: '...' }}`            | **Replaced** by `texts`. `heading` is the panel heading, `label` is the input label. |
+| `onChange`                       | —                                                     | **Removed** from public API. Input changes handled internally.   |
+| `onSubmit`                      | `onSubmit`                                            | Same name, same signature.                                       |
+| —                                | `onSearch`                                            | **New.** Async function that provides search suggestions in the dropdown. |
+| —                                | `texts.buttonLabel`                                   | **New.** Label for the search button.                            |
+| —                                | `texts.closeLabel`                                    | **New.** Label for the close button.                             |
+| —                                | `id`                                                  | **New.** ID prefix. Default: `"header-search"`.                  |
+| —                                | `buttonIcon`                                          | **New.** Custom icon for the action bar button.                  |
+
+#### Before / after example
+
+```jsx
+// ❌ v4
+<Header.Search
+  label="Search"
+  onChange={(value) => console.log(value)}
+  onSubmit={(value) => navigateToResults(value)}
+/>
+```
+
+```jsx
+// ✅ v5
+import { useState, useCallback } from 'react';
+
+const MyHeader = () => {
+  // Memoize texts and other object props with useState
+  const [searchProps] = useState({
+    texts: {
+      heading: 'Search the service',
+      label: 'What are you looking for?',
+      buttonLabel: 'Search',
+      closeLabel: 'Close',
+    },
+  });
+
+  const handleSearch = useCallback((searchValue) => {
+    return fetch(`/api/search?q=${searchValue}`)
+      .then((res) => res.json())
+      .then((results) => ({
+        options: results.map((item) => ({ label: item.name, value: item.id })),
+      }));
+  }, []);
+
+  return (
+    <Header.Search
+      {...searchProps}
+      onSubmit={(value) => navigateToResults(value)}
+      onSearch={handleSearch}
+    />
+  );
+};
+```
+
+**Key differences:**
+- Memoize `texts` and other object props with `useState` (or `useMemo`), the same way as the standalone Search component. Spread them with `{...searchProps}`.
+- The dropdown panel now has a **heading** (`texts.heading`), a **search input with suggestions** (via `onSearch`), and an external **submit button** (`texts.buttonLabel`).
+- `onChange` is no longer exposed. Input value changes are managed internally by the Search component.
+- The `onSearch` prop enables real-time search suggestions, which was not available in v4.
+
+- <InternalLink size="M" href="/components/header/code#headersearch">
+    Header.Search documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-header--with-search">
+    Header with Search storybook example
+  </InternalLink>
+
+---
+
+### Font change: Helsinki Grotesk Pro
+
+The design system font has been updated. **Helsinki Grotesk Pro** replaces the previous default font across React, Core, Documentation, and Figma.
+
+**Migration:** Ensure your project loads the new font (e.g. via HDS assets or your own font delivery). Check typography and line heights in layouts; adjust custom overrides if they depended on the old font metrics.
+
+- <InternalLink size="M" href="/foundation/design-tokens/typography">
+    Typography and design tokens
+  </InternalLink>
+
+---
+
+### Hero component
+
+#### React and Core
+
+Hero layout and sizing have been updated to match the design spec. Both React Hero and Core (HTML/CSS) Hero are affected.
+
+- **Container width:** The outer container is no longer constrained to `--container-width-xl` below the xl breakpoint (1248px). It uses `--container-width-xl` only at xl/xxl (≥1248px).
+- **Content max-width:** The heading and lead block use a content max-width of **690px** by default, overridable via `--hero-content-max-width`. Behaviour is breakpoint-specific per variant (single-column, image-bottom, image-left/right, background-image).
+- **Layout:** Implementation has been updated (e.g. grid and spacing). Layout may differ from v4; review all Hero variants in your app.
+
+**Migration:** Review Hero usage on key breakpoints (m, l, xl). If you relied on the previous container or content widths, adjust layouts or override `--hero-content-max-width` / `--container-width-xl` where needed. Test single-column, image-bottom, image-left, image-right, and background-image variants.
+
+- <InternalLink size="M" href="/components/hero">
+    Hero documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-hero">
+    React storybook examples
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/core/?path=/story/components-hero">
+    Core storybook examples
+  </InternalLink>
+
+---
+
+### Design token: alert-dark
+
+The **`alert-dark`** UI helper colour has changed and affects any use of `--color-alert-dark`.
+
+|        | v4    | v5     |
+|--------|--------|--------|
+| Value  | `#986700` | `#d18200` |
+
+This token is used by the Notification component and any custom use of `--color-alert-dark`.
+
+**Migration:** If you use `--color-alert-dark` or depend on the old hex value in design or code, update to the new value or rely on the token. Verify Notification and any custom alert UIs for visual and contrast acceptability.
+
+- <InternalLink size="M" href="/foundation/design-tokens/colour">
+    Colour design tokens
+  </InternalLink>
+- <InternalLink size="M" href="/components/notification">
+    Notification documentation
+  </InternalLink>
+
+---
+
+## Figma Design Kit
+
+This guide will help you understand how to transition an existing project from using an older version of HDS Figma Design Kit to using the latest 5.0.0 version.
+
+### What's changing?
+
+This HDS Design Kit update follows the changes deployed in the code for the 5.0.0 release of HDS. In this version we introduce changes to the Header, Search, Select, Link, Hero and Notification components, a new set of Figma Variables and the new font Helsinki Pro VAR. Check the version Changelog in HDS GitHub for a complete list of changes.
+
+### Introducing
+
+- **New official font:** Helsinki Grotesk Pro VAR
+- **Figma variables:** Breakpoint, Colour, Spacing and Typography — Colour and Typography variables have been linked to our local Figma styles, enabling Dev Mode to show them within the CSS code.
+- A more accessible Search input and Search in Header pattern
+- **ModularOptionList:** A common dependency used by Search and Select components.
+- Updated list of components and assets in HDS Overview in Figma
+
+### What to consider before updating to HDS Kit v5?
+
+Update or swap libraries safely by first duplicating your design files.
+
+- Font-family variable with new Helsinki Grotesk Pro VAR is linked to the font property of each typography style, thus it should be present in all components using styles.
+- New font will not update into layers to layout layers using directly Helsinki Grotesk font. To fix this, you will need to either link these layers into styles or manually add the font-family variable to the font property of the text layer.
+- In some cases, Figma may break auto-layout settings in instances using the new font. If you encounter any of these issues please report it to the HDS team.
+- Different versions of HDS library might have differently named styles or assets. If previous versions are still used in your files, you might need to do manual updates.
+
+### Breaking changes in Figma
+
+- **SearchInput** → in Figma is renamed as Search in HDS v5, and its structure has been modified. See Figma HDS Kit Changelog for more details.
+- **Header** → features now Search and several modifications were made to its structure in Figma. See Figma HDS Kit Changelog for more details.
+- **Select** → Several changes made in Select and MultiSelect dependencies. See Figma HDS Kit Changelog for more details.
+- **Notification** → Sizing, spacing and font-size related modifications. See Figma HDS Kit Changelog for more details.
+- **Link** → New variants for different interaction states, changes in underlining styles. See Figma HDS Kit Changelog for more details.
+
+### Removed components and variants that need replacement
+
+- **Dropdown** (Deprecated in v3) → This component is no longer included in HDS Kit 5.0.0 file. If you still use it, switch to Select, which was introduced already in v4.
+- **PhoneInput / Country code variant** (Deprecated in v4.1.0) → This component variant is no longer included in HDS Kit 5.0.0 file. Instead use the default PhoneInput and guide users through assistive text in case country code inclusion is required.
+
+### How to safely update from v4 to v5?
+
+#### 1. Duplicate your current design file
+
+In order to avoid disruptions to your workflow, it is recommended that you duplicate your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file. A guide for duplicating files can be found in Figma Learn.
+
+#### 2. Review and accept updates
+
+In your duplicate file, review and accept the HDS Design Kit library updates.
+
+#### 3. Check results
+
+Successful update should include the new font as a variable in all the updated HDS components. You can do this by selecting the text layers in Dev-mode.
+
+### How can I continue using HDS v4?
+
+Although we recommend to use the latest HDS version, in case your project is not ready to take the new v5, then you can either:
+
+a. Leave your files with pending update (no further tasks required)
+
+b. Swap to the new separate HDS Design v4.10.0 fallback library (follow steps below)
+
+In case you choose option b. your file will no longer receive v5 updates.
+
+#### Swap library
+
+1. Duplicate first your current design file
+2. Instead of taking the v5.0.0 updates, swap in assets/libraries the HDS Design Kit v5.0.0 library into HDS Design Kit v4.10.0. Swapping libraries allows you to quickly update instances in a file to use components from another library. The guide for swapping components can be found in Figma Learn.
+
+### How to migrate from HDS v3 to v5?
+
+If you are using the separate HDS v3 file in your designs, swap the v3 library to the new HDS Kit v5.0.0.
+
+### Can I continue using HDS v3?
+
+Although the library is still available for reference it is no longer recommended to use it since we no longer support it.
+
+---
+
+## Summary
+
+| Area        | Change |
+|------------|--------|
+| **Link**   | React: styling and icon behaviour; `openInNewTabAriaLabel` → `openInNewTabLabel`. Core: `.icon` and `.vertical-...` classes removed. |
+| **SearchInput** | React: removed; use the new Search component (`onSubmit` → `onSend`, `getSuggestions` → `onSearch`, labels moved to `texts` prop). Core SearchInput remains. |
+| **Header.Search** | Rewritten to use new Search component. `label` → `texts`, `onChange` removed, `onSearch` added for suggestions. |
+| **Font**   | Helsinki Grotesk Pro replaces the previous default font. |
+| **Hero**   | Container and content max-widths and layout updated; 690px content max-width, container width at xl only. |
+| **alert-dark** | Token value changed from `#986700` to `#d18200`. |
+| **Figma Design Kit** | New font Helsinki Grotesk Pro VAR, new Figma variables, updated Search/Header/Select/Link/Notification/Hero components, Dropdown and PhoneInput country code variant removed. |
+
+For other breaking changes in 5.0.0 (e.g. Select/Combobox), see the [Changelog](/about/releases).

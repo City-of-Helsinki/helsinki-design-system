@@ -241,7 +241,7 @@ export async function scrollLocatorTo(element: Locator, scrollTarget: number) {
   return getScrollTop(element);
 }
 
-export async function waitForStablePosition(locator: Locator, requiredCount = 5) {
+export async function waitForStablePosition(locator: Locator, requiredCount = 5, delayMs = 100) {
   let previousBox: BoundingBox = { x: 0, y: 0, width: -1, height: -1 };
   const isStable = (box: BoundingBox): boolean => {
     if (
@@ -258,6 +258,8 @@ export async function waitForStablePosition(locator: Locator, requiredCount = 5)
     return false;
   };
   const fn = async () => {
+    // Add explicit delay to allow for rendering/font loading
+    await new Promise(resolve => setTimeout(resolve, delayMs));
     const box = await locator.boundingBox();
     if (!box) {
       return Promise.resolve(false);
@@ -265,7 +267,7 @@ export async function waitForStablePosition(locator: Locator, requiredCount = 5)
     return Promise.resolve(isStable(box));
   };
 
-  return waitForStable(fn);
+  return waitForStable(fn, requiredCount);
 }
 
 export function getAllElementAttributes(locator: Locator): Promise<Record<string, string>> {

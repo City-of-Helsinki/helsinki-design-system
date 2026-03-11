@@ -1,0 +1,32 @@
+---
+slug: '/components/search/accessibility'
+title: 'Search - Accessibility'
+---
+
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+## Accessibility
+
+### Pay attention to
+
+- The Search component uses the `combobox` role on the input when suggestions or history are available, following the WAI-ARIA combobox pattern. When neither `onSearch` nor `historyId` is set, it uses the `searchbox` role instead.
+- The suggestion list is connected to the input via `aria-controls` and `aria-expanded` to communicate its state to assistive technologies.
+- Virtual focus is used for navigating suggestions with arrow keys. The `aria-activedescendant` attribute is updated to point to the currently highlighted option, keeping DOM focus on the input so the user can continue typing.
+- **Always provide a label.** Use the `texts.label` property to set a visible label. If a visible label is not desired, ensure there is an accessible label through other means.
+- **Search history accessibility.** When history is available and the input is empty, screen readers are notified with the `historyInfo` text so the user knows history is available.
+- **Search state notifications.** The component uses screen reader live regions to announce search progress and results (e.g. "Searching for...", "Found 5 options for search term...").
+- **Error handling.** When the `onSearch` promise rejects, an error message is shown visually and announced to screen readers with the `searchErrorTitle` and `searchErrorText` texts.
+- Avoid using the Search component for navigation or menus. It is designed for searching and selecting options from results.
+
+### Keyboard support
+
+| Key                   | Function                                                                                              |
+| --------------------- | ----------------------------------------------------------------------------------------------------- |
+| `ArrowDown`           | Opens the history (if input is empty and closed). Moves virtual focus to the next suggestion.         |
+| `ArrowUp`             | Moves virtual focus to the previous suggestion.                                                       |
+| `Enter`               | Selects the virtually focused suggestion. If no suggestion is focused, submits the search.            |
+| `Space`               | Selects the virtually focused suggestion (only when a suggestion has virtual focus).                  |
+| `Escape`              | Closes the suggestion dropdown and returns focus to the input.                                        |
+| [Table 1: Keyboard support] |

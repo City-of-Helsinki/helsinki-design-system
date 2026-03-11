@@ -5,9 +5,187 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.0.0] - March, 11, 2026
+
+### React
+
+#### Breaking
+
+- [Hero] Responsive container and content max-widths have changed to match the design spec. Layout may differ from previous versions: the outer container is no longer constrained to `--container-width-xl` below the xl breakpoint (1248px); the heading and lead block use a content max-width (690px by default, overridable via `--hero-content-max-width`) with breakpoint-specific behavior per variant (single-column, image-bottom, image-left/right, background-image). Both React Hero and Core (HTML/CSS) Hero are affected.
+- [SearchInput] Removed `SearchInput` component from React package. Use the new `Search` component instead. The Core (HTML/CSS) version of SearchInput remains available.
+- [Select, Combobox] Removed deprecated `Select` and `Combobox` components from `components/dropdown/` directory. Use the new `Select` component from `components/dropdownComponents/select/` instead. The old components were deprecated in favor of the new modular dropdown components architecture.
+- [Link] Link styling has changed.
+  - **Spacing.** Icon spacing is applied on the anchor's direct children (first/last child). If you relied on specific wrapper or icon selectors for spacing, update them.
+  - **Icons inherit size.** Inline link icons now follow the link's font size; previous size classes on the icon element may no longer apply as before.
+- [Link] `openInNewTabAriaLabel` was renamed to `openInNewTabLabel`. The new prop controls the **visible** text appended when the link opens in a new tab (e.g. "(avautuu uudessa välilehdessä)"); that text is no longer added to the aria-label. The old prop was included in the composed aria-label for screen readers. Migrate by renaming the prop to `openInNewTabLabel`; use the same value if it was suitable as visible text (e.g. "opens in a new tab").
+
+#### Added
+
+- [Link] `iconEnd` prop to place an icon or element on the end side of the link text.
+- [ModularOptionsList, Select] Single-select `Option` can now be given an `iconStart`-prop which renders preferably an icon to the start-side of the label. (type of `ReactNode`, designed to be used with 24px x 24px icons)
+
+#### Changed
+
+- Use Helsinki Grotesk Pro font instead of the old
+- [Notification] body text size set to --fontsize-body-m all variations
+- [Notification] Heading size and gaps in default/basic size inline updated
+- [Notification] `link` prop added to enable native link in Notification.
+- [Checkbox] Disabled state color changes due to accessibility (background and tick colours).
+- [Hero] Layout implementation updated for improved responsiveness.
+
+#### Fixed
+
+### Core
+
+- Use Helsinki Grotesk Pro font instead of the old
+
+#### Breaking
+
+- [Hero] Responsive container and content max-widths have changed to match the design spec. Container uses `--container-width-xl` only at xl/xxl (≥1248px); the heading and lead block use a content max-width (690px by default, overridable via `--hero-content-max-width`) from breakpoint-m up for single-column and image-bottom variants, and only at breakpoint-m for image-left/right and background-image variants. Layout may differ from previous versions.
+- [Link] The **`.icon`** class was removed altogether from the link component; do not use it on link icons.
+- [Link] The **`.vertical-...`** classes (e.g. `vertical-align-small-icon`, `vertical-align-medium-icon`) were also removed; icon alignment is now handled automatically not by using utility classes on the icon element.
+
+#### Added
+
+- [Link] Icons can be added with a **class on the anchor** in addition to the old way (an icon element inside the link). Use `hds-icon--<name>` with `hds-icon-start--<name>` or `hds-icon-end--<name>` on the `<a>` for pseudo-element icons (e.g. `hds-icon--link-external hds-icon-end--link-external` for the external link icon, or `hds-icon--document hds-icon-start--document` for a document icon). The previous pattern (e.g. `<span class="hds-icon ...">` or `<i class="hds-icon ...">` inside the link) still works.
+- [Notification] New example on how to have a link inside notification.
+
+#### Changed
+
+- [Checkbox] Disabled state color changes due to accessibility (background and tick colours).
+- [Hero] Layout implementation updated for improved responsiveness.
+
+### Design Tokens
+
+#### Breaking
+
+- `alert-dark` UI helper colour changed from `#986700` to `#d18200` (affects Notification and any custom use of `--color-alert-dark`).
+
+### Documentation
+
+- Use Helsinki Grotesk Pro font instead of the old
+
+#### Added
+
+- [Select] Examples of `iconStart`-usage in Single select options.
+- [Search] New Search component.
+- [Header] New Header.Search subcomponent.
+
+#### Changed
+
+- [Breakpoints] Breakpoint tokens page updated: added `--breakpoint-xxl` (≥1440px) to the tokens table; container width tokens section simplified (deprecation notice and deprecated container-width-xs/s/m/l table removed).
+- [Grid] Grid guidelines updated to six breakpoints (xxl added); breakpoint and container-width table now includes the xxl row.
+- [SearchInput] Updated documentation to only cover Core (HTML/CSS) version. Examples now use vanilla JavaScript for interactivity.
+- [Link] Code examples for Core use class-based external icon (`hds-icon--link-external hds-icon-end--link-external`) with no inner `<span>` or `<i>`. React props table updated with `iconEnd` and corrected `size` default.
+- [Link] Accessibility and Code docs updated: `aria-label` behaviour is documented (internal links receive the prop as given; external links use the composed label), and the prop is listed in the React props table.
+- [PhoneInput] Documentation updated: country code selection variant has been removed.
+
+### Figma
+
+#### Added
+
+- [Placeholder] Added documentation to display how the placeholder can be themed to accommodate different needs
+- [Colours] [Design-only] Token-based colour variables were added to the library.
+- [Typography] [Design-only] Token-based font and font-size variables were added to the library.
+- [Breakpoints] [Design-only] Token-based breakpoint variables were added to the library.
+- [Spacing] [Design-only] Token-based spacing variables were added to the library.
+- [Local styles] Added 4 styles for Link hover state, which were applied to Link component
+- [Link] now has complete range of states inside the component
+- [Grid and Breakpoints] Added note about Grid visualization in Figma
+- [Grid and Breakpoints] Added a XXL breakpoint (≥ 1440px)
+- [Grid and Breakpoints] Added min-/max-width to all Grid component instances (Figma)
+- [Header] .HeaderSearch and .HeaderSearchModal subcomponents
+- [Patterns/Search in Header] Added Header Search pattern and documentation, including:
+    -Search History & Search Suggestion
+    -Accessibility
+    -Prototypes
+- [Hero] Added a comparison table with details on where the max-width is applied within the different variants
+- [SearchInput] The SearchInput offers now also a filter variant. The filter variant serves the filter functionality of select and multiselect components.
+- [SearchInput] The input structure includes also an icon on the left side. 
+- [.ModularOptionList] New component dependency that provides building blocks for SearchInput and Select
+
+#### Changed
+
+- [Checkbox] Disabled state color has been modified to make it look disabled and contrasting with other checkboxes states while keeping it as much visible as possible. Changes were applied to border, background, label and required-indicator.
+- [Colours] [Design-only] Token-based colour variables were applied to all colour-styles, meaning all components in this file are now connected to colour variables through the colour styles previously applied to them.
+- [Colours] Changed Alert-dark HEX value from #D18200 to #C27900, so that the color will have minimum AA Non-text Contrast (3:1) when adjacent with Alert-light colour. This change automatically fixes reported Alert Notification contrast issue.
+- [Typography] New font Helsinki Grotesk Pro VAR replaced in all styles through the default font-family variable
+- [Typography] [Design-only] Token-based font and font-size variables were applied to all colour-styles, meaning all components in this file are now connected to font and font-size variables through the text styles previously applied to them.
+- [Typography styles] Changed Link Regular, Bold and Medium styles text-decoration underline thickness from Auto to 1px
+- [Typography styles] Changed Link Regular, Bold and Medium styles text-decoration underline offset from Auto to 10%
+- [Link] Changed Link default state text-decoration underline thickness from 7% to 1px
+- [Link] Changed Link hover state text-decoration underline thickness from 14% to 2px
+- [Link] Changed Link default and hover state text-decoration underline offset from "Auto" to 10%
+- [Link] Changed Link icon and text gap to be uniformly 2px in all link sizes in order to improve inline link distinction from other surrounding content. 
+- [.NavigationLink] Changed Link icon and text gap to be uniformly 2px in all link sizes in order to align with link component
+- [.NavigationLink] Changed the size of icons to match Link component sizing
+- [.NavigationLink] Changed the style of the hover states from  Link Regular to Link Hover
+- [.NavigationLink] Changed the style of the hover states that had styles applied 
+- [.NavigationLink] Changed the text-decoration thickness and offset of the hover states that didn't have existing styles applied
+- [Header] .Header.Navigationmenu L-breakpoint now uses the same subcomponent that all the other variants do
+- [Header] Removed size variants and property from .Header.Navigationmenu.List, renamed the component
+- [Header] New subcomponent .Header.Navigationmenu.ListItem divided from .Header.Navigationmenu.List now allows the changing of item states inside the navigation menu
+- [Header] .Header.Navigationmenu L-breakpoint now uses the same subcomponent that all the other variants do
+- [Header] Removed size variants and property from .Header.Navigationmenu.List, renamed the component
+- [Header] New subcomponent .Header.Navigationmenu.ListItem divided from .Header.Navigationmenu.List now allows the  changing of item states inside the navigation menu
+- [Select][Multiselect] Components now use ModularOptionList & SearchInput. Old subcomponents deleted
+- [Grid and Breakpoints] Breakpoint XXL included a centered container with max-width of 1440px
+- [Grid and Breakpoints] Spec table updated to better match development
+- [Grid and Breakpoints] "Breakpoints in action" section removed
+- [Header] Modified the .Header.ActionBar to include the .HeaderSearch
+- [Header] Extended specification for Header functionalities (4/4)
+- [Hero] Hero content has now a max-width of 690px aligning Hel.fi specifications. 
+- [SearchInput] The structure has been updated to include the ModularOptionList for displaying history and suggestions. 
+- [SearchInput] The target area of clear button and the internal search button has been increased. Also their focus area has been defined and documented. 
+- [SearchInput] The internal search button features now also a border.
+- [Notification] New body text size 16px all across the component
+- [Notification] Inline/toast default size now has heading size XXS and tweaked gaps to optimize the variant for mobile sizes
+- [Notification] Dismissable-prop ‘false’ by default
+
+#### Fixed
+
+- [Placeholder] Locked aspect-ratio in each variant. This affects all components in Figma using placeholder.
+- [Hero] The Placeholder aspect-ratio fix implicated breaks in Hero design, thus auto-layout settings were added to make the breakpoint versions work better and avoid Koros breaking. These fixes could possibly bring changes to the layouts using the Hero in Figma. 
+- [Design kit] Couple of fixes to Grid/breakpoint and Footer documentation
+- [Link] Fixed incomplete state documentation
+- [ModularOptionList] Text properties fixed
+- [.Changelog instance] Markdown headings are now h4 for easier copying to Github changelogs 
+- [SearchInput] Fixed broken structure between input and selection container when label is hidden.
+- [.NavigationLink] fixed iconEnd to be a permanent property in all variants, removed bottom padding for icon.
+
+#### Removed
+
+- [PhoneInput, variant] Removed CountryCode variant from library after ending deprecation period
+- [Dropdown] Removed from library after ending deprecation period
+
+#### Unreleased
+
+##### Added
+
+- [Card] New breakpoint variants for card with Image
+- [Card] New skeleton state (loading) variants
+- [Patterns / Search Results] New pattern documentation for Search results page. Includes specifications, variations, accessibility notes and prototypes 
+
+##### Changed
+
+- [Card] Title fontsizes changed to H4 size, and if link: underlined by default
+- [Card] Text card category tag placement unified with image card
+- [Footer] Updated footer documentation with new guide on usage of optional sections and theme support
+- [Footer] Footer component properties support now hiding/showing optional sections
+- [Footer] Introducing a new "Custom section" (hidden by default), with 4 groups combining linked headings, text layers and navigation links
+- [Footer] Auto layout improvements for Navigation and Utility S/M sizes
+- [Table] Introducing new table specification for use of lateral shadows in case of overflow scrolling.
+- [Table] Table header, cell backgrounds and borders updated to improve consistency across services
+
+##### Fixed
+
+- [Card] Text card fixed to be more responsive
+
 ## [4.10.0] - January, 29, 2026
 
 Updated documentation build process for multi-version docs by replacing the `gatsby-source-git` setup with a local filesystem-based source and adding automatic version detection from the documentation directory structure.
+
+- Security related updates and changes necessary due to them.
 
 ### React
 

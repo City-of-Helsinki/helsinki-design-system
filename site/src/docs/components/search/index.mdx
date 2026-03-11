@@ -1,0 +1,217 @@
+---
+slug: '/components/search'
+title: 'Search'
+navTitle: 'Search'
+---
+
+import { Search, Notification, Button } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+import ExternalLink from '../../../components/ExternalLink';
+import InternalLink from '../../../components/InternalLink';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+export const fruits = [
+  'Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut',
+  'Cranberry', 'Dragon fruit', 'Fig', 'Grape', 'Grapefruit', 'Guava', 'Honeydew', 'Kiwi',
+  'Lemon', 'Lime', 'Lychee', 'Mango', 'Nectarine', 'Orange', 'Papaya', 'Passion fruit',
+  'Peach', 'Pear', 'Pineapple', 'Plum', 'Pomegranate', 'Raspberry', 'Starfruit',
+  'Strawberry', 'Tangerine', 'Watermelon',
+];
+
+export const handleSearch = (searchValue) => {
+  return Promise.resolve({
+    options: fruits
+      .filter((s) => s.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+      .map((s) => ({ label: s, value: s })),
+  });
+};
+
+export const SearchExample = () => {
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+  return (
+    <>
+      {showNotification && (
+        <Notification label="Search submitted" type="success" position="bottom-right" autoClose dismissible closeButtonLabelText="Close notification" onClose={() => setShowNotification(false)}>
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        id="search-usage-example"
+        texts={{ label: 'Search for fruits', language: 'en' }}
+        onSearch={handleSearch}
+        onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
+      />
+    </>
+  );
+};
+
+export const SearchWithSuggestionsExample = () => {
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+  return (
+    <>
+      {showNotification && (
+        <Notification label="Search submitted" type="success" position="bottom-right" autoClose dismissible closeButtonLabelText="Close notification" onClose={() => setShowNotification(false)}>
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        id="search-with-suggestions"
+        texts={{ label: 'Search for fruits', language: 'en' }}
+        onSearch={(searchValue) => Promise.resolve({ groups: [{ label: '', options: fruits.filter((s) => s.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0).map((s) => ({ label: s, value: s })) }] })}
+        onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
+      />
+    </>
+  );
+};
+
+export const SearchWithHistoryExample = () => {
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+  return (
+    <>
+      {showNotification && (
+        <Notification label="Search submitted" type="success" position="bottom-right" autoClose dismissible closeButtonLabelText="Close notification" onClose={() => setShowNotification(false)}>
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        id="search-with-history"
+        historyId="docs-search-history"
+        texts={{ label: 'Search with history', language: 'en' }}
+        onSearch={handleSearch}
+        onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
+      />
+    </>
+  );
+};
+
+export const SimpleSearchExample = () => {
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+  return (
+    <>
+      {showNotification && (
+        <Notification label="Search submitted" type="success" position="bottom-right" autoClose dismissible closeButtonLabelText="Close notification" onClose={() => setShowNotification(false)}>
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        id="search-simple"
+        texts={{ label: 'Simple search', language: 'en' }}
+        onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
+      />
+    </>
+  );
+};
+
+export const ExternalButtonExample = () => {
+  const searchRef = React.useRef(null);
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+  const onSend = (val) => {
+    setNotificationMessage(`Search submitted: "${val}"`);
+    setShowNotification(true);
+  };
+  return (
+    <>
+      {showNotification && (
+        <Notification label="Search submitted" type="success" position="bottom-right" autoClose dismissible closeButtonLabelText="Close notification" onClose={() => setShowNotification(false)}>
+          {notificationMessage}
+        </Notification>
+      )}
+      <div style={{ display: 'flex', gap: 'var(--spacing-s)', alignItems: 'flex-end' }}>
+        <div style={{ flexGrow: 1 }}>
+          <Search
+            id="search-external-button"
+            hideSubmitButton
+            ref={searchRef}
+            texts={{ label: 'Search for fruits', language: 'en' }}
+            onSearch={handleSearch}
+            onSend={onSend}
+          />
+        </div>
+        <Button style={{ margin: '8px' }} onClick={() => searchRef.current?.submit()}>Search</Button>
+      </div>
+    </>
+  );
+};
+
+## Usage
+
+### Example
+
+<PlaygroundPreview>
+  <SearchExample />
+</PlaygroundPreview>
+
+### Principles
+
+- **Use for search-driven interactions.** The Search component is intended for use cases where the user needs to type a query and see suggestions or results. For selecting from a predefined list, use the <InternalLink href="../select">Select</InternalLink> component instead.
+- **Provide meaningful suggestions.** When using the `onSearch` callback, return relevant options to help the user find what they need quickly.
+- **Always use a label.** Make sure the Search component has a label. Aim for labels that are short, concise and easy to understand.
+- **Consider search history.** Use the `historyId` prop to enable search history, which helps users revisit previous searches. History is stored in `localStorage` and limited to 10 items.
+- **Short suggestion texts.** Try to keep suggestion labels to a single line for best readability.
+- **Explain required fields.** When given the `required` prop, there will be an asterisk (`*`) added after the label to emphasise its required status.
+
+### Variations
+
+#### Search with suggestions
+
+The primary use case for Search: the user types a query and receives asynchronous search suggestions from a backend or other data source.
+
+<PlaygroundPreview>
+  <SearchWithSuggestionsExample />
+</PlaygroundPreview>
+
+#### Search with history
+
+When a `historyId` is provided, the component stores previous searches in `localStorage` and shows them when the input is focused or the user presses ArrowDown on an empty input. This makes it easy for users to repeat previous searches.
+
+Since the search history is stored in `localStorage`, it requires the user to accept the **Preferences** cookie group via the <InternalLink href="/components/cookie-consent">CookieConsent</InternalLink> component. If the user has not given consent, the `historyId` prop has no effect and no search history is stored. Make sure your service includes the `hds-search-history-*` entry in the preferences cookie group of your cookie consent settings.
+
+<ExternalLink
+  href="/storybook/react/?path=/story/components-search--with-cookie-consent"
+  openInExternalDomainAriaLabel="Opens in a new domain"
+  openInNewTab
+  openInNewTabLabel="Opens in a new tab"
+>
+  View search with cookie consent example in Storybook
+</ExternalLink>
+
+<PlaygroundPreview>
+  <SearchWithHistoryExample />
+</PlaygroundPreview>
+
+#### Simple search without suggestions
+
+Search can also be used as a simple search input without suggestions — just a text field with a submit button. This is useful when no search suggestions are available or needed.
+
+<PlaygroundPreview>
+  <SimpleSearchExample />
+</PlaygroundPreview>
+
+#### Search with external submit button
+
+When the submit action is handled by an external button, use `hideSubmitButton` to hide the built-in button and a `ref` to call `submit()` programmatically.
+
+<PlaygroundPreview>
+  <ExternalButtonExample />
+</PlaygroundPreview>
+
+### Keyboard usage
+
+- When the search input is focused:
+  - Typing text triggers the `onSearch` function (if provided) and shows suggestions.
+  - Press `ArrowDown` to move focus to the first suggestion. If the dropdown is closed and the input is empty, pressing `ArrowDown` opens the history list (if available).
+  - Press `ArrowUp` to move focus to the last suggestion.
+  - Press `Enter` to submit the search (calls `onSend`).
+  - Press `Escape` to close the suggestion dropdown.
+
+- When a suggestion has virtual focus:
+  - Press `ArrowDown` / `ArrowUp` to navigate between suggestions (loops at boundaries).
+  - Press `Enter` or `Space` to select the focused suggestion.
+  - Press `Escape` to close the dropdown and return focus to the input.
+  - Typing resets the virtual focus, so the next `ArrowDown` starts from the first suggestion.

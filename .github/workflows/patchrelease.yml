@@ -32,6 +32,8 @@ jobs:
       - name: build core package
         run: yarn build
         working-directory: ./packages/core
+        env:
+          FONT_URL: ${{ secrets.FONT_URL }}
 
       - name: build react package
         run: yarn build

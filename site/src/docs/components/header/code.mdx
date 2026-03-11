@@ -264,10 +264,10 @@ export const IndexLink = ({ anchor, children }) => {
 
 #### Example with all the components
 
-<Playground scope={{ Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
+<Playground scope={{ Header, IconSignout, Logo, logoFi, logoSv, logoSvDark, translations, logoSrcFromLanguageAndTheme }}>
 
 ```jsx
-import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
+import { Header, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
 
 () => {
   const languages = [
@@ -276,9 +276,6 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
     { label: 'English', value: 'en', isPrimary: true },
     { label: 'Français', value: 'fr' },
   ];
-  const searchAction = () => {
-    console.log('Open search page');
-  };
 
   const [href, setHref] = React.useState('');
   const [lang, setLang] = React.useState('fi');
@@ -328,12 +325,33 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
               <Header.ActionBarSubItem label="InfoFinland.fi" external href="www.example.com" lang="fi" />
             </Header.ActionBarSubItemGroup>
           </Header.LanguageSelector>
-          <Header.ActionBarItem
-            label={I18n.headerSearch}
-            icon={<IconSearch />}
-            id="action-bar-search"
-            onClick={searchAction}
-            closeLabel={I18n.close}
+          <Header.Search
+            texts={{
+              heading: `Hae palvelusta: ${I18n.headerTitle}`,
+              label: I18n.headerSearch,
+              buttonLabel: I18n.headerSearch,
+              closeLabel: I18n.close,
+              placeholder: 'Anna teksti hakua varten',
+            }}
+            onSubmit={(value) => console.log('Search submitted:', value)}
+            onSearch={(searchValue) => {
+              return Promise.resolve({
+                groups: [
+                  {
+                    label: '',
+                    options: [
+                      'Sosiaali- ja terveyspalvelut',
+                      'Kasvatus ja koulutus',
+                      'Yritykset ja työ',
+                      'Terveydenhoito',
+                      'Hammashoito',
+                    ]
+                      .filter((s) => s.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0)
+                      .map((s) => ({ label: s, value: s })),
+                  },
+                ],
+              });
+            }}
           />
           <Header.ActionBarItem label="Testi Käyttäjänimi" avatar="TK" fixedRightPosition>
             <Header.ActionBarSubItem label="Omat tiedot" href="/" />
@@ -512,7 +530,7 @@ import { Header, IconSearch, IconUser, IconSignout, Logo, logoFi, logoSv, logoSv
 
 </Playground>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
 
 #### Example with dark theme
 
@@ -575,7 +593,7 @@ import { Header, Logo, logoFiDark } from 'hds-react';
 
 </Playground>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header with dark theme example in Storybook by changing the theme property.</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header with dark theme example in Storybook by changing the theme property.</Link>.
 
 #### Properties
 
@@ -737,14 +755,30 @@ Language options, the default language, and a change listener are passed to the 
 
 ### Header.Search
 
+The Header.Search component integrates the <InternalLink href="/components/search">Search</InternalLink> component into the Header action bar. It renders a search icon button that opens a full-width dropdown panel with a search input and suggestions.
+
 #### Properties
 
-| Property                           | Description                                    | Values                         | Default value |
-| ---------------------------------- | ---------------------------------------------- | ------------------------------ | ------------- |
-| `label`                            | Label for the search input.                    | `string` `JSX.Element`         | -             |
-| `onChange`                         | Callback function for the input value changes. | `(inputValue: string) => void` | -             |
-| `onSubmit`                         | Callback function for when input is submitted. | `(inputValue: string) => void` | -             |
+| Property                           | Description                                                                                | Values                                          | Default value    |
+| ---------------------------------- | ------------------------------------------------------------------------------------------ | ----------------------------------------------- | ---------------- |
+| `buttonIcon`                       | Icon for the search button in the Header action bar.                                       | `JSX.Element`                                   | `<IconSearch />` |
+| `id`                               | ID for the search component. Used as prefix for child element IDs.                         | `string`                                        | `header-search`  |
+| `onSearch`                         | Asynchronous function that returns search suggestions.                                     | `(searchValue, selectedOptions, data) => Promise`| -                |
+| `onSubmit`                         | Callback fired when search is submitted (Enter or button click).                           | `(value: string) => void`                       | -                |
+| `texts`                            | Text overrides for the search panel. Includes Search text keys and extra keys listed below. | `Partial<Texts>`                                | -                |
 | [Table 9:Header.Search properties] |
+
+#### Additional text keys
+
+| Key                                       | Purpose                                                    |
+| ----------------------------------------- | ---------------------------------------------------------- |
+| `heading`                                 | Heading shown in the search dropdown panel.                |
+| `buttonLabel`                             | Label for the search/submit button.                        |
+| `closeLabel`                              | Label for the close button.                                |
+| `placeholder`                             | Placeholder text for the search input.                     |
+| [Table 10: Header.Search additional text keys] |
+
+All other text keys from the <InternalLink href="/components/search/code#text-keys">Search component</InternalLink> are also supported.
 
 <NativeElementPropsInfo nodeName="div" />
 
@@ -871,7 +905,7 @@ import { Link } from 'gatsby';
 
 </Playground>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
 
 #### Properties
 
@@ -1000,5 +1034,5 @@ This component uses the <AnchorLink>Header.ActionBarItem</AnchorLink> and automa
 
 | Package       | Included                                                                                        | Storybook link                                                                                                                                                    | Source link                                                                                                                                                                                                         |
 | ------------- | ----------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- |
-| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
+| **HDS React** | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCheckCircleFill /> Yes </div> | <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View in Storybook</Link> | <ExternalLink openInNewTab openInNewTabLabel="Opens in a new tab" href="https://github.com/City-of-Helsinki/helsinki-design-system/tree/master/packages/react/src/components/header">View source</ExternalLink> |
 | **HDS Core**  | <div style={{ display: 'flex', gap: 'var(--spacing-3-xs)' }}><IconCrossCircle /> No </div>      | -                                                                                                                                                                 | -                                                                                                                                                                                                                   |

@@ -11,6 +11,36 @@ import Notification from '../../../components/Notification';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
 
+export const handleSearch = (searchValue) => {
+  if (searchValue === 'error') {
+    return Promise.reject(new Error('Simulated error'));
+  }
+  
+  // Simple mock options for demo purposes
+  const mockOptions = [
+    'Hakutulos 1',
+    'Hakutulos 2',
+    'Hakutulos 3',
+    'Sosiaali- ja terveyspalvelut',
+    'Kasvatus ja koulutus',
+    'Asuminen ja ympäristö',
+    'Kulttuuri ja vapaa-aika',
+    'Liikenne ja kartat',
+    'Työ ja yritystoiminta',
+    'Päätöksenteko ja hallinto'
+  ].filter((label) => label.toUpperCase().indexOf(searchValue.toUpperCase()) >= 0)
+   .map((label) => ({ value: label, label }));
+
+  return Promise.resolve({
+    groups: [
+      {
+        label: '',
+        options: mockOptions,
+      },
+    ],
+  });
+};
+
 ## Usage
 
 ### Example
@@ -112,7 +142,7 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example in Storybook</Link>.
 
 ### Principles
 
@@ -171,7 +201,7 @@ Use the Header.SkipLink component to help keyboard-only users skip to the main c
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">View minimal header example with skip link in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--minimal">View minimal header example with skip link in Storybook</Link>.
 
 #### With universal bar
 
@@ -202,7 +232,7 @@ Header.UniversalBar is aimed to provide easy access for frequently visited and u
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with universal bar in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with universal bar in Storybook</Link>.
 
 #### With action bar
 
@@ -241,7 +271,7 @@ Header.ActionBar is the section that makes your service recognizeable. It provid
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full featured header example with action bar in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full featured header example with action bar in Storybook</Link>.
 
 ##### With language selector
 
@@ -255,7 +285,7 @@ Header.LanguageSelector offers the languages for the whole service. It is recomm
 - Using the Header.LanguageSelector is optional.
 - The Header.LanguageSelector component doesn't offer localisation logic, it merely provides the UI for offering and changing languages. We trust HDS users have their own localisation libraries that they can integrate with our component.
 - The Header component has `onDidChangeLanguage` prop function, where user can define a callback function which gets the selected language key (value) as parameter.
-- See example for Header.LanguageSelector <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link>.
+- See example for Header.LanguageSelector <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">in Storybook</Link>.
 - Under large sized screens (992px and down) the Header.LanguageSelector moves under the Header.ActionBar.
 
 Use the Header.LanguageSelector when
@@ -314,12 +344,12 @@ The button must be placed inside an [ActionBarItem](#actionbaritem). There is no
 
 ##### With search
 
-<Notification label="A work in progress!" className="siteNotification">
-  The Header.Search component is still in design process! We are working on it and will provide a full-featured
-  component later on.
-</Notification>
+The Header.Search component integrates the <InternalLink href="/components/search">Search</InternalLink> component into the Header. Clicking the search icon in the action bar opens a full-width dropdown panel with a search input and suggestions. The component uses the same `onSearch` asynchronous function as the standalone Search component.
 
-The Header.Search component is to be used for whole site wide search. Currently HDS recommends putting the SearchIcon inside the Header.ActionBar, and making it open search in separate search page by pressing the search icon. This enables using all needed search functionalities. A code example can be found in the <InternalLink href="/components/header/code/#with-all-the-components">Code</InternalLink> page.
+- Header.Search is placed inside Header.ActionBar as a child component.
+- The `texts` prop provides labels for the heading, button, close button, and the inner search input.
+- The `onSubmit` callback is called when the user submits a search.
+- The `onSearch` callback provides asynchronous search suggestions in the dropdown.
 
 <PlaygroundPreview clipped>
   <Header>
@@ -333,20 +363,25 @@ The Header.Search component is to be used for whole site wide search. Currently 
       menuButtonAriaLabel="Menu"
       onMenuClick={(e) => e.stopPropagation()}
     >
-      <Header.ActionBarItem label="Haku" icon={<IconSearch />} id="action-bar-search">
-        <Header.Search label="Hae palvelusta" onChange={() => {}} onSubmit={() => {}} />
-      </Header.ActionBarItem>
+      <Header.Search
+        texts={{
+          heading: 'Hae palvelusta: Helsingin kaupunki',
+          label: 'Mitä etsit?',
+          buttonLabel: 'Hae',
+          closeLabel: 'Sulje',
+          placeholder: 'Anna teksti hakua varten',
+          assistive: 'Avustava teksti',
+        }}
+        onSubmit={(value) => console.log('Search submitted:', value)}
+        onSearch={handleSearch}
+      />
     </Header.ActionBar>
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-search">View header with search example in Storybook</Link>.
 
 ##### ActionBarItem and ActionBarButton
-
-<Notification label="A work in progress!" className="siteNotification">
-  The Header.ActionBarItem and Header.ActionBarButton components are subject to change.
-</Notification>
 
 The Header.ActionBarItem is a generic component for displaying icon buttons on the action bar accompanied with dropdowns.
 Header.ActionBarButton is a generic button component for displaying buttons without dropdowns.
@@ -449,7 +484,7 @@ Any ActionBarItem with a functionality that opens a dropdown, must have an indic
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
 
 ##### ActionBarSubItem and ActionBarSubItemGroup
 
@@ -484,7 +519,7 @@ The Header.ActionBarSubItemGroup renders its children as a list and forms a grou
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
 
 #### With navigation menu
 
@@ -585,7 +620,7 @@ The Header.NavigationMenu enables users to navigate to different pages of the se
   </Header>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">View full header example with navigation menu in Storybook</Link>.
 
 #### Colour variations
 
@@ -781,4 +816,4 @@ When customising colours, refer to <InternalLink href="/foundation/design-tokens
   </div>
 </PlaygroundPreview>
 
-**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-custom-theme">View full header with custom theme example in Storybook</Link> or toggle <Link openInNewTab openInNewTabAriaLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">the dark theme in full featured story</Link>.
+**Note:** Header is designed to be used full width at the top of the page above the main content. Preview here might not scale correctly and mobile navigation menu is disabled. <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features-custom-theme">View full header with custom theme example in Storybook</Link> or toggle <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/storybook/react/?path=/story/components-header--with-full-features">the dark theme in full featured story</Link>.

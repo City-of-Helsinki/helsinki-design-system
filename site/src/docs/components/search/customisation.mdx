@@ -1,0 +1,169 @@
+---
+slug: '/components/search/customisation'
+title: 'Search - Customisation'
+---
+
+import { Search, Notification } from 'hds-react';
+import TabsLayout from './tabs.mdx';
+
+export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
+
+export const fruits = [
+  'Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut',
+  'Cranberry', 'Dragon fruit', 'Fig', 'Grape', 'Grapefruit', 'Guava', 'Honeydew', 'Kiwi',
+  'Lemon', 'Lime', 'Lychee', 'Mango', 'Nectarine', 'Orange', 'Papaya', 'Passion fruit',
+  'Peach', 'Pear', 'Pineapple', 'Plum', 'Pomegranate', 'Raspberry', 'Starfruit',
+  'Strawberry', 'Tangerine', 'Watermelon',
+];
+
+## Customisation
+
+### Customisation properties
+
+You can use the `theme` property to customise the component. See all available theme variables in the table below.
+
+| Theme variable                                      | Description                                                              |
+| --------------------------------------------------- | ------------------------------------------------------------------------ |
+| `--search-background-default`                       | Background color of the search input.                                    |
+| `--search-background-disabled`                      | Background color of the search input when disabled.                      |
+| `--search-border-color-default`                     | Border color of the search input.                                        |
+| `--search-border-color-hover`                       | Border color of the search input when hovered.                           |
+| `--search-border-color-hover-invalid`               | Border color of the search input in invalid state when hovered.          |
+| `--search-border-color-focus`                       | Border color of the search input when focused.                           |
+| `--search-border-color-invalid`                     | Border color of the search input in invalid state.                       |
+| `--search-color-default`                            | Text color of the search input.                                          |
+| `--search-color-disabled`                           | Text color of the search input when disabled.                            |
+| `--search-icon-color`                               | Icon color in the search input.                                          |
+| `--placeholder-color`                               | Color of the placeholder text.                                           |
+| `--clear-button-background-color`                   | Background color of the clear button.                                    |
+| `--clear-button-background-color-focus`             | Background color of the clear button when focused.                       |
+| `--clear-button-background-color-hover`             | Background color of the clear button when hovered.                       |
+| `--clear-button-background-color-active`            | Background color of the clear button when active.                        |
+| `--clear-button-background-color-disabled`          | Background color of the clear button when disabled.                      |
+| `--clear-button-border-color`                       | Border color of the clear button.                                        |
+| `--clear-button-border-color-focus`                 | Border color of the clear button when focused.                           |
+| `--clear-button-border-color-hover`                 | Border color of the clear button when hovered.                           |
+| `--clear-button-border-color-active`                | Border color of the clear button when active.                            |
+| `--clear-button-border-color-disabled`              | Border color of the clear button when disabled.                          |
+| `--clear-button-color`                              | Text/icon color of the clear button.                                     |
+| `--clear-button-color-hover`                        | Text/icon color of the clear button when hovered.                        |
+| `--clear-button-color-focus`                        | Text/icon color of the clear button when focused.                        |
+| `--clear-button-color-active`                       | Text/icon color of the clear button when active.                         |
+| `--clear-button-color-disabled`                     | Text/icon color of the clear button when disabled.                       |
+| `--clear-button-outline-color-focus`                | Outline color of the clear button when focused.                          |
+| `--text-input-background-default`                   | Background color of the text input area.                                 |
+| `--text-input-border-color-default`                 | Border color of the text input area.                                     |
+| `--text-input-border-color-hover`                   | Border color of the text input area when hovered.                        |
+| `--text-input-border-color-focus`                   | Border color of the text input area when focused.                        |
+| `--text-input-color-default`                        | Text color of the text input area.                                       |
+| `--text-color-focus-outline`                        | Outline color of the text input when focused.                            |
+| `--text-input-placeholder-color`                    | Placeholder text color in the text input.                                |
+| `--text-label-color-default`                        | Color of the label text.                                                 |
+| `--menu-item-background-color-default`              | Background color of a suggestion item.                                   |
+| `--menu-item-background-color-hover`                | Background color of a suggestion item when hovered.                      |
+| `--menu-item-background-color-selected`             | Background color of a suggestion item when selected.                     |
+| `--menu-item-background-color-selected-hover`       | Background color of a selected suggestion item when hovered.             |
+| `--menu-item-background-color-disabled`             | Background color of a suggestion item when disabled.                     |
+| `--menu-item-color-default`                         | Text color of a suggestion item.                                         |
+| `--menu-item-color-hover`                           | Text color of a suggestion item when hovered.                            |
+| `--menu-item-color-selected`                        | Text color of a suggestion item when selected.                           |
+| `--menu-item-color-selected-hover`                  | Text color of a selected suggestion item when hovered.                   |
+| `--menu-item-color-disabled`                        | Text color of a suggestion item when disabled.                           |
+| `--menu-item-border-color-focus`                    | Border color of a suggestion item when focused.                          |
+| `--menu-divider-color`                              | Color of the divider between groups.                                     |
+| `--focus-outline-color`                             | Outline color of the component when focused.                             |
+| `--error-text-color`                                | Text color of the error message.                                         |
+| `--error-icon-color`                                | Icon color of the error message.                                         |
+| `--error-background-color`                          | Background color of the error message.                                   |
+| `--error-border-color`                              | Border color of the error message.                                       |
+| `--assistive-color`                                 | Text color of the assistive text.                                        |
+| [Table 1: Search theme variables]                   |
+
+### Customisation example
+
+<Playground scope={{ Search, Notification }}>
+
+```jsx
+import { Search, Notification } from 'hds-react';
+
+() => {
+  const [showNotification, setShowNotification] = React.useState(false);
+  const [notificationMessage, setNotificationMessage] = React.useState('');
+
+  const fruits = [
+    'Apple', 'Apricot', 'Avocado', 'Banana', 'Blackberry', 'Blueberry', 'Cherry', 'Coconut',
+    'Cranberry', 'Dragon fruit', 'Fig', 'Grape', 'Grapefruit', 'Guava', 'Honeydew', 'Kiwi',
+    'Lemon', 'Lime', 'Lychee', 'Mango', 'Nectarine', 'Orange', 'Papaya', 'Passion fruit',
+    'Peach', 'Pear', 'Pineapple', 'Plum', 'Pomegranate', 'Raspberry', 'Starfruit',
+    'Strawberry', 'Tangerine', 'Watermelon',
+  ];
+
+  const handleSearch = React.useCallback((searchValue) => {
+    return Promise.resolve({
+      options: fruits
+        .filter((s) => s.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0)
+        .map((s) => ({ label: s, value: s })),
+    });
+  }, []);
+
+  const [props] = React.useState({
+    id: 'search-themed',
+    texts: {
+      label: 'Themed search',
+      language: 'en',
+    },
+    theme: {
+      '--search-background-default': '#1a0a2e',
+      '--search-border-color-default': '#ff6ec7',
+      '--search-border-color-hover': '#ff99d6',
+      '--search-border-color-focus': '#00ffcc',
+      '--search-color-default': '#ffffff',
+      '--search-icon-color': '#ff6ec7',
+      '--placeholder-color': '#b088cc',
+      '--text-label-color-default': '#ff6ec7',
+      '--text-input-background-default': '#1a0a2e',
+      '--text-input-border-color-default': '#ff6ec7',
+      '--text-input-border-color-hover': '#ff99d6',
+      '--text-input-border-color-focus': '#00ffcc',
+      '--text-input-color-default': '#ffffff',
+      '--text-input-placeholder-color': '#b088cc',
+      '--menu-item-background-color-default': '#2d1b4e',
+      '--menu-item-background-color-hover': '#ff6ec7',
+      '--menu-item-color-default': '#ffffff',
+      '--menu-item-color-hover': '#1a0a2e',
+      '--clear-button-color': '#ff6ec7',
+      '--clear-button-color-hover': '#00ffcc',
+      '--clear-button-background-color-hover': '#2d1b4e',
+      '--focus-outline-color': '#00ffcc',
+    },
+  });
+
+  return (
+    <>
+      {showNotification && (
+        <Notification
+          label="Search submitted"
+          type="success"
+          position="bottom-right"
+          autoClose
+          closeButtonLabelText="Close notification"
+          dismissible
+          onClose={() => setShowNotification(false)}
+        >
+          {notificationMessage}
+        </Notification>
+      )}
+      <Search
+        {...props}
+        onSearch={handleSearch}
+        onSend={(val) => {
+          setNotificationMessage(`Search submitted: "${val}"`);
+          setShowNotification(true);
+        }}
+      />
+    </>
+  );
+};
+```
+
+</Playground>

@@ -94,7 +94,7 @@ export const Default = (args: SideNavigationProps) => {
               label="Main level external link"
               external
               openInNewTab
-              openInNewTabAriaLabel="Opens in a new tab."
+              openInNewTabLabel="Opens in a new tab."
               openInExternalDomainAriaLabel="Opens a different website."
               onClick={handleClick(setActive)}
               withDivider
@@ -178,7 +178,7 @@ export const WithIcons = (args: SideNavigationProps) => {
               label="Main level external link"
               external
               openInNewTab
-              openInNewTabAriaLabel="Opens in a new tab."
+              openInNewTabLabel="Opens in a new tab."
               openInExternalDomainAriaLabel="Opens a different website."
               onClick={handleClick(setActive)}
               withDivider
@@ -268,7 +268,7 @@ export const WithSkipLink = (args: SideNavigationProps) => {
               label="Main level external link"
               external
               openInNewTab
-              openInNewTabAriaLabel="Opens in a new tab."
+              openInNewTabLabel="Opens in a new tab."
               openInExternalDomainAriaLabel="Opens a different website."
               onClick={handleClick(setActive)}
               withDivider
