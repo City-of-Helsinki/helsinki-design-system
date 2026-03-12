@@ -10,6 +10,10 @@ on:
         required: false
         type: string
         default: "yarn release"
+      deprecate_versions:
+        required: false
+        type: boolean
+        default: false
 
 jobs:
   publish-npm-packages:
@@ -65,19 +69,25 @@ jobs:
         id: release_npm
         run: ${{ inputs.release_command }}
 
-      - name: deprecate unsupported versions
-        if: ${{ steps.release_npm.conclusion == 'success' }}
-        run: |
-          for pkg in packages/*; do
-            if [ -f "$pkg/package.json" ]; then
-              NAME=$(node -p "require('./$pkg/package.json').name")
-              MAJOR=$(node -p "require('./$pkg/package.json').version.split('.')[0]")
-
-              if [ "$MAJOR" -gt 1 ]; then
-                PREV_MAJOR=$((MAJOR-1))
-                echo "Deprecating $NAME versions < $PREV_MAJOR.0.0"
-                npm deprecate "$NAME@<$PREV_MAJOR.0.0" \
-                  "Versions prior to v$PREV_MAJOR are deprecated, please update."
-              fi
-            fi
-          done
+      # Deprecation step is commented out for security reasons:
+      # - Only needed when next major version is released
+      # - We don't want to risk NPM_TOKEN security exposure
+      # - Deprecation is not supported by trusted publishing (OIDC)
+      # - name: deprecate unsupported versions
+      #   if: ${{ steps.release_npm.conclusion == 'success' && inputs.deprecate_versions }}
+      #   run: |
+      #     for pkg in packages/*; do
+      #       if [ -f "$pkg/package.json" ]; then
+      #         NAME=$(node -p "require('./$pkg/package.json').name")
+      #         MAJOR=$(node -p "require('./$pkg/package.json').version.split('.')[0]")
+      #
+      #         if [ "$MAJOR" -gt 1 ]; then
+      #           PREV_MAJOR=$((MAJOR-1))
+      #           echo "Deprecating $NAME versions < $PREV_MAJOR.0.0"
+      #           npm deprecate "$NAME@<$PREV_MAJOR.0.0" \
+      #             "Versions prior to v$PREV_MAJOR are deprecated, please update."
+      #         fi
+      #       fi
+      #     done
+      #   env:
+      #     NODE_AUTH_TOKEN: ${{ secrets.NPM_TOKEN }}

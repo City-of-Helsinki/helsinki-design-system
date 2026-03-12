@@ -145,6 +145,7 @@ jobs:
     with:
       commit_sha: ${{ github.sha }}
       release_command: ${{ github.ref == 'refs/heads/patchrelease' && 'yarn release --dist-tag patch' || 'yarn release' }}
+      deprecate_versions: ${{ github.ref == 'refs/heads/master' }}
 
   delete-artifacts-after-success:
     needs: [build, run-loki-tests, run-e2e-tests, publish-demo-site-with-storybooks, publish-site-with-storybooks, publish-npm-packages]
