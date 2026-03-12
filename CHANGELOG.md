@@ -116,11 +116,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Link] Changed Link default state text-decoration underline thickness from 7% to 1px
 - [Link] Changed Link hover state text-decoration underline thickness from 14% to 2px
 - [Link] Changed Link default and hover state text-decoration underline offset from "Auto" to 10%
-- [Link] Changed Link icon and text gap to be uniformly 2px in all link sizes in order to improve inline link distinction from other surrounding content.
+- [Link] Changed Link icon and text gap to be uniformly 2px in all link sizes in order to improve inline link distinction from other surrounding content. 
 - [.NavigationLink] Changed Link icon and text gap to be uniformly 2px in all link sizes in order to align with link component
 - [.NavigationLink] Changed the size of icons to match Link component sizing
 - [.NavigationLink] Changed the style of the hover states from  Link Regular to Link Hover
-- [.NavigationLink] Changed the style of the hover states that had styles applied
+- [.NavigationLink] Changed the style of the hover states that had styles applied 
 - [.NavigationLink] Changed the text-decoration thickness and offset of the hover states that didn't have existing styles applied
 - [Header] .Header.Navigationmenu L-breakpoint now uses the same subcomponent that all the other variants do
 - [Header] Removed size variants and property from .Header.Navigationmenu.List, renamed the component
@@ -134,9 +134,9 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Grid and Breakpoints] "Breakpoints in action" section removed
 - [Header] Modified the .Header.ActionBar to include the .HeaderSearch
 - [Header] Extended specification for Header functionalities (4/4)
-- [Hero] Hero content has now a max-width of 690px aligning Hel.fi specifications.
-- [SearchInput] The structure has been updated to include the ModularOptionList for displaying history and suggestions.
-- [SearchInput] The target area of clear button and the internal search button has been increased. Also their focus area has been defined and documented.
+- [Hero] Hero content has now a max-width of 690px aligning Hel.fi specifications. 
+- [SearchInput] The structure has been updated to include the ModularOptionList for displaying history and suggestions. 
+- [SearchInput] The target area of clear button and the internal search button has been increased. Also their focus area has been defined and documented. 
 - [SearchInput] The internal search button features now also a border.
 - [Notification] New body text size 16px all across the component
 - [Notification] Inline/toast default size now has heading size XXS and tweaked gaps to optimize the variant for mobile sizes
@@ -145,11 +145,11 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [Placeholder] Locked aspect-ratio in each variant. This affects all components in Figma using placeholder.
-- [Hero] The Placeholder aspect-ratio fix implicated breaks in Hero design, thus auto-layout settings were added to make the breakpoint versions work better and avoid Koros breaking. These fixes could possibly bring changes to the layouts using the Hero in Figma.
+- [Hero] The Placeholder aspect-ratio fix implicated breaks in Hero design, thus auto-layout settings were added to make the breakpoint versions work better and avoid Koros breaking. These fixes could possibly bring changes to the layouts using the Hero in Figma. 
 - [Design kit] Couple of fixes to Grid/breakpoint and Footer documentation
 - [Link] Fixed incomplete state documentation
 - [ModularOptionList] Text properties fixed
-- [.Changelog instance] Markdown headings are now h4 for easier copying to Github changelogs
+- [.Changelog instance] Markdown headings are now h4 for easier copying to Github changelogs 
 - [SearchInput] Fixed broken structure between input and selection container when label is hidden.
 - [.NavigationLink] fixed iconEnd to be a permanent property in all variants, removed bottom padding for icon.
 
@@ -164,7 +164,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [Card] New breakpoint variants for card with Image
 - [Card] New skeleton state (loading) variants
-- [Patterns / Search Results] New pattern documentation for Search results page. Includes specifications, variations, accessibility notes and prototypes
+- [Patterns / Search Results] New pattern documentation for Search results page. Includes specifications, variations, accessibility notes and prototypes 
 
 ##### Changed
 
