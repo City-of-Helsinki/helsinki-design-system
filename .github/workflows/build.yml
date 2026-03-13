@@ -7,6 +7,7 @@ on:
     branches:
       - development
       - master
+      - patchrelease
       - release-*
 
 jobs:
@@ -138,13 +139,13 @@ jobs:
       ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
   
   publish-npm-packages:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease')
     needs: [build, run-loki-tests, run-e2e-tests]
     uses: ./.github/workflows/publish-npm-packages.yml
     with:
       commit_sha: ${{ github.sha }}
-    secrets:
-      NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+      release_command: ${{ github.ref == 'refs/heads/patchrelease' && 'yarn release --dist-tag patch' || 'yarn release' }}
+      deprecate_versions: ${{ github.ref == 'refs/heads/master' }}
 
   delete-artifacts-after-success:
     needs: [build, run-loki-tests, run-e2e-tests, publish-demo-site-with-storybooks, publish-site-with-storybooks, publish-npm-packages]
@@ -175,4 +176,20 @@ jobs:
                 artifact_id: artifact.id
               });
             }
+
+  delete-patchrelease-branch:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/patchrelease'
+    needs: [build, run-loki-tests, run-e2e-tests, publish-npm-packages]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+        with:
+          token: ${{ secrets.GITHUB_TOKEN }}
+          
+      - name: Delete patchrelease branch
+        run: |
+          git config --global user.email "hds@hel.fi"
+          git config --global user.name "Github Actions"
+          git push origin --delete patchrelease
 
