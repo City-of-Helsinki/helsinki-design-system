@@ -100,13 +100,13 @@ export type HeaderNavigationLinkProps<T extends React.ElementType = 'a'> = Merge
 
 export const HeaderLink = <T extends React.ElementType = 'a'>({
   active,
-  as: LinkComponent,
+  as: LinkComponent = Link as unknown as T,
   className,
   wrapperClassName,
   dropdownClassName,
   dropdownLinks,
   dropdownLinkClassName,
-  href,
+  href = '#',
   index,
   label,
   openSubNavIndex,
@@ -241,9 +241,4 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
       )}
     </span>
   );
-};
-
-HeaderLink.defaultProps = {
-  as: Link,
-  href: '#',
 };

@@ -76,7 +76,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     id,
     children,
     label,
-    fullWidth,
+    fullWidth = false,
     fullWidthDropdown,
     className: classNameProp,
     iconClassName: iconClassNameProp,
@@ -282,8 +282,4 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       </div>
     </>
   );
-};
-
-HeaderActionBarItem.defaultProps = {
-  fullWidth: false,
 };

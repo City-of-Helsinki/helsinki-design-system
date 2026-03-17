@@ -32,7 +32,12 @@ const LanguageDispatchContext = createContext<LanguageDispatchContextType>({
   setAvailableLanguages: () => undefined,
 });
 
-export function LanguageProvider({ children, defaultLanguage, onDidChangeLanguage, languages }: LanguageProviderProps) {
+export function LanguageProvider({
+  children,
+  defaultLanguage = DEFAULT_LANGUAGE,
+  onDidChangeLanguage,
+  languages,
+}: LanguageProviderProps) {
   const [activeLanguage, setActiveLanguage] = useState(defaultLanguage);
   const [languageOptions, setLanguageOptions] = useState<LanguageOption[]>(languages || []);
 
@@ -62,10 +67,6 @@ export function LanguageProvider({ children, defaultLanguage, onDidChangeLanguag
     </LanguageContext.Provider>
   );
 }
-
-LanguageProvider.defaultProps = {
-  defaultLanguage: DEFAULT_LANGUAGE,
-};
 
 /**
  * Hook for getting currently active language

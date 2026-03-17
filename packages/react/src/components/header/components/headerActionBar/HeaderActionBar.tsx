@@ -117,7 +117,7 @@ export type HeaderActionBarProps = PropsWithChildren<
 
 export const HeaderActionBar = ({
   title,
-  titleStyle,
+  titleStyle = TitleStyleType.Normal,
   titleAriaLabel,
   logoAriaLabel,
   menuButtonLabel = 'Menu',
@@ -262,8 +262,4 @@ export const HeaderActionBar = ({
       )}
     </>
   );
-};
-
-HeaderActionBar.defaultProps = {
-  titleStyle: TitleStyleType.Normal,
 };
