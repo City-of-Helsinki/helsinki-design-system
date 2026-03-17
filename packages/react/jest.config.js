@@ -57,11 +57,15 @@ module.exports = {
   // A path to a module which exports an async function that is triggered once after all test suites
   // globalTeardown: null,
 
-  // A set of global variables that need to be available in all test environments
-  globals: {
-    'ts-jest': {
-      babelConfig: true,
-    },
+  // Transform configuration (replaces deprecated globals.ts-jest)
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', { babelConfig: true }],
+    '^.+\\.jsx?$': 'babel-jest',
+  },
+
+  // Use legacy fake timers to preserve Jest 26 behavior
+  fakeTimers: {
+    legacyFakeTimers: true,
   },
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
@@ -99,7 +103,7 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest/presets/js-with-babel',
+  // preset: 'ts-jest/presets/js-with-babel', // replaced by explicit transform config
 
   // Run tests from one or more projects
   // projects: null,
@@ -146,7 +150,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-jsdom",
+  testEnvironment: 'jest-environment-jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
