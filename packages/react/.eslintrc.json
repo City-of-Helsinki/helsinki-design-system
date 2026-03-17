@@ -83,14 +83,16 @@
     "react/state-in-constructor": [2, "never"],
     "no-constructor-return": [0],
     "no-setter-return": [0],
-    "no-unused-expressions": [
+    "no-unused-expressions": "off",
+    "@typescript-eslint/no-unused-expressions": [
       2,
       {
-        "allowTernary": true
+        "allowTernary": true,
+        "allowShortCircuit": true
       }
     ],
     "no-unused-vars": "off",
-    "@typescript-eslint/no-unused-vars": "error",
+    "@typescript-eslint/no-unused-vars": ["error", { "caughtErrors": "none" }],
     "react/forbid-component-props": [
       "error",
       {

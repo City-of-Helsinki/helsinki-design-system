@@ -87,11 +87,11 @@
     "@types/rollup-plugin-generate-package-json": "^3.2.8",
     "@types/uuid": "^9.0.1",
     "@types/yup": "^0.32.0",
-    "@typescript-eslint/eslint-plugin": "^6.21.0",
+    "@typescript-eslint/eslint-plugin": "^8.0.0",
     "babel-jest": "^26.0.1",
     "babel-plugin-require-context-hook": "1.0.0",
     "chalk": "4.0.0",
-    "eslint": "8.56.0",
+    "eslint": "8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
     "eslint-plugin-import": "^2.29.1",
@@ -133,7 +133,7 @@
     "ts-jest": "^26.0.1",
     "type-fest": "^4.10.3",
     "typed-css-modules": "0.6.4",
-    "typescript": "^4.8.0"
+    "typescript": "^5.6.0"
   },
   "dependencies": {
     "@apollo/client": "^3.10.1",
@@ -144,8 +144,8 @@
     "@popperjs/core": "2.11.5",
     "@react-aria/visually-hidden": "3.8.16",
     "@react-spring/web": "9.3.0",
-    "@types/cookie": "^0.6.0",
-    "@typescript-eslint/parser": "^6.21.0",
+    "@types/cookie": "^0.4.1",
+    "@typescript-eslint/parser": "^8.0.0",
     "await-to-js": "^3.0.0",
     "cookie": "^0.7.2",
     "crc-32": "1.2.0",
