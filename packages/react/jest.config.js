@@ -59,13 +59,22 @@ module.exports = {
 
   // Transform configuration (replaces deprecated globals.ts-jest)
   transform: {
-    '^.+\\.tsx?$': ['ts-jest', { babelConfig: true }],
+    '^.+\\.tsx?$': ['ts-jest', {
+      babelConfig: true,
+      tsconfig: {
+        lib: ['es6', 'dom', 'dom.iterable', 'es2017'],
+        types: ['jest', 'node', '@testing-library/jest-dom'],
+      },
+    }],
     '^.+\\.jsx?$': 'babel-jest',
   },
 
-  // Use legacy fake timers to preserve Jest 26 behavior
+  // Modern fake timers (@sinonjs/fake-timers) with Date and setImmediate excluded.
+  // Date must not be faked because CookieConsentCore tests rely on real timestamps.
+  // setImmediate must not be faked because fake-indexeddb uses it internally
+  // for async operations, and faking it prevents deletion callbacks from completing.
   fakeTimers: {
-    legacyFakeTimers: true,
+    doNotFake: ['setImmediate', 'Date'],
   },
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.

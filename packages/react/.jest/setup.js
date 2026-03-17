@@ -1,11 +1,10 @@
 import 'jest-axe/extend-expect';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 
-// Fix @testing-library/dom's waitFor with fake timers in Jest 29.
-// jest-environment-jsdom 29 does not provide setImmediate, so @testing-library/dom
-// falls back to a polyfill that uses the faked setTimeout, causing deadlocks.
-// Patch the helper to use Node's real setImmediate.
-// eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
-const dtlHelpers = require('@testing-library/dom/dist/helpers');
-// eslint-disable-next-line global-require, @typescript-eslint/no-var-requires
-dtlHelpers.setImmediate = require('timers').setImmediate;
+// Increase asyncUtilTimeout for @testing-library/dom v8+.
+// In v8, waitFor's timeout uses the faked setTimeout, so advancing fake timers
+// inside callbacks also advances the timeout. A higher value prevents premature
+// timeouts in tests that call jest.advanceTimersByTime inside waitFor callbacks.
+import { configure } from '@testing-library/dom';
+
+configure({ asyncUtilTimeout: 300000 });

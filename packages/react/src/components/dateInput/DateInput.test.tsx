@@ -3,7 +3,7 @@
 import React from 'react';
 import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 import { DateInput } from './DateInput';
