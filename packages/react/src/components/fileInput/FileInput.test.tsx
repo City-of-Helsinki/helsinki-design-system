@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import { act } from 'react-dom/test-utils';
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 

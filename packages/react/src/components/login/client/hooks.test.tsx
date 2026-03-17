@@ -1,7 +1,6 @@
 import React, { useRef } from 'react';
 import { User } from 'oidc-client-ts';
-import { waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { act, waitFor } from '@testing-library/react';
 
 import { useAuthenticatedUser, useCachedAmr, useOidcClientTracking } from './hooks';
 import { UserCreationProps, createUser, createUserAndPlaceUserToStorage } from '../testUtils/userTestUtil';

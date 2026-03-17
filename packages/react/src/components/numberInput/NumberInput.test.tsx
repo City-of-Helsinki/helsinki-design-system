@@ -1,8 +1,7 @@
 import React, { useState } from 'react';
-import { render, RenderResult, screen } from '@testing-library/react';
+import { act, render, RenderResult, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
-import { act } from 'react-dom/test-utils';
 
 import { NumberInput, NumberInputProps } from './NumberInput';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
