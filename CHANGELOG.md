@@ -65,7 +65,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Foundation] Alert-dark color changed from #d18200->#c27900 
 
 ### Figma
 
