@@ -21,6 +21,10 @@ import './validation.scss';
 
 const cities = getCitites();
 
+export default {
+  title: 'Examples/Forms/ValidationDynamic',
+};
+
 export const Dynamic = () => {
   const {
     getValues,

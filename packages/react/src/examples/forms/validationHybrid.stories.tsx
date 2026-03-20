@@ -22,6 +22,10 @@ import './validation.scss';
 
 const cities = getCitites();
 
+export default {
+  title: 'Examples/Forms/ValidationHybrid',
+};
+
 export const Hybrid = () => {
   const {
     getValues,

@@ -22,6 +22,10 @@ import './validation.scss';
 
 const cities = getCitites();
 
+export default {
+  title: 'Examples/Forms/ValidationStatic',
+};
+
 export const Static = () => {
   const {
     getValues,

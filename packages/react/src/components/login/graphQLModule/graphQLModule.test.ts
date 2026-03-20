@@ -3,7 +3,6 @@
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { to } from 'await-to-js';
 import { ApolloQueryResult, QueryResult, TypedDocumentNode, QueryOptions, HttpLink } from '@apollo/client';
-import { waitFor } from '@testing-library/react';
 
 import HttpStatusCode from '../../../utils/httpStatusCode';
 import { Beacon, ConnectedModule, createBeacon } from '../beacon/beacon';
@@ -29,7 +28,7 @@ import { createApolloClientMock, mockedGraphQLUri } from './__mocks__/apolloClie
 import { ApiTokenClient, apiTokensClientEvents, apiTokensClientNamespace, TokenData } from '../apiTokensClient';
 import { createQueryResponse, createQueryResponseWithErrors } from './__mocks__/mockResponses';
 import { USER_QUERY } from './__mocks__/mockData';
-import { advanceUntilPromiseResolved } from '../testUtils/timerTestUtil';
+import { advanceUntilPromiseResolved, advanceUntilCondition } from '../testUtils/timerTestUtil';
 import { getLastMockCallArgs } from '../../../utils/testHelpers';
 import { cloneObject } from '../../../utils/cloneObject';
 import { createApolloClientModule } from '../apolloClient/apolloClientModule';
@@ -791,12 +790,12 @@ describe(`graphQLModule`, () => {
         currentModule.query().catch(jest.fn());
         const firstQueryPromise = currentModule.getQueryPromise();
         currentModule.query().catch(errorCatcher);
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           // first should be aborted
           expect(getEmittedEventTypes().includes(graphQLModuleEvents.GRAPHQL_MODULE_LOAD_ABORTED)).toBeTruthy();
           // wait until second promise has started.
           expect(firstQueryPromise === currentModule.getQueryPromise()).toBeFalsy();
-        });
+        }, 100);
 
         await firstQueryPromise.catch(jest.fn());
         return currentModule.getQueryPromise();
@@ -1395,10 +1394,10 @@ describe(`graphQLModule`, () => {
     expect(currentModule.isLoading()).toBeFalsy();
     expect(currentModule.isPending()).toBeTruthy();
     emitApiTokensUpdatedStateChange(defaultApiTokens);
-    await waitFor(() => {
+    await advanceUntilCondition(() => {
       expect(currentModule.isLoading()).toBeTruthy();
       expect(currentModule.isPending()).toBeTruthy();
-    });
+    }, 100);
     await advanceUntilPromiseResolved(promise2);
     expect(currentModule.isLoading()).toBeFalsy();
     expect(currentModule.isPending()).toBeFalsy();

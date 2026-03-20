@@ -48,6 +48,35 @@ export function listenToPromise(promise: Promise<unknown>, listener = jest.fn())
   return listener;
 }
 
+// Replaces the waitFor + advanceTimersByTime pattern that breaks with
+// @testing-library/dom v8's fake-timer-based polling.
+export async function advanceUntilCondition(
+  condition: () => void | Promise<void>,
+  advanceTime = 200,
+  maxIterations = 0,
+) {
+  const maxIter = maxIterations || Math.max(1000, Math.ceil(300000 / advanceTime));
+  for (let i = 0; i < maxIter; i += 1) {
+    jest.advanceTimersByTime(advanceTime);
+    // Flush microtask queue multiple times to resolve promise chains
+    for (let j = 0; j < 10; j += 1) {
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise<void>((resolve) => {
+        realSetImmediate(resolve);
+      });
+    }
+    try {
+      // eslint-disable-next-line no-await-in-loop
+      await condition();
+      return;
+    } catch {
+      // condition not met yet, continue
+    }
+  }
+  // Run one last time — let the assertion error propagate
+  await condition();
+}
+
 export async function advanceUntilPromiseResolved(promise: Promise<unknown>, advanceTime = 200) {
   const listener = listenToPromise(promise);
   await advanceUntilListenerCalled(listener, advanceTime);

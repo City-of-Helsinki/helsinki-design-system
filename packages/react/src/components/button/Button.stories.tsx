@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { action } from '@storybook/addon-actions';
-import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
+import { Controls, Stories, Title } from '@storybook/blocks';
 
 import { IconShare, IconAngleRight, IconFaceSmile, IconTrash } from '../../icons';
 import { Button, ButtonTheme, ButtonSize, ButtonPresetTheme, ButtonVariant, ButtonProps } from './Button';
@@ -23,7 +23,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <ArgsTable />
+          <Controls />
           <Stories title="Examples" includePrimary />
         </>
       ),

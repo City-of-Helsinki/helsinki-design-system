@@ -1,16 +1,17 @@
 module.exports = {
-  core: {
-    builder: 'webpack5',
-  },
+  framework: '@storybook/html-webpack5',
   stories: ['../src/**/*.stories.@(js|mdx)'],
   addons: [
-    '@storybook/addon-docs',
+    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
-    '@storybook/addon-backgrounds',
-    '@storybook/addon-viewport',
-    '@storybook/addon-storysource',
-    '@storybook/addon-measure',
-    '@storybook/addon-outline',
-    '@storybook/preset-scss',
+    '@storybook/addon-webpack5-compiler-swc',
   ],
+  webpackFinal: async (config) => {
+    // Add SCSS support (replaces @storybook/preset-scss)
+    config.module.rules.push({
+      test: /\.scss$/,
+      use: ['style-loader', 'css-loader', 'sass-loader'],
+    });
+    return config;
+  },
 };

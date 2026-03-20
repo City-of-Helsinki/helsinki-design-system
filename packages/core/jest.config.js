@@ -81,7 +81,9 @@ module.exports = {
   // ],
 
   // A map from regular expressions to module names or to arrays of module names that allow to stub out resources with a single module
-  // moduleNameMapper: {},
+  moduleNameMapper: {
+    '^supports-color$': '<rootDir>/../../node_modules/sass-embedded/node_modules/supports-color/index.js',
+  },
 
   // An array of regexp pattern strings, matched against all module paths before considered 'visible' to the module loader
   // modulePathIgnorePatterns: [],
@@ -140,7 +142,9 @@ module.exports = {
   testEnvironment: 'node',
 
   // Options that will be passed to the testEnvironment
-  // testEnvironmentOptions: {},
+  testEnvironmentOptions: {
+    customExportConditions: ['node'],
+  },
 
   // Adds a location field to test results
   // testLocationInResults: false,

@@ -1,4 +1,3 @@
-import { waitFor } from '@testing-library/react';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import { User } from 'oidc-client-ts';
 
@@ -30,7 +29,7 @@ import { HttpPoller, HttpPollerProps } from '../utils/httpPoller';
 import { createSessionPoller, SessionPoller, sessionPollerEvents, sessionPollerNamespace } from './sessionPoller';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
 import { SessionPollerError } from './sessionPollerError';
-import { advanceUntilPromiseResolved, createTimedPromise } from '../testUtils/timerTestUtil';
+import { advanceUntilCondition, advanceUntilPromiseResolved, createTimedPromise } from '../testUtils/timerTestUtil';
 
 type ResponseType = { returnedStatus: HttpStatusCode };
 
@@ -164,39 +163,19 @@ describe(`sessionPoller`, () => {
   };
 
   const advanceUntilRequestStarts = async (): Promise<number> => {
-    const currentShouldPoll = getHttpPollerShouldPollCalls().length;
     const currentRequestStarts = getRequestListenerCallCount();
-    const currentResponseCount = getResponseListenerCallCount();
-    // currentResponseCount should be higher if a request is not pending....
-    if (currentRequestStarts === currentResponseCount + 1) {
-      await waitUntilRequestFinished();
-    }
-    // request is pending
-    if (currentRequestStarts > currentResponseCount + 1) {
-      return Promise.resolve(currentRequestStarts);
-    }
-    await waitFor(() => {
-      jest.advanceTimersByTime(100);
-      expect(getHttpPollerShouldPollCalls().length).toBe(currentShouldPoll + 1);
-      expect(getRequestListenerCallCount()).toBe(currentRequestStarts + 1);
-    });
-    return currentRequestStarts + 1;
+    await advanceUntilCondition(() => {
+      expect(getRequestListenerCallCount()).toBeGreaterThanOrEqual(currentRequestStarts + 1);
+    }, pollIntervalInMs + 2000);
+    return getRequestListenerCallCount();
   };
 
   const advanceUntilRequestEnds = async (startCount = -1): Promise<number> => {
     const currentResponseCount = startCount > -1 ? startCount : getResponseListenerCallCount();
-    const currentRequestCount = getRequestListenerCallCount();
-    // currentResponseCount should be higher if a request is pending....
-    if (currentResponseCount === currentRequestCount) {
-      await waitUntilRequestStarted();
-    }
-    await waitUntilRequestFinished();
-
-    await waitFor(() => {
-      jest.advanceTimersByTime(100);
-      expect(getResponseListenerCallCount()).toBe(currentResponseCount + 1);
-    });
-    return currentResponseCount + 1;
+    await advanceUntilCondition(() => {
+      expect(getResponseListenerCallCount()).toBeGreaterThanOrEqual(currentResponseCount + 1);
+    }, pollIntervalInMs + 2000);
+    return getResponseListenerCallCount();
   };
 
   const getFetchArgs = () => {
@@ -283,9 +262,9 @@ describe(`sessionPoller`, () => {
     initTests({ setValidSession: false, responses: [] });
     // start polling manually because user is not logged in.
     currentPoller.start();
-    await waitFor(() => {
+    await advanceUntilCondition(() => {
       expect(getHttpPollerShouldPollCalls()).toHaveLength(1);
-    });
+    }, 100);
     expect(getFetchMockCalls()).toHaveLength(0);
     jumpToNextPoll();
     expect(getHttpPollerShouldPollCalls()).toHaveLength(2);
@@ -448,9 +427,9 @@ describe(`sessionPoller`, () => {
     // this will start the poller
     expect(getHttpPollerShouldPollCalls()).toHaveLength(0);
     emitOidcClientStateChange({ state: oidcClientStates.VALID_SESSION, previousState: oidcClientStates.NO_SESSION });
-    await waitFor(() => {
+    await advanceUntilCondition(() => {
       expect(getHttpPollerStartCalls()).toHaveLength(1);
-    });
+    }, 100);
     await waitUntilRequestStarted();
     // emit random event to check those won't interrupt polling
     currentBeacon.emit({ type: eventSignalType, namespace: oidcClientNamespace });
@@ -474,10 +453,10 @@ describe(`sessionPoller`, () => {
   });
   it('Polling is started and stopped when user is renewed. No need to poll with old tokens', async () => {
     initTests({ setValidSession: true, responses: [successfulResponse, successfulResponse, successfulResponse] });
-    await waitFor(() => {
+    await advanceUntilCondition(() => {
       expect(getHttpPollerShouldPollCalls()).toHaveLength(0);
       expect(getHttpPollerStartCalls()).toHaveLength(1);
-    });
+    }, 100);
     await waitUntilRequestFinished();
     currentBeacon.emit({
       type: eventSignalType,

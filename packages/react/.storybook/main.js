@@ -1,51 +1,74 @@
 module.exports = {
-  core: {
-    builder: 'webpack5',
-  },
-  // Disable react-docgen-typescript which uses removed TS4 APIs (createIdentifier etc.)
-  // incompatible with TypeScript 5. Will be resolved when upgrading to Storybook 8.
-  typescript: {
-    reactDocgen: 'react-docgen',
-  },
+  framework: '@storybook/react-webpack5',
   stories: ['../src/**/*.stories.tsx'],
   addons: [
-    '@storybook/preset-create-react-app',
-    {
-      name: '@storybook/addon-docs',
-      options: {
-        configureJSX: true,
-      },
-    },
-    '@storybook/addon-controls',
-    '@storybook/addon-viewport',
-    '@storybook/addon-backgrounds',
+    '@storybook/addon-essentials',
     '@storybook/addon-a11y',
-    '@storybook/addon-actions',
-    '@storybook/addon-storysource',
-    '@storybook/addon-measure',
-    '@storybook/addon-outline',
+    '@storybook/addon-webpack5-compiler-swc',
   ],
   staticDirs: [
     { from: '../src/components/login/storybookStatic', to: '/static-login' },
     { from: '../src/components/cookieConsentCore/example', to: '/static-cookie-consent' },
     { from: '../src/components/cookieConsentCore/siteSettingsEditor', to: '/static-cookie-consent-editor' },
   ],
-  webpack: async (config) => ({
-    ...config,
-    // TypeScript 5 erases type-only re-exports, causing webpack "export was not found"
-    // warnings. Storybook 6 treats any warning as an error, so we suppress these.
-    ignoreWarnings: [...(config.ignoreWarnings || []), { message: /export .* was not found in/ }],
-    // Disable ESLintWebpackPlugin to avoid conflicts between project .eslintrc and
-    // react-app preset's eslint config.
-    plugins: (config.plugins || []).filter((plugin) => plugin.constructor.name !== 'ESLintWebpackPlugin'),
-    resolve: {
-      ...config.resolve,
-      alias: {
-        ...config.resolve.alias,
-        // we need an alias for hds-core to point webpack to the package as we can't use tilde (~) with rollup
-        './hds-core': require('path').resolve(__dirname, '../../../node_modules/hds-core'),
+  webpackFinal: async (config) => {
+    // Add SCSS support for non-module .scss files
+    config.module.rules.push({
+      test: /\.scss$/,
+      exclude: /\.module\.scss$/,
+      use: ['style-loader', 'css-loader', 'sass-loader'],
+    });
+
+    // Add SCSS Modules support for .module.scss files
+    config.module.rules.push({
+      test: /\.module\.scss$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            modules: {
+              localIdentName: '[name]_[local]__[hash:base64:5]',
+            },
+          },
+        },
+        'sass-loader',
+      ],
+    });
+
+    // Enable CSS Modules for .module.css files in the existing CSS rule
+    const cssRule = config.module.rules.find(
+      (rule) => rule.test && rule.test.toString() === '/\\.css$/',
+    );
+    if (cssRule) {
+      // Exclude .module.css from the default CSS rule
+      cssRule.exclude = /\.module\.css$/;
+    }
+    config.module.rules.push({
+      test: /\.module\.css$/,
+      use: [
+        'style-loader',
+        {
+          loader: 'css-loader',
+          options: {
+            modules: {
+              localIdentName: '[name]_[local]__[hash:base64:5]',
+            },
+          },
+        },
+      ],
+    });
+
+    return {
+      ...config,
+      resolve: {
+        ...config.resolve,
+        alias: {
+          ...config.resolve.alias,
+          // we need an alias for hds-core to point webpack to the package as we can't use tilde (~) with rollup
+          './hds-core': require('path').resolve(__dirname, '../../../node_modules/hds-core'),
+        },
       },
-      plugins: config.resolve.plugins.filter((plugin) => plugin.constructor.name !== 'ModuleScopePlugin'),
-    },
-  }),
+    };
+  },
 };

@@ -1,7 +1,6 @@
 import { User, SigninResponse, UserManager } from 'oidc-client-ts';
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import to from 'await-to-js';
-import { waitFor } from '@testing-library/react';
 
 import HttpStatusCode from '../../utils/httpStatusCode';
 import mockWindowLocation from '../../utils/mockWindowLocation';
@@ -32,7 +31,11 @@ import {
 import { Responder, createControlledFetchMockUtil } from './testUtils/fetchMockTestUtil';
 import { createSignInResponse } from './testUtils/userTestUtil';
 import { mockUserManagerRefreshResponse } from './testUtils/renewalTestUtil';
-import { advanceUntilListenerCalled, advanceUntilPromiseResolved } from './testUtils/timerTestUtil';
+import {
+  advanceUntilListenerCalled,
+  advanceUntilPromiseResolved,
+  advanceUntilCondition,
+} from './testUtils/timerTestUtil';
 import { createMockTestUtil } from './testUtils/mockTestUtil';
 import { HttpPoller, HttpPollerProps, isSuccessfulHttpResponse } from './utils/httpPoller';
 import { RetryingPollerProps } from './utils/httpPollerWithPromises';
@@ -505,13 +508,13 @@ describe('Test all modules together', () => {
           createApiTokensClientEventTriggerProps({ type: apiTokensClientEvents.API_TOKENS_UPDATED }),
         ]),
       );
-      await waitFor(() => {
+      await advanceUntilCondition(() => {
         expect(getReceivedSignalTypes(oidcClientNamespace)).toEqual([
           initSignalType,
           oidcClientEvents.USER_RENEWAL_STARTED,
           oidcClientEvents.USER_UPDATED,
         ]);
-      });
+      }, 100);
       expect(getReceivedSignalTypes(apiTokensClientNamespace)).toEqual([
         apiTokensClientEvents.API_TOKENS_UPDATED,
         initSignalType,

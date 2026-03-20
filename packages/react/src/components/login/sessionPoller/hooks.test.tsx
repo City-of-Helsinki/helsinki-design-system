@@ -159,8 +159,8 @@ describe('sessionPoller hooks testing', () => {
 
     afterEach(async () => {
       sessionStorage.clear();
-      await cleanUp();
       jest.runOnlyPendingTimers();
+      await cleanUp();
       jest.useRealTimers();
       jest.clearAllMocks();
     });
