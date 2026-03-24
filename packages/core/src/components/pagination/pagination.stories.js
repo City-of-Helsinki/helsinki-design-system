@@ -1,4 +1,7 @@
 import './pagination.css';
+import '../../icons/icon.css';
+import '../../icons/angle-left.css';
+import '../../icons/angle-right.css';
 
 export default {
   title: 'Components/Pagination',

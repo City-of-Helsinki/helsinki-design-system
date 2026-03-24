@@ -1,5 +1,6 @@
 import './checkbox.scss';
 import '../selection-group/selection-group.css';
+import '../fieldset/fieldset.css';
 
 const errorTextId = 'checkbox-error-text';
 const helperTextId = 'checkbox-helper-text';

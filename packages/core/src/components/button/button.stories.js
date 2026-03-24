@@ -1,4 +1,5 @@
 import './button.scss';
+import '../loading-spinner/loading-spinner.css';
 import '../../icons/icon.css';
 import '../../icons/share.css';
 import '../../icons/angle-right.css';
