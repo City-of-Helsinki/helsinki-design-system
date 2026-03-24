@@ -58,9 +58,17 @@ export default class MonitorAndCleanBrowserStorages {
             this.#removalFailedKeys.cookie.push(key);
           }
         } else if (storageTypeString === 'localStorage') {
-          localStorage.removeItem(key);
+          try {
+            localStorage.removeItem(key);
+          } catch (e) {
+            // Storage access blocked by browser
+          }
         } else if (storageTypeString === 'sessionStorage') {
-          sessionStorage.removeItem(key);
+          try {
+            sessionStorage.removeItem(key);
+          } catch (e) {
+            // Storage access blocked by browser
+          }
         } else if (storageTypeString === 'indexedDB') {
           const request = indexedDB.deleteDatabase(key);
           request.onsuccess = () => {
@@ -230,9 +238,17 @@ export default class MonitorAndCleanBrowserStorages {
       case 'cookie':
         return this.#getCookieNamesArray();
       case 'localStorage':
-        return Object.keys(localStorage);
+        try {
+          return Object.keys(localStorage);
+        } catch (e) {
+          return [];
+        }
       case 'sessionStorage':
-        return Object.keys(sessionStorage);
+        try {
+          return Object.keys(sessionStorage);
+        } catch (e) {
+          return [];
+        }
       case 'indexedDB':
         return this.#getIndexedDBNamesArray();
       case 'cacheStorage':
