@@ -287,9 +287,14 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
       [link],
     );
 
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const AnimatedSection = animated.section as any;
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    const AnimatedDiv = animated.div as any;
+
     return (
       <ConditionalVisuallyHidden visuallyHidden={invisible}>
-        <animated.section
+        <AnimatedSection
           // this "as" fixes ts error with wrong types. Seen only when running ts-check-stories.
           {...(rest as Record<string, unknown>)}
           // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
@@ -308,7 +313,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
           // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
           role={isToast || invisible ? 'alert' : undefined}
         >
-          {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
+          {autoClose && <AnimatedDiv style={autoCloseTransition} className={styles.autoClose} />}
           <div className={styles.content} ref={ref}>
             {label && (
               // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
@@ -336,7 +341,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               <IconCross />
             </button>
           )}
-        </animated.section>
+        </AnimatedSection>
       </ConditionalVisuallyHidden>
     );
   },

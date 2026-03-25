@@ -20,11 +20,11 @@ export interface HeaderActionBarItemButtonProps extends ButtonAttributes {
   /**
    * Label shown only visually when button is in active state. Screenreaders see only the "label".
    */
-  activeStateLabel?: string | JSX.Element;
+  activeStateLabel?: string | React.JSX.Element;
   /**
    * An avatar which replaces the icon. Usually user's initials, but can be any Element.
    */
-  avatar?: string | JSX.Element;
+  avatar?: string | React.JSX.Element;
   /**
    * Fix the item position to the right side of the action bar.
    */
@@ -48,7 +48,7 @@ export interface HeaderActionBarItemButtonProps extends ButtonAttributes {
   /**
    * Label for the action bar item.
    */
-  label?: string | JSX.Element;
+  label?: string | React.JSX.Element;
   /**
    * Positions the label to the right side of the icon.
    * @internal
@@ -107,7 +107,7 @@ export const HeaderActionBarItemButton = forwardRef<HTMLButtonElement, HeaderAct
         return null;
       }
       return (
-        <span className={elementClassName}>{cloneElement(element as React.ReactElement, { 'aria-hidden': true })}</span>
+        <span className={elementClassName}>{cloneElement(element as React.ReactElement<any>, { 'aria-hidden': true })}</span>
       );
     };
 

@@ -7,7 +7,8 @@ import { getChildrenAsArray } from '../../../utils/getChildren';
 type Props = { user: User };
 
 export function createChildrenWithUser(children: React.ReactNode | null, user: User): React.ReactNode[] {
-  const renderChild = (child: React.FunctionComponentElement<unknown> | React.ReactElement, key: string) => {
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const renderChild = (child: React.ReactElement<any>, key: string) => {
     return React.cloneElement(child, { key, ...child.props, user });
   };
   return getChildrenAsArray(children).map((child, index) => {
@@ -19,13 +20,15 @@ export function createChildrenWithUser(children: React.ReactNode | null, user: U
       return child;
     }
     if (childType === 'function') {
-      const renderResult = React.cloneElement((child as React.FC<Props>)({ user }) as React.ReactElement);
+      // eslint-disable-next-line @typescript-eslint/no-explicit-any
+      const renderResult = ((child as unknown) as (props: Props) => React.ReactElement)({ user }) as React.ReactElement<any>;
       return renderChild(renderResult, `key-${index}`);
     }
     if (!isValidElement(child)) {
       return null;
     }
-    return renderChild(child as React.ReactElement, `key-${index}`);
+    // eslint-disable-next-line @typescript-eslint/no-explicit-any
+    return renderChild(child as React.ReactElement<any>, `key-${index}`);
   });
 }
 

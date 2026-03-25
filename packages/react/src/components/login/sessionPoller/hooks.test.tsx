@@ -95,9 +95,9 @@ describe('sessionPoller hooks testing', () => {
       return (
         <div>
           <span id={elementIds.lastSignal}>
-            {payloadRef.current ? (payloadRef.current.type as React.ReactNode) : ''}
+            {payloadRef.current ? String(payloadRef.current.type) : ''}
           </span>
-          <span id={elementIds.pollingError}>{errorRef.current ? errorRef.current.type : ''}</span>
+          <span id={elementIds.pollingError}>{errorRef.current ? String(errorRef.current.type) : ''}</span>
           <span>Making sure poller is found {sessionPoller.namespace}</span>
         </div>
       );

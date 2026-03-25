@@ -23,7 +23,7 @@ export type DialogHeaderProps = AllElementPropsWithRef<'h2'> & {
 
 export const DialogHeader = ({ title, iconStart, className, ...rest }: DialogHeaderProps) => {
   const { close, closeButtonLabelText, isReadyToShowDialog } = useContext(DialogContext);
-  const titleRef: RefObject<HTMLHeadingElement> = React.useRef();
+  const titleRef: RefObject<HTMLHeadingElement> = React.useRef(null);
 
   useEffect(() => {
     if (titleRef && isReadyToShowDialog) {

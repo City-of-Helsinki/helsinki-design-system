@@ -38,7 +38,7 @@ export interface HeaderActionBarSubItemProps extends ElementProps {
   /**
    * Label for the action bar item.
    */
-  label?: string | JSX.Element;
+  label?: string | React.JSX.Element;
   /**
    * If heading style is used
    */
@@ -109,7 +109,7 @@ export const HeaderActionBarSubItem = forwardRef<HTMLButtonElement | HTMLAnchorE
         return null;
       }
       return (
-        <span className={elementClassName}>{cloneElement(element as React.ReactElement, { 'aria-hidden': true })}</span>
+        <span className={elementClassName}>{cloneElement(element as React.ReactElement<any>, { 'aria-hidden': true })}</span>
       );
     };
 

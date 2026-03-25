@@ -121,8 +121,8 @@ describe('apiToken hooks testing', () => {
       }
       return (
         <div>
-          <span id={elementIds.lastSignal}>{payloadRef.current ? payloadRef.current.type : ''}</span>
-          <span id={elementIds.error}>{errorRef.current ? errorRef.current.type : ''}</span>
+          <span id={elementIds.lastSignal}>{payloadRef.current ? String(payloadRef.current.type) : ''}</span>
+          <span id={elementIds.error}>{errorRef.current ? String(errorRef.current.type) : ''}</span>
           <span>Making sure client is found {apiTokensClient.namespace}</span>
         </div>
       );

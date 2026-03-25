@@ -48,28 +48,25 @@ Migration of the HDS monorepo from React 17 to React 19. Branch: `react-19-updat
 - Updated remaining snapshot baselines (font rendering drift)
 - All 208 e2e tests passing
 
-## Step 9: Upgrade babel-jest to v29
+## Step 9: Upgrade babel-jest to v29 ✅
+- Commit: `88d54e3ce5`
 - babel-jest 26 → 29 (match Jest 29)
 
-## Step 10: Upgrade React + ReactDOM to 19
+## Step 10: Upgrade React 17 → 19 + testing-library + fix types ✅
+- Commit: `0326148c77`
 - react + react-dom 17.0.2 → 19.x
-- Update root resolutions: @types/react + @types/react-dom → 19.x
-- yarn install, fix immediate type errors
+- @types/react + @types/react-dom → 19.x
+- Updated root resolutions
+- @testing-library/react 12 → 16, dom 8 → 10, user-event 12 → 14
+- Removed @testing-library/react-hooks
+- Fixed 77+ TypeScript errors: useRef(null), JSX namespace,
+  FC children, ReactElement.props unknown, cloneElement strict typing,
+  ref callbacks, @react-spring/web compat
+- Updated test snapshots
+- 21 test suites still failing (56 tests)
 
-## Step 11: Upgrade @testing-library/react to v16 + user-event v14
-- NOTE: Must happen AFTER React upgrade (v14+ requires React 18+, v16 requires React 19)
-- @testing-library/react 12 → 16
-- @testing-library/dom 8 → 10
-- @testing-library/user-event 12 → 14
-- Remove @testing-library/react-hooks (merged into @testing-library/react v13+)
-- Replace renderHook imports from react-hooks → react
-- Fix waitForNextUpdate → waitFor
-
-## Step 12: Fix React 19 Type Changes
-- React.FC no longer includes children implicitly
-- useRef() requires an argument
-- ReactElement type changes
-- Run tsc --noEmit, fix all type errors
+## Step 11: Fix remaining unit test failures 🔄
+- 21 test suites, 56 tests still failing after React 19 upgrade
 
 ## Step 13: Fix ref cleanup function changes
 - Verify react-merge-refs, react-popper, react-use-measure compat

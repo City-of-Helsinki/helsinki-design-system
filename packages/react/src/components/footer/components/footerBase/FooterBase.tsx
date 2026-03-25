@@ -113,7 +113,7 @@ export const FooterBase = ({
                     <span className={styles.separator} aria-hidden>
                       |
                     </span>
-                    {cloneElement(child as React.ReactElement, {
+                    {cloneElement(child as React.ReactElement<any>, {
                       variant: FooterVariant.Base,
                     })}
                   </Fragment>

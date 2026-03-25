@@ -167,10 +167,10 @@ describe(`graphQLModule`, () => {
     return (
       <div>
         <span key="lastSignal" id={elementIds.lastSignal}>
-          {payloadRef.current ? (payloadRef.current.type as React.ReactNode) : ''}
+          {payloadRef.current ? String(payloadRef.current.type) : ''}
         </span>
         <span key="error" id={elementIds.errorSignal}>
-          {errorRef.current ? errorRef.current.type : ''}
+          {errorRef.current ? String(errorRef.current.type) : ''}
         </span>
       </div>
     );

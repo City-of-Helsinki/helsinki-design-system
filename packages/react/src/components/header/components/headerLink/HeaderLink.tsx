@@ -230,7 +230,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
           dropdownButtonClassName={dropdownButtonClassName}
         >
           {dropdownLinks.map((child) => {
-            return cloneElement(child as React.ReactElement, {
+            return cloneElement(child as React.ReactElement<any>, {
               key: uuidv4(),
               wrapperClassName,
               dropdownClassName,

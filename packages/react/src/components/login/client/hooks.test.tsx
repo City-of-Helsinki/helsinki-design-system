@@ -141,9 +141,9 @@ describe('Client hooks', () => {
       }
       return (
         <div>
-          <span id={elementIds.lastSignal}>{payloadRef.current ? payloadRef.current.type : ''}</span>
+          <span id={elementIds.lastSignal}>{payloadRef.current ? String(payloadRef.current.type) : ''}</span>
           <span id={elementIds.state}>{oidcClient.getState()}</span>
-          <span id={elementIds.error}>{errorRef.current ? errorRef.current.type : ''}</span>
+          <span id={elementIds.error}>{errorRef.current ? String(errorRef.current.type) : ''}</span>
           <span id={`${elementIds.renderTime}-${testUtilElementIds.renderTimeSuffix}`}>{Date.now()}</span>;
           <button
             type="button"

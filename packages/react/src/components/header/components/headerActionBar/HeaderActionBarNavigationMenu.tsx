@@ -45,7 +45,7 @@ const NavigationSection = ({ children, className, logo, universalLinks, ...rest 
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={index}>
-                  {cloneElement(child as React.ReactElement, {
+                  {cloneElement(child as React.ReactElement<any>, {
                     className: styles.universalLink,
                   })}
                 </li>
@@ -74,8 +74,9 @@ const PreviousDropdownLink = ({
   openFrontPageLinksAriaLabel,
 }: PreviousDropdownLinkProps) => {
   // When the link is not an object with props, this should point to front page.
-  const previousLabel = link?.props.label || frontPageLabel;
-  const previousAriaLabel = link?.props.openDropdownAriaButtonLabel || openFrontPageLinksAriaLabel;
+  const linkProps = link?.props as { label?: string; openDropdownAriaButtonLabel?: string } | undefined;
+  const previousLabel = linkProps?.label || frontPageLabel;
+  const previousAriaLabel = linkProps?.openDropdownAriaButtonLabel || openFrontPageLinksAriaLabel;
   return (
     <li className={styles.previousListItem}>
       <button
@@ -102,12 +103,13 @@ type ActiveDropdownLinkProps = {
 const ActiveDropdownLink = ({ link, frontPageLabel, titleHref, onLinkClick }: ActiveDropdownLinkProps) => {
   const className = styles.activeMobileLink;
   const activeLink = link ? (
-    cloneElement(link, {
+    cloneElement(link as React.ReactElement<any>, {
       className,
       dropdownButtonClassName: styles.hideDropdownButton,
       wrapperClassName: styles.mobileLinkWrapper,
       onClick: (event) => {
-        if (link.props.onClick) link.props.onClick(event);
+        if ((link.props as { onClick?: (e: unknown) => void }).onClick)
+          (link.props as { onClick?: (e: unknown) => void }).onClick(event);
         onLinkClick(event);
       },
     })
@@ -135,16 +137,17 @@ const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <span className={styles.mobileNavigationLink}>
-              {cloneElement(child as React.ReactElement, {
+              {cloneElement(child as React.ReactElement<any>, {
                 dropdownLinkClassName: styles.mobileDropdownLink,
                 dropdownClassName: styles.mobileLinkDropdown,
                 wrapperClassName: styles.mobileLinkWrapper,
                 dropdownButtonClassName: styles.mobileLinkDropdownButton,
-                className: classNames(child.props.className, styles.mobileLink),
+                className: classNames((child.props as { className?: string }).className, styles.mobileLink),
                 index,
                 onDropdownButtonClick: () => onDropdownButtonClick(child),
                 onClick: (event) => {
-                  if (child.props.onClick) child.props.onClick(event);
+                  if ((child.props as { onClick?: (e: unknown) => void }).onClick)
+                    (child.props as { onClick?: (e: unknown) => void }).onClick(event);
                   onLinkClick(child);
                 },
               })}
@@ -186,7 +189,7 @@ type HeaderActionBarNavigationMenuProps = {
   /**
    * Logo to use
    */
-  logo: JSX.Element;
+  logo: React.JSX.Element;
   /**
    * Logo properties
    */
@@ -206,7 +209,7 @@ export const HeaderActionBarNavigationMenu = ({
   const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
   const { setMobileMenuOpen } = useSetHeaderContext();
   // State for which link menu is open but not necessarily active. Needed for browsing the menu.
-  const navContainerRef = useRef<HTMLDivElement>();
+  const navContainerRef = useRef<HTMLDivElement>(null);
   const reRender = useForceRender();
 
   const state = useRef<State>({
@@ -336,9 +339,10 @@ export const HeaderActionBarNavigationMenu = ({
   };
 
   const getLinksOrChildren = (parent: React.ReactElement) => {
-    return parent.props && parent.props.dropdownLinks
-      ? parent.props.dropdownLinks
-      : getChildrenAsArray((parent as unknown as React.PropsWithChildren<unknown>).children);
+    const parentProps = parent.props as { dropdownLinks?: React.ReactNode[]; children?: React.ReactNode };
+    return parentProps.dropdownLinks
+      ? parentProps.dropdownLinks
+      : getChildrenAsArray(parentProps.children);
   };
 
   // Picks given child by MenuInfo.index
@@ -348,13 +352,13 @@ export const HeaderActionBarNavigationMenu = ({
       if (root) {
         // Root element contains top level navigation elements - navigationContent which is an array
         // Root element is never selected, only one of its children
-        return { children: navigationContent };
+        return { props: { children: navigationContent } } as unknown as React.ReactElement;
       }
       if (!parent) {
         return undefined;
       }
       const source = getLinksOrChildren(parent);
-      return source ? source[index] : undefined;
+      return source ? (source[index] as React.ReactElement) : undefined;
     }, undefined);
   };
 
@@ -519,7 +523,7 @@ export const HeaderActionBarNavigationMenu = ({
     >
       {actionBarItems?.map?.((item: HeaderActionBarItemProps) => {
         if (typeof item === 'object') {
-          return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: getKey(item) });
+          return React.cloneElement(item as unknown as React.ReactElement<any>, { fullWidth: true, key: getKey(item) });
         }
         return null;
       })}

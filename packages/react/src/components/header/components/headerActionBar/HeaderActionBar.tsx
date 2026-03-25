@@ -140,7 +140,7 @@ export const HeaderActionBar = ({
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
   const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
-  const actionBarRef = useRef<HTMLDivElement>();
+  const actionBarRef = useRef<HTMLDivElement>(null);
   const documentTabIndexes = useRef(new Map());
 
   useEffect(() => {

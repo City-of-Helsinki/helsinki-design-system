@@ -160,7 +160,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
       }
     };
 
-    const LinkWrapper: React.FC = (props) => {
+    const LinkWrapper: React.FC<React.PropsWithChildren> = (props) => {
       return (
         <a
           ref={ref as React.Ref<HTMLAnchorElement>}
@@ -173,7 +173,7 @@ export const Tag = forwardRef<HTMLDivElement | HTMLAnchorElement, TagProps>(
       );
     };
 
-    const Wrapper: React.FC = (props) => {
+    const Wrapper: React.FC<React.PropsWithChildren> = (props) => {
       return (
         <div
           className={containerClassName}

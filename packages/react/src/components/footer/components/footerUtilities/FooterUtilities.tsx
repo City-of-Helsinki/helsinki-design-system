@@ -45,7 +45,7 @@ export const FooterUtilities = ({
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={childIndex}>
               {isValidElement(child)
-                ? cloneElement(child as React.ReactElement, {
+                ? cloneElement(child as React.ReactElement<any>, {
                     variant: FooterVariant.Utility,
                   })
                 : child}
@@ -58,7 +58,7 @@ export const FooterUtilities = ({
           {soMeLinks.map((link, index) => {
             if (isValidElement(link)) {
               /* Set variant to null just in case user set it. It should be null for SoMelinks so it doesn't mess with the styles. */
-              return cloneElement(link, { variant: null, key: index } as FooterLinkProps);
+              return cloneElement(link as React.ReactElement<any>, { variant: null, key: index });
             }
             return null;
           })}

@@ -19,7 +19,7 @@ export const getPlainTextContent = (element: ReactNode): string => {
     return element;
   }
   if (isValidElement(element)) {
-    return getPlainTextContent(element.props.children);
+    return getPlainTextContent((element.props as { children?: ReactNode }).children);
   }
   if (Array.isArray(element)) {
     return element.map(getPlainTextContent).join('');

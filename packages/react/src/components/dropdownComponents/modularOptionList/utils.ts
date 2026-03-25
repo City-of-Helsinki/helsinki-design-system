@@ -283,9 +283,10 @@ export function childrenToGroups(
   };
   if (hasOptionGroups) {
     return childArray.map((child) => {
-      const optionElements = child.props.children;
+      const childProps = child.props as { children?: ReactNode; label?: string };
+      const optionElements = childProps.children;
       const options = optionElements ? getChildrenAsArray(optionElements).map(optionElementToOption) : [];
-      const label = createGroupLabel(String(child.props.label));
+      const label = createGroupLabel(String(childProps.label));
       options.unshift(label);
       return { options };
     });
