@@ -48,19 +48,22 @@ Migration of the HDS monorepo from React 17 to React 19. Branch: `react-19-updat
 - Updated remaining snapshot baselines (font rendering drift)
 - All 208 e2e tests passing
 
-## Step 9: Upgrade @testing-library/react to v16 + user-event v14
-- @testing-library/react 12 → 16 (required for React 19 support)
-- @testing-library/user-event 12 → 14
-- Remove @testing-library/react-hooks (merged into @testing-library/react v13+)
-- Replace renderHook imports, fix waitForNextUpdate → waitFor
-
-## Step 10: Upgrade babel-jest to v29
+## Step 9: Upgrade babel-jest to v29
 - babel-jest 26 → 29 (match Jest 29)
 
-## Step 11: Upgrade React + ReactDOM to 19
+## Step 10: Upgrade React + ReactDOM to 19
 - react + react-dom 17.0.2 → 19.x
 - Update root resolutions: @types/react + @types/react-dom → 19.x
 - yarn install, fix immediate type errors
+
+## Step 11: Upgrade @testing-library/react to v16 + user-event v14
+- NOTE: Must happen AFTER React upgrade (v14+ requires React 18+, v16 requires React 19)
+- @testing-library/react 12 → 16
+- @testing-library/dom 8 → 10
+- @testing-library/user-event 12 → 14
+- Remove @testing-library/react-hooks (merged into @testing-library/react v13+)
+- Replace renderHook imports from react-hooks → react
+- Fix waitForNextUpdate → waitFor
 
 ## Step 12: Fix React 19 Type Changes
 - React.FC no longer includes children implicitly
