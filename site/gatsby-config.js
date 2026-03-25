@@ -93,6 +93,7 @@ module.exports = {
     title: `Helsinki Design System`,
     description: `Documentation for the Helsinki Design System`,
     siteUrl: process.env.SITE_URL,
+    askemApiKey: process.env.ASKEM_API_KEY,
     menuLinks: [
       {
         name: 'Getting started',
@@ -290,7 +291,18 @@ module.exports = {
         include_favicon: false,
       },
     },
-    `gatsby-plugin-sass`,
+    {
+      resolve: 'gatsby-plugin-sass',
+      options: {
+        sassOptions: {
+          // Hoisted workspace deps (e.g. hds-core) often live in the repo root node_modules
+          includePaths: [
+            path.join(__dirname, 'node_modules'),
+            path.join(__dirname, '../node_modules'),
+          ],
+        },
+      },
+    },
     // this (optional) plugin enables Progressive Web App + Offline functionality
     // To learn more, visit: https://gatsby.dev/offline
     // `gatsby-plugin-offline`,

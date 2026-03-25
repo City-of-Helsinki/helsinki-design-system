@@ -1,0 +1,264 @@
+/* Button styles: official Core Sass partial (same entry as hds-react Button). */
+@use 'hds-core/lib/components/button/_button-mixin' as HdsButton;
+
+/*
+  Askem injects <style> after the bundle; theme uses gradients, shadows, overflow:hidden.
+  Scope: .askem.askem-hds-overrides — !important where late Askem rules would win.
+  disableFonts in AskemWidget.js avoids loading Askem’s Open Sans.
+*/
+/* stylelint-disable declaration-no-important -- Askem theme/core <style> tags load after the bundle */
+
+/* Reinforcement shared by default (secondary) and selected (primary) reaction buttons */
+@mixin askem-reaction-shell {
+  align-items: center !important;
+  background-color: var(--computed-background-color) !important;
+  background-image: none !important;
+  border: var(--border-width) solid var(--computed-border-color) !important;
+  border-radius: 0 !important;
+  box-shadow: none !important;
+  color: var(--computed-color) !important;
+  flex-wrap: nowrap !important;
+  line-height: var(--lineheight-l) !important;
+  min-height: var(--min-size) !important;
+  min-width: var(--min-size) !important;
+  overflow: visible;
+  padding: var(--padding) !important;
+  place-content: flex-start center !important;
+  text-shadow: none !important;
+  top: 0 !important;
+  transition: none !important;
+}
+
+/* Order matches hds-core button.css: :focus-visible then :hover so hover wins when both apply */
+@mixin askem-reaction-interaction {
+  &:focus-visible {
+    background-color: var(--computed-background-color-focus) !important;
+    background-image: none !important;
+    border-color: var(--computed-border-color-focus) !important;
+    box-shadow: none !important;
+    color: var(--computed-color-focus) !important;
+    outline: var(--outline-width-focus) solid var(--computed-outline-color-focus) !important;
+    outline-offset: 2px !important;
+    text-shadow: none !important;
+    top: 0 !important;
+  }
+
+  &:hover {
+    background-color: var(--computed-background-color-hover) !important;
+    background-image: none !important;
+    border-color: var(--computed-border-color-hover) !important;
+    box-shadow: none !important;
+    color: var(--computed-color-hover) !important;
+    left: auto !important;
+    text-shadow: none !important;
+    top: 0 !important;
+  }
+
+  &:active {
+    background-color: var(--computed-background-color-active) !important;
+    background-image: none !important;
+    border-color: var(--computed-border-color-active) !important;
+    box-shadow: none !important;
+    color: var(--computed-color-active) !important;
+    outline: var(--outline-width-focus) solid var(--computed-outline-color-focus) !important;
+    outline-offset: 2px !important;
+    top: 0 !important;
+  }
+
+  &:before,
+  &:after {
+    margin: 0;
+  }
+}
+
+.askem.askem-hds-overrides {
+  margin-top: var(--spacing-xl);
+
+  .askem-plugin {
+    overflow: visible;
+  }
+
+  &,
+  .askem-plugin {
+    color: var(--color-black-90);
+    font-family: var(--font-default);
+    font-size: var(--fontsize-body-m);
+    line-height: var(--lineheight-l);
+  }
+
+  .askem-plugin .askem-reactions-group .askem-reaction:before {
+    content: none !important;
+  }
+
+  /*
+    Askem core uses .after-icons:after for a white SVG (check / theme-specific) that fades in when
+    .selected is set, and hides .askem-label. That fights HDS primary styling and flashes wrong glyphs.
+  */
+  .askem-plugin .askem-reactions-group .askem-reaction-button.after-icons:after {
+    background-image: none !important;
+    content: none !important;
+    display: none !important;
+  }
+
+  .askem-plugin .askem-header:not(.askem-input-header) {
+    margin: 0 0 var(--spacing-s);
+  }
+
+  .askem-plugin .askem-header-text {
+    display: block;
+    font-size: var(--fontsize-heading-s);
+    font-weight: 500;
+    line-height: var(--lineheight-m);
+    margin: 0;
+  }
+
+  .askem-plugin .askem-reactions-group {
+    border: 0;
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-s);
+    justify-content: flex-start;
+    margin: 0;
+    min-width: 0;
+    padding: 0;
+  }
+
+  .askem-plugin .askem-reactions-group .askem-reaction-button {
+    @include HdsButton.base;
+    @include HdsButton.small;
+    @include HdsButton.secondary;
+    @include askem-reaction-shell;
+    @include askem-reaction-interaction;
+  }
+
+  .askem-plugin .askem-reactions-group .askem-reaction.selected .askem-reaction-button {
+    @include HdsButton.small;
+    @include HdsButton.primary;
+    @include askem-reaction-shell;
+    @include askem-reaction-interaction;
+  }
+
+  .askem-plugin .askem-reactions-group .askem-reaction-button .askem-icon {
+    display: none !important;
+  }
+
+  .askem-plugin .askem-reactions-group .askem-reaction-button .askem-label {
+    align-items: center;
+    color: inherit;
+    display: inline-flex;
+    font-size: inherit;
+    font-weight: inherit;
+    justify-content: center;
+    line-height: inherit;
+    margin: 0;
+    opacity: 1 !important;
+    padding: 0;
+    text-shadow: none !important;
+    white-space: normal !important;
+  }
+
+  .askem-plugin .askem-inputs {
+    margin-top: var(--spacing-l);
+  }
+
+  .askem-plugin .askem-input .askem-input-header {
+    font-size: var(--fontsize-heading-xs);
+    font-weight: 500;
+    line-height: var(--lineheight-m);
+    margin: 0 0 var(--spacing-xs);
+  }
+
+  .askem-plugin .askem-input-disclaimer p {
+    margin: 0;
+  }
+
+  .askem-plugin .askem-input-sent {
+    display: block;
+    margin-top: var(--spacing-s);
+  }
+
+  .askem-plugin .askem-input-sent.after-reaction.active {
+    font-size: var(--fontsize-body-m);
+    font-weight: 500;
+    line-height: var(--lineheight-l);
+  }
+
+  .askem-plugin .askem-inputs .askem-input-field {
+    -webkit-appearance: none;
+    appearance: none;
+    background-color: var(--color-white) !important;
+    border: 2px solid var(--color-black-50) !important;
+    border-radius: 0;
+    box-sizing: border-box;
+    color: var(--color-black-90);
+    font-family: inherit !important;
+    font-size: 1.125em;
+    height: auto;
+    line-height: normal;
+    margin: 0;
+    min-height: 56px;
+    overflow: auto;
+    padding: var(--spacing-s);
+    resize: vertical;
+    width: 100%;
+  }
+
+  .askem-plugin .askem-inputs .askem-input-field:hover {
+    border-color: var(--color-black-90) !important;
+    transition: border-color 85ms ease-out;
+  }
+
+  .askem-plugin .askem-inputs .askem-input-field:focus {
+    border-color: var(--color-black-90) !important;
+    box-shadow: 0 0 0 3px var(--color-focus-outline) !important;
+    outline: none;
+    transform: translate3d(0, 0, 0);
+    transition: 85ms ease-out;
+    transition-property: box-shadow, transform;
+  }
+
+  /* stylelint-disable-next-line selector-pseudo-element-colon-notation -- ::placeholder is standard */
+  .askem-plugin .askem-inputs .askem-input-field::placeholder {
+    color: var(--color-black-60);
+    opacity: 1;
+  }
+
+  .askem-plugin .askem-inputs .askem-input-disclaimer {
+    color: var(--color-black-60);
+    display: block;
+    font-size: var(--fontsize-body-m);
+    line-height: var(--lineheight-l);
+    margin-bottom: var(--spacing-s);
+    margin-top: 0;
+    opacity: 1 !important;
+  }
+
+  .askem-plugin .askem-inputs .askem-form-submit:before {
+    content: none !important;
+    display: none !important;
+  }
+
+  .askem-plugin .askem-inputs .askem-input-submit,
+  .askem-plugin .askem-inputs .askem-form-submit {
+    @include HdsButton.base;
+    @include HdsButton.primary;
+
+    background-image: none !important;
+    box-shadow: none !important;
+    margin-top: var(--spacing-s);
+    position: relative;
+    text-shadow: none !important;
+    top: 0 !important;
+
+    &:before,
+    &:after {
+      margin: 0;
+    }
+
+    &:hover,
+    &:focus-visible {
+      left: auto !important;
+      top: 0 !important;
+    }
+  }
+}

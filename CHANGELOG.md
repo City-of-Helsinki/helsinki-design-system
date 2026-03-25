@@ -56,12 +56,14 @@ Changes that are not related to specific components
 #### Added
 
 - [Component] What is added?
+- [Askem] Reaction buttons added below the content except for the documentation sit frontpage. Needs cookies to be accepted before appearing.
 
 #### Changed
 
 Changes that are not related to specific components
 
 - [Component] What has been changed
+- [CookieConsent] Enabled removing unwanted cookies during site usage (concerns only hds documentation sites, no others).
 
 #### Fixed
 

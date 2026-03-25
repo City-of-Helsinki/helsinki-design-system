@@ -11,6 +11,7 @@ import { withPrefix, Link as GatsbyLink, navigate, useStaticQuery, graphql } fro
 import { MDXProvider } from '@mdx-js/react';
 import { Header, Footer, Link, SideNavigation, IconCheckCircleFill, IconCrossCircle, Logo, LogoSize, logoFi, CookieConsentContextProvider, CookieBanner } from 'hds-react';
 import MatomoTracker from './MatomoTracker';
+import AskemWidget from './AskemWidget';
 import cookieConsentSettings from './cookieConsentSettings';
 import Seo from './Seo';
 import { PlaygroundBlock, PlaygroundPreview } from './Playground';
@@ -163,22 +164,25 @@ const Layout = ({ location, children, pageContext }) => {
       site {
         siteMetadata {
           versions
+          askemApiKey
         }
       }
     }
   `);
-  
+
   // The versions array already reflects the build mode:
   // - Single version: [currentVersion]
   // - Multi version: [currentVersion, ...previousVersions]
   const versionsToShow = site.siteMetadata.versions || [];
   // First version in the array is always the current version
   const documentationVersion = versionsToShow[0] || '';
-  
+
   const { title: pageTitle, slug: pathName, customLayout } = pageContext.frontmatter;
   const pathParts = pathName.split('/');
   const version = pathParts[1] && pathParts[1].startsWith('release-') ? pathParts[1] : undefined;
   const locationWithoutVersion = hrefWithoutVersion(pathName, version);
+  // don't show askem on frontpage
+  const showAskem = pathName && locationWithoutVersion !== '/';
   const versionNumber = version ? version.replace('release-', '') : documentationVersion;
   const versionLabel = `Version ${versionNumber}`;
   const hash = location.hash;
@@ -304,12 +308,12 @@ const Layout = ({ location, children, pageContext }) => {
                       {...(hasSubLevels
                         ? {}
                         : {
-                            href: hrefWithVersion(prefixedLink, version),
-                            onClick: (e) => {
-                              e.preventDefault();
-                              navigate(hrefWithVersion(link, version, true));
-                            },
-                          })}
+                          href: hrefWithVersion(prefixedLink, version),
+                          onClick: (e) => {
+                            e.preventDefault();
+                            navigate(hrefWithVersion(link, version, true));
+                          },
+                        })}
                     >
                       {subLevels.map(({ navTitle, slug, prefixedLink: prefixedSubLevelLink, uiId }) => (
                         <SideNavigation.SubLevel
@@ -332,10 +336,18 @@ const Layout = ({ location, children, pageContext }) => {
           {customLayout ? (
             <main id={contentId} className="main-content">
               <MDXProvider components={components(version)}>{children}</MDXProvider>
+              <AskemWidget
+                enabled={showAskem}
+                apiKey={site?.siteMetadata?.askemApiKey}
+              />
             </main>
           ) : (
             <main id={contentId} className="main-content">
               <MDXProvider components={components(version)}>{children}</MDXProvider>
+              <AskemWidget
+                enabled={showAskem}
+                apiKey={site?.siteMetadata?.askemApiKey}
+              />
             </main>
           )}
         </div>

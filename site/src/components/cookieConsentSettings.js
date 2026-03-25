@@ -9,8 +9,8 @@ const cookieConsentSettings = {
   siteName: 'Helsinki Design System',
   cookieName: 'helfi-cookie-consents',
   fallbackLanguage: 'en',
-  monitorInterval: 0,
-  remove: false,
+  monitorInterval: 5000,
+  remove: true,
   languages: [
     { code: 'en', name: 'English', direction: 'ltr' },
     { code: 'fi', name: 'Suomi', direction: 'ltr' },
@@ -89,6 +89,21 @@ const cookieConsentSettings = {
             en: '30 minutes',
             fi: '30 minuuttia',
             sv: '30 minuter',
+          },
+          storageType: 1,
+        },
+        {
+          name: '*_lfa',
+          host: '*.askem.com',
+          description: {
+            en: 'A record related to the operation of the Askem react buttons.',
+            fi: 'Askem-reaktionappien toimintaan liittyvä tietue.',
+            sv: 'En post relaterad till driften av reaktionsknappen Askem.',
+          },
+          expiration: {
+            en: '1 year',
+            fi: '1 vuosi',
+            sv: '1 år',
           },
           storageType: 1,
         },
