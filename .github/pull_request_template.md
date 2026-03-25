@@ -10,10 +10,6 @@
 
 Closes [HDS-xxxx](https://helsinkisolutionoffice.atlassian.net/browse/HDS-xxxx)
 
-## Motivation and Context
-
-<!-- Why is this change required? What problem does it solve? -->
-
 ## How Has This Been Tested?
 
 ## Demos:
@@ -26,3 +22,9 @@ Links to demos are in the comments
 
 - [] Added needed line to changelog
 <!-- Or comment here why it is not relevant in the change log -->
+
+## If applicable, also apply this fix/feature to the previous major version
+
+<!-- Take the latest release of previous major as base -->
+<!-- make a release-X.x branch of it (if not already made) -->
+<!-- make the changes in another branch and make a PR against the release-X.x -->
