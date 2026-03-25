@@ -61,13 +61,13 @@ export default class MonitorAndCleanBrowserStorages {
           try {
             localStorage.removeItem(key);
           } catch (e) {
-            // Storage access blocked by browser
+            this.#removalFailedKeys.localStorage.push(key);
           }
         } else if (storageTypeString === 'sessionStorage') {
           try {
             sessionStorage.removeItem(key);
           } catch (e) {
-            // Storage access blocked by browser
+            this.#removalFailedKeys.sessionStorage.push(key);
           }
         } else if (storageTypeString === 'indexedDB') {
           const request = indexedDB.deleteDatabase(key);

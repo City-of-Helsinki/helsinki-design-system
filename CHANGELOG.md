@@ -45,7 +45,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
+- [Component] What bugs/typos are fixed?
 
 ### Documentation
 
