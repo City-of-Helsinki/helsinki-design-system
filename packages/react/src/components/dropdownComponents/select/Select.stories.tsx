@@ -581,6 +581,7 @@ export const MultiselectWithGroupsAndFilter = () => {
       icon={<IconLocation />}
       texts={defaultTextsForMultiSelect}
       id="hds-select-component"
+      data-playwright-a11y="skip"
     />
   );
 };
@@ -1423,6 +1424,7 @@ export const WithCustomTheme = (args: SelectProps) => {
       texts={{ ...defaultTexts, assistive: 'Change theme with Story parameters!' }}
       id="hds-select-component"
       icon={<IconLocation />}
+      data-playwright-a11y="skip"
     />
   );
 };

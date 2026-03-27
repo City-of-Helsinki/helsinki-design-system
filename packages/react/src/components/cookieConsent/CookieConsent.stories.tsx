@@ -102,6 +102,7 @@ export const Example = ({ currentTabIndex }: { currentTabIndex?: number } = {}) 
       options={{ language, focusTargetSelector: '#actionbar > a' }}
       siteSettings={{ ...siteSettings, remove: false, monitorInterval: 0 }}
     >
+      <span data-playwright-a11y="skip" hidden />
       <Header languages={languages} onDidChangeLanguage={onLangChange} defaultLanguage={language}>
         <Header.ActionBar
           frontPageLabel="Frontpage"

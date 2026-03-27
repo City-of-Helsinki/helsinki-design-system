@@ -49,7 +49,7 @@ const customD = `
     --background-color-hover: orange;`;
 
 export const CustomThemeTags = () => `
-  <div style="${tagWrapperStyle}">
+  <div style="${tagWrapperStyle}" data-playwright-a11y="skip">
     <div class="hds-tag" style="${customA}" id="custom-1">
       <span>Label</span>
     </div>

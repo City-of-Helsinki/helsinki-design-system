@@ -1,4 +1,5 @@
 import { Locator, Page, expect, ElementHandle, TestInfo } from '@playwright/test';
+import { AxeBuilder } from '@axe-core/playwright';
 import { playWrightInitScript } from '../../packages/react/src/utils/playWrightHelpers';
 
 enum PackageServerPort {
@@ -102,6 +103,7 @@ export const takeScreenshotWithSpacing = async (
     height: elementBoundingBox.height + 2 * spacing,
   };
 
+  await scanAccessibility(page, element);
   return expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
 };
 
@@ -206,6 +208,41 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
   await page.goto(targetUrl);
   return targetUrl;
 };
+
+export const scanAccessibility = async (page: Page, locator?: Locator) => {
+  const skipA11ySelector = '[data-playwright-a11y="skip"]';
+  if ((await page.locator(skipA11ySelector).count()) > 0) {
+    return;
+  }
+
+  const scanClass = `a11y-scan-${Date.now()}`;
+  const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+  const scanTarget = locator?.first();
+
+  if (scanTarget) {
+    await scanTarget.evaluate((el, className) => {
+      el.classList.add(className);
+    }, scanClass);
+  }
+
+  try {
+    const axeBuilder = new AxeBuilder({ page }).withTags(wcagTags);
+    if (scanTarget) {
+      axeBuilder.include(`.${scanClass}`);
+    }
+    const accessibilityScanResults = await axeBuilder.analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+  } finally {
+    // Keep DOM clean between scans when targeting a specific locator.
+    if (scanTarget) {
+      await scanTarget.evaluate((el, className) => {
+        el.classList.remove(className);
+      }, scanClass);
+    }
+  }
+};
+
+
 
 export const getLocatorElement = async (locator: Locator): Promise<HTMLElement | SVGElement | null> => {
   const first = locator.first();
