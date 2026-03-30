@@ -6,10 +6,10 @@
  * Contrast ratios verified against #f6f8fa:
  *   #393A34 — 13.1:1  (plain text, punctuation)
  *   #57606a —  5.4:1  (comments)     was #999988 at ~2.5:1
- *   #c41a7f —  4.9:1  (strings)      was #e3116c at ~4.2:1
- *   #116329 —  6.5:1  (numbers, variables, booleans) was #36acaa at ~2.4:1
- *   #005cc5 —  5.4:1  (keywords)     was #00a4db at ~2.6:1
- *   #b31d28 —  5.9:1  (functions, tags) was #d73a49 at ~4.0:1
+ *   #CE007A —  4.8:1  (strings)      was #e3116c at ~4.2:1
+ *   #007A64 —  4.7:1  (numbers, variables, booleans) was #36acaa at ~2.4:1
+ *   #006CCD —  4.7:1  (keywords)     was #00a4db at ~2.6:1
+ *   #CD2900 —  4.8:1  (functions, tags) was #d73a49 at ~4.0:1
  *   #6f42c1 —  5.4:1  (function-variable) unchanged ✅
  *   #00009f — 13.0:1  (tag, selector, keyword override) unchanged ✅
  */
