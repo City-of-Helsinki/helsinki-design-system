@@ -66,7 +66,16 @@ Migration of the HDS monorepo from React 17 to React 19. Branch: `react-19-updat
 - 21 test suites still failing (56 tests)
 
 ## Step 11: Fix remaining unit test failures 🔄
-- 21 test suites, 56 tests still failing after React 19 upgrade
+- 21 test suites, 56 tests originally failing after React 19 upgrade
+- Fixed ESLint: forced eslint 8.57.0 via root resolutions (was picking up v7 from @typescript-eslint/eslint-plugin v5 hoisted by Gatsby)
+- Fixed ESLint: added parserOptions.project:true to packages/react/.eslintrc.json for @typescript-eslint v8 compat
+- Fixed userEvent: added await to all userEvent.click/tab/type/upload/hover/keyboard calls across 10 test files (user-event v14 is fully async)
+- Fixed TypeScript: added children prop to Visible component (React 19 FC no longer includes children implicitly)
+- Fixed TypeScript: cast child.props in MenuButton/Menu.tsx (React 19 ReactElement.props is now unknown)
+- Fixed FileInput: pass { applyAccept: false } to userEvent.upload in accept-validation tests (v14 filters files before component sees them)
+- Fixed Dialog: replaced userEvent.type('{esc}') with userEvent.keyboard('{Escape}') for proper v14 escape key
+- Updated DateInput snapshots (now correctly capture open picker state after awaiting click)
+- **Remaining: 8 suites / 16 tests in login/* and dataProvider/** — React 19 async batching changes
 
 ## Step 13: Fix ref cleanup function changes
 - Verify react-merge-refs, react-popper, react-use-measure compat
@@ -94,6 +103,12 @@ Migration of the HDS monorepo from React 17 to React 19. Branch: `react-19-updat
 - Site uses React 18.2.0 + Gatsby 5
 - Option A: Upgrade site to React 19
 - Option B: Keep site on React 18 if Gatsby blocks
+
+## Step 20: Upgrade Gatsby to latest version
+- Do this after all other updates are done
+- Gatsby 5 pulls in `eslint-config-react-app` which forces `@typescript-eslint/eslint-plugin` v5 to root, conflicting with v8 used by hds-react
+- Updating Gatsby should remove this conflict and allow a clean single version of @typescript-eslint across the monorepo
+- Also drop `eslint-config-react-app` from site if Gatsby no longer requires it (it is officially deprecated)
 
 ## Step 19: Cleanup & optimization (optional)
 - Remove forwardRef wrappers (25 components) — ref is a regular prop in React 19

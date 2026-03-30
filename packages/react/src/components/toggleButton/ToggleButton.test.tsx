@@ -51,7 +51,7 @@ describe('<ToggleButton /> spec', () => {
       />,
     );
     const button = screen.getByRole('button', { pressed: false });
-    userEvent.click(button);
+    await userEvent.click(button);
     expect(checked).toBeTruthy();
   });
   it('native html props are passed to the element', async () => {

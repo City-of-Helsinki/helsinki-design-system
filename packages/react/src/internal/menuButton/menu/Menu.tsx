@@ -43,12 +43,13 @@ export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, on
         return isValidElement(child)
           ? cloneElement(child, {
               // add class name(s) to child
-              className: `${styles.item} ${child.props.className || ''}`,
+              className: `${styles.item} ${(child.props as { className?: string }).className || ''}`,
               // add onclick handler(s) to child
               onClick: (event: MouseEvent<HTMLElement>) => {
                 // Call the individual child onClick function
-                if (typeof child.props.onClick === 'function') {
-                  child.props.onClick(event);
+                const childProps = child.props as { className?: string; onClick?: (e: React.MouseEvent<HTMLElement>) => void };
+                if (typeof childProps.onClick === 'function') {
+                  childProps.onClick(event);
                 }
                 // Call the common onItemClick function
                 if (typeof onItemClick === 'function') {

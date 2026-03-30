@@ -48,13 +48,13 @@ describe('<PasswordInput /> spec', () => {
     expect(getInputElement(container).getAttribute('type')).toBe('password');
 
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Show password'));
+      await userEvent.click(screen.getByLabelText('Show password'));
     });
 
     expect(getInputElement(container).getAttribute('type')).toBe('text');
 
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Hide password'));
+      await userEvent.click(screen.getByLabelText('Hide password'));
     });
 
     expect(getInputElement(container).getAttribute('type')).toBe('password');

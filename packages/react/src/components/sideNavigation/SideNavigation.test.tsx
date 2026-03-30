@@ -68,7 +68,7 @@ describe('<SideNavigation /> spec', () => {
     ).toHaveLength(0);
   });
 
-  it('should show sub level when main level is clicked', () => {
+  it('should show sub level when main level is clicked', async () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
         <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
@@ -78,7 +78,7 @@ describe('<SideNavigation /> spec', () => {
     );
 
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
-    userEvent.click(queryButton('mainLevel1') as HTMLButtonElement);
+    await userEvent.click(queryButton('mainLevel1') as HTMLButtonElement);
     expect(queryLink('subLevel1')).toBeInTheDocument();
   });
 
@@ -114,7 +114,7 @@ describe('<SideNavigation /> spec', () => {
     expect(queryLink('subLevel2')).toBeInTheDocument();
   });
 
-  it('should open and close main levels', () => {
+  it('should open and close main levels', async () => {
     render(
       <SideNavigation id="sideNavigation" toggleButtonLabel={labels.toggleButton}>
         <SideNavigation.MainLevel id="mainLevel1" icon={<IconHome />} label={labels.mainLevel1}>
@@ -133,22 +133,22 @@ describe('<SideNavigation /> spec', () => {
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevelButton1 as HTMLButtonElement);
+    await userEvent.click(mainLevelButton1 as HTMLButtonElement);
     expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'true');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevelButton2 as HTMLButtonElement);
+    await userEvent.click(mainLevelButton2 as HTMLButtonElement);
     expect(mainLevelButton2).toHaveAttribute('aria-expanded', 'true');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).toBeInTheDocument();
 
-    userEvent.click(mainLevelButton2 as HTMLButtonElement);
+    await userEvent.click(mainLevelButton2 as HTMLButtonElement);
     expect(mainLevelButton2).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();
 
-    userEvent.click(mainLevelButton1 as HTMLButtonElement);
+    await userEvent.click(mainLevelButton1 as HTMLButtonElement);
     expect(mainLevelButton1).toHaveAttribute('aria-expanded', 'false');
     expect(queryLink('subLevel1')).not.toBeInTheDocument();
     expect(queryLink('subLevel2')).not.toBeInTheDocument();

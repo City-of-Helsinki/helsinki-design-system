@@ -115,27 +115,27 @@ describe('<Dialog /> spec', () => {
   it('should rotate focus when user navigates with tabs', async () => {
     renderOpenDialog();
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(screen.getByText(contentButtonText)).toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(screen.getByLabelText(closeButtonLabelText)).toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(screen.getByText(contentButtonText)).toHaveFocus();
   });
 
   it('should rotate focus backwards when user navigates with shift + tab', async () => {
     renderOpenDialog();
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
-    userEvent.tab({ shift: true });
+    await userEvent.tab({ shift: true });
     expect(screen.getByLabelText(closeButtonLabelText)).toHaveFocus();
   });
 
   it('should return focus into dialog with tab after outside click', async () => {
     renderOpenDialog();
     expect(screen.getByText(dialogHeaderProps.title)).toHaveFocus();
-    userEvent.click(document.body);
+    await userEvent.click(document.body);
     expect(screen.getByText(dialogHeaderProps.title)).not.toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(screen.getByLabelText(closeButtonLabelText)).toHaveFocus();
   });
 
@@ -171,13 +171,9 @@ describe('<Dialog /> spec', () => {
     render(<OpenButtonAndDialog />);
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.getByText(openButtonText)).not.toHaveFocus();
-    act(() => {
-      userEvent.click(screen.getByText(openButtonText));
-    });
+    await userEvent.click(screen.getByText(openButtonText));
     expect(screen.queryByRole('dialog')).toBeInTheDocument();
-    act(() => {
-      userEvent.click(screen.getByLabelText(closeButtonLabelText));
-    });
+    await userEvent.click(screen.getByLabelText(closeButtonLabelText));
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
     expect(screen.getByText(openButtonText)).toHaveFocus();
   });
@@ -202,9 +198,7 @@ describe('<Dialog /> spec', () => {
     };
     render(<DialogWithOpenState />);
     expect(screen.queryByRole('dialog')).toBeInTheDocument();
-    act(() => {
-      userEvent.type(screen.queryByRole('dialog') as HTMLElement, '{esc}');
-    });
+    await userEvent.keyboard('{Escape}');
     expect(screen.queryByRole('dialog')).not.toBeInTheDocument();
   });
 });

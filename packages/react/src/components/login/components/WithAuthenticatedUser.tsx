@@ -5,6 +5,7 @@ import { User } from '../types';
 import { getChildrenAsArray } from '../../../utils/getChildren';
 
 type Props = { user: User };
+type RenderProp = (props: Props) => React.ReactElement;
 
 export function createChildrenWithUser(children: React.ReactNode | null, user: User): React.ReactNode[] {
   // eslint-disable-next-line @typescript-eslint/no-explicit-any
@@ -36,9 +37,9 @@ export function createChildrenWithUser(children: React.ReactNode | null, user: U
  * Renders its children only, if the user is authenticated
  * @param props React.PropsWithChildren<unknown>
  */
-export function WithAuthenticatedUser(props: React.PropsWithChildren<unknown>): React.ReactElement | null {
+export function WithAuthenticatedUser(props: { children?: React.ReactNode | RenderProp | Array<React.ReactNode | RenderProp> }): React.ReactElement | null {
   const AuthorisedComponent = (authProps: React.PropsWithChildren<{ user: User }>) => {
-    return <>{createChildrenWithUser(props.children, authProps.user)}</>;
+    return <>{createChildrenWithUser(props.children as React.ReactNode, authProps.user)}</>;
   };
   return <WithAuthentication AuthorisedComponent={AuthorisedComponent} />;
 }

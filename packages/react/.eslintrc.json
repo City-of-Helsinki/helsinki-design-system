@@ -15,6 +15,7 @@
   "plugins": ["@typescript-eslint", "prettier", "react", "jest", "import"],
   "parserOptions": {
     "ecmaVersion": 2018,
+    "project": true,
     "ecmaFeatures": {
       "jsx": true
     }
