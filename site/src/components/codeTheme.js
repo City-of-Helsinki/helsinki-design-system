@@ -10,8 +10,8 @@
  *   #007A64 —  4.7:1  (numbers, variables, booleans) was #36acaa at ~2.4:1
  *   #006CCD —  4.7:1  (keywords)     was #00a4db at ~2.6:1
  *   #CD2900 —  4.8:1  (functions, tags) was #d73a49 at ~4.0:1
- *   #6f42c1 —  5.4:1  (function-variable) unchanged ✅
- *   #00009f — 13.0:1  (tag, selector, keyword override) unchanged ✅
+ *   #6f42c1 —  5.4:1  (function-variable) unchanged
+ *   #00009f — 13.0:1  (tag, selector, keyword override) unchanged
  */
 const accessibleLightTheme = {
   plain: {
