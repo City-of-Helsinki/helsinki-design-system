@@ -65,7 +65,7 @@ Migration of the HDS monorepo from React 17 to React 19. Branch: `react-19-updat
 - Updated test snapshots
 - 21 test suites still failing (56 tests)
 
-## Step 11: Fix remaining unit test failures 🔄
+## Step 11: Fix remaining unit test failures ✅
 - 21 test suites, 56 tests originally failing after React 19 upgrade
 - Fixed ESLint: forced eslint 8.57.0 via root resolutions (was picking up v7 from @typescript-eslint/eslint-plugin v5 hoisted by Gatsby)
 - Fixed ESLint: added parserOptions.project:true to packages/react/.eslintrc.json for @typescript-eslint v8 compat
@@ -75,7 +75,11 @@ Migration of the HDS monorepo from React 17 to React 19. Branch: `react-19-updat
 - Fixed FileInput: pass { applyAccept: false } to userEvent.upload in accept-validation tests (v14 filters files before component sees them)
 - Fixed Dialog: replaced userEvent.type('{esc}') with userEvent.keyboard('{Escape}') for proper v14 escape key
 - Updated DateInput snapshots (now correctly capture open picker state after awaiting click)
-- **Remaining: 8 suites / 16 tests in login/* and dataProvider/** — React 19 async batching changes
+- Fixed DataProvider/hooks tests: moved waitFor outside act() (React 19 async batching pattern)
+- Fixed login test utils: timerTestUtil.advanceAndFlush — moved realSetImmediate inside act() so React 19 flushes signal-driven state updates
+- Fixed login test utils: removed render-inside-act() wrappers where effects were deferred (apiTokensClient, graphQLModule hooks)
+- Fixed React 19 async batching in signal tracking: consecutive signals emitted synchronously (emitError + emitStateChange) are now batched, losing the error signal. Fixed by using useSignalTrackingWithCallback for error detection (runs synchronously, bypasses setState batching) in: client/hooks.test.tsx, sessionPoller/hooks.test.tsx, headerUserItems/HeaderLoginButton.tsx (production fix)
+- All 148 test suites / 1227 tests now passing
 
 ## Step 13: Fix ref cleanup function changes
 - Verify react-merge-refs, react-popper, react-use-measure compat

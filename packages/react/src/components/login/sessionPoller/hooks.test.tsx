@@ -4,7 +4,8 @@ import React, { useRef } from 'react';
 import HttpStatusCode from '../../../utils/httpStatusCode';
 import { UserCreationProps } from '../testUtils/userTestUtil';
 import { ConnectedModule } from '../beacon/beacon';
-import { EventPayload, isErrorSignal } from '../beacon/signals';
+import { EventPayload, isErrorSignal, createTriggerPropsForAllSignals } from '../beacon/signals';
+import { useSignalTrackingWithCallback } from '../beacon/hooks';
 import { createControlledFetchMockUtil, Responder } from '../testUtils/fetchMockTestUtil';
 // eslint-disable-next-line jest/no-mocks-import
 import { createHookTestEnvironment, HookTestUtil } from '../testUtils/hooks.testUtil';
@@ -81,22 +82,23 @@ describe('sessionPoller hooks testing', () => {
 
     const SignalCheck = () => {
       const [signal, , sessionPoller] = useSessionPollerTracking();
-      const error = signal && isErrorSignal(signal) ? (signal?.payload as SessionPollerError) : null;
       const eventPayload = signal ? getSessionPollerEventPayload(signal) : null;
       // useRef to store last error and payload
       const errorRef = useRef<SessionPollerError | undefined>(undefined);
       const payloadRef = useRef<EventPayload | undefined>(undefined);
-      if (error) {
-        errorRef.current = error;
-      }
+      // Use callback-based tracking for errors: avoids React 19 batching issue where
+      // error signal is batched with subsequent event signal and only last one is committed.
+      useSignalTrackingWithCallback(createTriggerPropsForAllSignals(sessionPollerNamespace), (sig) => {
+        if (isErrorSignal(sig)) {
+          errorRef.current = sig.payload as SessionPollerError;
+        }
+      });
       if (eventPayload) {
         payloadRef.current = eventPayload;
       }
       return (
         <div>
-          <span id={elementIds.lastSignal}>
-            {payloadRef.current ? String(payloadRef.current.type) : ''}
-          </span>
+          <span id={elementIds.lastSignal}>{payloadRef.current ? String(payloadRef.current.type) : ''}</span>
           <span id={elementIds.pollingError}>{errorRef.current ? String(errorRef.current.type) : ''}</span>
           <span>Making sure poller is found {sessionPoller.namespace}</span>
         </div>

@@ -5,11 +5,10 @@ import { User } from '../types';
 import { getChildrenAsArray } from '../../../utils/getChildren';
 
 type Props = { user: User };
-type RenderProp = (props: Props) => React.ReactElement;
+type RenderProp = (props: Props) => React.ReactElement<Record<string, unknown>>;
 
 export function createChildrenWithUser(children: React.ReactNode | null, user: User): React.ReactNode[] {
-  // eslint-disable-next-line @typescript-eslint/no-explicit-any
-  const renderChild = (child: React.ReactElement<any>, key: string) => {
+  const renderChild = (child: React.ReactElement<Record<string, unknown>>, key: string) => {
     return React.cloneElement(child, { key, ...child.props, user });
   };
   return getChildrenAsArray(children).map((child, index) => {
@@ -21,15 +20,15 @@ export function createChildrenWithUser(children: React.ReactNode | null, user: U
       return child;
     }
     if (childType === 'function') {
-      // eslint-disable-next-line @typescript-eslint/no-explicit-any
-      const renderResult = ((child as unknown) as (props: Props) => React.ReactElement)({ user }) as React.ReactElement<any>;
+      const renderResult = (child as unknown as (props: Props) => React.ReactElement<Record<string, unknown>>)({
+        user,
+      }) as React.ReactElement<Record<string, unknown>>;
       return renderChild(renderResult, `key-${index}`);
     }
     if (!isValidElement(child)) {
       return null;
     }
-    // eslint-disable-next-line @typescript-eslint/no-explicit-any
-    return renderChild(child as React.ReactElement<any>, `key-${index}`);
+    return renderChild(child as React.ReactElement<Record<string, unknown>>, `key-${index}`);
   });
 }
 
@@ -37,9 +36,13 @@ export function createChildrenWithUser(children: React.ReactNode | null, user: U
  * Renders its children only, if the user is authenticated
  * @param props React.PropsWithChildren<unknown>
  */
-export function WithAuthenticatedUser(props: { children?: React.ReactNode | RenderProp | Array<React.ReactNode | RenderProp> }): React.ReactElement | null {
+export function WithAuthenticatedUser({
+  children,
+}: {
+  children?: React.ReactNode | RenderProp | Array<React.ReactNode | RenderProp>;
+}): React.ReactElement<Record<string, unknown>> | null {
   const AuthorisedComponent = (authProps: React.PropsWithChildren<{ user: User }>) => {
-    return <>{createChildrenWithUser(props.children as React.ReactNode, authProps.user)}</>;
+    return <>{createChildrenWithUser(children as React.ReactNode, authProps.user)}</>;
   };
   return <WithAuthentication AuthorisedComponent={AuthorisedComponent} />;
 }

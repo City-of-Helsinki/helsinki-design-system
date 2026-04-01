@@ -38,7 +38,7 @@ export const FooterNavigationGroup = ({ className, children, headingLink, ...res
 
   const renderHeading = () => {
     if (isValidElement(headingLink)) {
-      return cloneElement(headingLink as React.ReactElement<any>, {
+      return cloneElement(headingLink as React.ReactElement<Record<string, unknown>>, {
         variant: FooterVariant.Navigation,
       });
     }
@@ -56,7 +56,7 @@ export const FooterNavigationGroup = ({ className, children, headingLink, ...res
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={childIndex}>
               {isValidElement(child)
-                ? cloneElement(child as React.ReactElement<any>, {
+                ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                     variant: FooterVariant.Navigation,
                     subItem: true,
                   })

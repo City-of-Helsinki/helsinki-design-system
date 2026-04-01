@@ -30,7 +30,7 @@
 
 .toggleButton {
   @media medium-up {
-    display: none;
+    display: none !important;
   }
 }
 

@@ -67,7 +67,7 @@ export const HeaderUniversalBar = ({
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={`secondary-link-${index}`} className={styles.universalBarSecondaryLinkContainer}>
-                  {cloneElement(child as React.ReactElement<any>, {
+                  {cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                     className: classNames((child.props as { className?: string }).className, styles.universalBarLink),
                   })}
                 </li>

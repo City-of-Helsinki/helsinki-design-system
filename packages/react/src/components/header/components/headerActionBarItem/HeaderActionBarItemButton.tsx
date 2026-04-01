@@ -107,7 +107,9 @@ export const HeaderActionBarItemButton = forwardRef<HTMLButtonElement, HeaderAct
         return null;
       }
       return (
-        <span className={elementClassName}>{cloneElement(element as React.ReactElement<any>, { 'aria-hidden': true })}</span>
+        <span className={elementClassName}>
+          {cloneElement(element as React.ReactElement<Record<string, unknown>>, { 'aria-hidden': true })}
+        </span>
       );
     };
 

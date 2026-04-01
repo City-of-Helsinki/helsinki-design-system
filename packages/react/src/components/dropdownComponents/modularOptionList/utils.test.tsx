@@ -574,7 +574,7 @@ describe('utils', () => {
     });
     it('Dom options are converted to groups', () => {
       const Component = (props: PropsWithChildren<unknown>) => {
-        groups = childrenToGroups(props.children as ReactElement<any>);
+        groups = childrenToGroups(props.children as ReactElement<HTMLOptGroupElement | HTMLOptionElement>);
         return <div />;
       };
       render(
@@ -599,7 +599,7 @@ describe('utils', () => {
     });
     it('Dom groups are converted to groups', () => {
       const Component = (props: PropsWithChildren<unknown>) => {
-        groups = childrenToGroups(props.children as ReactElement<any>);
+        groups = childrenToGroups(props.children as ReactElement<HTMLOptGroupElement | HTMLOptionElement>);
         return <div />;
       };
       render(

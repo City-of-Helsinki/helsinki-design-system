@@ -24,7 +24,7 @@ export const FooterNavigation = ({ children, className, ...rest }: FooterNavigat
           // eslint-disable-next-line react/no-array-index-key
           <Fragment key={childIndex}>
             {isValidElement(child)
-              ? cloneElement(child as React.ReactElement<any>, {
+              ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                   variant: FooterVariant.Navigation,
                 })
               : child}

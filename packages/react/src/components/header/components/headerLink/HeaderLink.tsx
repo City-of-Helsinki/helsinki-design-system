@@ -54,7 +54,7 @@ export type NavigationLinkProps<ReactElement> = {
   /**
    * Array of HeaderLink components to render in a dropdown. Can be used only inside navigation components.
    */
-  dropdownLinks?: Array<React.ReactElement>;
+  dropdownLinks?: Array<React.ReactElement<Record<string, unknown>>>;
   /**
    * Hypertext Reference of the link.
    * @default #
@@ -230,7 +230,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
           dropdownButtonClassName={dropdownButtonClassName}
         >
           {dropdownLinks.map((child) => {
-            return cloneElement(child as React.ReactElement<any>, {
+            return cloneElement(child as React.ReactElement<Record<string, unknown>>, {
               key: uuidv4(),
               wrapperClassName,
               dropdownClassName,

@@ -223,12 +223,9 @@ describe('apiToken hooks testing', () => {
           expect(getTokens()).toMatchObject(apiTokens);
         });
         it('which returns null, if user is authenticated', async () => {
-          // for some reason this had to wrapped with "act"
-          await act(async () => {
-            createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
-            init({ component: 'tokens' });
-            expect(getTokens()).toBeNull();
-          });
+          createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);
+          init({ component: 'tokens' });
+          expect(getTokens()).toBeNull();
         });
         it('Returns an error if user is not authenticated', async () => {
           const { getElementById } = init({ component: 'tokens' });

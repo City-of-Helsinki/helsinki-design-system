@@ -1,7 +1,7 @@
-import React, { useEffect, useRef } from 'react';
+import React, { useRef } from 'react';
 
 import { useAuthenticatedUser, useOidcClient } from '../../../login/client/hooks';
-import { useSignalTrackingWithReturnValue } from '../../../login/beacon/hooks';
+import { useSignalTrackingWithReturnValue, useSignalTrackingWithCallback } from '../../../login/beacon/hooks';
 import { triggerForAllOidcClientSignals, isSigninErroSignal } from '../../../login/client/signals';
 import { IconSignin } from '../../../../icons';
 import {
@@ -79,7 +79,7 @@ export function HeaderLoginButton({
 }: HeaderLoginButtonProps): React.ReactElement | null {
   const { login, getState } = useOidcClient();
   const user = useAuthenticatedUser();
-  const [lastSignal, resetLastSignal] = useSignalTrackingWithReturnValue(triggerForAllOidcClientSignals);
+  useSignalTrackingWithReturnValue(triggerForAllOidcClientSignals);
   const isLoggingIn = getState() === 'LOGGING_IN';
   const isLoggingOut = getState() === 'LOGGING_OUT';
   const { elementProps, triggerError } = useHeaderError({
@@ -93,13 +93,18 @@ export function HeaderLoginButton({
   // login can be started from elsewhere too. Ignore those
   const wasClicked = useRef(false);
   const isActive = isLoggingIn && wasClicked.current;
-
-  useEffect(() => {
-    if (lastSignal && isSigninErroSignal(lastSignal) && wasClicked.current) {
-      triggerError();
-      resetLastSignal();
+  // Use a ref to avoid stale closure in the callback
+  const triggerErrorRef = useRef(triggerError);
+  triggerErrorRef.current = triggerError;
+  // Callback-based error detection: runs synchronously when signal is emitted,
+  // bypassing React 19 batching which would otherwise batch the error signal
+  // with the subsequent NO_SESSION state change, losing the error signal.
+  useSignalTrackingWithCallback(triggerForAllOidcClientSignals, (signal) => {
+    if (isSigninErroSignal(signal) && wasClicked.current) {
+      triggerErrorRef.current();
+      wasClicked.current = false;
     }
-  }, [lastSignal]);
+  });
 
   if (user || isLoggingOut) {
     return null;

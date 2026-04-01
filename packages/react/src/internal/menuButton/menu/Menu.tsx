@@ -47,7 +47,10 @@ export const Menu = ({ children, menuContainerSize, menuOffset = 0, menuOpen, on
               // add onclick handler(s) to child
               onClick: (event: MouseEvent<HTMLElement>) => {
                 // Call the individual child onClick function
-                const childProps = child.props as { className?: string; onClick?: (e: React.MouseEvent<HTMLElement>) => void };
+                const childProps = child.props as {
+                  className?: string;
+                  onClick?: (e: React.MouseEvent<HTMLElement>) => void;
+                };
                 if (typeof childProps.onClick === 'function') {
                   childProps.onClick(event);
                 }

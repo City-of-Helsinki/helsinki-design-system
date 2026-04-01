@@ -30,7 +30,7 @@ const renderHeaderNavigationMenuItem = (child, index, isSmallScreen) => {
   const linkContainerClasses = childProps.active && !isSmallScreen ? activeLinkClassName : linkContentClass;
 
   // Pass several className props downwards
-  const mobileNode = cloneElement(child as React.ReactElement<any>, {
+  const mobileNode = cloneElement(child as React.ReactElement<Record<string, unknown>>, {
     dropdownLinkClassName: styles.headerNavigationMenuDropdownLinkMobile,
     dropdownClassName: styles.headerNavigationMenuDropdownMobile,
     wrapperClassName: styles.headerNavigationMenuLinkWrapperMobile,
@@ -39,7 +39,7 @@ const renderHeaderNavigationMenuItem = (child, index, isSmallScreen) => {
     index,
   });
 
-  const desktopNode = cloneElement(child as React.ReactElement<any>, {
+  const desktopNode = cloneElement(child as React.ReactElement<Record<string, unknown>>, {
     className: classNames(childProps.className, styles.headerNavigationMenuLink),
     index,
   });

@@ -6,7 +6,8 @@ import { useAuthenticatedUser, useCachedAmr, useOidcClientTracking } from './hoo
 import { UserCreationProps, createUser, createUserAndPlaceUserToStorage } from '../testUtils/userTestUtil';
 import { createHookTestEnvironment, HookTestUtil, elementIds as testUtilElementIds } from '../testUtils/hooks.testUtil';
 import { Amr, OidcClient, oidcClientEvents, oidcClientNamespace, oidcClientStates } from './index';
-import { isErrorSignal, EventPayload } from '../beacon/signals';
+import { isErrorSignal, EventPayload, createTriggerPropsForAllSignals } from '../beacon/signals';
+import { useSignalTrackingWithCallback } from '../beacon/hooks';
 import { getDefaultOidcClientTestProps, mockSignInResponse } from '../testUtils/oidcClientTestUtil';
 import { OidcClientError, oidcClientErrors } from './oidcClientError';
 import { getOidcClientEventPayload, createOidcClientEventSignal, createOidcClientErrorSignal } from './signals';
@@ -128,14 +129,17 @@ describe('Client hooks', () => {
 
     const ErrorTracking = () => {
       const [signal, , oidcClient] = useOidcClientTracking();
-      const error = signal && isErrorSignal(signal) ? (signal?.payload as OidcClientError) : null;
       const eventPayload = signal ? getOidcClientEventPayload(signal) : null;
       // useRef to store last error and payload
       const errorRef = useRef<OidcClientError | undefined>(undefined);
       const payloadRef = useRef<EventPayload | undefined>(undefined);
-      if (error) {
-        errorRef.current = error;
-      }
+      // Use callback-based tracking for errors: avoids React 19 batching issue where
+      // error signal is batched with subsequent state change and only last one is committed.
+      useSignalTrackingWithCallback(createTriggerPropsForAllSignals(oidcClientNamespace), (sig) => {
+        if (isErrorSignal(sig)) {
+          errorRef.current = sig.payload as OidcClientError;
+        }
+      });
       if (eventPayload) {
         payloadRef.current = eventPayload;
       }
@@ -191,10 +195,14 @@ describe('Client hooks', () => {
     it('tracks events when callback is processed', async () => {
       const { getInnerHtml, clickElement } = init({});
       await clickElement(elementIds.handleCallbackButton, elementIds.renderTime);
-      expect(getInnerHtml(elementIds.error)).toBe(oidcClientErrors.SIGNIN_ERROR);
+      await waitFor(() => {
+        expect(getInnerHtml(elementIds.error)).toBe(oidcClientErrors.SIGNIN_ERROR);
+      });
       signInResponses.push({ invalidUser: false });
       await clickElement(elementIds.handleCallbackButton, elementIds.renderTime);
-      expect(getInnerHtml(elementIds.lastSignal)).toBe(oidcClientEvents.USER_UPDATED);
+      await waitFor(() => {
+        expect(getInnerHtml(elementIds.lastSignal)).toBe(oidcClientEvents.USER_UPDATED);
+      });
     });
     it('Tracks any signal', async () => {
       createUserAndPlaceUserToStorage(defaultOidcClientProps.userManagerSettings);

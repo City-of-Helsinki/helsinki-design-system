@@ -559,19 +559,17 @@ describe(`graphQLModule`, () => {
     ]);
   });
   it('If apiTokens exists, query is triggered automatically.', async () => {
-    await act(async () => {
-      const { waitForDataChange, waitForIsLoadingToMatch } = initTests({
-        responses: [successfulResponse, successfulResponse],
-        apiTokens: defaultApiTokens,
-        requireApiTokens: true,
-      });
-      await waitForIsLoadingToMatch(true);
-      await waitForDataChange(200);
-      await waitForIsLoadingToMatch(false);
-      expect(getEmittedEventTypes()).toEqual([
-        graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-        graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
-      ]);
+    const { waitForDataChange, waitForIsLoadingToMatch } = initTests({
+      responses: [successfulResponse, successfulResponse],
+      apiTokens: defaultApiTokens,
+      requireApiTokens: true,
     });
+    await waitForIsLoadingToMatch(true);
+    await waitForDataChange(200);
+    await waitForIsLoadingToMatch(false);
+    expect(getEmittedEventTypes()).toEqual([
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
+    ]);
   });
 });

@@ -101,7 +101,7 @@ export const Default = (args: DialogProps) => {
 
 // This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const WithBoxShadow = (args: DialogProps) => {
-  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
+  const dialogTargetElement = document.getElementById('storybook-root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -178,7 +178,7 @@ WithBoxShadow.parameters = {
 
 // This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const Confirmation = (args: DialogProps) => {
-  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
+  const dialogTargetElement = document.getElementById('storybook-root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -242,7 +242,7 @@ Confirmation.parameters = {
 
 // This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const Danger = (args: DialogProps) => {
-  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
+  const dialogTargetElement = document.getElementById('storybook-root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDangerButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -309,7 +309,7 @@ Danger.parameters = {
 
 // This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const ScrollableConfirmation = (args: DialogProps) => {
-  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
+  const dialogTargetElement = document.getElementById('storybook-root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openScrollableConfirmationButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);
@@ -444,7 +444,7 @@ ScrollableConfirmation.parameters = {
 
 // This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const LongButtonLabels = (args: DialogProps) => {
-  const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
+  const dialogTargetElement = document.getElementById('storybook-root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDialogButtonRef = useRef(null);
   const [open, setOpen] = useState<boolean>(true);
   const close = () => setOpen(false);

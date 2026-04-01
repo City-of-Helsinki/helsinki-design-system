@@ -22,12 +22,14 @@ export function createTimedPromise(response: unknown, delay = 1000) {
 // Avoids using @testing-library's waitFor because dom v8's waitFor polls via
 // faked setTimeout, creating recursive timer advancement that rapidly burns
 // through the timeout when advanceTimersByTime is called inside the callback.
+// The realSetImmediate is inside act() so React 19 can flush state updates
+// triggered by microtasks that run after the timer advancement.
 async function advanceAndFlush(advanceTime: number) {
   await act(async () => {
     jest.advanceTimersByTime(advanceTime);
-  });
-  await new Promise<void>((resolve) => {
-    realSetImmediate(resolve);
+    await new Promise<void>((resolve) => {
+      realSetImmediate(resolve);
+    });
   });
 }
 
