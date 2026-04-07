@@ -7,9 +7,9 @@ export function PlayWrightComponentHandler({ children }: PropsWithChildren<unkno
   const [show, updateShow] = useState(false);
 
   const clone = (component: React.ReactNode) => {
-    const child = [component, component && component[0]].filter(isValidElement)[0] as unknown as
-      | React.ReactElement<Record<string, unknown>>
-      | null;
+    const child = [component, component && component[0]].filter(isValidElement)[0] as unknown as React.ReactElement<
+      Record<string, unknown>
+    > | null;
     if (!child) {
       return null;
     }

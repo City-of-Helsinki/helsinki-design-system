@@ -1,4 +1,4 @@
-@import '../../common.scss';
+@use '../../common' as *;
 @value x-small-down, small-down, small-up, medium-down, medium-up, large-up from "../../../../styles/breakpoints.scss";
 
 .backToTopButton {

@@ -2,9 +2,6 @@
 
 /* Do not remove this file, it is needed for storybook to build */
 
-/* Import HelsinkiGroteskPro fonts */
-@import '~hds-core/lib/fonts/fonts.css';
-
 body {
   font-family: var(--font-default);
   font-size: var(--fontsize-body-m);

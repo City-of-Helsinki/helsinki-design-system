@@ -181,7 +181,7 @@
   }
 
   @if $all or $base {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include base;
     }
   }
@@ -200,37 +200,37 @@
 
 
   @if $all or $dark {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include dark;
     }
   }
 
   @if $all or $light {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include light;
     }
   }
 
   @if $all or $withVerticalLines {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include withVerticalLines;
     }
   }
 
   @if $all or $dense {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include dense;
     }
   }
 
   @if $all or $zebra {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include zebra;
     }
   }
 
   @if $all or $withVerticalHeader {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include withVerticalHeader;
     }
   }
@@ -242,7 +242,7 @@
   }
 
   @if $all or $base {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include mobile;
     }
   }

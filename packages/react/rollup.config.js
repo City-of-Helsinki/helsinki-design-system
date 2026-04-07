@@ -1,13 +1,16 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fs from 'fs';
+import path from 'path';
 
+import sass from 'sass';
+import postcssLib from 'postcss';
+import postcssScssSyntax from 'postcss-scss';
 import includePaths from 'rollup-plugin-includepaths';
 import resolve from '@rollup/plugin-node-resolve';
 import typescript from 'rollup-plugin-typescript2';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
-import postcssMinify from 'postcss';
 import cssnano from 'cssnano';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
@@ -15,6 +18,41 @@ import { terser } from 'rollup-plugin-terser';
 import del from 'rollup-plugin-delete';
 import cssText from 'rollup-plugin-css-text';
 import generatePackageJson from 'rollup-plugin-generate-package-json';
+
+// Resolve node_modules paths for both absolute and tilde-prefixed (~pkg) imports
+const nodeModulesPaths = [
+  path.resolve('./node_modules'),
+  path.resolve('../../node_modules'),
+];
+
+const tildeImporter = {
+  findFileUrl(url) {
+    if (!url.startsWith('~')) return null;
+    for (const base of nodeModulesPaths) {
+      const resolved = path.join(base, url.slice(1));
+      if (fs.existsSync(resolved)) return new URL(`file://${resolved}`);
+      // Try with .scss extension
+      if (fs.existsSync(`${resolved}.scss`)) return new URL(`file://${resolved}.scss`);
+    }
+    return null;
+  },
+};
+
+// Custom PostCSS plugin using the modern sass.compileAsync() API (replaces legacy sass.render())
+const sassModernPlugin = {
+  postcssPlugin: 'postcss-sass-modern',
+  async Once(root, { result }) {
+    const file = result.opts.from;
+    if (!file || !/\.scss$/.test(file)) return;
+    const compiled = await sass.compileAsync(file, {
+      loadPaths: [path.dirname(file), ...nodeModulesPaths],
+      importers: [tildeImporter],
+    });
+    const parsed = postcssLib.parse(compiled.css, { from: file });
+    root.removeAll();
+    root.append(parsed.nodes);
+  },
+};
 
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const esmInput = require('./config/esmInput');
@@ -51,7 +89,7 @@ const minifyExtractedCssAsset = () => ({
         .map(async (chunk) => {
           const src = chunk.source;
           const input = typeof src === 'string' ? src : Buffer.from(src).toString('utf8');
-          const result = await postcssMinify([cssnano(cssnanoOptions)]).process(input, { from: undefined });
+          const result = await postcssLib([cssnano(cssnanoOptions)]).process(input, { from: undefined });
           chunk.source = result.css;
         }),
     );
@@ -194,16 +232,10 @@ const getConfig = (format, extractCSS) => ({
     postcss({
       extract: extractCSS ? 'index.css' : undefined,
       modules: true,
-      use: [
-        [
-          'sass',
-          {
-            includePaths: ['./node_modules', '../../node_modules'],
-          },
-        ],
-      ],
+      use: [],
+      syntax: postcssScssSyntax,
       minimize: false,
-      plugins: [postcssImport(), ...(extractCSS ? [] : [cssnano(cssnanoOptions)])],
+      plugins: [sassModernPlugin, postcssImport(), ...(extractCSS ? [] : [cssnano(cssnanoOptions)])]
     }),
     extractCSS ? minifyExtractedCssAsset() : undefined,
     terser(),

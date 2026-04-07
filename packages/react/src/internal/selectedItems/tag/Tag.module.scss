@@ -1,4 +1,4 @@
-@import "../../../styles/common.scss";
+@use "../../../styles/common" as *;
 
 .tag {
   --tag-background: var(--color-black-10);

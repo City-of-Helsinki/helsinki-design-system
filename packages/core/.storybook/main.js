@@ -10,7 +10,7 @@ module.exports = {
     // Add SCSS support (replaces @storybook/preset-scss)
     config.module.rules.push({
       test: /\.scss$/,
-      use: ['style-loader', 'css-loader', 'sass-loader'],
+      use: ['style-loader', 'css-loader', { loader: 'sass-loader', options: { api: 'modern' } }],
     });
     return config;
   },

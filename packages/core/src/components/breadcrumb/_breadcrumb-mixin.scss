@@ -135,25 +135,25 @@
   }
 
   @if $all or $base {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include base;
     }
   }
 
   @if $all or $active {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include active;
     }
   }
 
   @if $all or $mobile {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include mobile;
     }
   }
 
   @if $all or $desktop {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include desktop;
     }
   }

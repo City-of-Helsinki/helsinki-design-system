@@ -117,6 +117,7 @@ export const takeAllStorySnapshots = async (props: {
   }
   for (const componentUrl of componentUrls) {
     await page.goto(componentUrl);
+    await page.waitForLoadState('networkidle');
     const container = page.locator('body');
     const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
     await takeScreenshotWithSpacing(page, container, screenshotName, bodySpacing);

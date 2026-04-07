@@ -1,3 +1,5 @@
+const webpack = require('webpack');
+
 module.exports = {
   framework: '@storybook/react-webpack5',
   stories: ['../src/**/*.stories.tsx'],
@@ -12,6 +14,13 @@ module.exports = {
     { from: '../src/components/cookieConsentCore/siteSettingsEditor', to: '/static-cookie-consent-editor' },
   ],
   webpackFinal: async (config) => {
+    // Expose FONT_URL env var to the browser bundle
+    config.plugins.push(
+      new webpack.DefinePlugin({
+        'process.env.FONT_URL': JSON.stringify(process.env.FONT_URL || ''),
+      }),
+    );
+
     // Add SCSS support for non-module .scss files
     config.module.rules.push({
       test: /\.scss$/,
