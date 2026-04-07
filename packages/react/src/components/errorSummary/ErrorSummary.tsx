@@ -5,10 +5,10 @@ import errorSummaryStyles from './ErrorSummary.module.scss';
 import notificationStyles from '../notification/Notification.module.scss';
 import { IconErrorFill } from '../../icons';
 import classNames from '../../utils/classNames';
-import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 import { NotificationSize } from '../notification';
 
-// ErrorSummary doesn't have a size of smallimport { AllElementPropsWithoutRef } from '../../utils/elementTypings';
+// ErrorSummary doesn't have a size of small
 
 export enum ErrorSummarySize {
   Medium = NotificationSize.Medium,
@@ -16,7 +16,7 @@ export enum ErrorSummarySize {
 }
 
 export type ErrorSummaryProps = React.PropsWithChildren<
-  AllElementPropsWithoutRef<'div'> & {
+  AllElementPropsWithRef<'div'> & {
     /**
      * Automatically focus the label of the error summary
      */
@@ -40,46 +40,49 @@ export type ErrorSummaryProps = React.PropsWithChildren<
   }
 >;
 
-export const ErrorSummary = React.forwardRef<HTMLDivElement, ErrorSummaryProps>(
-  (
-    { autofocus = false, className, label, size = ErrorSummarySize.Medium, children, ...rest }: ErrorSummaryProps,
-    ref,
-  ) => {
-    const labelRef = useRef<HTMLDivElement>(null);
+export const ErrorSummary = ({
+  autofocus = false,
+  className,
+  label,
+  size = ErrorSummarySize.Medium,
+  children,
+  ref,
+  ...rest
+}: ErrorSummaryProps) => {
+  const labelRef = useRef<HTMLDivElement>(null);
 
-    useEffect(() => {
-      if (autofocus === true) {
-        labelRef.current.focus();
-      }
-    }, [autofocus]);
+  useEffect(() => {
+    if (autofocus === true) {
+      labelRef.current.focus();
+    }
+  }, [autofocus]);
 
-    return (
-      <div
-        ref={ref}
-        className={classNames(
-          notificationStyles.notification,
-          notificationStyles[size],
-          notificationStyles.error,
-          className,
-        )}
-        aria-label="Error summary"
-        aria-atomic="true"
-        {...rest}
-      >
-        <div className={notificationStyles.content}>
-          <div
-            className={classNames(notificationStyles.label, errorSummaryStyles.label)}
-            role="heading"
-            aria-level={2}
-            tabIndex={-1}
-            ref={labelRef}
-          >
-            <IconErrorFill className={notificationStyles.icon} />
-            {label}
-          </div>
-          <div className={(notificationStyles.body, errorSummaryStyles.errorSummaryBody)}>{children}</div>
+  return (
+    <div
+      ref={ref}
+      className={classNames(
+        notificationStyles.notification,
+        notificationStyles[size],
+        notificationStyles.error,
+        className,
+      )}
+      aria-label="Error summary"
+      aria-atomic="true"
+      {...rest}
+    >
+      <div className={notificationStyles.content}>
+        <div
+          className={classNames(notificationStyles.label, errorSummaryStyles.label)}
+          role="heading"
+          aria-level={2}
+          tabIndex={-1}
+          ref={labelRef}
+        >
+          <IconErrorFill className={notificationStyles.icon} />
+          {label}
         </div>
+        <div className={(notificationStyles.body, errorSummaryStyles.errorSummaryBody)}>{children}</div>
       </div>
-    );
-  },
-);
+    </div>
+  );
+};

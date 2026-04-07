@@ -1,4 +1,4 @@
-import React, { forwardRef, useImperativeHandle, useRef } from 'react';
+import React, { useImperativeHandle, useRef } from 'react';
 
 import styles from './SearchInput.module.scss';
 import classNames from '../../../../utils/classNames';
@@ -20,10 +20,15 @@ export interface SearchInputHandle extends HTMLInputElement {
   submit: () => void;
 }
 
-export const SearchInput = forwardRef<
-  SearchInputHandle,
-  TextInputProps & { onSearch?: SearchFunction; onSend?: (value: string) => void; hideSubmitButton?: boolean }
->((props, ref) => {
+export const SearchInput = ({
+  ref,
+  ...props
+}: TextInputProps & {
+  onSearch?: SearchFunction;
+  onSend?: (value: string) => void;
+  hideSubmitButton?: boolean;
+  ref?: React.Ref<SearchInputHandle>;
+}) => {
   const classes = classNames(styles.searchInput, props.className || '');
   const dataHandlers = useSearchDataHandlers();
   const { getMetaData /* , trigger */ } = dataHandlers;
@@ -265,4 +270,4 @@ export const SearchInput = forwardRef<
       )}
     </>
   );
-});
+};

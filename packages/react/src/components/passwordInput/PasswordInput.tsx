@@ -46,120 +46,116 @@ type ButtonProps = {
   onClick: () => void;
 };
 
-export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputProps>(
-  (
-    {
-      className,
-      errorText,
-      helperText,
-      hideLabel,
-      id,
-      invalid,
-      label,
-      required,
-      style,
-      successText,
-      infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
-      tooltip,
-      concealPasswordButtonAriaLabel,
-      disabled = false,
-      includeShowPasswordButton = true,
-      initiallyRevealed = false,
-      onBlur,
-      revealPasswordButtonAriaLabel,
-      type,
-      ...passwordInputProps
-    }: PasswordInputProps,
-    ref?: React.Ref<HTMLInputElement>,
-  ) => {
-    const wrapperProps = {
-      className,
-      errorText,
-      helperText,
-      hideLabel,
-      id,
-      invalid,
-      label,
-      required,
-      style,
-      successText,
-      infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
-      tooltip,
-    };
+export const PasswordInput = ({
+  className,
+  errorText,
+  helperText,
+  hideLabel,
+  id,
+  invalid,
+  label,
+  required,
+  style,
+  successText,
+  infoText,
+  tooltipLabel,
+  tooltipText,
+  tooltipButtonLabel,
+  tooltip,
+  concealPasswordButtonAriaLabel,
+  disabled = false,
+  includeShowPasswordButton = true,
+  initiallyRevealed = false,
+  onBlur,
+  revealPasswordButtonAriaLabel,
+  type,
+  ref,
+  ...passwordInputProps
+}: PasswordInputProps) => {
+  const wrapperProps = {
+    className,
+    errorText,
+    helperText,
+    hideLabel,
+    id,
+    invalid,
+    label,
+    required,
+    style,
+    successText,
+    infoText,
+    tooltipLabel,
+    tooltipText,
+    tooltipButtonLabel,
+    tooltip,
+  };
 
-    let revealPassword;
-    let setRevealPassword;
-    if (includeShowPasswordButton) {
-      [revealPassword, setRevealPassword] = useState<boolean>(initiallyRevealed);
-    }
+  let revealPassword;
+  let setRevealPassword;
+  if (includeShowPasswordButton) {
+    [revealPassword, setRevealPassword] = useState<boolean>(initiallyRevealed);
+  }
 
-    const handleOnBlur = (event): void => {
-      if (!event.currentTarget.contains(event.relatedTarget)) {
-        if (includeShowPasswordButton) {
-          if (revealPassword) {
-            setRevealPassword(false);
-          }
-        }
-      }
-      if (typeof onBlur === 'function') {
-        onBlur(event);
-      }
-    };
-
-    const getButtonProps = (): ButtonProps => {
-      if (revealPassword) {
-        return {
-          'aria-label': concealPasswordButtonAriaLabel,
-          onClick: () => setRevealPassword(false),
-        };
-      }
-      return {
-        'aria-label': revealPasswordButtonAriaLabel,
-        onClick: () => setRevealPassword(true),
-      };
-    };
-
-    const resolveType = (): string => {
+  const handleOnBlur = (event): void => {
+    if (!event.currentTarget.contains(event.relatedTarget)) {
       if (includeShowPasswordButton) {
         if (revealPassword) {
-          return 'text';
+          setRevealPassword(false);
         }
-        return 'password';
       }
-      return type || 'password';
+    }
+    if (typeof onBlur === 'function') {
+      onBlur(event);
+    }
+  };
+
+  const getButtonProps = (): ButtonProps => {
+    if (revealPassword) {
+      return {
+        'aria-label': concealPasswordButtonAriaLabel,
+        onClick: () => setRevealPassword(false),
+      };
+    }
+    return {
+      'aria-label': revealPasswordButtonAriaLabel,
+      onClick: () => setRevealPassword(true),
     };
+  };
 
-    // Compose aria-describedby attribute
-    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  const resolveType = (): string => {
+    if (includeShowPasswordButton) {
+      if (revealPassword) {
+        return 'text';
+      }
+      return 'password';
+    }
+    return type || 'password';
+  };
 
-    return (
-      <InputWrapper onBlur={handleOnBlur} {...wrapperProps}>
-        <input
-          className={classNames(textInputStyles.input, includeShowPasswordButton && textInputStyles.hasButton)}
-          disabled={disabled}
-          id={id}
-          ref={ref}
-          required={required}
-          type={resolveType()}
-          aria-describedby={ariaDescribedBy}
-          {...passwordInputProps}
-        />
-        {includeShowPasswordButton && (
-          <div className={textInputStyles.buttonWrapper}>
-            {/* eslint-disable-next-line react/button-has-type */}
-            <button className={textInputStyles.button} type="button" disabled={disabled} {...getButtonProps()}>
-              {revealPassword && <IconEyeCrossed className={disabled ? styles.disabledShowPasswordButton : ''} />}
-              {!revealPassword && <IconEye className={disabled ? styles.disabledShowPasswordButton : ''} />}
-            </button>
-          </div>
-        )}
-      </InputWrapper>
-    );
-  },
-);
+  // Compose aria-describedby attribute
+  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+
+  return (
+    <InputWrapper onBlur={handleOnBlur} {...wrapperProps}>
+      <input
+        className={classNames(textInputStyles.input, includeShowPasswordButton && textInputStyles.hasButton)}
+        disabled={disabled}
+        id={id}
+        ref={ref}
+        required={required}
+        type={resolveType()}
+        aria-describedby={ariaDescribedBy}
+        {...passwordInputProps}
+      />
+      {includeShowPasswordButton && (
+        <div className={textInputStyles.buttonWrapper}>
+          {/* eslint-disable-next-line react/button-has-type */}
+          <button className={textInputStyles.button} type="button" disabled={disabled} {...getButtonProps()}>
+            {revealPassword && <IconEyeCrossed className={disabled ? styles.disabledShowPasswordButton : ''} />}
+            {!revealPassword && <IconEye className={disabled ? styles.disabledShowPasswordButton : ''} />}
+          </button>
+        </div>
+      )}
+    </InputWrapper>
+  );
+};

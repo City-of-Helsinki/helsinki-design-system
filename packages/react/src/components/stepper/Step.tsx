@@ -55,7 +55,7 @@ export type StepProps = {
    * The total number of steps
    */
   stepsTotal: number;
-} & React.ComponentPropsWithoutRef<'button'>;
+} & React.ComponentProps<'button'>;
 
 type Language = 'en' | 'fi' | 'sv' | string;
 
@@ -98,79 +98,75 @@ const getStepState = (language: Language, state: StepProps['state']) => {
   return states[StepState[state]][language];
 };
 
-export const Step = React.forwardRef<HTMLButtonElement, StepProps>(
-  (
-    {
-      label,
-      language = 'fi',
-      index,
-      renderCustomStepCountLabel,
-      small = false,
-      state,
-      selected,
-      stepsTotal,
-      renderCustomStateAriaLabel,
-      onStepClick,
-      ...rest
-    }: StepProps,
-    ref?: React.RefObject<HTMLButtonElement>,
-  ) => {
-    const composeAriaLabel = () => {
-      const stepCountLabel = renderCustomStepCountLabel
-        ? renderCustomStepCountLabel(index, stepsTotal)
-        : getStepCountLabel(language, index, stepsTotal);
+export const Step = ({
+  label,
+  language = 'fi',
+  index,
+  renderCustomStepCountLabel,
+  small = false,
+  state,
+  selected,
+  stepsTotal,
+  renderCustomStateAriaLabel,
+  onStepClick,
+  ref,
+  ...rest
+}: StepProps) => {
+  const composeAriaLabel = () => {
+    const stepCountLabel = renderCustomStepCountLabel
+      ? renderCustomStepCountLabel(index, stepsTotal)
+      : getStepCountLabel(language, index, stepsTotal);
 
-      let stateAriaLabel = renderCustomStateAriaLabel
-        ? renderCustomStateAriaLabel(index, state)
-        : getStepState(language, state);
+    let stateAriaLabel = renderCustomStateAriaLabel
+      ? renderCustomStateAriaLabel(index, state)
+      : getStepState(language, state);
 
-      if (selected && state === StepState.available) {
-        stateAriaLabel = '';
-      }
+    if (selected && state === StepState.available) {
+      stateAriaLabel = '';
+    }
 
-      let labelWithPeriod = label;
+    let labelWithPeriod = label;
 
-      if (labelWithPeriod.slice(-1) !== '.') {
-        labelWithPeriod += '.';
-      }
+    if (labelWithPeriod.slice(-1) !== '.') {
+      labelWithPeriod += '.';
+    }
 
-      return [labelWithPeriod, stepCountLabel, stateAriaLabel].filter((lbl) => lbl).join(' ');
-    };
+    return [labelWithPeriod, stepCountLabel, stateAriaLabel].filter((lbl) => lbl).join(' ');
+  };
 
-    return (
-      <div className={styles.stepContainer}>
-        <button
-          ref={ref}
-          type="button"
-          disabled={state === StepState.disabled}
-          className={classNames(
-            styles.step,
-            selected && styles.selected,
-            state === StepState.disabled && styles.disabled,
+  return (
+    <div className={styles.stepContainer}>
+      <button
+        ref={ref}
+        type="button"
+        disabled={state === StepState.disabled}
+        className={classNames(
+          styles.step,
+          selected && styles.selected,
+          state === StepState.disabled && styles.disabled,
+        )}
+        aria-current={selected ? 'step' : false}
+        aria-label={composeAriaLabel()}
+        onClick={(e) => onStepClick && onStepClick(e, index)}
+        {...rest}
+      >
+        <div className={styles.circleContainer}>
+          {state === StepState.completed && !selected ? (
+            <div className={styles.completedContainer}>
+              <IconCheck className={styles.completedIcon} />
+            </div>
+          ) : (
+            <div className={classNames(styles.circle)}>
+              {state === StepState.attention && <IconError size={IconSize.ExtraSmall} />}
+              {state === StepState.paused && <IconPlaybackPause size={IconSize.ExtraSmall} />}
+              {(state === StepState.available ||
+                state === StepState.disabled ||
+                (state === StepState.completed && selected)) && <span className={styles.number}>{index + 1}</span>}
+            </div>
           )}
-          aria-current={selected ? 'step' : false}
-          aria-label={composeAriaLabel()}
-          onClick={(e) => onStepClick && onStepClick(e, index)}
-          {...rest}
-        >
-          <div className={styles.circleContainer}>
-            {state === StepState.completed && !selected ? (
-              <div className={styles.completedContainer}>
-                <IconCheck className={styles.completedIcon} />
-              </div>
-            ) : (
-              <div className={classNames(styles.circle)}>
-                {state === StepState.attention && <IconError size={IconSize.ExtraSmall} />}
-                {state === StepState.paused && <IconPlaybackPause size={IconSize.ExtraSmall} />}
-                {(state === StepState.available ||
-                  state === StepState.disabled ||
-                  (state === StepState.completed && selected)) && <span className={styles.number}>{index + 1}</span>}
-              </div>
-            )}
-          </div>
-          {!small && <p className={styles.label}>{label}</p>}
-        </button>
-      </div>
-    );
-  },
-);
+        </div>
+        {!small && <p className={styles.label}>{label}</p>}
+      </button>
+    </div>
+  );
+};

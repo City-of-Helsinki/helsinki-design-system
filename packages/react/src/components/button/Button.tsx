@@ -4,7 +4,7 @@ import '../../styles/base.module.css';
 import styles from './Button.module.scss';
 import classNames from '../../utils/classNames';
 import { useTheme } from '../../hooks/useTheme';
-import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 
 export enum ButtonSize {
   Small = 'small',
@@ -45,7 +45,7 @@ export enum ButtonVariant {
   Clear = 'clear',
 }
 
-type NonSupplementaryButtonProps = AllElementPropsWithoutRef<'button'> & {
+type NonSupplementaryButtonProps = AllElementPropsWithRef<'button'> & {
   /**
    * The content (label) of the button
    */
@@ -96,59 +96,55 @@ export type ButtonProps =
       iconEnd: React.ReactNode;
     });
 
-export const Button = React.forwardRef<HTMLButtonElement, ButtonProps>(
-  (
-    {
-      children,
-      className,
-      disabled = false,
-      fullWidth,
-      size = ButtonSize.Medium,
-      theme = ButtonPresetTheme.Bus,
-      variant = ButtonVariant.Primary,
-      iconStart,
-      iconEnd,
-      onClick,
-      ...rest
-    }: ButtonProps,
-    ref: React.Ref<HTMLButtonElement>,
-  ) => {
-    // custom theme class that is applied to the root element
-    const customThemeClass = useTheme<ButtonPresetTheme | ButtonTheme>(styles.button, theme);
+export const Button = ({
+  children,
+  className,
+  disabled = false,
+  fullWidth,
+  size = ButtonSize.Medium,
+  theme = ButtonPresetTheme.Bus,
+  variant = ButtonVariant.Primary,
+  iconStart,
+  iconEnd,
+  onClick,
+  ref,
+  ...rest
+}: ButtonProps) => {
+  // custom theme class that is applied to the root element
+  const customThemeClass = useTheme<ButtonPresetTheme | ButtonTheme>(styles.button, theme);
 
-    const iconElementStart = iconStart ? (
-      <div className={styles.icon} aria-hidden="true">
-        {iconStart}
-      </div>
-    ) : null;
+  const iconElementStart = iconStart ? (
+    <div className={styles.icon} aria-hidden="true">
+      {iconStart}
+    </div>
+  ) : null;
 
-    const iconElementEnd = iconEnd ? (
-      <div className={classNames(styles.icon)} aria-hidden="true">
-        {iconEnd}
-      </div>
-    ) : null;
+  const iconElementEnd = iconEnd ? (
+    <div className={classNames(styles.icon)} aria-hidden="true">
+      {iconEnd}
+    </div>
+  ) : null;
 
-    return (
-      <button
-        ref={ref}
-        disabled={disabled}
-        type="button"
-        className={classNames(
-          styles.button,
-          styles[variant],
-          typeof theme === 'string' ? styles[`theme-${theme}`] : '',
-          styles[`size-${size}`],
-          fullWidth ? styles.fullWidth : '',
-          customThemeClass,
-          className,
-        )}
-        onClick={!disabled ? onClick : undefined}
-        {...rest}
-      >
-        {iconElementStart}
-        <span>{children}</span>
-        {iconElementEnd}
-      </button>
-    );
-  },
-);
+  return (
+    <button
+      ref={ref}
+      disabled={disabled}
+      type="button"
+      className={classNames(
+        styles.button,
+        styles[variant],
+        typeof theme === 'string' ? styles[`theme-${theme}`] : '',
+        styles[`size-${size}`],
+        fullWidth ? styles.fullWidth : '',
+        customThemeClass,
+        className,
+      )}
+      onClick={!disabled ? onClick : undefined}
+      {...rest}
+    >
+      {iconElementStart}
+      <span>{children}</span>
+      {iconElementEnd}
+    </button>
+  );
+};
