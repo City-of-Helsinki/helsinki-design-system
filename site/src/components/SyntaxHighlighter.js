@@ -1,6 +1,5 @@
 import React from 'react';
-import Highlight, { defaultProps } from 'prism-react-renderer';
-import theme from 'prism-react-renderer/themes/github';
+import { Highlight, themes } from 'prism-react-renderer';
 
 import './SyntaxHighlighter.scss';
 
@@ -9,9 +8,8 @@ const SyntaxHighlighter = (props) => {
   const matches = className.match(/language-(?<lang>.*)/);
   return (
     <Highlight
-      {...defaultProps}
       code={props.children.props.children.trim()}
-      theme={theme}
+      theme={themes.github}
       language={matches && matches.groups && matches.groups.lang ? matches.groups.lang : ''}
     >
       {({ className, style, tokens, getLineProps, getTokenProps }) => (
