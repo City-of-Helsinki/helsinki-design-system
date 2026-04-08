@@ -31,4 +31,13 @@ const preview = {
   },
 };
 
+// Wait for fonts to load before each story renders.
+// This ensures visual tests capture the correct font instead of the fallback.
+export const loaders = [
+  async () => {
+    await document.fonts.ready;
+    return {};
+  },
+];
+
 export default preview;
