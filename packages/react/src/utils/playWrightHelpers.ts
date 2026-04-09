@@ -44,6 +44,20 @@ export function playWrightInitScript() {
     const wrapperGetter = () =>
       window.document.querySelector(`*[data-testid="playwright-test-wrapper"]`) as HTMLDivElement;
 
+    // Wait for the story wrapper to be rendered before interacting with it.
+    // React 19 concurrent rendering can defer the initial mount, so the wrapper
+    // element may not exist immediately after navigation.
+    await new Promise<void>((resolve) => {
+      const check = () => {
+        if (wrapperGetter()) {
+          resolve();
+        } else {
+          setTimeout(check, 50);
+        }
+      };
+      check();
+    });
+
     function setPlayWrightProps(props2: unknown) {
       // PW locator.evaluate accepts only serializable args, so converting with JSON makes all props serializable
       const json = JSON.stringify(props2);

@@ -203,6 +203,8 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
   const filteredUrls = await getComponentStorybookUrls(page, componentName, packageName, [name]);
   const targetUrl = filteredUrls[0];
   await page.goto(targetUrl);
+  await page.waitForLoadState('networkidle');
+  await page.evaluate(() => document.fonts.ready);
   return targetUrl;
 };
 
