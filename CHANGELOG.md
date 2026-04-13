@@ -105,7 +105,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
 
 ### Hds-js
 
