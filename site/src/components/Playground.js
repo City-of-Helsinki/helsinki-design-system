@@ -138,6 +138,7 @@ const HtmlLivePreview = ({ code }) => {
 
 const Editor = ({ onChange, initialCode, code, language }) => {
   const viewPortRef = useRef();
+  const scrollboxRef = useRef();
   const copyButtonRef = useRef();
   const [resetCount, setResetCount] = useState(0);
   const copySuccessState = 'COPY_SUCCESS';
@@ -149,10 +150,18 @@ const Editor = ({ onChange, initialCode, code, language }) => {
 
   const onFocusKeyDown = useCallback(
     (event) => {
-      if (event.key === 'Enter' && viewPortRef.current && event.target === viewPortRef.current) {
-        event.preventDefault();
-        const textArea = getTextArea(viewPortRef.current);
-        textArea.focus();
+      if (viewPortRef.current && event.target === viewPortRef.current) {
+        if (event.key === 'Enter') {
+          event.preventDefault();
+          const textArea = getTextArea(viewPortRef.current);
+          textArea.focus();
+        } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
+          if (scrollboxRef.current) {
+            event.preventDefault();
+            const scrollAmount = event.key === 'ArrowLeft' ? -40 : 40;
+            scrollboxRef.current.scrollLeft += scrollAmount;
+          }
+        }
       }
     },
     [getTextArea],
@@ -215,7 +224,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                 Press Enter to start editing. Press Esc to stop editing.
               </span>
             </div>
-            <div className="playground-block-editor-scrollbox" tabIndex={-1}>
+            <div className="playground-block-editor-scrollbox" tabIndex={-1} ref={scrollboxRef}>
               <LiveEditor
                 key={resetCount}
                 onChange={onChange}
