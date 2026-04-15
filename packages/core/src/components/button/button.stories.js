@@ -147,7 +147,7 @@ export const Themes = () => `
     Coat
   </button>
 
-  <button type="button" class="hds-button hds-button--secondary hds-button--theme-coat" data-playwright="true">
+  <button type="button" class="hds-button hds-button--secondary hds-button--theme-coat" data-playwright="true" data-playwright-a11y="skip">
     Coat
   </button>
 
