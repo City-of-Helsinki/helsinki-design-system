@@ -323,9 +323,6 @@ export const WithParent = () => {
 };
 
 WithParent.storyName = 'With a parent';
-WithParent.parameters = {
-  loki: { skip: true }, // There is an identical story in checkbox
-};
 export const WithHelperText = ({ numberOfItems, ...args }) => {
   const [checkedItems, setCheckedItems] = useState({});
   const [radioValue, setRadioValue] = useState('radio0');

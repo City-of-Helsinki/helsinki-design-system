@@ -584,10 +584,6 @@ export const SortingSideEffects = (args: TableProps) => {
   );
 };
 
-SortingSideEffects.parameters = {
-  loki: { skip: true }, // The starting point is exactly the same as for other tables
-};
-
 // args is required for docs tab to show source code
 // eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
 export const CheckboxSelection = (args: TableProps) => {

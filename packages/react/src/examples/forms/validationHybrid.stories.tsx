@@ -361,5 +361,3 @@ export const Hybrid = () => {
     </div>
   );
 };
-
-Hybrid.parameters = { loki: { skip: true } };

@@ -322,5 +322,3 @@ export const Dynamic = () => {
     </div>
   );
 };
-
-Dynamic.parameters = { loki: { skip: true } };

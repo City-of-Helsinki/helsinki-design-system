@@ -159,5 +159,3 @@ export const WithCustomOnClickAction = () => {
     </Tabs>
   );
 };
-
-WithCustomOnClickAction.parameters = { loki: { skip: true } };

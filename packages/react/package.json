@@ -39,10 +39,7 @@
     "storybook": "yarn ts-check-storybook && yarn start-storybook -p 6006 --quiet",
     "build-storybook": "yarn ts-check-storybook && build-storybook --loglevel error",
     "test": "jest --env=jest-environment-jsdom-sixteen",
-    "prepublishOnly": "cp -r ./lib/. .",
-    "visual-test": "loki test --requireReference --verboseRenderer --reactUri file:./storybook-static",
-    "update-story-images": "loki update --requireReference --verboseRenderer --reactUri file:./storybook-static --storiesFilter ",
-    "update-reference-images": "rimraf .loki/reference/ && loki update --requireReference --verboseRenderer --reactUri file:./storybook-static"
+    "prepublishOnly": "cp -r ./lib/. ."
   },
   "devDependencies": {
     "@babel/core": "^7.25.2",
@@ -107,7 +104,6 @@
     "jest-axe": "^5.0.1",
     "jest-environment-jsdom-sixteen": "^2.0.0",
     "jest-fetch-mock": "^3.0.3",
-    "loki": "0.35.1",
     "path": "0.12.7",
     "postcss-import": "^12.0.1",
     "prettier": "3.2.2",

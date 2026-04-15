@@ -1024,10 +1024,6 @@ export const Playground = (args: StepperProps & { activeStepIndex: number } & Re
   );
 };
 
-Playground.parameters = {
-  loki: { skip: true },
-};
-
 Playground.args = {
   stepperColor: '#0000bf',
   stepperContentColor: '#0000bf',
