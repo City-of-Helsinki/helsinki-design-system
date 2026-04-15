@@ -19,10 +19,10 @@
     "@apollo/client": "^3.10.1",
     "@babel/runtime": "^7.26.10",
     "await-to-js": "^3.0.0",
-    "cookie": "^0.4.1",
+    "cookie": "^0.7.2",
     "graphql": "^16.8.1",
     "jwt-decode": "^3.1.2",
-    "lodash": "^4.17.21",
+    "lodash": "^4.18.1",
     "oidc-client-ts": "^2.4.1"
   },
   "scripts": {

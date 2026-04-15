@@ -4,12 +4,16 @@
  */
 // types
 export * from './types';
-export { ApiTokenClientProps, TokenData, ApiTokenClient, ApiTokensClientEvent } from './apiTokensClient/index';
-export { SessionPoller, SessionPollerEvent, SessionPollerOptions } from './sessionPoller/sessionPoller';
-export { GraphQLModule, GraphQLModuleModuleProps, GraphQLModuleEvent } from './graphQLModule/index';
-export { ApolloClientModule, ApolloClientModuleProps, ApolloClientModuleEvent } from './apolloClient/index';
-export { TokenizedFetchModule, TokenizedFetchModuleProps, TokenizedFetchModuleEvent } from './tokenizedFetch/index';
-export {
+export type { ApiTokenClientProps, TokenData, ApiTokenClient, ApiTokensClientEvent } from './apiTokensClient/index';
+export type { SessionPoller, SessionPollerEvent, SessionPollerOptions } from './sessionPoller/sessionPoller';
+export type { GraphQLModule, GraphQLModuleModuleProps, GraphQLModuleEvent } from './graphQLModule/index';
+export type { ApolloClientModule, ApolloClientModuleProps, ApolloClientModuleEvent } from './apolloClient/index';
+export type {
+  TokenizedFetchModule,
+  TokenizedFetchModuleProps,
+  TokenizedFetchModuleEvent,
+} from './tokenizedFetch/index';
+export type {
   OidcClient,
   OidcClientEvent,
   OidcClientProps,
@@ -18,7 +22,7 @@ export {
   LogoutProps,
   Amr,
 } from './client/index';
-export {
+export type {
   SignalType,
   SignalNamespace,
   SignalPayload,
@@ -32,7 +36,7 @@ export {
   SignalListenerSource,
   Disposer,
 } from './beacon/beacon';
-export {
+export type {
   NamespacedBeacon,
   ErrorPayload,
   ErrorSignal,

@@ -7,6 +7,8 @@ import typescript from 'rollup-plugin-typescript2';
 import babel from '@rollup/plugin-babel';
 import commonjs from '@rollup/plugin-commonjs';
 import json from '@rollup/plugin-json';
+import postcssMinify from 'postcss';
+import cssnano from 'cssnano';
 import postcss from 'rollup-plugin-postcss';
 import postcssImport from 'postcss-import';
 import { terser } from 'rollup-plugin-terser';
@@ -28,9 +30,33 @@ const hdsJsEsmOutput = 'hds-js-esm';
 const hdsJsCommonJsOutput = 'hds-js-cjs';
 const hdsStandAloneOutput = 'hds-js-standalone';
 
-const isEsmOutputFormat = (format) => format === hdsJsEsmOutput || format === reactEsmOutputFormat;
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const hdsJsPackageJSON = require('../hds-js/package.json');
+
+/** Match hds-core postcss.config.js (calc/svgo off for predictable output). */
+const cssnanoOptions = {
+  preset: ['default', { calc: false, svgo: false }],
+};
+
+/**
+ * rollup-plugin-postcss ships cssnano@4, which breaks with PostCSS 8 and current SVGO.
+ * Minify extracted CSS here with cssnano 5 instead of `minimize: true`.
+ */
+const minifyExtractedCssAsset = () => ({
+  name: 'minify-extracted-hds-css',
+  async generateBundle(_options, bundle) {
+    await Promise.all(
+      Object.values(bundle)
+        .filter((chunk) => chunk.type === 'asset' && chunk.fileName.endsWith('.css'))
+        .map(async (chunk) => {
+          const src = chunk.source;
+          const input = typeof src === 'string' ? src : Buffer.from(src).toString('utf8');
+          const result = await postcssMinify([cssnano(cssnanoOptions)]).process(input, { from: undefined });
+          chunk.source = result.css;
+        }),
+    );
+  },
+});
 
 const insertCssEsm = () => {
   return {
@@ -71,7 +97,9 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 
 const externals = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)];
 
-const getExternal = (format) => (isEsmOutputFormat(format) ? [...externals, /@babel\/runtime/] : externals);
+// Match resolved paths under node_modules/@babel/runtime (string "@babel/runtime" alone does not).
+// Babel runs for all formats (incl. react-cjs); runtime helpers must stay external for every bundle.
+const getExternal = () => [...externals, /@babel\/runtime/];
 
 const checkModule = (forHdsJs) => {
   const forbiddenImportIds = ['react', 'react-dom'];
@@ -154,12 +182,11 @@ const getConfig = (format, extractCSS) => ({
         exclude: ['**/*.test.tsx', '**/*.test.ts', '**/*.stories.tsx', 'node_modules'],
       },
     }),
-    isEsmOutputFormat(format) &&
-      babel({
-        babelHelpers: 'runtime',
-        exclude: 'node_modules/**',
-        extensions,
-      }),
+    babel({
+      babelHelpers: 'runtime',
+      exclude: 'node_modules/**',
+      extensions,
+    }),
     commonjs({
       include: ['../../node_modules/**', 'node_modules/**'],
     }),
@@ -175,19 +202,10 @@ const getConfig = (format, extractCSS) => ({
           },
         ],
       ],
-      minimize: {
-        preset: [
-          'default',
-          {
-            calc: false,
-            discardUnused: true,
-            mergeIdents: true,
-            reduceIdents: true,
-          },
-        ],
-      },
-      plugins: [postcssImport()],
+      minimize: false,
+      plugins: [postcssImport(), ...(extractCSS ? [] : [cssnano(cssnanoOptions)])],
     }),
+    extractCSS ? minifyExtractedCssAsset() : undefined,
     terser(),
     extractCSS ? cssText() : undefined,
     extractCSS ? moveCss() : undefined,
@@ -208,7 +226,7 @@ const getConfig = (format, extractCSS) => ({
       }),
     !buildStandAloneBundles && checkModule(buildForHdsJs || updateHdsJs),
   ],
-  external: !buildStandAloneBundles ? getExternal(format) : false,
+  external: !buildStandAloneBundles ? getExternal() : false,
 });
 
 const outputQueue = [];

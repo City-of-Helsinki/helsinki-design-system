@@ -107,8 +107,8 @@ export const takeScreenshotWithSpacing = async (
     height: elementBoundingBox.height + 2 * spacing,
   };
 
+  await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
   await scanAccessibility(page, element);
-  return expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
 };
 
 export const takeAllStorySnapshots = async (props: {

@@ -11,6 +11,12 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Replaced all still existant Loki tests with Playwright and removed Loki altogether.
 
+### Workspace
+
+#### Changed
+
+- [Dependencies] Applied security-related updates at the monorepo level (Yarn resolutions and bumped packages such as axios, json5, form-data, lodash, cookie, and other transitive dependencies with known advisories). Downstream packages adjusted build tooling where newer PostCSS/cssnano stacks or stricter resolution rules required it.
+
 ### React
 
 #### Breaking
@@ -25,7 +31,7 @@ Replaced all still existant Loki tests with Playwright and removed Loki altogeth
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Build] CSS extracted by Rollup is minified with cssnano 5 and PostCSS 8–compatible options instead of the older cssnano path bundled with `rollup-plugin-postcss`, keeping minification working after the security-driven dependency upgrades.
 
 #### Fixed
 
@@ -45,7 +51,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Build] Upgraded Core CSS build chain for compatibility with patched dependencies: PostCSS 8.4.x, postcss-preset-env 7, and cssnano 5, with minification options aligned to stable output (e.g. disabling SVGO in the cssnano preset where needed). Added a package-level `browserslist` and simplified `postcss-preset-env` usage accordingly.
 
 #### Fixed
 
@@ -127,7 +133,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Dependencies] Bumped `cookie` and `lodash` to versions aligned with workspace security resolutions.
 
 #### Fixed
 
