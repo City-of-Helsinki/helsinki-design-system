@@ -1,6 +1,6 @@
-@import "~hds-design-tokens/lib/all.scss";
+@use "~hds-design-tokens/lib/all.scss" as *;
+@use "../../../components/utils" as *;
 @import "~hds-design-tokens/lib/typography/all.css";
-@import "../../../components/utils.scss";
 
 .box-heading {
   font-size: var(--fontsize-heading-m);
