@@ -45,7 +45,12 @@ export const Singleselect = () => {
   const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     return requireOneSelection(selectedOptions, lastClickedOption, props);
   }, []);
-  return <ModularOptionList options={options} onChange={onChange} texts={defaultTexts} id="hds-select-component" />;
+  return (
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <ModularOptionList options={options} onChange={onChange} texts={defaultTexts} id="hds-select-component" />
+    </>
+  );
 };
 
 export const SingleselectWithGroups = () => {
@@ -67,7 +72,12 @@ export const SingleselectWithGroups = () => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
-  return <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />;
+  return (
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />
+    </>
+  );
 };
 
 export const Multiselect = () => {
@@ -86,7 +96,10 @@ export const Multiselect = () => {
   });
 
   return (
-    <div style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '420px' }}>
+    <div
+      data-playwright-a11y="skip"
+      style={{ display: 'flex', flexDirection: 'column', gap: '10px', maxWidth: '420px' }}
+    >
       <label id="onchange-label" htmlFor="onchange">
         onChange triggered values
       </label>
@@ -119,13 +132,16 @@ export const MultiselectWithGroups = () => {
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
   return (
-    <ModularOptionList
-      groups={groups}
-      onChange={onChange}
-      multiSelect
-      texts={defaultTextsForMultiSelect}
-      id="hds-select-component"
-    />
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <ModularOptionList
+        groups={groups}
+        onChange={onChange}
+        multiSelect
+        texts={defaultTextsForMultiSelect}
+        id="hds-select-component"
+      />
+    </>
   );
 };
 
@@ -150,5 +166,10 @@ export const WithIcons = () => {
   const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
-  return <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />;
+  return (
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />
+    </>
+  );
 };

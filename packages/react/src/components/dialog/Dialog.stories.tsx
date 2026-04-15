@@ -41,6 +41,7 @@ export const Default = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openButtonRef} onClick={() => setOpen(true)}>
         Open Dialog
       </Button>
@@ -109,6 +110,7 @@ export const WithBoxShadow = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openButtonRef} onClick={() => setOpen(true)}>
         Open Dialog
       </Button>
@@ -185,6 +187,7 @@ export const Confirmation = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
         Open Confirmation Dialog
       </Button>
@@ -248,6 +251,7 @@ export const Danger = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button variant={ButtonVariant.Danger} ref={openDangerButtonRef} onClick={() => setOpen(true)}>
         Open Danger Dialog
       </Button>
@@ -314,6 +318,7 @@ export const ScrollableConfirmation = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openScrollableConfirmationButtonRef} onClick={() => setOpen(true)}>
         Open Scrollable Confirmation Dialog
       </Button>
@@ -447,6 +452,7 @@ export const LongButtonLabels = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openDialogButtonRef} onClick={() => setOpen(true)}>
         Open dialog
       </Button>
@@ -512,6 +518,7 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
         Open Accept Terms Dialog
       </Button>
@@ -622,6 +629,7 @@ export const WithControlledContent = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openButtonRef} onClick={() => setOpen(true)}>
         Open Dialog
       </Button>

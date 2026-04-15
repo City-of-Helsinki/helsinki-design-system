@@ -1,4 +1,4 @@
-export { IconProps, IconSize } from './Icon.interface';
+export * from './Icon.interface';
 
 export { IconAlertCircle } from './IconAlertCircle';
 export { IconAlertCircleFill } from './IconAlertCircleFill';

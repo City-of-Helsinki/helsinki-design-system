@@ -3,8 +3,8 @@ export * from './components/CookieBanner';
 export * from './components/CookieSettingsPage';
 export * from './hooks/useCookieConsent';
 // not exporting event names to the bundle. Not needed on React side.
-export {
-  useCookieConsentEvents,
+export { useCookieConsentEvents } from './hooks/useCookieConsentEvents';
+export type {
   CookieConsentChangeEvent,
   CookieConsentEventsProps,
   CookieConsentEventsReturnType,

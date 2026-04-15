@@ -15,6 +15,4 @@ export {
   updateSelectedOptionsInGroups,
 } from './utils';
 
-export { Option, OptionInProps, Group, GroupInProps } from './types';
-
-// export * from './types';
+export type { Option, OptionInProps, Group, GroupInProps } from './types';

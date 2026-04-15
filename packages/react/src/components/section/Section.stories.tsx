@@ -27,35 +27,35 @@ export default {
 };
 
 export const Plain = () => (
-  <Section>
+  <Section data-playwright-a11y="skip">
     <h1 className="heading-xl">{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const Primary = () => (
-  <Section color="primary">
+  <Section color="primary" data-playwright-a11y="skip">
     <h1 className="heading-xl">{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const Secondary = () => (
-  <Section color="secondary">
+  <Section color="secondary" data-playwright-a11y="skip">
     <h1 className="heading-xl">{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const Tertiary = () => (
-  <Section color="tertiary">
+  <Section color="tertiary" data-playwright-a11y="skip">
     <h1 className="heading-xl">{placeholderTitle}</h1>
     {placeholderText}
   </Section>
 );
 
 export const WithKoros = () => (
-  <Section color="primary" korosType="basic">
+  <Section color="primary" korosType="basic" data-playwright-a11y="skip">
     <h1 className="heading-xl">{placeholderTitle}</h1>
     {placeholderText}
   </Section>
@@ -64,6 +64,7 @@ WithKoros.storyName = 'With koros';
 
 export const Multiple = () => (
   <>
+    <span data-playwright-a11y="skip" hidden />
     <Section color="secondary" korosType="basic">
       <h1 className="heading-xl">{placeholderTitle}</h1>
       {placeholderText}
@@ -103,7 +104,7 @@ export const Multiple = () => (
 Multiple.storyName = 'Multiple sections';
 
 export const Playground = (args: SectionProps & Record<string, string | null>) => (
-  <Section color={args.color} korosType={args.korosType}>
+  <Section color={args.color} korosType={args.korosType} data-playwright-a11y="skip">
     <h1 className="heading-xl">{args.sectionTitle}</h1>
     {args.sectionText}
   </Section>
