@@ -29,7 +29,7 @@
     "copy-scss-utils": "node copyFiles -source 'src/utils/**/_*.scss' -target 'lib/utils' -v",
     "css-to-ts": "node cssToImportableString -directory 'lib/components/**/*.min.css' -targetFiles 'cookieConsent.min.css'",
     "storybook": "storybook dev -p 6007 --quiet",
-    "build-storybook": "storybook build --loglevel error",
+    "build-storybook": "NODE_OPTIONS='--disable-warning=DEP0040' storybook build --loglevel error",
     "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\" --ip \"src/**/__tests__/*.scss\"",
     "test": "jest"
   },

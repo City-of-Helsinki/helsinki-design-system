@@ -40,7 +40,7 @@
     "lint:code": "yarn ts-check && yarn eslint \"src/**/*.{ts,tsx}\"",
     "lint:styles": "yarn stylelint \"src/**/*.{css,scss}\" --formatter verbose",
     "storybook": "yarn ts-check-storybook && storybook dev -p 6006 --quiet",
-    "build-storybook": "yarn ts-check-storybook && storybook build --loglevel error",
+    "build-storybook": "yarn ts-check-storybook && NODE_OPTIONS='--disable-warning=DEP0040' storybook build --loglevel error",
     "test": "jest",
     "prepublishOnly": "cp -r ./lib/. ."
   },
