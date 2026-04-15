@@ -23,6 +23,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   const typeDefs = `
     type SiteSiteMetadata implements Node {
       versions: [String!]!
+      askemApiKey: String
     }
   `;
   createTypes(typeDefs);

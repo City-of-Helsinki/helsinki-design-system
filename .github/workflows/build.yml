@@ -128,6 +128,7 @@ jobs:
 
     secrets:
       HDSDEMO_SSH_DEPLOY_KEY: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
+      ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
   publish-site-with-storybooks:
     if: github.event_name == 'push' && github.ref == 'refs/heads/master'
@@ -137,7 +138,8 @@ jobs:
       commit_sha: ${{ github.sha }}
     secrets:
       ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-  
+      ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
+
   publish-npm-packages:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease')
     needs: [build, run-loki-tests, run-e2e-tests]

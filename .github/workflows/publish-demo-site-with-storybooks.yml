@@ -14,6 +14,8 @@ on:
     secrets:
       HDSDEMO_SSH_DEPLOY_KEY:
         required: true
+      ASKEM_API_KEY:
+        required: true
 
 jobs:
   publish-demo-site-with-storybooks:
@@ -77,6 +79,8 @@ jobs:
       - name: build site package
         run: yarn ${{ inputs.build_single_version && 'build-single-version' || 'build' }} --prefix-paths
         working-directory: ./site
+        env:
+          ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
       - name: move core storybook under site
         run: mkdir ./site/public/storybook && mv ./packages/core/storybook-static $_/core
