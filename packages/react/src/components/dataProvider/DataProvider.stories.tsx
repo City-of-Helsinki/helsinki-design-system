@@ -99,10 +99,6 @@ export const NumericStepper = () => {
   );
 };
 
-NumericStepper.parameters = {
-  loki: { skip: true },
-};
-
 type FormData = {
   firstName: string;
   lastName: string;
@@ -281,10 +277,6 @@ export const Form = () => {
   );
 };
 
-Form.parameters = {
-  loki: { skip: true },
-};
-
 type SelectionGroupWithParentData = {
   options: string[];
   selectedValues: Set<string>;
@@ -378,8 +370,4 @@ export const GroupedCheckBoxes = () => {
       <Group />
     </DataProvider>
   );
-};
-
-GroupedCheckBoxes.parameters = {
-  loki: { skip: true },
 };

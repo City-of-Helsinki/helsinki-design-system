@@ -7,6 +7,10 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ## [5.X.X] - Month, XX, 202X
 
+### Testing
+
+Replaced all still existant Loki tests with Playwright and removed Loki altogether.
+
 ### React
 
 #### Breaking

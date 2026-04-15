@@ -353,5 +353,3 @@ export const Static = () => {
     </div>
   );
 };
-
-Static.parameters = { loki: { skip: true } };

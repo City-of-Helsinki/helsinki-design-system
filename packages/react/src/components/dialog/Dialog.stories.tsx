@@ -20,7 +20,6 @@ export default {
   title: 'Components/Dialog',
   parameters: {
     controls: { expanded: true },
-    loki: { skip: true },
   },
   args: {
     id: 'example-dialog',
@@ -99,7 +98,7 @@ export const Default = (args: DialogProps) => {
   );
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const WithBoxShadow = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openButtonRef = useRef(null);
@@ -173,10 +172,9 @@ WithBoxShadow.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const Confirmation = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
@@ -237,10 +235,9 @@ Confirmation.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const Danger = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDangerButtonRef = useRef(null);
@@ -304,10 +301,9 @@ Danger.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const ScrollableConfirmation = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openScrollableConfirmationButtonRef = useRef(null);
@@ -439,10 +435,9 @@ ScrollableConfirmation.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const LongButtonLabels = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDialogButtonRef = useRef(null);
@@ -499,7 +494,6 @@ LongButtonLabels.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
 // This dialog story is not part of the Storybooks' docs section.
@@ -601,10 +595,6 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
 
 ConfirmationWithTerms.storyName = 'Confirmation dialog with terms dialog';
 
-ConfirmationWithTerms.parameters = {
-  loki: { skip: true },
-};
-
 ConfirmationWithTerms.args = {
   id: 'confirmation-dialog',
   termsId: 'terms-dialog',
@@ -687,6 +677,3 @@ export const WithControlledContent = (args: DialogProps) => {
 };
 
 WithControlledContent.storyName = 'With controlled content';
-WithControlledContent.parameters = {
-  loki: { skip: true },
-};

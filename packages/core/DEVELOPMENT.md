@@ -37,3 +37,7 @@ Remember to always build the tokens after updating or adding new ones, otherwise
 - [PostCSS](https://github.com/postcss/postcss)
 - [Storybook](https://storybook.js.org/)
 - hds-core follows the [BEM methodology](http://getbem.com/)
+
+## Visual regression tests
+
+Storybook screenshots and component flows are covered by [Playwright](https://playwright.dev/) in the repository root [`e2e`](../../e2e) workspace (shared with `hds-react`). See [`e2e/README.md`](../../e2e/README.md) for how to run tests and update snapshots (including filtering by package or component).

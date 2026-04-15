@@ -13,7 +13,7 @@ export const getComponentStorybookUrls = async (
   packageName: string,
   nameFilters?: string[],
 ) => {
-  let componentUrls: string[] = [];
+  const stories: { href: string; fullUrl: string }[] = [];
   const localServerPort = packageName === 'core' ? PackageServerPort.Core : PackageServerPort.React;
   const basePath = `http://localhost:${localServerPort}`;
   const localStorybookPath = `${basePath}/index.html?path=/story/`;
@@ -23,22 +23,26 @@ export const getComponentStorybookUrls = async (
   const componentLinks = await page.locator(`[data-parent-id="components-${componentName}"]`).all();
 
   for (const component of componentLinks) {
-    await component.getAttribute('href').then(async (href) => {
-      // don't add anything containing 'playground' to the list
-      if (href && !href.includes('playground')) {
-        // to use the inner iframe of the story instead
-        const url = href.replace('index.html', 'iframe.html');
-        if (nameFilters) {
-          const storyName = await component.textContent();
-          if (!storyName || !nameFilters.includes(storyName)) {
-            return;
-          }
-        }
-        componentUrls.push(`${basePath}${url}`);
+    const href = await component.getAttribute('href');
+    if (!href) continue;
+
+    if (nameFilters) {
+      const storyName = await component.textContent();
+      if (!storyName || !nameFilters.includes(storyName)) {
+        continue;
       }
-    });
+    }
+
+    // to use the inner iframe of the story instead
+    const url = href.replace('index.html', 'iframe.html');
+    stories.push({ href, fullUrl: `${basePath}${url}` });
   }
-  return componentUrls;
+
+  const withoutPlayground = stories
+    .filter((s) => !s.href.includes('playground'))
+    .map((s) => s.fullUrl);
+
+  return withoutPlayground.length > 0 ? withoutPlayground : stories.map((s) => s.fullUrl);
 };
 
 export const unfocusElement = async (page: Page, element: Locator) => {

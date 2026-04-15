@@ -17,7 +17,6 @@ export function hideStoryFromStorybook(storyArg: unknown) {
   if (!story.parameters) {
     story.parameters = {};
   }
-  story.parameters.loki = { skip: true };
   return story;
   /* eslint-enable no-param-reassign */
 }

@@ -188,7 +188,6 @@ Playground.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: true },
 };
 
 Playground.args = {

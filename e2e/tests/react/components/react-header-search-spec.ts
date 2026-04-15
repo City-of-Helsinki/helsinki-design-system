@@ -2,8 +2,8 @@ import { test, expect } from '@playwright/test';
 import {
   gotoStorybookUrlByName,
   createScreenshotFileName,
+  takeAllStorySnapshots,
 } from '../../../utils/playwright.util';
-import { createKeyboardHelpers } from '../../../utils/keyboard.util';
 
 const componentName = 'header';
 const storybook = 'react';
@@ -87,5 +87,17 @@ test.describe(`Testing ${storybook} Header Search`, () => {
 
     const ul = page.locator('#header-search ul').first();
     await expect(ul).toHaveAttribute('role', 'presentation');
+  });
+});
+
+test.describe(`Testing ${storybook} component "${componentName}" (all stories)`, () => {
+  test('Take snapshots of all stories', async ({ page, hasTouch }) => {
+    await takeAllStorySnapshots({
+      page,
+      hasTouch,
+      takeStateSnapshots: false,
+      storybook,
+      componentName,
+    });
   });
 });

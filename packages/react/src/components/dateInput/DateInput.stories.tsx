@@ -55,8 +55,6 @@ export const WithMinAndMaxDate = (args: DateInputProps) => {
   return <DateInput {...args} minDate={minDate} maxDate={maxDate} />;
 };
 
-WithMinAndMaxDate.parameters = { loki: { skip: true } };
-
 export const WithoutConfirmation = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
@@ -158,8 +156,6 @@ export const WithDisabledDates = (args: DateInputProps) => {
   );
 };
 WithDisabledDates.storyName = 'With disabled dates';
-WithDisabledDates.parameters = { loki: { skip: true } };
-
 export const WithSelectedDisabledDates = (args: DateInputProps) => {
   const dateFormat = 'dd.M.yyyy';
   const dateValue = new Date(2021, 10, 12);
@@ -198,8 +194,6 @@ export const WithSelectedDisabledDates = (args: DateInputProps) => {
 };
 
 WithSelectedDisabledDates.storyName = 'With selected disabled dates';
-WithSelectedDisabledDates.parameters = { loki: { skip: true } };
-
 export const Invalid = (args: DateInputProps) => {
   return <DateInput {...args} />;
 };
@@ -278,8 +272,6 @@ export const WithCustomDayStyles = (args: DateInputProps) => {
   );
 };
 WithCustomDayStyles.storyName = 'With custom day styles';
-WithCustomDayStyles.parameters = { loki: { skip: true } };
-
 export const WithRange = (args: DateInputProps) => {
   const [range, setRange] = useState<Array<Date | null>>([null, null]);
   const [errors, setErrors] = useState<Array<string>>(['', '']);
@@ -375,8 +367,6 @@ export const WithRange = (args: DateInputProps) => {
     </div>
   );
 };
-
-WithRange.parameters = { loki: { skip: true } };
 
 export const WithCustomDateFormat = (args: DateInputProps) => {
   return <DateInput {...args} />;
