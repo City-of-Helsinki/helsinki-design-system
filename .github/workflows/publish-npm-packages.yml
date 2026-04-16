@@ -23,10 +23,10 @@ jobs:
       id-token: write  # Required for OIDC authentication to npm registry
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-${{ inputs.commit_sha }}
           path: ./packages
@@ -36,11 +36,10 @@ jobs:
         id: nvmrc
 
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
-          always-auth: true
 
       # Github cache
       - name: get yarn cache directory path
