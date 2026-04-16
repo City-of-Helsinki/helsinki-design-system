@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-${{ inputs.commit_sha }}
           path: ./packages
@@ -27,7 +27,7 @@ jobs:
         id: nvmrc
 
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
@@ -71,7 +71,7 @@ jobs:
         working-directory: ./e2e
 
       - name: upload test results in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e_test_report
           path: e2e/report/
@@ -79,7 +79,7 @@ jobs:
         if: failure()
 
       - name: upload screenshot differences in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e_test_results
           path: e2e/test-results/

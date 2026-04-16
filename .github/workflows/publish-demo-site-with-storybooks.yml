@@ -29,10 +29,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-${{ inputs.commit_sha }}
           path: ./packages
@@ -42,7 +42,7 @@ jobs:
         id: nvmrc
   
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
@@ -90,7 +90,7 @@ jobs:
 
       # Publish to hds-demo
       - name: Checkout code hds-demo
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
         with:
           repository: City-of-Helsinki/hds-demo
           path: hds-demo
