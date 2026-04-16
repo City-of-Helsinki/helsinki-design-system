@@ -9,6 +9,7 @@ import { MemoizedSingleSelectOption } from './listItems/SingleSelectOption';
 import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListDataHandlers';
 import { SingleSelectGroupLabel } from './listItems/SingleSelectGroupLabel';
 import { ModularOptionListItemProps } from './common';
+import { getTextFromDataHandlers } from '../texts';
 
 export const createOptionElements = (
   {
@@ -47,8 +48,9 @@ export function createListElementProps<T = HTMLUListElement>({
   elementIds,
   multiSelect,
   labelledBy,
+  label,
 }: Pick<ModularOptionListMetaData, 'refs' | 'elementIds'> &
-  Pick<ModularOptionListData, 'multiSelect'> & { labelledBy?: string }) {
+  Pick<ModularOptionListData, 'multiSelect'> & { labelledBy?: string; label?: string }) {
   return {
     className: classNames(styles.list),
     ref: refs.list as unknown as RefObject<T>,
@@ -56,12 +58,14 @@ export function createListElementProps<T = HTMLUListElement>({
     role: 'listbox',
     'aria-multiselectable': multiSelect,
     ...(labelledBy && { 'aria-labelledby': labelledBy }),
+    ...(!labelledBy && label && { 'aria-label': label }),
     tabIndex: -1,
   };
 }
 
 export function SingleSelectAndGrouplessList() {
-  const { getData, trigger, getMetaData } = useModularOptionListDataHandlers();
+  const dataHandlers = useModularOptionListDataHandlers();
+  const { getData, trigger, getMetaData } = dataHandlers;
   const { groups, multiSelect } = getData();
   const metaData = getMetaData();
   const { getOptionId, refs, elementIds } = metaData;
@@ -69,9 +73,11 @@ export function SingleSelectAndGrouplessList() {
   // Use aria-labelledby to share the same accessible name as the search input
   const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
   const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
+  // Fall back to aria-label from texts when no labelledBy is available (e.g. standalone usage)
+  const ariaLabel = !labelId ? getTextFromDataHandlers('label', dataHandlers) : undefined;
 
   const attr = {
-    ...createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId }),
+    ...createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId, label: ariaLabel }),
   };
 
   const children = createOptionElements({ groups, trigger, multiSelect, getOptionId });

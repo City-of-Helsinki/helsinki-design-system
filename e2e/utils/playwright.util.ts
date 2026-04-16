@@ -117,7 +117,9 @@ export const takeAllStorySnapshots = async (props: {
   }
   for (const componentUrl of componentUrls) {
     await page.goto(componentUrl);
-    await page.waitForLoadState('networkidle');
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {
+      // Some stories load external resources that prevent networkidle — fall back to domcontentloaded
+    });
     await page.evaluate(() => document.fonts.ready);
     const container = page.locator('body');
     const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;

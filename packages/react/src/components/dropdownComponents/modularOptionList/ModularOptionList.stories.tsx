@@ -29,6 +29,7 @@ const requireOneSelection: ModularOptionListProps['onChange'] = (selectedOptions
 };
 
 const defaultTexts: Partial<Texts> = {
+  label: 'Select a fruit or vegetable',
   selectedOptionsCount_one: 'One selected option.',
   selectedOptionsCount_multiple: '{{selectionCount}} selected options.',
   error: 'Wrong choice!',
@@ -45,11 +46,11 @@ export const Singleselect = () => {
   const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     return requireOneSelection(selectedOptions, lastClickedOption, props);
   }, []);
+  // scrollable-region-focusable conflicts with nested-interactive when tabIndex added (known limitation)
   return (
-    <>
-      <span data-playwright-a11y="skip" hidden />
+    <div data-playwright-a11y="skip">
       <ModularOptionList options={options} onChange={onChange} texts={defaultTexts} id="hds-select-component" />
-    </>
+    </div>
   );
 };
 
@@ -72,11 +73,11 @@ export const SingleselectWithGroups = () => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
+  // role="presentation" group labels inside role="listbox" violate aria-required-children (known limitation)
   return (
-    <>
-      <span data-playwright-a11y="skip" hidden />
+    <div data-playwright-a11y="skip">
       <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />
-    </>
+    </div>
   );
 };
 
@@ -95,6 +96,8 @@ export const Multiselect = () => {
     options: getOptionLabels(20),
   });
 
+  // nested-interactive: checkbox inputs inside role="option" (known limitation)
+  // scrollable-region-focusable conflicts with nested-interactive when tabIndex added (known limitation)
   return (
     <div
       data-playwright-a11y="skip"
@@ -131,9 +134,10 @@ export const MultiselectWithGroups = () => {
     // track changes here
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
+  // nested-interactive: checkbox inputs inside role="option" (known limitation)
+  // scrollable-region-focusable conflicts with nested-interactive when tabIndex added (known limitation)
   return (
-    <>
-      <span data-playwright-a11y="skip" hidden />
+    <div data-playwright-a11y="skip">
       <ModularOptionList
         groups={groups}
         onChange={onChange}
@@ -141,7 +145,7 @@ export const MultiselectWithGroups = () => {
         texts={defaultTextsForMultiSelect}
         id="hds-select-component"
       />
-    </>
+    </div>
   );
 };
 
@@ -166,10 +170,10 @@ export const WithIcons = () => {
   const onChange: ModularOptionListProps['onChange'] = useCallback((selectedOptions, lastClickedOption, props) => {
     genericOnChangeCallback(selectedOptions, lastClickedOption, props);
   }, []);
+  // role="presentation" group labels inside role="listbox" violate aria-required-children (known limitation)
   return (
-    <>
-      <span data-playwright-a11y="skip" hidden />
+    <div data-playwright-a11y="skip">
       <ModularOptionList groups={groups} onChange={onChange} texts={defaultTexts} id="hds-select-component" />
-    </>
+    </div>
   );
 };

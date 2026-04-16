@@ -10,6 +10,12 @@ export default {
   },
 };
 
+export const Default = () => <Logo size={LogoSize.Full} src={logoFi} alt="Helsingin kaupunki" />;
+
+export const Swedish = () => <Logo size={LogoSize.Full} src={logoSv} alt="Helsingfors stad" />;
+
+export const Small = () => <Logo size={LogoSize.Small} src={logoFi} alt="Helsingin kaupunki" />;
+
 export const Playground = (args: LogoProps & Record<string, string>) => <Logo {...args} />;
 
 Playground.args = {
