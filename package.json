@@ -34,6 +34,7 @@
   },
   "resolutions": {
     "axios": "^1.15.0",
+    "follow-redirects": "^1.16.0",
     "@types/react": "17.0.2",
     "@types/react-dom": "17.0.2",
     "@types/react-dom/@types/react": "17.0.2",
