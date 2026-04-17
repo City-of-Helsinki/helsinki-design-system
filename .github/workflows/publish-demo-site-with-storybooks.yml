@@ -142,7 +142,7 @@ jobs:
 
       - name: Preview url to PR comment
         if: github.event_name == 'pull_request' && steps.deploy_gate.outputs.should_deploy == 'true'
-        uses: marocchino/sticky-pull-request-comment@v2
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: Preview url
           message: |
