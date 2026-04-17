@@ -88,6 +88,12 @@ jobs:
       - name: move react storybook under site
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
 
+      - name: Stop before deploy on Dependabot
+        if: github.actor == 'dependabot[bot]'
+        run: |
+          echo "Dependabot run: skipping deploy steps"
+          exit 0
+
       # Publish to hds-demo
       - name: Checkout code hds-demo
         uses: actions/checkout@v6
