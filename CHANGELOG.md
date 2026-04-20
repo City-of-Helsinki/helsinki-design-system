@@ -17,6 +17,8 @@ Replaced all still existant Loki tests with Playwright and removed Loki altogeth
 
 - [Dependencies] Applied security-related updates at the monorepo level (Yarn resolutions and bumped packages such as axios, json5, form-data, lodash, cookie, and other transitive dependencies with known advisories). Downstream packages adjusted build tooling where newer PostCSS/cssnano stacks or stricter resolution rules required it.
 
+- [Tooling] Raised the supported Node.js major for the monorepo and published packages: `package.json` `engines.node` is now `^24`, and `.nvmrc` pins the version used for local development and GitHub Actions (see the file in the repo root). Contributors and CI should use Node 24 accordingly.
+
 ### React
 
 #### Breaking

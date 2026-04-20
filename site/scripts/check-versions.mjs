@@ -284,40 +284,74 @@ function findExistingDocsDir(previousVersionsDir, version) {
   }
 }
 
+/** Path under node_modules for a dependency key from package.json (handles @scope/pkg). */
+function dependencyPathInNodeModules(depName) {
+  if (!depName.startsWith('@')) {
+    return depName;
+  }
+  const parts = depName.split('/');
+  if (parts.length < 2) {
+    return depName;
+  }
+  return path.join(parts[0], parts[1]);
+}
+
+/** True when every entry in `dependencies` has a matching folder under node_modules. */
+function areNestedProductionDepsInstalled(packageDir) {
+  const packageJsonPath = path.join(packageDir, 'package.json');
+  if (!fs.existsSync(packageJsonPath)) {
+    return true;
+  }
+  const pj = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  const depNames = Object.keys(pj.dependencies || {});
+  const nm = path.join(packageDir, 'node_modules');
+  if (!fs.existsSync(nm)) {
+    return false;
+  }
+  return depNames.every(dep => {
+    const rel = dependencyPathInNodeModules(dep);
+    return fs.existsSync(path.join(nm, rel));
+  });
+}
+
 // Install dependencies for an extracted package
 async function installPackageDependencies(packageDir) {
   const packageJsonPath = path.join(packageDir, 'package.json');
   const nodeModulesPath = path.join(packageDir, 'node_modules');
-  
-  // Check if package.json exists
+
   if (!fs.existsSync(packageJsonPath)) {
     console.log(`  ⚠ No package.json found in ${packageDir}, skipping dependency installation`);
     return;
   }
-  
-  // Check if dependencies are already installed
-  if (fs.existsSync(nodeModulesPath)) {
-    console.log(`  ✓ Dependencies already installed for ${path.basename(packageDir)}, skipping`);
+
+  if (fs.existsSync(nodeModulesPath) && areNestedProductionDepsInstalled(packageDir)) {
+    console.log(`  ✓ Production dependencies present for ${path.basename(packageDir)}, skipping`);
     return;
   }
-  
-  try {
-    console.log(`  Installing dependencies for ${path.basename(packageDir)}...`);
 
-    // Use yarn install --production with --modules_folder to install directly to the versioned node_modules path
-    // Pipe output to suppress deprecation/security warnings from old package dependencies
-    execSync(`yarn install --production --modules_folder "${nodeModulesPath}"`, {
-      cwd: packageDir,
-      stdio: ['pipe', 'pipe', 'pipe'],
-      encoding: 'utf-8'
-    });
-
-    console.log(`  ✓ Successfully installed dependencies for ${path.basename(packageDir)}`);
-  } catch (error) {
-    console.error(`  ✗ Error installing dependencies for ${path.basename(packageDir)}: ${error.stderr || error.message}`);
-    // Don't throw - allow the process to continue even if dependency installation fails
-    // The webpack resolver fallback will handle missing dependencies
+  if (fs.existsSync(nodeModulesPath)) {
+    console.log(`  ⟳ Incomplete node_modules for ${path.basename(packageDir)}, reinstalling...`);
+    fs.rmSync(nodeModulesPath, { recursive: true, force: true });
   }
+
+  console.log(`  Installing dependencies for ${path.basename(packageDir)}...`);
+
+  // --production: omit devDependencies; --no-lockfile: no yarn.lock beside the extracted package;
+  // --ignore-engines: old package.json engine ranges may not match current Node.
+  // Peers are not listed under dependencies and are not checked by areNestedProductionDepsInstalled.
+  execSync('yarn install --production --no-lockfile --ignore-engines', {
+    cwd: packageDir,
+    stdio: ['pipe', 'pipe', 'pipe'],
+    encoding: 'utf-8',
+  });
+
+  if (!areNestedProductionDepsInstalled(packageDir)) {
+    throw new Error(
+      `Nested install for ${path.basename(packageDir)} did not install all production dependencies (see package.json dependencies).`
+    );
+  }
+
+  console.log(`  ✓ Successfully installed dependencies for ${path.basename(packageDir)}`);
 }
 
 // Process npm packages for a version

@@ -3,7 +3,7 @@
   "private": true,
   "license": "MIT",
   "engines": {
-    "node": "^22.13.1"
+    "node": "^24"
   },
   "workspaces": [
     "packages/*",
