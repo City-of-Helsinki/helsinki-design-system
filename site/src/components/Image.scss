@@ -1,4 +1,4 @@
-@import "~hds-design-tokens/lib/all.scss";
+@use "~hds-design-tokens/lib/all.scss" as *;
 
 .image-container {
   overflow-x: auto;

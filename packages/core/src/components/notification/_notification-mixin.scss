@@ -225,49 +225,49 @@
   }
 
   @if $all or $base {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include base;
     }
   }
 
   @if $all or $small {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include small;
     }
   }
 
   @if $all or $large {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include large;
     }
   }
 
   @if $all or $toast {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include toast;
     }
   }
 
   @if $all or $success {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include success;
     }
   }
 
   @if $all or $alert {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include alert;
     }
   }
 
   @if $all or $error {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include error;
     }
   }
 
   @if $all or $box-shadow {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include box-shadow;
     }
   }

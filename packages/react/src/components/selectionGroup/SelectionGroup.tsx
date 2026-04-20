@@ -124,7 +124,7 @@ export const SelectionGroup = ({
         {childElements.map(
           (child) =>
             isValidElement(child) && (
-              <div key={child.props.id} className={styles.item}>
+              <div key={(child.props as { id?: string }).id} className={styles.item}>
                 {child}
               </div>
             ),

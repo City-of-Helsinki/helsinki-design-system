@@ -1,7 +1,6 @@
 import React from 'react';
-import { render, screen } from '@testing-library/react';
+import { act, render, screen } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import { act } from 'react-dom/test-utils';
 import { axe } from 'jest-axe';
 
 import { PasswordInput, PasswordInputProps } from './PasswordInput';
@@ -49,13 +48,13 @@ describe('<PasswordInput /> spec', () => {
     expect(getInputElement(container).getAttribute('type')).toBe('password');
 
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Show password'));
+      await userEvent.click(screen.getByLabelText('Show password'));
     });
 
     expect(getInputElement(container).getAttribute('type')).toBe('text');
 
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Hide password'));
+      await userEvent.click(screen.getByLabelText('Hide password'));
     });
 
     expect(getInputElement(container).getAttribute('type')).toBe('password');

@@ -1,5 +1,5 @@
 @use 'hds-core/lib/scss/helpers' as helpers;
-@import '../../common.scss';
+@use '../../common' as *;
 @value medium-down from "../../../../styles/breakpoints.scss";
 
 .heading {

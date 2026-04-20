@@ -31,7 +31,7 @@ describe('<HeaderLink /> spec', () => {
     render(<HeaderLink href="#" label="Link" dropdownLinks={[<HeaderLink href="#" label="Test" />]} />, {
       wrapper: HeaderNavigationMenuWrapper,
     });
-    userEvent.hover(screen.getByText('Link'));
+    await userEvent.hover(screen.getByText('Link'));
     expect(screen.getByTestId('dropdown-menu-0')).not.toBeVisible();
   });
 
@@ -39,7 +39,7 @@ describe('<HeaderLink /> spec', () => {
     render(<HeaderLink href="#" label="Link" dropdownLinks={[<HeaderLink href="#" label="Test" />]} />, {
       wrapper: HeaderNavigationMenuWrapper,
     });
-    userEvent.click(screen.getByTestId('dropdown-button-0'));
+    await userEvent.click(screen.getByTestId('dropdown-button-0'));
     expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
   });
 
@@ -53,10 +53,10 @@ describe('<HeaderLink /> spec', () => {
     );
 
     // Click the first main navigation link's dropdown button
-    userEvent.click(screen.getByTestId('dropdown-button-0'));
+    await userEvent.click(screen.getByTestId('dropdown-button-0'));
     expect(screen.getByTestId('dropdown-menu-0')).toBeVisible();
     // Click the second main navigation link's dropdown button
-    userEvent.click(screen.getByTestId('dropdown-button-1'));
+    await userEvent.click(screen.getByTestId('dropdown-button-1'));
 
     // Now the second dropdown should show
     expect(screen.getByTestId('dropdown-menu-1')).toBeVisible();

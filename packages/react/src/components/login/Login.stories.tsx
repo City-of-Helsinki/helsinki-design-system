@@ -372,7 +372,7 @@ const UserData = ({ user }: { user: User }) => {
         Your email, <strong>{profile.email}</strong>, is {profile.email_verified ? '' : 'not'} verified.
       </p>
       <p>
-        Your level of assurance is <strong>&quot;{profile.loa}&quot;</strong>.
+        Your level of assurance is <strong>&quot;{profile.loa as string}&quot;</strong>.
       </p>
       <p>
         Your tokens will expire{' '}

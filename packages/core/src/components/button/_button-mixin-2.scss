@@ -58,7 +58,6 @@
       font-size: 100%;
       font-weight: 500;
       hyphens: auto;
-      place-content: flex-start center;
       line-height: var(--lineheight-l);
       margin: 0;
       min-height: var(--min-size);
@@ -68,6 +67,7 @@
       overflow: hidden;
       overflow-wrap: anywhere;
       padding: var(--padding);
+      place-content: flex-start center;
       position: relative;
       text-align: center;
       text-decoration: none;

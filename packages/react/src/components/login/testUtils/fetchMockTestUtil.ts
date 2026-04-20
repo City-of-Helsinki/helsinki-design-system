@@ -1,9 +1,21 @@
 /* eslint-disable import/no-extraneous-dependencies */
 import fetchMock, { MockResponseInit } from 'jest-fetch-mock';
-import { waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import { getLastMockCallArgs, getMockCalls, hasListenerBeenCalled } from '../../../utils/testHelpers';
 import { listenToPromise } from './timerTestUtil';
+
+// eslint-disable-next-line @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+const { setImmediate: realSetImmediate } = require('timers');
+
+async function advanceAndFlush(advanceTime: number) {
+  await act(async () => {
+    jest.advanceTimersByTime(advanceTime);
+  });
+  await new Promise<void>((resolve) => {
+    realSetImmediate(resolve);
+  });
+}
 
 type FetchResponse = MockResponseInit | string | Error;
 type FetchPromiseResult = Error | null | Response | undefined;
@@ -56,26 +68,27 @@ export function getFetchMockResults() {
 }
 
 export async function waitForFetchMockResultIndexToExist(index: number, advanceTime = 0) {
-  await waitFor(async () => {
+  for (let i = 0; i < 1000; i += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    await advanceAndFlush(advanceTime || 100);
     const mockResult = fetchMock.mock.results[index];
-    if (!mockResult || !mockResult.value) {
-      jest.advanceTimersByTime(advanceTime || 100);
-      throw new Error(`No mock result at #${index}. There are ${fetchMock.mock.results.length} results.`);
+    if (mockResult && mockResult.value) {
+      return [fetchMock.mock.results[index].value];
     }
-  });
-  // return an array, because if the value is a promise, it is awaited for. Without advancing timers.
-  return [fetchMock.mock.results[index].value];
+  }
+  throw new Error(`No mock result at #${index}. There are ${fetchMock.mock.results.length} results.`);
 }
 
 export async function waitForFetchMockCallIndexToExist(index: number, advanceTime = 0) {
-  await waitFor(async () => {
+  for (let i = 0; i < 1000; i += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    await advanceAndFlush(advanceTime || 100);
     const mockResult = fetchMock.mock.calls[index];
-    if (!mockResult) {
-      jest.advanceTimersByTime(advanceTime);
-      throw new Error(`No mock call at #${index}. There are ${fetchMock.mock.calls.length} calls.`);
+    if (mockResult) {
+      return Promise.resolve(fetchMock.mock.calls[index]);
     }
-  });
-  return Promise.resolve(fetchMock.mock.calls[index]);
+  }
+  throw new Error(`No mock call at #${index}. There are ${fetchMock.mock.calls.length} calls.`);
 }
 
 export async function waitForFetchMockResultFulfillment(index: number, advanceTime = 0): Promise<FetchPromiseResult> {
@@ -87,13 +100,14 @@ export async function waitForFetchMockResultFulfillment(index: number, advanceTi
     return response;
   }
   const listener = listenToPromise(response);
-  await waitFor(() => {
-    if (!hasListenerBeenCalled(listener)) {
-      jest.advanceTimersByTime(advanceTime || 100);
-      throw new Error('Result is pending');
+  for (let i = 0; i < 1000; i += 1) {
+    // eslint-disable-next-line no-await-in-loop
+    await advanceAndFlush(advanceTime || 100);
+    if (hasListenerBeenCalled(listener)) {
+      return getLastMockCallArgs(listener)[0];
     }
-  });
-  return getLastMockCallArgs(listener)[0];
+  }
+  throw new Error('Result is pending');
 }
 
 export function createControlledFetchMockUtil(responders?: Responder[]) {
@@ -193,18 +207,22 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
     }: { id?: string; advanceTime?: number; jumpToEnd?: boolean } = {}) => {
       let targets = id ? getRequestsInfoById(id) : history;
       const advanceByTime = jumpToEnd ? getBiggestDelay(targets) : advanceTime;
-      await waitFor(() => {
-        jest.advanceTimersByTime(advanceByTime || 100);
+      const step = advanceByTime || 100;
+      const maxIter = Math.max(1000, Math.ceil(300000 / step));
+      for (let i = 0; i < maxIter; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        await advanceAndFlush(step);
         if (!targets.length && id) {
           targets = getRequestsInfoById(id);
         }
-        if (!targets.length) {
-          throw new Error('No request targets');
+        if (targets.length && getNotStartedRequests(targets).length === 0) {
+          return;
         }
-        if (getNotStartedRequests(targets).length > 0) {
-          throw new Error('Request not started');
-        }
-      });
+      }
+      if (!targets.length) {
+        throw new Error('No request targets');
+      }
+      throw new Error('Request not started');
     },
     waitUntilRequestFinished: async ({
       id,
@@ -213,19 +231,22 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
     }: { id?: string; advanceTime?: number; jumpToEnd?: boolean } = {}) => {
       let targets = id ? getRequestsInfoById(id) : history;
       const advanceByTime = jumpToEnd ? getBiggestDelay(targets) : advanceTime;
-      await waitFor(() => {
-        jest.advanceTimersByTime(advanceByTime || 100);
+      const step = advanceByTime || 100;
+      const maxIter = Math.max(1000, Math.ceil(300000 / step));
+      for (let i = 0; i < maxIter; i += 1) {
+        // eslint-disable-next-line no-await-in-loop
+        await advanceAndFlush(step);
         if (!targets.length && id) {
           targets = getRequestsInfoById(id);
         }
-        if (!targets.length) {
-          throw new Error('No request targets');
+        if (targets.length && getUnfinishedRequests(targets).length === 0) {
+          return getRequestResults(targets);
         }
-        if (getUnfinishedRequests(targets).length > 0) {
-          throw new Error('Responses not finished');
-        }
-      });
-      return getRequestResults(targets);
+      }
+      if (!targets.length) {
+        throw new Error('No request targets');
+      }
+      throw new Error('Responses not finished');
     },
     addResponder: (responder: Responder) => {
       responderList.push(responder);
@@ -294,14 +315,16 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
 }
 
 export async function waitForFetchMockRequestsToFinish(advanceTime = 0) {
-  await waitFor(async () => {
+  for (let i = 0; i < 1000; i += 1) {
     const callLength = fetchMock.mock.calls.length;
     const resultsLength = fetchMock.mock.results.length;
-    if (resultsLength < callLength) {
-      jest.advanceTimersByTime(advanceTime || 100);
-      throw new Error(`Pending mock call...`);
+    if (resultsLength >= callLength) {
+      return;
     }
-  });
+    // eslint-disable-next-line no-await-in-loop
+    await advanceAndFlush(advanceTime || 100);
+  }
+  throw new Error('Pending mock call...');
 }
 
 export async function getFetchMockResultsAfterAllFinished() {

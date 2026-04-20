@@ -318,15 +318,18 @@ describe('DataContext', () => {
     };
 
     const executeAndWaitForUpdate = async (executor: () => void) => {
+      const lastUpdateTime = getDomUpdateTime('context-counter');
       await act(async () => {
-        const lastUpdateTime = getDomUpdateTime('context-counter');
         executor();
-        await waitFor(() => {
+      });
+      await waitFor(
+        () => {
           if (getDomUpdateTime('context-counter') === lastUpdateTime) {
             throw new Error('Context not updated');
           }
-        });
-      });
+        },
+        { timeout: 3000 },
+      );
     };
 
     const rerenderAll = async () => {
@@ -334,14 +337,14 @@ describe('DataContext', () => {
     };
 
     const toggleContext = async () => {
+      const isVisible = !!getElementById('container-wrapper');
       await act(async () => {
-        const isVisible = !!getElementById('container-wrapper');
         clickButton('toggle-context');
-        await waitFor(() => {
-          if (!!getElementById('container-wrapper') === isVisible) {
-            throw new Error('Context not toggled');
-          }
-        });
+      });
+      await waitFor(() => {
+        if (!!getElementById('container-wrapper') === isVisible) {
+          throw new Error('Context not toggled');
+        }
       });
     };
 

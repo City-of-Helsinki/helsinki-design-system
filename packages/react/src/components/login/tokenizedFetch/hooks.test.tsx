@@ -2,13 +2,14 @@
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import React, { useEffect, useRef } from 'react';
 import { isObject } from 'lodash';
-import { act, fireEvent, waitFor } from '@testing-library/react';
+import { act, fireEvent } from '@testing-library/react';
 
 import HttpStatusCode from '../../../utils/httpStatusCode';
 import { ConnectedModule, Signal } from '../beacon/beacon';
 import { isErrorSignal } from '../beacon/signals';
 import { createConnectedBeaconModule, createTestListenerModule } from '../testUtils/beaconTestUtil';
 import { createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
+import { advanceUntilCondition } from '../testUtils/timerTestUtil';
 import { createTokenizedFetchModule } from './tokenizedFetch';
 import {
   useTokenizedFetch,
@@ -210,17 +211,14 @@ describe(`tokenizedFetchModule`, () => {
     const waitForReturnValueChange = async (func: () => unknown, advanceTime = 0) => {
       const current = func();
       const compareObjects = isObject(current);
-      await waitFor(() => {
-        if (advanceTime) {
-          jest.advanceTimersByTime(advanceTime);
-        }
+      await advanceUntilCondition(() => {
         const newValue = func();
         if (compareObjects && isObject(newValue)) {
           expect(newValue).not.toMatchObject(current as object);
         } else if (newValue === current) {
           throw new Error('Same value');
         }
-      });
+      }, advanceTime || 100);
     };
 
     const waitForIsLoadingChange = async (signalType: UsedSignals, advanceTime = 0) => {
@@ -236,15 +234,12 @@ describe(`tokenizedFetchModule`, () => {
     };
 
     const waitForValue = async (func: () => unknown, advanceTime = 0, expectedValue: unknown) => {
-      await waitFor(() => {
-        if (advanceTime) {
-          jest.advanceTimersByTime(advanceTime);
-        }
+      await advanceUntilCondition(() => {
         const value = func();
         if (value !== expectedValue) {
           throw new Error(`Not correct value. Expected ${expectedValue}, but got ${value}`);
         }
-      });
+      }, advanceTime || 100);
     };
 
     const waitForIsLoadingToMatch = async (signalType: UsedSignals, isLoading: boolean, advanceTime = 0) => {

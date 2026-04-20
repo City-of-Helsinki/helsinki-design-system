@@ -5,7 +5,6 @@ import { SelectedOptionsContainer } from './SelectedOptionsContainer';
 // eslint-disable-next-line jest/no-mocks-import
 import {
   resetAllMocks,
-  mockUseSelectDataHandlersContents,
   getCurrentMockMetaData,
   getCurrentMockData,
   OptionalSelectData,
@@ -24,7 +23,8 @@ import { defaultTexts } from '../../texts';
 let mockIndexOfFirstVisibleChild = 1;
 
 jest.mock('../../hooks/useSelectDataHandlers', () => ({
-  useSelectDataHandlers: () => mockUseSelectDataHandlersContents,
+  // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports, jest/no-mocks-import
+  useSelectDataHandlers: () => require('../../hooks/__mocks__/useSelectDataHandlers').mockUseSelectDataHandlersContents,
 }));
 jest.mock('../../../../../utils/getIndexOfFirstVisibleChild', () => ({
   getIndexOfFirstVisibleChild: () => mockIndexOfFirstVisibleChild,

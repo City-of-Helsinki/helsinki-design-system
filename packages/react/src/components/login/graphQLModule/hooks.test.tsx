@@ -2,7 +2,7 @@
 import { disableFetchMocks, enableFetchMocks } from 'jest-fetch-mock';
 import React, { useRef } from 'react';
 import { isObject } from 'lodash';
-import { act, waitFor } from '@testing-library/react';
+import { act } from '@testing-library/react';
 
 import HttpStatusCode from '../../../utils/httpStatusCode';
 import { ConnectedModule } from '../beacon/beacon';
@@ -14,6 +14,7 @@ import {
   getReceivedEventSignalPayloads,
 } from '../testUtils/beaconTestUtil';
 import { createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
+import { advanceUntilCondition } from '../testUtils/timerTestUtil';
 import { createGraphQLModule } from './graphQLModule';
 import { GraphQLCache, GraphQLModule, graphQLModuleEvents, graphQLModuleNamespace, GraphQLQueryResult } from './index';
 import { createMockTestUtil } from '../testUtils/mockTestUtil';
@@ -166,10 +167,10 @@ describe(`graphQLModule`, () => {
     return (
       <div>
         <span key="lastSignal" id={elementIds.lastSignal}>
-          {payloadRef.current ? (payloadRef.current.type as React.ReactNode) : ''}
+          {payloadRef.current ? String(payloadRef.current.type) : ''}
         </span>
         <span key="error" id={elementIds.errorSignal}>
-          {errorRef.current ? errorRef.current.type : ''}
+          {errorRef.current ? String(errorRef.current.type) : ''}
         </span>
       </div>
     );
@@ -273,17 +274,14 @@ describe(`graphQLModule`, () => {
     const waitForReturnValueChange = async (func: () => unknown, advanceTime = 0) => {
       const current = func();
       const compareObjects = isObject(current);
-      await waitFor(() => {
-        if (advanceTime) {
-          jest.advanceTimersByTime(advanceTime);
-        }
+      await advanceUntilCondition(() => {
         const newValue = func();
         if (compareObjects && isObject(newValue)) {
           expect(newValue).not.toMatchObject(current as object);
         } else if (newValue === current) {
           throw new Error('Same value');
         }
-      });
+      }, advanceTime || 100);
     };
 
     const waitForIsLoadingChange = async (advanceTime = 0) => {
@@ -293,15 +291,12 @@ describe(`graphQLModule`, () => {
       await waitForReturnValueChange(getData, advanceTime);
     };
     const waitForValue = async (func: () => unknown, advanceTime = 0, expectedValue: unknown) => {
-      await waitFor(() => {
-        if (advanceTime) {
-          jest.advanceTimersByTime(advanceTime);
-        }
+      await advanceUntilCondition(() => {
         const value = func();
         if (value !== expectedValue) {
           throw new Error(`Not correct value. Expected ${expectedValue}, but got ${value}`);
         }
-      });
+      }, advanceTime || 100);
     };
     const waitForIsLoadingToMatch = async (isLoading: boolean, advanceTime = 0) => {
       await waitForValue(getIsLoading, advanceTime, isLoading);
@@ -564,19 +559,17 @@ describe(`graphQLModule`, () => {
     ]);
   });
   it('If apiTokens exists, query is triggered automatically.', async () => {
-    await act(async () => {
-      const { waitForDataChange, waitForIsLoadingToMatch } = initTests({
-        responses: [successfulResponse, successfulResponse],
-        apiTokens: defaultApiTokens,
-        requireApiTokens: true,
-      });
-      await waitForIsLoadingToMatch(true);
-      await waitForDataChange(200);
-      await waitForIsLoadingToMatch(false);
-      expect(getEmittedEventTypes()).toEqual([
-        graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
-        graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
-      ]);
+    const { waitForDataChange, waitForIsLoadingToMatch } = initTests({
+      responses: [successfulResponse, successfulResponse],
+      apiTokens: defaultApiTokens,
+      requireApiTokens: true,
     });
+    await waitForIsLoadingToMatch(true);
+    await waitForDataChange(200);
+    await waitForIsLoadingToMatch(false);
+    expect(getEmittedEventTypes()).toEqual([
+      graphQLModuleEvents.GRAPHQL_MODULE_LOADING,
+      graphQLModuleEvents.GRAPHQL_MODULE_LOAD_SUCCESS,
+    ]);
   });
 });

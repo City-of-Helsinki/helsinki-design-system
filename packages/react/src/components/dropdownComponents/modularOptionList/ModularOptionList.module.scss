@@ -1,5 +1,5 @@
-@import '../../../styles/common.scss';
-@import './dropdown.helpers';
+@use '../../../styles/common' as *;
+@use './dropdown.helpers' as *;
 
 .root {
   @extend %dropdownRoot;

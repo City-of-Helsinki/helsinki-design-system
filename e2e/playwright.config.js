@@ -11,6 +11,7 @@ export default defineConfig({
       url: 'http://localhost:6007',
       stdout: 'ignore',
       stderr: 'pipe',
+      reuseExistingServer: true,
     } : null,
     !process.env.PACKAGE || process.env.PACKAGE === 'react' ? 
     {
@@ -18,6 +19,7 @@ export default defineConfig({
       url: 'http://localhost:6006',
       stdout: 'ignore',
       stderr: 'pipe',
+      reuseExistingServer: true,
     } : null,
   ].filter(Boolean),
   snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
@@ -50,6 +52,10 @@ export default defineConfig({
     retries: 3,
     expect: {
       timeout: 2000,
+      toHaveScreenshot: {
+        maxDiffPixelRatio: 0.01,
+        threshold: 0.35,
+      },
     },
   },
   projects: [

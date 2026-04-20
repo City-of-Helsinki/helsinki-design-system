@@ -1,4 +1,8 @@
 import './tag.css';
+import '../../icons/icon.css';
+import '../../icons/trash.css';
+import '../../icons/share.css';
+import '../../icons/cross.css';
 
 export default {
   title: 'Components/Tag',

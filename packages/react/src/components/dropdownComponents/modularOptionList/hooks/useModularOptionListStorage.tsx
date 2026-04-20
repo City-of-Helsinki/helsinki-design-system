@@ -22,7 +22,7 @@ export function useModularOptionListStorage(props: ModularOptionListStorageProps
   const reRender = useForceRender();
   const propsStorage = useRef<ModularOptionListStorageProps>({ onChange: () => ({}) });
   const groupsStorage = useRef<Group[]>([]);
-  const onChangeInProps = useRef<ModularOptionListStorageProps['onChange']>();
+  const onChangeInProps = useRef<ModularOptionListStorageProps['onChange']>(null);
   onChangeInProps.current = restProps.onChange;
 
   useMemo(() => {

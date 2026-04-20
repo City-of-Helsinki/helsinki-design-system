@@ -261,7 +261,7 @@ html {
 @media (prefers-reduced-motion: reduce) {
   .hds-notification.enter,
   .hds-notification.exit {
-    animation-duration: 0s !important;
+    animation-duration: 0s !important; /* stylelint-disable-line declaration-no-important */
   }
 }
 

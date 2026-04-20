@@ -1,6 +1,6 @@
 import { waitFor } from '@testing-library/react';
 
-import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
+import { initTests, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
 import { ScreenReaderNotification } from '../types';
 import { createScreenReaderNotification } from '../../shared/utils/screenReader';
 import { ScreenReaderNotifications } from './ScreenReaderNotifications';
@@ -8,7 +8,8 @@ import { ScreenReaderNotifications } from './ScreenReaderNotifications';
 jest.mock('./Container', () => {
   return {
     __esModule: true,
-    Container: () => mockedContainer(),
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+    Container: () => require('../testUtil').mockedContainer(),
   };
 });
 

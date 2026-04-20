@@ -2,13 +2,14 @@ import React from 'react';
 import { fireEvent, waitFor } from '@testing-library/react';
 
 import { useFocusHandling } from '../useFocusHandling';
-import { GetSelectProps, initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
+import { GetSelectProps, initTests, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
 import { waitForElementFocus, getActiveElement } from '../../../../../utils/test-utils';
 
 jest.mock('../../components/Label', () => {
   return {
     __esModule: true,
-    Label: () => mockedContainer(),
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+    Label: () => require('../../testUtil').mockedContainer(),
   };
 });
 // The mock needs to render something

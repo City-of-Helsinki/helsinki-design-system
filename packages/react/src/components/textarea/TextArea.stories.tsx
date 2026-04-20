@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
+import { Controls, Stories, Title } from '@storybook/blocks';
 
 import { TextArea, TextAreaProps } from './TextArea';
 import { Tooltip } from '../tooltip';
@@ -22,7 +22,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <ArgsTable />
+          <Controls />
           <Stories title="Examples" includePrimary />
         </>
       ),

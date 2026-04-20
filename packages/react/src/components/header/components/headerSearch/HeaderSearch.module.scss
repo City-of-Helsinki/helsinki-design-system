@@ -1,4 +1,4 @@
-@import "../../../../styles/common.scss";
+@use "../../../../styles/common" as *;
 
 .headerSearchButton {
   // Hide angle-down and angle-up icons (they appear as direct children in buttonContent after activeStateContent)

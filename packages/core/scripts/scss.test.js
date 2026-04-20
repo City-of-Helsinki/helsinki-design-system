@@ -3,7 +3,7 @@
  */
 const path = require('path');
 const sassTrue = require('sass-true');
-const sass = require('sass');
+const sassEmbedded = require('sass-embedded');
 const glob = require('glob');
 global.snapshot = (contents) => {
   console.log('SNAP!', contents);
@@ -14,7 +14,7 @@ describe('SCSS Testing', () => {
   sassTestFiles.forEach((file) => {
     sassTrue.runSass(
       // True options [required]
-      { describe, it },
+      { describe, it, sass: sassEmbedded },
       // Sass source (path) [required]
       file,
       // Sass options [optional]

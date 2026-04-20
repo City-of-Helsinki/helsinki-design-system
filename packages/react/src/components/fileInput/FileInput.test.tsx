@@ -1,6 +1,5 @@
 import React, { HTMLAttributes } from 'react';
-import { act } from 'react-dom/test-utils';
-import { fireEvent, render, screen, within } from '@testing-library/react';
+import { act, fireEvent, render, screen, within } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -44,7 +43,7 @@ describe('<FileInput /> spec', () => {
   it('should not have accessibility issues when there are files added', async () => {
     const { container } = render(<FileInput {...defaultInputProps} multiple errorText="Error text" />);
     const fileUpload = screen.getByLabelText(defaultInputProps.label);
-    userEvent.upload(fileUpload, [
+    await userEvent.upload(fileUpload, [
       new File(['test-a'], 'test-file-a.png', { type: 'image/png' }),
       new File(['test-b'], 'test-file-b.png', { type: 'image/png' }),
     ]);
@@ -77,7 +76,7 @@ describe('<FileInput /> spec', () => {
     const files: File[] = [fileA, fileB, fileC];
     render(<FileInput {...inputProps} />);
     const fileUpload = screen.getByLabelText(inputLabel);
-    userEvent.upload(fileUpload, files);
+    await userEvent.upload(fileUpload, files);
     const list = screen.getByLabelText('3 files added.');
     const { getAllByRole } = within(list);
     const fileListItems = getAllByRole('listitem');
@@ -118,8 +117,8 @@ describe('<FileInput /> spec', () => {
     const secondFileName = 'test-file-b';
     const secondFile = new File(['test-file'], secondFileName, { type: 'image/png' });
     const fileUpload = screen.getByLabelText(inputProps.label);
-    userEvent.upload(fileUpload, [firstFile]);
-    userEvent.upload(fileUpload, [secondFile]);
+    await userEvent.upload(fileUpload, [firstFile]);
+    await userEvent.upload(fileUpload, [secondFile]);
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
     expect(screen.getByText(secondFileName)).toBeInTheDocument();
     expect(screen.getAllByRole('listitem').length).toEqual(2);
@@ -170,7 +169,7 @@ describe('<FileInput /> spec', () => {
     const thirdFile = new File(['0123456789'], thirdFileName, { type: 'image/png' });
     render(<FileInput {...inputProps} />);
     const fileUpload = screen.getByLabelText(inputProps.label);
-    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
+    await userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
     expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
@@ -197,7 +196,7 @@ describe('<FileInput /> spec', () => {
     const thirdFile = new File(['0123456789'], thirdFileName, { type: 'image/png' });
     render(<FileInput {...inputProps} />);
     const fileUpload = screen.getByLabelText(inputProps.label);
-    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
+    await userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
     expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
@@ -225,7 +224,7 @@ describe('<FileInput /> spec', () => {
     const thirdFileName = 'test-file-c.JPG';
     const thirdFile = new File(['test-JPG'], thirdFileName, { type: 'image/jpeg' });
     const fileUpload = screen.getByLabelText(inputProps.label);
-    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
+    await userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile], { applyAccept: false });
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
     expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
@@ -253,7 +252,7 @@ describe('<FileInput /> spec', () => {
     const thirdFileName = 'test-file-c.png';
     const thirdFile = new File(['test-png'], thirdFileName, { type: 'image/png' });
     const fileUpload = screen.getByLabelText(inputProps.label);
-    userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile]);
+    await userEvent.upload(fileUpload, [firstFile, secondFile, thirdFile], { applyAccept: false });
     expect(screen.getByText(firstFileName)).toBeInTheDocument();
     expect(screen.getByText('2/3 file(s) added', { exact: false })).toBeInTheDocument();
     expect(screen.getByText('File processing failed for 1/3 files:', { exact: false })).toBeInTheDocument();
@@ -283,7 +282,7 @@ describe('<FileInput /> spec', () => {
     const fileNameB = 'test-file-b';
     const fileB = new File(['test-file'], fileNameB, { type: 'image/png' });
     const fileUpload = screen.getByLabelText(inputProps.label);
-    userEvent.upload(fileUpload, [fileA, fileB]);
+    await userEvent.upload(fileUpload, [fileA, fileB]);
     const list = screen.getByLabelText('2 files added.');
     const { getAllByRole } = within(list);
     const fileListItems = getAllByRole('listitem');
@@ -291,7 +290,7 @@ describe('<FileInput /> spec', () => {
     expect(filesValue).toEqual([fileA, fileB]);
     // Remove the second file
     await act(async () => {
-      userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the added files.`));
+      await await userEvent.click(screen.getByLabelText(`Remove ${fileNameB} from the added files.`));
     });
     const listItemsAfterFirstRemove = getAllByRole('listitem');
     expect(listItemsAfterFirstRemove.length).toBe(1);
@@ -300,7 +299,7 @@ describe('<FileInput /> spec', () => {
     expect(screen.getByText('The file has been deleted.', { exact: false })).toBeInTheDocument();
     // Remove the last file
     await act(async () => {
-      userEvent.click(screen.getByLabelText(`Remove ${fileNameA} from the added files.`));
+      await await userEvent.click(screen.getByLabelText(`Remove ${fileNameA} from the added files.`));
     });
     expect(list).toBeEmptyDOMElement();
     expect(screen.getByText('No file has been selected.', { exact: false })).toBeInTheDocument();

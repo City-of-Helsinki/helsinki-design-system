@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
+import { Controls, Stories, Title } from '@storybook/blocks';
 
 import { getShapeHeight, Koros, KorosProps } from './Koros';
 
@@ -12,7 +12,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <ArgsTable />
+          <Controls />
           <Stories title="Examples" includePrimary />
         </>
       ),

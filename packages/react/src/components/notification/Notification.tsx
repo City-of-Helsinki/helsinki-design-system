@@ -6,7 +6,7 @@ import '../../styles/base.module.css';
 import styles from './Notification.module.scss';
 import classNames from '../../utils/classNames';
 import { IconInfoCircleFill, IconErrorFill, IconAlertCircleFill, IconCheckCircleFill, IconCross } from '../../icons';
-import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 import { getPlainTextContent } from '../../utils/getPlainTextContent';
 import { Link, LinkSize } from '../link/Link';
 
@@ -28,7 +28,11 @@ export type NotificationPosition =
   | 'bottom-right';
 
 type CommonProps = React.PropsWithChildren<
-  AllElementPropsWithoutRef<'section'> & {
+  Omit<AllElementPropsWithRef<'section'>, 'ref'> & {
+    /**
+     * The `ref` is forwarded to the inner content div element.
+     */
+    ref?: React.Ref<HTMLDivElement>;
     /**
      * Whether the notification should be closed automatically after a certain time
      * @default false
@@ -189,155 +193,156 @@ const getAutoCloseTransition = (duration: number) => ({
 const ConditionalVisuallyHidden = ({ visuallyHidden, children }) =>
   visuallyHidden ? <VisuallyHidden>{children}</VisuallyHidden> : children;
 
-export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
-  (
-    {
-      autoClose = false,
-      autoCloseDuration,
-      boxShadow = false,
-      children,
-      className = '',
-      closeAnimationDuration = 85,
-      closeButtonLabelText,
-      dismissible = false,
-      displayAutoCloseProgress = true,
-      invisible = false,
-      label,
-      notificationAriaLabel = 'Notification',
-      position = 'inline',
-      onClose = () => null,
-      size = NotificationSize.Medium,
-      style,
-      type = 'info',
-      headingLevel = 2,
-      link = undefined,
-      ...rest
-    }: NotificationProps,
-    ref,
-  ) => {
-    const isToast: boolean = position !== 'inline';
-    // only allow size 'large' for inline notifications
-    if (isToast && size === NotificationSize.Large) {
-      // eslint-disable-next-line no-console
-      console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
-      // eslint-disable-next-line no-param-reassign
-      size = NotificationSize.Medium;
+export const Notification = ({
+  autoClose = false,
+  autoCloseDuration,
+  boxShadow = false,
+  children,
+  className = '',
+  closeAnimationDuration = 85,
+  closeButtonLabelText,
+  dismissible = false,
+  displayAutoCloseProgress = true,
+  invisible = false,
+  label,
+  notificationAriaLabel = 'Notification',
+  position = 'inline',
+  onClose = () => null,
+  size = NotificationSize.Medium,
+  style,
+  type = 'info',
+  headingLevel = 2,
+  link = undefined,
+  ref,
+  ...rest
+}: NotificationProps) => {
+  const isToast: boolean = position !== 'inline';
+  // only allow size 'large' for inline notifications
+  if (isToast && size === NotificationSize.Large) {
+    // eslint-disable-next-line no-console
+    console.warn(`Size '${size}' is only allowed for inline positioned notifications`);
+    // eslint-disable-next-line no-param-reassign
+    size = NotificationSize.Medium;
+  }
+  // don't allow autoClose for inline notifications
+  if (!isToast && autoClose) {
+    // eslint-disable-next-line no-console
+    console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
+    // eslint-disable-next-line no-param-reassign
+    autoClose = false;
+  }
+
+  // internal state used for transitions
+  const [open, setOpen] = useState(true);
+
+  const handleClose = useCallback(() => {
+    // trigger close animation
+    setOpen(false);
+    // emit onClose callback after the animation is completed
+    setTimeout(() => onClose(), closeAnimationDuration);
+  }, [onClose, closeAnimationDuration]);
+
+  // calculate autoClose duration based on content length, minimum 4 seconds
+  const calculatedAutoCloseDuration = () => {
+    const totalPlainTextContentLength = getPlainTextContent(children).length + getPlainTextContent(label).length;
+    const contentBasedAutoCloseDuration = totalPlainTextContentLength * 60 + 1000;
+    if (contentBasedAutoCloseDuration < 4000) {
+      return 4000;
     }
-    // don't allow autoClose for inline notifications
-    if (!isToast && autoClose) {
-      // eslint-disable-next-line no-console
-      console.warn(`The 'autoClose' property is not allowed for inline positioned notifications`);
-      // eslint-disable-next-line no-param-reassign
-      autoClose = false;
+    return contentBasedAutoCloseDuration;
+  };
+
+  // autoClose duration, use provided value or calculate (if autoClose true) based on content length
+  const formedAutoCloseDuration =
+    autoCloseDuration > 0 || !autoClose ? autoCloseDuration : calculatedAutoCloseDuration();
+
+  useEffect(() => {
+    if (autoClose) {
+      const interval = setTimeout(() => {
+        handleClose();
+      }, formedAutoCloseDuration);
+      return () => clearTimeout(interval);
     }
+    return undefined;
+  }, [autoClose, autoCloseDuration, handleClose]);
 
-    // internal state used for transitions
-    const [open, setOpen] = useState(true);
+  // icon
+  const Icon = icons[type];
 
-    const handleClose = useCallback(() => {
-      // trigger close animation
-      setOpen(false);
-      // emit onClose callback after the animation is completed
-      setTimeout(() => onClose(), closeAnimationDuration);
-    }, [onClose, closeAnimationDuration]);
+  // notification transitions
+  const openTransitionProps = isToast ? getOpenTransition(position) : {};
+  const closeTransitionProps = getCloseTransition(closeAnimationDuration);
+  const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(formedAutoCloseDuration) : {};
 
-    // calculate autoClose duration based on content length, minimum 4 seconds
-    const calculatedAutoCloseDuration = () => {
-      const totalPlainTextContentLength = getPlainTextContent(children).length + getPlainTextContent(label).length;
-      const contentBasedAutoCloseDuration = totalPlainTextContentLength * 60 + 1000;
-      if (contentBasedAutoCloseDuration < 4000) {
-        return 4000;
-      }
-      return contentBasedAutoCloseDuration;
-    };
+  const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
+  const autoCloseTransition = useSpring(autoCloseTransitionProps);
 
-    // autoClose duration, use provided value or calculate (if autoClose true) based on content length
-    const formedAutoCloseDuration =
-      autoCloseDuration > 0 || !autoClose ? autoCloseDuration : calculatedAutoCloseDuration();
+  const linkInsideNotification = useMemo(
+    () =>
+      link && React.isValidElement(link)
+        ? React.cloneElement(link as React.ReactElement<React.ComponentProps<typeof Link>>, {
+            size: LinkSize.Medium,
+            className: classNames(styles.link),
+          })
+        : undefined,
+    [link],
+  );
 
-    useEffect(() => {
-      if (autoClose) {
-        const interval = setTimeout(() => {
-          handleClose();
-        }, formedAutoCloseDuration);
-        return () => clearTimeout(interval);
-      }
-      return undefined;
-    }, [autoClose, autoCloseDuration, handleClose]);
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const AnimatedSection = animated.section as any;
+  // eslint-disable-next-line @typescript-eslint/no-explicit-any
+  const AnimatedDiv = animated.div as any;
 
-    // icon
-    const Icon = icons[type];
-
-    // notification transitions
-    const openTransitionProps = isToast ? getOpenTransition(position) : {};
-    const closeTransitionProps = getCloseTransition(closeAnimationDuration);
-    const autoCloseTransitionProps = displayAutoCloseProgress ? getAutoCloseTransition(formedAutoCloseDuration) : {};
-
-    const notificationTransition = useSpring(open ? openTransitionProps : closeTransitionProps);
-    const autoCloseTransition = useSpring(autoCloseTransitionProps);
-
-    const linkInsideNotification = useMemo(
-      () =>
-        link && React.isValidElement(link)
-          ? React.cloneElement(link as React.ReactElement<React.ComponentProps<typeof Link>>, {
-              size: LinkSize.Medium,
-              className: classNames(styles.link),
-            })
-          : undefined,
-      [link],
-    );
-
-    return (
-      <ConditionalVisuallyHidden visuallyHidden={invisible}>
-        <animated.section
-          // this "as" fixes ts error with wrong types. Seen only when running ts-check-stories.
-          {...(rest as Record<string, unknown>)}
-          // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
-          // eslint-disable-next-line  @typescript-eslint/no-explicit-any
-          style={{ ...notificationTransition, ...(style as any) }}
-          className={classNames(
-            styles[position],
-            styles.notification,
-            styles[size],
-            styles[type],
-            autoClose && styles.noBorder,
-            boxShadow && styles.boxShadow,
-            className,
-          )}
-          aria-label={notificationAriaLabel}
-          // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
-          role={isToast || invisible ? 'alert' : undefined}
-        >
-          {autoClose && <animated.div style={autoCloseTransition} className={styles.autoClose} />}
-          <div className={styles.content} ref={ref}>
-            {label && (
-              // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
-              <div
-                className={styles.label}
-                {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
-              >
-                <Icon className={styles.icon} />
-                <ConditionalVisuallyHidden visuallyHidden={size === NotificationSize.Small}>
-                  {label}
-                </ConditionalVisuallyHidden>
-              </div>
-            )}
-            {children && <div className={styles.body}>{children}</div>}
-            {linkInsideNotification}
-          </div>
-          {dismissible && (
-            <button
-              className={classNames(styles.close, styles[type])}
-              type="button"
-              title={closeButtonLabelText}
-              aria-label={closeButtonLabelText}
-              onClick={handleClose}
+  return (
+    <ConditionalVisuallyHidden visuallyHidden={invisible}>
+      <AnimatedSection
+        // this "as" fixes ts error with wrong types. Seen only when running ts-check-stories.
+        {...(rest as Record<string, unknown>)}
+        // there is an issue with react-spring -rc3 and a new version of @types/react: https://github.com/react-spring/react-spring/issues/1102
+        // eslint-disable-next-line  @typescript-eslint/no-explicit-any
+        style={{ ...notificationTransition, ...(style as any) }}
+        className={classNames(
+          styles[position],
+          styles.notification,
+          styles[size],
+          styles[type],
+          autoClose && styles.noBorder,
+          boxShadow && styles.boxShadow,
+          className,
+        )}
+        aria-label={notificationAriaLabel}
+        // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
+        role={isToast || invisible ? 'alert' : undefined}
+      >
+        {autoClose && <AnimatedDiv style={autoCloseTransition} className={styles.autoClose} />}
+        <div className={styles.content} ref={ref}>
+          {label && (
+            // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
+            <div
+              className={styles.label}
+              {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
             >
-              <IconCross />
-            </button>
+              <Icon className={styles.icon} />
+              <ConditionalVisuallyHidden visuallyHidden={size === NotificationSize.Small}>
+                {label}
+              </ConditionalVisuallyHidden>
+            </div>
           )}
-        </animated.section>
-      </ConditionalVisuallyHidden>
-    );
-  },
-);
+          {children && <div className={styles.body}>{children}</div>}
+          {linkInsideNotification}
+        </div>
+        {dismissible && (
+          <button
+            className={classNames(styles.close, styles[type])}
+            type="button"
+            title={closeButtonLabelText}
+            aria-label={closeButtonLabelText}
+            onClick={handleClose}
+          >
+            <IconCross />
+          </button>
+        )}
+      </AnimatedSection>
+    </ConditionalVisuallyHidden>
+  );
+};

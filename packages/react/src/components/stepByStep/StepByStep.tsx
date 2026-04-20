@@ -15,7 +15,7 @@ type StepType = {
   /**
    * Step description.
    */
-  description?: JSX.Element | string;
+  description?: React.JSX.Element | string;
   /**
    * Optional key for the React component. Title is used unless a key is provided.
    */

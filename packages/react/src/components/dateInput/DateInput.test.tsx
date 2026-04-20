@@ -1,10 +1,9 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
 import React from 'react';
-import { act } from 'react-dom/test-utils';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
-import '@testing-library/jest-dom/extend-expect';
+import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
 
 import { DateInput } from './DateInput';
@@ -62,7 +61,7 @@ describe('<DateInput /> spec', () => {
   it('renders the component with default props', async () => {
     const { asFragment } = render(<DateInput id="date" />);
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Choose date'));
+      await userEvent.click(screen.getByLabelText('Choose date'));
     });
     expect(asFragment()).toMatchSnapshot();
   });
@@ -70,7 +69,7 @@ describe('<DateInput /> spec', () => {
   it('renders the component with additional props', async () => {
     const { asFragment } = render(<DateInput id="date" label="Foo" disableConfirmation />);
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Choose date'));
+      await userEvent.click(screen.getByLabelText('Choose date'));
     });
     expect(asFragment()).toMatchSnapshot();
   });
@@ -86,7 +85,7 @@ describe('<DateInput /> spec', () => {
 
     // Open the date picker
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Choose date'));
+      await userEvent.click(screen.getByLabelText('Choose date'));
     });
 
     // Wait for the date picker to be visible
@@ -95,7 +94,7 @@ describe('<DateInput /> spec', () => {
     // Click the next month button to change the month
     const nextMonthButton = screen.getByLabelText('Next month');
     await act(async () => {
-      userEvent.click(nextMonthButton);
+      await userEvent.click(nextMonthButton);
     });
 
     // Wait for and check that an aria-live notification appears with the correct language message and month/year
@@ -115,7 +114,7 @@ describe('<DateInput /> spec', () => {
 
     // Open the date picker
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Valitse päivämäärä'));
+      await userEvent.click(screen.getByLabelText('Valitse päivämäärä'));
     });
 
     // Wait for the date picker to be visible
@@ -124,7 +123,7 @@ describe('<DateInput /> spec', () => {
     // Click the next month button to change the month
     const nextMonthButton = screen.getByLabelText('Seuraava kuukausi');
     await act(async () => {
-      userEvent.click(nextMonthButton);
+      await userEvent.click(nextMonthButton);
     });
 
     // Wait for and check that an aria-live notification appears with the correct language message and month/year
@@ -144,7 +143,7 @@ describe('<DateInput /> spec', () => {
 
     // Open the date picker
     await act(async () => {
-      userEvent.click(screen.getByLabelText('Välj datum'));
+      await userEvent.click(screen.getByLabelText('Välj datum'));
     });
 
     // Wait for the date picker to be visible
@@ -153,7 +152,7 @@ describe('<DateInput /> spec', () => {
     // Click the next month button to change the month
     const nextMonthButton = screen.getByLabelText('Nästa månad');
     await act(async () => {
-      userEvent.click(nextMonthButton);
+      await userEvent.click(nextMonthButton);
     });
 
     // Wait for and check that an aria-live notification appears with the correct language message and month/year

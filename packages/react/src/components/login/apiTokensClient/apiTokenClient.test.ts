@@ -252,13 +252,13 @@ describe(`apiTokenClient`, () => {
       expect(fetchCalls).toHaveLength(1);
       // eslint-disable-next-line jest/no-interpolation-in-snapshots
       expect(fetchCalls[0]).toMatchInlineSnapshot(`
-        Array [
-          "${defaultClientProps.url}",
-          Object {
+        [
+          "http://userinfo.net/api-tokens",
+          {
             "headers": Headers {
-              Symbol(map): Object {
-                "Authorization": Array [
-                  "Bearer ${(currentUser as User).access_token}",
+              Symbol(map): {
+                "Authorization": [
+                  "Bearer access_token",
                 ],
               },
             },
@@ -388,14 +388,14 @@ describe(`apiTokenClient`, () => {
       expect(fetchCallBodies[0]).toBe(`grant_type=${grantType}&permission=${permission}`);
       // eslint-disable-next-line jest/no-interpolation-in-snapshots
       expect(fetchCalls[0]).toMatchInlineSnapshot(`
-        Array [
-          "${defaultClientProps.url}",
-          Object {
+        [
+          "http://userinfo.net/api-tokens",
+          {
             "body": URLSearchParams {},
             "headers": Headers {
-              Symbol(map): Object {
-                "Authorization": Array [
-                  "Bearer ${(currentUser as User).access_token}",
+              Symbol(map): {
+                "Authorization": [
+                  "Bearer access_token",
                 ],
               },
             },
