@@ -4,7 +4,7 @@ import { useMDXComponents } from '@mdx-js/react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
 import sanitizeHtml from 'sanitize-html';
 import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
-import theme from 'prism-react-renderer/themes/github';
+import theme from './codeTheme';
 
 import './Playground.scss';
 import LiveErrorCore from './LiveErrorCore';
