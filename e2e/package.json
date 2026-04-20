@@ -2,9 +2,9 @@
   "name": "e2e",
   "private": true,
   "description": "e2e tests using Playwright",
-  "version": "5.2.0",
+  "version": "6.0.0",
   "engines": {
-    "node": "^22.13.1"
+    "node": "^24"
   },
   "scripts": {
     "ci": "npx playwright test",
@@ -19,8 +19,8 @@
     "update-snapshots": "npx playwright test --update-snapshots"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.11.1",
-    "@playwright/test": "1.50.0",
+    "@axe-core/playwright": "^4.11.2",
+    "@playwright/test": "1.59.1",
     "http-server": "^14.1.1"
   }
 }

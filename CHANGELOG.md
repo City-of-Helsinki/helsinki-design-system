@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+- [Tooling] Raised the supported Node.js major for the monorepo and published packages: `package.json` `engines.node` is now `^24`, and `.nvmrc` pins the version used for local development and GitHub Actions (see the file in the repo root). Contributors and CI should use Node 24 accordingly.
 
 ### React
 
