@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "5.0.0",
+  "version": "6.0.0",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^22.13.1"
+    "node": "^24"
   },
   "main": "./lib/cjs/index.js",
   "module": "./lib/index.js",
@@ -69,7 +69,6 @@
     "@testing-library/dom": "^10.0.0",
     "@testing-library/jest-dom": "^6.6.0",
     "@testing-library/react": "^16.0.0",
-
     "@testing-library/user-event": "^14.0.0",
     "@types/glob": "^8.1.0",
     "@types/jest": "^29.5.0",
@@ -85,6 +84,7 @@
     "babel-jest": "^29.0.0",
     "babel-plugin-require-context-hook": "1.0.0",
     "chalk": "4.0.0",
+    "cssnano": "^5.1.15",
     "eslint": "8.57.0",
     "eslint-config-airbnb": "^19.0.4",
     "eslint-config-prettier": "^9.1.0",
@@ -101,9 +101,8 @@
     "jest-axe": "^5.0.1",
     "jest-environment-jsdom": "^29.7.0",
     "jest-fetch-mock": "^3.0.3",
-    "postcss-scss": "^4.0.9",
-    "cssnano": "^5.1.15",
     "postcss-import": "^12.0.1",
+    "postcss-scss": "^4.0.9",
     "prettier": "3.2.2",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
@@ -141,7 +140,7 @@
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
     "graphql": "^16.8.1",
-    "hds-core": "5.0.0",
+    "hds-core": "6.0.0",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash": "^4.18.1",
