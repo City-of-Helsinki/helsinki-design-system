@@ -211,6 +211,8 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       ],
       fallback: {
         crypto: require.resolve('crypto-browserify'),
+        // html-validate/dist/cjs/browser.js expects Node's `path` (Webpack 5 does not polyfill core modules).
+        path: require.resolve('path-browserify'),
       },
     },
     ignoreWarnings: [

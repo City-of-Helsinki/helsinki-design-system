@@ -42,7 +42,7 @@ Read more [here](DEVELOPMENT.md).
 
 ## Supported browsers
 
-Helsinki Design System uses the react-scripts library's default browserslist config to target a broad range of browsers.
+Babel (`@babel/preset-env`) is configured with broad browser targets to support a wide range of browsers.
 This means that the following browsers are supported:
 
 - Chrome
@@ -57,9 +57,9 @@ This means that the following browsers are supported:
 - Safari
 - Safari iOS
 
-The supported browser versions are listed in [browserslists test page](https://browsersl.ist/#q=%3E+0.2%25%2C+not+dead%2C+not+op_mini+all&region=FI)
+Resolved versions for this package’s Babel targets (`>1%, not dead, not ie 11, not op_mini all`) are shown on [browsersl.ist](https://browsersl.ist/#q=%3E1%25%2C%20not%20dead%2C%20not%20ie%2011%2C%20not%20op_mini%20all&region=FI) (Finland region).
 
 More info about browser support:
 
-- [Create React App - Configuring Supported Browsers](https://create-react-app.dev/docs/supported-browsers-features/#configuring-supported-browsers)
+- [Browserslist](https://github.com/browserslist/browserslist)
 - [HDS documentation general FAQ - What browser and browser versions are supported?](https://hds.hel.fi/getting-started/faq#general)
