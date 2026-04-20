@@ -1,4 +1,6 @@
 import './search-input.css';
+import '../../icons/icon.css';
+import '../../icons/search.css';
 
 export default {
   title: 'Components/Search input',

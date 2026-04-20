@@ -1,10 +1,10 @@
 @charset "utf-8";
+@use "~hds-design-tokens/lib/all.scss" as *;
+@use 'utils' as *;
 @import '~hds-core/lib/base.min.css';
 @import '~hds-core/lib/components/all.min.css';
 @import '~hds-core/lib/icons/icon.min.css';
 @import '~hds-core/lib/icons/icons.min.css';
-@import '~hds-design-tokens/lib/all.scss';
-@import 'utils.scss';
 
 /* Import HelsinkiGroteskPro fonts */
 @import '~hds-core/lib/fonts/fonts.css';

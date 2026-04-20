@@ -43,7 +43,7 @@ export default function mockWindowLocation(): MockedWindowLocationActions {
   return {
     restore: () => {
       if (oldWindowLocation) {
-        globalWin.location = oldWindowLocation;
+        (globalWin as unknown as Record<string, unknown>).location = oldWindowLocation;
       }
       oldWindowLocation = undefined;
     },

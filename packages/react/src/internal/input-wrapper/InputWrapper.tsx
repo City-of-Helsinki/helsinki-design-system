@@ -3,9 +3,9 @@ import React, { FocusEvent } from 'react';
 import styles from '../../components/textInput/TextInput.module.css';
 import classNames from '../../utils/classNames';
 import { FieldLabel, FieldLabelProps } from '../field-label/FieldLabel';
-import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
+import { AllElementPropsWithRef } from '../../utils/elementTypings';
 
-export type InputWrapperProps = AllElementPropsWithoutRef<'div'> &
+export type InputWrapperProps = Omit<AllElementPropsWithRef<'div'>, 'ref'> &
   Pick<FieldLabelProps, 'tooltip'> & {
     /**
      * Additional children to render after the input.
@@ -61,69 +61,65 @@ export type InputWrapperProps = AllElementPropsWithoutRef<'div'> &
     ref?: React.Ref<HTMLDivElement>;
   };
 
-export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
-  (
-    {
-      children,
-      className = '',
-      errorText,
-      helperText,
-      hideLabel = false,
-      id,
-      invalid = false,
-      isAriaLabelledBy = false,
-      label,
-      labelId,
-      onBlur,
-      required = false,
-      style,
-      successText,
-      infoText,
-      tooltip,
-      ...rest
-    }: InputWrapperProps,
-    ref?: React.Ref<HTMLDivElement>,
-  ) => {
-    const inputWrapperProps = {
-      className: classNames(styles.root, invalid && styles.invalid, successText && styles.success, className),
-      onBlur,
-      style,
-    };
-    return (
-      <div {...inputWrapperProps} {...rest} ref={ref}>
-        {label && (
-          <FieldLabel
-            id={labelId}
-            inputId={id}
-            isAriaLabelledBy={isAriaLabelledBy}
-            hidden={hideLabel}
-            label={label}
-            required={required}
-            tooltip={tooltip}
-          />
-        )}
-        <div className={classNames(styles.inputWrapper)}>{children}</div>
-        {errorText && (
-          <div className={styles.errorText} id={`${id}-error`}>
-            {errorText}
-          </div>
-        )}
-        {successText && (
-          <div className={styles.successText} id={`${id}-success`}>
-            {successText}
-          </div>
-        )}
-        {infoText && (
-          <div className={styles.infoText} id={`${id}-info`}>
-            {infoText}
-          </div>
-        )}
-        {helperText && (
-          <div className={styles.helperText} id={`${id}-helper`}>
-            {helperText}
-          </div>
-        )}
-      </div>
-    );
-  },
-);
+export const InputWrapper = ({
+  children,
+  className = '',
+  errorText,
+  helperText,
+  hideLabel = false,
+  id,
+  invalid = false,
+  isAriaLabelledBy = false,
+  label,
+  labelId,
+  onBlur,
+  required = false,
+  style,
+  successText,
+  infoText,
+  tooltip,
+  ref,
+  ...rest
+}: InputWrapperProps) => {
+  const inputWrapperProps = {
+    className: classNames(styles.root, invalid && styles.invalid, successText && styles.success, className),
+    onBlur,
+    style,
+  };
+  return (
+    <div {...inputWrapperProps} {...rest} ref={ref}>
+      {label && (
+        <FieldLabel
+          id={labelId}
+          inputId={id}
+          isAriaLabelledBy={isAriaLabelledBy}
+          hidden={hideLabel}
+          label={label}
+          required={required}
+          tooltip={tooltip}
+        />
+      )}
+      <div className={classNames(styles.inputWrapper)}>{children}</div>
+      {errorText && (
+        <div className={styles.errorText} id={`${id}-error`}>
+          {errorText}
+        </div>
+      )}
+      {successText && (
+        <div className={styles.successText} id={`${id}-success`}>
+          {successText}
+        </div>
+      )}
+      {infoText && (
+        <div className={styles.infoText} id={`${id}-info`}>
+          {infoText}
+        </div>
+      )}
+      {helperText && (
+        <div className={styles.helperText} id={`${id}-helper`}>
+          {helperText}
+        </div>
+      )}
+    </div>
+  );
+};

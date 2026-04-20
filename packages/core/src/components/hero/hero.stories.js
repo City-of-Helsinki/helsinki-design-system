@@ -1,5 +1,7 @@
 import './hero.css';
+import '../button/button.scss';
 import '../../icons/icon.css';
+import '../../icons/arrow-down.css';
 
 export default {
   title: 'Components/Hero',

@@ -1,11 +1,12 @@
-import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
+import { initTests, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
 import { SelectProps } from '../types';
 import { ErrorNotification } from './Error';
 
 jest.mock('./Container', () => {
   return {
     __esModule: true,
-    Container: () => mockedContainer(),
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+    Container: () => require('../testUtil').mockedContainer(),
   };
 });
 

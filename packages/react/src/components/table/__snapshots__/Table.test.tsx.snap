@@ -91,7 +91,6 @@ exports[`<Table /> spec renders the component 1`] = `
                 class="input"
                 id="table-id-checkbox-1000"
                 type="checkbox"
-                value=""
               />
               <label
                 class="label noLabel"
@@ -136,7 +135,6 @@ exports[`<Table /> spec renders the component 1`] = `
                 class="input"
                 id="table-id-checkbox-1001"
                 type="checkbox"
-                value=""
               />
               <label
                 class="label noLabel"
@@ -181,7 +179,6 @@ exports[`<Table /> spec renders the component 1`] = `
                 class="input"
                 id="table-id-checkbox-1002"
                 type="checkbox"
-                value=""
               />
               <label
                 class="label noLabel"
@@ -226,7 +223,6 @@ exports[`<Table /> spec renders the component 1`] = `
                 class="input"
                 id="table-id-checkbox-1003"
                 type="checkbox"
-                value=""
               />
               <label
                 class="label noLabel"
@@ -271,7 +267,6 @@ exports[`<Table /> spec renders the component 1`] = `
                 class="input"
                 id="table-id-checkbox-1004"
                 type="checkbox"
-                value=""
               />
               <label
                 class="label noLabel"

@@ -6,10 +6,10 @@ import { InputWrapper, InputWrapperProps } from '../../internal/input-wrapper/In
 import classNames from '../../utils/classNames';
 import composeAriaDescribedBy from '../../utils/composeAriaDescribedBy';
 import { IconCrossCircle } from '../../icons';
-import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
+import { AllElementPropsWithRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
 export type TextInputProps = MergeAndOverrideProps<
-  AllElementPropsWithoutRef<'input'> & InputWrapperProps,
+  AllElementPropsWithRef<'input'> & InputWrapperProps,
   {
     /**
      * The aria-label for the clear button.
@@ -71,152 +71,148 @@ export type TextInputProps = MergeAndOverrideProps<
   }
 >;
 
-export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
-  (
-    {
-      buttonAriaLabel,
-      buttonAriaControlsId,
-      buttonAriaExpanded,
-      buttonIcon,
-      children,
-      className = '',
-      clearButtonAriaLabel = 'Clear',
-      clearButton = false,
-      defaultValue,
-      disabled = false,
-      errorText,
-      helperText,
-      hideLabel,
-      id,
-      infoText,
-      invalid,
-      label,
-      labelId,
-      onButtonClick,
-      onChange = () => null,
-      required,
-      style,
-      successText,
-      tooltip,
-      type = 'text',
-      ...rest
-    }: TextInputProps,
-    ref?: React.Ref<HTMLInputElement>,
-  ) => {
-    const wrapperProps = {
-      className,
-      errorText,
-      helperText,
-      hideLabel,
-      id,
-      infoText,
-      invalid,
-      label,
-      labelId,
-      required,
-      style,
-      successText,
-      tooltip,
-    };
+export const TextInput = ({
+  buttonAriaLabel,
+  buttonAriaControlsId,
+  buttonAriaExpanded,
+  buttonIcon,
+  children,
+  className = '',
+  clearButtonAriaLabel = 'Clear',
+  clearButton = false,
+  defaultValue,
+  disabled = false,
+  errorText,
+  helperText,
+  hideLabel,
+  id,
+  infoText,
+  invalid,
+  label,
+  labelId,
+  onButtonClick,
+  onChange = () => null,
+  required,
+  style,
+  successText,
+  tooltip,
+  type = 'text',
+  ref,
+  ...rest
+}: TextInputProps) => {
+  const wrapperProps = {
+    className,
+    errorText,
+    helperText,
+    hideLabel,
+    id,
+    infoText,
+    invalid,
+    label,
+    labelId,
+    required,
+    style,
+    successText,
+    tooltip,
+  };
 
-    const innerWrapperRef = React.useRef<HTMLDivElement>(null);
+  const innerWrapperRef = React.useRef<HTMLDivElement>(null);
 
-    // Compose aria-describedby attribute
-    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
-    const hasButton = Boolean(buttonIcon && onButtonClick);
-    const hasClearButton = Boolean(clearButton || type === 'search');
+  // Compose aria-describedby attribute
+  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  const hasButton = Boolean(buttonIcon && onButtonClick);
+  const hasClearButton = Boolean(clearButton || type === 'search');
 
-    const innerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-      onChange(e);
-      if (!hasClearButton) return;
-      const inputElement = e.target;
-      const innerValue = inputElement.value;
-      if (hasClearButton && innerValue.length > 0) {
-        innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
-      } else {
-        innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
-      }
-    };
+  const innerOnChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    onChange(e);
+    if (!hasClearButton) return;
+    const inputElement = e.target;
+    const innerValue = inputElement.value;
+    if (hasClearButton && innerValue.length > 0) {
+      innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
+    } else {
+      innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
+    }
+  };
 
-    const onClearButtonClick = (e: SyntheticEvent) => {
-      const input = innerWrapperRef.current.querySelector('input') as HTMLInputElement;
-      input.value = '';
-      input.focus();
-      innerOnChange(e as React.ChangeEvent<HTMLInputElement>);
-    };
+  const onClearButtonClick = (e: SyntheticEvent) => {
+    const input = innerWrapperRef.current.querySelector('input') as HTMLInputElement;
+    input.value = '';
+    input.focus();
+    innerOnChange(e as React.ChangeEvent<HTMLInputElement>);
+  };
 
-    // Update clear button visibility when value prop changes (controlled component)
-    React.useEffect(() => {
-      if (!hasClearButton || !innerWrapperRef.current) return;
+  // Update clear button visibility when value prop changes (controlled component)
+  React.useEffect(() => {
+    if (!hasClearButton || !innerWrapperRef.current) return;
 
-      const currentValue = rest.value || '';
-      if (currentValue.length > 0) {
-        innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
-      } else {
-        innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
-      }
-    }, [rest.value, hasClearButton]);
+    const currentValue = rest.value || '';
+    if (currentValue.length > 0) {
+      innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
+    } else {
+      innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
+    }
+  }, [rest.value, hasClearButton]);
 
-    // Update clear button visibility on mount when defaultValue is used (uncontrolled component)
-    React.useEffect(() => {
-      if (!hasClearButton || !innerWrapperRef.current) return;
+  // Update clear button visibility on mount when defaultValue is used (uncontrolled component)
+  React.useEffect(() => {
+    if (!hasClearButton || !innerWrapperRef.current) return;
 
-      const input = innerWrapperRef.current.querySelector('input') as HTMLInputElement;
-      if (input && input.value.length > 0) {
-        innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
-      } else {
-        innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
-      }
-    }, [hasClearButton]);
+    const input = innerWrapperRef.current.querySelector('input') as HTMLInputElement;
+    if (input && input.value.length > 0) {
+      innerWrapperRef.current.setAttribute('data-hds-textinput-filled', 'true');
+    } else {
+      innerWrapperRef.current.removeAttribute('data-hds-textinput-filled');
+    }
+  }, [hasClearButton]);
 
-    return (
-      <InputWrapper {...wrapperProps} ref={innerWrapperRef}>
-        <input
-          aria-describedby={ariaDescribedBy}
-          className={classNames(styles.input, hasButton && styles.hasButton, hasClearButton && styles.hasClearButton)}
-          defaultValue={defaultValue}
-          disabled={disabled}
-          id={id}
-          onChange={innerOnChange}
-          ref={ref}
-          required={required}
-          type={type}
-          {...rest}
-        />
-        {(hasButton || hasClearButton) && (
-          <div className={styles.buttonWrapper}>
-            {hasClearButton && (
-              <button
-                aria-label={clearButtonAriaLabel}
-                className={classNames(styles.button, styles.clearButton)}
-                disabled={disabled}
-                onClick={onClearButtonClick}
-                type="button"
-              >
-                <IconCrossCircle />
-              </button>
-            )}
-            {buttonIcon && onButtonClick && (
-              <button
-                aria-label={buttonAriaLabel}
-                className={styles.button}
-                disabled={disabled}
-                onClick={onButtonClick}
-                type="button"
-                {...(buttonAriaControlsId
-                  ? {
-                      'aria-controls': buttonAriaControlsId,
-                      'aria-expanded': buttonAriaExpanded,
-                    }
-                  : {})}
-              >
-                {buttonIcon}
-              </button>
-            )}
-          </div>
-        )}
-        {children}
-      </InputWrapper>
-    );
-  },
-);
+  return (
+    <InputWrapper {...wrapperProps} ref={innerWrapperRef}>
+      <input
+        aria-describedby={ariaDescribedBy}
+        className={classNames(styles.input, hasButton && styles.hasButton, hasClearButton && styles.hasClearButton)}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        id={id}
+        onChange={innerOnChange}
+        ref={ref}
+        required={required}
+        type={type}
+        {...rest}
+      />
+      {(hasButton || hasClearButton) && (
+        <div className={styles.buttonWrapper}>
+          {hasClearButton && (
+            <button
+              aria-label={clearButtonAriaLabel}
+              className={classNames(styles.button, styles.clearButton)}
+              disabled={disabled}
+              onClick={onClearButtonClick}
+              type="button"
+            >
+              <IconCrossCircle />
+            </button>
+          )}
+          {buttonIcon && onButtonClick && (
+            <button
+              aria-label={buttonAriaLabel}
+              className={styles.button}
+              disabled={disabled}
+              onClick={onButtonClick}
+              type="button"
+              {...(buttonAriaControlsId
+                ? {
+                    'aria-controls': buttonAriaControlsId,
+                    'aria-expanded': buttonAriaExpanded,
+                  }
+                : {})}
+            >
+              {buttonIcon}
+            </button>
+          )}
+        </div>
+      )}
+      {children}
+    </InputWrapper>
+  );
+};

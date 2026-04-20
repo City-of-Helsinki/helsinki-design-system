@@ -21,7 +21,6 @@ exports[`<TextInput /> spec renders the component 1`] = `
         id="hdsInput"
         placeholder="A placeholder text"
         type="text"
-        value=""
       />
     </div>
     <div
@@ -158,7 +157,6 @@ exports[`<TextInput /> spec renders the component with tooltip 1`] = `
         id="hdsInput"
         placeholder="A placeholder text"
         type="text"
-        value=""
       />
     </div>
     <div

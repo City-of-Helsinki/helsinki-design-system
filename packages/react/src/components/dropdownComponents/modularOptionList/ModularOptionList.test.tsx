@@ -5,7 +5,6 @@ import { ModularOptionList } from './ModularOptionList';
 // eslint-disable-next-line jest/no-mocks-import
 import {
   resetAllMocks,
-  mockUseModularOptionListDataHandlersContents,
   getCurrentMockMetaData,
   getCurrentMockData,
   OptionalModularOptionListData,
@@ -21,7 +20,9 @@ import { isOptionClickEvent } from './events';
 import { IconHome } from '../../../icons';
 
 jest.mock('./hooks/useModularOptionListDataHandlers', () => ({
-  useModularOptionListDataHandlers: () => mockUseModularOptionListDataHandlersContents,
+  useModularOptionListDataHandlers: () =>
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports, jest/no-mocks-import
+    require('./hooks/__mocks__/useModularOptionListDataHandlers').mockUseModularOptionListDataHandlersContents,
 }));
 
 describe('<ModularOptionList />', () => {

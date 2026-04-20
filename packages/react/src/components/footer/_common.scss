@@ -1,6 +1,6 @@
 // COMMON FOOTER STYLES AND UTILS
 @use 'sass:map';
-@import "../../styles/common.scss";
+@use "../../styles/common" as *;
 
 /**
  * footer section divider

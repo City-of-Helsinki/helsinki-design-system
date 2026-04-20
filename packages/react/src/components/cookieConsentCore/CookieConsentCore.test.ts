@@ -45,12 +45,38 @@ describe('cookieConsentCore', () => {
    * @param level Console level, e.g. 'log', 'warn', 'error'
    * @param messageToWait Message to wait for
    */
-  async function waitForConsole(level, messageToWait) {
+  // Real timer functions from Node.js, not affected by Jest's fake timers.
+  // jsdom doesn't expose setImmediate globally, so we get them from the timers module.
+  // eslint-disable-next-line global-require, @typescript-eslint/no-var-requires, @typescript-eslint/no-require-imports
+  const { setImmediate: realSetImmediate } = require('timers');
+
+  async function waitForConsole(level, messageToWait, { realTimers = false } = {}) {
     const consoleLogSpy = jest.spyOn(console, level);
-    await waitFor(() => {
+    if (realTimers) {
+      // With real timers, @testing-library's waitFor polls correctly on its own.
+      await waitFor(() => {
+        expect(consoleLogSpy).toHaveBeenCalledWith(messageToWait);
+      });
+      return;
+    }
+    // Custom loop for fake timers — avoids dom v8's waitFor which uses faked
+    // setTimeout for polling. Calling advanceTimersByTime inside waitFor creates
+    // recursive timer advancement that rapidly burns through the timeout.
+    const maxIterations = 100;
+    for (let i = 0; i < maxIterations; i += 1) {
       jest.advanceTimersByTime(testTimeout);
-      expect(consoleLogSpy).toHaveBeenCalledWith(messageToWait);
-    });
+      // Yield to the event loop so real setImmediate callbacks (e.g. from
+      // fake-indexeddb) can execute between timer advancements.
+      // eslint-disable-next-line no-await-in-loop
+      await new Promise<void>((resolve) => {
+        realSetImmediate(resolve);
+      });
+      if (consoleLogSpy.mock.calls.some((call) => call[0] === messageToWait)) {
+        return;
+      }
+    }
+    // Final assertion for a proper error message on failure
+    expect(consoleLogSpy).toHaveBeenCalledWith(messageToWait);
   }
 
   /**
@@ -1239,7 +1265,9 @@ describe('cookieConsentCore', () => {
     await createIndexedDb('indexedDb_remove');
     // @ts-ignore
     expect((await indexedDB.databases())[0].name).toEqual('indexedDb_remove');
-    await waitForConsole('log', "Cookie consent: IndexedDB database 'indexedDb_remove' deleted successfully.");
+    await waitForConsole('log', "Cookie consent: IndexedDB database 'indexedDb_remove' deleted successfully.", {
+      realTimers: true,
+    });
 
     expect(await indexedDB.databases()).toEqual([]);
   });

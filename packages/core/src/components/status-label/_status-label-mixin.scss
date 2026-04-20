@@ -66,7 +66,7 @@
   }
 
   @if $all or $base {
-    @include BemUtil.block($className, if($override, true, false), $react) {
+    @include BemUtil.block($className, $override != null, $react) {
       @include base;
     }
   }

@@ -50,7 +50,7 @@
 }
 
 .hds-hero--arrow-icon {
-  --icon-size: var(--arrow-icon-size) !important;
+  --icon-size: var(--arrow-icon-size) !important; /* stylelint-disable-line declaration-no-important */
 
   color: var(--arrow-icon-color);
 

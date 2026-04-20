@@ -1,7 +1,7 @@
-import { useEffect, useCallback, useRef, RefObject, useMemo } from 'react';
+import { useEffect, useCallback, useRef, useMemo } from 'react';
 import { debounce } from 'lodash';
 
-type RefListener = (element: HTMLElement | null) => RefObject<HTMLElement | null>;
+type RefListener = (element: HTMLElement | null) => void;
 type ResizeCallback = (entry: ResizeObserverEntry) => void;
 
 /**
@@ -49,7 +49,6 @@ export const useResizeObserver = (callback: ResizeCallback, delay = 200): [RefLi
         // eslint-disable-next-line no-param-reassign
         observedElementRef.current = observedElement;
       }
-      return observedElementRef;
     },
     [removeContentObserver, observedElementRef, addContentObserver],
   );

@@ -42,7 +42,7 @@ export const FooterUtilityGroup = ({ className, children, headingLink, ...rest }
     <div className={classNames(styles.utilityGroup, className)} {...rest}>
       <div className={styles.utilityGroup}>
         {isValidElement(headingLink)
-          ? cloneElement(headingLink as React.ReactElement, {
+          ? cloneElement(headingLink as React.ReactElement<Record<string, unknown>>, {
               variant: FooterVariant.Utility,
             })
           : headingLink}
@@ -51,7 +51,7 @@ export const FooterUtilityGroup = ({ className, children, headingLink, ...rest }
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={childIndex}>
               {isValidElement(child)
-                ? cloneElement(child as React.ReactElement, {
+                ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                     variant: FooterVariant.Utility,
                   })
                 : child}

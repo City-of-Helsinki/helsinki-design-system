@@ -1,4 +1,4 @@
-@import "../../styles/common.scss";
+@use "../../styles/common" as *;
 
 .tag {
   composes: hds-tag from 'hds-core/lib/components/tag/tag.css';

@@ -1,4 +1,4 @@
-@import '../../../../styles/common.scss';
+@use '../../../../styles/common' as *;
 
 .headerLink.headerLink {
   --link-color: var(--color-black-90);

@@ -228,15 +228,18 @@ describe('DataContext hooks', () => {
     };
 
     const executeAndWaitForUpdate = async (executor: () => void) => {
+      const lastUpdateTime = getInstanceRenderTime('context');
       await act(async () => {
-        const lastUpdateTime = getInstanceRenderTime('context');
         executor();
-        await waitFor(() => {
+      });
+      await waitFor(
+        () => {
           if (getInstanceRenderTime('context') === lastUpdateTime) {
             throw new Error('Context not updated');
           }
-        });
-      });
+        },
+        { timeout: 3000 },
+      );
     };
 
     const rerenderAll = async () => {

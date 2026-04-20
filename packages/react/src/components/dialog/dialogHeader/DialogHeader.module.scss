@@ -1,6 +1,6 @@
 @use 'hds-core/lib/scss/helpers' as helpers;
-@import '../../../styles/common.scss';
-@import '../dialog.common.scss';
+@use '../../../styles/common' as *;
+@use '../dialog.common' as *;
 @value medium-up from "../../../styles/breakpoints.scss";
 
 .dialogHeader {

@@ -96,6 +96,8 @@ jobs:
       - name: build storybook for react
         run: yarn build-storybook
         working-directory: ./packages/react
+        env:
+          FONT_URL: ${{ secrets.FONT_URL }}
 
       - name: Store all artifacts
         uses: actions/upload-artifact@v7

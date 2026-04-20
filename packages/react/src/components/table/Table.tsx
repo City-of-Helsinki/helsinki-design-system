@@ -35,7 +35,7 @@ type Header = {
   /**
    * Transform function for the corresponding row data. Use this to render custom content inside the table cell.
    */
-  transform?: ({ args }: any) => string | JSX.Element; // eslint-disable-line @typescript-eslint/no-explicit-any
+  transform?: ({ args }: any) => string | React.JSX.Element; // eslint-disable-line @typescript-eslint/no-explicit-any
 };
 
 export interface TableCustomTheme {

@@ -61,7 +61,7 @@ export type FooterLinkProps<T extends React.ElementType = 'a'> = MergeAndOverrid
 >;
 
 export const FooterLink = <T extends React.ElementType = 'a'>({
-  as: LinkComponent,
+  as: LinkComponent = Link as unknown as T,
   className,
   icon,
   external = false,
@@ -87,8 +87,4 @@ export const FooterLink = <T extends React.ElementType = 'a'>({
       )}
     </Item>
   );
-};
-
-FooterLink.defaultProps = {
-  as: Link,
 };

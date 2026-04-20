@@ -48,7 +48,7 @@ const focusToDialogElement = (position: TabBarrierPosition, dialogElement?: HTML
   }
 };
 
-const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): JSX.Element => {
+const ContentTabBarrier = ({ onFocus }: { onFocus: () => void }): React.JSX.Element => {
   /* eslint-disable-next-line jsx-a11y/no-noninteractive-tabindex */
   return <div {...defaultBarrierProps} onFocus={onFocus} />;
 };
@@ -222,7 +222,7 @@ export const Dialog = ({
     // Omitting onKeyDown on purpose; adding it will break the Dialog with controlled child components
   }, [isOpen, getElementToFocusAfterClose]);
 
-  const renderDialogComponent = (): JSX.Element => (
+  const renderDialogComponent = (): React.JSX.Element => (
     <DialogContext.Provider value={dialogContextProps}>
       <div className={classNames(styles.dialogContainer, customThemeClass)}>
         <ContentTabBarrier onFocus={() => focusToDialogElement(TabBarrierPosition.bottom, dialogRef.current)} />

@@ -1,5 +1,5 @@
 import React from 'react';
-import { ArgsTable, Title } from '@storybook/addon-docs/blocks';
+import { Controls, Title } from '@storybook/blocks';
 
 import { ImageWithCard, ImageWithCardProps } from './ImageWithCard';
 import imageFile from '../../assets/img/placeholder_1920x1080.jpg';
@@ -25,7 +25,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <ArgsTable />
+          <Controls />
         </>
       ),
     },

@@ -19,6 +19,7 @@ export const DialogContent = ({ children, className, ...rest }: DialogContentPro
   return (
     <div
       className={classNames(styles.dialogContent, scrollable && styles.dialogContentScrollable, className)}
+      {...(scrollable && { tabIndex: 0 })}
       {...rest}
     >
       {children}

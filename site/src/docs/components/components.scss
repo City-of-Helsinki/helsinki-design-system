@@ -1,4 +1,4 @@
-@import "~hds-design-tokens/lib/all.scss";
+@use "~hds-design-tokens/lib/all.scss" as *;
 
 .components-storybook-links {
   display: grid;

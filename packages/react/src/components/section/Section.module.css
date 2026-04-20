@@ -6,7 +6,7 @@
   --section-color-plain: var(--color-black-90);
   --section-color-primary: var(--color-white);
   --section-color-secondary: var(--color-black-90);
-  --section-color-tertiary: var(--color-white);
+  --section-color-tertiary: var(--color-black-90);
 
   position: relative;
 }

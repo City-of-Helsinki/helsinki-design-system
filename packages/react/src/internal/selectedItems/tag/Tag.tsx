@@ -1,4 +1,4 @@
-import React, { forwardRef } from 'react';
+import React from 'react';
 
 import '../../../styles/base.module.css';
 import styles from './Tag.module.scss';
@@ -17,6 +17,10 @@ export type TagProps = {
    * The label for the tag
    */
   children: React.ReactNode;
+  /**
+   * The ref is forwarded to the root div element.
+   */
+  ref?: React.Ref<HTMLDivElement>;
   /**
    * Additional class names to apply to the tag
    */
@@ -69,67 +73,63 @@ export type TagProps = {
   theme?: TagCustomTheme;
 };
 
-export const Tag = forwardRef<HTMLDivElement, TagProps>(
-  (
-    {
-      children,
-      className,
-      deleteButtonAriaLabel,
-      deleteButtonProps,
-      id = 'hds-tag', // Default value will be removed in the next major release
-      labelClassName,
-      labelProps,
-      onClick,
-      onDelete,
-      role = 'link',
-      size = 'm',
-      srOnlyLabel,
-      theme,
-      ...rest
-    },
-    ref: React.Ref<HTMLDivElement>,
-  ) => {
-    // custom theme class that is applied to the root element
-    const customThemeClass = useTheme<TagCustomTheme>(styles.tag, theme);
-    const largeClass = styles.large;
-    const containerClassName = classNames(styles.tag, size === 'l' && largeClass, customThemeClass, className);
-    const clickable = typeof onClick === 'function';
-    const deletable = typeof onDelete === 'function';
-    const hideLabelFromScreenReaders = srOnlyLabel || deleteButtonAriaLabel;
+export const Tag = ({
+  children,
+  className,
+  deleteButtonAriaLabel,
+  deleteButtonProps,
+  id = 'hds-tag', // Default value will be removed in the next major release
+  labelClassName,
+  labelProps,
+  onClick,
+  onDelete,
+  role = 'link',
+  size = 'm',
+  srOnlyLabel,
+  theme,
+  ref,
+  ...rest
+}: TagProps) => {
+  // custom theme class that is applied to the root element
+  const customThemeClass = useTheme<TagCustomTheme>(styles.tag, theme);
+  const largeClass = styles.large;
+  const containerClassName = classNames(styles.tag, size === 'l' && largeClass, customThemeClass, className);
+  const clickable = typeof onClick === 'function';
+  const deletable = typeof onDelete === 'function';
+  const hideLabelFromScreenReaders = srOnlyLabel || deleteButtonAriaLabel;
 
-    // handle key down
-    const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
-      if (event.key === 'Enter' || event.key === ' ') onClick(event);
-    };
+  // handle key down
+  const onKeyDown = (event: React.KeyboardEvent<HTMLDivElement>) => {
+    if (event.key === 'Enter' || event.key === ' ') onClick(event);
+  };
 
-    const labelContainerClassName = classNames(styles.label, labelClassName);
+  const labelContainerClassName = classNames(styles.label, labelClassName);
 
-    return (
-      <div
-        id={id}
-        className={containerClassName}
-        ref={ref}
-        {...(clickable && { tabIndex: 0, role, onClick, onKeyDown })}
-        {...rest}
-      >
-        <span id={id && `${id}-label`} className={labelContainerClassName} {...labelProps}>
-          {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
-          <span {...(hideLabelFromScreenReaders ? { 'aria-hidden': true } : {})}>{children}</span>
-        </span>
+  return (
+    <div
+      id={id}
+      className={containerClassName}
+      ref={ref}
+      {...(clickable && { tabIndex: 0, role, onClick, onKeyDown })}
+      {...rest}
+    >
+      <span id={id && `${id}-label`} className={labelContainerClassName} {...labelProps}>
+        {srOnlyLabel && <span className={styles.visuallyHidden}>{srOnlyLabel}</span>}
+        <span {...(hideLabelFromScreenReaders ? { 'aria-hidden': true } : {})}>{children}</span>
+      </span>
 
-        {deletable && (
-          <button
-            {...deleteButtonProps}
-            id={id && `${id}-delete-button`}
-            type="button"
-            className={styles.deleteButton}
-            aria-label={deleteButtonAriaLabel}
-            onClick={onDelete}
-          >
-            <IconCross className={styles.icon} />
-          </button>
-        )}
-      </div>
-    );
-  },
-);
+      {deletable && (
+        <button
+          {...deleteButtonProps}
+          id={id && `${id}-delete-button`}
+          type="button"
+          className={styles.deleteButton}
+          aria-label={deleteButtonAriaLabel}
+          onClick={onDelete}
+        >
+          <IconCross className={styles.icon} />
+        </button>
+      )}
+    </div>
+  );
+};

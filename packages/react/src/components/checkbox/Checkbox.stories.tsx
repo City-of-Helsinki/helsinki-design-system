@@ -1,5 +1,5 @@
 import React, { useReducer, useState } from 'react';
-import { ArgsTable, Stories, Title } from '@storybook/addon-docs/blocks';
+import { Controls, Stories, Title } from '@storybook/blocks';
 
 import { Checkbox, CheckboxProps } from './Checkbox';
 import { Fieldset } from '../fieldset';
@@ -14,7 +14,7 @@ export default {
       page: () => (
         <>
           <Title>Props</Title>
-          <ArgsTable />
+          <Controls />
           <Stories title="Examples" includePrimary />
         </>
       ),

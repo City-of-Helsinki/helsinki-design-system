@@ -300,6 +300,9 @@ module.exports = {
             path.join(__dirname, 'node_modules'),
             path.join(__dirname, '../node_modules'),
           ],
+          // 'legacy-js-api': gatsby-plugin-sass uses the legacy Sass JS API (sass-loader limitation)
+          // 'import': bundled .previous-versions/ archives use @import and can't be migrated
+          silenceDeprecations: ['legacy-js-api', 'import'],
         },
       },
     },

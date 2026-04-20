@@ -45,7 +45,7 @@ const NavigationSection = ({ children, className, logo, universalLinks, ...rest 
               return (
                 // eslint-disable-next-line react/no-array-index-key
                 <li key={index}>
-                  {cloneElement(child as React.ReactElement, {
+                  {cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                     className: styles.universalLink,
                   })}
                 </li>
@@ -60,11 +60,11 @@ const NavigationSection = ({ children, className, logo, universalLinks, ...rest 
 };
 
 type PreviousDropdownLinkProps = {
-  link: React.ReactElement;
+  link: React.ReactElement<Record<string, unknown>>;
   frontPageLabel: string;
   titleHref?: string;
   openFrontPageLinksAriaLabel?: string;
-  onClick?: (link?: React.ReactElement | string) => void;
+  onClick?: (link?: React.ReactElement<Record<string, unknown>> | string) => void;
 };
 const PreviousDropdownLink = ({
   link,
@@ -74,8 +74,9 @@ const PreviousDropdownLink = ({
   openFrontPageLinksAriaLabel,
 }: PreviousDropdownLinkProps) => {
   // When the link is not an object with props, this should point to front page.
-  const previousLabel = link?.props.label || frontPageLabel;
-  const previousAriaLabel = link?.props.openDropdownAriaButtonLabel || openFrontPageLinksAriaLabel;
+  const linkProps = link?.props as { label?: string; openDropdownAriaButtonLabel?: string } | undefined;
+  const previousLabel = linkProps?.label || frontPageLabel;
+  const previousAriaLabel = linkProps?.openDropdownAriaButtonLabel || openFrontPageLinksAriaLabel;
   return (
     <li className={styles.previousListItem}>
       <button
@@ -94,7 +95,7 @@ const PreviousDropdownLink = ({
 };
 
 type ActiveDropdownLinkProps = {
-  link: React.ReactElement;
+  link: React.ReactElement<Record<string, unknown>>;
   frontPageLabel: string;
   titleHref?: string;
   onLinkClick?: MouseEventHandler<HTMLAnchorElement>;
@@ -102,12 +103,13 @@ type ActiveDropdownLinkProps = {
 const ActiveDropdownLink = ({ link, frontPageLabel, titleHref, onLinkClick }: ActiveDropdownLinkProps) => {
   const className = styles.activeMobileLink;
   const activeLink = link ? (
-    cloneElement(link, {
+    cloneElement(link as React.ReactElement<Record<string, unknown>>, {
       className,
       dropdownButtonClassName: styles.hideDropdownButton,
       wrapperClassName: styles.mobileLinkWrapper,
       onClick: (event) => {
-        if (link.props.onClick) link.props.onClick(event);
+        if ((link.props as { onClick?: (e: unknown) => void }).onClick)
+          (link.props as { onClick?: (e: unknown) => void }).onClick(event);
         onLinkClick(event);
       },
     })
@@ -131,20 +133,21 @@ const MenuLinks = ({ links, onDropdownButtonClick, onLinkClick }: MenuLinksProps
     <>
       {links
         .filter((child) => isValidElement(child))
-        .map((child: React.ReactElement, index) => (
+        .map((child: React.ReactElement<Record<string, unknown>>, index) => (
           // eslint-disable-next-line react/no-array-index-key
           <li key={index}>
             <span className={styles.mobileNavigationLink}>
-              {cloneElement(child as React.ReactElement, {
+              {cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                 dropdownLinkClassName: styles.mobileDropdownLink,
                 dropdownClassName: styles.mobileLinkDropdown,
                 wrapperClassName: styles.mobileLinkWrapper,
                 dropdownButtonClassName: styles.mobileLinkDropdownButton,
-                className: classNames(child.props.className, styles.mobileLink),
+                className: classNames((child.props as { className?: string }).className, styles.mobileLink),
                 index,
                 onDropdownButtonClick: () => onDropdownButtonClick(child),
                 onClick: (event) => {
-                  if (child.props.onClick) child.props.onClick(event);
+                  if ((child.props as { onClick?: (e: unknown) => void }).onClick)
+                    (child.props as { onClick?: (e: unknown) => void }).onClick(event);
                   onLinkClick(child);
                 },
               })}
@@ -186,7 +189,7 @@ type HeaderActionBarNavigationMenuProps = {
   /**
    * Logo to use
    */
-  logo: JSX.Element;
+  logo: React.JSX.Element;
   /**
    * Logo properties
    */
@@ -206,7 +209,7 @@ export const HeaderActionBarNavigationMenu = ({
   const universalLinks = hasUniversalContent ? getChildrenAsArray(universalContent) : [];
   const { setMobileMenuOpen } = useSetHeaderContext();
   // State for which link menu is open but not necessarily active. Needed for browsing the menu.
-  const navContainerRef = useRef<HTMLDivElement>();
+  const navContainerRef = useRef<HTMLDivElement>(null);
   const reRender = useForceRender();
 
   const state = useRef<State>({
@@ -335,30 +338,29 @@ export const HeaderActionBarNavigationMenu = ({
     updateMenuLevelsAndRender(modifyMenuLevels({ removeLastIfInActive: true }), true);
   };
 
-  const getLinksOrChildren = (parent: React.ReactElement) => {
-    return parent.props && parent.props.dropdownLinks
-      ? parent.props.dropdownLinks
-      : getChildrenAsArray((parent as unknown as React.PropsWithChildren<unknown>).children);
+  const getLinksOrChildren = (parent: React.ReactElement<Record<string, unknown>>) => {
+    const parentProps = parent.props as { dropdownLinks?: React.ReactNode[]; children?: React.ReactNode };
+    return parentProps.dropdownLinks ? parentProps.dropdownLinks : getChildrenAsArray(parentProps.children);
   };
 
   // Picks given child by MenuInfo.index
-  const findParentElement = (levels: MenuInfo[]): React.ReactElement | undefined => {
-    return levels.reduce((parent: React.ReactElement, current: MenuInfo) => {
+  const findParentElement = (levels: MenuInfo[]): React.ReactElement<Record<string, unknown>> | undefined => {
+    return levels.reduce((parent: React.ReactElement<Record<string, unknown>>, current: MenuInfo) => {
       const { index, root } = current;
       if (root) {
         // Root element contains top level navigation elements - navigationContent which is an array
         // Root element is never selected, only one of its children
-        return { children: navigationContent };
+        return { props: { children: navigationContent } } as unknown as React.ReactElement<Record<string, unknown>>;
       }
       if (!parent) {
         return undefined;
       }
       const source = getLinksOrChildren(parent);
-      return source ? source[index] : undefined;
+      return source ? (source[index] as React.ReactElement<Record<string, unknown>>) : undefined;
     }, undefined);
   };
 
-  const findLinkIndex = (link: React.ReactElement) => {
+  const findLinkIndex = (link: React.ReactElement<Record<string, unknown>>) => {
     const linkParent = findParentElement(getMenuLevels());
     return linkParent ? getLinksOrChildren(linkParent).indexOf(link) : -1;
   };
@@ -414,7 +416,7 @@ export const HeaderActionBarNavigationMenu = ({
     }
   });
 
-  const goDeeper = (link: React.ReactElement) => {
+  const goDeeper = (link: React.ReactElement<Record<string, unknown>>) => {
     if (isAnimating()) {
       return;
     }
@@ -460,8 +462,8 @@ export const HeaderActionBarNavigationMenu = ({
     className,
   }: {
     links: React.ReactNode[];
-    activeLink: React.ReactElement;
-    previousLink?: React.ReactElement;
+    activeLink: React.ReactElement<Record<string, unknown>>;
+    previousLink?: React.ReactElement<Record<string, unknown>>;
     showPreviousLink?: boolean;
     'aria-hidden': boolean;
     className: string;
@@ -519,7 +521,10 @@ export const HeaderActionBarNavigationMenu = ({
     >
       {actionBarItems?.map?.((item: HeaderActionBarItemProps) => {
         if (typeof item === 'object') {
-          return React.cloneElement(item as unknown as React.ReactElement, { fullWidth: true, key: getKey(item) });
+          return React.cloneElement(item as unknown as React.ReactElement<Record<string, unknown>>, {
+            fullWidth: true,
+            key: getKey(item),
+          });
         }
         return null;
       })}

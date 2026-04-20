@@ -1,4 +1,4 @@
-@import "~hds-design-tokens/lib/all.scss";
+@use "~hds-design-tokens/lib/all.scss" as *;
 
 @mixin small-screen {
   @media (max-width: $breakpoint-s) {

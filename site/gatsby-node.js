@@ -133,6 +133,18 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
   }
 
   config.plugins.push(
+    // Redirect bare 'prism-react-renderer' imports from .previous-versions/ to a v1-compat shim.
+    // Those archives use the v1 API (Highlight as default export, defaultProps named export)
+    // which was removed in v2. Only applies when the importing file is inside .previous-versions/.
+    new webpack.NormalModuleReplacementPlugin(
+      /^prism-react-renderer$/,
+      resource => {
+        const normalizedContext = resource.context.split(path.sep).join('/');
+        if (normalizedContext.includes('.previous-versions/')) {
+          resource.request = path.resolve(__dirname, 'src/utils/prism-v1-compat-shim.js');
+        }
+      }
+    ),
     new webpack.NormalModuleReplacementPlugin(
       /(~?hds-core|hds-react)/,
       resource => {
@@ -188,6 +200,9 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       alias: {
         fs$: path.resolve(__dirname, 'src/fs.js'),
         'hds-react': 'hds-react/lib',
+        // prism-react-renderer v2 removed the themes/ subpath exports; .previous-versions/ archives
+        // still import from 'prism-react-renderer/themes/github' — shim redirects to v2 themes API.
+        'prism-react-renderer/themes/github': path.resolve(__dirname, 'src/utils/prism-github-theme-shim.js'),
         stream: false,
       },
       plugins: [
@@ -196,8 +211,19 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       ],
       fallback: {
         crypto: require.resolve('crypto-browserify'),
+        // html-validate/dist/cjs/browser.js expects Node's `path` (Webpack 5 does not polyfill core modules).
+        path: require.resolve('path-browserify'),
       },
     },
+    ignoreWarnings: [
+      // html-validate uses dynamic require() for plugin loading — package internals, unfixable.
+      (w) => /html-validate/.test(w.module?.resource ?? '') || /Critical dependency/.test(w.message ?? ''),
+      // CSS modules (.module.scss): webpack warns "export 'default' was not found" because CSS
+      // modules have no explicit ES default export, but default import interop works at runtime.
+      (w) => /export 'default'.*was not found.*\.module\.scss/.test(w.message ?? ''),
+      // defaultFilter missing from compiled hds-react/lib — needs 'yarn build:react' to fix properly.
+      (w) => /export 'defaultFilter'.*was not found in 'hds-react'/.test(w.message ?? ''),
+    ],
     cache: buildSingleVersion,
     optimization: {
       splitChunks: {

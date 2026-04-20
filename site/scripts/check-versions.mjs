@@ -303,17 +303,18 @@ async function installPackageDependencies(packageDir) {
   
   try {
     console.log(`  Installing dependencies for ${path.basename(packageDir)}...`);
-    
+
     // Use yarn install --production with --modules_folder to install directly to the versioned node_modules path
+    // Pipe output to suppress deprecation/security warnings from old package dependencies
     execSync(`yarn install --production --modules_folder "${nodeModulesPath}"`, {
       cwd: packageDir,
-      stdio: 'inherit',
+      stdio: ['pipe', 'pipe', 'pipe'],
       encoding: 'utf-8'
     });
-    
+
     console.log(`  ✓ Successfully installed dependencies for ${path.basename(packageDir)}`);
   } catch (error) {
-    console.error(`  ✗ Error installing dependencies for ${path.basename(packageDir)}: ${error.message}`);
+    console.error(`  ✗ Error installing dependencies for ${path.basename(packageDir)}: ${error.stderr || error.message}`);
     // Don't throw - allow the process to continue even if dependency installation fails
     // The webpack resolver fallback will handle missing dependencies
   }

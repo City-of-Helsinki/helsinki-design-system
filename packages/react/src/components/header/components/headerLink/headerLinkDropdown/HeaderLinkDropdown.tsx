@@ -150,12 +150,12 @@ export const HeaderLinkDropdown = ({
             // eslint-disable-next-line react/no-array-index-key
             <li key={`link-dropdown-${index}-${childIndex}`}>
               {isValidElement(child)
-                ? cloneElement(child as React.ReactElement, {
+                ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                     index: childIndex,
                     openSubNavIndex,
                     setOpenSubNavIndex,
                     depth,
-                    className: child.props.active
+                    className: (child.props as { active?: boolean }).active
                       ? classNames(styles.dropdownLink, styles.activeLink)
                       : styles.dropdownLink,
                     dropdownButtonClassName,

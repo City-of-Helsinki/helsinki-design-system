@@ -52,7 +52,7 @@ const HeaderDispatchContext = createContext<HeaderDispatchContextType>({
 HeaderContext.displayName = 'HeaderContext';
 HeaderDispatchContext.displayName = 'HeaderDispatchContext';
 
-export const HeaderContextProvider: React.FC<React.ReactNode> = ({ children }) => {
+export const HeaderContextProvider: React.FC<React.PropsWithChildren> = ({ children }) => {
   const isSmallScreen = useMediaQueryLessThan('l');
   const [navigationContent, setNavigationContent] = useState(null);
   const [languageSelectorContent, setLanguageSelectorContent] = useState(null);

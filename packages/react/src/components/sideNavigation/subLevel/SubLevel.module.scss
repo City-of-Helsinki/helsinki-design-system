@@ -1,4 +1,4 @@
-@import "../sideNavigation.common";
+@use "../sideNavigation.common" as *;
 
 .subLevel {
   @extend %level;

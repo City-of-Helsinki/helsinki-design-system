@@ -11,7 +11,7 @@ type HeaderActionBarLogoProps = {
   /**
    * Logo to use
    */
-  logo: JSX.Element;
+  logo: React.JSX.Element;
 };
 
 const HeaderActionBarLogo = ({ logoProps, logo }: HeaderActionBarLogoProps) => {

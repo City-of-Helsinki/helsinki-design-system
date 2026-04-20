@@ -1,10 +1,9 @@
 import fetchMock, { enableFetchMocks, disableFetchMocks } from 'jest-fetch-mock';
-import { waitFor } from '@testing-library/react';
 
 import HttpStatusCode from '../../../utils/httpStatusCode';
 import createHttpPoller, { HttpPoller, HttpPollerProps } from './httpPoller';
 import { createFetchAborter } from './abortFetch';
-import { advanceUntilListenerCalled } from '../testUtils/timerTestUtil';
+import { advanceUntilListenerCalled, advanceUntilCondition } from '../testUtils/timerTestUtil';
 
 type TestResponse = {
   status: HttpStatusCode.OK | HttpStatusCode.FORBIDDEN | -1;
@@ -193,15 +192,13 @@ describe(`httpPoller`, () => {
         pollIntervalInMs: intervalInMs,
       });
       poller.start();
-      await waitFor(async () => {
-        await advanceOneInterval();
+      await advanceUntilCondition(() => {
         expect(fetchMock).toHaveBeenCalledTimes(1);
-      });
+      }, intervalInMs + 1);
       fetchAborter.abort();
-      await waitFor(async () => {
-        await advanceOneInterval();
+      await advanceUntilCondition(() => {
         expect(timeoutListener).toHaveBeenCalledTimes(1);
-      });
+      }, intervalInMs + 1);
       expect(onErrorMockCallback).toHaveBeenCalledTimes(0);
       expect(onSuccessMockCallback).toHaveBeenCalledTimes(0);
     });
@@ -230,10 +227,9 @@ describe(`httpPoller`, () => {
         onErrorStatusWhenAborted,
       });
       poller.start();
-      await waitFor(async () => {
-        await advanceOneInterval();
+      await advanceUntilCondition(() => {
         expect(fetchMock).toHaveBeenCalledTimes(1);
-      });
+      }, intervalInMs + 1);
       fetchAborter.abort();
       await advanceUntilListenerCalled(timeoutListener, intervalInMs + 1);
 

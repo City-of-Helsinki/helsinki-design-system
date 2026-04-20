@@ -64,9 +64,9 @@ export const DatePicker = (providedProps: DayPickerProps) => {
   /**
    * Datepicker container ref
    */
-  const datepickerRef = useRef<HTMLDivElement>();
+  const datepickerRef = useRef<HTMLDivElement>(null);
 
-  const pickerWrapperRef = useRef<HTMLDivElement>();
+  const pickerWrapperRef = useRef<HTMLDivElement>(null);
   /**
    * Current month
    */

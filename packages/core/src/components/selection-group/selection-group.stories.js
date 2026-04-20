@@ -1,8 +1,9 @@
 import './selection-group.css';
+import '../checkbox/checkbox.scss';
+import '../radio-button/radio-button.css';
 import '../../icons/icon.css';
 import '../../icons/share.css';
 import '../../icons/angle-right.css';
-import { useEffect } from '@storybook/client-api';
 
 const getHelperText = (text = 'Assistive text') =>
   `<div class="hds-selection-group__helper-text-gap helper-text">${text}</div>`;
@@ -144,13 +145,7 @@ export const InvalidWithHelperText = () => `
   </fieldset>
 `;
 
-export const WithParent = () => {
-  useEffect(() => {
-    const checkbox = document.querySelector('#checkboxparent');
-    checkbox.indeterminate = true;
-  }, []);
-
-  return `
+export const WithParent = () => `
     <script>
       function preventDefault(event) {
         event.preventDefault();
@@ -202,9 +197,12 @@ export const WithParent = () => {
       </ul>
     </fieldset>
   `;
-};
 
 WithParent.storyName = 'With a parent';
+WithParent.play = () => {
+  const checkbox = document.querySelector('#checkboxparent');
+  if (checkbox) checkbox.indeterminate = true;
+};
 
 export const WithHelperText = () => `
   <fieldset class="hds-selection-group">

@@ -1,4 +1,4 @@
-@import "../../common.scss";
+@use "../../common" as *;
 @value medium-down, large-down from "../../../../styles/breakpoints.scss";
 
 .item {

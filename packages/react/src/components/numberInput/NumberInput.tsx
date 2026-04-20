@@ -64,153 +64,149 @@ function combineLabelAndUnit(label: string, unit: string | undefined): string | 
   return label;
 }
 
-export const NumberInput = React.forwardRef<HTMLInputElement, NumberInputProps>(
-  (
-    {
-      className = '',
-      disabled = false,
-      defaultValue,
-      errorText,
-      helperText,
-      hideLabel,
-      invalid,
-      id,
-      label,
-      max,
-      min,
-      minusStepButtonAriaLabel,
-      onChange = () => null,
-      plusStepButtonAriaLabel,
-      required,
-      step,
-      style,
-      successText,
-      infoText,
-      tooltip,
-      type = 'number',
-      unit,
-      ...rest
-    }: NumberInputProps,
-    ref?: React.Ref<HTMLInputElement>,
-  ) => {
-    const wrapperProps = {
-      className,
-      errorText,
-      helperText,
-      hideLabel,
-      id,
-      invalid,
-      label: combineLabelAndUnit(label, unit),
-      required,
-      style,
-      successText,
-      infoText,
-      tooltip,
-      labelId: step ? `${id}-label` : undefined,
-    };
+export const NumberInput = ({
+  className = '',
+  disabled = false,
+  defaultValue,
+  errorText,
+  helperText,
+  hideLabel,
+  invalid,
+  id,
+  label,
+  max,
+  min,
+  minusStepButtonAriaLabel,
+  onChange = () => null,
+  plusStepButtonAriaLabel,
+  required,
+  step,
+  style,
+  successText,
+  infoText,
+  tooltip,
+  type = 'number',
+  unit,
+  ref,
+  ...rest
+}: NumberInputProps) => {
+  const wrapperProps = {
+    className,
+    errorText,
+    helperText,
+    hideLabel,
+    id,
+    invalid,
+    label: combineLabelAndUnit(label, unit),
+    required,
+    style,
+    successText,
+    infoText,
+    tooltip,
+    labelId: step ? `${id}-label` : undefined,
+  };
 
-    const inputRef = useRef<HTMLInputElement>(null);
-    const [screenReaderValue, setScreenReaderValue] = useState<string>(null);
-    const notifyScreenReaderStepperChangedValue = () => {
-      setScreenReaderValue(String(inputRef.current.value));
-    };
-    useThrottledWheel(inputRef);
+  const inputRef = useRef<HTMLInputElement>(null);
+  const [screenReaderValue, setScreenReaderValue] = useState<string>(null);
+  const notifyScreenReaderStepperChangedValue = () => {
+    setScreenReaderValue(String(inputRef.current.value));
+  };
+  useThrottledWheel(inputRef);
 
-    /**
-     * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on
-     * component user to provide it.
-     */
-    useEffect(() => {
-      if (ref) {
-        mergeRefWithInternalRef(ref, inputRef);
-      }
-    }, [inputRef, ref]);
+  /**
+   * Merge props.ref to the internal ref. This is needed because we need the ref ourself and cannot rely on
+   * component user to provide it.
+   */
+  useEffect(() => {
+    if (ref) {
+      mergeRefWithInternalRef(ref, inputRef);
+    }
+  }, [inputRef, ref]);
 
-    const dispatchNativeOnChangeEvent = (): void => {
-      const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
-      nativeInputValueSetter.call(inputRef.current, inputRef.current.value);
-      const onChangeEvent = new Event('input', { bubbles: true });
-      inputRef.current.dispatchEvent(onChangeEvent);
-    };
+  const dispatchNativeOnChangeEvent = (): void => {
+    const nativeInputValueSetter = Object.getOwnPropertyDescriptor(window.HTMLInputElement.prototype, 'value').set;
+    nativeInputValueSetter.call(inputRef.current, inputRef.current.value);
+    const onChangeEvent = new Event('input', { bubbles: true });
+    inputRef.current.dispatchEvent(onChangeEvent);
+  };
 
-    const onChangeListener = step
-      ? (e: React.ChangeEvent<HTMLInputElement>) => {
-          if (screenReaderValue !== null) {
-            setScreenReaderValue(null);
-          }
-          onChange(e);
+  const onChangeListener = step
+    ? (e: React.ChangeEvent<HTMLInputElement>) => {
+        if (screenReaderValue !== null) {
+          setScreenReaderValue(null);
         }
-      : onChange;
+        onChange(e);
+      }
+    : onChange;
 
-    // Compose aria-describedby attribute
-    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  // Compose aria-describedby attribute
+  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
-    return (
-      <InputWrapper {...wrapperProps}>
-        <div
-          className={styles.numberInputContainer}
-          {...(step && { role: 'group', 'aria-labelledby': wrapperProps.labelId })}
-        >
-          <input
-            className={classNames(textInputStyles.input, step ? styles.numberInputWithSteps : '')}
-            defaultValue={defaultValue}
-            disabled={disabled}
-            id={id}
-            max={max}
-            min={min}
-            step={step}
-            onChange={onChangeListener}
-            ref={inputRef}
-            required={required}
-            type={type}
-            aria-describedby={ariaDescribedBy}
-            {...rest}
-          />
-          {step && (
-            <>
-              <div className={disabled ? styles.minusButtonWrapperWithoutBorder : styles.minusButtonWrapper}>
-                <button
-                  className={styles.button}
-                  disabled={disabled}
-                  type="button"
-                  onClick={(event) => {
-                    // Prevent default to not submit form if we happen to be inside form
-                    event.preventDefault();
-                    inputRef.current.stepDown();
-                    dispatchNativeOnChangeEvent();
-                    notifyScreenReaderStepperChangedValue();
-                  }}
-                  aria-label={minusStepButtonAriaLabel || 'Decrease by one'}
-                >
-                  <IconMinus />
-                </button>
-              </div>
-              <div className={disabled ? styles.plusButtonWrapperWithoutBorder : styles.plusButtonWrapper}>
-                <button
-                  className={styles.button}
-                  disabled={disabled}
-                  type="button"
-                  onClick={(event) => {
-                    // Prevent default to not submit form if we happen to be inside form
-                    event.preventDefault();
-                    inputRef.current.stepUp();
-                    dispatchNativeOnChangeEvent();
-                    notifyScreenReaderStepperChangedValue();
-                  }}
-                  aria-label={plusStepButtonAriaLabel || 'Increase by one'}
-                >
-                  <IconPlus />
-                </button>
-              </div>
-              {screenReaderValue !== null && (
-                <VisuallyHidden>
-                  <span aria-live="assertive">{screenReaderValue}</span>
-                </VisuallyHidden>
-              )}
-            </>
-          )}
-        </div>
-      </InputWrapper>
-    );
-  },
-);
+  return (
+    <InputWrapper {...wrapperProps}>
+      <div
+        className={styles.numberInputContainer}
+        {...(step && { role: 'group', 'aria-labelledby': wrapperProps.labelId })}
+      >
+        <input
+          className={classNames(textInputStyles.input, step ? styles.numberInputWithSteps : '')}
+          defaultValue={defaultValue}
+          disabled={disabled}
+          id={id}
+          max={max}
+          min={min}
+          step={step}
+          onChange={onChangeListener}
+          ref={inputRef}
+          required={required}
+          type={type}
+          aria-describedby={ariaDescribedBy}
+          {...rest}
+        />
+        {step && (
+          <>
+            <div className={disabled ? styles.minusButtonWrapperWithoutBorder : styles.minusButtonWrapper}>
+              <button
+                className={styles.button}
+                disabled={disabled}
+                type="button"
+                onClick={(event) => {
+                  // Prevent default to not submit form if we happen to be inside form
+                  event.preventDefault();
+                  inputRef.current.stepDown();
+                  dispatchNativeOnChangeEvent();
+                  notifyScreenReaderStepperChangedValue();
+                }}
+                aria-label={minusStepButtonAriaLabel || 'Decrease by one'}
+              >
+                <IconMinus />
+              </button>
+            </div>
+            <div className={disabled ? styles.plusButtonWrapperWithoutBorder : styles.plusButtonWrapper}>
+              <button
+                className={styles.button}
+                disabled={disabled}
+                type="button"
+                onClick={(event) => {
+                  // Prevent default to not submit form if we happen to be inside form
+                  event.preventDefault();
+                  inputRef.current.stepUp();
+                  dispatchNativeOnChangeEvent();
+                  notifyScreenReaderStepperChangedValue();
+                }}
+                aria-label={plusStepButtonAriaLabel || 'Increase by one'}
+              >
+                <IconPlus />
+              </button>
+            </div>
+            {screenReaderValue !== null && (
+              <VisuallyHidden>
+                <span aria-live="assertive">{screenReaderValue}</span>
+              </VisuallyHidden>
+            )}
+          </>
+        )}
+      </div>
+    </InputWrapper>
+  );
+};

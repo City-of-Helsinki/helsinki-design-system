@@ -1,5 +1,10 @@
 import './status-label.scss';
 import './../notification/notification.scss';
+import '../../icons/icon.css';
+import '../../icons/info-circle.css';
+import '../../icons/check-circle.css';
+import '../../icons/alert-circle.css';
+import '../../icons/error.css';
 
 export default {
   title: 'Components/StatusLabel',

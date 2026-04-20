@@ -1,8 +1,11 @@
 import './link.css';
+import '../button/button.scss';
+import '../../icons/icon.css';
 import '../../icons/document.css';
 import '../../icons/phone.css';
 import '../../icons/envelope.css';
 import '../../icons/photo.css';
+import '../../icons/link-external.css';
 
 export default {
   title: 'Components/Link',

@@ -68,7 +68,7 @@ export const NumericStepper = () => {
         payload: { value: e.currentTarget.value, originalEvent: e },
       });
     };
-    return <TextInput id={id} onChange={onChange} value={String(value)} />;
+    return <TextInput id={id} label="Value" onChange={onChange} value={String(value)} />;
   };
 
   const Action = (buttonProps: PropsWithChildren<{ id: string; children: string }>) => {

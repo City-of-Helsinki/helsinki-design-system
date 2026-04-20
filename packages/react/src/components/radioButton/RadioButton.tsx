@@ -3,10 +3,10 @@ import React from 'react';
 import '../../styles/base.module.css';
 import styles from './RadioButton.module.css';
 import classNames from '../../utils/classNames';
-import { AllElementPropsWithoutRef, MergeAndOverrideProps } from '../../utils/elementTypings';
+import { AllElementPropsWithRef, MergeAndOverrideProps } from '../../utils/elementTypings';
 
 export type RadioButtonProps = MergeAndOverrideProps<
-  AllElementPropsWithoutRef<'input'>,
+  AllElementPropsWithRef<'input'>,
   {
     /**
      * Additional class names to apply to the radio button
@@ -35,53 +35,49 @@ export type RadioButtonProps = MergeAndOverrideProps<
   }
 >;
 
-export const RadioButton = React.forwardRef<HTMLInputElement, RadioButtonProps>(
-  (
-    {
-      checked = false,
-      className = '',
-      disabled = false,
-      helperText,
-      id,
-      label,
-      onChange = () => null,
-      style,
-      value,
-      ...rest
-    }: RadioButtonProps,
-    ref: React.Ref<HTMLInputElement>,
-  ) => {
-    if (label && typeof label !== 'string' && typeof label !== 'number') {
-      // eslint-disable-next-line no-console
-      console.warn(
-        'Using ReactElement as a label is against good usability and accessibility practices. Please prefer plain strings.',
-      );
-    }
-
-    return (
-      <div className={classNames(styles.radioButton, className)} style={style}>
-        <input
-          ref={ref}
-          id={id}
-          className={classNames(styles.input)}
-          onChange={onChange}
-          value={value}
-          type="radio"
-          disabled={disabled}
-          checked={checked}
-          aria-describedby={helperText ? `${id}-helper` : null}
-          {...rest}
-        />
-        <label htmlFor={id} className={classNames(styles.label)}>
-          {label}
-        </label>
-        {helperText && (
-          <div className={styles.helperText} id={`${id}-helper`}>
-            {helperText}
-          </div>
-        )}
-      </div>
+export const RadioButton = ({
+  checked = false,
+  className = '',
+  disabled = false,
+  helperText,
+  id,
+  label,
+  onChange = () => null,
+  style,
+  value,
+  ref,
+  ...rest
+}: RadioButtonProps) => {
+  if (label && typeof label !== 'string' && typeof label !== 'number') {
+    // eslint-disable-next-line no-console
+    console.warn(
+      'Using ReactElement as a label is against good usability and accessibility practices. Please prefer plain strings.',
     );
-  },
-);
+  }
+
+  return (
+    <div className={classNames(styles.radioButton, className)} style={style}>
+      <input
+        ref={ref}
+        id={id}
+        className={classNames(styles.input)}
+        onChange={onChange}
+        value={value}
+        type="radio"
+        disabled={disabled}
+        checked={checked}
+        aria-describedby={helperText ? `${id}-helper` : null}
+        {...rest}
+      />
+      <label htmlFor={id} className={classNames(styles.label)}>
+        {label}
+      </label>
+      {helperText && (
+        <div className={styles.helperText} id={`${id}-helper`}>
+          {helperText}
+        </div>
+      )}
+    </div>
+  );
+};
 RadioButton.displayName = 'RadioButton';

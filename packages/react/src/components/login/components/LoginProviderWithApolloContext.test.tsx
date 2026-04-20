@@ -1,7 +1,7 @@
 /* eslint-disable jest/no-mocks-import */
 import React, { useMemo } from 'react';
 import { HttpLink, useLazyQuery } from '@apollo/client';
-import { fireEvent, waitFor } from '@testing-library/react';
+import { fireEvent } from '@testing-library/react';
 import { enableFetchMocks, disableFetchMocks } from 'jest-fetch-mock';
 
 import { useApolloClient, useApolloClientModule } from '../apolloClient/hooks';
@@ -10,6 +10,7 @@ import { LoginProviderWithApolloContext, LoginProviderWithApolloContextProps } f
 import { apolloClientModuleNamespace } from '../apolloClient/index';
 import { USER_QUERY } from '../graphQLModule/__mocks__/mockData';
 import { createControlledFetchMockUtil } from '../testUtils/fetchMockTestUtil';
+import { advanceUntilCondition } from '../testUtils/timerTestUtil';
 import { mockedGraphQLUri } from '../graphQLModule/__mocks__/apolloClient.mock';
 import { createQueryResponse } from '../graphQLModule/__mocks__/mockResponses';
 import { ConnectedModule, Beacon, createTriggerPropsForAllSignals } from '../index.vanilla-js';
@@ -154,12 +155,11 @@ describe(`LoginProviderWithApolloContext`, () => {
         return dataEl.innerHTML;
       };
       fireEvent.click(button);
-      await waitFor(() => {
+      await advanceUntilCondition(() => {
         if (!getData()) {
-          jest.advanceTimersByTime(1000);
           throw new Error('No data');
         }
-      });
+      }, 1000);
       return getData();
     };
 

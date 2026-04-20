@@ -21,9 +21,18 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 }
 
 @function create-level-data($parent, $args...) {
-  $parentDepth: if($parent, map.get($parent, 'depth'), -1);
-  $parentIsContentOnly: if($parent, map.get($parent, 'contentOnly'), false);
-  $depth: if($parentIsContentOnly, $parentDepth, $parentDepth + 1);
+  $parentDepth: -1;
+
+  @if $parent { $parentDepth: map.get($parent, 'depth'); }
+
+  $parentIsContentOnly: false;
+
+  @if $parent { $parentIsContentOnly: map.get($parent, 'contentOnly'); }
+
+  $depth: $parentDepth + 1;
+
+  @if $parentIsContentOnly { $depth: $parentDepth; }
+
   $levelProps: helpers.get-map-data-with-value(helpers.get-arg-map-or-arg-list-as-map($args...));
 
   @if not $levelProps {
@@ -38,7 +47,10 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 
 @function append-level-rules($ruleMap, $config, $level) {
   $parent: map.get($level, 'parent');
-  $parentAllowed: if($parent, map.get($parent, 'isAllowed'), true);
+  $parentAllowed: true;
+
+  @if $parent { $parentAllowed: map.get($parent, 'isAllowed'); }
+
   $isAllowed: $parentAllowed and is-level-allowed-in-rules($ruleMap, $level);
   $contentOnly: $isAllowed and is-level-content-only($level);
   $selector: null;
@@ -110,7 +122,9 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 
 @function get-closest-with-name-or-type($level, $type, $name: null, $startFromLevel: false) {
   $nameRequired: helpers.can-value-be-truthy($name) and $name != true;
-  $parent: if($startFromLevel, $level, get-level-parent($level));
+  $parent: get-level-parent($level);
+
+  @if $startFromLevel { $parent: $level; }
 
   @while $parent {
     @if get-level-type($parent) == $type {
@@ -130,7 +144,9 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
 }
 
 @function get-closest-entity($level, $startFromLevel: true) {
-  $parent: if($startFromLevel, $level, get-level-parent($level));
+  $parent: get-level-parent($level);
+
+  @if $startFromLevel { $parent: $level; }
 
   @while $parent {
     $parentType: get-level-type($parent);
@@ -215,7 +231,9 @@ $EMIT_TARGET_ROOT: 'EMIT_TARGET_ROOT';
     $currentLevel: get-current-level($levels);
     $targetLevel: get-closest-with-name-or-type($currentLevel, $type, $name, $startFromLevel: true);
 
-    @return if($targetLevel, $targetLevel, null);
+    @if $targetLevel { @return $targetLevel; }
+
+    @return null;
   }
 
   @return null;
