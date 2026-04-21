@@ -97,9 +97,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       required,
       style,
       successText,
-      tooltipButtonLabel,
-      tooltipLabel,
-      tooltipText,
       tooltip,
       type = 'text',
       ...rest
@@ -119,9 +116,6 @@ export const TextInput = React.forwardRef<HTMLInputElement, TextInputProps>(
       required,
       style,
       successText,
-      tooltipButtonLabel,
-      tooltipLabel,
-      tooltipText,
       tooltip,
     };
 

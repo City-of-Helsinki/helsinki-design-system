@@ -60,9 +60,6 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
       concealPasswordButtonAriaLabel,
       disabled = false,
@@ -87,9 +84,6 @@ export const PasswordInput = React.forwardRef<HTMLInputElement, PasswordInputPro
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
     };
 

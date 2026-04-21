@@ -22,6 +22,7 @@ Replaced all still existant Loki tests with Playwright and removed Loki altogeth
 #### Breaking
 
 - [Component] What are the breaking changes?
+- [Checkbox][Fieldset][FileInput][NumberInput][PasswordInput][PhoneInput][SelectionGroup][TextInput][TextArea][TimeInput][ToggleButton] Removed deprecated props `tooltipLabel`, `tooltipText` and `tooltopButtonLabel`
 
 #### Added
 

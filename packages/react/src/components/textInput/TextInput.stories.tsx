@@ -86,7 +86,7 @@ export const UsingRef = () => {
 };
 UsingRef.storyName = 'Using ref';
 
-export const Playground = (args: TextInputProps & { tooltipButtonAriaLabelText: string }) => (
+export const Playground = (args: TextInputProps) => (
   <TextInput
     id={args.id}
     label={args.label}
@@ -99,9 +99,6 @@ export const Playground = (args: TextInputProps & { tooltipButtonAriaLabelText: 
     errorText={args.errorText}
     hideLabel={args.hideLabel}
     required={args.required}
-    tooltipLabel={args.tooltipLabel}
-    tooltipText={args.tooltipText}
-    tooltipButtonLabel={args.tooltipButtonAriaLabelText}
   />
 );
 
@@ -125,10 +122,6 @@ Playground.args = {
   invalid: false,
   errorText: undefined,
   hideLabel: false,
-  tooltipAriaLabel: 'Tooltip',
-  tooltipText:
-    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
-  tooltipButtonAriaLabelText: 'Tooltip',
 };
 
 export const SimpleSearchInput = (args: TextInputProps) => {

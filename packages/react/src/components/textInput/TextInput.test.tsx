@@ -5,6 +5,7 @@ import { act } from 'react-dom/test-utils';
 
 import { TextInput, TextInputProps } from './TextInput';
 import { IconSearch } from '../../icons';
+import { Tooltip } from '../tooltip';
 import { getCommonElementTestProps, getElementAttributesMisMatches } from '../../utils/testHelpers';
 
 describe('<TextInput /> spec', () => {
@@ -36,7 +37,7 @@ describe('<TextInput /> spec', () => {
   });
   it('renders the component with tooltip', () => {
     const { asFragment } = render(
-      <TextInput tooltipText="Tooltip text" tooltipLabel="Tooltip label" {...textInputProps} />,
+      <TextInput tooltip={<Tooltip tooltipLabel="Tooltip label">Tooltip text</Tooltip>} {...textInputProps} />,
     );
     expect(asFragment()).toMatchSnapshot();
   });
