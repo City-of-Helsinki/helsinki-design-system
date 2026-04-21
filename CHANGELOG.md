@@ -80,6 +80,7 @@ Changes that are not related to specific components
 - [Foundation] Alert-dark color changed from #d18200->#c27900 
 - Code example syntax highlighting colors to meet WCAG AA contrast requirements
 - Code blocks are now scrollable using keyboard arrow keys
+- Added aria-label for main navigation
 
 ### Figma
 
