@@ -42,7 +42,7 @@
     "storybook": "yarn ts-check-storybook && storybook dev -p 6006 --quiet",
     "build-storybook": "yarn ts-check-storybook && NODE_OPTIONS='--disable-warning=DEP0040' storybook build --loglevel error",
     "test": "jest",
-    "test:coverage": "jest --env=jest-environment-jsdom-sixteen --coverage",
+    "test:coverage": "jest --coverage",
     "prepublishOnly": "cp -r ./lib/. ."
   },
   "devDependencies": {
