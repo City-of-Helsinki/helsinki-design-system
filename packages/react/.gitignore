@@ -3,3 +3,4 @@ storybook-static/
 lib/
 _bundles/
 *.css.d.ts
+coverage/
