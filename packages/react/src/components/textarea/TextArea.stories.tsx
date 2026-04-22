@@ -59,7 +59,7 @@ export const WithTooltip = () => (
 );
 WithTooltip.storyName = 'With tooltip';
 
-export const Playground = (args: TextAreaProps & Record<string, string>) => (
+export const Playground = (args: TextAreaProps) => (
   <TextArea
     id={args.id}
     label={args.label}
@@ -69,9 +69,6 @@ export const Playground = (args: TextAreaProps & Record<string, string>) => (
     invalid={args.invalid}
     hideLabel={args.hideLabel}
     required={args.required}
-    tooltipLabel={args.tooltipLabel}
-    tooltipText={args.tooltipText}
-    tooltipButtonLabel={args.tooltipButtonLabelText}
   />
 );
 

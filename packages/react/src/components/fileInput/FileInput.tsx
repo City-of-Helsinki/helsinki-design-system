@@ -347,9 +347,6 @@ export const FileInput = ({
   style,
   accept,
   multiple,
-  tooltipLabel,
-  tooltipButtonLabel,
-  tooltipText,
   tooltip,
   ...restWrapperProps
 }: FileInputProps) => {
@@ -388,9 +385,6 @@ export const FileInput = ({
     label,
     required,
     style,
-    tooltipLabel,
-    tooltipButtonLabel,
-    tooltipText,
     tooltip,
   };
 

@@ -26,9 +26,6 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
       type = 'tel',
       ...rest
@@ -46,9 +43,6 @@ export const PhoneInput = React.forwardRef<HTMLInputElement, PhoneInputProps>(
       required,
       style,
       successText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
     };
 

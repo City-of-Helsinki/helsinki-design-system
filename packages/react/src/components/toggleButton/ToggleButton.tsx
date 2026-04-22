@@ -38,21 +38,6 @@ export type ToggleButtonProps = AllElementPropsWithoutRef<'button'> & {
    */
   onChange: (boolean) => void;
   /**
-   * Aria-label text for the tooltip
-   * @deprecated Use `tooltip` prop with a Tooltip component instead
-   */
-  tooltipLabel?: string;
-  /**
-   * Aria-label text for the tooltip trigger button
-   * @deprecated Use `tooltip` prop with a Tooltip component instead
-   */
-  tooltipButtonLabel?: string;
-  /**
-   * The text content of the tooltip
-   * @deprecated Use `tooltip` prop with a Tooltip component instead
-   */
-  tooltipText?: string;
-  /**
    * Tooltip
    */
   tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
@@ -74,9 +59,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
       checked,
       disabled,
       onChange,
-      tooltipLabel,
-      tooltipButtonLabel,
-      tooltipText,
       tooltip,
       variant = 'default',
       theme,
@@ -101,15 +83,6 @@ export const ToggleButton = React.forwardRef<HTMLButtonElement, ToggleButtonProp
             {label}
           </label>
           {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
-          {tooltipText && (
-            <Tooltip
-              buttonClassName={styles.tooltipButton}
-              tooltipLabel={tooltipLabel}
-              buttonLabel={tooltipButtonLabel}
-            >
-              {tooltipText}
-            </Tooltip>
-          )}
         </div>
         <button
           {...rest}

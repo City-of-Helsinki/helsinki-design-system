@@ -6,7 +6,7 @@ import { FieldLabel, FieldLabelProps } from '../field-label/FieldLabel';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
 export type InputWrapperProps = AllElementPropsWithoutRef<'div'> &
-  Pick<FieldLabelProps, 'tooltipLabel' | 'tooltipButtonLabel' | 'tooltipText' | 'tooltip'> & {
+  Pick<FieldLabelProps, 'tooltip'> & {
     /**
      * Additional children to render after the input.
      */
@@ -79,9 +79,6 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
       ...rest
     }: InputWrapperProps,
@@ -102,9 +99,6 @@ export const InputWrapper = React.forwardRef<HTMLDivElement, InputWrapperProps>(
             hidden={hideLabel}
             label={label}
             required={required}
-            tooltipLabel={tooltipLabel}
-            tooltipButtonLabel={tooltipButtonLabel}
-            tooltipText={tooltipText}
             tooltip={tooltip}
           />
         )}
