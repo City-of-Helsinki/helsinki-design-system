@@ -274,7 +274,7 @@ const Layout = ({ location, children, pageContext }) => {
               ))}
             </Header.ActionBarItem>
           </Header.ActionBar>
-          <Header.NavigationMenu>
+          <Header.NavigationMenu aria-label="Main">
             {uiMenuLinks.map(({ name, link, uiId }) => (
               <Header.Link
                 active={hrefWithVersion(currentMenuItem?.link || '', version) === hrefWithVersion(link, version)}
