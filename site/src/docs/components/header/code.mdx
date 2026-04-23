@@ -290,6 +290,14 @@ import { Header, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react
     setI18n(translations[lang]);
   }, [lang]);
 
+  const searchTexts = React.useMemo(() => ({
+    heading: `Hae palvelusta: ${I18n.headerTitle}`,
+    label: I18n.headerSearch,
+    buttonLabel: I18n.headerSearch,
+    closeLabel: I18n.close,
+    placeholder: 'Anna teksti hakua varten',
+  }), [I18n]);
+
   return (
     <>
       <Header onDidChangeLanguage={languageChangedStateAction} languages={languages}>
@@ -326,13 +334,7 @@ import { Header, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react
             </Header.ActionBarSubItemGroup>
           </Header.LanguageSelector>
           <Header.Search
-            texts={{
-              heading: `Hae palvelusta: ${I18n.headerTitle}`,
-              label: I18n.headerSearch,
-              buttonLabel: I18n.headerSearch,
-              closeLabel: I18n.close,
-              placeholder: 'Anna teksti hakua varten',
-            }}
+            texts={searchTexts}
             onSubmit={(value) => console.log('Search submitted:', value)}
             onSearch={(searchValue) => {
               return Promise.resolve({
