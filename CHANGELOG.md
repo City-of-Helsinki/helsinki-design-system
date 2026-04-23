@@ -37,6 +37,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
+- [Header] Header Search margins in mobile screen sizes
 
 ### Core
 
