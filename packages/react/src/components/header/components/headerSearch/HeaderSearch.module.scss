@@ -85,6 +85,6 @@
 }
 
 // Increase specificity to override HeaderActionBarItem dropdown styles
-:global([class*="HeaderActionBarItem_dropdown"]) ul > .searchContainer {
-  padding: var(--spacing-2-xl) var(--spacing-m);
+:global([class*="HeaderActionBarItem_dropdown"]) ul .searchContainer {
+  padding: var(--spacing-2-xl) var(--header-margin);
 }
