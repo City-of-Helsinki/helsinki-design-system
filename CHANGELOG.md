@@ -38,6 +38,7 @@ Changes that are not related to specific components
 
 - [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
 - [Header] Header Search margins in mobile screen sizes
+- [Search] Removed accidentally added `multiSelect` -prop, which doesn't have any functionality
 
 ### Core
 

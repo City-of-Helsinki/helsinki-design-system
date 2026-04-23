@@ -150,7 +150,7 @@ const dataUpdater = (
   };
 
   if (didModularOptionListChange) {
-    if (id === eventIds.listItem && !current.multiSelect) {
+    if (id === eventIds.listItem) {
       // Announce option selection for accessibility
       const { lastClickedOption } = dataHandlers.getMetaData();
       if (lastClickedOption && lastClickedOption.label) {
