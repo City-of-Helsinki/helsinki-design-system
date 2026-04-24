@@ -802,13 +802,22 @@ export const WithCustomMenu = (args: HeaderProps) => {
   );
 };
 
+const withSearchServiceTitle = 'Helsingin kaupunki';
+
+const withSearchTexts = {
+  heading: `Hae palvelusta: ${withSearchServiceTitle}`,
+  label: 'Mitä etsit?',
+  buttonLabel: 'Hae',
+  closeLabel: 'Sulje',
+  placeholder: 'Anna teksti hakua varten',
+  assistive: 'Avustava teksti',
+};
+
 export const WithSearch = (args: HeaderProps) => {
   const lang = 'fi';
   const I18n = translations[lang];
   const versions = ['Version 4.0.0', 'Version 3.11.0', 'Version 2.17.1'];
   const selectedVersion = 'Version 3.11.0';
-  const serviceTitle = 'Helsingin kaupunki';
-
   const handleSearch: SearchFunction = useCallback((searchValue /* , lastClickedOption, data */) => {
     if (searchValue === 'error') {
       return Promise.reject(new Error('Simulated error'));
@@ -829,11 +838,11 @@ export const WithSearch = (args: HeaderProps) => {
         <Header.SkipLink skipTo="#content" label={I18n.skipToContent} />
         <Header.ActionBar
           frontPageLabel={I18n.frontPage}
-          title={serviceTitle}
+          title={withSearchServiceTitle}
           titleHref="https://hel.fi"
           logoAriaLabel="Service logo"
           logoHref="https://hel.fi"
-          logo={<Logo src={logoFi} alt="Helsingin kaupunki" />}
+          logo={<Logo src={logoFi} alt={withSearchServiceTitle} />}
           menuButtonAriaLabel="Menu"
           onMenuClick={(e) => e.stopPropagation()}
         >
@@ -842,19 +851,7 @@ export const WithSearch = (args: HeaderProps) => {
               <Header.ActionBarSubItem label={version} selected={version === selectedVersion} href="/" />
             ))}
           </Header.ActionBarItem>
-          <Header.Search
-            texts={{
-              heading: `Hae palvelusta: ${serviceTitle}`,
-              label: 'Mitä etsit?',
-              buttonLabel: 'Hae',
-              closeLabel: 'Sulje',
-              placeholder: 'Anna teksti hakua varten',
-              assistive: 'Avustava teksti',
-            }}
-            onChange={() => {}}
-            onSubmit={() => {}}
-            onSearch={handleSearch}
-          />
+          <Header.Search texts={withSearchTexts} onChange={() => {}} onSubmit={() => {}} onSearch={handleSearch} />
         </Header.ActionBar>
       </Header>
       <div id="content" />

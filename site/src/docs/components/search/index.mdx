@@ -27,6 +27,10 @@ export const handleSearch = (searchValue) => {
   });
 };
 
+export const searchFruitsTexts = { label: 'Search for fruits', language: 'en' };
+export const searchHistoryTexts = { label: 'Search with history', language: 'en' };
+export const simpleSearchTexts = { label: 'Simple search', language: 'en' };
+
 export const SearchExample = () => {
   const [showNotification, setShowNotification] = React.useState(false);
   const [notificationMessage, setNotificationMessage] = React.useState('');
@@ -39,7 +43,7 @@ export const SearchExample = () => {
       )}
       <Search
         id="search-usage-example"
-        texts={{ label: 'Search for fruits', language: 'en' }}
+        texts={searchFruitsTexts}
         onSearch={handleSearch}
         onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
       />
@@ -59,7 +63,7 @@ export const SearchWithSuggestionsExample = () => {
       )}
       <Search
         id="search-with-suggestions"
-        texts={{ label: 'Search for fruits', language: 'en' }}
+        texts={searchFruitsTexts}
         onSearch={(searchValue) => Promise.resolve({ groups: [{ label: '', options: fruits.filter((s) => s.toLowerCase().indexOf(searchValue.toLowerCase()) >= 0).map((s) => ({ label: s, value: s })) }] })}
         onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
       />
@@ -80,7 +84,7 @@ export const SearchWithHistoryExample = () => {
       <Search
         id="search-with-history"
         historyId="docs-search-history"
-        texts={{ label: 'Search with history', language: 'en' }}
+        texts={searchHistoryTexts}
         onSearch={handleSearch}
         onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
       />
@@ -100,7 +104,7 @@ export const SimpleSearchExample = () => {
       )}
       <Search
         id="search-simple"
-        texts={{ label: 'Simple search', language: 'en' }}
+        texts={simpleSearchTexts}
         onSend={(value) => { setNotificationMessage(`Search submitted: "${value}"`); setShowNotification(true); }}
       />
     </>
@@ -128,7 +132,7 @@ export const ExternalButtonExample = () => {
             id="search-external-button"
             hideSubmitButton
             ref={searchRef}
-            texts={{ label: 'Search for fruits', language: 'en' }}
+            texts={searchFruitsTexts}
             onSearch={handleSearch}
             onSend={onSend}
           />
