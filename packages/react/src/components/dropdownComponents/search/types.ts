@@ -34,7 +34,6 @@ export type SearchProps<P = ReactElement<HTMLOptGroupElement | HTMLOptionElement
   icon?: ReactNode;
   id?: string;
   invalid?: boolean;
-  multiSelect?: boolean;
   onBlur?: () => void;
   onClose?: (
     selectedOptions: Option[],
@@ -64,15 +63,7 @@ export type SearchData = ModularOptionListData &
   Required<
     Pick<
       SearchProps,
-      | 'open'
-      | 'required'
-      | 'invalid'
-      | 'onChange'
-      | 'disabled'
-      | 'multiSelect'
-      | 'visibleOptions'
-      | 'virtualize'
-      | 'clearable'
+      'open' | 'required' | 'invalid' | 'onChange' | 'disabled' | 'visibleOptions' | 'virtualize' | 'clearable'
     >
   > & {
     initialOpenValue?: boolean;
