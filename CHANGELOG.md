@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.X.X] - Month, XX, 202X
+## [5.1.0] - April, 27, 2026
 
 ### Testing
 
@@ -21,16 +21,9 @@ Replaced all still existant Loki tests with Playwright and removed Loki altogeth
 
 #### Breaking
 
-- [Component] What are the breaking changes?
 - [Checkbox][Fieldset][FileInput][NumberInput][PasswordInput][PhoneInput][SelectionGroup][TextInput][TextArea][TimeInput][ToggleButton] Removed deprecated props `tooltipLabel`, `tooltipText` and `tooltopButtonLabel`
 
-#### Added
-
-- [Component] What is added?
-
 #### Changed
-
-Changes that are not related to specific components
 
 - [Build] CSS extracted by Rollup is minified with cssnano 5 and PostCSS 8–compatible options instead of the older cssnano path bundled with `rollup-plugin-postcss`, keeping minification working after the security-driven dependency upgrades.
 
@@ -42,17 +35,7 @@ Changes that are not related to specific components
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
-
-Changes that are not related to specific components
 
 - [Build] Upgraded Core CSS build chain for compatibility with patched dependencies: PostCSS 8.4.x, postcss-preset-env 7, and cssnano 5, with minification options aligned to stable output (e.g. disabling SVGO in the cssnano preset where needed). Added a package-level `browserslist` and simplified `postcss-preset-env` usage accordingly.
 
@@ -62,20 +45,12 @@ Changes that are not related to specific components
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
 - [Askem] Reaction buttons added below the content except for the documentation sit frontpage. Needs cookies to be accepted before appearing.
 
 #### Changed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
 - [CookieConsent] Enabled removing unwanted cookies during site usage (concerns only hds documentation sites, no others).
 
 #### Fixed
@@ -85,65 +60,11 @@ Changes that are not related to specific components
 - Code blocks are now scrollable using keyboard arrow keys
 - Added aria-label for main navigation
 
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
-
 ### Hds-js
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
 
-Changes that are not related to specific components
-
 - [Dependencies] Bumped `cookie` and `lodash` to versions aligned with workspace security resolutions.
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [5.0.0] - March, 11, 2026
 
