@@ -46,9 +46,6 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
       ...rest
     }: TextAreaProps,
@@ -66,9 +63,6 @@ export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
     };
 

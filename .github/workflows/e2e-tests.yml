@@ -14,10 +14,10 @@ jobs:
     runs-on: ubuntu-24.04
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-${{ inputs.commit_sha }}
           path: ./packages
@@ -27,7 +27,7 @@ jobs:
         id: nvmrc
 
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
@@ -38,7 +38,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - name: restore yarn cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -47,7 +47,7 @@ jobs:
             yarn-cache-folder-
 
       - name: restore lerna
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: '**/node_modules'
           key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
@@ -71,7 +71,7 @@ jobs:
         working-directory: ./e2e
 
       - name: upload test results in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e_test_report
           path: e2e/report/
@@ -79,7 +79,7 @@ jobs:
         if: failure()
 
       - name: upload screenshot differences in case of failure
-        uses: actions/upload-artifact@v4
+        uses: actions/upload-artifact@v7
         with:
           name: e2e_test_results
           path: e2e/test-results/
@@ -87,7 +87,7 @@ jobs:
 
       - name: Publish Test Results
         uses: EnricoMi/publish-unit-test-result-action@v2
-        if: always()
+        if: always() && github.actor != 'dependabot[bot]'
         with:
           files: |
             e2e/report/**/*.xml

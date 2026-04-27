@@ -18,7 +18,7 @@ Send pull requests to `development` branch. Right now all pull requests are welc
 
 4. When developing for the `hds-react` package: if you’ve added code that should be tested, add tests! HDS tests are usually simple rendering and functionality checks. Avoid excessive amount of mocking for simplicity's sake and testing for implementation details, i.e. don't test whether function `hideComponent` was called but rather that the component is not visible. This way there are no false negatives when the code is refactored by changing the function name for example, or false positives when the function breaks and doesn't hide the component.
 
-Ensure the test suite and regression tests pass. Remember commit the updated snapshot tests and loki reference images. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
+Ensure the test suite and regression tests pass. Remember to commit updated Jest snapshots and Playwright screenshot baselines when those tests change. HDS support includes responsive design so testing on different screen sizes on real devices, simulators, or browser tools is encouraged.
 
 Run snapshot tests:
 ```bash
@@ -30,15 +30,7 @@ Update jest snapshots:
 yarn test -- -u
 ```
 
-Run loki tests:
-```bash
-yarn run visual-test
-```
-
-Update loki tests:
-```bash
-yarn run update-reference-images
-```
+Run Playwright e2e / visual tests (from the [`e2e`](e2e) package after building Storybook static bundles; see [`e2e/README.md`](e2e/README.md)).
 
 5. Lint your code. Tip: Lint runs automatically when you build.
 

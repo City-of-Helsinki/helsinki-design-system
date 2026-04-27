@@ -78,9 +78,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
       type = 'text',
       ...rest
@@ -114,9 +111,6 @@ export const TimeInput = React.forwardRef<HTMLInputElement, TimeInputProps>(
       style,
       successText,
       infoText,
-      tooltipLabel,
-      tooltipText,
-      tooltipButtonLabel,
       tooltip,
     };
 

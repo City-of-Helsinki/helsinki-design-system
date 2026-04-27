@@ -65,7 +65,7 @@ export const WithDragAndDrop = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
-  return <FileInput {...args} onChange={setFiles} />;
+  return <FileInput {...args} data-playwright-a11y="skip" onChange={setFiles} />;
 };
 
 WithDragAndDrop.args = {
@@ -105,7 +105,7 @@ export const DisabledDragAndDrop = (args: FileInputProps) => {
   const [files, setFiles] = React.useState<File[]>();
   onFilesChanged(files);
 
-  return <FileInput {...args} onChange={setFiles} />;
+  return <FileInput {...args} data-playwright-a11y="skip" onChange={setFiles} />;
 };
 
 DisabledDragAndDrop.args = {

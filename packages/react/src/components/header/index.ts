@@ -1,5 +1,5 @@
 export * from './Header';
-export { LanguageOption } from './LanguageContext';
-export { LanguageSelectorProps } from './components/headerLanguageSelector/HeaderLanguageSelector';
-export { SkipLinkTheme } from '../../internal/skipLink';
+export type { LanguageOption } from './LanguageContext';
+export type { LanguageSelectorProps } from './components/headerLanguageSelector/HeaderLanguageSelector';
+export type { SkipLinkTheme } from '../../internal/skipLink';
 export { TitleStyleType } from './components/headerActionBar';

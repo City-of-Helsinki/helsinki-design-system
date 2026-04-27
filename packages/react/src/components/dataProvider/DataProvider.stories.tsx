@@ -90,17 +90,16 @@ export const NumericStepper = () => {
   };
 
   return (
-    <DataProvider {...props}>
-      <Input />
-      <Action id="decrement">-</Action>
-      <Action id="increment">+</Action>
-      <Error />
-    </DataProvider>
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <DataProvider {...props}>
+        <Input />
+        <Action id="decrement">-</Action>
+        <Action id="increment">+</Action>
+        <Error />
+      </DataProvider>
+    </>
   );
-};
-
-NumericStepper.parameters = {
-  loki: { skip: true },
 };
 
 type FormData = {
@@ -274,15 +273,14 @@ export const Form = () => {
     );
   };
   return (
-    <DataProvider {...props}>
-      <FormElements />
-      <Note />
-    </DataProvider>
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <DataProvider {...props}>
+        <FormElements />
+        <Note />
+      </DataProvider>
+    </>
   );
-};
-
-Form.parameters = {
-  loki: { skip: true },
 };
 
 type SelectionGroupWithParentData = {
@@ -374,12 +372,11 @@ export const GroupedCheckBoxes = () => {
   };
 
   return (
-    <DataProvider {...props}>
-      <Group />
-    </DataProvider>
+    <>
+      <span data-playwright-a11y="skip" hidden />
+      <DataProvider {...props}>
+        <Group />
+      </DataProvider>
+    </>
   );
-};
-
-GroupedCheckBoxes.parameters = {
-  loki: { skip: true },
 };

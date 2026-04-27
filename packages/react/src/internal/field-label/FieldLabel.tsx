@@ -11,21 +11,6 @@ export type FieldLabelProps = {
   isAriaLabelledBy?: boolean;
   label: string | React.ReactNode;
   required?: boolean;
-  /**
-   * Aria-label text for the tooltip
-   * @deprecated Use `tooltip` prop instead
-   */
-  tooltipLabel?: string;
-  /**
-   * The text content of the tooltip
-   * @deprecated Use `tooltip` prop instead
-   */
-  tooltipText?: string;
-  /**
-   * Aria-label text for the tooltip trigger button
-   * @deprecated Use `tooltip` prop instead
-   */
-  tooltipButtonLabel?: string;
   tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
 };
 
@@ -36,9 +21,6 @@ export const FieldLabel = ({
   isAriaLabelledBy,
   label,
   required,
-  tooltipLabel,
-  tooltipButtonLabel,
-  tooltipText,
   tooltip,
   ...rest
 }: FieldLabelProps) => (
@@ -53,10 +35,5 @@ export const FieldLabel = ({
       {required && <RequiredIndicator />}
     </label>
     {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
-    {tooltipText && (
-      <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
-        {tooltipText}
-      </Tooltip>
-    )}
   </>
 );

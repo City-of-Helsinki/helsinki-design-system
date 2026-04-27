@@ -5,6 +5,67 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.1.0] - April, 27, 2026
+
+### Testing
+
+Replaced all still existant Loki tests with Playwright and removed Loki altogether.
+
+### Workspace
+
+#### Changed
+
+- [Dependencies] Applied security-related updates at the monorepo level (Yarn resolutions and bumped packages such as axios, json5, form-data, lodash, cookie, and other transitive dependencies with known advisories). Downstream packages adjusted build tooling where newer PostCSS/cssnano stacks or stricter resolution rules required it.
+
+### React
+
+#### Breaking
+
+- [Checkbox][Fieldset][FileInput][NumberInput][PasswordInput][PhoneInput][SelectionGroup][TextInput][TextArea][TimeInput][ToggleButton] Removed deprecated props `tooltipLabel`, `tooltipText` and `tooltopButtonLabel`
+
+#### Changed
+
+- [Build] CSS extracted by Rollup is minified with cssnano 5 and PostCSS 8–compatible options instead of the older cssnano path bundled with `rollup-plugin-postcss`, keeping minification working after the security-driven dependency upgrades.
+
+#### Fixed
+
+- [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
+- [Header] Header Search margins in mobile screen sizes
+- [Search] Removed accidentally added `multiSelect` -prop, which doesn't have any functionality
+
+### Core
+
+#### Changed
+
+- [Build] Upgraded Core CSS build chain for compatibility with patched dependencies: PostCSS 8.4.x, postcss-preset-env 7, and cssnano 5, with minification options aligned to stable output (e.g. disabling SVGO in the cssnano preset where needed). Added a package-level `browserslist` and simplified `postcss-preset-env` usage accordingly.
+
+#### Fixed
+
+- [CookieConsent] Gracefully handle error when sessionStorage or localStorage is inaccessible
+
+### Documentation
+
+#### Added
+
+- [Askem] Reaction buttons added below the content except for the documentation sit frontpage. Needs cookies to be accepted before appearing.
+
+#### Changed
+
+- [CookieConsent] Enabled removing unwanted cookies during site usage (concerns only hds documentation sites, no others).
+
+#### Fixed
+
+- [Foundation] Alert-dark color changed from #d18200->#c27900 
+- Code example syntax highlighting colors to meet WCAG AA contrast requirements
+- Code blocks are now scrollable using keyboard arrow keys
+- Added aria-label for main navigation
+
+### Hds-js
+
+#### Changed
+
+- [Dependencies] Bumped `cookie` and `lodash` to versions aligned with workspace security resolutions.
+
 ## [5.0.0] - March, 11, 2026
 
 ### React
@@ -101,7 +162,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
     -Prototypes
 - [Hero] Added a comparison table with details on where the max-width is applied within the different variants
 - [SearchInput] The SearchInput offers now also a filter variant. The filter variant serves the filter functionality of select and multiselect components.
-- [SearchInput] The input structure includes also an icon on the left side. 
+- [SearchInput] The input structure includes also an icon on the left side.
 - [.ModularOptionList] New component dependency that provides building blocks for SearchInput and Select
 
 #### Changed

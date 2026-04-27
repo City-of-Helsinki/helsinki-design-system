@@ -94,9 +94,12 @@ export const Inline = (args: ToggleButtonProps) => {
         checked={checkedWithTooltip}
         onChange={() => setCheckedWithTooltip(!checkedWithTooltip)}
         variant={args.variant}
-        tooltipText={args.tooltipText}
-        tooltipButtonLabel={args.tooltipButtonLabel}
-        tooltipLabel={args.tooltipLabel}
+        tooltip={
+          <Tooltip tooltipLabel="What are the notifications?" buttonLabel="Open info tooltip">
+            When notifications are allowed, the application can use desktop notifications. But this is not mandatory for
+            application to function.
+          </Tooltip>
+        }
       />
     </>
   );
@@ -104,10 +107,6 @@ export const Inline = (args: ToggleButtonProps) => {
 
 Inline.args = {
   variant: 'inline',
-  tooltipLabel: 'What are the notifications?',
-  tooltipButtonLabel: 'Open info tooltip',
-  tooltipText:
-    'When notifications are allowed, the application can use desktop notifications. But this is not mandatory for application to function.',
 };
 
 WithTooltip.storyName = 'With tooltip';
@@ -172,9 +171,6 @@ export const Playground = (args: ToggleButtonProps) => {
       checked={checked}
       onChange={() => setChecked(!checked)}
       disabled={args.disabled}
-      tooltipLabel={args.tooltipLabel}
-      tooltipButtonLabel={args.tooltipButtonLabel}
-      tooltipText={args.tooltipText}
       variant={args.variant}
     />
   );
@@ -188,15 +184,11 @@ Playground.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: true },
 };
 
 Playground.args = {
   id: 'toggle-button',
   label: 'Toggle button',
-  tooltipLabel: 'Tooltip label',
-  tooltipButtonLabel: 'Tooltip button label',
-  tooltipText: 'Tooltip text',
   variant: 'default',
   disabled: false,
 };

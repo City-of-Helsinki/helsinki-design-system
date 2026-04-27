@@ -1710,4 +1710,70 @@ describe('cookieConsentCore', () => {
       window.removeEventListener(cookieEventType.CHANGE, changeSpy);
     });
   });
+
+  describe('when localStorage and sessionStorage are blocked by the browser (SecurityError)', () => {
+    let localStorageDescriptor: PropertyDescriptor | undefined;
+    let sessionStorageDescriptor: PropertyDescriptor | undefined;
+
+    beforeEach(() => {
+      localStorageDescriptor = Object.getOwnPropertyDescriptor(window, 'localStorage');
+      sessionStorageDescriptor = Object.getOwnPropertyDescriptor(window, 'sessionStorage');
+
+      const throwSecurityError = () => {
+        throw new DOMException('Storage access blocked', 'SecurityError');
+      };
+
+      Object.defineProperty(window, 'localStorage', { get: throwSecurityError, configurable: true });
+      Object.defineProperty(window, 'sessionStorage', { get: throwSecurityError, configurable: true });
+    });
+
+    afterEach(() => {
+      if (localStorageDescriptor) {
+        Object.defineProperty(window, 'localStorage', localStorageDescriptor);
+      }
+      if (sessionStorageDescriptor) {
+        Object.defineProperty(window, 'sessionStorage', sessionStorageDescriptor);
+      }
+    });
+
+    it('should initialize without throwing when storage is blocked', async () => {
+      await expect(CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent)).resolves.toBeDefined();
+    });
+
+    it('should not log errors during monitor intervals when storage is blocked', async () => {
+      const consoleErrorSpy = jest.spyOn(console, 'error');
+
+      instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, optionsEvent);
+      await waitForRoot();
+
+      // Clear calls accumulated from initialization and prior tests
+      consoleErrorSpy.mockClear();
+
+      // Advance through several monitor intervals
+      jest.advanceTimersByTime(testTimeout * 5);
+
+      expect(consoleErrorSpy).not.toHaveBeenCalled();
+    });
+
+    it('should not attempt removal after a failed removeItem when storage is blocked', async () => {
+      const consoleLogSpy = jest.spyOn(console, 'log');
+
+      instance = await CookieConsentCore.create({ ...siteSettingsObj, remove: true }, optionsEvent);
+      await waitForRoot();
+
+      // Clear calls accumulated from initialization and prior tests
+      consoleLogSpy.mockClear();
+
+      jest.advanceTimersByTime(testTimeout * 5);
+
+      // No "will delete" log should appear for localStorage or sessionStorage
+      const deletionLogCalls = consoleLogSpy.mock.calls.filter(
+        ([msg]) =>
+          typeof msg === 'string' &&
+          msg.includes('Cookie consent: will delete') &&
+          (msg.includes('localStorage') || msg.includes('sessionStorage')),
+      );
+      expect(deletionLogCalls).toHaveLength(0);
+    });
+  });
 });

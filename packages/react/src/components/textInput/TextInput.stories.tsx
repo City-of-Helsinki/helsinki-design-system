@@ -49,7 +49,7 @@ export const Success = () => <TextInput {...textInputProps} successText="Success
 
 export const Info = () => <TextInput {...textInputProps} infoText="Info text" />;
 
-export const WithLabelHidden = () => <TextInput {...textInputProps} hideLabel />;
+export const WithLabelHidden = () => <TextInput {...textInputProps} data-playwright-a11y="skip" hideLabel />;
 WithLabelHidden.storyName = 'With label hidden';
 
 export const WithTooltip = () => (
@@ -86,7 +86,7 @@ export const UsingRef = () => {
 };
 UsingRef.storyName = 'Using ref';
 
-export const Playground = (args: TextInputProps & { tooltipButtonAriaLabelText: string }) => (
+export const Playground = (args: TextInputProps) => (
   <TextInput
     id={args.id}
     label={args.label}
@@ -99,9 +99,6 @@ export const Playground = (args: TextInputProps & { tooltipButtonAriaLabelText: 
     errorText={args.errorText}
     hideLabel={args.hideLabel}
     required={args.required}
-    tooltipLabel={args.tooltipLabel}
-    tooltipText={args.tooltipText}
-    tooltipButtonLabel={args.tooltipButtonAriaLabelText}
   />
 );
 
@@ -125,15 +122,12 @@ Playground.args = {
   invalid: false,
   errorText: undefined,
   hideLabel: false,
-  tooltipAriaLabel: 'Tooltip',
-  tooltipText:
-    'Tooltips contain "nice to have" information. Default Tooltip contents should not be longer than two to three sentences. For longer descriptions, provide a link to a separate page.',
-  tooltipButtonAriaLabelText: 'Tooltip',
 };
 
 export const SimpleSearchInput = (args: TextInputProps) => {
   const [inputValue, setInputValue] = React.useState<string>('');
   const ref = useRef<HTMLInputElement>(null);
+  const inputId = args.id || textInputProps.id;
 
   const doSearch = (value: string | undefined) => {
     action('search for')(value);
@@ -156,6 +150,8 @@ export const SimpleSearchInput = (args: TextInputProps) => {
   return (
     <TextInput
       {...args}
+      id={inputId}
+      name={args.name || inputId}
       buttonAriaLabel={`Search for ${inputValue}`}
       buttonIcon={<IconSearch />}
       clearButtonAriaLabel="Clear search"

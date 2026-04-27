@@ -20,7 +20,6 @@ export default {
   title: 'Components/Dialog',
   parameters: {
     controls: { expanded: true },
-    loki: { skip: true },
   },
   args: {
     id: 'example-dialog',
@@ -42,6 +41,7 @@ export const Default = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openButtonRef} onClick={() => setOpen(true)}>
         Open Dialog
       </Button>
@@ -99,7 +99,7 @@ export const Default = (args: DialogProps) => {
   );
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const WithBoxShadow = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openButtonRef = useRef(null);
@@ -110,6 +110,7 @@ export const WithBoxShadow = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openButtonRef} onClick={() => setOpen(true)}>
         Open Dialog
       </Button>
@@ -173,10 +174,9 @@ WithBoxShadow.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const Confirmation = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openConfirmationButtonRef = useRef(null);
@@ -187,6 +187,7 @@ export const Confirmation = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
         Open Confirmation Dialog
       </Button>
@@ -237,10 +238,9 @@ Confirmation.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const Danger = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDangerButtonRef = useRef(null);
@@ -251,6 +251,7 @@ export const Danger = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button variant={ButtonVariant.Danger} ref={openDangerButtonRef} onClick={() => setOpen(true)}>
         Open Danger Dialog
       </Button>
@@ -304,10 +305,9 @@ Danger.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const ScrollableConfirmation = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openScrollableConfirmationButtonRef = useRef(null);
@@ -318,6 +318,7 @@ export const ScrollableConfirmation = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openScrollableConfirmationButtonRef} onClick={() => setOpen(true)}>
         Open Scrollable Confirmation Dialog
       </Button>
@@ -439,10 +440,9 @@ ScrollableConfirmation.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
-// This dialog story is part of Loki's visual regression tests. It is open by default, and it is not part of the Storybooks' docs section.
+// This dialog story is open by default for regression tests. It is not part of the Storybook docs section.
 export const LongButtonLabels = (args: DialogProps) => {
   const dialogTargetElement = document.getElementById('root') as HTMLElement; // Because of the story regression tests, we need to render the dialog into the root element
   const openDialogButtonRef = useRef(null);
@@ -452,6 +452,7 @@ export const LongButtonLabels = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openDialogButtonRef} onClick={() => setOpen(true)}>
         Open dialog
       </Button>
@@ -499,7 +500,6 @@ LongButtonLabels.parameters = {
   docs: {
     disable: true,
   },
-  loki: { skip: false },
 };
 
 // This dialog story is not part of the Storybooks' docs section.
@@ -518,6 +518,7 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openConfirmationButtonRef} onClick={() => setOpen(true)}>
         Open Accept Terms Dialog
       </Button>
@@ -601,10 +602,6 @@ export const ConfirmationWithTerms = (args: DialogProps & { termsId: string }) =
 
 ConfirmationWithTerms.storyName = 'Confirmation dialog with terms dialog';
 
-ConfirmationWithTerms.parameters = {
-  loki: { skip: true },
-};
-
 ConfirmationWithTerms.args = {
   id: 'confirmation-dialog',
   termsId: 'terms-dialog',
@@ -632,6 +629,7 @@ export const WithControlledContent = (args: DialogProps) => {
 
   return (
     <>
+      <span data-playwright-a11y="skip" hidden />
       <Button ref={openButtonRef} onClick={() => setOpen(true)}>
         Open Dialog
       </Button>
@@ -687,6 +685,3 @@ export const WithControlledContent = (args: DialogProps) => {
 };
 
 WithControlledContent.storyName = 'With controlled content';
-WithControlledContent.parameters = {
-  loki: { skip: true },
-};

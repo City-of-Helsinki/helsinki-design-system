@@ -1,4 +1,5 @@
 import { Locator, Page, expect, ElementHandle, TestInfo } from '@playwright/test';
+import { AxeBuilder } from '@axe-core/playwright';
 import { playWrightInitScript } from '../../packages/react/src/utils/playWrightHelpers';
 
 enum PackageServerPort {
@@ -12,7 +13,7 @@ export const getComponentStorybookUrls = async (
   packageName: string,
   nameFilters?: string[],
 ) => {
-  let componentUrls: string[] = [];
+  const stories: { href: string; fullUrl: string }[] = [];
   const localServerPort = packageName === 'core' ? PackageServerPort.Core : PackageServerPort.React;
   const basePath = `http://localhost:${localServerPort}`;
   const localStorybookPath = `${basePath}/index.html?path=/story/`;
@@ -22,22 +23,26 @@ export const getComponentStorybookUrls = async (
   const componentLinks = await page.locator(`[data-parent-id="components-${componentName}"]`).all();
 
   for (const component of componentLinks) {
-    await component.getAttribute('href').then(async (href) => {
-      // don't add anything containing 'playground' to the list
-      if (href && !href.includes('playground')) {
-        // to use the inner iframe of the story instead
-        const url = href.replace('index.html', 'iframe.html');
-        if (nameFilters) {
-          const storyName = await component.textContent();
-          if (!storyName || !nameFilters.includes(storyName)) {
-            return;
-          }
-        }
-        componentUrls.push(`${basePath}${url}`);
+    const href = await component.getAttribute('href');
+    if (!href) continue;
+
+    if (nameFilters) {
+      const storyName = await component.textContent();
+      if (!storyName || !nameFilters.includes(storyName)) {
+        continue;
       }
-    });
+    }
+
+    // to use the inner iframe of the story instead
+    const url = href.replace('index.html', 'iframe.html');
+    stories.push({ href, fullUrl: `${basePath}${url}` });
   }
-  return componentUrls;
+
+  const withoutPlayground = stories
+    .filter((s) => !s.href.includes('playground'))
+    .map((s) => s.fullUrl);
+
+  return withoutPlayground.length > 0 ? withoutPlayground : stories.map((s) => s.fullUrl);
 };
 
 export const unfocusElement = async (page: Page, element: Locator) => {
@@ -102,7 +107,8 @@ export const takeScreenshotWithSpacing = async (
     height: elementBoundingBox.height + 2 * spacing,
   };
 
-  return expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
+  await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
+  await scanAccessibility(page, element);
 };
 
 export const takeAllStorySnapshots = async (props: {
@@ -206,6 +212,41 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
   await page.goto(targetUrl);
   return targetUrl;
 };
+
+export const scanAccessibility = async (page: Page, locator?: Locator) => {
+  const skipA11ySelector = '[data-playwright-a11y="skip"]';
+  if ((await page.locator(skipA11ySelector).count()) > 0) {
+    return;
+  }
+
+  const scanClass = `a11y-scan-${Date.now()}`;
+  const wcagTags = ['wcag2a', 'wcag2aa', 'wcag21a', 'wcag21aa'];
+  const scanTarget = locator?.first();
+
+  if (scanTarget) {
+    await scanTarget.evaluate((el, className) => {
+      el.classList.add(className);
+    }, scanClass);
+  }
+
+  try {
+    const axeBuilder = new AxeBuilder({ page }).withTags(wcagTags);
+    if (scanTarget) {
+      axeBuilder.include(`.${scanClass}`);
+    }
+    const accessibilityScanResults = await axeBuilder.analyze();
+    expect(accessibilityScanResults.violations).toEqual([]);
+  } finally {
+    // Keep DOM clean between scans when targeting a specific locator.
+    if (scanTarget) {
+      await scanTarget.evaluate((el, className) => {
+        el.classList.remove(className);
+      }, scanClass);
+    }
+  }
+};
+
+
 
 export const getLocatorElement = async (locator: Locator): Promise<HTMLElement | SVGElement | null> => {
   const first = locator.first();

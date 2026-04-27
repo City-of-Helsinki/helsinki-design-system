@@ -33,21 +33,6 @@ export type SelectionGroupProps = React.PropsWithChildren<
      */
     required?: boolean;
     /**
-     * Aria-label text for the tooltip
-     * @deprecated Use `tooltip` prop instead
-     */
-    tooltipLabel?: string;
-    /**
-     * Aria-label text for the tooltip trigger button
-     * @deprecated Use `tooltip` prop instead
-     */
-    tooltipButtonLabel?: string;
-    /**
-     * The text content of the tooltip
-     * @deprecated Use `tooltip` prop instead
-     */
-    tooltipText?: string;
-    /**
      * Tooltip
      */
     tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
@@ -69,26 +54,15 @@ const Legend = ({ label, required }: Pick<SelectionGroupProps, 'label' | 'requir
 const LegendAndToolTip = ({
   label,
   required,
-  tooltipText,
-  tooltipLabel,
-  tooltipButtonLabel,
   tooltip,
-}: Pick<
-  SelectionGroupProps,
-  'label' | 'required' | 'tooltipLabel' | 'tooltipButtonLabel' | 'tooltipText' | 'tooltip'
->) => {
-  if (!tooltipText && !tooltip) {
+}: Pick<SelectionGroupProps, 'label' | 'required' | 'tooltip'>) => {
+  if (!tooltip) {
     return <Legend label={label} required={required} />;
   }
   return (
     <div className={styles.legendAndToolTipWrapper}>
       <Legend label={label} required={required} />
-      {tooltip && <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />}
-      {tooltipText ? (
-        <Tooltip buttonClassName={styles.tooltipButton} tooltipLabel={tooltipLabel} buttonLabel={tooltipButtonLabel}>
-          {tooltipText}
-        </Tooltip>
-      ) : null}
+      <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} />
     </div>
   );
 };
@@ -99,9 +73,6 @@ export const SelectionGroup = ({
   errorText,
   helperText,
   required,
-  tooltipLabel,
-  tooltipButtonLabel,
-  tooltipText,
   tooltip,
   children,
   className,
@@ -111,9 +82,6 @@ export const SelectionGroup = ({
   const labelAndToolTipProps = {
     label,
     required,
-    tooltipLabel,
-    tooltipButtonLabel,
-    tooltipText,
     tooltip,
   };
 

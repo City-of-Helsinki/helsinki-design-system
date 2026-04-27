@@ -13,6 +13,8 @@ on:
 
     secrets:
       HDSDEMO_SSH_DEPLOY_KEY:
+        required: false
+      ASKEM_API_KEY:
         required: true
 
 jobs:
@@ -27,10 +29,10 @@ jobs:
 
     steps:
       - name: Checkout code
-        uses: actions/checkout@v4
+        uses: actions/checkout@v6
 
       - name: download all artifacts
-        uses: actions/download-artifact@v4
+        uses: actions/download-artifact@v8
         with:
           name: build-${{ inputs.commit_sha }}
           path: ./packages
@@ -40,7 +42,7 @@ jobs:
         id: nvmrc
   
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
-        uses: actions/setup-node@v4
+        uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
@@ -51,7 +53,7 @@ jobs:
         run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
 
       - name: restore yarn cache
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
         with:
           path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
@@ -60,7 +62,7 @@ jobs:
             yarn-cache-folder-
 
       - name: restore lerna
-        uses: actions/cache@v4
+        uses: actions/cache@v5
         with:
           path: '**/node_modules'
           key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
@@ -77,6 +79,8 @@ jobs:
       - name: build site package
         run: yarn ${{ inputs.build_single_version && 'build-single-version' || 'build' }} --prefix-paths
         working-directory: ./site
+        env:
+          ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
       - name: move core storybook under site
         run: mkdir ./site/public/storybook && mv ./packages/core/storybook-static $_/core
@@ -84,23 +88,47 @@ jobs:
       - name: move react storybook under site
         run: mv ./packages/react/storybook-static ./site/public/storybook/react
 
+      - name: Decide whether to deploy preview to hds-demo
+        id: deploy_gate
+        env:
+          HDSDEMO_SSH_DEPLOY_KEY: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
+        run: |
+          if [ "${GITHUB_ACTOR}" = "dependabot[bot]" ]; then
+            echo "Dependabot run: skipping deploy steps"
+            echo "should_deploy=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          if [ -z "${HDSDEMO_SSH_DEPLOY_KEY}" ]; then
+            echo "HDSDEMO_SSH_DEPLOY_KEY is not available in this workflow run: skipping deploy steps"
+            echo "This commonly happens for Dependabot-triggered workflows (secrets restrictions) or misconfigured secret passing."
+            echo "should_deploy=false" >> "${GITHUB_OUTPUT}"
+            exit 0
+          fi
+
+          echo "should_deploy=true" >> "${GITHUB_OUTPUT}"
+
       # Publish to hds-demo
       - name: Checkout code hds-demo
-        uses: actions/checkout@v4
+        if: steps.deploy_gate.outputs.should_deploy == 'true'
+        uses: actions/checkout@v6
         with:
           repository: City-of-Helsinki/hds-demo
           path: hds-demo
           ssh-key: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
 
       - name: Clean old directory
+        if: steps.deploy_gate.outputs.should_deploy == 'true'
         run: |
           rm -fr ./hds-demo/docs/$DEMO_NAME
           mkdir -p ./hds-demo/docs/$DEMO_NAME
 
       - name: Copy build results
+        if: steps.deploy_gate.outputs.should_deploy == 'true'
         run: cp -r ./site/public/* ./hds-demo/docs/$DEMO_NAME
 
       - name: Commit
+        if: steps.deploy_gate.outputs.should_deploy == 'true'
         run: |
           git config --global user.email "hds@hel.fi"
           git config --global user.name "Github Actions"
@@ -113,8 +141,8 @@ jobs:
         working-directory: ./hds-demo
 
       - name: Preview url to PR comment
-        if: github.event_name == 'pull_request'
-        uses: marocchino/sticky-pull-request-comment@v2
+        if: github.event_name == 'pull_request' && steps.deploy_gate.outputs.should_deploy == 'true'
+        uses: marocchino/sticky-pull-request-comment@v3
         with:
           header: Preview url
           message: |

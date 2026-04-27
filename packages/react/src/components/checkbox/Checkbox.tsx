@@ -40,21 +40,6 @@ export type CheckboxProps = MergeAndOverrideProps<
      */
     style?: React.CSSProperties;
     /**
-     * @deprecated This prop is deprecated and will be removed in a future version.
-     * Tooltip text for the checkbox
-     */
-    tooltipText?: string;
-    /**
-     * @deprecated This prop is deprecated and will be removed in a future version.
-     * Aria-label text for the tooltip
-     */
-    tooltipLabel?: string;
-    /**
-     * @deprecated This prop is deprecated and will be removed in a future version.
-     * Aria-label text for the tooltip trigger button
-     */
-    tooltipButtonLabel?: string;
-    /**
      * Tooltip component
      */
     tooltip?: ReactElement<TooltipProps, typeof Tooltip>;
@@ -75,9 +60,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
       onChange = () => null,
       style,
       value,
-      tooltipText,
-      tooltipLabel,
-      tooltipButtonLabel,
       tooltip,
       ...rest
     }: CheckboxProps,
@@ -121,11 +103,6 @@ export const Checkbox = React.forwardRef<HTMLInputElement, CheckboxProps>(
           {label}
         </label>
         {tooltip ? <Tooltip {...tooltip.props} buttonClassName={styles.tooltipButton} /> : null}
-        {tooltipText && (
-          <Tooltip className={styles.tooltipButton} buttonLabel={tooltipButtonLabel} tooltipLabel={tooltipLabel}>
-            {tooltipText}
-          </Tooltip>
-        )}
         {errorText && (
           <div className={styles.errorText} id={`${id}-error`}>
             {errorText}

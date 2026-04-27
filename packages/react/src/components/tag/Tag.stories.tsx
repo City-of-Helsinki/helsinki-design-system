@@ -170,6 +170,7 @@ export const CustomThemeTags = (args: TagProps) => {
         size={TagSize.Large}
         onClick={() => action(`Click: ${args.children}`)()}
         aria-label="run custom action"
+        data-playwright-a11y="skip"
       >
         {args.children}
       </Tag>

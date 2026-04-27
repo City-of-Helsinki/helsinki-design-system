@@ -59,7 +59,7 @@ export const defaultTexts: Record<SupportedLanguage, Texts> = {
 };
 
 const interpolate = (template: string, contents: TextInterpolationContent) => {
-  return template.replace(/\{{(.*?)}}/g, (match, p1) => {
+  return template.replace(/\{{([^{}]*)}}/g, (match, p1) => {
     const key = p1 ? p1.trim() : '';
     return key ? contents[key] : '';
   });

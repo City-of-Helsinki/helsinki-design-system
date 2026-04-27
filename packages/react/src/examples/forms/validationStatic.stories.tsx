@@ -17,6 +17,7 @@ import {
   TextInput,
   Select,
   Option,
+  Tooltip,
 } from '../../components';
 import './validation.scss';
 
@@ -179,8 +180,12 @@ export const Static = () => {
               errorText={errors.email?.message}
               autoComplete="email"
               required
-              tooltipButtonLabel="Tooltip: Email address"
-              tooltipText="We will send a confirmation to this email address. You may also receive important updates about your parking permit via email."
+              tooltip={
+                <Tooltip buttonLabel="Tooltip: Email address">
+                  We will send a confirmation to this email address. You may also receive important updates about your
+                  parking permit via email.
+                </Tooltip>
+              }
             />
           </div>
           <div className="hds-example-form__grid-6-6">
@@ -305,8 +310,12 @@ export const Static = () => {
                   aria-invalid={!!errors.permitEndDate?.message}
                   errorText={errors.permitEndDate?.message}
                   required
-                  tooltipButtonLabel="Tooltip: Permit end date"
-                  tooltipText="This is the last date you need the permit to be active. The permit will expire at the inputted date at 23:59 o'clock."
+                  tooltip={
+                    <Tooltip buttonLabel="Tooltip: Permit end date">
+                      This is the last date you need the permit to be active. The permit will expire at the inputted
+                      date at 23:59 o&apos;clock.
+                    </Tooltip>
+                  }
                 />
               </div>
             )}
@@ -321,8 +330,12 @@ export const Static = () => {
               name="additionalRequests"
               label="Additional requests"
               placeholder="E.g. Request for a parking space near a specific location"
-              tooltipButtonLabel="Tooltip: Additional requests"
-              tooltipText="Here you may leave extra requests regarding the parking space. For example, you may request space near a specific location. If you have a large vehicle, you may request a larger space."
+              tooltip={
+                <Tooltip buttonLabel="Tooltip: Additional requests">
+                  Here you may leave extra requests regarding the parking space. For example, you may request space near
+                  a specific location. If you have a large vehicle, you may request a larger space.
+                </Tooltip>
+              }
             />
           </div>
         </div>
@@ -353,5 +366,3 @@ export const Static = () => {
     </div>
   );
 };
-
-Static.parameters = { loki: { skip: true } };

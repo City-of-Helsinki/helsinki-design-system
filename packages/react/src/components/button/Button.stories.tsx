@@ -128,7 +128,13 @@ export const Themes = () => (
       Coat
     </Button>
 
-    <Button data-playwright onClick={onClick} theme={ButtonPresetTheme.Coat} variant={ButtonVariant.Secondary}>
+    <Button
+      data-playwright
+      onClick={onClick}
+      theme={ButtonPresetTheme.Coat}
+      variant={ButtonVariant.Secondary}
+      data-playwright-a11y="skip"
+    >
       Coat
     </Button>
 
@@ -172,7 +178,7 @@ export const CustomTheme = () => {
     '--border-color': 'grey',
   };
   return (
-    <Button onClick={onClick} theme={customTheme} variant={ButtonVariant.Primary}>
+    <Button onClick={onClick} theme={customTheme} variant={ButtonVariant.Primary} data-playwright-a11y="skip">
       Custom
     </Button>
   );

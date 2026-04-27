@@ -1,4 +1,10 @@
-## [4.X.X] - Month, XX, 202X
+## [5.X.X] - Month, XX, 202X
+
+### Workspace
+
+#### Changed
+
+- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
 
 ### React
 

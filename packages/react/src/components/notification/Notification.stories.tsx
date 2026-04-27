@@ -151,10 +151,6 @@ export const WithCustomAriaLabel = () => (
   </Notification>
 );
 
-WithCustomAriaLabel.parameters = {
-  loki: { skip: true },
-};
-
 WithCustomAriaLabel.storyName = 'With a custom aria-label';
 
 export const WithCustomHeadingLevel = () => (
@@ -162,10 +158,6 @@ export const WithCustomHeadingLevel = () => (
     {content}
   </Notification>
 );
-
-WithCustomHeadingLevel.parameters = {
-  loki: { skip: true },
-};
 
 WithCustomHeadingLevel.storyName = 'With a custom aria-level';
 
@@ -196,9 +188,6 @@ export const WithInvalidLink = () => (
 );
 
 WithInvalidLink.storyName = 'With invalid link (for testing)';
-WithInvalidLink.parameters = {
-  loki: { skip: true },
-};
 
 export const Playground = (args: NotificationProps & Record<string, string>) => {
   const [open, setOpen] = useState(true);
