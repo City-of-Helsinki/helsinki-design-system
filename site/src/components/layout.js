@@ -339,6 +339,7 @@ const Layout = ({ location, children, pageContext }) => {
               <AskemWidget
                 enabled={showAskem}
                 apiKey={site?.siteMetadata?.askemApiKey}
+                routeKey={locationWithoutVersion}
               />
             </main>
           ) : (
@@ -347,6 +348,7 @@ const Layout = ({ location, children, pageContext }) => {
               <AskemWidget
                 enabled={showAskem}
                 apiKey={site?.siteMetadata?.askemApiKey}
+                routeKey={locationWithoutVersion}
               />
             </main>
           )}
