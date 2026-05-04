@@ -32,6 +32,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+- [Select][Search] Restored public export of the `SupportedLanguage` type (`'fi' | 'sv' | 'en'`) from `hds-react`
 
 ### Core
 
