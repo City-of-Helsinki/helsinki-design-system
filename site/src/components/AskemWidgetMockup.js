@@ -1,13 +1,28 @@
-import React, { useState } from 'react';
+import React, { useEffect, useRef, useState } from 'react';
+import PropTypes from 'prop-types';
 
 import { askemPluginCoreCss, askemPluginThemeCss } from './askemMockPluginStyles/injectedCss';
 
 /**
  * DOM mock of Askem stages. Injects the same CSS the real plugin adds (core + theme), not HDS overrides.
+ * Pass `routeKey` so mock UI resets on SPA navigation (mirrors `window.askem.reset()`).
  */
-const AskemWidgetMockup = () => {
+const AskemWidgetMockup = ({ routeKey }) => {
   const [selectedReaction, setSelectedReaction] = useState(null);
   const [submitted, setSubmitted] = useState(false);
+  const prevRouteKeyRef = useRef(undefined);
+
+  useEffect(() => {
+    if (routeKey === undefined) {
+      return;
+    }
+    const prev = prevRouteKeyRef.current;
+    if (prev !== undefined && prev !== routeKey) {
+      setSelectedReaction(null);
+      setSubmitted(false);
+    }
+    prevRouteKeyRef.current = routeKey;
+  }, [routeKey]);
 
   const showForm = selectedReaction !== null && !submitted;
   const showReactions = selectedReaction === null || submitted;
@@ -135,6 +150,10 @@ const AskemWidgetMockup = () => {
       </div>
     </>
   );
+};
+
+AskemWidgetMockup.propTypes = {
+  routeKey: PropTypes.string,
 };
 
 export default AskemWidgetMockup;
