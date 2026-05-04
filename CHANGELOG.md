@@ -132,6 +132,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
 ## [5.2.0] - May, 7, 2026
 
 ### Workspace
