@@ -68,7 +68,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- Removed outdated references to code examples from accessibility statement
 
 #### Fixed
 
