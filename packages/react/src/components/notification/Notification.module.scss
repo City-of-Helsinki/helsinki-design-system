@@ -92,6 +92,21 @@
   composes: hds-notification--error from 'hds-core/lib/components/notification/notification.css';
 }
 
+.error .body {
+  ul {
+    margin: 0;
+    padding: 0 0 0 var(--spacing-s);
+  }
+
+  li {
+    margin-bottom: 0.125rem;
+  }
+
+  a {
+    color: var(--color-bus);
+  }
+}
+
 .boxShadow {
   composes: hds-notification--box-shadow from 'hds-core/lib/components/notification/notification.css';
 }

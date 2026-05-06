@@ -3,6 +3,7 @@ import React, { useEffect, useRef, useState } from 'react';
 import { Notification, NotificationProps, NotificationSize } from './Notification';
 import { Button } from '../button';
 import { Link } from '../link/Link';
+import { TextInput } from '../textInput';
 
 const props = {
   label: 'Label',
@@ -188,6 +189,96 @@ export const WithInvalidLink = () => (
 );
 
 WithInvalidLink.storyName = 'With invalid link (for testing)';
+
+export const AsErrorSummary = () => (
+  <Notification type="error" label="Form contains following errors" notificationAriaLabel="Error summary">
+    <ul>
+      <li>
+        Error 1: <a href="#first-name">Please enter your first name</a>
+      </li>
+      <li>
+        Error 2: <a href="#last-name">Please enter your last name</a>
+      </li>
+      <li>
+        Error 3: <a href="#email">Please enter a valid email address</a>
+      </li>
+    </ul>
+  </Notification>
+);
+
+AsErrorSummary.storyName = 'As error summary';
+
+type FormFields = { firstName: string; lastName: string; email: string };
+type FormErrors = Partial<Record<keyof FormFields, string>>;
+
+const formFields: Array<{ key: keyof FormFields; id: string; label: string; errorMessage: string }> = [
+  { key: 'firstName', id: 'first-name', label: 'First name', errorMessage: 'Please enter your first name' },
+  { key: 'lastName', id: 'last-name', label: 'Last name', errorMessage: 'Please enter your last name' },
+  { key: 'email', id: 'email', label: 'Email address', errorMessage: 'Please enter a valid email address' },
+];
+
+const validate = (values: FormFields): FormErrors => {
+  const errors: FormErrors = {};
+  if (!values.firstName) errors.firstName = formFields[0].errorMessage;
+  if (!values.lastName) errors.lastName = formFields[1].errorMessage;
+  if (!values.email || !values.email.includes('@')) errors.email = formFields[2].errorMessage;
+  return errors;
+};
+
+export const AsErrorSummaryWithForm = () => {
+  const [values, setValues] = useState<FormFields>({ firstName: '', lastName: '', email: '' });
+  const [errors, setErrors] = useState<FormErrors>({});
+  const [submitCount, setSubmitCount] = useState(0);
+
+  const fieldsWithErrors = formFields.filter((f) => errors[f.key]);
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault();
+    const newErrors = validate(values);
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setSubmitCount((c) => c + 1);
+    }
+  };
+
+  return (
+    <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: '16px' }}>
+      {fieldsWithErrors.length > 0 && (
+        <Notification
+          key={submitCount}
+          type="error"
+          label="Form contains following errors"
+          notificationAriaLabel="Error summary"
+          autofocus
+        >
+          <ul>
+            {fieldsWithErrors.map((f) => (
+              <li key={f.id}>
+                <a href={`#${f.id}`}>{errors[f.key]}</a>
+              </li>
+            ))}
+          </ul>
+        </Notification>
+      )}
+      {formFields.map((f) => (
+        <TextInput
+          key={f.id}
+          id={f.id}
+          label={f.label}
+          value={values[f.key]}
+          onChange={(e) => setValues((v) => ({ ...v, [f.key]: e.target.value }))}
+          invalid={!!errors[f.key]}
+          errorText={errors[f.key]}
+        />
+      ))}
+      <div>
+        <Button type="submit">Submit</Button>
+      </div>
+    </form>
+  );
+};
+
+AsErrorSummaryWithForm.storyName = 'As error summary with form';
 
 export const Playground = (args: NotificationProps & Record<string, string>) => {
   const [open, setOpen] = useState(true);
