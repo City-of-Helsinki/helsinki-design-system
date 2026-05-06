@@ -4,7 +4,7 @@ title: 'Notification'
 navTitle: 'Notification'
 ---
 
-import { Notification, NotificationSize, Button } from 'hds-react';
+import { Notification, NotificationSize, Button, TextInput } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -135,4 +135,89 @@ Invisible notifications do not show up on screen and they are meant to aid scree
   <Notification label="New messages" invisible>
     You have received new messages. This notification is invisible.
   </Notification>
+</PlaygroundPreview>
+
+#### As error summary
+
+The Notification component can be used as an error summary to collect and display all form validation errors in one place. Place it at the top of the form with `type="error"`. Use the `autofocus` prop to move keyboard and screen reader focus directly to the notification label after a failed form submission. Each error in the list should be an anchor link pointing to the corresponding form field, so users can jump straight to the field that needs correcting.
+
+The `key` prop should be tied to a submission counter so that re-submitting an invalid form remounts the notification and re-triggers the focus.
+
+export const ErrorSummaryExample = () => {
+  const [firstName, setFirstName] = React.useState('');
+  const [lastName, setLastName] = React.useState('');
+  const [email, setEmail] = React.useState('');
+  const [errors, setErrors] = React.useState({});
+  const [submitCount, setSubmitCount] = React.useState(0);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    if (!firstName) newErrors.firstName = 'Please enter your first name';
+    if (!lastName) newErrors.lastName = 'Please enter your last name';
+    if (!email || !email.includes('@')) newErrors.email = 'Please enter a valid email address';
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setSubmitCount(c => c + 1);
+    }
+  };
+
+  const errorList = [
+    errors.firstName && { id: 'idx-first-name', message: errors.firstName },
+    errors.lastName && { id: 'idx-last-name', message: errors.lastName },
+    errors.email && { id: 'idx-email', message: errors.email },
+  ].filter(Boolean);
+
+  return (
+    <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-s)' }}>
+      {errorList.length > 0 && (
+        <Notification
+          key={submitCount}
+          type="error"
+          label="Form contains following errors"
+          notificationAriaLabel="Error summary"
+          autofocus
+        >
+          <ul>
+            {errorList.map(err => (
+              <li key={err.id}>
+                <a href={'#' + err.id}>{err.message}</a>
+              </li>
+            ))}
+          </ul>
+        </Notification>
+      )}
+      <TextInput
+        id="idx-first-name"
+        label="First name"
+        value={firstName}
+        onChange={ev => setFirstName(ev.target.value)}
+        invalid={!!errors.firstName}
+        errorText={errors.firstName}
+      />
+      <TextInput
+        id="idx-last-name"
+        label="Last name"
+        value={lastName}
+        onChange={ev => setLastName(ev.target.value)}
+        invalid={!!errors.lastName}
+        errorText={errors.lastName}
+      />
+      <TextInput
+        id="idx-email"
+        label="Email address"
+        value={email}
+        onChange={ev => setEmail(ev.target.value)}
+        invalid={!!errors.email}
+        errorText={errors.email}
+      />
+      <div>
+        <Button type="submit">Submit</Button>
+      </div>
+    </form>
+  );
+};
+
+<PlaygroundPreview>
+  <ErrorSummaryExample />
 </PlaygroundPreview>

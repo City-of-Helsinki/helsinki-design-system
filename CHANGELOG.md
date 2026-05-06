@@ -21,7 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [Notification] Added `autofocus` prop that programmatically focuses the notification label after mount. Useful when using Notification as a form error summary — focus moves to the error list after a failed form submission.
+- [Notification] Added `ul`, `li`, and `a` styles scoped to error-type notifications, so anchor-linked error lists are styled correctly out of the box when using Notification as an error summary.
 
 #### Changed
 
@@ -62,7 +63,9 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Notification] Added "As error summary" variation to the usage page with an interactive playground preview demonstrating the form validation pattern.
+- [Notification] Added editable "As error summary" code example to the code page, including the `autofocus` prop in the properties table.
+- [Notification] Added accessibility guidance for the error summary pattern (autofocus, anchor links, re-submission focus handling).
 
 #### Changed
 

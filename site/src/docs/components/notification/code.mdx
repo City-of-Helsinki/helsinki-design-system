@@ -3,7 +3,7 @@ slug: '/components/notification/code'
 title: 'Notification - Code'
 ---
 
-import { Button, Notification, NotificationSize } from 'hds-react';
+import { Button, Notification, NotificationSize, TextInput } from 'hds-react';
 import { useState } from 'react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
@@ -217,6 +217,94 @@ import { Notification } from 'hds-react';
 </Playground>
 
 
+#### As error summary
+
+Use `type="error"`, `autofocus`, and `notificationAriaLabel="Error summary"` to use Notification as an error summary for form validation. The `autofocus` prop moves keyboard and screen reader focus directly to the notification label when it mounts. Pass a submission counter as `key` so that re-submitting a form with errors remounts the notification and re-triggers focus.
+
+<Playground scope={{ Notification, TextInput, Button, useState }}>
+
+
+```jsx
+import { Notification, TextInput, Button } from 'hds-react';
+
+() => {
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [email, setEmail] = useState('');
+  const [errors, setErrors] = useState({});
+  const [submitCount, setSubmitCount] = useState(0);
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    const newErrors = {};
+    if (!firstName) newErrors.firstName = 'Please enter your first name';
+    if (!lastName) newErrors.lastName = 'Please enter your last name';
+    if (!email || !email.includes('@')) newErrors.email = 'Please enter a valid email address';
+    setErrors(newErrors);
+    if (Object.keys(newErrors).length > 0) {
+      setSubmitCount(c => c + 1);
+    }
+  };
+
+  const errorList = [
+    errors.firstName && { id: 'cd-first-name', message: errors.firstName },
+    errors.lastName && { id: 'cd-last-name', message: errors.lastName },
+    errors.email && { id: 'cd-email', message: errors.email },
+  ].filter(Boolean);
+
+  return (
+    <form onSubmit={handleSubmit} noValidate style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-s)' }}>
+      {errorList.length > 0 && (
+        <Notification
+          key={submitCount}
+          type="error"
+          label="Form contains following errors"
+          notificationAriaLabel="Error summary"
+          autofocus
+        >
+          <ul>
+            {errorList.map(err => (
+              <li key={err.id}>
+                <a href={'#' + err.id}>{err.message}</a>
+              </li>
+            ))}
+          </ul>
+        </Notification>
+      )}
+      <TextInput
+        id="cd-first-name"
+        label="First name"
+        value={firstName}
+        onChange={ev => setFirstName(ev.target.value)}
+        invalid={!!errors.firstName}
+        errorText={errors.firstName}
+      />
+      <TextInput
+        id="cd-last-name"
+        label="Last name"
+        value={lastName}
+        onChange={ev => setLastName(ev.target.value)}
+        invalid={!!errors.lastName}
+        errorText={errors.lastName}
+      />
+      <TextInput
+        id="cd-email"
+        label="Email address"
+        value={email}
+        onChange={ev => setEmail(ev.target.value)}
+        invalid={!!errors.email}
+        errorText={errors.email}
+      />
+      <div>
+        <Button type="submit">Submit</Button>
+      </div>
+    </form>
+  );
+}
+```
+
+</Playground>
+
 ### Packages
 | Package           | Included                                                                                        | Storybook link                                                                                                       | Source link                                                                                                                                                       |
 | ----------------- | ----------------------------------------------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -228,6 +316,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 
 | Property                   | Description                                                                                                                 | Values                                                                                                        | Default value    |
 | -------------------------- | --------------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------- |
+| `autofocus`                | If set to true, focuses the notification label after it mounts. Use when displaying a form error summary so that keyboard and screen reader users are moved directly to the error list. | `boolean`                                                                                       | false            |
 | `autoClose`                | If set to true, the Toast notification will be closed automatically after a certain time.                                   | `boolean`                                                                                                     | false            |
 | `autoCloseDuration`        | If set, closes the notification after given milliseconds. If unset, calculates the milliseconds according to textual content length (with a minimum of 4000ms). | `number`                                                                  | -                |
 | `boxShadow`                | If set to true, the notification will have a box shadow.                                                                    | `boolean`                                                                                                     | false            |
