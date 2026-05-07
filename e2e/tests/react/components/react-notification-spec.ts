@@ -13,7 +13,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   test('Take snapshots of all stories', async ({ page, hasTouch }) => {
     const componentUrls = await getComponentStorybookUrls(page, componentName, storybook);
     if (componentUrls.length === 0) {
-      throw new Error('No componentUrls found for');
+      throw new Error(`No componentUrls found for "${componentName}" in ${storybook}`);
     }
     for (const componentUrl of componentUrls) {
       await page.goto(componentUrl);

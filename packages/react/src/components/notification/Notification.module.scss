@@ -42,6 +42,10 @@
 
 .label {
   composes: hds-notification__label from 'hds-core/lib/components/notification/notification.css';
+
+  &:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+  }
 }
 
 .body {
@@ -102,7 +106,7 @@
     margin-bottom: 0.125rem;
   }
 
-  a {
+  li a {
     color: var(--color-bus);
   }
 }

@@ -191,7 +191,7 @@ export const WithInvalidLink = () => (
 WithInvalidLink.storyName = 'With invalid link (for testing)';
 
 export const AsErrorSummary = () => (
-  <Notification type="error" label="Form contains following errors" notificationAriaLabel="Error summary">
+  <Notification type="error" label="Form contains the following errors" notificationAriaLabel="Error summary">
     <ul>
       <li>
         Error 1: <a href="#first-name">Please enter your first name</a>
@@ -247,7 +247,7 @@ export const AsErrorSummaryWithForm = () => {
         <Notification
           key={submitCount}
           type="error"
-          label="Form contains following errors"
+          label="Form contains the following errors"
           notificationAriaLabel="Error summary"
           autofocus
         >
