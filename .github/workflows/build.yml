@@ -73,7 +73,7 @@ jobs:
         working-directory: ./packages/react
 
       - name: SonarQube Cloud Scan
-        uses: SonarSource/sonarqube-scan-action@v7
+        uses: SonarSource/sonarqube-scan-action@v8
         continue-on-error: true
         with:
           projectBaseDir: ./packages/react

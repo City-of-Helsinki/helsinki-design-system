@@ -5,6 +5,44 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.0] - May, 7, 2026
+
+### Workspace
+
+#### Changed
+
+- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+
+### React
+
+#### Added
+
+- [Notification] Added `autofocus` prop that programmatically focuses the notification label after mount. Useful when using Notification as a form error summary — focus moves to the error list after a failed form submission.
+- [Notification] Added `ul`, `li`, and `a` styles scoped to error-type notifications, so anchor-linked error lists are styled correctly out of the box when using Notification as an error summary.
+- [Notification] Storybook stories for error summary examples.
+
+#### Fixed
+
+- [Select][Search] Restored public export of the `SupportedLanguage` type (`'fi' | 'sv' | 'en'`) from `hds-react`
+
+### Core
+
+#### Added
+
+- [Notification] Storybook stories for error summary examples.
+
+### Documentation
+
+#### Added
+
+- [Notification] Added "As error summary" variation to the usage page with an interactive playground preview demonstrating the form validation pattern.
+- [Notification] Added editable "As error summary" code example to the code page, including the `autofocus` prop in the properties table.
+- [Notification] Added accessibility guidance for the error summary pattern (autofocus, anchor links, re-submission focus handling).
+
+#### Changed
+
+- Removed outdated references to code examples from accessibility statement
+
 ## [5.1.0] - April, 27, 2026
 
 ### Testing

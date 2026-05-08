@@ -197,6 +197,25 @@
     --notification-border-color: var(--color-error);
     --notification-icon-color: var(--color-error);
   }
+
+  &--error &__label:focus {
+    outline: 3px solid var(--color-coat-of-arms);
+  }
+
+  &--error &__body {
+    ul {
+      margin: 0;
+      padding: 0 0 0 var(--spacing-s);
+    }
+
+    li {
+      margin-bottom: 0.125rem;
+    }
+
+    li a {
+      color: var(--color-bus);
+    }
+  }
 }
 
 @mixin box-shadow {

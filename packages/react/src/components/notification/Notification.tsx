@@ -1,4 +1,4 @@
-import React, { useCallback, useEffect, useMemo, useState } from 'react';
+import React, { useCallback, useEffect, useMemo, useRef, useState } from 'react';
 import { animated, useSpring } from '@react-spring/web';
 import { VisuallyHidden } from '@react-aria/visually-hidden';
 
@@ -94,6 +94,12 @@ type CommonProps = React.PropsWithChildren<
      * @default 2
      */
     headingLevel?: number;
+    /**
+     * Automatically focus the label of the notification after it is rendered.
+     * Useful when using Notification as an error summary: move focus to the error list after form submission.
+     * @default false
+     */
+    autofocus?: boolean;
   }
 >;
 
@@ -194,6 +200,7 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
     {
       autoClose = false,
       autoCloseDuration,
+      autofocus = false,
       boxShadow = false,
       children,
       className = '',
@@ -233,6 +240,14 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
 
     // internal state used for transitions
     const [open, setOpen] = useState(true);
+
+    const labelRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+      if (autofocus && labelRef.current) {
+        labelRef.current.focus();
+      }
+    }, [autofocus]);
 
     const handleClose = useCallback(() => {
       // trigger close animation
@@ -314,6 +329,8 @@ export const Notification = React.forwardRef<HTMLDivElement, NotificationProps>(
               // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
               <div
                 className={styles.label}
+                ref={labelRef}
+                {...(autofocus ? { tabIndex: -1 } : {})}
                 {...(isToast || invisible ? {} : { role: 'heading', 'aria-level': headingLevel })}
               >
                 <Icon className={styles.icon} />
