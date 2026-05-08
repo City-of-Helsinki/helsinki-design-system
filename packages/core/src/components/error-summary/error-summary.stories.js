@@ -5,6 +5,14 @@ import '../../icons/error-fill.css';
 
 export default {
   title: 'Components/Error summary',
+  parameters: {
+    docs: {
+      description: {
+        component:
+          '**Deprecated:** The Error summary component is deprecated. Use the Notification component with `hds-notification--error` instead. See the Notification stories for examples.',
+      },
+    },
+  },
   decorators: [(storyFn) => `<div style="max-width:400px">${storyFn()}</div>`],
 };
 
@@ -13,7 +21,7 @@ export const Default = () => `
       <div class="hds-notification__content">
         <div class="hds-notification__label" role="heading" aria-level="2" tabindex="-1">
           <span class="hds-icon hds-icon--error-fill" aria-hidden="true"></span>
-          <span>Form contains following errors</span>
+          <span>Form contains the following errors</span>
         </div>
         <div class="hds-notification__body hds-error-summary__body">
           <ul>
@@ -37,7 +45,7 @@ export const Large = () => `
       <div class="hds-notification__content">
         <div class="hds-notification__label" role="heading" aria-level="2" tabindex="-1">
           <span class="hds-icon hds-icon--error-fill" aria-hidden="true"></span>
-          <span>Form contains following errors</span>
+          <span>Form contains the following errors</span>
         </div>
         <div class="hds-notification__body hds-error-summary__body">
           <ul>
