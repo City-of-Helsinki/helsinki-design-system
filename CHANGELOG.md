@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.X.X] - Month, XX, 202X
+## [5.2.0] - May, 7, 2026
 
 ### Workspace
 
@@ -15,51 +15,23 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
 - [Notification] Added `autofocus` prop that programmatically focuses the notification label after mount. Useful when using Notification as a form error summary — focus moves to the error list after a failed form submission.
 - [Notification] Added `ul`, `li`, and `a` styles scoped to error-type notifications, so anchor-linked error lists are styled correctly out of the box when using Notification as an error summary.
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
+- [Notification] Storybook stories for error summary examples.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
 - [Select][Search] Restored public export of the `SupportedLanguage` type (`'fi' | 'sv' | 'en'`) from `hds-react`
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Notification] Storybook stories for error summary examples.
 
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
 
 #### Added
 
@@ -69,73 +41,8 @@ Changes that are not related to specific components
 
 #### Changed
 
-Changes that are not related to specific components
-
 - Removed outdated references to code examples from accessibility statement
 
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 ## [5.1.0] - April, 27, 2026
 
 ### Testing
