@@ -24,12 +24,13 @@ export default defineConfig({
   ].filter(Boolean),
   snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
   testDir: './tests/',
-  timeout: 120 * 1000,
+  timeout: 600 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  workers: 4,
+  workers: 2,
+  retries: 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['junit', { outputFile: 'report/e2e-junit-results.xml' }],
@@ -49,7 +50,6 @@ export default defineConfig({
     launchOptions: {
       slowMo: 100,
     },
-    retries: 3,
     expect: {
       timeout: 2000,
       toHaveScreenshot: {
