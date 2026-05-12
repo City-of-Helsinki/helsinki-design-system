@@ -12,7 +12,7 @@ import Notification from '../../../components/Notification';
 This guide helps you migrate from HDS v5 to v6. The v6 release focuses on tooling and platform upgrades. The main consumer-facing breaking changes are the removal of the **ErrorSummary** component and the bump of the supported **Node.js** version to 24.
 
 <Notification label=";tldr; Check at least these" className="siteNotification">
-  When updating to HDS 6.0.0 check and test at least these: ErrorSummary component is removed from both React and Core — use `<Notification type="error">` with the new `autofocus` prop instead; Node.js 24 is now the supported runtime (`engines.node` is `^24`); HDS is now built and tested against React 19 (peerDependency range is unchanged: React 16.8+ through 19 still supported).
+  When updating to HDS 6.0.0 check and test at least these: ErrorSummary component is removed from both React and Core — use `<Notification type="error">` with the new `autofocus` prop instead; Node.js 24 is now the supported runtime (`engines.node` is `^24`); HDS is now built and tested against React 19 (peerDependency range is unchanged: React 16.8+ through 19 still supported); the Figma Design Kit only fixes font rendering in components and is otherwise equivalent to v5.
 </Notification>
 
 ## Breaking changes
@@ -104,6 +104,69 @@ You can keep your application on React 17 or 18. That said, we recommend upgradi
 
 ---
 
+## Figma Design Kit
+
+This guide will help you understand how to transition an existing project from using an older version of HDS Figma Design Kit to using the latest 6.0.0 version.
+
+### What's changing?
+
+HDS 6.0.0 is mainly a codebase React update. In Figma, the release is intended only to fix font rendering issues within components — otherwise it equals the v5 library set.
+
+**Note:** Card, Footer and Table assets remain unreleased in this library, meaning they still show the same structure and style as in early v4, and they don't show yet the font updates introduced in v5. However, you can see the upcoming changes on them within the file documentation. Visit the file's Changelog page for more details.
+
+### What to consider before updating to HDS Kit v6?
+
+Update or swap libraries safely by first duplicating your design files.
+
+### Fixed in Figma
+
+- Forced new font rendering in all components using the library typography styles.
+
+### How to safely update from v5 to v6?
+
+#### 1. Duplicate your current design file
+
+In order to avoid disruptions to your workflow, it is recommended that you duplicate your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file. A guide for duplicating files can be found in Figma Learn.
+
+#### 2. Review and accept updates
+
+In your duplicate file, review and accept the HDS Design Kit library updates.
+
+#### 3. Check results
+
+A successful update should make the new font render correctly in all components that are using it. The update should not imply any structural changes or breakage. If you find any, please contact the HDS team.
+
+### How can I continue using HDS v5?
+
+Although we recommend using the latest HDS version, in case your project is not ready to take the new v6, then you can either:
+
+a. Leave your files with pending update (no further tasks required)
+
+b. Swap to the new separate HDS Design v5.2.0 fallback library (follow steps below)
+
+In case you choose option b. your file will no longer receive v6 updates.
+
+#### Swap library
+
+1. Duplicate first your current design file.
+2. Instead of taking the v6.0.0 updates, swap in assets/libraries the HDS Design Kit v6.0.0 library into HDS Design Kit v5.2.0. Swapping libraries allows you to quickly update instances in a file to use components from another library. The guide for swapping components can be found in Figma Learn.
+
+### How to migrate from HDS v4 to v6?
+
+If you are using the separate HDS v4 file in your designs, swap the v4 library to the new HDS Kit v6.0.0.
+
+### Can I continue using HDS v4?
+
+Due to the nature of this update (mainly React version update in codebase) we will still provide support for v4.
+
+---
+
+## Getting support
+
+Have a question about migration to `6.0.0`? Please head over to the <InternalLink size="M" href="/about">Support page</InternalLink> for more guidelines and ways to contact us.
+
+---
+
 ## Summary
 
 | Area              | Change |
@@ -111,5 +174,6 @@ You can keep your application on React 17 or 18. That said, we recommend upgradi
 | **ErrorSummary**  | Removed from React and Core. Use `<Notification type="error">` with the new `autofocus` prop. |
 | **Node.js**       | `engines.node` is now `^24`. Upgrade your build and CI environments. |
 | **React / Storybook / Gatsby** | HDS is now built against React 19, Storybook 8 and Gatsby 5. The React peerDependency range is unchanged. |
+| **Figma Design Kit** | Font rendering fix in components using library typography styles. Otherwise equivalent to v5. Card, Footer and Table remain on early-v4 styles. |
 
 For the full list of changes in 6.0.0, see the [Changelog](/about/releases).
