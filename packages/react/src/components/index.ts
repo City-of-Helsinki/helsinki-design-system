@@ -8,7 +8,6 @@ export * from './cookieConsent';
 export * from './dateInput';
 export * from './dialog';
 export * from './dropdownComponents';
-export * from './errorSummary';
 export * from './fieldset';
 export * from './fileInput';
 export * from './footer';

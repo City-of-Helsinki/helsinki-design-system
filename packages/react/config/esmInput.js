@@ -9,7 +9,6 @@ const esmInput = {
   'components/CookieConsent/index': 'src/components/cookieConsent/index.ts',
   'components/DateInput/index': 'src/components/dateInput/index.ts',
   'components/Dialog/index': 'src/components/dialog/index.ts',
-  'components/ErrorSummary/index': 'src/components/errorSummary/index.ts',
   'components/Fieldset/index': 'src/components/fieldset/index.ts',
   'components/FileInput/index': 'src/components/fileInput/index.ts',
   'components/Footer/index': 'src/components/footer/index.ts',

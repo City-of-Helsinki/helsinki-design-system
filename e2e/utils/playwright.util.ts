@@ -88,6 +88,7 @@ export const takeScreenshotWithSpacing = async (
   screenshotName: string,
   spacing: number = 8,
 ) => {
+  await page.evaluate(() => document.fonts.ready);
   await element.scrollIntoViewIfNeeded();
   const elementBoundingBox = (await element.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
 
@@ -117,10 +118,7 @@ export const takeAllStorySnapshots = async (props: {
   }
   for (const componentUrl of componentUrls) {
     await page.goto(componentUrl);
-    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {
-      // Some stories load external resources that prevent networkidle — fall back to domcontentloaded
-    });
-    await page.evaluate(() => document.fonts.ready);
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
     const container = page.locator('body');
     const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
     await takeScreenshotWithSpacing(page, container, screenshotName, bodySpacing);

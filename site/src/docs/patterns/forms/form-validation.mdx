@@ -7,7 +7,6 @@ navTitle: 'Form validation'
 import {
   Button,
   DateInput,
-  ErrorSummary,
   IconCheck,
   IconError,
   TextInput,
@@ -230,9 +229,9 @@ described to the user from where the information is coming from.
 
 ### Validation summary pattern
 
-**When using static or hybrid validation methods, HDS recommends using a validation summary to clearly list errors found during the form submit**. Validation summary pattern uses an error summary component which is provided by HDS. The error summary is notification-like element which lists all errors (and their descriptions) found in the form and provides anchor links to each erroneous input for easy access.
+**When using static or hybrid validation methods, HDS recommends using a validation summary to clearly list errors found during the form submit**. Validation summary pattern uses the Notification component (with `type="error"`) which is provided by HDS. The error notification lists all errors (and their descriptions) found in the form and provides anchor links to each erroneous input for easy access.
 
-You can learn more about the error summary component in <Link href="/storybook/react/?path=/story/components-errorsummary--playground" external openInNewTab openInNewTabLabel="Opens in new tab">HDS React Storybook.</Link>.
+You can learn more about the Notification component in <Link href="/storybook/react/?path=/story/components-notification--playground" external openInNewTab openInNewTabLabel="Opens in new tab">HDS React Storybook.</Link>.
 
 <Image
   src="/images/patterns/form/validation/error-summary@2x.png"
@@ -250,10 +249,10 @@ The usage of the error summary component is triggered when the form is submitted
 5. The error validation check happens immediately after the input value changes.
 6. When the user submits the form again and errors are still found, the contents of the error summary are updated and the focus is moved back to the summary heading again.
 
-<Playground scope={{ Button, ErrorSummary, TextInput }} >
+<Playground scope={{ Button, Notification, TextInput }} >
 
 ```jsx
-import { Button, ErrorSummary, TextInput } from 'hds-react';
+import { Button, Notification, TextInput } from 'hds-react';
 
 () => {
     const [formValues, setFormValues] = React.useState({});
@@ -293,14 +292,14 @@ import { Button, ErrorSummary, TextInput } from 'hds-react';
         
         <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
           {isSubmitted && errorList.length > 0 && (
-            <ErrorSummary autofocus label="Form contains following errors">
+            <Notification type="error" label="Form contains following errors">
               {errorList.map(([key, value], index) => (
                 <li key={key}>
                   {`Error ${index + 1}: `}
                   <a href={`#validationExample-${key}`}>{value}</a>
                 </li>
               ))}
-            </ErrorSummary>
+            </Notification>
           )}
           <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
             <TextInput
@@ -343,10 +342,10 @@ In some cases, multiple input fields can be related to each other in a way that 
 
 An example of this could be having two date inputs for setting a start and an end time. If the end time is set to be earlier than the start time, both date inputs become erroneous. Since assistive technologies only see one input at a time, all related inputs should be set to an error state and given an appropriate error message. The error message can be the same for all inputs or more input specific if the situation allows so. All error messages are also added to the error summary list. This method has been illustrated in the image below.
 
-<Playground scope={{ Button, ErrorSummary, DateInput }} >
+<Playground scope={{ Button, Notification, DateInput }} >
 
 ```jsx
-import { Button, ErrorSummary, DateInput } from 'hds-react';
+import { Button, Notification, DateInput } from 'hds-react';
 
 () => {
   const [formValues, setFormValues] = React.useState({});
@@ -384,14 +383,14 @@ import { Button, ErrorSummary, DateInput } from 'hds-react';
       <p>Check the how the validation behaves by selecting end date before the start date or vice versa.</p>   
       <form onSubmit={onSubmit} style={{ maxWidth: '450px', margin: 'var(--spacing-xl) var(--spacing-m)' }}>
         {isSubmitted && errorList.length > 0 && (
-          <ErrorSummary autofocus label="Form contains following errors">
+          <Notification type="error" label="Form contains following errors">
             {errorList.map(([key, value], index) => (
               <li key={key}>
                 {`Error ${index + 1}: `}
                 <a href={`#dateValidationExample-${key}`}>{value}</a>
               </li>
             ))}
-          </ErrorSummary>
+          </Notification>
         )}
         <div style={{ display: 'flex', gap: 'var(--spacing-m)', marginTop: 'var(--spacing-m)' }}>
           <DateInput

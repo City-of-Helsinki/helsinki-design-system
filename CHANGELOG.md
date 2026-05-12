@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.0.0] - Month, XX, 202X
+## [6.0.0] - May, XX, 2026
 
 - Upgrade to React 19, Storybook 8 and Gatsby 5
 
@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [ErrorSummary] Removed the ErrorSummary component. Use `<Notification type="error">` instead.
 
 #### Added
 
@@ -37,7 +37,7 @@ Changes that are not related to specific components
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [ErrorSummary] Removed the ErrorSummary component. Use the Notification component with error type instead.
 
 #### Added
 
