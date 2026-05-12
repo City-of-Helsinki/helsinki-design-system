@@ -35,7 +35,7 @@ export const Day = ({ day }: DayProps) => {
     setDateClassName,
     setDateAriaDescribedBy,
   } = React.useContext(DatePickerContext);
-  const dayRef = React.useRef<HTMLButtonElement>();
+  const dayRef = React.useRef<HTMLButtonElement>(null);
   const isPreviousMonth = isBefore(day, startOfMonth(currentMonth));
   const isNextMonth = isAfter(day, endOfMonth(currentMonth));
   const isOutsideCurrentMonth = isPreviousMonth || isNextMonth;

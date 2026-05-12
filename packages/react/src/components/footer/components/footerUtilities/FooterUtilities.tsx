@@ -6,7 +6,6 @@ import classNames from '../../../../utils/classNames';
 import { getChildElementsEvenIfContainersInbetween } from '../../../../utils/getChildren';
 import { FooterVariant } from '../../Footer.interface';
 import { AllElementPropsWithoutRef } from '../../../../utils/elementTypings';
-import { FooterLinkProps } from '../footerLink/FooterLink';
 
 export type FooterUtilitiesProps = AllElementPropsWithoutRef<'div'> & {
   /**
@@ -45,7 +44,7 @@ export const FooterUtilities = ({
             // eslint-disable-next-line react/no-array-index-key
             <Fragment key={childIndex}>
               {isValidElement(child)
-                ? cloneElement(child as React.ReactElement, {
+                ? cloneElement(child as React.ReactElement<Record<string, unknown>>, {
                     variant: FooterVariant.Utility,
                   })
                 : child}
@@ -58,7 +57,8 @@ export const FooterUtilities = ({
           {soMeLinks.map((link, index) => {
             if (isValidElement(link)) {
               /* Set variant to null just in case user set it. It should be null for SoMelinks so it doesn't mess with the styles. */
-              return cloneElement(link, { variant: null, key: index } as FooterLinkProps);
+              // eslint-disable-next-line react/no-array-index-key
+              return cloneElement(link as React.ReactElement<Record<string, unknown>>, { variant: null, key: index });
             }
             return null;
           })}

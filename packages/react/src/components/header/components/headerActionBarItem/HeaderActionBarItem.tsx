@@ -13,15 +13,15 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
     /**
      * An avatar which replaces the icon. Usually user's initials, but can be any Element.
      */
-    avatar?: string | JSX.Element;
+    avatar?: string | React.JSX.Element;
     /**
      * Icon for the action bar item when dropdown is open.
      */
-    closeIcon?: JSX.Element;
+    closeIcon?: React.JSX.Element;
     /**
      * Label for the action bar item when dropdown is open.
      */
-    closeLabel?: string | JSX.Element;
+    closeLabel?: string | React.JSX.Element;
     /**
      * Additional classname for the dropdown element.
      */
@@ -42,7 +42,7 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
     /**
      * Icon for the action bar item.
      */
-    icon?: JSX.Element;
+    icon?: React.JSX.Element;
     /**
      * Additional classname for the icon.
      */
@@ -54,7 +54,7 @@ export type HeaderActionBarItemProps = React.PropsWithChildren<
     /**
      * Label for the action bar item.
      */
-    label?: string | JSX.Element;
+    label?: string | React.JSX.Element;
     /**
      * Positions the label right side of the icon.
      */
@@ -76,7 +76,7 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
     id,
     children,
     label,
-    fullWidth,
+    fullWidth = false,
     fullWidthDropdown,
     className: classNameProp,
     iconClassName: iconClassNameProp,
@@ -282,8 +282,4 @@ export const HeaderActionBarItem = (properties: HeaderActionBarItemProps) => {
       </div>
     </>
   );
-};
-
-HeaderActionBarItem.defaultProps = {
-  fullWidth: false,
 };

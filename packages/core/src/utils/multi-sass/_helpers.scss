@@ -108,9 +108,13 @@
 }
 
 @function get-last-list-item($list) {
-  $len: if($list, list.length($list), 0);
+  $len: 0;
 
-  @return if($len > 0, list.nth($list, -1), null);
+  @if $list { $len: list.length($list); }
+
+  @if $len > 0 { @return list.nth($list, -1); }
+
+  @return null;
 }
 
 @function replace-list-item($list, $replacee, $index) {

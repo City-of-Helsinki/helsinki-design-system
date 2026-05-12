@@ -195,7 +195,7 @@ describe('<Table /> spec', () => {
     const reRenderAndWaitForUpdate = async () => {
       const button = container.querySelector(`#${reRenderButtonId}`) as HTMLButtonElement;
       const updatePromise = waitForUpdate();
-      userEvent.click(button);
+      await userEvent.click(button);
       await updatePromise;
     };
 
@@ -243,7 +243,7 @@ describe('<Table /> spec', () => {
     ).toHaveLength(0);
   });
 
-  it('Should successfully sort the table', () => {
+  it('Should successfully sort the table', async () => {
     const colsWithSorting = [
       { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -271,12 +271,12 @@ describe('<Table /> spec', () => {
     );
     const ageOfFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfFirstRow).toHaveTextContent('39');
-    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLElement);
+    await userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLElement);
     const ageOfSortedTableFirstRow = container.querySelector('[data-testid="age-0"] > div');
     expect(ageOfSortedTableFirstRow).toHaveTextContent('8');
   });
 
-  it('Should successfully call onSort when sort button is pressed', () => {
+  it('Should successfully call onSort when sort button is pressed', async () => {
     const colsWithSorting = [
       { key: 'id', headerName: 'Not rendered' },
       { key: 'firstName', headerName: 'First name', isSortable: true },
@@ -306,12 +306,12 @@ describe('<Table /> spec', () => {
       />,
     );
 
-    userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLElement);
+    await userEvent.click(container.querySelector('[data-testid="hds-table-sorting-header-age"]') as HTMLElement);
 
     expect(mockOnSort).toHaveBeenCalledTimes(1);
   });
 
-  it('Should have correct aria-labels on sorting buttons based on sort state', () => {
+  it('Should have correct aria-labels on sorting buttons based on sort state', async () => {
     const colsWithSorting = [
       { key: 'firstName', headerName: 'First name', isSortable: true },
       { key: 'age', headerName: 'Age', isSortable: true },
@@ -338,22 +338,22 @@ describe('<Table /> spec', () => {
     expect(ageButton).toHaveAttribute('aria-label', 'Not sorted');
 
     // Click age button to sort ascending
-    userEvent.click(ageButton);
+    await userEvent.click(ageButton);
     expect(ageButton).toHaveAttribute('aria-label', 'Sorted in ascending order');
     expect(firstNameButton).toHaveAttribute('aria-label', 'Not sorted'); // Other columns should remain unsorted
 
     // Click age button again to sort descending
-    userEvent.click(ageButton);
+    await userEvent.click(ageButton);
     expect(ageButton).toHaveAttribute('aria-label', 'Sorted in descending order');
     expect(firstNameButton).toHaveAttribute('aria-label', 'Not sorted');
 
     // Click firstName button to sort ascending (should reset age to unsorted)
-    userEvent.click(firstNameButton);
+    await userEvent.click(firstNameButton);
     expect(firstNameButton).toHaveAttribute('aria-label', 'Sorted in ascending order');
     expect(ageButton).toHaveAttribute('aria-label', 'Not sorted');
   });
 
-  it('Should successfully select and deselect a single row', () => {
+  it('Should successfully select and deselect a single row', async () => {
     const TableWithSelection = () => {
       const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
       return (
@@ -374,14 +374,14 @@ describe('<Table /> spec', () => {
 
     expect(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`)).not.toBeChecked();
 
-    userEvent.click(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`) as HTMLElement);
+    await userEvent.click(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`) as HTMLElement);
     expect(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`)).toBeChecked();
 
-    userEvent.click(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`) as HTMLElement);
+    await userEvent.click(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`) as HTMLElement);
     expect(container.querySelector(`[id="${defaultCheckboxIdPrefix}1000"]`)).not.toBeChecked();
   });
 
-  it('Should successfully select all and deselect all rows', () => {
+  it('Should successfully select all and deselect all rows', async () => {
     const TableWithSelection = () => {
       const [selectedRows, setSelectedRows] = useState<(string | number)[]>([]);
       return (
@@ -406,7 +406,7 @@ describe('<Table /> spec', () => {
       ).not.toBeChecked();
     });
 
-    userEvent.click(
+    await userEvent.click(
       container.querySelector('[data-testid="hds-table-select-all-button-hds-table-data-testid"]') as HTMLElement,
     );
     rows.forEach((row) => {
@@ -415,7 +415,7 @@ describe('<Table /> spec', () => {
       ).toBeChecked();
     });
 
-    userEvent.click(
+    await userEvent.click(
       container.querySelector('[data-testid="hds-table-deselect-all-button-hds-table-data-testid"]') as HTMLElement,
     );
     rows.forEach((row) => {

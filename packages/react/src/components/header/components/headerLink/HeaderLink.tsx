@@ -54,7 +54,7 @@ export type NavigationLinkProps<ReactElement> = {
   /**
    * Array of HeaderLink components to render in a dropdown. Can be used only inside navigation components.
    */
-  dropdownLinks?: Array<React.ReactElement>;
+  dropdownLinks?: Array<React.ReactElement<Record<string, unknown>>>;
   /**
    * Hypertext Reference of the link.
    * @default #
@@ -100,13 +100,13 @@ export type HeaderNavigationLinkProps<T extends React.ElementType = 'a'> = Merge
 
 export const HeaderLink = <T extends React.ElementType = 'a'>({
   active,
-  as: LinkComponent,
+  as: LinkComponent = Link as unknown as T,
   className,
   wrapperClassName,
   dropdownClassName,
   dropdownLinks,
   dropdownLinkClassName,
-  href,
+  href = '#',
   index,
   label,
   openSubNavIndex,
@@ -230,7 +230,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
           dropdownButtonClassName={dropdownButtonClassName}
         >
           {dropdownLinks.map((child) => {
-            return cloneElement(child as React.ReactElement, {
+            return cloneElement(child as React.ReactElement<Record<string, unknown>>, {
               key: uuidv4(),
               wrapperClassName,
               dropdownClassName,
@@ -241,9 +241,4 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
       )}
     </span>
   );
-};
-
-HeaderLink.defaultProps = {
-  as: Link,
-  href: '#',
 };

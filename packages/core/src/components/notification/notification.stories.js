@@ -1,4 +1,10 @@
 import './notification.scss';
+import '../../icons/icon.css';
+import '../../icons/cross.css';
+import '../../icons/info-circle-fill.css';
+import '../../icons/check-circle-fill.css';
+import '../../icons/alert-circle-fill.css';
+import '../../icons/error-fill.css';
 
 const iconMapping = {
   info: 'info-circle-fill',

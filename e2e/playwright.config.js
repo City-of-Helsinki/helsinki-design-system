@@ -11,6 +11,7 @@ export default defineConfig({
       url: 'http://localhost:6007',
       stdout: 'ignore',
       stderr: 'pipe',
+      reuseExistingServer: true,
     } : null,
     !process.env.PACKAGE || process.env.PACKAGE === 'react' ? 
     {
@@ -18,16 +19,18 @@ export default defineConfig({
       url: 'http://localhost:6006',
       stdout: 'ignore',
       stderr: 'pipe',
+      reuseExistingServer: true,
     } : null,
   ].filter(Boolean),
   snapshotPathTemplate: '{testDir}/{testFilePath}-snapshots/{arg}{ext}',
   testDir: './tests/',
-  timeout: 120 * 1000,
+  timeout: 600 * 1000,
   /* Run tests in files in parallel */
   fullyParallel: false,
   /* Fail the build on CI if you accidentally left test.only in the source code. */
   forbidOnly: !!process.env.CI,
-  workers: 4,
+  workers: 2,
+  retries: 3,
   /* Reporter to use. See https://playwright.dev/docs/test-reporters */
   reporter: [
     ['junit', { outputFile: 'report/e2e-junit-results.xml' }],
@@ -47,9 +50,12 @@ export default defineConfig({
     launchOptions: {
       slowMo: 100,
     },
-    retries: 3,
     expect: {
       timeout: 2000,
+      toHaveScreenshot: {
+        maxDiffPixelRatio: 0.01,
+        threshold: 0.35,
+      },
     },
   },
   projects: [

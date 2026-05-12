@@ -23,7 +23,6 @@ exports[`<SelectionGroup /> spec renders the component 1`] = `
             class="input"
             id="checkbox"
             type="checkbox"
-            value=""
           />
           <label
             class="label"

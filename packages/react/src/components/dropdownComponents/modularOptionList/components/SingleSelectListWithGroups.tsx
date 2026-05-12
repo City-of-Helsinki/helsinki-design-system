@@ -4,6 +4,7 @@ import styles from '../ModularOptionList.module.scss';
 import { ModularOptionListData, ModularOptionListDataHandlers, ModularOptionListMetaData } from '../types';
 import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListDataHandlers';
 import { createListElementProps, createOptionElements } from './SingleSelectAndGrouplessList';
+import { getTextFromDataHandlers } from '../texts';
 import { createGroupProps } from './MultiSelectListWithGroups';
 import classNames from '../../../../utils/classNames';
 
@@ -26,7 +27,8 @@ const createGroups = ({
 };
 
 export function SingleSelectListWithGroups() {
-  const { getData, trigger, getMetaData } = useModularOptionListDataHandlers();
+  const dataHandlers = useModularOptionListDataHandlers();
+  const { getData, trigger, getMetaData } = dataHandlers;
   const { groups, multiSelect } = getData();
   const metaData = getMetaData();
   const { getOptionId, refs, elementIds } = metaData;
@@ -34,6 +36,8 @@ export function SingleSelectListWithGroups() {
   // Use aria-labelledby to share the same accessible name as the search input
   const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
   const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
+  // Fall back to aria-label from texts when no labelledBy is available (e.g. standalone usage)
+  const ariaLabel = !labelId ? getTextFromDataHandlers('label', dataHandlers) : undefined;
 
   const attr = {
     ...createListElementProps<HTMLDivElement>({
@@ -41,6 +45,7 @@ export function SingleSelectListWithGroups() {
       elementIds,
       multiSelect,
       labelledBy: labelId,
+      label: ariaLabel,
     }),
   };
   const children = createGroups({ groups, trigger, getOptionId });

@@ -1,0 +1,179 @@
+---
+slug: '/getting-started/tutorials/migrate-to-6.0.0'
+title: 'Migrate to 6.0.0'
+navTitle: 'Migrate to 6.0.0'
+---
+
+import InternalLink from '../../../components/InternalLink';
+import Notification from '../../../components/Notification';
+
+# Migrate to version 6.0.0
+
+This guide helps you migrate from HDS v5 to v6. The v6 release focuses on tooling and platform upgrades. The main consumer-facing breaking changes are the removal of the **ErrorSummary** component and the bump of the supported **Node.js** version to 24.
+
+<Notification label=";tldr; Check at least these" className="siteNotification">
+  When updating to HDS 6.0.0 check and test at least these: ErrorSummary component is removed from both React and Core — use `<Notification type="error">` with the new `autofocus` prop instead; Node.js 24 is now the supported runtime (`engines.node` is `^24`); HDS is now built and tested against React 19 (peerDependency range is unchanged: React 16.8+ through 19 still supported); the Figma Design Kit only fixes font rendering in components and is otherwise equivalent to v5.
+</Notification>
+
+## Breaking changes
+
+### ErrorSummary component removed
+
+The standalone **ErrorSummary** component has been removed from both the React and Core packages. The same pattern is now expressed with the **Notification** component using `type="error"`, which has been extended in 5.2.0 to support the error-summary use case directly:
+
+- A new `autofocus` prop programmatically focuses the notification label after mount — useful after a failed form submission.
+- `ul`, `li` and `a` styles are scoped to error-type notifications, so anchor-linked error lists render correctly without extra CSS.
+
+#### React
+
+```diff
+- import { ErrorSummary } from 'hds-react';
++ import { Notification } from 'hds-react';
+```
+
+**Before / after example:**
+
+```jsx
+// ❌ v5 — ErrorSummary
+<ErrorSummary label="Form contains the following errors">
+  <ul>
+    <li><a href="#first-name">Please enter your first name</a></li>
+    <li><a href="#email">Please enter a valid email address</a></li>
+  </ul>
+</ErrorSummary>
+```
+
+```jsx
+// ✅ v6 — Notification as error summary
+<Notification
+  type="error"
+  label="Form contains the following errors"
+  notificationAriaLabel="Error summary"
+  autofocus
+>
+  <ul>
+    <li><a href="#first-name">Please enter your first name</a></li>
+    <li><a href="#email">Please enter a valid email address</a></li>
+  </ul>
+</Notification>
+```
+
+**Migration:** Replace each `<ErrorSummary>` usage with `<Notification type="error">`. Pass the same `label` prop, add `notificationAriaLabel` for the accessible region label, and set `autofocus` if you want focus to move to the summary after submit. To force focus on every submit attempt (e.g. when the same errors appear again), give the Notification a `key` derived from the submit counter so React re-mounts it.
+
+#### Core
+
+The `hds-error-summary` block and accompanying styles have been removed. Use the Notification block with the error modifier instead. Wrap your error list in the notification body — the new `ul / li / a` styles apply automatically.
+
+- <InternalLink size="M" href="/components/notification">
+    Notification documentation
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-notification--as-error-summary">
+    React "As error summary" storybook example
+  </InternalLink>
+- <InternalLink size="M" href="/storybook/react/?path=/story/components-notification--as-error-summary-with-form">
+    React "As error summary with form" storybook example
+  </InternalLink>
+
+---
+
+### Node.js 24 required
+
+HDS packages now declare `"engines": { "node": "^24" }`. The repository's `.nvmrc` pins the version used for local development and GitHub Actions.
+
+**Migration:**
+- Upgrade your build and CI environments to Node.js 24.
+- If you use `nvm`, run `nvm use` in the repo root (or update your own `.nvmrc` to 24).
+- Lower Node versions are no longer tested and may produce build or runtime warnings.
+
+---
+
+### Internal upgrade: React 19, Storybook 8, Gatsby 5
+
+HDS itself is now developed against **React 19**, **Storybook 8** and **Gatsby 5**. For consumers of the published packages this is mostly transparent — the `react` and `react-dom` peer dependency range is unchanged:
+
+```json
+"peerDependencies": {
+  "react": "^16.8.0 || ^17 || ^18 || ^19",
+  "react-dom": "^16.8.0 || ^17 || ^18 || ^19"
+}
+```
+
+You can keep your application on React 17 or 18. That said, we recommend upgrading to React 19 to stay aligned with the version HDS is now tested against. If you maintain a Storybook integration that loads HDS stories, or you fork the documentation site, update Storybook and Gatsby alongside HDS.
+
+**Migration:** No code changes are required if you stay on your current React major. If you upgrade React, follow the official [React 19 upgrade guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) for any application-level changes (removed legacy APIs, ref-as-prop changes, etc.) — those are React's own breaking changes, not HDS's.
+
+---
+
+## Figma Design Kit
+
+This guide will help you understand how to transition an existing project from using an older version of HDS Figma Design Kit to using the latest 6.0.0 version.
+
+### What's changing?
+
+HDS 6.0.0 is mainly a codebase React update. In Figma, the release is intended only to fix font rendering issues within components — otherwise it equals the v5 library set.
+
+**Note:** Card, Footer and Table assets remain unreleased in this library, meaning they still show the same structure and style as in early v4, and they don't show yet the font updates introduced in v5. However, you can see the upcoming changes on them within the file documentation. Visit the file's Changelog page for more details.
+
+### What to consider before updating to HDS Kit v6?
+
+Update or swap libraries safely by first duplicating your design files.
+
+### Fixed in Figma
+
+- Forced new font rendering in all components using the library typography styles.
+
+### How to safely update from v5 to v6?
+
+#### 1. Duplicate your current design file
+
+In order to avoid disruptions to your workflow, it is recommended that you duplicate your project files before accepting this update. This allows you to migrate to the latest HDS Design Kit while maintaining a reference to your original file. A guide for duplicating files can be found in Figma Learn.
+
+#### 2. Review and accept updates
+
+In your duplicate file, review and accept the HDS Design Kit library updates.
+
+#### 3. Check results
+
+A successful update should make the new font render correctly in all components that are using it. The update should not imply any structural changes or breakage. If you find any, please contact the HDS team.
+
+### How can I continue using HDS v5?
+
+Although we recommend using the latest HDS version, in case your project is not ready to take the new v6, then you can either:
+
+a. Leave your files with pending update (no further tasks required)
+
+b. Swap to the new separate HDS Design v5.2.0 fallback library (follow steps below)
+
+In case you choose option b. your file will no longer receive v6 updates.
+
+#### Swap library
+
+1. Duplicate first your current design file.
+2. Instead of taking the v6.0.0 updates, swap in assets/libraries the HDS Design Kit v6.0.0 library into HDS Design Kit v5.2.0. Swapping libraries allows you to quickly update instances in a file to use components from another library. The guide for swapping components can be found in Figma Learn.
+
+### How to migrate from HDS v4 to v6?
+
+If you are using the separate HDS v4 file in your designs, swap the v4 library to the new HDS Kit v6.0.0.
+
+### Can I continue using HDS v4?
+
+Due to the nature of this update (mainly React version update in codebase) we will still provide support for v4.
+
+---
+
+## Getting support
+
+Have a question about migration to `6.0.0`? Please head over to the <InternalLink size="M" href="/about">Support page</InternalLink> for more guidelines and ways to contact us.
+
+---
+
+## Summary
+
+| Area              | Change |
+|-------------------|--------|
+| **ErrorSummary**  | Removed from React and Core. Use `<Notification type="error">` with the new `autofocus` prop. |
+| **Node.js**       | `engines.node` is now `^24`. Upgrade your build and CI environments. |
+| **React / Storybook / Gatsby** | HDS is now built against React 19, Storybook 8 and Gatsby 5. The React peerDependency range is unchanged. |
+| **Figma Design Kit** | Font rendering fix in components using library typography styles. Otherwise equivalent to v5. Card, Footer and Table remain on early-v4 styles. |
+
+For the full list of changes in 6.0.0, see the [Changelog](/about/releases).

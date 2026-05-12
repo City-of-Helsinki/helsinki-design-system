@@ -1,5 +1,6 @@
 import './breadcrumb.scss';
 import '../link/link.css';
+import '../../icons/icon.css';
 import '../../icons/angle-right.css';
 import '../../icons/angle-left.css';
 

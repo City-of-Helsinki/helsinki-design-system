@@ -40,8 +40,8 @@ const fixUrlExceptions = (href, version) => {
     return href.replace('/components/dropdown', '/components');
   }
 
-  // /components/errorsummary is not available before version 3.11.
-  if (versionNumber < 3 && href.indexOf('/components/error-summary') >= 0) {
+  // /components/error-summary is only available in versions 3-5.
+  if ((versionNumber < 3 || versionNumber > 5) && href.indexOf('/components/error-summary') >= 0) {
     return href.replace('/components/error-summary', '/components');
   }
 

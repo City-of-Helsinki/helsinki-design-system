@@ -240,6 +240,11 @@ export const ImageLeft = (args: HeroProps) => {
     </Hero>
   );
 };
+ImageLeft.args = {
+  imageSrc: imageFile,
+  theme: { ...imageLeftOrRightTheme },
+  variant: 'imageLeft',
+};
 ImageLeft.argTypes = {
   ...defaultImageSrcArg,
   ...createThemeArg(imageLeftOrRightTheme),
@@ -252,6 +257,11 @@ export const ImageRight = (args: HeroProps) => {
       <DefaultContent buttonTheme="black" />
     </Hero>
   );
+};
+ImageRight.args = {
+  imageSrc: imageFile,
+  theme: { ...imageLeftOrRightTheme },
+  variant: 'imageRight',
 };
 ImageRight.argTypes = {
   ...getDisabledControl('variant'),
@@ -268,6 +278,17 @@ export const WithoutImage = (args: HeroProps) => {
   );
 };
 
+WithoutImage.args = {
+  theme: {
+    '--background-color': '#9fc9eb',
+    '--color': '#000',
+    '--koros-color': '#009246',
+    '--koros-height': '82px',
+  },
+  koros: { type: 'pulse' },
+  variant: 'noImage',
+  centeredContent: true,
+};
 WithoutImage.argTypes = {
   ...getDisabledControl('imageSrc', true),
   ...createThemeArg({
@@ -289,6 +310,17 @@ export const WithoutImageKorosOverlay = (args: HeroProps) => {
   );
 };
 
+WithoutImageKorosOverlay.args = {
+  theme: {
+    '--background-color': '#000',
+    '--color': '#fff',
+    '--koros-color': '#000',
+    '--arrow-icon-color': 'var(--color-brick)',
+  },
+  koros: { flipVertical: true },
+  variant: 'noImage',
+  centeredContent: false,
+};
 WithoutImageKorosOverlay.argTypes = {
   ...getDisabledControl('imageSrc', true),
   ...createThemeArg({
@@ -310,6 +342,15 @@ export const WithoutImageAndKoros = (args: HeroProps) => {
   );
 };
 
+WithoutImageAndKoros.args = {
+  theme: {
+    '--background-color': '#fff',
+    '--color': '#000',
+  },
+  koros: { hide: true },
+  variant: 'noImage',
+  centeredContent: false,
+};
 WithoutImageAndKoros.argTypes = {
   ...getDisabledControl('imageSrc', true),
   ...createThemeArg({
@@ -329,6 +370,11 @@ export const BackgroundImage = (args: HeroProps) => {
   );
 };
 
+BackgroundImage.args = {
+  imageSrc: imageFile,
+  theme: { '--background-color': '#fff' },
+  variant: 'backgroundImage',
+};
 BackgroundImage.argTypes = {
   ...defaultImageSrcArg,
   ...createThemeArg({
@@ -345,6 +391,11 @@ export const DiagonalKoros = (args: HeroProps) => {
   );
 };
 
+DiagonalKoros.args = {
+  imageSrc: imageFile,
+  theme: { '--background-color': '#f5a3c7', '--color': '#000' },
+  variant: 'diagonalKoros',
+};
 DiagonalKoros.argTypes = {
   ...defaultImageSrcArg,
   ...createThemeArg({
@@ -362,6 +413,11 @@ export const ImageBottom = (args: HeroProps) => {
   );
 };
 ImageBottom.storyName = 'Bottom image';
+ImageBottom.args = {
+  imageSrc: imageFile,
+  theme: { '--background-color': '#fff', '--image-position': 'bottom left' },
+  variant: 'imageBottom',
+};
 ImageBottom.argTypes = {
   ...defaultImageSrcArg,
   ...createThemeArg({
@@ -486,6 +542,10 @@ export const EmbeddedToPage = (args: HeroProps & { preset: string }) => {
   );
 };
 
+EmbeddedToPage.args = {
+  variant: 'noImage',
+  preset: noImageOptions[1],
+};
 EmbeddedToPage.argTypes = {
   ...getDisabledControl('koros'),
   ...getDisabledControl('theme'),
@@ -493,7 +553,6 @@ EmbeddedToPage.argTypes = {
   ...getDisabledControl('centeredContent'),
   ...createVariantArg('noImage'),
   preset: {
-    defaultValue: noImageOptions[1],
     control: {
       type: 'select',
       options: noImageOptions,

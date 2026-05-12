@@ -8,7 +8,7 @@ import { IconArrowLeft, IconArrowRight } from '../../icons';
 import { TextInput } from '../textInput';
 import { NumberInput } from '../numberInput';
 import { Card } from '../card';
-import { ErrorSummary } from '../errorSummary';
+import { Notification } from '../notification';
 import { FileInput } from '../fileInput/FileInput';
 
 export default {
@@ -733,7 +733,7 @@ export const SimpleFormExample = (args: StepperProps) => {
       />
       {state.showErrorSummary && (
         <div style={{ marginTop: 'var(--spacing-l)' }}>
-          <ErrorSummary ref={errorRef} autofocus label="Form contains following errors">
+          <Notification ref={errorRef} type="error" label="Form contains following errors">
             <ul>
               {state.activeStepIndex === 0 && (
                 <li>
@@ -756,7 +756,7 @@ export const SimpleFormExample = (args: StepperProps) => {
                 </li>
               )}
             </ul>
-          </ErrorSummary>
+          </Notification>
         </div>
       )}
       {[0, 1, 2, 3].includes(state.activeStepIndex) && (

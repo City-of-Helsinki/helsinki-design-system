@@ -33,7 +33,7 @@ describe('<Tag /> spec', () => {
 });
 
 describe('<Tag /> focus spec', () => {
-  it('focus tests', () => {
+  it('focus tests', async () => {
     const onClick = jest.fn();
     const onDelete = jest.fn();
     const { getByTestId } = render(
@@ -56,11 +56,11 @@ describe('<Tag /> focus spec', () => {
     const tagElementD = getByTestId('non-focusable');
     tagElementA.focus();
     expect(tagElementA).toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(tagElementB).toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(tagElementC).toHaveFocus();
-    userEvent.tab();
+    await userEvent.tab();
     expect(tagElementD).not.toHaveFocus();
     tagElementD.focus();
     expect(tagElementD).not.toHaveFocus();
@@ -69,7 +69,7 @@ describe('<Tag /> focus spec', () => {
 
 describe('<Tag /> onClick, onDelete & href spec', () => {
   // test that onClick is called when the tag is clicked
-  it('calls onClick when the tag is clicked or enter or space key pressed', () => {
+  it('calls onClick when the tag is clicked or enter or space key pressed', async () => {
     const onClick = jest.fn();
     const { getByTestId } = render(
       <Tag data-testid="clickable" onClick={onClick}>
@@ -80,16 +80,16 @@ describe('<Tag /> onClick, onDelete & href spec', () => {
     tag.click();
     expect(onClick).toHaveBeenCalled();
     const pressesA = onClick.mock.calls.length;
-    userEvent.type(tag, '{enter}');
+    await userEvent.type(tag, '{enter}');
     const pressesB = onClick.mock.calls.length;
     expect(pressesA < pressesB).toBe(true);
-    userEvent.type(tag, '{space}');
+    await userEvent.type(tag, '{space}');
     const pressesC = onClick.mock.calls.length;
     expect(pressesB < pressesC).toBe(true);
   });
 
   // test that onDelete is called when the tag is clicked
-  it('calls onDelete when the tag is clicked or enter or space key pressed', () => {
+  it('calls onDelete when the tag is clicked or enter or space key pressed', async () => {
     const onDelete = jest.fn();
     const { getByTestId } = render(
       <Tag data-testid="deletable" onDelete={onDelete}>
@@ -100,10 +100,10 @@ describe('<Tag /> onClick, onDelete & href spec', () => {
     tag.click();
     expect(onDelete).toHaveBeenCalled();
     const pressesA = onDelete.mock.calls.length;
-    userEvent.type(tag, '{enter}');
+    await userEvent.type(tag, '{enter}');
     const pressesB = onDelete.mock.calls.length;
     expect(pressesA < pressesB).toBe(true);
-    userEvent.type(tag, '{space}');
+    await userEvent.type(tag, '{space}');
     const pressesC = onDelete.mock.calls.length;
     expect(pressesB < pressesC).toBe(true);
     // also check that the tag contains the icon-cross icon with class hds-tag__icon

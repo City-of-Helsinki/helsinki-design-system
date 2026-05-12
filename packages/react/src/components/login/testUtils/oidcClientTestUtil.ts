@@ -3,8 +3,8 @@
 /* eslint-disable camelcase */
 import { UserManager, OidcClient as OidcClientFromNpm, SigninResponse, User } from 'oidc-client-ts';
 import fetchMock from 'jest-fetch-mock';
-import { waitFor } from '@testing-library/react';
 
+import { advanceUntilCondition } from './timerTestUtil';
 import {
   OidcClient,
   OidcClientProps,
@@ -89,21 +89,21 @@ export function createOidcClientTestSuite() {
   async function waitForLoginToTimeout(mockedWindowControls: MockedWindowLocationActions, loginProps?: LoginProps) {
     const currentCallCount = mockedWindowControls.getCalls().length;
     oidcClient.login(loginProps).then(jest.fn()).catch(jest.fn());
-    await waitFor(() => {
+    await advanceUntilCondition(() => {
       if (mockedWindowControls.getCalls().length === currentCallCount) {
         throw new Error('mockedWindowControls not called yet.');
       }
-    });
+    }, 100);
   }
 
   async function waitForLogoutToTimeout(mockedWindowControls: MockedWindowLocationActions, logoutProps?: LogoutProps) {
     const currentCallCount = mockedWindowControls.getCalls().length;
     oidcClient.logout(logoutProps).then(jest.fn()).catch(jest.fn());
-    await waitFor(() => {
+    await advanceUntilCondition(() => {
       if (mockedWindowControls.getCalls().length === currentCallCount) {
         throw new Error('mockedWindowControls not called yet.');
       }
-    });
+    }, 100);
   }
 
   const initTests = async (

@@ -1,53 +1,60 @@
 import path from 'path';
 
 import React from 'react';
-import { storiesOf } from '@storybook/react';
 
-const Wrapper = ({ children, color = 'var(--color-black)', style = {} }) => (
-  <div
-    style={{
-      alignItems: 'center',
-      justifyContent: 'space-around',
-      display: 'flex',
-      maxWidth: 400,
-      padding: 'var(--spacing-s)',
-      color,
-      ...style,
-    }}
-  >
-    {children}
-  </div>
-);
+export default {
+  title: 'Icons/Icons',
+  parameters: {
+    controls: { hideNoControlsWarning: true },
+    docs: { disable: true },
+  },
+};
+
+const sizes = ['extraSmall', 'small', 'medium', 'large', 'extraLarge'] as const;
 
 const req = require.context('.', true, /Icon.*.tsx$/);
-req.keys().forEach((fileName, index) => {
-  const story = storiesOf(`Icons/Icons`, module);
+const icons = req.keys().map((fileName) => {
   const componentName = path.basename(fileName, '.tsx');
   const Component = req(fileName)[componentName];
   Component.displayName = componentName;
-
-  if (index === 0) {
-    story.addParameters({
-      component: Component,
-      controls: { hideNoControlsWarning: true },
-      docs: {
-        disable: true,
-      },
-    });
-  }
-
-  story.add(componentName, () => (
-    <>
-      <Wrapper>
-        {['extraSmall', 'small', 'medium', 'large', 'extraLarge'].map((size) => (
-          <Component key={`icon-black-${size}`} size={size} />
-        ))}
-      </Wrapper>
-      <Wrapper style={{ background: 'var(--color-black)' }}>
-        {['extraSmall', 'small', 'medium', 'large', 'extraLarge'].map((size) => (
-          <Component key={`icon-white-${size}`} size={size} style={{ color: '#fff' }} />
-        ))}
-      </Wrapper>
-    </>
-  ));
+  return { componentName, Component };
 });
+
+export const AllIcons = () => (
+  <div>
+    {icons.map(({ componentName, Component }) => (
+      <div key={componentName} style={{ marginBottom: 'var(--spacing-s)' }}>
+        <div style={{ marginBottom: 'var(--spacing-2-xs)', fontWeight: 'bold' }}>{componentName}</div>
+        <div
+          style={{
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            display: 'flex',
+            maxWidth: 400,
+            padding: 'var(--spacing-s)',
+            color: 'var(--color-black)',
+          }}
+        >
+          {sizes.map((size) => (
+            <Component key={`icon-black-${size}`} size={size} />
+          ))}
+        </div>
+        <div
+          style={{
+            alignItems: 'center',
+            justifyContent: 'space-around',
+            display: 'flex',
+            maxWidth: 400,
+            padding: 'var(--spacing-s)',
+            background: 'var(--color-black)',
+          }}
+        >
+          {sizes.map((size) => (
+            <Component key={`icon-white-${size}`} size={size} style={{ color: '#fff' }} />
+          ))}
+        </div>
+      </div>
+    ))}
+  </div>
+);
+AllIcons.storyName = 'All Icons';

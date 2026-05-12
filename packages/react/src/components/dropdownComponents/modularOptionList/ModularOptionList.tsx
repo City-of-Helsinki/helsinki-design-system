@@ -1,5 +1,5 @@
 import { uniqueId } from 'lodash';
-import React, { useMemo, createRef, forwardRef } from 'react';
+import React, { useMemo, createRef } from 'react';
 
 import {
   ModularOptionListProps,
@@ -36,88 +36,81 @@ export const checkDataProviderPresence = () => {
   }
 };
 
-export const ModularOptionList = forwardRef<
-  HTMLButtonElement,
-  Omit<ModularOptionListProps & AcceptedNativeDivProps, 'ref'>
->(
-  (
-    {
-      options,
-      groups,
+export const ModularOptionList = ({
+  options,
+  groups,
+  onChange,
+  children,
+  id,
+  onFocus,
+  onBlur,
+  disabled,
+  texts,
+  invalid,
+  multiSelect,
+  visibleOptions,
+  virtualize,
+  value,
+  ref,
+}: ModularOptionListProps & AcceptedNativeDivProps & { ref?: React.Ref<HTMLButtonElement> }) => {
+  const initialData = useMemo<ModularOptionListData>(() => {
+    const data = {
+      groups: convertPropsToGroups({ options, groups, value, children }),
+      invalid: !!invalid,
+      disabled: !!disabled,
+      multiSelect: !!multiSelect,
+      visibleOptions: visibleOptions || 5.5,
+      virtualize: !!virtualize,
       onChange,
-      children,
-      id,
       onFocus,
       onBlur,
-      disabled,
-      texts,
-      invalid,
-      multiSelect,
-      visibleOptions,
-      virtualize,
-      value,
-    },
-    ref,
-  ) => {
-    const initialData = useMemo<ModularOptionListData>(() => {
-      const data = {
-        groups: convertPropsToGroups({ options, groups, value, children }),
-        invalid: !!invalid,
-        disabled: !!disabled,
-        multiSelect: !!multiSelect,
-        visibleOptions: visibleOptions || 5.5,
-        virtualize: !!virtualize,
-        onChange,
-        onFocus,
-        onBlur,
-      };
-      if (data.multiSelect) {
-        mutateGroupLabelSelections(data.groups);
-      }
-      return data;
-    }, [options, groups, onChange, disabled, invalid, virtualize, visibleOptions, onFocus, onBlur, value, children]);
+    };
+    if (data.multiSelect) {
+      mutateGroupLabelSelections(data.groups);
+    }
+    return data;
+  }, [options, groups, onChange, disabled, invalid, virtualize, visibleOptions, onFocus, onBlur, value, children]);
 
-    const metaData = useMemo((): ModularOptionListMetaData => {
-      const containerId = `${id || uniqueId('hds-select-')}`;
-      const optionIds = new Map<string, string>();
-      let optionIdCounter = 0;
-      return {
-        lastToggleCommand: 0,
-        lastClickedOption: undefined,
-        activeDescendant: undefined,
-        refs: {
-          list: createRef<HTMLUListElement>(),
-        },
-        selectedOptions: getSelectedOptions(initialData.groups),
-        elementIds: getElementIds(containerId),
-        textProvider: createTextProvider(texts),
-        getOptionId: (option: Option) => {
-          const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
-          const current = optionIds.get(identifier);
-          if (!current) {
-            const optionId = `${containerId}-option-${optionIdCounter}`;
-            optionIdCounter += 1;
-            optionIds.set(identifier, optionId);
-            return optionId;
-          }
-          return current;
-        },
-        screenReaderNotifications: [],
-      };
-    }, [id, initialData.groups, texts, ref]);
+  const metaData = useMemo((): ModularOptionListMetaData => {
+    const containerId = `${id || uniqueId('hds-select-')}`;
+    const optionIds = new Map<string, string>();
+    let optionIdCounter = 0;
+    return {
+      lastToggleCommand: 0,
+      lastClickedOption: undefined,
+      activeDescendant: undefined,
+      refs: {
+        list: createRef<HTMLUListElement>(),
+      },
+      selectedOptions: getSelectedOptions(initialData.groups),
+      elementIds: getElementIds(containerId),
+      textProvider: createTextProvider(texts),
+      getOptionId: (option: Option) => {
+        const identifier = option.isGroupLabel ? `hds-group-${option.label}` : option.value;
+        const current = optionIds.get(identifier);
+        if (!current) {
+          const optionId = `${containerId}-option-${optionIdCounter}`;
+          optionIdCounter += 1;
+          optionIds.set(identifier, optionId);
+          return optionId;
+        }
+        return current;
+      },
+      screenReaderNotifications: [],
+    };
+  }, [id, initialData.groups, texts, ref]);
 
-    const isDataProvider = checkDataProviderPresence();
+  const isDataProvider = checkDataProviderPresence();
 
-    return isDataProvider ? (
+  return isDataProvider ? (
+    <List />
+  ) : (
+    <DataProvider<ModularOptionListData, ModularOptionListMetaData>
+      initialData={initialData}
+      metaData={metaData}
+      onChange={changeHandler}
+    >
       <List />
-    ) : (
-      <DataProvider<ModularOptionListData, ModularOptionListMetaData>
-        initialData={initialData}
-        metaData={metaData}
-        onChange={changeHandler}
-      >
-        <List />
-      </DataProvider>
-    );
-  },
-);
+    </DataProvider>
+  );
+};

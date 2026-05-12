@@ -1,13 +1,13 @@
-import { createTimedPromise } from '../../../../login/testUtils/timerTestUtil';
 import { eventIds, eventTypes } from '../../events';
-import { groupsAndOptions, initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
+import { groupsAndOptions, initTests, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
 import { Group, SelectMetaData } from '../../types';
 import { SearchAndFilterInfo } from './SearchAndFilterInfo';
 
 jest.mock('../Container', () => {
   return {
     __esModule: true,
-    Container: () => mockedContainer(),
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+    Container: () => require('../../testUtil').mockedContainer(),
   };
 });
 
@@ -22,9 +22,7 @@ describe('<SearchAndFilterInfo />', () => {
   const getTestProps = (
     inputType: SelectMetaData['listInputType'],
     returnResults = false,
-    searchDelay = 0,
   ): Parameters<typeof initTests>[0] => {
-    const searchResult = returnResults ? (groupsAndOptions as Group[])[0].options : [];
     return {
       renderComponentOnly: false,
       selectProps: {
@@ -32,9 +30,12 @@ describe('<SearchAndFilterInfo />', () => {
         onSearch:
           inputType === 'search'
             ? () =>
-                searchDelay > 0
-                  ? createTimedPromise({ options: searchResult }, searchDelay)
-                  : Promise.resolve({ options: searchResult })
+                new Promise((resolve) => {
+                  setTimeout(
+                    () => resolve({ options: returnResults ? (groupsAndOptions as Group[])[0].options : [] }),
+                    50,
+                  );
+                })
             : undefined,
         texts: (key) => key,
         filter: inputType === 'filter' ? () => returnResults : undefined,
@@ -70,8 +71,7 @@ describe('<SearchAndFilterInfo />', () => {
     expect(getSearchAndFilterInfoTexts()).toEqual(['filteredWithoutResultsInfo', 'filterWithAnotherTerm']);
   });
   it('Screen reader notification is added and removed after clearing the search', async () => {
-    // Delay search resolution so we can observe the "searching" state before success runs
-    const { triggerChangeEvent, getMetaDataFromElement } = initTests(getTestProps('search', false, 200));
+    const { triggerChangeEvent, getMetaDataFromElement } = initTests(getTestProps('search'));
     await triggerChangeEvent({ id: eventIds.search, type: eventTypes.change, payload: { value: 'search' } });
     const notifications = getMetaDataFromElement().screenReaderNotifications;
     expect(notifications).toHaveLength(1);
@@ -86,8 +86,7 @@ describe('<SearchAndFilterInfo />', () => {
     expect(getMetaDataFromElement().screenReaderNotifications).toHaveLength(0);
   });
   it('Screen reader notification indicates number of results', async () => {
-    // Delay search resolution so we can observe the "searching" state before success runs
-    const { triggerChangeEvent, getMetaDataFromElement } = initTests(getTestProps('search', true, 200));
+    const { triggerChangeEvent, getMetaDataFromElement } = initTests(getTestProps('search', true));
     await triggerChangeEvent({ id: eventIds.search, type: eventTypes.change, payload: { value: 'search' } });
     const notifications = getMetaDataFromElement().screenReaderNotifications;
     expect(notifications).toHaveLength(1);

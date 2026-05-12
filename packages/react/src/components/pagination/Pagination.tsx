@@ -204,7 +204,7 @@ export const Pagination = ({
   ...rest
 }: PaginationProps) => {
   const initialPageIndex = useRef(pageIndex);
-  const activeItemRef = useRef<HTMLSpanElement>();
+  const activeItemRef = useRef<HTMLSpanElement>(null);
   const userSelectedIndex = useRef(-1);
   const [hasUserChangedPage, setHasUserChangedPage] = useState<boolean>(false);
 

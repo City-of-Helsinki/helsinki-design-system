@@ -22,7 +22,6 @@ exports[`<NumberInput /> spec renders the component 1`] = `
           class="input"
           id="numberInputTestId"
           type="number"
-          value=""
         />
       </div>
     </div>
@@ -68,7 +67,6 @@ exports[`<NumberInput /> spec renders the component with steppers 1`] = `
           id="numberInputTestId"
           step="10"
           type="number"
-          value=""
         />
         <div
           class="minusButtonWrapper"

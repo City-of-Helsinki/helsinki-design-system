@@ -17,6 +17,7 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     }
     for (const componentUrl of componentUrls) {
       await page.goto(componentUrl);
+      await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
 
       if (componentUrl.includes('as-error-summary-with-form')) {
         await page.getByRole('button', { name: 'Submit' }).click();

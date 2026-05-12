@@ -1,5 +1,4 @@
-import { cleanup, fireEvent } from '@testing-library/react';
-import { act, renderHook } from '@testing-library/react-hooks';
+import { cleanup, fireEvent, act, renderHook } from '@testing-library/react';
 
 import { useMediaQueryLessThan, useMediaQueryGreaterThan } from '../useMediaQuery';
 

@@ -9,7 +9,7 @@ import {
   Button,
   Checkbox,
   DateInput,
-  ErrorSummary,
+  Notification,
   PhoneInput,
   RadioButton,
   SelectionGroup,
@@ -22,6 +22,10 @@ import {
 import './validation.scss';
 
 const cities = getCitites();
+
+export default {
+  title: 'Examples/Forms/ValidationStatic',
+};
 
 export const Static = () => {
   const {
@@ -79,7 +83,7 @@ export const Static = () => {
    */
   const renderErrorSummary = () =>
     Object.keys(errors).length > 0 ? (
-      <ErrorSummary label="Form contains following errors" className="hds-example-form__error-summary" autofocus>
+      <Notification type="error" label="Form contains following errors" style={{ marginBottom: 'var(--spacing-m)' }}>
         <ul>
           {Object.keys(errors).map((errorKey, index) => (
             <li key={`error-${errorKey}`}>
@@ -88,7 +92,7 @@ export const Static = () => {
             </li>
           ))}
         </ul>
-      </ErrorSummary>
+      </Notification>
     ) : null;
 
   return (

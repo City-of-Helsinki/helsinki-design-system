@@ -9,6 +9,7 @@ type Props = {
   above?: Breakpoint;
   below?: Breakpoint;
   className?: string;
+  children?: React.ReactNode;
 };
 
 const capitalize = (str?: string) => str?.toUpperCase() || '';

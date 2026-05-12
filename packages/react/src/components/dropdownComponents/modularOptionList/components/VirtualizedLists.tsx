@@ -6,6 +6,7 @@ import { Group } from '../types';
 import { useModularOptionListDataHandlers } from '../hooks/useModularOptionListDataHandlers';
 import { getAllOptions, getVisibleGroupLabels } from '../utils';
 import { createListElementProps, createOptionElements } from './SingleSelectAndGrouplessList';
+import { getTextFromDataHandlers } from '../texts';
 
 export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectWithGroups: boolean }) => {
   const dataHandlers = useModularOptionListDataHandlers();
@@ -17,6 +18,8 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
   // Use aria-labelledby to share the same accessible name as the search input
   const hasSearchInput = (metaData as Record<string, unknown>).hasSearchInput as boolean | undefined;
   const labelId = hasSearchInput ? (elementIds as Record<string, string>).label : undefined;
+  // Fall back to aria-label from texts when no labelledBy is available (e.g. standalone usage)
+  const ariaLabel = !labelId ? getTextFromDataHandlers('label', dataHandlers) : undefined;
 
   // In multiselect with groups, group labels are rendered, so include them in the count
   // For single select with groups, group labels are also rendered, so include them
@@ -47,7 +50,7 @@ export const VirtualizedLists = ({ forMultiSelectWithGroups }: { forMultiSelectW
     const children = shouldRenderOptions ? createGroups({ groups: createVirtualGroups(), getOptionId, trigger }) : null;
     return <div {...attr}>{children}</div>;
   }
-  const attr = createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId });
+  const attr = createListElementProps({ refs, elementIds, multiSelect, labelledBy: labelId, label: ariaLabel });
   const children = shouldRenderOptions
     ? createOptionElements({ groups: createVirtualGroups(), trigger, multiSelect, getOptionId })
     : null;

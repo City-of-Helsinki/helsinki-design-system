@@ -57,11 +57,24 @@ module.exports = {
   // A path to a module which exports an async function that is triggered once after all test suites
   // globalTeardown: null,
 
-  // A set of global variables that need to be available in all test environments
-  globals: {
-    'ts-jest': {
+  // Transform configuration (replaces deprecated globals.ts-jest)
+  transform: {
+    '^.+\\.tsx?$': ['ts-jest', {
       babelConfig: true,
-    },
+      tsconfig: {
+        lib: ['es6', 'dom', 'dom.iterable', 'es2017'],
+        types: ['jest', 'node', '@testing-library/jest-dom'],
+      },
+    }],
+    '^.+\\.jsx?$': 'babel-jest',
+  },
+
+  // Modern fake timers (@sinonjs/fake-timers) with Date and setImmediate excluded.
+  // Date must not be faked because CookieConsentCore tests rely on real timestamps.
+  // setImmediate must not be faked because fake-indexeddb uses it internally
+  // for async operations, and faking it prevents deletion callbacks from completing.
+  fakeTimers: {
+    doNotFake: ['setImmediate', 'Date'],
   },
 
   // The maximum amount of workers used to run your tests. Can be specified as % or a number. E.g. maxWorkers: 10% will use 10% of your CPU amount + 1 as the maximum worker number. maxWorkers: 2 will use a maximum of 2 workers.
@@ -99,7 +112,7 @@ module.exports = {
   // notifyMode: "failure-change",
 
   // A preset that is used as a base for Jest's configuration
-  preset: 'ts-jest/presets/js-with-babel',
+  // preset: 'ts-jest/presets/js-with-babel', // replaced by explicit transform config
 
   // Run tests from one or more projects
   // projects: null,
@@ -146,7 +159,7 @@ module.exports = {
   // snapshotSerializers: [],
 
   // The test environment that will be used for testing
-  // testEnvironment: "jest-environment-jsdom",
+  testEnvironment: 'jest-environment-jsdom',
 
   // Options that will be passed to the testEnvironment
   // testEnvironmentOptions: {},
@@ -182,7 +195,7 @@ module.exports = {
   // transform: null,
 
   // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['/node_modules/(?!@babel/runtime)'],
+  transformIgnorePatterns: ['/node_modules/(?!@babel/runtime|uuid)'],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

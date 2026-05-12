@@ -1,6 +1,5 @@
 import React, { useMemo, useRef, useState } from 'react';
-import { waitFor } from '@testing-library/react';
-import { act } from 'react-dom/test-utils';
+import { act, waitFor } from '@testing-library/react';
 import { v4 } from 'uuid';
 
 import { useSignalListener, useSignalTrackingWithCallback, useSignalTrackingWithReturnValue } from './hooks';

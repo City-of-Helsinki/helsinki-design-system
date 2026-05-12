@@ -23,7 +23,7 @@ export function useSelectStorage(props: SelectStorageProps) {
   const reRender = useForceRender();
   const propsStorage = useRef<SelectStorageProps>({ onChange: () => ({}) });
   const groupsStorage = useRef<Group[]>([]);
-  const onChangeInProps = useRef<SelectStorageProps['onChange']>();
+  const onChangeInProps = useRef<SelectStorageProps['onChange']>(null);
   onChangeInProps.current = restProps.onChange;
 
   useMemo(() => {

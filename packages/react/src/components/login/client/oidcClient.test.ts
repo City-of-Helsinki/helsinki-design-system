@@ -30,7 +30,12 @@ import {
   getErrorSignals,
   getListenerSignals,
 } from '../testUtils/beaconTestUtil';
-import { advanceUntilListenerCalled, createTimedPromise, listenToPromise } from '../testUtils/timerTestUtil';
+import {
+  advanceUntilListenerCalled,
+  advanceUntilCondition,
+  createTimedPromise,
+  listenToPromise,
+} from '../testUtils/timerTestUtil';
 import { OidcClientEventSignal, createOidcClientEventSignal } from './signals';
 import { createRenewalTestUtil, mockUserManagerRefreshResponse } from '../testUtils/renewalTestUtil';
 import {
@@ -395,9 +400,9 @@ describe('oidcClient', () => {
       oidcClient.renewUser();
       const newAccessTokenPromise = oidcClient.getToken('access');
       await advanceUntilListenerCalled(fulfillmentListener);
-      await waitFor(() => {
+      await advanceUntilCondition(() => {
         expect(oidcClient.isRenewing()).toBeFalsy();
-      });
+      }, 100);
       verifyTokens(oidcClient, refreshSignInResponseProps);
       const newAccessToken = await newAccessTokenPromise;
       expect(newAccessToken).toBe(refreshSignInResponseProps.access_token);
@@ -411,9 +416,9 @@ describe('oidcClient', () => {
       const fulfillmentListener = mockUserManagerRefreshResponse(userManager, new Error('UPS'));
       oidcClient.renewUser();
       await advanceUntilListenerCalled(fulfillmentListener);
-      await waitFor(() => {
+      await advanceUntilCondition(() => {
         expect(oidcClient.isRenewing()).toBeFalsy();
-      });
+      }, 100);
       verifyTokens(oidcClient, signInResponseProps);
     });
     it('returns undefined, if user is not valid', async () => {
@@ -733,9 +738,9 @@ describe('oidcClient', () => {
         renewalFunctions.raiseExpiringEvent();
         expect(oidcClient.isAuthenticated()).toBeTruthy();
         await waitForRefreshToEnd();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
-        });
+        }, 100);
         const reportedErrors = getAllErrorSignals(listenerForEverything);
         expect(reportedErrors).toHaveLength(0);
         const renewedUser = oidcClient.getUser() as User;
@@ -751,13 +756,13 @@ describe('oidcClient', () => {
         const { renewalFunctions, oidcClient, waitForRefreshToEnd, modules } = await initRenewalTests(false, true);
         expect(oidcClient.isRenewing()).toBeFalsy();
         renewalFunctions.raiseExpiringEvent();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeTruthy();
-        });
+        }, 100);
         await waitForRefreshToEnd();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
-        });
+        }, 100);
         [...modules].forEach((mod) => {
           const reportedErrors = getErrorSignals(filterListenerCallsPerModule(mod.namespace));
           expect(reportedErrors).toHaveLength(1);
@@ -773,13 +778,13 @@ describe('oidcClient', () => {
         expect(oidcClient.isRenewing()).toBeFalsy();
         const initialUser = oidcClient.getUser() as User;
         renewalFunctions.raiseExpiringEvent();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeTruthy();
-        });
+        }, 100);
         await waitForRefreshToEnd();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
-        });
+        }, 100);
         expect(oidcClient.getUser()).toMatchObject(initialUser);
         expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
@@ -788,9 +793,9 @@ describe('oidcClient', () => {
         expect(oidcClient.isRenewing()).toBeTruthy();
 
         await waitForRefreshToEnd();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
-        });
+        }, 100);
 
         expect(oidcClient.isAuthenticated()).toBeTruthy();
       });
@@ -803,9 +808,9 @@ describe('oidcClient', () => {
         const promise = oidcClient.renewUser();
         const promiseListener = listenToPromise(promise);
         await waitForRefreshToEnd();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
-        });
+        }, 100);
         await advanceUntilListenerCalled(promiseListener);
         const renewedUser = getResultsFromRenawalListeners(promiseListener, true)[0] as User;
         expect(renewedUser).not.toMatchObject(initialUser);
@@ -817,18 +822,18 @@ describe('oidcClient', () => {
         const { oidcClient, waitForRefreshToEnd, renewalFunctions } = await initRenewalTests(false, true);
         expect(oidcClient.isRenewing()).toBeFalsy();
         renewalFunctions.raiseExpiringEvent();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeTruthy();
-        });
+        }, 100);
         const promise = oidcClient.renewUser();
         const promise2 = oidcClient.renewUser();
         const promiseListener = listenToPromise(promise);
         const promiseListener2 = listenToPromise(promise2);
 
         await waitForRefreshToEnd();
-        await waitFor(() => {
+        await advanceUntilCondition(() => {
           expect(oidcClient.isRenewing()).toBeFalsy();
-        });
+        }, 100);
         await advanceUntilListenerCalled(promiseListener);
         await advanceUntilListenerCalled(promiseListener2);
         const allRenewResults = listAllUserRenewalCompletions();

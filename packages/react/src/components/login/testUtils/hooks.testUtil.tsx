@@ -18,7 +18,7 @@ export type HookTestUtil = ReturnType<typeof createHookTestEnvironment>;
 export type ListenerFactory = ReturnType<typeof createSignalListenerFactory>;
 
 type TestProps = {
-  children: React.ReactNodeArray;
+  children: React.ReactNode[];
   waitForRenderToggle?: boolean;
   userInStorage?: UserCreationProps;
   noOidcClient?: boolean;

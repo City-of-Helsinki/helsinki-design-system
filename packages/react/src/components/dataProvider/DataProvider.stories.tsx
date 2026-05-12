@@ -6,7 +6,6 @@ import { DataProvider, DataProviderProps } from './DataProvider';
 import { useContextDataHandlers } from './hooks';
 import { StorageData } from './storage';
 import { RadioButton } from '../radioButton/RadioButton';
-import { ErrorSummary } from '../errorSummary/ErrorSummary';
 import { Notification } from '../notification/Notification';
 import { Checkbox } from '../checkbox';
 import { Fieldset } from '../fieldset';
@@ -68,7 +67,7 @@ export const NumericStepper = () => {
         payload: { value: e.currentTarget.value, originalEvent: e },
       });
     };
-    return <TextInput id={id} onChange={onChange} value={String(value)} />;
+    return <TextInput id={id} label="Value" onChange={onChange} value={String(value)} />;
   };
 
   const Action = (buttonProps: PropsWithChildren<{ id: string; children: string }>) => {
@@ -240,7 +239,7 @@ export const Form = () => {
     const handlers = useContextDataHandlers<FormData, FormMetaData>();
     const { errors } = handlers.getMetaData();
     return errors.length ? (
-      <ErrorSummary label="Please fix these errors">
+      <Notification type="error" label="Please fix these errors">
         <ul>
           {errors.map((error, i) => {
             return (
@@ -250,7 +249,7 @@ export const Form = () => {
             );
           })}
         </ul>
-      </ErrorSummary>
+      </Notification>
     ) : null;
   };
 

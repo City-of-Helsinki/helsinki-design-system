@@ -9,7 +9,7 @@ import {
   Button,
   Checkbox,
   DateInput,
-  ErrorSummary,
+  Notification,
   PhoneInput,
   RadioButton,
   Select,
@@ -22,6 +22,10 @@ import {
 import './validation.scss';
 
 const cities = getCitites();
+
+export default {
+  title: 'Examples/Forms/ValidationHybrid',
+};
 
 export const Hybrid = () => {
   const {
@@ -110,7 +114,7 @@ export const Hybrid = () => {
    */
   const renderErrorSummary = () =>
     hasBackendErrors ? (
-      <ErrorSummary label="Form contains following errors" className="hds-example-form__error-summary" autofocus>
+      <Notification type="error" label="Form contains following errors" style={{ marginBottom: 'var(--spacing-m)' }}>
         <ul>
           <li>
             Error 1:{' '}
@@ -119,7 +123,7 @@ export const Hybrid = () => {
             </a>
           </li>
         </ul>
-      </ErrorSummary>
+      </Notification>
     ) : null;
 
   return (

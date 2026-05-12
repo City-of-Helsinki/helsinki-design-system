@@ -13,36 +13,27 @@ export const getComponentStorybookUrls = async (
   packageName: string,
   nameFilters?: string[],
 ) => {
-  const stories: { href: string; fullUrl: string }[] = [];
   const localServerPort = packageName === 'core' ? PackageServerPort.Core : PackageServerPort.React;
   const basePath = `http://localhost:${localServerPort}`;
-  const localStorybookPath = `${basePath}/index.html?path=/story/`;
 
-  await page.goto(`${localStorybookPath}components-${componentName}`);
-  await expect(page.locator(`#components-${componentName}`)).toBeVisible();
-  const componentLinks = await page.locator(`[data-parent-id="components-${componentName}"]`).all();
+  // Fetch the Storybook index.json to discover stories (works with SB7+/SB8)
+  const response = await page.request.get(`${basePath}/index.json`);
+  const data = await response.json();
+  const entries = Object.values(data.entries) as Array<{ id: string; name: string; title: string; type: string }>;
 
-  for (const component of componentLinks) {
-    const href = await component.getAttribute('href');
-    if (!href) continue;
+  const prefix = `components-${componentName}`;
+  const matchingStories = entries.filter(
+    (entry) => entry.type === 'story' && entry.id.startsWith(`${prefix}--`),
+  );
 
-    if (nameFilters) {
-      const storyName = await component.textContent();
-      if (!storyName || !nameFilters.includes(storyName)) {
-        continue;
-      }
-    }
-
-    // to use the inner iframe of the story instead
-    const url = href.replace('index.html', 'iframe.html');
-    stories.push({ href, fullUrl: `${basePath}${url}` });
+  let filtered = matchingStories;
+  if (nameFilters) {
+    filtered = matchingStories.filter((entry) => nameFilters.includes(entry.name));
   }
 
-  const withoutPlayground = stories
-    .filter((s) => !s.href.includes('playground'))
-    .map((s) => s.fullUrl);
-
-  return withoutPlayground.length > 0 ? withoutPlayground : stories.map((s) => s.fullUrl);
+  return filtered
+    .filter((entry) => !entry.id.includes('playground'))
+    .map((entry) => `${basePath}/iframe.html?path=/story/${entry.id}`);
 };
 
 export const unfocusElement = async (page: Page, element: Locator) => {
@@ -97,6 +88,7 @@ export const takeScreenshotWithSpacing = async (
   screenshotName: string,
   spacing: number = 8,
 ) => {
+  await page.evaluate(() => document.fonts.ready);
   await element.scrollIntoViewIfNeeded();
   const elementBoundingBox = (await element.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
 
@@ -126,6 +118,7 @@ export const takeAllStorySnapshots = async (props: {
   }
   for (const componentUrl of componentUrls) {
     await page.goto(componentUrl);
+    await page.waitForLoadState('networkidle', { timeout: 10000 }).catch(() => {});
     const container = page.locator('body');
     const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
     await takeScreenshotWithSpacing(page, container, screenshotName, bodySpacing);
@@ -210,6 +203,8 @@ export const gotoStorybookUrlByName = async (page: Page, name: string, component
   const filteredUrls = await getComponentStorybookUrls(page, componentName, packageName, [name]);
   const targetUrl = filteredUrls[0];
   await page.goto(targetUrl);
+  await page.waitForLoadState('networkidle');
+  await page.evaluate(() => document.fonts.ready);
   return targetUrl;
 };
 

@@ -1,10 +1,12 @@
 import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
 import PropTypes from 'prop-types';
 import { useMDXComponents } from '@mdx-js/react';
-import { LiveProvider, LiveEditor, LiveError, LivePreview, withLive } from 'react-live';
+import { LiveProvider, LiveEditor, LiveError, LivePreview, LiveContext } from 'react-live';
+import { themes } from 'prism-react-renderer';
 import sanitizeHtml from 'sanitize-html';
 import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
-import theme from './codeTheme';
+
+const theme = themes.github;
 
 import './Playground.scss';
 import LiveErrorCore from './LiveErrorCore';
@@ -146,7 +148,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   const [copyState, setCopyState] = useState('');
   const textAreaId = `code-block-textarea-${language}-${resetCount}`;
   const helperTextId = `code-block-helper-${language}-${resetCount}`;
-  const getTextArea = useCallback((el) => el.querySelector(`#${textAreaId}`), [textAreaId]);
+  const getTextArea = useCallback((el) => el.querySelector('textarea'), []);
 
   const onFocusKeyDown = useCallback(
     (event) => {
@@ -194,6 +196,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
     if (viewPortRef.current) {
       const textArea = getTextArea(viewPortRef.current);
       if (textArea) {
+        textArea.setAttribute('id', textAreaId);
         textArea.setAttribute('aria-describedby', helperTextId);
         textArea.setAttribute('tabIndex', '-1');
         textArea.addEventListener('blur', (e) => {
@@ -204,7 +207,7 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         });
       }
     }
-  }, [getTextArea, helperTextId]);
+  }, [getTextArea, helperTextId, textAreaId]);
 
   return (
     <>
@@ -229,7 +232,6 @@ const Editor = ({ onChange, initialCode, code, language }) => {
                 key={resetCount}
                 onChange={onChange}
                 className="playground-block-editor-code-input"
-                textareaId={textAreaId}
                 theme={theme}
                 language={language}
               />
@@ -293,7 +295,11 @@ Editor.propTypes = {
   language: PropTypes.string.isRequired,
 };
 
-const EditorWithLive = withLive(Editor);
+const EditorWithLive = (props) => (
+  <LiveContext.Consumer>
+    {({ code, onChange }) => <Editor {...props} code={code} onChange={onChange} />}
+  </LiveContext.Consumer>
+);
 
 export const PlaygroundBlock = (props) => {
   const mdxComponents = useMDXComponents();

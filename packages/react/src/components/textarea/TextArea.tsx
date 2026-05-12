@@ -29,60 +29,56 @@ export type TextAreaProps = Omit<InputWrapperProps, keyof React.TextareaHTMLAttr
     ref?: React.Ref<HTMLTextAreaElement>;
   };
 
-export const TextArea = React.forwardRef<HTMLTextAreaElement, TextAreaProps>(
-  (
-    {
-      className = '',
-      disabled = false,
-      defaultValue,
-      errorText,
-      helperText,
-      hideLabel,
-      invalid,
-      id,
-      label,
-      onChange = () => null,
-      required,
-      style,
-      successText,
-      infoText,
-      tooltip,
-      ...rest
-    }: TextAreaProps,
-    ref: React.Ref<HTMLTextAreaElement>,
-  ) => {
-    const wrapperProps = {
-      className,
-      errorText,
-      helperText,
-      hideLabel,
-      id,
-      invalid,
-      label,
-      required,
-      style,
-      successText,
-      infoText,
-      tooltip,
-    };
+export const TextArea = ({
+  className = '',
+  disabled = false,
+  defaultValue,
+  errorText,
+  helperText,
+  hideLabel,
+  invalid,
+  id,
+  label,
+  onChange = () => null,
+  required,
+  style,
+  successText,
+  infoText,
+  tooltip,
+  ref,
+  ...rest
+}: TextAreaProps) => {
+  const wrapperProps = {
+    className,
+    errorText,
+    helperText,
+    hideLabel,
+    id,
+    invalid,
+    label,
+    required,
+    style,
+    successText,
+    infoText,
+    tooltip,
+  };
 
-    // Compose aria-describedby attribute
-    const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  // Compose aria-describedby attribute
+  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
 
-    return (
-      <InputWrapper {...wrapperProps}>
-        <textarea
-          className={styles.input}
-          defaultValue={defaultValue}
-          disabled={disabled}
-          id={id}
-          onChange={onChange}
-          ref={ref}
-          required={required}
-          aria-describedby={ariaDescribedBy}
-          {...rest}
-        />
-      </InputWrapper>
-    );
-  },
-);
+  return (
+    <InputWrapper {...wrapperProps}>
+      <textarea
+        className={styles.input}
+        defaultValue={defaultValue}
+        disabled={disabled}
+        id={id}
+        onChange={onChange}
+        ref={ref}
+        required={required}
+        aria-describedby={ariaDescribedBy}
+        {...rest}
+      />
+    </InputWrapper>
+  );
+};

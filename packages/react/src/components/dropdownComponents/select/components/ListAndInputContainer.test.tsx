@@ -1,14 +1,15 @@
 /* eslint-disable jest/no-conditional-expect */
 import { axe } from 'jest-axe';
 
-import { initTests, mockedContainer, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
+import { initTests, testUtilAfterAll, testUtilBeforeAll } from '../testUtil';
 import { defaultFilter } from '../utils';
 import { ListAndInputContainer } from './ListAndInputContainer';
 
 jest.mock('./Container', () => {
   return {
     __esModule: true,
-    Container: () => mockedContainer(),
+    // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+    Container: () => require('../testUtil').mockedContainer(),
   };
 });
 

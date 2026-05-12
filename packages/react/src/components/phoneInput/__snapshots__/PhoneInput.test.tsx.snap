@@ -19,7 +19,6 @@ exports[`<PhoneInput /> spec renders the component 1`] = `
         class="input"
         id="phone-input"
         type="tel"
-        value=""
       />
     </div>
   </div>

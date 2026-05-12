@@ -77,9 +77,12 @@ export const AlignsWithHeader = (args: ContainerProps) => {
   );
 };
 
+AlignsWithHeader.args = {
+  alignWithHeader: true,
+};
+
 AlignsWithHeader.argTypes = {
   alignWithHeader: {
-    defaultValue: true,
     control: 'boolean',
   },
 };
@@ -148,9 +151,12 @@ export const AlignsWitCustomWidthHeader = (args: ContainerProps) => {
   );
 };
 
+AlignsWitCustomWidthHeader.args = {
+  alignWithHeader: true,
+};
+
 AlignsWitCustomWidthHeader.argTypes = {
   alignWithHeader: {
-    defaultValue: true,
     control: 'boolean',
   },
 };

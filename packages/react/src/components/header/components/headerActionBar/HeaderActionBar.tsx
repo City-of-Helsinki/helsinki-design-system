@@ -117,7 +117,7 @@ export type HeaderActionBarProps = PropsWithChildren<
 
 export const HeaderActionBar = ({
   title,
-  titleStyle,
+  titleStyle = TitleStyleType.Normal,
   titleAriaLabel,
   logoAriaLabel,
   menuButtonLabel = 'Menu',
@@ -140,7 +140,7 @@ export const HeaderActionBar = ({
   const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
   const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
-  const actionBarRef = useRef<HTMLDivElement>();
+  const actionBarRef = useRef<HTMLDivElement>(null);
   const documentTabIndexes = useRef(new Map());
 
   useEffect(() => {
@@ -262,8 +262,4 @@ export const HeaderActionBar = ({
       )}
     </>
   );
-};
-
-HeaderActionBar.defaultProps = {
-  titleStyle: TitleStyleType.Normal,
 };

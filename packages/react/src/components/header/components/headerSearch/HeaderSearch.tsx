@@ -41,7 +41,7 @@ export type HeaderSearchProps = MergeAndOverrideProps<
     /**
      * Icon for the Search button in the Header.
      */
-    buttonIcon?: JSX.Element;
+    buttonIcon?: React.JSX.Element;
   }
 >;
 

@@ -5,7 +5,7 @@ import { SelectStorageProps, useSelectStorage } from '../useSelectStorage';
 import { Select } from '../../Select';
 import { getOptionLabels } from '../../../modularOptionList/batch.options';
 import { defaultTexts } from '../../texts';
-import { mockedContainer, renderResultToHelpers, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
+import { renderResultToHelpers, testUtilAfterAll, testUtilBeforeAll } from '../../testUtil';
 import { useTextProvider } from '../useTextProvider';
 import { Group, SelectProps, Option } from '../../types';
 import { getLastMockCallArgs } from '../../../../../utils/testHelpers';
@@ -34,7 +34,8 @@ jest.mock('../../components/Label', () => {
   return {
     __esModule: true,
     Label: () => {
-      return mockedContainer();
+      // eslint-disable-next-line global-require, @typescript-eslint/no-require-imports
+      return require('../../testUtil').mockedContainer();
     },
   };
 });
