@@ -114,7 +114,8 @@ jobs:
 
       - name: Code analysis for React files
         if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
-        run: npx eslint --debug -c './packages/react/.eslintrc.json' --ignore-path './packages/react/.eslintignore' --fix  './packages/react/src/icons/*.{ts,tsx}'
+        run: npx eslint --debug --fix './src/icons/*.{ts,tsx}'
+        working-directory: ./packages/react
 
       - name: Remove icon library build directory
         if: steps.build_checker.outputs.SKIP_REST_STEPS != 'true'
