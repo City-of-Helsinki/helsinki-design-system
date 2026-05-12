@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.0.0] - May, XX, 2026
+## [6.0.0] - May, 12, 2026
 
 - Upgrade to React 19, Storybook 8 and Gatsby 5
 
@@ -19,119 +19,40 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 - [ErrorSummary] Removed the ErrorSummary component. Use `<Notification type="error">` instead.
 
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Core
 
 #### Breaking
 
 - [ErrorSummary] Removed the ErrorSummary component. Use the Notification component with error type instead.
 
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
 ### Figma
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Forced new font rendering in all components using the library typography styles
 
-### Icon kit
+#### Unreleased
 
-#### Breaking
+##### Added
 
-- [Component] What are the breaking changes?
+- [Card] New breakpoint variants for card with Image
+- [Card] New skeleton state (loading) variants
+- [Patterns / Search Results] New pattern documentation for Search results page. Includes specifications, variations, accessibility notes and prototypes
 
-#### Added
+##### Changed
 
-- [Component] What is added?
+- [Card] Title fontsizes changed to H4 size, and if link: underlined by default
+- [Card] Text card category tag placement unified with image card
+- [Footer] Updated footer documentation with new guide on usage of optional sections and theme support
+- [Footer] Footer component properties support now hiding/showing optional sections
+- [Footer] Introducing a new "Custom section" (hidden by default), with 4 groups combining linked headings, text layers and navigation links
+- [Footer] Auto layout improvements for Navigation and Utility S/M sizes
+- [Table] Introducing new table specification for use of lateral shadows in case of overflow scrolling.
+- [Table] Table header, cell backgrounds and borders updated to improve consistency across services
 
-#### Changed
+##### Fixed
 
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Card] Text card fixed to be more responsive
 
 ## [5.2.0] - May, 7, 2026
 
