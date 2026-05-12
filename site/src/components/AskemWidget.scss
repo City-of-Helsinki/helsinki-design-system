@@ -121,6 +121,10 @@
     margin: 0;
     min-width: 0;
     padding: 0;
+
+    .askem-reaction .askem-reaction-stats {
+      display: none !important;
+    }
   }
 
   .askem-plugin .askem-reactions-group .askem-reaction-button {
