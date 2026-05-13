@@ -5,13 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.X.X] - Month, XX, 202X
-
-### Workspace
-
-#### Changed
-
-- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+## [6.0.1] - May, X, 2026
 
 ### React
 
@@ -51,7 +45,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Renamed a style file to process it properly in build-process (css -> scss).
 
 ### Documentation
 
@@ -71,7 +65,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Code area font was changed in version update -> changed to monospace to match previous styling and be more clear.
 
 ### Figma
 
