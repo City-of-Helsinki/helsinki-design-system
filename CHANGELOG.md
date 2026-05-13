@@ -5,6 +5,20 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.1] - May, 13th, 2026
+
+### Core
+
+#### Fixed
+
+- Renamed a style file to process it properly in build-process (css -> scss).
+
+### Documentation
+
+#### Fixed
+
+- Code area font was changed in version update -> changed to monospace to match previous styling and be more clear.
+
 ## [6.0.0] - May, 12, 2026
 
 - Upgrade to React 19, Storybook 8 and Gatsby 5
