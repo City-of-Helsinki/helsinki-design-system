@@ -53,16 +53,13 @@
   white-space: nowrap !important;
   width: max-content !important;
 
-  textarea,
   pre {
     border: 3px solid transparent !important;
     font-family: monospace !important;
     line-height: 24px !important;
     padding: 0 var(--spacing-s) var(--spacing-s) !important;
     vertical-align: middle !important;
-  }
 
-  textarea {
     &:focus {
       border-color: var(--color-coat-of-arms) !important;
       outline: 0 none;
