@@ -4,6 +4,10 @@ A library of Helsinki Design System components implemented using React.
 
 :books: [See the components in Storybook](https://hds.hel.fi/storybook/react)
 
+## Requirements
+
+- **React 19** or later (`react` and `react-dom` are peer dependencies). npm, pnpm, and Yarn warn at install time if your app does not satisfy this range.
+
 ## Getting started
 
 Install the package.

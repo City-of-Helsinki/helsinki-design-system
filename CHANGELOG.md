@@ -17,7 +17,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
-- [Component] What are the breaking changes?
+- [Package] `react` and `react-dom` peer dependencies now require `^19.0.0` (React 19 or later). Earlier React majors are no longer supported (since `v6.0.0` already).
 
 #### Added
 
