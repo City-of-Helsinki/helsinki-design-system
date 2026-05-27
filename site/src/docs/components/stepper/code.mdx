@@ -4,7 +4,7 @@ title: 'Stepper - Code'
 ---
 
 import { useReducer } from 'react';
-import { Button, Stepper, StepState, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { Button, ButtonVariant, Stepper, StepState, IconArrowLeft, IconArrowRight } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -15,10 +15,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 ### Code examples 
 
 #### Default
-<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
+<Playground scope={{ StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight, useReducer }}>
 
 ```jsx
-import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight } from 'hds-react';
 
 () => {
   const commonReducer = (stepsTotal) => (state, action) => {
@@ -110,7 +110,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
       >
         <Button
           disabled={state.activeStepIndex === 0}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconStart={<IconArrowLeft />}
@@ -118,7 +118,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           Previous
         </Button>
         <Button
-          variant={lastStep ? 'primary' : 'secondary'}
+          variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconEnd={lastStep ? undefined : <IconArrowRight />}
@@ -134,11 +134,11 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### Small
-<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
+<Playground scope={{ StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
-import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight } from 'hds-react';
 
 () => {
   const commonReducer = (stepsTotal) => (state, action) => {
@@ -236,7 +236,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
       >
         <Button
           disabled={state.activeStepIndex === 0}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconStart={<IconArrowLeft />}
@@ -244,7 +244,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           Previous
         </Button>
         <Button
-          variant={lastStep ? 'primary' : 'secondary'}
+          variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconEnd={lastStep ? undefined : <IconArrowRight />}
@@ -260,11 +260,11 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### With a step heading
-<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
+<Playground scope={{ StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
-import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight } from 'hds-react';
 
 () => {
   const commonReducer = (stepsTotal) => (state, action) => {
@@ -358,7 +358,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
       >
         <Button
           disabled={state.activeStepIndex === 0}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconStart={<IconArrowLeft />}
@@ -366,7 +366,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           Previous
         </Button>
         <Button
-          variant={lastStep ? 'primary' : 'secondary'}
+          variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconEnd={lastStep ? undefined : <IconArrowRight />}
@@ -382,11 +382,11 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 </Playground>
 
 #### Overflow
-<Playground scope={{ StepState, Stepper, Button, IconArrowLeft, IconArrowRight, useReducer }}>
+<Playground scope={{ StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
-import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { StepState, Stepper, Button, ButtonVariant, IconArrowLeft, IconArrowRight } from 'hds-react';
 
 () => {
   const commonReducer = (stepsTotal) => (state, action) => {
@@ -482,7 +482,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
       >
         <Button
           disabled={state.activeStepIndex === 0}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconStart={<IconArrowLeft />}
@@ -490,7 +490,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
           Previous
         </Button>
         <Button
-          variant={lastStep ? 'primary' : 'secondary'}
+          variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconEnd={lastStep ? undefined : <IconArrowRight />}
@@ -510,7 +510,7 @@ import { StepState, Stepper, Button, IconArrowLeft, IconArrowRight } from 'hds-r
 
 
 ```jsx
-import { Stepper } from 'hds-react';
+import { Stepper, StepState } from 'hds-react';
 
 () => (
   <Stepper

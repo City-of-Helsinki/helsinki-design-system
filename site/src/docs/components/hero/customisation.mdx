@@ -3,7 +3,7 @@ slug: '/components/hero/customisation'
 title: 'Hero - Customisation'
 ---
 
-import { Hero, Button } from 'hds-react';
+import { Hero, Button, ButtonVariant } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 
 export default ({ children, pageContext }) => <TabsLayout pageContext={pageContext}>{children}</TabsLayout>;
@@ -45,10 +45,10 @@ You can use the same properties as the <Link href="/components/koros/customisati
 
 ### Customisation example
 
-<Playground scope={{ Hero, Button }}>
+<Playground scope={{ Hero, Button, ButtonVariant }}>
 
 ```jsx
-import { Hero } from 'hds-react';
+import { Hero, Button, ButtonVariant } from 'hds-react';
 
 () => (
   <Hero
@@ -70,7 +70,7 @@ import { Hero } from 'hds-react';
       introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
-      variant="secondary"
+      variant={ButtonVariant.Secondary}
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
     >

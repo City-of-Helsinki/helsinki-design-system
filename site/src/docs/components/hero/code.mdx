@@ -3,7 +3,7 @@ slug: '/components/hero/code'
 title: 'Hero - Code'
 ---
 
-import { Button, Hero } from 'hds-react';
+import { Button, ButtonVariant, Hero } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -17,10 +17,10 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 Note that in order to customise the colour of the background with `variant="diagonalKoros"`, you need to set the `--koros-color` CSS variable.
 
-<Playground scope={{ Hero, Button }}>
+<Playground scope={{ Hero, Button, ButtonVariant }}>
 
 ```jsx
-import { Fieldset, TextInput } from 'hds-react';
+import { Hero, Button, ButtonVariant } from 'hds-react';
 
 () => (
   <Hero
@@ -37,7 +37,7 @@ import { Fieldset, TextInput } from 'hds-react';
       introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
-      variant="secondary"
+      variant={ButtonVariant.Secondary}
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
     >
@@ -112,10 +112,10 @@ import { Fieldset, TextInput } from 'hds-react';
 
 Hero has an option to show an arrow icon to indicate the followin content. The arrow color can also be customised with the `theme` prop by passing `--arrow-icon-color` in it.
 
-<Playground scope={{ Hero, Button }}>
+<Playground scope={{ Hero, Button, ButtonVariant }}>
 
 ```jsx
-import { Fieldset, TextInput } from 'hds-react';
+import { Hero, Button, ButtonVariant } from 'hds-react';
 
 () => (
   <Hero
@@ -133,7 +133,7 @@ import { Fieldset, TextInput } from 'hds-react';
       introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
-      variant="secondary"
+      variant={ButtonVariant.Secondary}
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
     >
@@ -213,10 +213,10 @@ import { Fieldset, TextInput } from 'hds-react';
 
 Hero has an option to show additional information below the koros. Usually the information is photographer credit.
 
-<Playground scope={{ Hero, Button }}>
+<Playground scope={{ Hero, Button, ButtonVariant }}>
 
 ```jsx
-import { Fieldset, TextInput } from 'hds-react';
+import { Hero, Button, ButtonVariant } from 'hds-react';
 
 () => (
   <Hero
@@ -234,7 +234,7 @@ import { Fieldset, TextInput } from 'hds-react';
       introduction is around 230 characters, including spaces. The intro ends with a period.
     </Hero.Text>
     <Button
-      variant="secondary"
+      variant={ButtonVariant.Secondary}
       role="link"
       style={{ '--background-color': '#000', '--color': '#fff', '--border-color': '#000' }}
     >

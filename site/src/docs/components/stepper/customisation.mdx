@@ -3,7 +3,7 @@ slug: '/components/stepper/customisation'
 title: 'Stepper - Customisation'
 ---
 
-import { Stepper, StepState, Button, IconArrowLeft, IconArrowRight } from 'hds-react';
+import { Stepper, StepState, Button, ButtonPresetTheme, ButtonVariant, IconArrowLeft, IconArrowRight } from 'hds-react';
 import { useReducer } from 'react';
 import TabsLayout from './tabs.mdx';
 
@@ -26,11 +26,11 @@ You can use the `theme` property to customise the component. See all available t
 | `--hds-stepper-focus-border-color`    | Colour of a step focus border.              |
 
 ### Customisation example
-<Playground scope={{ Stepper, StepState, Button, IconArrowLeft, IconArrowRight, useReducer }}>
+<Playground scope={{ Stepper, StepState, Button, ButtonPresetTheme, ButtonVariant, IconArrowLeft, IconArrowRight, useReducer }}>
 
 
 ```jsx
-import { Stepper } from 'hds-react';
+import { Stepper, StepState, Button, ButtonPresetTheme, ButtonVariant, IconArrowLeft, IconArrowRight } from 'hds-react';
 
 () => {
   const commonReducer = (stepsTotal) => (state, action) => {
@@ -131,20 +131,20 @@ import { Stepper } from 'hds-react';
       >
         <Button
           disabled={state.activeStepIndex === 0}
-          variant="secondary"
+          variant={ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'setActive', payload: state.activeStepIndex - 1 })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconStart={<IconArrowLeft />}
-          theme="black"
+          theme={ButtonPresetTheme.Black}
         >
           Previous
         </Button>
         <Button
-          variant={lastStep ? 'primary' : 'secondary'}
+          variant={lastStep ? ButtonVariant.Primary : ButtonVariant.Secondary}
           onClick={() => dispatch({ type: 'completeStep', payload: state.activeStepIndex })}
           style={{ height: 'fit-content', width: 'fit-content' }}
           iconEnd={lastStep ? undefined : <IconArrowRight />}
-          theme="black"
+          theme={ButtonPresetTheme.Black}
         >
           {lastStep ? 'Send' : 'Next'}
         </Button>
