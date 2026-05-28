@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.X.X] - Month, XX, 2026
+## [6.0.2] - May, 29th, 2026
 
 ### Workspace
 
@@ -15,123 +15,15 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React
 
-#### Breaking
+#### Breaking vs. 5.x (already in v6.0.0)
 
-- [Package] `react` and `react-dom` peer dependencies now require `^19.0.0` (React 19 or later). Earlier React majors are no longer supported (since `v6.0.0` already).
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Core
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
+- [Package] `react` and `react-dom` peer dependencies updated to require `^19.0.0` (React 19 or later). Earlier React majors are no longer supported (since `v6.0.0` already).
 
 ### Documentation
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
 
 #### Fixed
 
 - [Multiple components] Removed already obsolete props from component props tables.
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [6.0.1] - May, 13th, 2026
 

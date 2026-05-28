@@ -3,6 +3,9 @@ packages:
   - 'site'
   - 'e2e'
 
+# Link workspace packages by name/version during version bumps (before publish to npm).
+linkWorkspacePackages: true
+
 # Don't allow dependencies to be used before they have been released for at least 1 week
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:

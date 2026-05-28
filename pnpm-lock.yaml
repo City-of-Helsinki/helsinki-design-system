@@ -121,8 +121,8 @@ importers:
         specifier: ^10.4.1
         version: 10.5.0
       hds-design-tokens:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 6.0.2
+        version: link:../design-tokens
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.19.18)(babel-plugin-macros@3.1.0)
@@ -265,11 +265,11 @@ importers:
         specifier: ^16.8.1
         version: 16.14.0
       hds-core:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 6.0.2
+        version: link:../core
       hds-design-tokens:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 6.0.2
+        version: link:../design-tokens
       jwt-decode:
         specifier: ^3.1.2
         version: 3.1.2
@@ -669,14 +669,14 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(@babel/plugin-syntax-flow@7.28.6(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint@8.57.0)(typescript@5.9.3)
       hds-core:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 6.0.2
+        version: link:../packages/core
       hds-design-tokens:
-        specifier: 6.0.1
-        version: 6.0.1
+        specifier: 6.0.2
+        version: link:../packages/design-tokens
       hds-react:
-        specifier: 6.0.1
-        version: 6.0.1(postcss@8.4.31)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
+        specifier: 6.0.2
+        version: link:../packages/react
       inquirer:
         specifier: 7.1.0
         version: 7.1.0
@@ -7127,22 +7127,6 @@ packages:
 
   hast-util-whitespace@2.0.1:
     resolution: {integrity: sha512-nAxA0v8+vXSBDt3AnRUNjyRIQ0rD+ntpbAp4LnPkumc5M9yUbSMa4XDU9Q6etY4f1Wp4bNgvc1yjiZtsTTrSng==}
-
-  hds-core@6.0.1:
-    resolution: {integrity: sha512-oQ6uvU0iVFhCS3GDeOB3TBMKeTJBohJjHiPJXmh2UvXniMhBdBS2qyvM1KHbdQ+huExv5BS1IbzPk+juWX7O4A==}
-    engines: {node: ^24}
-
-  hds-design-tokens@6.0.1:
-    resolution: {integrity: sha512-HpSsFJUmf7ppq9M1MFrUVdznJNk123PybJT3ybT93nTDMwhWURqkacN6A9vDPW876UOLWMJFmRxga1XR2mCLRg==}
-    engines: {node: ^24}
-
-  hds-react@6.0.1:
-    resolution: {integrity: sha512-Jf8xH+04uUicp39p1QC/w6+iN2WVEvOFgkS+2jMj2qo04mAiQTDFleISdiWLvwkIhDKRTztKwomG31rZ0Jcjhw==}
-    engines: {node: ^24}
-    peerDependencies:
-      postcss: 8.4.31
-      react: ^16.8.0 || ^17 || ^18 || ^19
-      react-dom: ^16.8.0 || ^17 || ^18 || ^19
 
   he@1.2.0:
     resolution: {integrity: sha512-F/1DnUGPopORZi0ni+CvrCgHQ5FyEAHRLSApuYWMmrbSwoN2Mn/7k+Gl38gJnR7yyDZk6WLXwiGod1JOWNDKGw==}
@@ -14121,14 +14105,14 @@ snapshots:
   '@graphql-tools/optimize@1.4.0(graphql@16.14.0)':
     dependencies:
       graphql: 16.14.0
-      tslib: 2.4.1
+      tslib: 2.8.1
 
   '@graphql-tools/relay-operation-optimizer@6.5.18(encoding@0.1.13)(graphql@16.14.0)':
     dependencies:
       '@ardatan/relay-compiler': 12.0.0(encoding@0.1.13)(graphql@16.14.0)
       '@graphql-tools/utils': 9.2.1(graphql@16.14.0)
       graphql: 16.14.0
-      tslib: 2.4.1
+      tslib: 2.8.1
     transitivePeerDependencies:
       - encoding
       - supports-color
@@ -20723,45 +20707,6 @@ snapshots:
       micromark-util-character: 1.2.0
 
   hast-util-whitespace@2.0.1: {}
-
-  hds-core@6.0.1: {}
-
-  hds-design-tokens@6.0.1: {}
-
-  hds-react@6.0.1(postcss@8.4.31)(react-dom@19.0.0(react@19.0.0))(react@19.0.0):
-    dependencies:
-      '@apollo/client': 3.14.1(@types/react@19.2.14)(graphql@16.14.0)(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@babel/runtime': 7.29.2
-      '@hookform/resolvers': 2.9.11(react-hook-form@7.75.0(react@19.0.0))
-      '@juggle/resize-observer': 3.2.0
-      '@popperjs/core': 2.11.5
-      '@react-aria/visually-hidden': 3.8.16(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@react-spring/web': 9.3.0(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      '@types/cookie': 0.4.1
-      await-to-js: 3.0.0
-      cookie: 0.7.2
-      crc-32: 1.2.0
-      date-fns: 2.16.1
-      graphql: 16.14.0
-      hds-core: 6.0.1
-      jwt-decode: 3.1.2
-      kashe: 1.0.4
-      lodash: 4.18.1
-      memoize-one: 5.2.1
-      oidc-client-ts: 2.5.0
-      postcss: 8.4.31
-      react: 19.0.0
-      react-dom: 19.0.0(react@19.0.0)
-      react-hook-form: 7.75.0(react@19.0.0)
-      react-merge-refs: 1.1.0
-      react-popper: 2.2.5(@popperjs/core@2.11.5)(react@19.0.0)
-      react-use-measure: 2.0.1(react-dom@19.0.0(react@19.0.0))(react@19.0.0)
-      uuid: 14.0.0
-      yup: 1.7.1
-    transitivePeerDependencies:
-      - '@types/react'
-      - graphql-ws
-      - subscriptions-transport-ws
 
   he@1.2.0: {}
 
