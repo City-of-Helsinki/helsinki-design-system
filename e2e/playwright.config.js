@@ -7,7 +7,7 @@ export default defineConfig({
   webServer: [
     !process.env.PACKAGE || process.env.PACKAGE === 'core' ?
     {
-      command: 'yarn serve-core',
+      command: 'pnpm serve-core',
       url: 'http://localhost:6007',
       stdout: 'ignore',
       stderr: 'pipe',
@@ -15,7 +15,7 @@ export default defineConfig({
     } : null,
     !process.env.PACKAGE || process.env.PACKAGE === 'react' ? 
     {
-      command: 'yarn serve-react',
+      command: 'pnpm serve-react',
       url: 'http://localhost:6006',
       stdout: 'ignore',
       stderr: 'pipe',
@@ -54,7 +54,7 @@ export default defineConfig({
       timeout: 2000,
       toHaveScreenshot: {
         maxDiffPixelRatio: 0.01,
-        threshold: 0.35,
+        threshold: 0.2,
       },
     },
   },

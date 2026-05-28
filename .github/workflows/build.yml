@@ -23,53 +23,35 @@ jobs:
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvmrc
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
         uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
-
-      # Github cache
-      - name: get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: restore yarn cache
-        uses: actions/cache@v5
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-cache-folder-
-
-      - name: restore lerna
-        uses: actions/cache@v5
-        with:
-          path: '**/node_modules'
-          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
+          cache: 'pnpm'
 
       - name: install dependencies
-        run: |
-          yarn config set network-timeout 300000 
-          yarn --frozen-lockfile --ignore-scripts
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: build design tokens package
-        run: yarn build
+        run: pnpm build
         working-directory: ./packages/design-tokens
 
       - name: build core package
-        run: yarn build
+        run: pnpm build
         working-directory: ./packages/core
         env:
           FONT_URL: ${{ secrets.FONT_URL }}
 
       - name: build react package
-        run: yarn build
+        run: pnpm build
         working-directory: ./packages/react
 
       - name: test react package
-        run: yarn test:coverage
+        run: pnpm test:coverage
         working-directory: ./packages/react
 
       - name: SonarQube Cloud Scan
@@ -82,19 +64,19 @@ jobs:
           SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
 
       - name: build hds-js package
-        run: yarn build:hds-js
+        run: pnpm build:hds-js
         working-directory: ./packages/react
 
       - name: build standalone hds-js package
-        run: yarn build:hds-js-standalone
+        run: pnpm build:hds-js-standalone
         working-directory: ./packages/react
 
       - name: build storybook for core
-        run: yarn build-storybook
+        run: pnpm build-storybook
         working-directory: ./packages/core
 
       - name: build storybook for react
-        run: yarn build-storybook
+        run: pnpm build-storybook
         working-directory: ./packages/react
         env:
           FONT_URL: ${{ secrets.FONT_URL }}
@@ -135,24 +117,24 @@ jobs:
       HDSDEMO_SSH_DEPLOY_KEY: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
       ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
-  publish-site-with-storybooks:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
-    needs: [build, run-e2e-tests]
-    uses: ./.github/workflows/publish-site-with-storybooks.yml
-    with:
-      commit_sha: ${{ github.sha }}
-    secrets:
-      ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
-      ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
-
   publish-npm-packages:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease')
     needs: [build, run-e2e-tests]
     uses: ./.github/workflows/publish-npm-packages.yml
     with:
       commit_sha: ${{ github.sha }}
-      release_command: ${{ github.ref == 'refs/heads/patchrelease' && 'yarn release --dist-tag patch' || 'yarn release' }}
+      release_command: ${{ github.ref == 'refs/heads/patchrelease' && 'pnpm release --dist-tag patch' || 'pnpm release' }}
       deprecate_versions: ${{ github.ref == 'refs/heads/master' }}
+
+  publish-site-with-storybooks:
+    if: github.event_name == 'push' && github.ref == 'refs/heads/master'
+    needs: [build, run-e2e-tests, publish-npm-packages]
+    uses: ./.github/workflows/publish-site-with-storybooks.yml
+    with:
+      commit_sha: ${{ github.sha }}
+    secrets:
+      ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
+      ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
   delete-artifacts-after-success:
     needs: [build, run-e2e-tests, publish-demo-site-with-storybooks, publish-site-with-storybooks, publish-npm-packages]

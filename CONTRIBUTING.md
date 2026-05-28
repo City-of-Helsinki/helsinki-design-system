@@ -22,12 +22,12 @@ Ensure the test suite and regression tests pass. Remember to commit updated Jest
 
 Run snapshot tests:
 ```bash
-yarn test
+pnpm test
 ```
 
 Update jest snapshots:
 ```bash
-yarn test -- -u
+pnpm test -- -u
 ```
 
 Run Playwright e2e / visual tests (from the [`e2e`](e2e) package after building Storybook static bundles; see [`e2e/README.md`](e2e/README.md)).
@@ -35,7 +35,7 @@ Run Playwright e2e / visual tests (from the [`e2e`](e2e) package after building 
 5. Lint your code. Tip: Lint runs automatically when you build.
 
 ```bash
-yarn test:lint
+pnpm test:lint
 ```
 
 6. Make a Pull Request on the [HDS Github website](https://github.com/City-of-Helsinki/helsinki-design-system/pulls). If you have a ticket number name the PR e.g. "HDS-1377: number input accessibility fix" so it will automatically link to the ticket. Please be sure to check the open PRs in case somebody is already working on a similar issue. Also to prevent overlapping work notify HDS team by Slack at #designsystem or via email hds@hel.fi.

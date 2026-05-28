@@ -16,7 +16,7 @@ import ExternalLink from './ExternalLink';
 
 const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAllowed, nodeType = 'HTML' }) => {
   const ElementInfo = () => (
-    <p>
+    <div className="native-element-props-info">
       This component also accepts all native
       <ExternalLink href={`https://developer.mozilla.org/en-US/docs/Web/${nodeType}/Element/${nodeName}#attributes`}>
         <code>{nodeName}</code> element props
@@ -36,7 +36,7 @@ const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAll
         ''
       )}
       .
-    </p>
+    </div>
   );
 
   const SplitTags = () => {
@@ -56,10 +56,10 @@ const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAll
     // if splitProps are defined, but array is empty, the text is displayed but tag list is not seen.
     if (splitProps) {
       return (
-        <p>
+        <div className="native-element-props-info">
           {' '}
           Some native element props <SplitTags /> are split into multiple children in the component.
-        </p>
+        </div>
       );
     }
     return null;
@@ -105,9 +105,9 @@ const NativeElementPropsInfo = ({ nodeName, splitProps, overlappingProps, notAll
   const OverlapInfo = () => {
     if (overlappingProps && overlappingProps.length) {
       return (
-        <p>
+        <div className="native-element-props-info">
           Following component properties override their native counterparts: <Overlaps />
-        </p>
+        </div>
       );
     }
     return null;
@@ -126,7 +126,7 @@ NativeElementPropsInfo.propTypes = {
   nodeName: PropTypes.string.isRequired,
   notAllowed: PropTypes.arrayOf(PropTypes.string),
   splitProps: PropTypes.arrayOf(PropTypes.string),
-  overlappingProps: PropTypes.oneOf('ariaLabel', 'dataTestId', PropTypes.string),
+  overlappingProps: PropTypes.arrayOf(PropTypes.string),
   nodeType: PropTypes.string,
 };
 

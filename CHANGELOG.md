@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [5.X.X] - Month, XX, 202X
+## [6.X.X] - Month, XX, 2026
 
 ### Workspace
 
@@ -132,6 +132,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
 ## [6.0.1] - May, 13th, 2026
 
 ### Core

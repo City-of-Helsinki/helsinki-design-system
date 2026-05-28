@@ -9,7 +9,7 @@ A library of Helsinki Design System components implemented using React.
 Install the package.
 
 ```bash
-yarn add hds-react
+pnpm add hds-react
 ```
 
 ### Using the components

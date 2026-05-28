@@ -9,36 +9,36 @@ Set up your local development environment by following the steps in the [develop
 1. Build the hds-core and hds-design-tokens packages in the root folder. hds-react uses these packages as dependencies.
 
 ```bash
-yarn build:tokens && yarn build:core
+pnpm build:tokens && pnpm build:core
 ```
 
 2. Start the development server in the root folder. This starts the storybook development environment. You can read about how to write storybook stories [here](https://storybook.js.org/docs/react/get-started/whats-a-story). The use of Storybook is recommended for component development.
 
 ```bash
-yarn start:react
+pnpm start:react
 ```
 
 ### Commands
 
 | Command                      | Description                                               |
 | ---------------------------- | --------------------------------------------------------- |
-| yarn                         | Install dependencies and link local packages.             |
-| yarn build                   | Builds the React package.                                 |
-| yarn build:hds-js            | Builds the hds-js package.                                |
-| yarn build:hds-js-standalone | Builds standalone files for hds-js package.               |
-| yarn start                   | Starts the development environment.                       |
-| yarn nolint                  | Starts the development environment without eslint.        |
-| yarn test                    | Runs the tests.                                           |
-| yarn lint                    | Runs the linting.                                         |
-| yarn scaffold                | Runs the scaffolding script for creating a new component. |
-| yarn update:hds-js           | Updates dependencies in the hds-js/package.json           |
+| pnpm                         | Install dependencies and link local packages.             |
+| pnpm build                   | Builds the React package.                                 |
+| pnpm build:hds-js            | Builds the hds-js package.                                |
+| pnpm build:hds-js-standalone | Builds standalone files for hds-js package.               |
+| pnpm start                   | Starts the development environment.                       |
+| pnpm nolint                  | Starts the development environment without eslint.        |
+| pnpm test                    | Runs the tests.                                           |
+| pnpm lint                    | Runs the linting.                                         |
+| pnpm scaffold                | Runs the scaffolding script for creating a new component. |
+| pnpm update:hds-js           | Updates dependencies in the hds-js/package.json           |
 
 ## Adding a component
 
 To add a new component, use the scaffold helper. Helper will automatically create placeholder component and folder structure for given name. You can also optionally create a core component with the same name. Helper will also automatically set the required exports. In the react package folder, run:
 
 ```bash
-yarn scaffold
+pnpm scaffold
 ```
 
 Also note the section below about visual regression tests and adding new components.

@@ -2,8 +2,7 @@
 logs
 *.log
 npm-debug.log*
-yarn-debug.log*
-yarn-error.log*
+pnpm-debug.log*
 
 # Compiled binary addons (http://nodejs.org/api/addons.html)
 build/Release
@@ -30,12 +29,8 @@ public
 # Mac files
 .DS_Store
 
-# Yarn
-yarn-error.log
-.pnp/
-.pnp.js
-# Yarn Integrity file
-.yarn-integrity
+# pnpm
+.pnpm-store
 
 # icon&group mapping 
 icon_group.json

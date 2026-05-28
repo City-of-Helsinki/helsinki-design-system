@@ -112,7 +112,7 @@ const scaffold = async () => {
   logStep(`${chalk.bold(`${name} component included in components.json.`)}`);
 
   logStep(
-    `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('yarn start')} to see your component!`,
+    `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('pnpm start')} to see your component!`,
   );
 }
 

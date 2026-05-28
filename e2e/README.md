@@ -6,6 +6,17 @@ This document provides instructions on how to use the `run.sh` and `update-snaps
 
 - Docker installed on your machine
 - Necessary permissions to execute shell scripts
+- Built Storybook static bundles for the packages you test (see below)
+
+The Docker scripts use the official Playwright image, enable **pnpm** via **corepack** (version from the root `packageManager` field), and run a **full workspace** `pnpm install` inside the container (same as CI). E2e tests import source from `packages/react`, so installing only the `e2e` package is not enough.
+
+Docker installs use a **separate pnpm store** at `e2e/.pnpm-store` and Linux dependencies at **`node_modules.e2e`** in the repo root (gitignored). pnpm also creates small `node_modules.e2e` stubs next to workspace packages that link into the root tree; those are gitignored via `**/node_modules.e2e`. Do not symlink root `node_modules.e2e` — pnpm 11 fails with `ENOTDIR` if that path is a symlink.
+
+Configuration is Docker-only via `pnpm_config_*` environment variables in `e2e/docker/lib.sh` and does not affect your host `pnpm` store or `node_modules`. The first run may take several minutes; later runs skip `pnpm install` when the lockfile has not changed.
+
+To reset the Docker dependency cache: `rm -rf e2e/.pnpm-store node_modules.e2e`
+
+Host `pnpm install` uses `node_modules`. Docker e2e uses `node_modules.e2e` at the repo root (Linux).
 
 ## Usage
 

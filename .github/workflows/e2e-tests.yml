@@ -26,46 +26,25 @@ jobs:
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvmrc
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
         uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
-      
-      # Github cache
-      - name: get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
+          cache: 'pnpm'
 
-      - name: restore yarn cache
-        uses: actions/cache@v5
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-cache-folder-
-
-      - name: restore lerna
-        uses: actions/cache@v5
-        with:
-          path: '**/node_modules'
-          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}
-
-      - name: install e2e dependencies
-        run: |
-          yarn config set network-timeout 300000 
-          yarn --frozen-lockfile --ignore-scripts
-        working-directory: ./e2e
+      - name: install dependencies
+        run: pnpm install --frozen-lockfile --ignore-scripts
 
       - name: install playwright browser and OS dependencies
-        run: |
-          yarn playwright-install
+        run: pnpm playwright-install
         working-directory: ./e2e
 
       - name: run tests
-        run: |
-          yarn start
+        run: pnpm start
         working-directory: ./e2e
 
       - name: upload test results in case of failure

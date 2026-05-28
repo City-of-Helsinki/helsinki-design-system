@@ -176,7 +176,7 @@ const scaffold = async () => {
   }
 
   logStep(
-    `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('yarn start')} to see your component in Storybook!`,
+    `${chalk.bold(`Scaffolding done.`)} Run ${chalk.yellow.italic('pnpm start')} to see your component in Storybook!`,
   );
 };
 

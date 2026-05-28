@@ -9,22 +9,22 @@ Set up your local development environment by following the steps in the [develop
 1. Build the design tokens in the root folder.
 
 ```bash
-yarn build:tokens
+pnpm build:tokens
 ```
 
 2. Start the development server. This starts the storybook development environment in the root folder. You can read about how to write storybook stories [here](https://storybook.js.org/docs/html/get-started/whats-a-story). The use of Storybook is recommended for component development.
 
 ```bash
-yarn start:core
+pnpm start:core
 ```
 
 ### Commands
 
 | Command                            | Description                                          |
 | ---------------------------------- | ---------------------------------------------------- |
-| yarn                               | Install dependencies and link local packages.        |
-| yarn build                         | Builds the package.                                  |
-| yarn start                         | Starts the development environment.                  |
+| pnpm                               | Install dependencies and link local packages.        |
+| pnpm build                         | Builds the package.                                  |
+| pnpm start                         | Starts the development environment.                  |
 
 ### Design Tokens
 

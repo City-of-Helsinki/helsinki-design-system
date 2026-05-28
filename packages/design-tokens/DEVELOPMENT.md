@@ -9,15 +9,15 @@ Set up your local development environment by following the steps in the [develop
 Build the design tokens in the root folder.
 
 ```bash
-yarn build:tokens
+pnpm build:tokens
 ```
 
 ### Commands
 
 | Command    | Description                                   |
 | ---------- | --------------------------------------------- |
-| yarn       | Install dependencies and link local packages. |
-| yarn build | Builds the package.                           |
+| pnpm       | Install dependencies and link local packages. |
+| pnpm build | Builds the package.                           |
 
 ## Adding and updating tokens
 
@@ -58,5 +58,5 @@ Find the token you want to update and replace the value in the `value` field wit
 To build the tokens run
 
 ```bash
-yarn build
+pnpm build
 ```

@@ -296,6 +296,133 @@ function dependencyPathInNodeModules(depName) {
   return path.join(parts[0], parts[1]);
 }
 
+/**
+ * Strip legacy package.json fields before a nested pnpm install.
+ * Old hds-react releases ship `resolutions` (e.g. "downshift/react-is") that pnpm cannot parse.
+ */
+function prepareExtractedPackageForInstall(packageDir) {
+  const packageJsonPath = path.join(packageDir, 'package.json');
+  const packageJson = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
+  if (!packageJson.resolutions) {
+    return;
+  }
+  delete packageJson.resolutions;
+  fs.writeFileSync(packageJsonPath, `${JSON.stringify(packageJson, null, 2)}\n`);
+}
+
+/**
+ * Symlink a package directory into node_modules (junction on Windows avoids admin/Developer Mode).
+ */
+function linkPackageDirectory(target, linkPath) {
+  fs.mkdirSync(path.dirname(linkPath), { recursive: true });
+  if (process.platform === 'win32') {
+    fs.symlinkSync(path.resolve(target), linkPath, 'junction');
+    return;
+  }
+  const relativeTarget = path.relative(path.dirname(linkPath), target);
+  fs.symlinkSync(relativeTarget, linkPath, 'dir');
+}
+
+/** Hoisted node_modules layout for nested installs (webpack-friendly symlinks). */
+function writeNestedInstallNpmrc(packageDir) {
+  fs.writeFileSync(
+    path.join(packageDir, '.npmrc'),
+    'node-linker=hoisted\nshamefully-hoist=true\nengine-strict=false\n',
+  );
+}
+
+/**
+ * pnpm keeps transitive deps only under .pnpm store folders, but webpack resolves
+ * from top-level symlinks (e.g. node_modules/downshift) and cannot find them there.
+ * Symlink missing packages from each .pnpm store entry to the package node_modules root.
+ */
+function hoistPnpmTransitiveDependencies(packageDir) {
+  const nodeModulesRoot = path.join(packageDir, 'node_modules');
+  const pnpmDir = path.join(nodeModulesRoot, '.pnpm');
+  if (!fs.existsSync(pnpmDir)) {
+    return;
+  }
+
+  const symlinkPackage = (packageName, sourcePath) => {
+    const destPath = path.join(nodeModulesRoot, dependencyPathInNodeModules(packageName));
+    if (fs.existsSync(destPath)) {
+      return;
+    }
+    linkPackageDirectory(sourcePath, destPath);
+  };
+
+  for (const storeEntry of fs.readdirSync(pnpmDir, { withFileTypes: true })) {
+    if (!storeEntry.isDirectory()) {
+      continue;
+    }
+    const storeNodeModules = path.join(pnpmDir, storeEntry.name, 'node_modules');
+    if (!fs.existsSync(storeNodeModules)) {
+      continue;
+    }
+    for (const entry of fs.readdirSync(storeNodeModules, { withFileTypes: true })) {
+      if (entry.name === '.bin') {
+        continue;
+      }
+      const entryPath = path.join(storeNodeModules, entry.name);
+      if (entry.name.startsWith('@')) {
+        for (const scopedPkg of fs.readdirSync(entryPath, { withFileTypes: true })) {
+          if (!scopedPkg.isDirectory()) {
+            continue;
+          }
+          const pkgName = `${entry.name}/${scopedPkg.name}`;
+          symlinkPackage(pkgName, path.join(entryPath, scopedPkg.name));
+        }
+      } else if (entry.isDirectory()) {
+        symlinkPackage(entry.name, entryPath);
+      }
+    }
+  }
+}
+
+/** True when transitive deps from .pnpm are symlinked for webpack resolution. */
+function arePnpmTransitiveDepsHoisted(packageDir) {
+  const nodeModulesRoot = path.join(packageDir, 'node_modules');
+  const pnpmDir = path.join(nodeModulesRoot, '.pnpm');
+  if (!fs.existsSync(pnpmDir)) {
+    return true;
+  }
+
+  for (const storeEntry of fs.readdirSync(pnpmDir, { withFileTypes: true })) {
+    if (!storeEntry.isDirectory()) {
+      continue;
+    }
+    const storeNodeModules = path.join(pnpmDir, storeEntry.name, 'node_modules');
+    if (!fs.existsSync(storeNodeModules)) {
+      continue;
+    }
+    for (const entry of fs.readdirSync(storeNodeModules, { withFileTypes: true })) {
+      if (entry.name === '.bin') {
+        continue;
+      }
+      const entryPath = path.join(storeNodeModules, entry.name);
+      if (entry.name.startsWith('@')) {
+        for (const scopedPkg of fs.readdirSync(entryPath, { withFileTypes: true })) {
+          if (!scopedPkg.isDirectory()) {
+            continue;
+          }
+          const destPath = path.join(
+            nodeModulesRoot,
+            dependencyPathInNodeModules(`${entry.name}/${scopedPkg.name}`),
+          );
+          if (!fs.existsSync(destPath)) {
+            return false;
+          }
+        }
+      } else if (entry.isDirectory()) {
+        if (!fs.existsSync(path.join(nodeModulesRoot, entry.name))) {
+          return false;
+        }
+      }
+    }
+  }
+  return true;
+}
+
 /** True when every entry in `dependencies` has a matching folder under node_modules. */
 function areNestedProductionDepsInstalled(packageDir) {
   const packageJsonPath = path.join(packageDir, 'package.json');
@@ -304,6 +431,9 @@ function areNestedProductionDepsInstalled(packageDir) {
   }
   const pj = JSON.parse(fs.readFileSync(packageJsonPath, 'utf8'));
   const depNames = Object.keys(pj.dependencies || {});
+  if (depNames.length === 0) {
+    return true;
+  }
   const nm = path.join(packageDir, 'node_modules');
   if (!fs.existsSync(nm)) {
     return false;
@@ -324,9 +454,26 @@ async function installPackageDependencies(packageDir) {
     return;
   }
 
-  if (fs.existsSync(nodeModulesPath) && areNestedProductionDepsInstalled(packageDir)) {
+  if (
+    fs.existsSync(nodeModulesPath) &&
+    areNestedProductionDepsInstalled(packageDir) &&
+    arePnpmTransitiveDepsHoisted(packageDir)
+  ) {
     console.log(`  ✓ Production dependencies present for ${path.basename(packageDir)}, skipping`);
     return;
+  }
+
+  if (
+    fs.existsSync(nodeModulesPath) &&
+    areNestedProductionDepsInstalled(packageDir) &&
+    !arePnpmTransitiveDepsHoisted(packageDir)
+  ) {
+    console.log(`  ⟳ Hoisting transitive dependencies for ${path.basename(packageDir)}...`);
+    hoistPnpmTransitiveDependencies(packageDir);
+    if (arePnpmTransitiveDepsHoisted(packageDir)) {
+      console.log(`  ✓ Successfully hoisted transitive dependencies for ${path.basename(packageDir)}`);
+      return;
+    }
   }
 
   if (fs.existsSync(nodeModulesPath)) {
@@ -336,18 +483,32 @@ async function installPackageDependencies(packageDir) {
 
   console.log(`  Installing dependencies for ${path.basename(packageDir)}...`);
 
-  // --production: omit devDependencies; --no-lockfile: no yarn.lock beside the extracted package;
-  // --ignore-engines: old package.json engine ranges may not match current Node.
-  // Peers are not listed under dependencies and are not checked by areNestedProductionDepsInstalled.
-  execSync('yarn install --production --no-lockfile --ignore-engines', {
+  prepareExtractedPackageForInstall(packageDir);
+  writeNestedInstallNpmrc(packageDir);
+
+  // --prod: omit devDependencies; --no-lockfile: no lockfile beside the extracted package;
+  // --ignore-workspace: do not treat this as part of the monorepo workspace.
+  execSync('pnpm install --prod --no-lockfile --ignore-workspace', {
     cwd: packageDir,
     stdio: ['pipe', 'pipe', 'pipe'],
     encoding: 'utf-8',
+    env: {
+      ...process.env,
+      PNPM_CONFIG_ENGINE_STRICT: 'false',
+    },
   });
+
+  hoistPnpmTransitiveDependencies(packageDir);
 
   if (!areNestedProductionDepsInstalled(packageDir)) {
     throw new Error(
       `Nested install for ${path.basename(packageDir)} did not install all production dependencies (see package.json dependencies).`
+    );
+  }
+
+  if (!arePnpmTransitiveDepsHoisted(packageDir)) {
+    throw new Error(
+      `Nested install for ${path.basename(packageDir)} did not hoist transitive dependencies for webpack.`
     );
   }
 
