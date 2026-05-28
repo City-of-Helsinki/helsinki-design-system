@@ -71,7 +71,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Multiple components] Removed already obsolete props from component props tables.
 
 ### Figma
 
