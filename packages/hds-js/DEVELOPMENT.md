@@ -4,13 +4,13 @@ The `hds-js` is a custom export from the [hds-react](https://github.com/City-of-
 
 ## Adding files to the bundle
 
-Add required exports to the `index.ts` and run `yarn update:hds-js` from the `packages/react` folder.
+Add required exports to the `index.ts` and run `pnpm update:hds-js` from the `packages/react` folder.
 
 ## Building
 
 The bundle is built with the `rollup.config.js` in the `hds-react` package. Rollup makes sure React or CSS are not included in this bundle.
 
-The build command is in the `hds-react` package. Use `yarn build:hds-js`.
+The build command is in the `hds-react` package. Use `pnpm build:hds-js`.
 
 ## Standalone
 
@@ -23,7 +23,7 @@ Currently only the `hds-js/standalone/cookieConsent.ts` file is bundled. The fil
 **HDS core must be build first!**
 
 The build command is in the `hds-react` package.
-Run the new build command `yarn build:hds-js-standalone`. The bundled javascript is built to `hds-js/lib/standalone/`.
+Run the new build command `pnpm build:hds-js-standalone`. The bundled javascript is built to `hds-js/lib/standalone/`.
 
 ### Running
 

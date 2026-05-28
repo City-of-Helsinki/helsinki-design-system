@@ -17,10 +17,10 @@
     "lib"
   ],
   "scripts": {
-    "build": "rimraf lib/ && node scripts/fBuilder.js && yarn run lint:styles && yarn postcss-build && yarn css-to-ts && yarn copy-scss-files && yarn copy-scss-fonts && yarn copy-scss-utils && yarn cssToScss",
+    "build": "rimraf lib/ && node scripts/fBuilder.js && pnpm run lint:styles && pnpm postcss-build && pnpm css-to-ts && pnpm copy-scss-files && pnpm copy-scss-fonts && pnpm copy-scss-utils && pnpm cssToScss",
     "clean": "rimraf node_modules lib storybook-static",
-    "start": "yarn storybook",
-    "scss-tests": "yarn jest",
+    "start": "pnpm storybook",
+    "scss-tests": "pnpm jest",
     "postcss-build": "postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext .css && postcss 'src/**/[!_]*.(css|scss)' --base src -d lib --ext 'min.css' --env 'minify'",
     "postcss-watch": "postcss 'src/**/*.(css|scss)' --base src -d lib --watch",
     "cssToScss": "node scripts/cssToScss.js",
@@ -30,7 +30,7 @@
     "css-to-ts": "node cssToImportableString -directory 'lib/components/**/*.min.css' -targetFiles 'cookieConsent.min.css'",
     "storybook": "storybook dev -p 6007 --quiet",
     "build-storybook": "NODE_OPTIONS='--disable-warning=DEP0040' storybook build --loglevel error",
-    "lint:styles": "yarn stylelint \"src/**/*.(css|scss)\" --ip \"src/**/__tests__/*.scss\"",
+    "lint:styles": "pnpm stylelint \"src/**/*.(css|scss)\" --ip \"src/**/__tests__/*.scss\"",
     "test": "jest"
   },
   "devDependencies": {

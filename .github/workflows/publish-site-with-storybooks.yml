@@ -29,42 +29,21 @@ jobs:
         run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
         id: nvmrc
 
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6
+
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
         uses: actions/setup-node@v6
         with:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
-
-      # Github cache
-      - name: get yarn cache directory path
-        id: yarn-cache-dir-path
-        run: echo "dir=$(yarn cache dir)" >> $GITHUB_OUTPUT
-
-      - name: restore yarn cache
-        uses: actions/cache@v5
-        id: yarn-cache # use this to check for `cache-hit` (`steps.yarn-cache.outputs.cache-hit != 'true'`)
-        with:
-          path: ${{ steps.yarn-cache-dir-path.outputs.dir }}
-          key: yarn-cache-folder-${{ hashFiles('**/yarn.lock') }}
-          restore-keys: |
-            yarn-cache-folder-
-
-      - name: restore lerna
-        uses: actions/cache@v5
-        with:
-          path: '**/node_modules'
-          key: yarn-node_modules-folder-${{ hashFiles('**/yarn.lock') }}          
+          cache: 'pnpm'
 
       - name: install dependencies
-        run: |
-          yarn config set network-timeout 300000 
-          yarn --frozen-lockfile --ignore-scripts
-
-      - name: rebuild native modules
-        run: npm rebuild
+        run: pnpm install --frozen-lockfile
 
       - name: build documentation site
-        run: yarn build
+        run: pnpm build
         working-directory: ./site
         env:
           NODE_OPTIONS: "--max_old_space_size=8192"

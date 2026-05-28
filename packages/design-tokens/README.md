@@ -7,7 +7,7 @@ Design tokens for the Helsinki Design System.
 Install the package.
 
 ```bash
-yarn add hds-design-tokens
+pnpm add hds-design-tokens
 ```
 
 ### What's included

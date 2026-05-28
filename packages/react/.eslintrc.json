@@ -21,6 +21,14 @@
     }
   },
   "ignorePatterns": ["*.module.css"],
+  "overrides": [
+    {
+      "files": ["src/components/dateInput/**/*.{ts,tsx}"],
+      "rules": {
+        "import/no-duplicates": "off"
+      }
+    }
+  ],
   "rules": {
     "no-use-before-define": "off",
     "default-param-last": "off",
@@ -126,6 +134,10 @@
       "version": "detect"
     },
     "import/resolver": {
+      "typescript": {
+        "alwaysTryTypes": true,
+        "project": "./tsconfig.eslint.json"
+      },
       "node": {
         "extensions": [".js", ".jsx", ".ts", ".tsx"],
         "paths": ["src"]

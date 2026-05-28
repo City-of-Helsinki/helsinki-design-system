@@ -1,7 +1,31 @@
 const webpack = require('webpack');
 const path = require('path');
 const fs = require('node:fs');
+const {
+  extractVersionFromContext,
+  isVersionedArchiveContext,
+  resolveVersionedHdsImportToAbsolute,
+} = require('./scripts/versioned-hds-resolve.cjs');
 const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
+
+/** Absolute-path aliases for hds-core-X.Y.Z / hds-react-X.Y.Z under site/node_modules. */
+function getVersionedHdsPackageAliases(siteDir) {
+  const aliases = {};
+  const nodeModulesDir = path.join(siteDir, 'node_modules');
+  if (!fs.existsSync(nodeModulesDir)) {
+    return aliases;
+  }
+  for (const entry of fs.readdirSync(nodeModulesDir)) {
+    if (!/^hds-(core|react)-\d+\.\d+\.\d+$/.test(entry)) {
+      continue;
+    }
+    const packagePath = path.join(nodeModulesDir, entry);
+    if (fs.existsSync(packagePath)) {
+      aliases[entry] = packagePath;
+    }
+  }
+  return aliases;
+}
 
 // Copy hds-core fonts.css to static so it is available at /fonts/fonts.css in the build
 exports.onPreBootstrap = () => {
@@ -12,7 +36,7 @@ exports.onPreBootstrap = () => {
     fs.mkdirSync(targetDir, { recursive: true });
     fs.copyFileSync(from, targetPath);
   } else {
-    console.error(`[Gatsby] hds-core fonts.css not found at ${from}. Run "yarn build" in packages/core first.`);
+    console.error(`[Gatsby] hds-core fonts.css not found at ${from}. Run "pnpm build" in packages/core first.`);
     process.exit(1);
   }
 };
@@ -54,9 +78,24 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
         // e.g., node_modules/hds-react-2.17.1 or node_modules/hds-core-3.12.1
         const versionedPackageMatch = normalizedContextPath.match(/node_modules\/(hds-(core|react)-\d+\.\d+\.\d+)/);
 
+        // Nested deps (e.g. downshift under hds-react-4.x) must resolve from their own
+        // node_modules (including pnpm .pnpm layouts). Redirecting to the versioned package
+        // root node_modules breaks transitive imports like compute-scroll-into-view.
+        const isNestedVersionedDependency =
+          versionedPackageMatch &&
+          normalizedContextPath.includes(
+            `node_modules/${versionedPackageMatch[1]}/node_modules/`,
+          );
+
         // If resolving from a versioned package, handle dependency resolution with fallback
         // Try versioned package's node_modules first, then fall back to main site's node_modules
-        if (versionedPackageMatch && request.request && !request.request.startsWith('.') && !request.request.startsWith('/')) {
+        if (
+          versionedPackageMatch &&
+          !isNestedVersionedDependency &&
+          request.request &&
+          !request.request.startsWith('.') &&
+          !request.request.startsWith('/')
+        ) {
           // This is a dependency import (not a relative or absolute path)
           const versionedPackageName = versionedPackageMatch[1];
           const versionedPackagePath = path.resolve(__dirname, 'node_modules', versionedPackageName);
@@ -108,22 +147,20 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
           return tryVersionedPackage();
         }
 
-        // Handle ~hds-core imports (CSS/SCSS imports)
-        if (request && request.request && request.request.startsWith('~hds-core')) {
-          // Extract version from context path
-          // Use word boundary or path separator to ensure complete version matching
-          const versionMatch = normalizedContextPath.match(/(?:docs-release-|helsinki-design-system-|\.previous-versions\/helsinki-design-system-)(\d+\.\d+\.\d+)(?:\/|$)/);
-          if (versionMatch && versionMatch[1]) {
-            const fullVersion = versionMatch[1];
-            // Replace ~hds-core with hds-core-{version}
-            const newRequest = request.request.replace('~hds-core', `hds-core-${fullVersion}`);
-            const newRequestObj = {
-              ...request,
-              request: newRequest
-            };
-            // Continue resolution with the modified request
-            // If resolution fails, webpack will handle the error through the callback
-            return resolver.doResolve(resolver.hooks.resolve, newRequestObj, null, resolveContext, callback);
+        // Handle hds-core/hds-react/hds-design-tokens imports from archived doc sources
+        if (request?.request && isVersionedArchiveContext(normalizedContextPath)) {
+          const fullVersion = extractVersionFromContext(normalizedContextPath);
+          const absolutePath = fullVersion
+            ? resolveVersionedHdsImportToAbsolute(request.request, fullVersion, __dirname)
+            : null;
+          if (absolutePath) {
+            return resolver.doResolve(
+              resolver.hooks.resolve,
+              { ...request, request: absolutePath },
+              null,
+              resolveContext,
+              callback,
+            );
           }
         }
         // Continue with normal resolution
@@ -146,50 +183,87 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       }
     ),
     new webpack.NormalModuleReplacementPlugin(
-      /(~?hds-core|hds-react)/,
+      /(~?hds-core|hds-react|~?hds-design-tokens)/,
       resource => {
-        // Skip if already versioned (prevent double replacement)
-        // Check for pattern like hds-core-X.Y.Z or hds-react-X.Y.Z
+        if (path.isAbsolute(resource.request)) {
+          return;
+        }
+
+        const normalizedContext = resource.context.split(path.sep).join('/');
+        const fullVersion = extractVersionFromContext(normalizedContext);
+
+        // Archived docs: resolve to absolute file paths (pnpm .pnpm symlinks break Sass)
+        if (fullVersion && isVersionedArchiveContext(normalizedContext)) {
+          const absolutePath = resolveVersionedHdsImportToAbsolute(
+            resource.request,
+            fullVersion,
+            __dirname,
+          );
+          if (absolutePath) {
+            resource.request = absolutePath;
+            return;
+          }
+        }
+
+        // Skip if already versioned (prevent double replacement) outside archives
         if (resource.request.match(/hds-(core|react)-\d+\.\d+\.\d+/)) {
           return;
         }
 
-        // Dynamically extract full version from path
-        // Match patterns like:
-        // - docs-release-X.Y.Z (from sourceInstanceName)
-        // - helsinki-design-system-X.Y.Z (from .previous-versions path)
-        // - .previous-versions/helsinki-design-system-X.Y.Z (full path)
-        // Normalize path separators to handle Windows and POSIX paths uniformly
-        const normalizedContext = resource.context.split(path.sep).join('/');
-        // Use word boundary or path separator to ensure complete version matching
-        const versionMatch = normalizedContext.match(/(?:docs-release-|helsinki-design-system-|\.previous-versions\/helsinki-design-system-)(\d+\.\d+\.\d+)(?:\/|$)/);
-        if (versionMatch) {
-          const fullVersion = versionMatch[1];
-
-          // Replace ~hds-core with hds-core-{version} (remove ~)
+        if (fullVersion) {
           if (resource.request.includes('~hds-core')) {
             resource.request = resource.request.replaceAll('~hds-core', `hds-core-${fullVersion}`);
-          }
-          // Replace hds-core with hds-core-{version} (only if not already versioned)
-          else if (resource.request.includes('hds-core') && !resource.request.includes('hds-core-')) {
+          } else if (resource.request.includes('hds-core') && !resource.request.includes('hds-core-')) {
             resource.request = resource.request.replaceAll('hds-core', `hds-core-${fullVersion}`);
           }
-          // Replace hds-react with hds-react-{version} (only if not already versioned)
           if (resource.request.includes('hds-react') && !resource.request.includes('hds-react-')) {
             resource.request = resource.request.replaceAll('hds-react', `hds-react-${fullVersion}`);
+          }
+          if (
+            resource.request.includes('hds-design-tokens') &&
+            !resource.request.includes('hds-design-tokens-')
+          ) {
+            resource.request = resource.request.replaceAll(
+              'hds-design-tokens',
+              `hds-design-tokens-${fullVersion}`,
+            );
           }
         }
         if (resource.context.includes('.cache/gatsby-source-git/docs-release-4.')) {
           resource.request = resource.request.replace('hds-core', 'hds-4-core');
           resource.request = resource.request.replace('hds-react', 'hds-4-react');
         }
-      }
-    )
+      },
+    ),
   );
 
 
+  const versionedHdsAliases = getVersionedHdsPackageAliases(__dirname);
+
   actions.setWebpackConfig({
     plugins: [
+      // Archived .module.css / .scss import hds-core via css-loader; must resolve to absolute paths
+      new webpack.NormalModuleReplacementPlugin(
+        /(~?hds-core|hds-react|hds-design-tokens)/,
+        resource => {
+          if (path.isAbsolute(resource.request)) {
+            return;
+          }
+          const normalizedContext = resource.context.split(path.sep).join('/');
+          const fullVersion = extractVersionFromContext(normalizedContext);
+          if (!fullVersion || !isVersionedArchiveContext(normalizedContext)) {
+            return;
+          }
+          const absolutePath = resolveVersionedHdsImportToAbsolute(
+            resource.request,
+            fullVersion,
+            __dirname,
+          );
+          if (absolutePath) {
+            resource.request = absolutePath;
+          }
+        },
+      ),
       // We need to provide a polyfill for react-live library to make it work with the latest Gatsby: https://webpack.js.org/blog/2020-10-10-webpack-5-release/#automatic-nodejs-polyfills-removed
       new webpack.ProvidePlugin({
         process: 'process/browser',
@@ -197,6 +271,10 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       ...config.plugins,
     ],
     resolve: {
+      // Prefer site/node_modules over repo root when resolving from .previous-versions/
+      modules: [path.resolve(__dirname, 'node_modules'), 'node_modules'],
+      // Keep pnpm symlink paths (e.g. site/node_modules/hds-core-4.10.0) instead of realpaths under .pnpm
+      symlinks: false,
       alias: {
         fs$: path.resolve(__dirname, 'src/fs.js'),
         'hds-react': 'hds-react/lib',
@@ -204,6 +282,7 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
         // still import from 'prism-react-renderer/themes/github' — shim redirects to v2 themes API.
         'prism-react-renderer/themes/github': path.resolve(__dirname, 'src/utils/prism-github-theme-shim.js'),
         stream: false,
+        ...versionedHdsAliases,
       },
       plugins: [
         new DynamicAliasResolverPlugin(),
@@ -221,7 +300,7 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       // CSS modules (.module.scss): webpack warns "export 'default' was not found" because CSS
       // modules have no explicit ES default export, but default import interop works at runtime.
       (w) => /export 'default'.*was not found.*\.module\.scss/.test(w.message ?? ''),
-      // defaultFilter missing from compiled hds-react/lib — needs 'yarn build:react' to fix properly.
+      // defaultFilter missing from compiled hds-react/lib — needs 'pnpm build:react' to fix properly.
       (w) => /export 'defaultFilter'.*was not found in 'hds-react'/.test(w.message ?? ''),
     ],
     cache: buildSingleVersion,

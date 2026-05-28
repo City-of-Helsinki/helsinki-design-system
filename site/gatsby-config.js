@@ -4,6 +4,7 @@ require("dotenv").config({
 
 const fs = require('node:fs');
 const path = require('node:path');
+const { createVersionedHdsSassImporter } = require('./scripts/versioned-hds-resolve.cjs');
 
 const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
 
@@ -294,12 +295,11 @@ module.exports = {
     {
       resolve: 'gatsby-plugin-sass',
       options: {
+        webpackImporter: true,
         sassOptions: {
-          // Hoisted workspace deps (e.g. hds-core) often live in the repo root node_modules
-          includePaths: [
-            path.join(__dirname, 'node_modules'),
-            path.join(__dirname, '../node_modules'),
-          ],
+          includePaths: [path.join(__dirname, 'node_modules')],
+          // Resolve archived ~hds-core imports to absolute paths (see versioned-hds-resolve.cjs)
+          importer: createVersionedHdsSassImporter(__dirname),
           // 'legacy-js-api': gatsby-plugin-sass uses the legacy Sass JS API (sass-loader limitation)
           // 'import': bundled .previous-versions/ archives use @import and can't be migrated
           silenceDeprecations: ['legacy-js-api', 'import'],

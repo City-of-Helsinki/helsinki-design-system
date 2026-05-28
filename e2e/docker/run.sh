@@ -1,25 +1,20 @@
+#!/usr/bin/env bash
+set -euo pipefail
 
-#!/bin/sh
-HDS_ROOT_DIR="$( cd "$( dirname "${BASH_SOURCE[0]}" )/../.." &> /dev/null && pwd )"
-HDS_DIR_BASENAME="$(basename "$HDS_ROOT_DIR")"
+source "$(dirname "${BASH_SOURCE[0]}")/lib.sh"
 
-PACKAGE=$1
-COMPONENT=$2
-COMMAND=""
+PACKAGE=${1:-}
+COMPONENT=${2:-}
 
-# if packaga and component are not provided, run all snapshots
 if [ -z "$PACKAGE" ] && [ -z "$COMPONENT" ]; then
-    COMMAND="yarn start"
+  COMMAND="pnpm start"
+elif [ -n "$PACKAGE" ] && [ -z "$COMPONENT" ]; then
+  COMMAND="PACKAGE=${PACKAGE} pnpm start-package"
+elif [ -n "$PACKAGE" ] && [ -n "$COMPONENT" ]; then
+  COMMAND="PACKAGE=${PACKAGE} COMPONENT=${COMPONENT} pnpm start-component"
+else
+  echo "Invalid arguments" >&2
+  exit 1
 fi
 
-# if only package is provided, run snapshots for that package
-if [ -n "$PACKAGE" ] && [ -z "$COMPONENT" ]; then
-    COMMAND="PACKAGE=${PACKAGE} yarn start-package"
-fi
-
-# if both package and component are provided, run snapshots for that component
-if [ -n "$PACKAGE" ] && [ -n "$COMPONENT" ]; then
-    COMMAND="PACKAGE=${PACKAGE} COMPONENT=${COMPONENT} yarn start-component"
-fi
-
-docker run --platform=linux/amd64 -v ${HDS_ROOT_DIR}:/${HDS_DIR_BASENAME} -it --rm --ipc=host mcr.microsoft.com/playwright:v1.59.1-noble /bin/bash -c "cd /${HDS_DIR_BASENAME}/e2e && ${COMMAND}"
+hds_e2e_docker_run "${COMMAND}"

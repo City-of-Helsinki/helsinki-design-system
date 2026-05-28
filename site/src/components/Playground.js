@@ -1,16 +1,62 @@
-import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useMDXComponents } from '@mdx-js/react';
 import { LiveProvider, LiveEditor, LiveError, LivePreview, LiveContext } from 'react-live';
 import { themes } from 'prism-react-renderer';
 import sanitizeHtml from 'sanitize-html';
-import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
+import {
+  Notification,
+  Tabs,
+  TabList,
+  TabPanel,
+  Tab,
+  Button,
+  IconArrowUndo,
+  ButtonSize,
+  ButtonVariant,
+} from 'hds-react';
 
 const theme = themes.github;
 
 import './Playground.scss';
 import LiveErrorCore from './LiveErrorCore';
-import { ButtonSize, ButtonVariant } from '../../../packages/react/src/components/button';
+
+/**
+ * Stand-in for `import { Link } from 'gatsby'` in live examples. The real Gatsby Link uses
+ * useLocation and crashes outside Gatsby's router (react-live previews are not under Router).
+ */
+function PlaygroundRouterLink({ to, href, children, onClick, ...rest }) {
+  return (
+    <a
+      href={to ?? href ?? '#'}
+      onClick={(event) => {
+        onClick?.(event);
+      }}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
+}
+
+/** Available in every react-live example (many MDX snippets use React.useState etc.). */
+const playgroundBuiltinScope = {
+  React,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useReducer,
+};
 
 const sanitizeConfig = {
   allowedTags: false,
@@ -301,11 +347,25 @@ const EditorWithLive = (props) => (
   </LiveContext.Consumer>
 );
 
-export const PlaygroundBlock = (props) => {
-  const mdxComponents = useMDXComponents();
-  const scopeComponents = { ...mdxComponents, ...props.scope };
+const playgroundScopeDenylist = new Set([
+  'AnchorLink',
+  'InternalLink',
+  'ExternalLink',
+  'Link',
+]);
 
-  const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
+export const PlaygroundBlock = ({ children, scope }) => {
+  const mdxComponents = useMDXComponents();
+  const safeMdxScope = Object.fromEntries(
+    Object.entries(mdxComponents).filter(([key]) => !playgroundScopeDenylist.has(key)),
+  );
+  const scopeComponents = { ...playgroundBuiltinScope, ...safeMdxScope, ...scope };
+  // Imports are stripped from live code; expose `Link` for Header/Footer `as={Link}` examples.
+  if (!Object.hasOwn(scope ?? {}, 'Link')) {
+    scopeComponents.Link = PlaygroundRouterLink;
+  }
+
+  const childrenArray = Array.isArray(children) ? children : [children];
   const codeBlocks = childrenArray
     .filter((child) => isValidElement(child))
     .map(({ props }) => {
@@ -384,4 +444,6 @@ PlaygroundBlock.propTypes = {
     PropTypes.objectOf(CodeBlockShape),
     PropTypes.node,
   ]),
+  /** Extra bindings passed to react-live (e.g. `Link` for Header/Footer examples). */
+  scope: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object])),
 };

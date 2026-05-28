@@ -2,13 +2,13 @@
 
 ## Development environment
 
-> Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**Yarn workspaces**](https://yarnpkg.com/lang/en/docs/workspaces/) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development. [**Nvm**](https://github.com/nvm-sh/nvm) is a node version manager used to specify the preferred node version across the project (optional but highly recommended, if not used, see the preferred version in .nvmrc file).
+> Helsinki Design System uses [**Lerna**](https://lerna.js.org/) for running scripts across the repo as well as versioning and creating releases of the packages. [**pnpm workspaces**](https://pnpm.io/workspaces) is used to manage dependencies. This allows the separate packages to reference each other via symlinks during local development. [**Nvm**](https://github.com/nvm-sh/nvm) is a node version manager used to specify the preferred node version across the project (optional but highly recommended, if not used, see the preferred version in .nvmrc file).
 
 ### Prerequisites
 
 - [Nvm](https://github.com/nvm-sh/nvm)
 - [Node](https://nodejs.org/en/)
-- [Yarn](https://yarnpkg.com/)
+- [pnpm](https://pnpm.io/)
 - [Docker](https://www.docker.com/) (For visual regression tests. Read more [here](https://github.com/City-of-Helsinki/helsinki-design-system/blob/development/packages/react/DEVELOPMENT.md#visual-regression-tests).)
 
 ### Setting up local development environment
@@ -19,33 +19,33 @@
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
 ```
 
-2. Go to the root of the project and install dependencies with `yarn`.
+2. Go to the root of the project and install dependencies with `pnpm`.
 
 ```bash
 cd helsinki-design-system
-yarn
+pnpm
 ```
 
-3. Build packages with `yarn build`. This builds all packages; core, react, design-tokens, and site (documentation).
+3. Build packages with `pnpm build`. This builds all packages; core, react, design-tokens, and site (documentation).
 
 ```bash
-yarn build
+pnpm build
 ```
 
-4. Start the development server. You can start these individually for each platform with `yarn start:<platform>`. For example, to start the React Storybook development environment, run:
+4. Start the development server. You can start these individually for each platform with `pnpm start:<platform>`. For example, to start the React Storybook development environment, run:
 
 ```bash
-yarn start:react
+pnpm start:react
 ```
 
 ### Commands
 
 | Command                | Description                                                                     |
 | ---------------------- | ------------------------------------------------------------------------------- |
-| yarn                   | Installs dependencies and links local packages.                                 |
-| yarn build             | Builds all the packages.                                                        |
-| yarn build:\<package>  | Builds a specific package (`tokens`, `core`, `react`, `hds-js` or `site`).      |
-| yarn start:\<platform> | Starts the development environment for a specific platform (`core` or `react`). |
+| pnpm                   | Installs dependencies and links local packages.                                 |
+| pnpm build             | Builds all the packages.                                                        |
+| pnpm build:\<package>  | Builds a specific package (`tokens`, `core`, `react`, `hds-js` or `site`).      |
+| pnpm start:\<platform> | Starts the development environment for a specific platform (`core` or `react`). |
 | release                | Publishes packages that have changed since the last release.                    |
 | update-versions        | Bump version of packages to publish.                                            |
 
