@@ -15,11 +15,11 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 #### Default
 
-<Playground scope={{ Fieldset, TextInput }}>
+<Playground scope={{ Fieldset, TextInput, Tooltip }}>
 
 
 ```jsx
-import { Fieldset, TextInput } from 'hds-react';
+import { Fieldset, TextInput, Tooltip } from 'hds-react';
 
 () => (<>
   <Fieldset heading="Child information" style={{ maxWidth: '400px' }} helperText='Assistive text'>
@@ -48,7 +48,15 @@ import { Fieldset, TextInput } from 'hds-react';
     />
   </Fieldset>
 
-  <Fieldset heading="Applicant information" style={{ maxWidth: '400px' }} tooltipText="tooltip text" tooltipLabel="tooltip text aria label" tooltipButtonLabel="tooltip button aria label">
+  <Fieldset
+    heading="Applicant information"
+    style={{ maxWidth: '400px' }}
+    tooltip={
+      <Tooltip tooltipLabel="tooltip text aria label" buttonLabel="tooltip button aria label">
+        tooltip text
+      </Tooltip>
+    }
+  >
     <TextInput id="first-name-1" name="first-name" label="First name" />
     <TextInput id="last-name-1" name="last-name" label="Last name" style={{ marginTop: '12px' }} />
     <TextInput
@@ -240,9 +248,6 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `heading`             | Heading of the fieldset element.                                     | `string`  | -             |
 | `border`              | If set to true, a border is drawn around the fieldset.               | `boolean` | false         |
 | `helperText`          | The help text content that will be shown below the fieldset content. | `string`  | -             |
-| `tooltipLabel`        | The aria-label text for the tooltip. **Deprecated, will be removed in next major release** | `string`    | -             |
-| `tooltipButtonLabel`  | The aria-label text for the tooltip trigger button. **Deprecated, will be removed in next major release** | `string`    | -             |
-| `tooltipText`         | The text content of the tooltip. **Deprecated, will be removed in next major release** | `string`    | -             |
 | `tooltip`             | The tooltip component.                                               | <Link openInNewTab openInNewTabLabel="Opens in a new tab" href="/components/tooltip/">`Tooltip`</Link> | -             |
 
 <NativeElementPropsInfo nodeName="fieldset" />
