@@ -3,7 +3,7 @@ slug: '/components/password-input/code'
 title: 'PasswordInput - Code'
 ---
 
-import { Button, PasswordInput, IconEye, IconEyeCrossed } from 'hds-react';
+import { Button, ButtonVariant, PasswordInput, IconEye, IconEyeCrossed } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -62,11 +62,11 @@ import { PasswordInput } from 'hds-react';
 </Playground>
 
 #### With an external button
-<Playground scope={{ PasswordInput, Button, IconEyeCrossed, IconEye }}>
+<Playground scope={{ PasswordInput, Button, ButtonVariant, IconEyeCrossed, IconEye }}>
 
 
 ```jsx
-import { PasswordInput, Button, IconEyeCrossed, IconEye } from 'hds-react';
+import { PasswordInput, Button, ButtonVariant, IconEyeCrossed, IconEye } from 'hds-react';
 
 () => {
   const [revealPassword, setRevealPassword] = React.useState(false);
@@ -83,7 +83,7 @@ import { PasswordInput, Button, IconEyeCrossed, IconEye } from 'hds-react';
       />
       <div style={{ display: 'flex', justifyContent: 'center', flexDirection: 'column' }}>
         <Button
-          variant="supplementary"
+          variant={ButtonVariant.Supplementary}
           onClick={() => setRevealPassword(!revealPassword)}
           iconStart={revealPassword ? <IconEyeCrossed /> : <IconEye />}
         >

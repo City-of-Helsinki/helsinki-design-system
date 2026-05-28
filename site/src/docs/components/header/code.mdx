@@ -125,7 +125,7 @@ export const translations = {
   },
   sv: {
     adultEducationCentres: 'Arbetarinstituten',
-    ariaLanguageSelection: 'Välja spräk',
+    ariaLanguageSelection: 'Välja språk',
     ariaLogo: 'Service logo',
     ariaMenuButton: 'Menu',
     basicEducation: 'Grundläggande utbildning',
@@ -149,7 +149,7 @@ export const translations = {
     headerMenuTitle: 'Andra språk',
     headerSearch: 'Sök',
     headerTitle: 'Helsingfors Stad',
-    healtcare: 'Hälsovärd',
+    healtcare: 'Hälsovård',
     healthAndndSocialServices: 'Social- och hälsovårdstjänster',
     infoOtherLanguages: 'information på andra språk',
     jobSeekers: 'Arbetssökande',
@@ -268,7 +268,6 @@ export const IndexLink = ({ anchor, children }) => {
 
 ```jsx
 import { Header, IconSignout, Logo, logoFi, logoSv, logoSvDark } from 'hds-react';
-
 () => {
   const languages = [
     { label: 'Suomi', value: 'fi', isPrimary: true },
@@ -811,8 +810,6 @@ The Header.ActionBarButton can be used as a plain button element without a dropd
 
 ```jsx
 import { Header, Logo, logoFi, IconSignin } from 'hds-react';
-import { Link } from 'gatsby';
-
 () => {
   return (
     <>

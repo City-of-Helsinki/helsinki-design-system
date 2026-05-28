@@ -3,7 +3,7 @@ slug: '/components/card/code'
 title: 'Card - Code'
 ---
 
-import { Button, Card } from 'hds-react';
+import { Button, ButtonPresetTheme, ButtonVariant, Card } from 'hds-react';
 import TabsLayout from './tabs.mdx';
 import NativeElementPropsInfo from '../../../components/NativeElementPropsInfo';
 
@@ -89,18 +89,18 @@ import { Card } from 'hds-react';
 
 #### Using with other HDS components
 
-<Playground scope={{ Card, Button }}>
+<Playground scope={{ Card, Button, ButtonPresetTheme, ButtonVariant }}>
 
 
 ```jsx
-import { Card, Button } from 'hds-react';
+import { Card, Button, ButtonPresetTheme, ButtonVariant } from 'hds-react';
 
 () => (<>
   <Card
     heading="Card"
     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   >
-    <Button variant="secondary" theme="black" role="link">
+    <Button variant={ButtonVariant.Secondary} theme={ButtonPresetTheme.Black} role="link">
       Button
     </Button>
   </Card>
@@ -109,7 +109,7 @@ import { Card, Button } from 'hds-react';
     heading="Card"
     text="Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua."
   >
-    <Button variant="secondary" theme="black" role="link">
+    <Button variant={ButtonVariant.Secondary} theme={ButtonPresetTheme.Black} role="link">
       Button
     </Button>
   </Card>
