@@ -1,13 +1,12 @@
 import React from 'react';
 import InternalLink from './InternalLink';
 import PropTypes from 'prop-types';
-import { useLocation } from '@reach/router';
 
 import { stripParagraphAsFirstChild } from './stripParagraphAsFirstChild';
 
 export const AnchorLink = ({ anchor, children, path }) => {
-  const location = useLocation();
-  const parsedPath = path || location.path;
+  const parsedPath =
+    path || (typeof window !== 'undefined' ? window.location.pathname : '');
   const parsedAnchor = String(anchor || children)
     .toLowerCase()
     .replace(/ /g, '-')

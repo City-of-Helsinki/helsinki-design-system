@@ -9,10 +9,10 @@ import Notification from '../../../components/Notification';
 
 # Migrate to version 6.0.0
 
-This guide helps you migrate from HDS v5 to v6. The v6 release focuses on tooling and platform upgrades. The main consumer-facing breaking changes are the removal of the **ErrorSummary** component and the bump of the supported **Node.js** version to 24.
+This guide helps you migrate from HDS v5 to v6. The v6 release focuses on tooling and platform upgrades. The main consumer-facing breaking changes are the removal of the **ErrorSummary** component, the requirement for **React 19**, and the bump of the supported **Node.js** version to 24.
 
 <Notification label=";tldr; Check at least these" className="siteNotification">
-  When updating to HDS 6.0.0 check and test at least these: ErrorSummary component is removed from both React and Core — use `<Notification type="error">` with the new `autofocus` prop instead; Node.js 24 is now the supported runtime (`engines.node` is `^24`); HDS is now built and tested against React 19 (peerDependency range is unchanged: React 16.8+ through 19 still supported); the Figma Design Kit only fixes font rendering in components and is otherwise equivalent to v5.
+  When updating to HDS 6.0.0 check and test at least these: ErrorSummary component is removed from both React and Core — use `<Notification type="error">` with the new `autofocus` prop instead; Node.js 24 is now the supported runtime (`engines.node` is `^24`); React 19 or later is required (`react` and `react-dom` peer dependencies are `^19.0.0`); the Figma Design Kit only fixes font rendering in components and is otherwise equivalent to v5.
 </Notification>
 
 ## Breaking changes
@@ -87,20 +87,22 @@ HDS packages now declare `"engines": { "node": "^24" }`. The repository's `.nvmr
 
 ---
 
-### Internal upgrade: React 19, Storybook 8, Gatsby 5
+### React 19 required, Storybook 8 and Gatsby 5
 
-HDS itself is now developed against **React 19**, **Storybook 8** and **Gatsby 5**. For consumers of the published packages this is mostly transparent — the `react` and `react-dom` peer dependency range is unchanged:
+HDS 6 requires **React 19** or later. The published `hds-react` package declares:
 
 ```json
 "peerDependencies": {
-  "react": "^16.8.0 || ^17 || ^18 || ^19",
-  "react-dom": "^16.8.0 || ^17 || ^18 || ^19"
+  "react": "^19.0.0",
+  "react-dom": "^19.0.0"
 }
 ```
 
-You can keep your application on React 17 or 18. That said, we recommend upgrading to React 19 to stay aligned with the version HDS is now tested against. If you maintain a Storybook integration that loads HDS stories, or you fork the documentation site, update Storybook and Gatsby alongside HDS.
+Package managers warn at install time if your application does not satisfy this range.
 
-**Migration:** No code changes are required if you stay on your current React major. If you upgrade React, follow the official [React 19 upgrade guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) for any application-level changes (removed legacy APIs, ref-as-prop changes, etc.) — those are React's own breaking changes, not HDS's.
+**Migration:** Upgrade `react` and `react-dom` to version 19 before or when upgrading to HDS 6. Follow the official [React 19 upgrade guide](https://react.dev/blog/2024/04/25/react-19-upgrade-guide) for application-level changes (removed legacy APIs, ref-as-prop changes, etc.).
+
+HDS itself is also developed against **Storybook 8** and **Gatsby 5**. If you maintain a Storybook integration that loads HDS stories, or you fork the documentation site, update Storybook and Gatsby alongside HDS.
 
 ---
 
@@ -173,7 +175,8 @@ Have a question about migration to `6.0.0`? Please head over to the <InternalLin
 |-------------------|--------|
 | **ErrorSummary**  | Removed from React and Core. Use `<Notification type="error">` with the new `autofocus` prop. |
 | **Node.js**       | `engines.node` is now `^24`. Upgrade your build and CI environments. |
-| **React / Storybook / Gatsby** | HDS is now built against React 19, Storybook 8 and Gatsby 5. The React peerDependency range is unchanged. |
+| **React**         | `react` and `react-dom` peer dependencies are `^19.0.0`. Upgrade to React 19 before using HDS 6. |
+| **Storybook / Gatsby** | HDS docs and Storybook are built against Storybook 8 and Gatsby 5. |
 | **Figma Design Kit** | Font rendering fix in components using library typography styles. Otherwise equivalent to v5. Card, Footer and Table remain on early-v4 styles. |
 
 For the full list of changes in 6.0.0, see the [Changelog](/about/releases).

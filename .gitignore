@@ -3,6 +3,10 @@
 .jest-*
 lib
 node_modules
+node_modules.e2e
+.pnpm-store
+e2e/report/
+e2e/test-results/
 .idea/
 .vscode/
 .editorconfig

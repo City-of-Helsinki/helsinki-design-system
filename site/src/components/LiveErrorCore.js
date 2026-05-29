@@ -26,21 +26,30 @@ const LiveErrorCore = ({ code }) => {
   */
   useEffect(() => {
     if (supportsRegexpLookBehind()) {
-      const loader = new StaticConfigLoader({
-        extends: ['html-validate:standard'],
-        elements: [html5],
-      });
-      setHtmlValidate(new HtmlValidate(loader));
+      try {
+        const loader = new StaticConfigLoader({
+          extends: ['html-validate:standard'],
+          elements: [html5],
+        });
+        setHtmlValidate(new HtmlValidate(loader));
+      } catch {
+        // Browser bundle can fail to init (e.g. ajv "Keyword [object Object] is not a valid identifier").
+        // Skip live HTML validation rather than crashing the page.
+      }
     }
   }, []);
 
   useEffect(() => {
     if (htmlValidate) {
-      const report = htmlValidate.validateString(code);
-      if (report.valid) {
+      try {
+        const report = htmlValidate.validateString(code);
+        if (report.valid) {
+          setError(null);
+        } else {
+          setError(report.results[0].messages[0]);
+        }
+      } catch {
         setError(null);
-      } else {
-        setError(report.results[0].messages[0]);
       }
     }
   }, [code, htmlValidate]);

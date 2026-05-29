@@ -9,30 +9,35 @@ Base styles and individual HTML component styles for the Helsinki Design System.
 Install the package.
 
 ```bash
-yarn add hds-core
+pnpm add hds-core
 ```
 
 ### What's included
 
+The published npm package contains the built `lib/` directory (source files under `src/` are not included).
+
 ```
 hds-core/
-├── src/                # source css
 └── lib/
-    ├── components/     # collection of HDS component styles
-    │   ├── all.css               # bundled stylesheet including all components
-    |   └── <component name>/     # component stylesheets
-    │       ├── <component name>.css
-    │       :
-    │
-    ├── icons/          # collection of HDS icon styles
-    │   ├── icons.css               # bundled stylesheet including all icons
-    │   ├── icon.css              # base styles for icons
-    │   ├── icon-<icon name>.css  # individual icon stylesheet
-    │   :
-    │
-    ├── utils/          # utility stylesheets
-    ├── variables/      # collection of css variables and base styles
-    └── base.css        # base styles
+    ├── base.css / base.min.css     # base styles and CSS variables (min is the package main entry)
+    ├── components/                 # HDS component styles
+    │   ├── all.css / all.min.css   # bundled stylesheet including all components
+    │   └── <component name>/       # per-component stylesheets
+    │       ├── <component name>.css / .min.css
+    │       └── _*.scss             # optional SCSS mixins for some components
+    ├── fonts/                      # @font-face rules (font files served from CDN, not bundled)
+    │   ├── fonts.css / fonts.min.css
+    │   └── _font-variables.scss
+    ├── icons/                      # HDS icon styles
+    │   ├── icons.css / icons.min.css   # bundled stylesheet including all icons
+    │   ├── icon.css / icon.min.css     # base styles for icons
+    │   └── <icon name>.css / .min.css  # individual icon stylesheets (e.g. alert-circle.css)
+    ├── scss/                       # shared SCSS helpers
+    │   └── helpers.scss
+    └── utils/                      # utility stylesheets and SCSS tooling
+        ├── helpers.css / helpers.min.css
+        ├── animations.css / animations.min.css
+        └── multi-sass/             # SCSS utilities for BEM-style exports
 ```
 
 ### Using the styles
@@ -41,9 +46,8 @@ To import styles for all the core components, you'll need two stylesheets: `base
 
 Therefore, we do recommend that you use individual component and icon stylesheets instead of the bundled styles.
 
-JS
 ```js
-// import base styles and css variables
+// import base styles and css variables (resolves to lib/base.min.css)
 import "hds-core";
 ```
 

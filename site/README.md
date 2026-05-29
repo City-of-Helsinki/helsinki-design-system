@@ -23,51 +23,51 @@ When making changes to the documentation website, the recommended way is to get 
 git clone https://github.com/City-of-Helsinki/helsinki-design-system.git
 ```
 
-2. Go to the root of the project and install dependencies with `yarn`.
+2. Go to the root of the project and install dependencies with `pnpm`.
 ```
 cd helsinki-design-system
-yarn
+pnpm
 ```
 
-3. Build packages with `yarn`. Note, you need to build all HDS packages since the documentation site uses those as well.
+3. Build packages with `pnpm`. Note, you need to build all HDS packages since the documentation site uses those as well.
 ```
-yarn build
+pnpm build
 ```
 
 4. Install local dependencies.
 ```
 cd site
-yarn
+pnpm
 ```
 
 5. Start the development server. It will watch for file changes automatically.
 ```
-yarn start
+pnpm start
 ```
 
 6. Open the browser of your choice (Chrome recommended) and navigate to http://localhost:8000/. You should now see the documentation site.
 
-**Note!** You may need to rerun `yarn build` if you make changes to config files or if other HDS packages are updated.
+**Note!** You may need to rerun `pnpm build` if you make changes to config files or if other HDS packages are updated.
 
 ### Commands
 
 | Command                            | Description                                               |
 | ---------------------------------- | --------------------------------------------------------- |
-| yarn                               | Install dependencies.                                     |
-| yarn build                         | Lints and builds documentation.                           |
-| yarn start                         | Starts the development server.                            |
-| yarn lint                          | Runs the linting.                                         |
-| yarn format                        | Format all code.                                          |
-| yarn serve                         | Serve production site.                                    |
-| yarn clean                         | Clear Gatsby cache.                                       |
-| yarn scaffold                      | Runs the scaffolding script for creating a new component. |
+| pnpm                               | Install dependencies.                                     |
+| pnpm build                         | Lints and builds documentation.                           |
+| pnpm start                         | Starts the development server.                            |
+| pnpm lint                          | Runs the linting.                                         |
+| pnpm format                        | Format all code.                                          |
+| pnpm serve                         | Serve production site.                                    |
+| pnpm clean                         | Clear Gatsby cache.                                       |
+| pnpm scaffold                      | Runs the scaffolding script for creating a new component. |
 
 ### Hosting in Github pages
 
 There might be a need to prefix asset and pages paths when the site is hosted in Github pages. This can be done by giving the pathPrefix as a command-line argument or by replacing the pathPrefix configuration in gatsby-config.js
 Running build with path prefixes example:
 ```
-PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
+PATH_PREFIX='/hds-demo/docsite-fixes' pnpm build -- --prefix-paths
 ```
 [Here](https://www.gatsbyjs.com/docs/how-to/previews-deploys-hosting/how-gatsby-works-with-github-pages/) is more info about hosting Gatsby site in Github pages.
 
@@ -78,4 +78,4 @@ PATH_PREFIX='/hds-demo/docsite-fixes' yarn build -- --prefix-paths
 - **Development: A new local component is not available when trying to import from the hds-react in the site**:
   1. Review that all component exports exist in hds-react package. Check the hds-react [DEVELOPMENT.md](../packages/react/DEVELOPMENT.md) for more information.
   2. Remove old build folders from package-folders
-  3. Run ```bash yarn build``` in the root folder of the repository. This will build the local libraries into root node_modules as installed libraries.
+  3. Run ```bash pnpm build``` in the root folder of the repository. This will build the local libraries into root node_modules as installed libraries.

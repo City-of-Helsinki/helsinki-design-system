@@ -181,11 +181,14 @@ const checkModule = (forHdsJs) => {
 
   const isNodeModule = (id) => {
     const folderCheck = 'node_modules/';
-    const isInNodeModules = id.includes(folderCheck);
-    if (!isInNodeModules) {
+    const lastNodeModulesIndex = id.lastIndexOf(folderCheck);
+    if (lastNodeModulesIndex === -1) {
       return false;
     }
-    const moduleFolder = id.split(folderCheck)[1].split('/')[0];
+    // pnpm nests packages as node_modules/.pnpm/<pkg>@<ver>/node_modules/<name>/...
+    // Use the last node_modules segment so scoped names resolve correctly (e.g. @apollo).
+    const afterNodeModules = id.slice(lastNodeModulesIndex + folderCheck.length);
+    const moduleFolder = afterNodeModules.split('/')[0];
     if (allowedExternals.includes(moduleFolder)) {
       return false;
     }

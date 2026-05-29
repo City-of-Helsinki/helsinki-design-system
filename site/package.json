@@ -2,17 +2,9 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "engines": {
     "node": "^24"
-  },
-  "workspaces": {
-    "nohoist": [
-      "gatsby",
-      "gatsby/**",
-      "gatsby-*",
-      "gatsby-*/**"
-    ]
   },
   "dependencies": {
     "@mdx-js/react": "2.3.0",
@@ -52,19 +44,15 @@
     "crypto-browserify": "^3.11.0",
     "eslint": "8.56.0",
     "eslint-config-react-app": "^7.0.1",
-    "hds-core": "6.0.1",
-    "hds-design-tokens": "6.0.1",
-    "hds-react": "6.0.1",
+    "hds-core": "6.0.2",
+    "hds-design-tokens": "6.0.2",
+    "hds-react": "6.0.2",
     "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",
     "stylelint": "^15.1.0",
     "stylelint-config-standard-scss": "^7.0.1",
     "stylelint-order": "^6.0.2"
-  },
-  "resolutions": {
-    "multer": "1.4.5-lts.1",
-    "jpeg-js": "0.4.4"
   },
   "keywords": [
     "gatsby",
@@ -73,8 +61,8 @@
   "license": "MIT",
   "scripts": {
     "check-versions": "node scripts/check-versions.mjs",
-    "build": "yarn check-versions && yarn lint && NODE_OPTIONS='--max_old_space_size=8192 --disable-warning=DEP0040' gatsby build",
-    "build-single-version": "yarn lint && NODE_OPTIONS='--max_old_space_size=8192 --disable-warning=DEP0040' BUILD_SINGLE_VERSION=true gatsby build",
+    "build": "pnpm check-versions && pnpm lint && NODE_OPTIONS='--max_old_space_size=8192 --disable-warning=DEP0040' gatsby build",
+    "build-single-version": "pnpm lint && NODE_OPTIONS='--max_old_space_size=8192 --disable-warning=DEP0040' BUILD_SINGLE_VERSION=true gatsby build",
     "format": "prettier --write \"**/*.{js,jsx,ts,tsx,json,md}\"",
     "start": "NODE_OPTIONS='--max_old_space_size=8192 --disable-warning=DEP0040' BUILD_SINGLE_VERSION=true gatsby develop -o",
     "serve": "gatsby serve",
@@ -82,9 +70,9 @@
     "test": "echo \"Write tests! -> https://gatsby.dev/unit-testing\" && exit 1",
     "link-react": "rm -rf node_modules/hds-react/lib && cp ../packages/react/package.json node_modules/hds-react/ && cp -r ../packages/react/lib node_modules/hds-react/",
     "link-core": "rm -rf node_modules/hds-core/lib/* && cp -r ../packages/core/lib/* node_modules/hds-core/lib/",
-    "lint:js": "yarn eslint . --ext js",
+    "lint:js": "pnpm eslint . --ext js",
     "lint:scss": "stylelint \"**/*.scss\"",
-    "lint": "yarn lint:js && yarn lint:scss",
+    "lint": "pnpm lint:js && pnpm lint:scss",
     "scaffold": "node scripts/scaffold.js",
     "iconlist": "node scripts/iconlist.js"
   },

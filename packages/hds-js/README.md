@@ -7,7 +7,7 @@ Hds-js contains vanilla js exported from the [hds-react](https://github.com/City
 Install the package.
 
 ```bash
-yarn add hds-js
+pnpm add hds-js
 ```
 
 ### Using the components

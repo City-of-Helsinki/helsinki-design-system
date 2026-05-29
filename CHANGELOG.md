@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.0.2] - May, 29th, 2026
+
+### Workspace
+
+#### Changed
+
+- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+
+### React
+
+#### Breaking vs. 5.x (already in v6.0.0)
+
+- [Package] `react` and `react-dom` peer dependencies updated to require `^19.0.0` (React 19 or later). Earlier React majors are no longer supported (since `v6.0.0` already).
+
+### Documentation
+
+#### Fixed
+
+- [Multiple components] Removed already obsolete props from component props tables.
+
 ## [6.0.1] - May, 13th, 2026
 
 ### Core

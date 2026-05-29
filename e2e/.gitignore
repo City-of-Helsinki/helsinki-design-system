@@ -1,7 +1,0 @@
-*.log
-lib
-node_modules
-.idea/
-.vscode/
-report/
-test-results/

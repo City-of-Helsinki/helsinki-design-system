@@ -5,6 +5,8 @@ title: 'Footer - Code'
 
 import {
   Footer,
+  IconCheckCircleFill,
+  IconCrossCircle,
   IconFacebook,
   IconTwitter,
   IconInstagram,
@@ -224,7 +226,7 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
             icon={<IconInstagram />}
             href="https://instagram.com"
           />,
-          <Link
+          <Footer.Link
             title="City of Helsinki on Youtube"
             aria-label="City of Helsinki on Youtube"
             external
@@ -284,10 +286,10 @@ import { Footer, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTikt
 
 - The Footer.Link component has the `as` prop which you can use to use your own navigation link instead of our Footer.Link, which uses <InternalLink href="/components/">HDS Link</InternalLink> underneath. You can pass it as an element `as={<CustomLink />}` or as a component `as={CustomLink}`.
 
-<Playground scope={{ Footer, Logo, logoFi, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok }}>
+<Playground scope={{ Footer, Logo, LogoSize, logoFi, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok }}>
 
 ```jsx
-import { Footer, Logo, logoFi, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
+import { Footer, Logo, LogoSize, logoFi, IconFacebook, IconTwitter, IconInstagram, IconYoutube, IconTiktok } from 'hds-react';
 import { Link } from 'gatsby';
 
 () => (

@@ -1,0 +1,70 @@
+packages:
+  - 'packages/*'
+  - 'site'
+  - 'e2e'
+
+# Link workspace packages by name/version during version bumps (before publish to npm).
+linkWorkspacePackages: true
+
+# Don't allow dependencies to be used before they have been released for at least 1 week
+minimumReleaseAge: 10080
+minimumReleaseAgeExclude:
+  - 'hds-*'
+
+# Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
+shamefullyHoist: true
+
+allowBuilds:
+  '@parcel/watcher': true
+  '@swc/core': true
+  core-js: true
+  core-js-pure: true
+  es5-ext: true
+  esbuild: true
+  gatsby: true
+  gatsby-cli: true
+  lmdb: true
+  msgpackr-extract: true
+  nx: true
+  sharp: true
+  unrs-resolver: true
+
+overrides:
+  webpack: ^5.104.1
+  file-type: ^21.3.1
+  axios: ^1.15.0
+  follow-redirects: ^1.16.0
+  '@types/react': ^19.0.0
+  '@types/react-dom': ^19.0.0
+  multer: 1.4.5-lts.1
+  jpeg-js: 0.4.4
+  json5: 2.2.3
+  '@mdx-js/loader>loader-utils': 2.0.4
+  axios>form-data: 4.0.5
+  cookie: 0.7.2
+  tmp: 0.2.5
+  handlebars: 4.7.9
+  tar: 7.5.13
+  path-to-regexp: 0.1.13
+  socket.io-parser: 4.2.6
+  flatted: 3.4.2
+  svgo: 2.8.1
+  postcss: 8.4.31
+  serialize-javascript: 7.0.5
+  yaml: 2.8.3
+  immutable: 5.1.5
+  lodash: 4.18.1
+  lodash.template: 4.18.1
+  '@typescript-eslint/eslint-plugin': 8.58.2
+  '@typescript-eslint/parser': 8.58.2
+  '@typescript-eslint/typescript-estree': 8.58.2
+  '@typescript-eslint/utils': 8.58.2
+  '@typescript-eslint/scope-manager': 8.58.2
+  '@typescript-eslint/type-utils': 8.58.2
+  '@typescript-eslint/types': 8.58.2
+  '@typescript-eslint/visitor-keys': 8.58.2
+  '@typescript-eslint/project-service': 8.58.2
+  '@typescript-eslint/tsconfig-utils': 8.58.2
+  '@typescript-eslint/typescript-estree>minimatch': 9.0.9
+  micromatch>picomatch: 2.3.2
+  eslint: 8.57.0

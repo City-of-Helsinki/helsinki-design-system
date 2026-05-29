@@ -194,8 +194,12 @@ module.exports = {
   // A map from regular expressions to paths to transformers
   // transform: null,
 
-  // An array of regexp pattern strings that are matched against all source file paths, matched files will skip transformation
-  transformIgnorePatterns: ['/node_modules/(?!@babel/runtime|uuid)'],
+  // pnpm stores packages under node_modules/.pnpm/<name>@<version>/node_modules/<name>/.
+  // The .pnpm pattern must list every scoped package that ships ESM and needs babel-jest.
+  transformIgnorePatterns: [
+    '/node_modules/.pnpm/(?!uuid@|@babel\\+runtime@)',
+    '/node_modules/(?!\\.pnpm/)(?!(@babel/runtime|uuid)/)',
+  ],
 
   // An array of regexp pattern strings that are matched against all modules before the module loader will automatically return a mock for them
   // unmockedModulePathPatterns: undefined,

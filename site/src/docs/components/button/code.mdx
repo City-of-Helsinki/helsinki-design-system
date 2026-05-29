@@ -5,6 +5,7 @@ title: 'Button - Code'
 
 import {
   Button,
+  ButtonSize,
   ButtonVariant,
   LoadingSpinner,
   IconTrash,
@@ -39,12 +40,12 @@ import { Button } from 'hds-react';
 
 #### Secondary
 
-<Playground scope={{ Button }}>
+<Playground scope={{ Button, ButtonVariant }}>
 
 ```jsx
-import { Button } from 'hds-react';
+import { Button, ButtonVariant } from 'hds-react';
 
-() => <Button variant="secondary">Secondary</Button>;
+() => <Button variant={ButtonVariant.Secondary}>Secondary</Button>;
 ```
 
 ```html
@@ -55,13 +56,13 @@ import { Button } from 'hds-react';
 
 #### Supplementary
 
-<Playground scope={{ Button, IconTrash }}>
+<Playground scope={{ Button, ButtonVariant, IconTrash }}>
 
 ```jsx
-import { Button, IconTrash } from 'hds-react';
+import { Button, ButtonVariant, IconTrash } from 'hds-react';
 
 () => (
-  <Button variant="supplementary" iconStart={<IconTrash />}>
+  <Button variant={ButtonVariant.Supplementary} iconStart={<IconTrash />}>
     Supplementary
   </Button>
 );
@@ -112,18 +113,18 @@ import { Button, IconShare, IconAngleRight } from 'hds-react';
 
 #### Small button
 
-<Playground scope={{ Button }}>
+<Playground scope={{ Button, ButtonSize, ButtonVariant }}>
 
 ```jsx
-import { Button } from 'hds-react';
+import { Button, ButtonSize, ButtonVariant } from 'hds-react';
 
 () => (
   <div style={{ display: 'flex', gap: '12px' }}>
-    <Button size="small">Primary</Button>
-    <Button variant="secondary" size="small">
+    <Button size={ButtonSize.Small}>Primary</Button>
+    <Button variant={ButtonVariant.Secondary} size={ButtonSize.Small}>
       Secondary
     </Button>
-    <Button variant="supplementary" size="small">
+    <Button variant={ButtonVariant.Supplementary} size={ButtonSize.Small}>
       Supplementary
     </Button>
   </div>
@@ -148,17 +149,17 @@ import { Button } from 'hds-react';
 
 #### Utility button
 
-<Playground scope={{ Button, IconSaveDisketteFill, IconTrash }}>
+<Playground scope={{ Button, ButtonVariant, IconSaveDisketteFill, IconTrash }}>
 
 ```jsx
-import { Button, IconSaveDisketteFill, IconTrash } from 'hds-react';
+import { Button, ButtonVariant, IconSaveDisketteFill, IconTrash } from 'hds-react';
 
 () => (
   <div style={{ display: 'flex', gap: '12px' }}>
-    <Button variant="success" iconStart={<IconSaveDisketteFill />}>
+    <Button variant={ButtonVariant.Success} iconStart={<IconSaveDisketteFill />}>
       Save
     </Button>
-    <Button variant="danger" iconStart={<IconTrash />}>
+    <Button variant={ButtonVariant.Danger} iconStart={<IconTrash />}>
       Delete
     </Button>
   </div>

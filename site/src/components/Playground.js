@@ -1,16 +1,61 @@
-import React, { isValidElement, useCallback, useEffect, useRef, useState } from 'react';
+import React, {
+  isValidElement,
+  useCallback,
+  useEffect,
+  useMemo,
+  useReducer,
+  useRef,
+  useState,
+} from 'react';
 import PropTypes from 'prop-types';
 import { useMDXComponents } from '@mdx-js/react';
-import { LiveProvider, LiveEditor, LiveError, LivePreview, LiveContext } from 'react-live';
+import { LiveProvider, LiveError, LivePreview, Editor as LiveCodeEditor } from 'react-live';
 import { themes } from 'prism-react-renderer';
 import sanitizeHtml from 'sanitize-html';
-import { Notification, Tabs, TabList, TabPanel, Tab, Button, IconArrowUndo } from 'hds-react';
+import {
+  Notification,
+  Tabs,
+  TabList,
+  TabPanel,
+  Tab,
+  Button,
+  IconArrowUndo,
+  ButtonSize,
+  ButtonVariant,
+} from 'hds-react';
+import './Playground.scss';
+import LiveErrorCore from './LiveErrorCore';
 
 const theme = themes.github;
 
-import './Playground.scss';
-import LiveErrorCore from './LiveErrorCore';
-import { ButtonSize, ButtonVariant } from '../../../packages/react/src/components/button';
+/**
+ * Stand-in for `import { Link } from 'gatsby'` in live examples. The real Gatsby Link uses
+ * useLocation and crashes outside Gatsby's router (react-live previews are not under Router).
+ */
+function PlaygroundRouterLink({ to, href, children, onClick, ...rest }) {
+  return (
+    <a
+      href={to ?? href ?? '#'}
+      onClick={(event) => {
+        onClick?.(event);
+      }}
+      {...rest}
+    >
+      {children}
+    </a>
+  );
+}
+
+/** Available in every react-live example (many MDX snippets use React.useState etc.). */
+const playgroundBuiltinScope = {
+  React,
+  useState,
+  useEffect,
+  useRef,
+  useCallback,
+  useMemo,
+  useReducer,
+};
 
 const sanitizeConfig = {
   allowedTags: false,
@@ -68,20 +113,6 @@ const sanitizeConfig = {
   enforceHtmlBoundary: false,
 };
 
-const Playground = ({ children }) => {
-  if (children) {
-    return <pre>{children}</pre>;
-  }
-
-  return null;
-};
-
-Playground.propTypes = {
-  children: PropTypes.node.isRequired,
-};
-
-export default Playground;
-
 const playgroundPreviewClassName = 'playground-block-preview';
 
 const PlaygroundPreviewComponent = ({ children, className, clipped, ...props }) => {
@@ -89,7 +120,7 @@ const PlaygroundPreviewComponent = ({ children, className, clipped, ...props }) 
   if (clipped) {
     return (
       <div {...props} className={classNames}>
-        <div className={'playground-clipped-view-area'}>{children}</div>
+        <div className="playground-clipped-view-area">{children}</div>
       </div>
     );
   }
@@ -105,11 +136,7 @@ export const PlaygroundPreview = ({ ...props }) => (
 );
 
 const clearSelection = () => {
-  if (window.getSelection) {
-    window.getSelection().removeAllRanges();
-  } else if (document.selection) {
-    document.selection.empty();
-  }
+  globalThis.getSelection()?.removeAllRanges();
 };
 
 const isJsx = (language) => language === 'jsx';
@@ -130,13 +157,11 @@ function transformCode(code) {
   return renderAdded;
 }
 
-const HtmlLivePreview = ({ code }) => {
-  const sanitizedHtml = () => ({
-    __html: sanitizeHtml(code, sanitizeConfig),
-  });
-
-  return <PlaygroundPreviewComponent dangerouslySetInnerHTML={sanitizedHtml()} />;
-};
+const HtmlLivePreview = ({ code }) => (
+  <PlaygroundPreviewComponent
+    dangerouslySetInnerHTML={{ __html: sanitizeHtml(code, sanitizeConfig) }}
+  />
+);
 
 const Editor = ({ onChange, initialCode, code, language }) => {
   const viewPortRef = useRef();
@@ -146,17 +171,19 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   const copySuccessState = 'COPY_SUCCESS';
   const copyErrorState = 'COPY_ERROR';
   const [copyState, setCopyState] = useState('');
-  const textAreaId = `code-block-textarea-${language}-${resetCount}`;
-  const helperTextId = `code-block-helper-${language}-${resetCount}`;
-  const getTextArea = useCallback((el) => el.querySelector('textarea'), []);
+  const editorId = `code-block-editor-${language}-${resetCount}`;
+  const editorHelperId = `code-block-helper-${language}-${resetCount}`;
+  const getEditableElement = useCallback(
+    (el) => el?.querySelector('.playground-block-editor-code-input pre'),
+    [],
+  );
 
   const onFocusKeyDown = useCallback(
     (event) => {
       if (viewPortRef.current && event.target === viewPortRef.current) {
         if (event.key === 'Enter') {
           event.preventDefault();
-          const textArea = getTextArea(viewPortRef.current);
-          textArea.focus();
+          getEditableElement(viewPortRef.current)?.focus();
         } else if (event.key === 'ArrowLeft' || event.key === 'ArrowRight') {
           if (scrollboxRef.current) {
             event.preventDefault();
@@ -166,22 +193,19 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         }
       }
     },
-    [getTextArea],
+    [getEditableElement],
   );
 
   const copy = async () => {
-    if (viewPortRef.current && copyButtonRef.current) {
-      const textArea = getTextArea(viewPortRef.current);
-      setCopyState('');
-      try {
-        await navigator.clipboard.writeText(textArea.value);
-        setCopyState(copySuccessState);
-      } catch (err) {
-        setCopyState(copyErrorState);
-        console.warn(`Copy failed: ${err}`);
-      }
-      clearSelection();
+    setCopyState('');
+    try {
+      await navigator.clipboard.writeText(code);
+      setCopyState(copySuccessState);
+    } catch (err) {
+      setCopyState(copyErrorState);
+      console.warn(`Copy failed: ${err}`);
     }
+    clearSelection();
   };
 
   const reset = () => {
@@ -193,21 +217,24 @@ const Editor = ({ onChange, initialCode, code, language }) => {
   };
 
   useEffect(() => {
-    if (viewPortRef.current) {
-      const textArea = getTextArea(viewPortRef.current);
-      if (textArea) {
-        textArea.setAttribute('id', textAreaId);
-        textArea.setAttribute('aria-describedby', helperTextId);
-        textArea.setAttribute('tabIndex', '-1');
-        textArea.addEventListener('blur', (e) => {
-          // Set viewport focus on textarea Esc keypress (no related target)
-          if (viewPortRef.current && !e.relatedTarget) {
-            viewPortRef.current.focus();
-          }
-        });
-      }
+    const viewport = viewPortRef.current;
+    const editable = viewport ? getEditableElement(viewport) : null;
+    if (!editable) {
+      return undefined;
     }
-  }, [getTextArea, helperTextId, textAreaId]);
+
+    editable.setAttribute('id', editorId);
+    editable.setAttribute('aria-describedby', editorHelperId);
+    editable.setAttribute('tabIndex', '-1');
+
+    const onBlur = (event) => {
+      if (viewPortRef.current && !event.relatedTarget) {
+        viewPortRef.current.focus();
+      }
+    };
+    editable.addEventListener('blur', onBlur);
+    return () => editable.removeEventListener('blur', onBlur);
+  }, [getEditableElement, editorHelperId, editorId]);
 
   return (
     <>
@@ -220,17 +247,18 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         >
           <div className="playground-block-editor-code">
             <div className="playground-block-editor-texts">
-              <label className="playground-block-editor-label" htmlFor={textAreaId}>
+              <label className="playground-block-editor-label" htmlFor={editorId}>
                 Editable code example
               </label>
-              <span className="playground-block-editor-helper" id={helperTextId}>
+              <span className="playground-block-editor-helper" id={editorHelperId}>
                 Press Enter to start editing. Press Esc to stop editing.
               </span>
             </div>
             <div className="playground-block-editor-scrollbox" tabIndex={-1} ref={scrollboxRef}>
-              <LiveEditor
+              <LiveCodeEditor
                 key={resetCount}
                 onChange={onChange}
+                code={code}
                 className="playground-block-editor-code-input"
                 theme={theme}
                 language={language}
@@ -295,17 +323,78 @@ Editor.propTypes = {
   language: PropTypes.string.isRequired,
 };
 
-const EditorWithLive = (props) => (
-  <LiveContext.Consumer>
-    {({ code, onChange }) => <Editor {...props} code={code} onChange={onChange} />}
-  </LiveContext.Consumer>
-);
+/** React playground — `liveCode` drives both LiveProvider preview and the editor. */
+const JsxPlaygroundPanel = ({ initialCode, language, scope }) => {
+  const [liveCode, setLiveCode] = useState(initialCode);
 
-export const PlaygroundBlock = (props) => {
+  return (
+    <LiveProvider
+      code={liveCode}
+      transformCode={transformCode}
+      scope={scope}
+      language={language}
+      noInline={true}
+    >
+      <div className="playground-block-content">
+        <LivePreview className={playgroundPreviewClassName} />
+        <Editor
+          initialCode={initialCode}
+          language={language}
+          code={liveCode}
+          onChange={setLiveCode}
+        />
+      </div>
+    </LiveProvider>
+  );
+};
+
+JsxPlaygroundPanel.propTypes = {
+  initialCode: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
+  scope: PropTypes.object.isRequired,
+};
+
+/** Core/HTML playground — HTML preview is rendered outside react-live. */
+const HtmlPlaygroundPanel = ({ initialCode, language }) => {
+  const [liveCode, setLiveCode] = useState(initialCode);
+
+  return (
+    <div className="playground-block-content">
+      <HtmlLivePreview code={sanitize(liveCode)} />
+      <Editor
+        initialCode={initialCode}
+        language={language}
+        code={liveCode}
+        onChange={setLiveCode}
+      />
+    </div>
+  );
+};
+
+HtmlPlaygroundPanel.propTypes = {
+  initialCode: PropTypes.string.isRequired,
+  language: PropTypes.string.isRequired,
+};
+
+const playgroundScopeDenylist = new Set([
+  'AnchorLink',
+  'InternalLink',
+  'ExternalLink',
+  'Link',
+]);
+
+export const PlaygroundBlock = ({ children, scope }) => {
   const mdxComponents = useMDXComponents();
-  const scopeComponents = { ...mdxComponents, ...props.scope };
+  const safeMdxScope = Object.fromEntries(
+    Object.entries(mdxComponents).filter(([key]) => !playgroundScopeDenylist.has(key)),
+  );
+  const scopeComponents = { ...playgroundBuiltinScope, ...safeMdxScope, ...scope };
+  // Imports are stripped from live code; expose `Link` for Header/Footer `as={Link}` examples.
+  if (!Object.hasOwn(scope ?? {}, 'Link')) {
+    scopeComponents.Link = PlaygroundRouterLink;
+  }
 
-  const childrenArray = Array.isArray(props.children) ? props.children : [props.children];
+  const childrenArray = Array.isArray(children) ? children : [children];
   const codeBlocks = childrenArray
     .filter((child) => isValidElement(child))
     .map(({ props }) => {
@@ -315,15 +404,6 @@ export const PlaygroundBlock = (props) => {
         language: childrenProps.className && childrenProps.className.split('-')[1],
       };
     });
-  const codeByLanguage = codeBlocks.reduce((acc, block) => {
-    acc[block.language] = block.code;
-    return acc;
-  }, {});
-  const [codeByLanguageState, setCodeByLanguageState] = useState(codeByLanguage);
-  const setCodeByLanguage = (language) => (code) => {
-    setCodeByLanguageState({ ...codeByLanguageState, [language]: code });
-  };
-
   return (
     <div className="playground-block">
       <Tabs>
@@ -333,32 +413,18 @@ export const PlaygroundBlock = (props) => {
           ))}
         </TabList>
         {codeBlocks.map(({ code, language }) => {
-          const sanitizedCode = sanitize(codeByLanguageState[language]);
-          const PreviewComponent = () =>
-            isJsx(language) ? (
-              <LivePreview className={playgroundPreviewClassName} />
-            ) : (
-              <HtmlLivePreview code={sanitizedCode} />
-            );
+          const initialCode = sanitize(code);
           return (
             <TabPanel key={language}>
-              <LiveProvider
-                code={sanitizedCode}
-                transformCode={(code) => `${transformCode(code)}`}
-                scope={scopeComponents}
-                language={language}
-                noInline={true}
-              >
-                <div className="playground-block-content">
-                  <PreviewComponent />
-                  <EditorWithLive
-                    initialCode={sanitize(code)}
-                    language={language}
-                    onChange={setCodeByLanguage(language)}
-                    code={codeByLanguageState[language]}
-                  />
-                </div>
-              </LiveProvider>
+              {isJsx(language) ? (
+                <JsxPlaygroundPanel
+                  initialCode={initialCode}
+                  language={language}
+                  scope={scopeComponents}
+                />
+              ) : (
+                <HtmlPlaygroundPanel initialCode={initialCode} language={language} />
+              )}
             </TabPanel>
           );
         })}
@@ -384,4 +450,8 @@ PlaygroundBlock.propTypes = {
     PropTypes.objectOf(CodeBlockShape),
     PropTypes.node,
   ]),
+  /** Extra bindings passed to react-live (e.g. `Link` for Header/Footer examples). */
+  scope: PropTypes.objectOf(PropTypes.oneOfType([PropTypes.func, PropTypes.object])),
 };
+
+export default PlaygroundPreview;

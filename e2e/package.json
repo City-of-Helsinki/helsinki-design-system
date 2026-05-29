@@ -2,21 +2,21 @@
   "name": "e2e",
   "private": true,
   "description": "e2e tests using Playwright",
-  "version": "6.0.1",
+  "version": "6.0.2",
   "engines": {
     "node": "^24"
   },
   "scripts": {
-    "ci": "npx playwright test",
-    "playwright-install": "yarn playwright install --with-deps chromium",
+    "ci": "pnpm exec playwright test",
+    "playwright-install": "pnpm exec playwright install --with-deps chromium",
     "serve-core": "http-server ../packages/core/storybook-static -d -p 6007",
     "serve-react": "http-server ../packages/react/storybook-static -d -p 6006",
-    "start-component": "PACKAGE=$PACKAGE npx playwright test tests/$PACKAGE/**/*$COMPONENT*",
-    "start-package": "PACKAGE=$PACKAGE npx playwright test tests/$PACKAGE/",
-    "start": "npx playwright test",
-    "update-snapshots-component": "npx playwright test tests/$PACKAGE/**/*$COMPONENT* --update-snapshots",
-    "update-snapshots-package": "npx playwright test tests/$PACKAGE/ --update-snapshots",
-    "update-snapshots": "npx playwright test --update-snapshots"
+    "start-component": "PACKAGE=$PACKAGE pnpm exec playwright test tests/$PACKAGE/**/*$COMPONENT*",
+    "start-package": "PACKAGE=$PACKAGE pnpm exec playwright test tests/$PACKAGE/",
+    "start": "pnpm exec playwright test",
+    "update-snapshots-component": "pnpm exec playwright test tests/$PACKAGE/**/*$COMPONENT* --update-snapshots",
+    "update-snapshots-package": "pnpm exec playwright test tests/$PACKAGE/ --update-snapshots",
+    "update-snapshots": "pnpm exec playwright test --update-snapshots"
   },
   "devDependencies": {
     "@axe-core/playwright": "^4.11.2",

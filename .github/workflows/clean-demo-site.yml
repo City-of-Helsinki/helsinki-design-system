@@ -1,19 +1,19 @@
 name: clean-demo-site
 
 on:
-  delete:
-  pull_request:
-    branches:
-      - development
-      - release-*
-    types:
-      - closed
+  schedule:
+    # Daily at 03:00 UTC — remove demos whose PR or branch no longer exists
+    - cron: '0 3 * * *'
+
+permissions:
+  contents: read
+  pull-requests: read
 
 jobs:
-  clean-demo-site:
+  clean-orphaned-demos:
     runs-on: ubuntu-latest
     concurrency:
-      group: hds-demo-${{ github.ref }}
+      group: hds-demo-orphan-cleanup
 
     steps:
       - name: Checkout code hds-demo
@@ -23,26 +23,85 @@ jobs:
           path: hds-demo
           ssh-key: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
 
-      - name: Remove preview directory
-        id: remove_preview
+      - name: Remove orphaned previews
+        id: cleanup
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          HDS_REPO: City-of-Helsinki/helsinki-design-system
         run: |
-          if [ -d "./docs/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}" ] ; then
-            rm -fr ./docs/preview_${{ github.event.number != '' && github.event.number || github.ref_name }}
-            echo "preview_exists=true" >> $GITHUB_OUTPUT
+          set -euo pipefail
+          DOCS_DIR="./hds-demo/docs"
+          removed_any=false
+
+          # gh prints "(HTTP 404)" for missing resources; other failures must not delete previews.
+          is_gh_not_found() {
+            [[ "$1" == *"(HTTP 404)"* ]] || [[ "$1" == *"Could not resolve to a PullRequest"* ]]
+          }
+
+          should_remove_pr_preview() {
+            local pr_number="$1"
+            local output
+            if output=$(gh pr view "$pr_number" --repo "$HDS_REPO" --json state -q .state 2>&1); then
+              [[ "$output" != "OPEN" ]]
+            elif is_gh_not_found "$output"; then
+              return 0
+            else
+              echo "Failed to check PR #${pr_number}: ${output}" >&2
+              exit 1
+            fi
+          }
+
+          should_remove_branch_preview() {
+            local branch="$1"
+            local encoded output
+            encoded=$(printf '%s' "$branch" | jq -sRr @uri)
+            if output=$(gh api "repos/${HDS_REPO}/branches/${encoded}" --silent 2>&1); then
+              return 1
+            elif is_gh_not_found "$output"; then
+              return 0
+            else
+              echo "Failed to check branch '${branch}': ${output}" >&2
+              exit 1
+            fi
+          }
+
+          for preview_dir in "${DOCS_DIR}"/preview_*; do
+            [[ -d "$preview_dir" ]] || continue
+
+            id="${preview_dir##*/preview_}"
+            remove=false
+            reason=""
+
+            if [[ "$id" =~ ^[0-9]+$ ]]; then
+              if should_remove_pr_preview "$id"; then
+                remove=true
+                reason="PR #${id} is closed, merged, or missing"
+              fi
+            elif should_remove_branch_preview "$id"; then
+              remove=true
+              reason="branch '${id}' no longer exists"
+            fi
+
+            if [[ "$remove" == true ]]; then
+              echo "Removing ${preview_dir} (${reason})"
+              rm -rf "$preview_dir"
+              removed_any=true
+            fi
+          done
+
+          if [[ "$removed_any" == true ]]; then
+            echo "removed=true" >> "$GITHUB_OUTPUT"
           else
-            echo "preview_exists=false" >> $GITHUB_OUTPUT
+            echo "removed=false" >> "$GITHUB_OUTPUT"
           fi
 
-        working-directory: ./hds-demo
-
       - name: Commit
-        if: steps.remove_preview.outputs.preview_exists == 'true'
+        if: steps.cleanup.outputs.removed == 'true'
         run: |
           git config --global user.email "hds@hel.fi"
           git config --global user.name "Github Actions"
-          git status
           git add .
-          git commit -m "chore: hds-demo-preview-clean workflow updated pr ${{ github.event.number != '' && github.event.number || github.ref_name }}"
+          git commit -m "chore: remove orphaned hds-demo previews (scheduled cleanup)"
           git pull --rebase || (sleep 20 && git pull --rebase)
           git push
         working-directory: ./hds-demo
