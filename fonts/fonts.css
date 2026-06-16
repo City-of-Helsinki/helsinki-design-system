@@ -1,0 +1,27 @@
+@charset "UTF-8";
+/*
+ * HelsinkiGroteskPro variable font (font file served from CDN).
+ * Single woff2 with wght (200–900) and ital (0–1) axes.
+ *
+ * Use one @font-face so font-family matching never falls through to Arial.
+ * Italic uses the ital axis via font-variation-settings (font-style alone is
+ * not reliable for variable fonts).
+ */
+@font-face {
+  font-display: swap;
+  font-family: HelsinkiGroteskPro;
+  font-style: normal;
+  font-weight: 200 900;
+  src: url("https://makasiini.hel.fi/delivery/917fc4ffc37c44d31b143244042e0078/9a677fe2c4414b1a40990971cd4ac24c.woff2") format("woff2");
+  text-rendering: optimizelegibility;
+}
+em,
+i,
+cite,
+var,
+dfn,
+[style*="font-style: italic"],
+[style*="font-style:italic"] {
+  font-synthesis: none;
+  font-variation-settings: "ital" 1;
+}

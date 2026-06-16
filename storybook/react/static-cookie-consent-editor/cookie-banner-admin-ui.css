@@ -1,0 +1,134 @@
+/* Set max width to form */
+.hdbt-cookie-banner {
+  max-width: 1200px;
+}
+
+/* Not all form controls should be 100% wide, for example select elements are better at auto */
+.form-control {
+  width: auto;
+}
+
+/* Only inputs should be 100% wide */
+input.form-control {
+  width: 100%;
+}
+
+/* Hide unused cruft */
+.json-editor-btntype-deletelast,
+.json-editor-btntype-deleteall,
+.h3.je-object__title:has([style*="display: none;"]+.sr-only),
+.btn-group.je-object__controls {
+  display: none;
+}
+
+/* First level wells should not have grey background */
+[data-schemapath="root"]>.well {
+  background: transparent;
+  border: 0 none;
+  box-shadow: none;
+  padding: 0;
+}
+
+/* Handle button width with grandparent grid that is inherited with subgrid */
+div:has( > .je-object__container) {
+  display: grid;
+  grid-template-columns: [column-1] 1fr [column-2] auto;
+}
+
+/* Add separator line between elements */
+.je-object__container + .je-object__container {
+  border-top: 1px solid #ccc;
+}
+
+/* Inherit the grid from grandparent and set grid rows here */
+:not([data-schemaid="root"]).je-object__container {
+  display: grid;
+  grid-column: span 2;
+  grid-template-columns: subgrid;
+  grid-template-rows: [row-1] 1fr [row-2] auto;
+}
+
+/* By default, take two columns on all elements */
+.je-object__container > * {
+  grid-column: 1 / span 2;
+}
+
+/* Title should be 1 column wide */
+.je-object__container > .je-object__title {
+  grid-column: 1 / span 1;
+  grid-row: 1;
+}
+
+/* Btn group should be 1 column wide and on the first row */
+.je-object__container > .btn-group {
+  grid-column: 2 / span 1;
+  grid-row: 1;
+  margin-top: 18px;
+}
+
+/* JSON Textarea size */
+textarea {
+  height: 90dvh;
+  width: 100%;
+}
+
+textarea.error {
+  /* stylelint-disable-next-line declaration-no-important */
+  border-color: #d9534f !important;
+}
+
+.alert-heading {
+  margin: 0;
+}
+
+.je-object__container:has(:not([style*="display: none;"])>p[style="color: red;"]) > .je-object__title{
+  color: red;
+}
+
+button:not(:disabled) ~ .save-notice,
+input:not(:disabled) ~ .save-notice {
+  display: none;
+}
+
+
+/* Standalone editor settings begin here */
+
+
+body {
+  padding: 32px 16px;
+}
+
+/* stylelint-disable-next-line no-descending-specificity */
+body > * {
+  margin-inline: auto;
+  max-width: 1200px;
+}
+
+td {
+  border: 1px solid #ddd;
+  padding: 4px;
+  vertical-align: top;
+}
+
+details {
+  border: 1px solid #aaa;
+  border-radius: 4px;
+  padding: 0.5em 0.5em 0;
+}
+
+summary {
+  display: revert; /* revert bootstrap 3 reset to bring back icon */
+  font-weight: bold;
+  margin: -0.5em -0.5em 0;
+  padding: 0.5em;
+}
+
+details[open] {
+  padding: 0.5em;
+}
+
+details[open] summary {
+  border-bottom: 1px solid #aaa;
+  display: revert; /* revert bootstrap 3 reset to bring back icon */
+  margin-bottom: 0.5em;
+}
