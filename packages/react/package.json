@@ -1,6 +1,6 @@
 {
   "name": "hds-react",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "description": "React components for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "repository": {
@@ -145,8 +145,8 @@
     "crc-32": "1.2.0",
     "date-fns": "2.16.1",
     "graphql": "^16.8.1",
-    "hds-core": "6.0.2",
-    "hds-design-tokens": "6.0.2",
+    "hds-core": "6.0.3",
+    "hds-design-tokens": "6.0.3",
     "jwt-decode": "^3.1.2",
     "kashe": "1.0.4",
     "lodash": "^4.18.1",
