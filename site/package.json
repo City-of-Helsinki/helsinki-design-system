@@ -2,7 +2,7 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "6.0.2",
+  "version": "6.0.3",
   "engines": {
     "node": "^24"
   },
@@ -44,9 +44,9 @@
     "crypto-browserify": "^3.11.0",
     "eslint": "8.56.0",
     "eslint-config-react-app": "^7.0.1",
-    "hds-core": "6.0.2",
-    "hds-design-tokens": "6.0.2",
-    "hds-react": "6.0.2",
+    "hds-core": "6.0.3",
+    "hds-design-tokens": "6.0.3",
+    "hds-react": "6.0.3",
     "inquirer": "7.1.0",
     "postcss": "8",
     "prettier": "2.5.1",

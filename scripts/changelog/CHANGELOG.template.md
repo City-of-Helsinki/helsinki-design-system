@@ -1,4 +1,4 @@
-## [5.X.X] - Month, XX, 202X
+## [6.X.X] - Month, XX, 202X
 
 ### Workspace
 

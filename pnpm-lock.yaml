@@ -121,7 +121,7 @@ importers:
         specifier: ^10.4.1
         version: 10.5.0
       hds-design-tokens:
-        specifier: 6.0.2
+        specifier: 6.0.3
         version: link:../design-tokens
       jest:
         specifier: ^29.7.0
@@ -265,10 +265,10 @@ importers:
         specifier: ^16.8.1
         version: 16.14.0
       hds-core:
-        specifier: 6.0.2
+        specifier: 6.0.3
         version: link:../core
       hds-design-tokens:
-        specifier: 6.0.2
+        specifier: 6.0.3
         version: link:../design-tokens
       jwt-decode:
         specifier: ^3.1.2
@@ -669,13 +669,13 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(@babel/plugin-syntax-flow@7.28.6(@babel/core@7.29.0))(@babel/plugin-transform-react-jsx@7.28.6(@babel/core@7.29.0))(eslint@8.57.0)(typescript@5.9.3)
       hds-core:
-        specifier: 6.0.2
+        specifier: 6.0.3
         version: link:../packages/core
       hds-design-tokens:
-        specifier: 6.0.2
+        specifier: 6.0.3
         version: link:../packages/design-tokens
       hds-react:
-        specifier: 6.0.2
+        specifier: 6.0.3
         version: link:../packages/react
       inquirer:
         specifier: 7.1.0
