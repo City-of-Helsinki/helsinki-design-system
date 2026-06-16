@@ -223,6 +223,7 @@ Changes that are not related to specific components
 ##### Fixed
 
 - [Card] Text card fixed to be more responsive
+
 ## [5.2.1] - June, 16, 2026
 
 ### Core
