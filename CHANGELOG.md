@@ -5,6 +5,134 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [6.X.X] - Month, XX, 202X
+
+### Workspace
+
+#### Changed
+
+- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+
+### React
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Core
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Documentation
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Figma
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Icon kit
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
+### Hds-js
+
+#### Breaking
+
+- [Component] What are the breaking changes?
+
+#### Added
+
+- [Component] What is added?
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Component] What has been changed
+
+#### Fixed
+
+- [Component] What bugs/typos are fixed?
+
 ## [6.0.3] - June, 16, 2026
 
 ### Core
@@ -95,6 +223,13 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 ##### Fixed
 
 - [Card] Text card fixed to be more responsive
+## [5.2.1] - June, 16, 2026
+
+### Core
+
+#### Fixed
+
+- [Typography] Fixed italic rendering for Helsinki Grotesk Pro.
 
 ## [5.2.0] - May, 7, 2026
 
