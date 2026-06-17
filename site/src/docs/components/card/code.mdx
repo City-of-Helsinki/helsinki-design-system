@@ -13,6 +13,65 @@ export default ({ children, pageContext }) => <TabsLayout pageContext={pageConte
 
 ### Code examples
 
+#### Card with link example
+
+<Playground scope={{ Card, Link }}>
+
+
+```jsx
+import { Card, Link } from 'hds-react';
+
+() => (
+  <div style={{ display: 'flex', flexWrap: 'wrap', alignItems: 'stretch', gap: 'var(--spacing-s)' }}>
+  <Card
+    border
+    style={{ display: 'flex', flexDirection: 'column', flex: '1 1 16rem', minWidth: 'min(100%, 16rem)' }}
+    heading="Rekisteröity yhteisö"
+    text="Rekisteröity yhteisö on esimerkiksi yritys, voittoa tavoittelematon organisaatio, järjestö tai yhdistys."
+  >
+    <Link href="/components/card/code/#card-with-link-example" useButtonStyles style={{ width: '100%', marginTop: 'auto' }}>
+      Asioi rekisteröidyn yhteisön puolesta
+    </Link>
+  </Card>
+  <Card
+    border
+    style={{ display: 'flex', flexDirection: 'column', flex: '1 1 16rem', minWidth: 'min(100%, 16rem)' }}
+    heading="Yksityishenkilö"
+    text="Hoida omia asioitasi yksityishenkilönä."
+  >
+    <Link href="/components/card/code/#card-with-link-example" useButtonStyles style={{ width: '100%', marginTop: 'auto' }}>
+      Asioi yksityishenkilönä
+    </Link>
+  </Card>
+</div>)
+```
+
+```html
+<div style="display: flex; flex-wrap: wrap; align-items: stretch; gap: var(--spacing-s);">
+  <div class="hds-card hds-card--border" style="display: flex; flex-direction: column; flex: 1 1 16rem; min-width: min(100%, 16rem);">
+    <div class="hds-card__body">
+      <div class="heading-m" role="heading" aria-level="2">Rekisteröity yhteisö</div>
+      <div class="hds-card__text">
+        Rekisteröity yhteisö on esimerkiksi yritys, voittoa tavoittelematon organisaatio, järjestö tai yhdistys.
+      </div>
+    </div>
+    <a href="/components/card/code/#card-with-link-example" class="hds-button hds-button--primary" style="width: 100%; margin-top: auto;"><span class="hds-button__label">Asioi rekisteröidyn yhteisön puolesta</span></a>
+  </div>
+
+  <div class="hds-card hds-card--border" style="display: flex; flex-direction: column; flex: 1 1 16rem; min-width: min(100%, 16rem);">
+    <div class="hds-card__body">
+      <div class="heading-m" role="heading" aria-level="2">Yksityishenkilö</div>
+      <div class="hds-card__text">
+        Hoida omia asioitasi yksityishenkilönä.
+      </div>
+    </div>
+    <a href="/components/card/code/#card-with-link-example" class="hds-button hds-button--primary" style="width: 100%; margin-top: auto;"><span class="hds-button__label">Asioi yksityishenkilönä</span></a>
+  </div>
+</div>
+```
+
+</Playground>
+
 #### Empty
 
 <Playground scope={{ Card }}>
