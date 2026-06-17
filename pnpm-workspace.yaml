@@ -10,6 +10,35 @@ linkWorkspacePackages: true
 minimumReleaseAge: 10080
 minimumReleaseAgeExclude:
   - 'hds-*'
+  - joi@17.13.4
+  - esbuild@0.28.1
+  - '@esbuild/aix-ppc64@0.28.1'
+  - '@esbuild/android-arm@0.28.1'
+  - '@esbuild/android-arm64@0.28.1'
+  - '@esbuild/android-x64@0.28.1'
+  - '@esbuild/darwin-arm64@0.28.1'
+  - '@esbuild/darwin-x64@0.28.1'
+  - '@esbuild/freebsd-arm64@0.28.1'
+  - '@esbuild/freebsd-x64@0.28.1'
+  - '@esbuild/linux-arm@0.28.1'
+  - '@esbuild/linux-arm64@0.28.1'
+  - '@esbuild/linux-ia32@0.28.1'
+  - '@esbuild/linux-loong64@0.28.1'
+  - '@esbuild/linux-mips64el@0.28.1'
+  - '@esbuild/linux-ppc64@0.28.1'
+  - '@esbuild/linux-riscv64@0.28.1'
+  - '@esbuild/linux-s390x@0.28.1'
+  - '@esbuild/linux-x64@0.28.1'
+  - '@esbuild/netbsd-arm64@0.28.1'
+  - '@esbuild/netbsd-x64@0.28.1'
+  - '@esbuild/openbsd-arm64@0.28.1'
+  - '@esbuild/openbsd-x64@0.28.1'
+  - '@esbuild/openharmony-arm64@0.28.1'
+  - '@esbuild/sunos-x64@0.28.1'
+  - '@esbuild/win32-arm64@0.28.1'
+  - '@esbuild/win32-ia32@0.28.1'
+  - '@esbuild/win32-x64@0.28.1'
+  - form-data@4.0.6
 
 # Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
 shamefullyHoist: true
@@ -40,16 +69,17 @@ overrides:
   jpeg-js: 0.4.4
   json5: 2.2.3
   '@mdx-js/loader>loader-utils': 2.0.4
-  axios>form-data: 4.0.5
+  axios>form-data: 4.0.6
+  form-data: 4.0.6
   cookie: 0.7.2
-  tmp: 0.2.5
+  tmp: 0.2.7
   handlebars: 4.7.9
-  tar: 7.5.13
+  tar: 7.5.16
   path-to-regexp: 0.1.13
   socket.io-parser: 4.2.6
   flatted: 3.4.2
   svgo: 2.8.1
-  postcss: 8.4.31
+  postcss: 8.5.10
   serialize-javascript: 7.0.5
   yaml: 2.8.3
   immutable: 5.1.5
@@ -68,3 +98,16 @@ overrides:
   '@typescript-eslint/typescript-estree>minimatch': 9.0.9
   micromatch>picomatch: 2.3.2
   eslint: 8.57.0
+  '@parcel/reporter-dev-server@>=1.6.1 <=2.16.3': ^2.16.4
+  brace-expansion@>=4.0.0 <5.0.5: ^5.0.5
+  brace-expansion@>=5.0.0 <5.0.6: ^5.0.6
+  esbuild@>=0.17.0 <0.28.1: ^0.28.1
+  joi@<17.13.4: ^17.13.4
+  gray-matter>js-yaml: 3.14.2
+  js-yaml@<=4.1.1: 4.2.0
+  nth-check@<2.0.1: ^2.0.1
+  qs@>=6.11.1 <=6.15.1: ^6.15.2
+  shell-quote@>=1.1.0 <=1.8.3: ^1.8.4
+  uuid@<11.1.1: ^11.1.1
+  ws@>=8.0.0 <8.20.1: ^8.20.1
+  ws@>=8.0.0 <8.21.0: ^8.21.0
