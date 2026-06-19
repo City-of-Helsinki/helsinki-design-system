@@ -23,7 +23,7 @@ jobs:
       id-token: write  # Required for OIDC authentication to npm registry
     steps:
       - name: Checkout code
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
 
       - name: download all artifacts
         uses: actions/download-artifact@v8
