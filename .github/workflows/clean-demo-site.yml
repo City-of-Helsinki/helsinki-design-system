@@ -17,7 +17,7 @@ jobs:
 
     steps:
       - name: Checkout code hds-demo
-        uses: actions/checkout@v6
+        uses: actions/checkout@v7
         with:
           repository: City-of-Helsinki/hds-demo
           path: hds-demo
