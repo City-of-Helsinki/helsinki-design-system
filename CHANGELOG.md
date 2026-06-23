@@ -11,6 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
+- [Tooling] Raised the minimum Node.js version to 24.17.0: `engines.node` is now `^24.17.0`, and `.nvmrc` pins `v24.17.0` for local development and GitHub Actions.
 - [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
 
 ### React

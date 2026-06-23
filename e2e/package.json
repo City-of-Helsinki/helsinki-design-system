@@ -4,7 +4,7 @@
   "description": "e2e tests using Playwright",
   "version": "6.0.3",
   "engines": {
-    "node": "^24"
+    "node": "^24.17.0"
   },
   "scripts": {
     "ci": "pnpm exec playwright test",
