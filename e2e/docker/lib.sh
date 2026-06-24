@@ -15,7 +15,7 @@ hds_e2e_docker_run() {
     -e "pnpm_config_store_dir=/${HDS_DIR_BASENAME}/e2e/.pnpm-store" \
     -e "pnpm_config_modules_dir=node_modules.e2e" \
     -e "pnpm_config_package_import_method=copy" \
-    mcr.microsoft.com/playwright:v1.59.1-noble \
+    mcr.microsoft.com/playwright:v1.61.1-noble \
     /bin/bash -s <<EOF
 set -e
 corepack enable

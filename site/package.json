@@ -4,7 +4,7 @@
   "description": "Documentation for Helsinki Design System",
   "version": "6.0.3",
   "engines": {
-    "node": "^24"
+    "node": "^24.18.0"
   },
   "dependencies": {
     "@mdx-js/react": "2.3.0",
