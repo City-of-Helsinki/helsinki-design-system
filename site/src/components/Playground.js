@@ -132,7 +132,10 @@ const PlaygroundPreviewComponent = ({ children, className, clipped, ...props }) 
 };
 
 export const PlaygroundPreview = ({ ...props }) => (
-  <PlaygroundPreviewComponent className="playground-block-preview-light" {...props} />
+  <figure className="playground-preview-figure">
+    <figcaption className="playground-block-caption">Component example</figcaption>
+    <PlaygroundPreviewComponent className="playground-block-preview-light" {...props} />
+  </figure>
 );
 
 const clearSelection = () => {
@@ -405,7 +408,8 @@ export const PlaygroundBlock = ({ children, scope }) => {
       };
     });
   return (
-    <div className="playground-block">
+    <figure className="playground-block">
+      <figcaption className="playground-block-caption">Code example</figcaption>
       <Tabs>
         <TabList className="playground-block-tabs">
           {codeBlocks.map(({ language }) => (
@@ -429,7 +433,7 @@ export const PlaygroundBlock = ({ children, scope }) => {
           );
         })}
       </Tabs>
-    </div>
+    </figure>
   );
 };
 
