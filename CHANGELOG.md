@@ -67,6 +67,8 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
+- All code examples are now separated by the `<figure> element to improve the screen reader experience.
+
 - [Component] What has been changed
 
 #### Fixed

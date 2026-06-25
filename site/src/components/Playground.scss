@@ -9,6 +9,27 @@
   margin: var(--spacing-l) 0;
 }
 
+// The example wrappers are <figure> elements; reset the default UA figure margin
+// so the layout is unchanged while keeping the semantic grouping for screen readers.
+.playground-preview-figure {
+  margin: 0;
+}
+
+// Caption that names each example for assistive technology. The examples are already
+// separated visually by a border, so the caption is hidden from sighted users.
+.playground-block-caption {
+  border: 0;
+  clip: rect(0, 0, 0, 0);
+  clip-path: inset(50%);
+  height: 1px;
+  margin: -1px;
+  overflow: hidden;
+  padding: 0;
+  position: absolute;
+  white-space: nowrap;
+  width: 1px;
+}
+
 .playground-block-tabs {
   --tablist-border-color: transparent;
 
