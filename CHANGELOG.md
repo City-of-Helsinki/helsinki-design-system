@@ -21,7 +21,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [Select] Export TypeScript types from `hds-react`: `SelectProps`, `SelectCustomTheme`, `FilterFunction`, `SelectTextKey`, `SelectTexts`, `SelectTextProvider`, and `OptionIterator`. `SearchFunction` and `SearchResult` (shared with Search) are used for the `onSearch` prop.
+- [Search] Export TypeScript types from `hds-react`: `SearchCustomTheme`, `SearchResult`, `SearchTextKey`, `SearchTexts`, and `SearchTextProvider`. `SearchProps` is exported from the Search component. The existing `TextKey` export is unchanged.
 
 #### Changed
 

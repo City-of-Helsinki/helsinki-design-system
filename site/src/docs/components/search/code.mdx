@@ -276,6 +276,32 @@ const [props] = React.useState({
 | `selectedOptionAnnouncement`           | Screenreader announcement when an option is selected.                                          |
 | [Table 4: Text keys]                   |                                                                                                |
 
+Keys correspond to the `SearchTextKey` type exported from `hds-react`.
+
+### TypeScript
+
+The following types are exported from `hds-react` for use with Search:
+
+```ts
+import type {
+  SearchProps,
+  SearchCustomTheme,
+  SearchFunction,
+  SearchResult,
+  SearchTextKey,
+  SearchTexts,
+  SearchTextProvider,
+  Option,
+  Group,
+} from 'hds-react';
+import { Search } from 'hds-react';
+```
+
+- Use `SearchProps` for component props (exported from the Search component).
+- Use `SearchFunction` and `SearchResult` for the `onSearch` prop. The same `SearchFunction` type is used by Select's `onSearch`.
+- Use `SearchTexts`, `SearchTextKey`, and `SearchTextProvider` for the `texts` prop.
+- `TextKey` is still exported as an alias of `SearchTextKey` for backward compatibility.
+
 ### Component properties
 
 | Property                        | Description                                                                                                                                | Values                                          | Default value |
@@ -288,10 +314,10 @@ const [props] = React.useState({
 | `onChange`                      | Called when the input value changes. Receives a standard React `ChangeEvent`.                                                              | `(event: ChangeEvent<HTMLInputElement>) => void` | -             |
 | `onBlur`                        | Called when the component loses focus.                                                                                                     | `() => void`                                     | -             |
 | `onFocus`                       | Called when the component gets focus.                                                                                                      | `() => void`                                     | -             |
-| `onSearch`                      | Asynchronous function that returns search suggestions. If set, suggestions are shown as a dropdown.                                        | `(searchValue, selectedOptions, data) => Promise` | -            |
+| `onSearch`                      | Asynchronous function that returns search suggestions. If set, suggestions are shown as a dropdown.                                        | `SearchFunction` (returns `Promise<SearchResult>`) | -            |
 | `onSend`                        | Called when the user submits the search (Enter or button click).                                                                           | `(value: string) => void`                        | -             |
 | `required`                      | If set to true, `*` is shown with the label.                                                                                               | `boolean`                                        | false         |
-| `texts`                         | Overrides for default texts or a function that returns a text for given key.                                                                | `Partial<Texts>` or `(key, contents) => string`  | -             |
+| `texts`                         | Overrides for default texts or a function that returns a text for given key.                                                                | `Partial<SearchTexts>` or `SearchTextProvider`  | -             |
 | `theme`                         | Custom theme styles.                                                                                                                       | `SearchCustomTheme`                              | -             |
 | `tooltip`                       | Tooltip as a HDS Tooltip component.                                                                                                        | `ReactElement<TooltipProps, typeof Tooltip>`     | -             |
 | `value`                         | Controlled input value. When provided, the component is in controlled mode.                                                                | `string`                                         | -             |
