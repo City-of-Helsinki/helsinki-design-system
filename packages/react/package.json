@@ -15,6 +15,25 @@
   "module": "./lib/index.js",
   "esnext": "./lib/index.js",
   "types": "./lib/index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./lib/index.d.ts",
+      "import": "./lib/index.js",
+      "require": "./lib/cjs/index.js"
+    },
+    "./components": {
+      "types": "./lib/components/index.d.ts",
+      "import": "./lib/components/index.js"
+    },
+    "./components/index": {
+      "types": "./lib/components/index.d.ts",
+      "import": "./lib/components/index.js"
+    },
+    "./components/*": {
+      "types": "./lib/components/*/index.d.ts",
+      "import": "./lib/components/*/index.js"
+    }
+  },
   "files": [
     "lib"
   ],

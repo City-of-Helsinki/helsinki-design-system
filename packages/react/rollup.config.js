@@ -30,8 +30,23 @@ const hdsJsEsmOutput = 'hds-js-esm';
 const hdsJsCommonJsOutput = 'hds-js-cjs';
 const hdsStandAloneOutput = 'hds-js-standalone';
 
+const isCjsFormat = (format) => format === reactCommonJsOutputFormat || format === hdsJsCommonJsOutput;
+
 // eslint-disable-next-line @typescript-eslint/no-var-requires
 const hdsJsPackageJSON = require('../hds-js/package.json');
+
+const babelPresets = [
+  ['@babel/preset-env', { targets: '>1%, not dead, not ie 11, not op_mini all' }],
+  '@babel/preset-react',
+  '@babel/preset-typescript',
+];
+
+const babelPlugins = (useESModules) => [
+  ['@babel/plugin-transform-runtime', { useESModules }],
+  ['@babel/plugin-proposal-class-properties', { loose: true }],
+  ['@babel/plugin-proposal-private-methods', { loose: true }],
+  ['@babel/plugin-proposal-private-property-in-object', { loose: true }],
+];
 
 /** Match hds-core postcss.config.js (calc/svgo off for predictable output). */
 const cssnanoOptions = {
@@ -98,7 +113,6 @@ const extensions = ['.js', '.jsx', '.ts', '.tsx'];
 const externals = [...Object.keys(packageJSON.dependencies), ...Object.keys(packageJSON.peerDependencies)];
 
 // Match resolved paths under node_modules/@babel/runtime (string "@babel/runtime" alone does not).
-// Babel runs for all formats (incl. react-cjs); runtime helpers must stay external for every bundle.
 const getExternal = () => [...externals, /@babel\/runtime/];
 
 const checkModule = (forHdsJs) => {
@@ -186,6 +200,10 @@ const getConfig = (format, extractCSS) => ({
       babelHelpers: 'runtime',
       exclude: 'node_modules/**',
       extensions,
+      babelrc: false,
+      configFile: false,
+      presets: babelPresets,
+      plugins: babelPlugins(!isCjsFormat(format)),
     }),
     commonjs({
       include: ['../../node_modules/**', 'node_modules/**'],

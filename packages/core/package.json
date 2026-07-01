@@ -13,6 +13,16 @@
   },
   "browserslist": "> 0.2%, not iOS < 15, not Safari < 14.5, not dead, not op_mini all, not Android >= 0, not and_uc >= 0",
   "main": "lib/base.min.css",
+  "exports": {
+    ".": "./lib/base.min.css",
+    "./lib/*": "./lib/*",
+    "./lib/components/cookie-consent/cookieConsent": {
+      "types": "./lib/components/cookie-consent/cookieConsent.ts",
+      "import": "./lib/components/cookie-consent/cookieConsent.js",
+      "require": "./lib/components/cookie-consent/cookieConsent.cjs",
+      "default": "./lib/components/cookie-consent/cookieConsent.js"
+    }
+  },
   "files": [
     "lib"
   ],
