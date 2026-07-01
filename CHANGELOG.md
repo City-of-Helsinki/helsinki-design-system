@@ -5,6 +5,26 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
+## [5.2.2] - July, 1, 2026
+
+### React
+
+#### Fixed
+
+- [Package] Restored dual ESM and CommonJS package output. Added conditional `exports` for `import` and `require` resolution, and corrected Rollup Babel runtime configuration so CommonJS bundles no longer emit broken helper imports.
+
+### Core
+
+#### Fixed
+
+- [Build] CSS-to-JS build step now writes separate ESM (`.js`), CommonJS (`.cjs`), and TypeScript (`.ts`) modules with correct file paths, and exposes conditional `exports` so bundlers and Node resolve the right format.
+
+### Hds-js
+
+#### Fixed
+
+- [Package] Added conditional `exports` mapping `import` and `require` to the ESM and CommonJS entry points, fixing broken module resolution in mixed ESM/CJS toolchains.
+
 ## [5.2.1] - June, 16, 2026
 
 ### Core
