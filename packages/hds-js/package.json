@@ -15,6 +15,14 @@
   "module": "./index.js",
   "esnext": "./index.js",
   "types": "./index.d.ts",
+  "exports": {
+    ".": {
+      "types": "./index.d.ts",
+      "import": "./index.js",
+      "require": "./cjs/index.js"
+    },
+    "./standalone/*": "./standalone/*"
+  },
   "dependencies": {
     "@apollo/client": "^3.10.1",
     "@babel/runtime": "^7.26.10",

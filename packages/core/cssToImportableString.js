@@ -19,15 +19,18 @@ function isMatchingFile(targetFiles, fullFilePath) {
 }
 
 /**
- * Changes path/to/file/with.any.ext to path/to/file/with.newExt
+ * Changes path/to/file/with.min.css to path/to/file/with (drops .min.css suffix).
  */
-function createNewFileExt(file, ext) {
-  const baseBeforeDots = file.split('.')[0];
-  return `${baseBeforeDots}${ext}`;
+function createOutputPath(file) {
+  return file.replace(/\.min\.css$/, '');
 }
 
 function cssToExportedString(css) {
   return `export default \`${css}\`;`;
+}
+
+function cssToCommonJsString(css) {
+  return `module.exports = \`${css}\`;`;
 }
 
 /**
@@ -57,18 +60,22 @@ async function save(path, contents) {
 }
 
 /**
- * Reads a file and writes its contents with "export default" prefix to a new file.
+ * Reads a css file and writes ESM (.js), CJS (.cjs), and TypeScript (.ts) variants.
  */
 async function createNewFile(path) {
   const readResult = await getFileContent(path);
   if (readResult.error) {
     return Promise.resolve(readResult.error);
   }
-  const exportContents = cssToExportedString(readResult);
-  const newFileName = createNewFileExt(path, '.ts');
-  const writeResult = save(newFileName, exportContents);
-  if (writeResult.error) {
-    return Promise.resolve(writeResult.error);
+  const basePath = createOutputPath(path);
+  const writeResults = await Promise.all([
+    save(`${basePath}.js`, cssToExportedString(readResult)),
+    save(`${basePath}.cjs`, cssToCommonJsString(readResult)),
+    save(`${basePath}.ts`, cssToExportedString(readResult)),
+  ]);
+  const writeError = writeResults.find((result) => result && result.error);
+  if (writeError) {
+    return Promise.resolve(writeError.error);
   }
   return Promise.resolve();
 }

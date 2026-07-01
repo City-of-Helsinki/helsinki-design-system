@@ -277,7 +277,6 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       symlinks: false,
       alias: {
         fs$: path.resolve(__dirname, 'src/fs.js'),
-        'hds-react': 'hds-react/lib',
         // prism-react-renderer v2 removed the themes/ subpath exports; .previous-versions/ archives
         // still import from 'prism-react-renderer/themes/github' — shim redirects to v2 themes API.
         'prism-react-renderer/themes/github': path.resolve(__dirname, 'src/utils/prism-github-theme-shim.js'),
