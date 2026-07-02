@@ -219,7 +219,7 @@ The `onChange` and `onClose` can return data that is stored immediately to the S
 | `groups`                                                            | Array of `groups` in the same format as passed to the Select component. Cannot be used with `options`.                     | `Option[]` | -             |
 | `invalid`                                                           | The `invalid` property.                                                                                                    | `boolean`  | -             |
 | `options`                                                           | Array of `options` in the same format as passed to the Select component. Cannot be used with `groups`.                     | `Option[]` | -             |
-| `texts`                                                             | Updated texts in the same format as passed to the Select component. Does not need to include all texts. Only updated ones. | `Texts`    | -             |
+| `texts`                                                             | Updated texts in the same format as passed to the Select component. Does not need to include all texts. Only updated ones. | `Partial<SelectTexts>` | -             |
 | [Table 3: Properties of the return object of the onChange and onClose callbacks] |
 
 ### Texts
@@ -259,9 +259,7 @@ The function signature is:
 <Select texts={(key, contents) => {return key} />;
 ```
 
-Possible values for the `key` are listed below. The `contents` is an object used for <InternalLink href="helsinki-design-system/packages/react/src
-/components/
-">text interpolation</InternalLink>, and it contains information about the current state of the component.
+Possible values for the `key` argument (type `SelectTextKey`) are listed below. The `contents` is an object used for text interpolation, and it contains information about the current state of the component.
 
 | Key                                    | Purpose                                                                                        |
 | -------------------------------------- | ---------------------------------------------------------------------------------------------- |
@@ -457,6 +455,8 @@ Properties and selected options may be stored to the parent component's state, a
 The `useSelectStorage` is an utility hook that manages the memoisation and data updates automatically. It accepts the same properties as the Select function, except the "value" property. The selected values should not be reset again manually after initialisation.
 
 ```jsx
+import { Select, useSelectStorage, defaultFilter } from 'hds-react';
+
 const storage = useSelectStorage({
   groups: [
     {
@@ -513,12 +513,39 @@ The hook returns functions to modify current state of the Select component.
 | `setOpen`                                         | Opens and closes the list. Note that this cannot be synced with the internal state of the component. If the user has manually opened the list, using this function may not close it. | `boolean`                                            | -             |
 | `setDisabled`                                     | Updates the `disabled` property.                                                                                                                                                     | `boolean`                                            | -             |
 | `setInvalid`                                      | Updates the `invalid` property.                                                                                                                                                      | `boolean`                                            | -             |
-| `updateTexts`                                     | Updates new texts.                                                                                                                                                                   | `Partial<Texts>`                                     | -             |
+| `updateTexts`                                     | Updates new texts.                                                                                                                                                                   | `Partial<SelectTexts>`                               | -             |
 | `render`                                          | Re-renders the component with the hook. Should be called after any updates.                                                                                                          | -                                                    | -             |
 | [Table 10:Functions of the useSelectStorage hook] |
 
 The functions are usually called inside the onChange function. <ExternalLink href="https://hds.hel.fi/storybook/react/?path=/story/components-select--with-storage-controls">See them in action</ExternalLink>.
 
+### TypeScript
+
+The following types are exported from `hds-react` for use with Select:
+
+```ts
+import type {
+  SelectProps,
+  SelectCustomTheme,
+  FilterFunction,
+  SelectTextKey,
+  SelectTexts,
+  SelectTextProvider,
+  SelectStorageProps,
+  OptionIterator,
+  SearchFunction,
+  SearchResult,
+  Option,
+  Group,
+} from 'hds-react';
+import { Select, useSelectStorage, defaultFilter } from 'hds-react';
+```
+
+- Use `SelectProps` for component and `useSelectStorage` props (except `value` on the hook).
+- Use `FilterFunction` for the `filter` prop. `defaultFilter` is exported as a ready-made implementation.
+- Use `SearchFunction` and `SearchResult` for the `onSearch` prop (same types as the Search component).
+- Use `SelectTexts`, `SelectTextKey`, and `SelectTextProvider` for the `texts` prop. Do not use the Search component's `TextKey` — Select has additional keys for filtering and tags.
+- Use `OptionIterator` as the argument type for `useSelectStorage().updateAllOptions`.
 
 ### Component Properties
 
@@ -527,7 +554,7 @@ The functions are usually called inside the onChange function. <ExternalLink hre
 | `children`                   | Options as HTML elements. Can be `<option>` and `<optgroup>` elements.                                                                          | `ReactElement<HTMLOptGroupElement or HTMLOptionElement>`        | -             |
 | `clearable`                  | If set to true, clear selections button is displayed                                                                                            | `boolean`                                                       | false         |
 | `disabled`                   | If set to true, the component is disabled.                                                                                                      | `boolean`                                                       | false         |
-| `filter`                     | Function used for filtering options. If set, an input field is shown above the option list.                                                     | `(option, filter)=>boolean`                                     | -             |
+| `filter`                     | Function used for filtering options. If set, an input field is shown above the option list.                                                     | `FilterFunction`                                                | -             |
 | `groups`                     | If options need to be grouped, options should be passed as groups. Cannot be used with `options`. Groups can have `label` and `options` properties.                                               | `[{label:'Group label', options:[<option objects>]}]`           | -             |
 | `icon`                       | Icon shown before in the button.                                                                                                                | `React.ReactNode`                                               | -             |
 | `id`                         | The id of the element. Given id is used as a prefix for child elements. See getIds().                                                           | `string`                                                        | -             |
@@ -536,13 +563,13 @@ The functions are usually called inside the onChange function. <ExternalLink hre
 | `noTags`                     | If set to true and multiselect is also true, the list of selected options is not shown as tags.                                                 | `boolean`                                                       | false         |
 | `onBlur`                     | Called when the component loses focus.                                                                                                          | `()=>void`                                                      | -             |
 | `onChange`                   | Called each time the user clicks an option.                                                                                                     | `(selectedOptions, option, data)=>Partial<SelectProps> or void` | -             |
-| `onClose`                    | Called when the dropdown is closed. Preferred way of getting the selections in multiselect. Return same values as `onChage` except option is always undefined (same function can be used to process) | `(selectedOptions, undefined, data)=>Partial<SelectProps> or void` | -          |
+| `onClose`                    | Called when the dropdown is closed. Preferred way of getting the selections in multiselect. Return same values as `onChange` except option is always undefined (same function can be used to process) | `(selectedOptions, undefined, data)=>Partial<SelectProps> or void` | -          |
 | `onFocus`                    | Called when the component gets focus.                                                                                                           | `()=>void`                                                      | -             |
-| `onSearch`                   | Search function. If set, an input field is shown above the option list.                                                                         | `(searchValue, selectedOptions, data) => Promise<SearchResult>` | -             |
+| `onSearch`                   | Search function. If set, an input field is shown above the option list.                                                                         | `SearchFunction` (returns `Promise<SearchResult>`)              | -             |
 | `open`                       | If set to true, the list is open.                                                                                                               | `boolean`                                                       | false         |
 | `options`                    | List of options to select. Cannot be used with `groups`.                                                                                        | `string[]` or `Partial<Option[]>`                               | -             |
 | `required`                   | If set to true, `*` is shown with the label. Does not check is an option selected.                                                              | `boolean`                                                       | false         |
-| `texts`                      | Overrides for default texts or a function that returns a text for given key. Texts.language defines the current language.                       | `{[key]:string}` or `(key,contents)=>string`                    | -             |
+| `texts`                      | Overrides for default texts or a function that returns a text for given key. `language` in `SelectTexts` defines the current language.          | `Partial<SelectTexts>` or `SelectTextProvider`                  | -             |
 | `theme`                      | Custom theme styles.                                                                                                                            | `SelectCustomTheme`                                             | -             |
 | `tooltip`                    | Tooltip as a HDS Tooltip component.                                                                                                             | `ReactElement<TooltipProps, typeof Tooltip>`                    | -             |
 | `value`                      | Selected value(s). If `options` or `groups` have selected options, this is discarded.                                                           | `string[]` or `Partial<Option[]>`                               | -             |
