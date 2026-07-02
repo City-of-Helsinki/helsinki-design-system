@@ -1,4 +1,7 @@
+const path = require('path');
 const webpack = require('webpack');
+
+const hdsCoreRoot = path.dirname(path.dirname(require.resolve('hds-core/lib/base.min.css')));
 
 module.exports = {
   framework: '@storybook/react-webpack5',
@@ -75,7 +78,7 @@ module.exports = {
         alias: {
           ...config.resolve.alias,
           // we need an alias for hds-core to point webpack to the package as we can't use tilde (~) with rollup
-          './hds-core': require('path').dirname(require.resolve('hds-core/package.json')),
+          './hds-core': hdsCoreRoot,
         },
       },
     };
