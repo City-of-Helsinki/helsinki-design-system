@@ -8,7 +8,8 @@ linkWorkspacePackages: true
 
 # Don't allow dependencies to be used before they have been released for at least 1 week
 minimumReleaseAge: 10080
-#minimumReleaseAgeExclude:
+minimumReleaseAgeExclude:
+  - 'hds-*'
 
 
 # Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
