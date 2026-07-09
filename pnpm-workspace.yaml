@@ -8,37 +8,8 @@ linkWorkspacePackages: true
 
 # Don't allow dependencies to be used before they have been released for at least 1 week
 minimumReleaseAge: 10080
-minimumReleaseAgeExclude:
-  - 'hds-*'
-  - joi@17.13.4
-  - esbuild@0.28.1
-  - '@esbuild/aix-ppc64@0.28.1'
-  - '@esbuild/android-arm@0.28.1'
-  - '@esbuild/android-arm64@0.28.1'
-  - '@esbuild/android-x64@0.28.1'
-  - '@esbuild/darwin-arm64@0.28.1'
-  - '@esbuild/darwin-x64@0.28.1'
-  - '@esbuild/freebsd-arm64@0.28.1'
-  - '@esbuild/freebsd-x64@0.28.1'
-  - '@esbuild/linux-arm@0.28.1'
-  - '@esbuild/linux-arm64@0.28.1'
-  - '@esbuild/linux-ia32@0.28.1'
-  - '@esbuild/linux-loong64@0.28.1'
-  - '@esbuild/linux-mips64el@0.28.1'
-  - '@esbuild/linux-ppc64@0.28.1'
-  - '@esbuild/linux-riscv64@0.28.1'
-  - '@esbuild/linux-s390x@0.28.1'
-  - '@esbuild/linux-x64@0.28.1'
-  - '@esbuild/netbsd-arm64@0.28.1'
-  - '@esbuild/netbsd-x64@0.28.1'
-  - '@esbuild/openbsd-arm64@0.28.1'
-  - '@esbuild/openbsd-x64@0.28.1'
-  - '@esbuild/openharmony-arm64@0.28.1'
-  - '@esbuild/sunos-x64@0.28.1'
-  - '@esbuild/win32-arm64@0.28.1'
-  - '@esbuild/win32-ia32@0.28.1'
-  - '@esbuild/win32-x64@0.28.1'
-  - form-data@4.0.6
+#minimumReleaseAgeExclude:
+
 
 # Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
 shamefullyHoist: true
@@ -65,7 +36,6 @@ overrides:
   follow-redirects: ^1.16.0
   '@types/react': ^19.0.0
   '@types/react-dom': ^19.0.0
-  multer: 1.4.5-lts.1
   jpeg-js: 0.4.4
   json5: 2.2.3
   '@mdx-js/loader>loader-utils': 2.0.4

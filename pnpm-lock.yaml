@@ -11,7 +11,6 @@ overrides:
   follow-redirects: ^1.16.0
   '@types/react': ^19.0.0
   '@types/react-dom': ^19.0.0
-  multer: 1.4.5-lts.1
   jpeg-js: 0.4.4
   json5: 2.2.3
   '@mdx-js/loader>loader-utils': 2.0.4
@@ -70,10 +69,10 @@ importers:
         version: 19.8.1
       '@typescript-eslint/eslint-plugin':
         specifier: 8.58.2
-        version: 8.58.2(@typescript-eslint/parser@8.58.2(eslint@8.57.0(supports-color@7.2.0))(typescript@5.9.3))(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
+        version: 8.58.2(@typescript-eslint/parser@8.58.2(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3))(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
       '@typescript-eslint/parser':
         specifier: 8.58.2
-        version: 8.58.2(eslint@8.57.0(supports-color@7.2.0))(typescript@5.9.3)
+        version: 8.58.2(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
       eslint:
         specifier: 8.57.0
         version: 8.57.0(supports-color@7.2.0)
@@ -5332,10 +5331,6 @@ packages:
   concat-map@0.0.1:
     resolution: {integrity: sha512-/Srv4dswyQNBfohGpz9o6Yb3Gz3SrUDqBH5rTuhGR7ahtlbYKnVxw2bCFMRljaA7EXHaXZ8wsHdodFvbkhKmqg==}
 
-  concat-stream@1.6.2:
-    resolution: {integrity: sha512-27HBghJxjiZtIk3Ycvn/4kbJk/1uZuJFfuPEns6LaEvpvG1f0hTea8lilrouyo9mVc2GWdcEZ8OLoGmSADlrCw==}
-    engines: {'0': node >= 0.8}
-
   concat-stream@2.0.0:
     resolution: {integrity: sha512-MWufYdFw53ccGjCA+Ol7XJYpAlW6/prSMzuPOTRnJGcGzuhLn4Scrz7qf6o8bROZ514ltazcIFJZevcfbo0x7A==}
     engines: {'0': node >= 6.0}
@@ -5381,6 +5376,7 @@ packages:
   conventional-changelog-core@5.0.1:
     resolution: {integrity: sha512-Rvi5pH+LvgsqGwZPZ3Cq/tz4ty7mjijhr3qR4m9IBXNbxGGYgTVVO+duXzz9aArmHxFtwZ+LRkrNIMDQzgoY4A==}
     engines: {node: '>=14'}
+    deprecated: Deprecated and no longer maintained. Please use conventional-changelog instead.
 
   conventional-changelog-preset-loader@3.0.0:
     resolution: {integrity: sha512-qy9XbdSLmVnwnvzEisjxdDiLA4OmV3o8db+Zdg4WiFw14fP3B6XNz98X0swPPpkTd/pc1K7+adKgEDM1JCUMiA==}
@@ -9057,10 +9053,9 @@ packages:
   msgpackr@1.11.12:
     resolution: {integrity: sha512-RBdJ1Un7yGlXWajrkxcSa93nvQ0w4zBf60c0yYv7YtBelP8H2FA7XsfBbMHtXKXUMUxH7zV3Zuozh+kUQWhHvg==}
 
-  multer@1.4.5-lts.1:
-    resolution: {integrity: sha512-ywPWvcDMeH+z9gQq5qYHCCy+ethsk4goepZ45GLD63fOu0YcNecQxi64nDs3qluZB+murG3/D4dJ7+dGctcCQQ==}
-    engines: {node: '>= 6.0.0'}
-    deprecated: Multer 1.x is impacted by a number of vulnerabilities, which have been patched in 2.x. You should upgrade to the latest 2.x version.
+  multer@2.2.0:
+    resolution: {integrity: sha512-6rdyFg2kLrMh9Jee7/BMPuV9lEAd7lLW2YUpF9/YxR7njyoUwwQ0ZPh3TaIY50Sw6vlyD2HW3wGOkTS4P79xrQ==}
+    engines: {node: '>= 10.16.0'}
 
   mute-stream@0.0.8:
     resolution: {integrity: sha512-nnbWWOkoWyUsTjKrhgD0dcz22mdkSnpYqbEjIm2nhwhuxlSkpywJmBo8h0ZqJdkp73mb90SssHkN4rsRaBAfAA==}
@@ -17665,10 +17660,10 @@ snapshots:
     dependencies:
       yup: 1.7.1
 
-  '@typescript-eslint/eslint-plugin@8.58.2(@typescript-eslint/parser@8.58.2(eslint@8.57.0(supports-color@7.2.0))(typescript@5.9.3))(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)':
+  '@typescript-eslint/eslint-plugin@8.58.2(@typescript-eslint/parser@8.58.2(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3))(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)':
     dependencies:
       '@eslint-community/regexpp': 4.12.2
-      '@typescript-eslint/parser': 8.58.2(eslint@8.57.0(supports-color@7.2.0))(typescript@5.9.3)
+      '@typescript-eslint/parser': 8.58.2(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
       '@typescript-eslint/scope-manager': 8.58.2
       '@typescript-eslint/type-utils': 8.58.2(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)
       '@typescript-eslint/utils': 8.58.2(eslint@8.57.0(supports-color@7.2.0))(typescript@5.9.3)
@@ -17705,7 +17700,7 @@ snapshots:
       - supports-color
       - typescript
 
-  '@typescript-eslint/parser@8.58.2(eslint@8.57.0(supports-color@7.2.0))(typescript@5.9.3)':
+  '@typescript-eslint/parser@8.58.2(eslint@8.57.0(supports-color@7.2.0))(supports-color@7.2.0)(typescript@5.9.3)':
     dependencies:
       '@typescript-eslint/scope-manager': 8.58.2
       '@typescript-eslint/types': 8.58.2
@@ -19297,13 +19292,6 @@ snapshots:
       - supports-color
 
   concat-map@0.0.1: {}
-
-  concat-stream@1.6.2:
-    dependencies:
-      buffer-from: 1.1.2
-      inherits: 2.0.4
-      readable-stream: 2.3.8
-      typedarray: 0.0.6
 
   concat-stream@2.0.0:
     dependencies:
@@ -21765,7 +21753,7 @@ snapshots:
       mini-css-extract-plugin: 1.6.2(webpack@5.106.2(@swc/core@1.15.33(@swc/helpers@0.5.21))(postcss@8.5.10))
       mitt: 1.2.0
       moment: 2.30.1
-      multer: 1.4.5-lts.1
+      multer: 2.2.0
       node-fetch: 2.7.0(encoding@0.1.13)
       node-html-parser: 5.4.2
       normalize-path: 3.0.0
@@ -24547,15 +24535,12 @@ snapshots:
     optionalDependencies:
       msgpackr-extract: 3.0.3
 
-  multer@1.4.5-lts.1:
+  multer@2.2.0:
     dependencies:
       append-field: 1.0.0
       busboy: 1.6.0
-      concat-stream: 1.6.2
-      mkdirp: 0.5.6
-      object-assign: 4.1.1
+      concat-stream: 2.0.0
       type-is: 1.6.18
-      xtend: 4.0.2
 
   mute-stream@0.0.8: {}
 
