@@ -71,7 +71,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Fixed pages with broken code examples
 
 ### Figma
 
