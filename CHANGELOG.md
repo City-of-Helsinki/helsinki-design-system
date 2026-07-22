@@ -73,6 +73,7 @@ Changes that are not related to specific components
 
 - Fixed pages with broken code examples
 - Fixed anchor links in documentation site
+- Links to form validation pattern code examples
 
 ### Figma
 
