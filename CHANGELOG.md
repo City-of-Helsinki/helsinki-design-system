@@ -51,7 +51,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Link] Fixed `.hds-link--disable-visited-styles` using a hardcoded color instead of the `--link-color` custom property, causing visited links to revert to the default color when a custom link color was set.
 
 ### Documentation
 
