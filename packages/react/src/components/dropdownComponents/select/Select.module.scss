@@ -409,6 +409,7 @@
 .tagListContainer {
   display: flex;
   flex-direction: column;
+  margin-top: var(--spacing-2-xs);
 
   .tagList {
     display: flex;
