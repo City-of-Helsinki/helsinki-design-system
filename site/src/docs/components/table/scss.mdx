@@ -29,6 +29,7 @@ Styles of the `Table` are exported as SCSS mixins and are reusable anywhere.
 | `zebra`              | Outputs the styles of the zebra variation.               | -                                                                           |
 | `withVerticalHeader` | Outputs the styles of the withVerticalHeader variation.  | -                                                                           |
 | `textAlignRight`     | Outputs the styles of the textAlignRight variation.      | -                                                                           |
+| `scrollShadows`      | Outputs the styles of the horizontal scroll shadows.     | -                                                                           |
 | [Table 1:Table SCSS mixins] |
 
 ### Usage with the root mixin
@@ -48,6 +49,7 @@ Styles of the `Table` are exported as SCSS mixins and are reusable anywhere.
   $zebra: false,
   $withVerticalHeader: false,
   $textAlignRight: false,
+  $scrollShadows: false,
   $override: null,
   $react: false
 );
@@ -68,6 +70,7 @@ Styles of the `Table` are exported as SCSS mixins and are reusable anywhere.
 | `zebra`                | Should the styles of the zebra variation be outputted.               | `boolean`          | `false`       |
 | `withVerticalHeader`   | Should the styles of the withVerticalHeader variation be outputted.  | `boolean`          | `false`       |
 | `textAlignRight`       | Should the styles of the textAlignRight variation be outputted.      | `boolean`          | `false`       |
+| `scrollShadows`        | Should the styles of the horizontal scroll shadows be outputted.     | `boolean`          | `false`       |
 | `override`             | Override the default className `table`.                              | `null` or `string` | `null`        |
 | `react`                | Use this when included in the SCSS class of a React component.       | `boolean`          | `false`       |
 | [Table 2: The table mixin parameters] |

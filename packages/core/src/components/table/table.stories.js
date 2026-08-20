@@ -480,3 +480,48 @@ export const WideAndLongDense = () => `
     </table>
    </div>
 `;
+
+export const ScrollShadows = () => `
+  <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
+    <table class="hds-table hds-table--dark" aria-label="Job trials" data-playwright="true">
+      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Job id</th>
+          <th scope="col">Type</th>
+          <th scope="col">Title</th>
+          <th scope="col">Expires</th>
+          <th scope="col">Department</th>
+          <th scope="col">Job name</th>
+          <th scope="col">Postal code</th>
+          <th scope="col">Available places</th>
+          <th scope="col">To be interviewed</th>
+        </tr>
+      </thead>
+      <tbody class="hds-table__content">
+        ${wideTableContent()}
+      </tbody>
+    </table>
+   </div>
+`;
+
+// The shadows must stay hidden when there is nothing to scroll, and the table must still stretch
+// to the full width of the container.
+export const ScrollShadowsWithoutOverflow = () => `
+  <div class="hds-table-container" tabindex="0">
+    <table class="hds-table hds-table--dark" aria-label="People" data-playwright="true">
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">First name</th>
+          <th scope="col">Surname</th>
+          <th scope="col">Age</th>
+          <th scope="col">Profession</th>
+        </tr>
+      </thead>
+      <tbody class="hds-table__content">
+        ${tableRow('Lauri', 'Kekkonen', '39', 'Engineer')}
+        ${tableRow('Maria', 'Sarasoja', '62', 'Designer')}
+      </tbody>
+    </table>
+   </div>
+`;
