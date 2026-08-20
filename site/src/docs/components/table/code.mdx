@@ -698,6 +698,88 @@ import { Table } from 'hds-react';
 
 </Playground>
 
+#### Horizontal scroll shadows
+
+When the table is wider than its container, a shadow is shown at that edge of the container until the table is scrolled to the end.
+
+The shadows require no configuration and no additional markup in either version. They are the pseudo elements of the `hds-table-container` element, which also means that they are not exposed to assistive technology.
+
+In the Core version, the shadows are shown with CSS scroll-driven animations and need no JavaScript. This means that they are only shown in browsers that support scroll-driven animations. In other browsers the table works as before, without shadows. The React version toggles the shadows with a scroll listener, so there they work in every browser.
+
+<Playground scope={{ Table }}>
+
+```jsx
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    { key: 'profession', headerName: 'Profession' },
+    { key: 'city', headerName: 'City of residence' },
+    { key: 'email', headerName: 'Email address' },
+  ];
+  const rows = [
+    {
+      id: 1000,
+      firstName: 'Lauri',
+      surname: 'Kekkonen',
+      profession: 'Engineer',
+      city: 'Helsinki',
+      email: 'lauri.kekkonen@example.com',
+    },
+    {
+      id: 1001,
+      firstName: 'Maria',
+      surname: 'Sarasoja',
+      profession: 'Designer',
+      city: 'Espoo',
+      email: 'maria.sarasoja@example.com',
+    },
+  ];
+  return (
+    <div style={{ maxWidth: '500px' }}>
+      <Table cols={cols} rows={rows} aria-label="Service users" indexKey="id" renderIndexCol={false} />
+    </div>
+  );
+}
+```
+
+```html
+<div class="hds-table-container" style="max-width:500px" tabindex="0">
+  <table class="hds-table hds-table--dark" aria-label="Service users">
+    <thead>
+      <tr class="hds-table__header-row">
+        <th scope="col">First name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Profession</th>
+        <th scope="col">City of residence</th>
+        <th scope="col">Email address</th>
+      </tr>
+    </thead>
+    <tbody class="hds-table__content">
+      <tr>
+        <td>Lauri</td>
+        <td>Kekkonen</td>
+        <td>Engineer</td>
+        <td>Helsinki</td>
+        <td>lauri.kekkonen@example.com</td>
+      </tr>
+      <tr>
+        <td>Maria</td>
+        <td>Sarasoja</td>
+        <td>Designer</td>
+        <td>Espoo</td>
+        <td>maria.sarasoja@example.com</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Playground>
+
 ### Packages
 
 | Package       | Included                                                                                        | Storybook link                                                                                                | Source link                                                                                                                                                |
