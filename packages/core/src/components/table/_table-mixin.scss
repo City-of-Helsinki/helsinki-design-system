@@ -159,6 +159,74 @@
   text-align: right;
 }
 
+// Shadows at the edges of the container, shown while there is content to scroll to in that
+// direction. No markup and no JavaScript is needed: the container is turned into a single cell
+// grid and its own pseudo elements are the shadows, with the opacity driven by a scroll timeline.
+// Browsers without scroll-driven animation support show no shadows at all. The React package
+// toggles the same shadows with a scroll listener, so there they work in every browser.
+@mixin scrollShadows {
+  &-container {
+    --scroll-shadow-color: rgb(0 0 0 / 0.2);
+    --scroll-shadow-width: var(--spacing-m);
+
+    display: grid;
+
+    // The column has to span the scrolled content, because a sticky box cannot leave its
+    // containing block, which for a grid item is its grid area. A column ending at the edge of the
+    // container would let the shadows scroll away with the content.
+    // An auto column is sized from the minimum content contribution of the table and is stretched
+    // to the container when there is room, which gives the exact width a table has without the
+    // grid. A minmax() with a percentage minimum does not work: the column starts at the container
+    // width and only grows into free space, of which a full width table leaves none.
+    grid-template-columns: auto;
+  }
+
+  // Only the table is placed in the cell. Anything else inside the container keeps flowing into
+  // rows of its own instead of being stacked under the table.
+  &-container > table {
+    grid-area: 1 / 1;
+  }
+
+  // Sticky instead of absolute, so that the shadows stay at the edges of the visible area while
+  // the content scrolls under them, and stay inside the container focus outline.
+  &-container:before,
+  &-container:after {
+    content: '';
+    grid-area: 1 / 1;
+    opacity: 0;
+    pointer-events: none;
+    position: sticky;
+    width: var(--scroll-shadow-width);
+    z-index: 1;
+  }
+
+  &-container:before {
+    background-image: linear-gradient(to right, var(--scroll-shadow-color), transparent);
+    inset-inline-start: 0;
+    justify-self: start;
+  }
+
+  &-container:after {
+    background-image: linear-gradient(to left, var(--scroll-shadow-color), transparent);
+    inset-inline-end: 0;
+    justify-self: end;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    &-container:before {
+      animation: hds-table-scroll-shadow-fade-in linear both;
+      animation-range: 0 var(--scroll-shadow-width);
+      animation-timeline: scroll(nearest inline);
+    }
+
+    &-container:after {
+      animation: hds-table-scroll-shadow-fade-out linear both;
+      animation-range: calc(100% - var(--scroll-shadow-width)) 100%;
+      animation-timeline: scroll(nearest inline);
+    }
+  }
+}
+
 @mixin table(
   $all: true,
   $base: false,
@@ -171,6 +239,7 @@
   $zebra: false,
   $withVerticalHeader: false,
   $textAlignRight: false,
+  $scrollShadows: false,
   $override: null,
   $react: false
 ) {
@@ -238,6 +307,32 @@
   @if $all or $textAlignRight {
     @include BemUtil.unscopedModifier($className, 'text-align-right', $react) {
       @include textAlignRight;
+    }
+  }
+
+  @if $all or $scrollShadows {
+    @keyframes hds-table-scroll-shadow-fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes hds-table-scroll-shadow-fade-out {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @include BemUtil.block($className, $override != null, $react) {
+      @include scrollShadows;
     }
   }
 

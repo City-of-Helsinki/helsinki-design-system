@@ -134,6 +134,75 @@
             text-align: right;
           }
 
+          @keyframes hds-table-scroll-shadow-fade-in {
+            from {
+              opacity: 0;
+            }
+
+            to {
+              opacity: 1;
+            }
+          }
+
+          @keyframes hds-table-scroll-shadow-fade-out {
+            from {
+              opacity: 1;
+            }
+
+            to {
+              opacity: 0;
+            }
+          }
+
+          .hds-table-container {
+            --scroll-shadow-color: rgb(0 0 0 / 0.2);
+            --scroll-shadow-width: var(--spacing-m);
+
+            display: grid;
+            grid-template-columns: auto;
+          }
+
+          .hds-table-container > table {
+            grid-area: 1/1;
+          }
+
+          .hds-table-container:before,
+          .hds-table-container:after {
+            content: "";
+            grid-area: 1/1;
+            opacity: 0;
+            pointer-events: none;
+            position: sticky;
+            width: var(--scroll-shadow-width);
+            z-index: 1;
+          }
+
+          .hds-table-container:before {
+            background-image: linear-gradient(to right, var(--scroll-shadow-color), transparent);
+            inset-inline-start: 0;
+            justify-self: start;
+          }
+
+          .hds-table-container:after {
+            background-image: linear-gradient(to left, var(--scroll-shadow-color), transparent);
+            inset-inline-end: 0;
+            justify-self: end;
+          }
+
+          @supports (animation-timeline: scroll()) {
+            .hds-table-container:before {
+              animation: hds-table-scroll-shadow-fade-in linear both;
+              animation-range: 0 var(--scroll-shadow-width);
+              animation-timeline: scroll(nearest inline);
+            }
+
+            .hds-table-container:after {
+              animation: hds-table-scroll-shadow-fade-out linear both;
+              animation-range: calc(100% - var(--scroll-shadow-width)) 100%;
+              animation-timeline: scroll(nearest inline);
+            }
+          }
+
           @media (max-width: 767px) {
             .hds-table th {
               font-size: var(--fontsize-body-s);
