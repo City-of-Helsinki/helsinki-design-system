@@ -425,6 +425,14 @@ describe('<Table /> spec', () => {
     });
   });
 
+  it('Outer border of the table can be turned off, and is on by default', () => {
+    const { container: withBorder } = render(<Table {...defaultProps} />);
+    expect(withBorder.querySelector('table')?.className).not.toContain('withoutOuterBorder');
+
+    const { container: withoutBorder } = render(<Table {...defaultProps} withoutOuterBorder />);
+    expect(withoutBorder.querySelector('table')?.className).toContain('withoutOuterBorder');
+  });
+
   describe('Horizontal scroll shadows', () => {
     // jsdom does not lay out anything, so the scroll metrics of the container are faked. The
     // element is measured on every scroll event, so dispatching one applies the new values.

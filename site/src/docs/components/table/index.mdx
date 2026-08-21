@@ -517,3 +517,35 @@ export const ScrollShadowsExample = () => {
 <PlaygroundPreview>
   <ScrollShadowsExample />
 </PlaygroundPreview>
+
+#### Without the outer border
+
+Tables have an outer border by default. It can be left out when the table is placed inside an element that already has a border of its own. The lines inside the table are not affected.
+
+export const WithoutOuterBorderExample = () => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', profession: 'Meteorologist' },
+  ];
+  const caption = (
+    <span>
+      <b>Table 10</b>: Service users (without the outer border)
+    </span>
+  );
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} withoutOuterBorder />
+    </div>
+  );
+};
+
+<PlaygroundPreview>
+  <WithoutOuterBorderExample />
+</PlaygroundPreview>
