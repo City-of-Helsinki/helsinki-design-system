@@ -21,13 +21,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Added
 
-- [Component] What is added?
+- [Table] Horizontal scroll shadows at the edges of the table container, shown while there is content to scroll to in that direction and hidden when that end is reached.
+- [Table] `withoutOuterBorder` property for leaving out the outer border of the table. The lines inside the table are not affected.
+- [Table] `--caption-background-color` custom property for the background of the caption.
 
 #### Changed
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Table] Every line of the table is now 1px `var(--color-black-50)`: the new outer border, the line under the header row, the row lines and the vertical lines. The zebra variant keeps the row lines and uses `var(--color-black-5)` for the alternating rows.
+- [Table] The caption stays in place when the table is scrolled horizontally, and is rendered inside an element of its own for that. The caption also has a background, so that the scroll shadows are not shown through it, and the space between the caption and the table is padding instead of margin.
 
 #### Fixed
 
@@ -41,13 +44,19 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Table] Horizontal scroll shadows at the edges of the table container, with CSS only and without any changes to the markup. The shadows need support for CSS scroll-driven animations, and are not shown in browsers without it.
+- [Table] `hds-table--without-outer-border` modifier for leaving out the outer border of the table. The lines inside the table are not affected.
+- [Table] `hds-table__caption-content` element class. Wrap the content of the caption in it to keep the caption in place when the table is scrolled horizontally.
+- [Table] `--caption-background-color` custom property for the background of the caption.
+- [Table] `scrollShadows`, `captionContent` and `withoutOuterBorder` mixins, and the matching parameters of the `table` mixin.
 
 #### Changed
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Table] Every line of the table is now 1px `var(--color-black-50)`: the new outer border, the line under the header row, the row lines and the vertical lines. The zebra variant keeps the row lines and uses `var(--color-black-5)` for the alternating rows. The header row has no vertical lines, and the vertical header column has no horizontal lines.
+- [Table] `hds-table-container` is now a grid and uses its own `::before` and `::after` for the scroll shadows. Custom styles that use those pseudo elements or that rely on the container being a block element need to be checked.
+- [Table] The space between the caption and the table is padding instead of margin, so that the background of the caption covers it and the scroll shadows are not shown in the gap.
 
 #### Fixed
 
@@ -67,7 +76,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Table] Documented the horizontal scroll shadows, the caption wrapper element, the `withoutOuterBorder` property and the `--caption-background-color` custom property.
 
 #### Fixed
 

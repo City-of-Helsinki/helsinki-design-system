@@ -12,6 +12,7 @@ export type TableContainerProps = {
   dense?: boolean;
   zebra?: boolean;
   verticalLines?: boolean;
+  withoutOuterBorder?: boolean;
   customThemeClass?: string;
   headingId?: string;
 } & React.ComponentPropsWithoutRef<'table'>;
@@ -24,6 +25,7 @@ export const TableContainer = ({
   dense = false,
   zebra = false,
   verticalLines = false,
+  withoutOuterBorder = false,
   customThemeClass,
   headingId,
   ...rest
@@ -44,6 +46,7 @@ export const TableContainer = ({
           dense && styles.dense,
           zebra && styles.zebra,
           verticalLines && styles.verticalLines,
+          withoutOuterBorder && styles.withoutOuterBorder,
           customThemeClass,
           className,
         )}
