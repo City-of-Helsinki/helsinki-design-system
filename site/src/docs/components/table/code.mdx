@@ -68,8 +68,7 @@ import { Table } from 'hds-react';
   <div class="hds-table-container" style="max-width:640px" tabindex="0">
     <table class="hds-table hds-table--dark" aria-label="Service users (dark variant)">
       <caption class="hds-table__caption">
-        <b>Table 1</b
-        >: Service users (dark variant)
+        <span class="hds-table__caption-content"><b>Table 1</b>: Service users (dark variant)</span>
       </caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -111,8 +110,7 @@ import { Table } from 'hds-react';
   <div class="hds-table-container" style="max-width:640px" tabindex="0">
     <table class="hds-table hds-table--light" aria-label="Service users (light variant)">
       <caption class="hds-table__caption">
-        <b>Table 2</b
-        >: Service users (light variant)
+        <span class="hds-table__caption-content"><b>Table 2</b>: Service users (light variant)</span>
       </caption>
       <thead>
         <tr class="hds-table__header-row">
@@ -209,8 +207,7 @@ import { Table } from 'hds-react';
 <div class="hds-table-container" style="max-width:496px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--with-vertical-header" aria-label="Units sold by weekday">
     <caption class="hds-table__caption">
-      <b>Table 3</b
-      >: Units sold by weekday
+      <span class="hds-table__caption-content"><b>Table 3</b>: Units sold by weekday</span>
     </caption>
     <colgroup>
       <col span="1" class="hds-table__vertical-header-column" />
@@ -351,8 +348,7 @@ import { Table } from 'hds-react';
 <div class="hds-table-container" style="max-width:800px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--zebra" aria-label="Service users (zebra variant)">
     <caption class="hds-table__caption">
-      <b>Table 4</b
-      >: Service users (zebra variant)
+      <span class="hds-table__caption-content"><b>Table 4</b>: Service users (zebra variant)</span>
     </caption>
     <thead>
       <tr class="hds-table__header-row">
@@ -459,7 +455,9 @@ import { Table } from 'hds-react';
 ```html
 <div class="hds-table-container" style={{maxWidth: '496px'}} tabindex="0">
     <table class="hds-table hds-table--dark hds-table--with-vertical-lines" aria-label="Units sold by weekday">
-      <caption class="hds-table__caption"><b>Table 1</b>: Table description</caption>
+      <caption class="hds-table__caption">
+        <span class="hds-table__caption-content"><b>Table 1</b>: Table description</span>
+      </caption>
       <thead>
         <tr class="hds-table__header-row">
           <th scope="col">Day</th>
@@ -550,8 +548,7 @@ import { Table } from 'hds-react';
 <div class="hds-table-container" style="max-width: 640px;" tabindex="0">
   <table class="hds-table hds-table--dark hds-table--dense" aria-label="People">
     <caption class="hds-table__caption">
-      <b>Table 6</b
-      >: Service users (dense variant)
+      <span class="hds-table__caption-content"><b>Table 6</b>: Service users (dense variant)</span>
     </caption>
     <thead>
       <tr class="hds-table__header-row">
@@ -704,6 +701,8 @@ When the table is wider than its container, a shadow is shown at that edge of th
 
 The shadows require no configuration and no additional markup in either version. They are the pseudo elements of the `hds-table-container` element, which also means that they are not exposed to assistive technology.
 
+The caption of the table stays in place while the table is scrolled, and the shadows are not shown in the caption area. In the Core version this needs the content of the caption to be wrapped in a `hds-table__caption-content` element, as in the example below. Without the wrapper the caption still works, it only scrolls away with the table.
+
 In the Core version, the shadows are shown with CSS scroll-driven animations and need no JavaScript. This means that they are only shown in browsers that support scroll-driven animations. In other browsers the table works as before, without shadows. The React version toggles the shadows with a scroll listener, so there they work in every browser.
 
 <Playground scope={{ Table }}>
@@ -780,7 +779,65 @@ import { Table } from 'hds-react';
 
 </Playground>
 
+#### Without the outer border
+
+The outer border of the table can be left out with the `withoutOuterBorder` property, or with the `hds-table--without-outer-border` class in the Core version. The lines inside the table are not affected. Use this when the table is placed inside an element that already has a border of its own.
+
+<Playground scope={{ Table }}>
+
+```jsx
+import { Table } from 'hds-react';
+
+() => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+  const rows = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', profession: 'Meteorologist' },
+  ];
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} aria-label="Service users" indexKey="id" renderIndexCol={false} withoutOuterBorder />
+    </div>
+  );
+}
+```
+
+```html
+<div class="hds-table-container" style="max-width:640px" tabindex="0">
+  <table class="hds-table hds-table--dark hds-table--without-outer-border" aria-label="Service users">
+    <thead>
+      <tr class="hds-table__header-row">
+        <th scope="col">First name</th>
+        <th scope="col">Surname</th>
+        <th scope="col">Profession</th>
+      </tr>
+    </thead>
+    <tbody class="hds-table__content">
+      <tr>
+        <td>Lauri</td>
+        <td>Kekkonen</td>
+        <td>Engineer</td>
+      </tr>
+      <tr>
+        <td>Maria</td>
+        <td>Sarasoja</td>
+        <td>Designer</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+```
+
+</Playground>
+
 ### Packages
+
 
 | Package       | Included                                                                                        | Storybook link                                                                                                | Source link                                                                                                                                                |
 | ------------- | ----------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------------------------------------- |
@@ -820,6 +877,7 @@ Note! You can find the full list of properties in the <Link openInNewTab openInN
 | `variant`                       | Table variant. Use dark for dark brand background colors, and light for light brand background colors.                                                        | `"light"` `"dark"` | `"dark"`                              |
 | `verticalHeaders`               | Vertical headers of the table.                                                                                                                                | `Header[]`         | -                                     |
 | `verticalLines`                 | If set to true, the table displays vertical lines on columns.                                                                                                 | `boolean`          | false                                 |
+| `withoutOuterBorder`            | If set to true, the outer border of the table is left out. The lines inside the table are not affected.                                                        | `boolean`          | false                                 |
 | `zebra`                         | If set to true, the table uses alternating row colors zebra style.                                                                                            | `boolean`          | false                                 |
 | [Table 1:Table properties]      |
 
