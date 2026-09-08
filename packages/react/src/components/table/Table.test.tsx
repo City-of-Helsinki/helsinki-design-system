@@ -1,5 +1,5 @@
 /* eslint-disable react/forbid-component-props */
-import { screen, render, waitFor } from '@testing-library/react';
+import { screen, render, waitFor, fireEvent } from '@testing-library/react';
 import React, { useRef, HTMLAttributes, useState } from 'react';
 import { axe } from 'jest-axe';
 import userEvent from '@testing-library/user-event';
@@ -422,6 +422,91 @@ describe('<Table /> spec', () => {
       expect(
         container.querySelector(`[id="${defaultCheckboxIdPrefix}${(row as Record<string, string>).id}"]`),
       ).not.toBeChecked();
+    });
+  });
+
+  it('Outer border of the table can be turned off, and is on by default', () => {
+    const { container: withBorder } = render(<Table {...defaultProps} />);
+    expect(withBorder.querySelector('table')?.className).not.toContain('withoutOuterBorder');
+
+    const { container: withoutBorder } = render(<Table {...defaultProps} withoutOuterBorder />);
+    expect(withoutBorder.querySelector('table')?.className).toContain('withoutOuterBorder');
+  });
+
+  describe('Horizontal scroll shadows', () => {
+    // jsdom does not lay out anything, so the scroll metrics of the container are faked. The
+    // element is measured on every scroll event, so dispatching one applies the new values.
+    const setScrollMetrics = (
+      element: HTMLElement,
+      metrics: { clientWidth?: number; scrollWidth?: number; scrollLeft?: number },
+    ) => {
+      Object.entries(metrics).forEach(([property, value]) => {
+        Object.defineProperty(element, property, { value, configurable: true });
+      });
+      fireEvent.scroll(element);
+    };
+
+    const renderScrollContainer = (): HTMLElement => {
+      const { container } = render(<Table {...defaultProps} />);
+      return container.querySelector('.container') as HTMLElement;
+    };
+
+    it('Shows neither shadow when the content fits in the container', () => {
+      const scrollContainer = renderScrollContainer();
+      setScrollMetrics(scrollContainer, { scrollWidth: 500, clientWidth: 500, scrollLeft: 0 });
+
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-start', 'false');
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-end', 'false');
+    });
+
+    it('Shows only the end shadow when scrolled to the start of the content', () => {
+      const scrollContainer = renderScrollContainer();
+      setScrollMetrics(scrollContainer, { scrollWidth: 1000, clientWidth: 500, scrollLeft: 0 });
+
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-start', 'false');
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-end', 'true');
+    });
+
+    it('Shows both shadows when scrolled between the ends of the content', () => {
+      const scrollContainer = renderScrollContainer();
+      setScrollMetrics(scrollContainer, { scrollWidth: 1000, clientWidth: 500, scrollLeft: 250 });
+
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-start', 'true');
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-end', 'true');
+    });
+
+    it('Shows only the start shadow when scrolled to the end of the content', () => {
+      const scrollContainer = renderScrollContainer();
+      setScrollMetrics(scrollContainer, { scrollWidth: 1000, clientWidth: 500, scrollLeft: 500 });
+
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-start', 'true');
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-end', 'false');
+    });
+
+    it('Hides the end shadow also when the scroll position is fractional', () => {
+      const scrollContainer = renderScrollContainer();
+      // Browser zoom and scaled displays never reach the exact maximum scroll position.
+      setScrollMetrics(scrollContainer, { scrollWidth: 1000, clientWidth: 500, scrollLeft: 499.6 });
+
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-end', 'false');
+    });
+
+    it('Shows the shadows in a rtl direction, where the scroll position is negative', () => {
+      const scrollContainer = renderScrollContainer();
+      setScrollMetrics(scrollContainer, { scrollWidth: 1000, clientWidth: 500, scrollLeft: -250 });
+
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-start', 'true');
+      expect(scrollContainer).toHaveAttribute('data-scroll-shadow-end', 'true');
+    });
+
+    it('Renders no extra elements for the shadows', () => {
+      const scrollContainer = renderScrollContainer();
+
+      // The shadows are the pseudo elements of the container, so the container has nothing but the
+      // table in it. Extra elements here would be a breaking change for projects that style the
+      // table as a direct child of the container.
+      expect(scrollContainer.children).toHaveLength(1);
+      expect(scrollContainer.firstElementChild?.tagName).toBe('TABLE');
     });
   });
 });

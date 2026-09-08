@@ -975,3 +975,33 @@ export const CustomBackgroundColorsForLightVariant = (args: TableProps) => {
     </div>
   );
 };
+
+// args is required for docs tab to show source code
+// eslint-disable-next-line no-unused-vars,@typescript-eslint/no-unused-vars
+export const WithoutOuterBorder = (args: TableProps) => {
+  const cols = [
+    { key: 'id', headerName: 'Not rendered' },
+    { key: 'firstName', headerName: 'First name' },
+    { key: 'surname', headerName: 'Surname' },
+    { key: 'profession', headerName: 'Profession' },
+  ];
+
+  const rows: Array<object> = [
+    { id: 1000, firstName: 'Lauri', surname: 'Kekkonen', profession: 'Engineer' },
+    { id: 1001, firstName: 'Maria', surname: 'Sarasoja', profession: 'Designer' },
+    { id: 1002, firstName: 'Anneli', surname: 'Routa', profession: 'Meteorologist' },
+  ];
+
+  const caption = (
+    <span>
+      <b>Table 1</b>: Table description
+    </span>
+  );
+
+  // The lines inside the table are not affected, only the outer border is left out.
+  return (
+    <div style={{ maxWidth: '640px' }}>
+      <Table cols={cols} rows={rows} caption={caption} indexKey="id" renderIndexCol={false} withoutOuterBorder />
+    </div>
+  );
+};

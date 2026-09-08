@@ -40,6 +40,12 @@ type Header = {
 
 export interface TableCustomTheme {
   /**
+   * Custom background color for the table caption. The caption needs a background of its own, so
+   * that the horizontal scroll shadows are not shown through it.
+   * @default 'var(--color-white)'
+   */
+  '--caption-background-color'?: string;
+  /**
    * Custom background color for table headers.
    */
   '--header-background-color'?: string;
@@ -188,6 +194,13 @@ export type TableProps = AllElementPropsWithoutRef<'table'> & {
    */
   verticalLines?: boolean;
   /**
+   * Boolean indicating whether the outer border of the table is left out. The lines inside the
+   * table are not affected. Use this when the table is placed inside an element that already has a
+   * border of its own.
+   * @default false
+   */
+  withoutOuterBorder?: boolean;
+  /**
    * Boolean indicating whether the table has alternating row colors zebra style.
    */
   zebra?: boolean;
@@ -270,6 +283,7 @@ export const Table = ({
   variant = 'dark',
   verticalHeaders,
   verticalLines = false,
+  withoutOuterBorder = false,
   zebra = false,
   ...rest
 }: TableProps) => {
@@ -398,11 +412,18 @@ export const Table = ({
         id={id}
         zebra={zebra}
         verticalLines={verticalLines}
+        withoutOuterBorder={withoutOuterBorder}
         customThemeClass={customThemeClass}
         headingId={heading ? uniqueHeadingId : undefined}
         {...rest}
       >
-        {caption && <caption className={styles.caption}>{caption}</caption>}
+        {caption && (
+          <caption className={styles.caption}>
+            {/* The content is wrapped, because only an element narrower than the caption can be
+                sticky inside it, which is what keeps the caption visible while scrolling. */}
+            <span className={styles.captionContent}>{caption}</span>
+          </caption>
+        )}
         {verticalHeaders && verticalHeaders.length && <VerticalHeaderColGroup />}
         <thead>
           <HeaderRow>
