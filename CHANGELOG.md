@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Select][Search] Removed the fixed bottom margin from the select/search box, fixing uneven row heights in grids and button misalignment. Spacing after the box is now carried by `margin-top` on the assistive text, error text, and (Select) the selected tags list, matching TextInput.
 
 ### Core
 

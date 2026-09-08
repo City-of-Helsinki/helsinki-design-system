@@ -25,8 +25,6 @@
       border-color: var(--computed-dropdown-border-color-hover-invalid);
     }
   }
-
-  margin-bottom: var(--spacing-2-xs);
 }
 
 .visuallyHidden {
@@ -411,6 +409,7 @@
 .tagListContainer {
   display: flex;
   flex-direction: column;
+  margin-top: var(--spacing-2-xs);
 
   .tagList {
     display: flex;
@@ -475,7 +474,7 @@
 
 .errorText {
   composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
-  margin-bottom: var(--spacing-2-xs);
+  margin-top: var(--spacing-2-xs);
 
   --icon-size: var(--computed-icon-size);
   --helper-color-invalid: var(--computed-error-text-color);
@@ -486,7 +485,7 @@
 
 .assistiveText {
   color: var(--computed-assistive-color);
-  margin-bottom: var(--spacing-2-xs);
+  margin-top: var(--spacing-3-xs);
 }
 
 .screenReaderNotifications {
