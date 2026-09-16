@@ -73,37 +73,42 @@ export const Disabled = () => `
 `;
 
 export const Icons = () => `
-  <button type="button" class="hds-button hds-button--primary" data-playwright="true">
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    <span>Button</span>
-  </button>
+  <div style="display: flex; flex-wrap: wrap; gap: 12px; width: 100%;">
+    <button type="button" class="hds-button hds-button--primary" data-playwright="true">
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
+      <span>Button</span>
+    </button>
 
-  <button type="button" class="hds-button hds-button--primary">
-    <span>Button</span>
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
-  </button>
+    <button type="button" class="hds-button hds-button--primary">
+      <span>Button</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
+    </button>
 
-  <button type="button" class="hds-button hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    <span>Button</span>
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
-  </button>
+    <button type="button" class="hds-button hds-button--primary">
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
+      <span>Button</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
+    </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary" data-playwright="true">
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    <span>Button</span>
-  </button>
+    <button type="button" class="hds-button hds-button--small hds-button--primary" data-playwright="true">
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
+      <span>Button</span>
+    </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary">
-    <span>Button</span>
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
-  </button>
+    <button type="button" class="hds-button hds-button--small hds-button--primary">
+      <span>Button</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
+    </button>
 
-  <button type="button" class="hds-button hds-button--small hds-button--primary">
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
-    <span>Button</span>
-    <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
-  </button>
+    <button type="button" class="hds-button hds-button--small hds-button--primary">
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--share"></span>
+      <span>Button</span>
+      <span aria-hidden="true" class="hds-icon hds-icon--size-s hds-icon--angle-right"></span>
+    </button>
+
+    <!-- Fixed-height taller sibling keeps the flex-stretch regression deterministic. -->
+    <div style="height: 80px; width: 1px;"></div>
+  </div>
 `;
 
 export const IconsWithClasses = () => `

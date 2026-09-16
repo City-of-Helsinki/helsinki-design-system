@@ -19,8 +19,8 @@
     "update-snapshots": "pnpm exec playwright test --update-snapshots"
   },
   "devDependencies": {
-    "@axe-core/playwright": "^4.12.1",
-    "@playwright/test": "1.61.1",
+    "@axe-core/playwright": "^4.13.0",
+    "@playwright/test": "1.63.0",
     "http-server": "^14.1.1"
   }
 }

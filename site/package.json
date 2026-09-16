@@ -71,7 +71,7 @@
     "link-react": "rm -rf node_modules/hds-react/lib && cp ../packages/react/package.json node_modules/hds-react/ && cp -r ../packages/react/lib node_modules/hds-react/",
     "link-core": "rm -rf node_modules/hds-core/lib/* && cp -r ../packages/core/lib/* node_modules/hds-core/lib/",
     "lint:js": "pnpm eslint . --ext js",
-    "lint:scss": "stylelint \"**/*.scss\"",
+    "lint:scss": "stylelint \"src/**/*.scss\"",
     "lint": "pnpm lint:js && pnpm lint:scss",
     "scaffold": "node scripts/scaffold.js",
     "iconlist": "node scripts/iconlist.js"

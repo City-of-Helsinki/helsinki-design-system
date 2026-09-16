@@ -95,7 +95,7 @@ export const FullWidth = () => (
 FullWidth.storyName = 'Full width';
 
 export const Icons = () => (
-  <>
+  <div style={{ display: 'flex', flexWrap: 'wrap', gap: '12px', width: '100%' }}>
     <Button data-playwright onClick={onClick} iconStart={<IconShare />}>
       Button
     </Button>
@@ -119,7 +119,10 @@ export const Icons = () => (
     <Button onClick={onClick} iconStart={<IconShare />} iconEnd={<IconAngleRight />} size={ButtonSize.Small}>
       Button
     </Button>
-  </>
+
+    {/* Fixed-height taller sibling keeps the flex-stretch regression deterministic. */}
+    <div style={{ height: '80px', width: '1px' }} />
+  </div>
 );
 
 export const Themes = () => (
