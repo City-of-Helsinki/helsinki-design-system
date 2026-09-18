@@ -1,4 +1,4 @@
-import { useEffect, useMemo } from 'react';
+import { useCallback, useEffect, useRef } from 'react';
 import { noop } from 'lodash';
 
 import { isSsrEnvironment } from '../../../utils/isSsrEnvironment';
@@ -19,13 +19,12 @@ export type CookieConsentEventsReturnType = () => void;
 
 export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieConsentEventsReturnType {
   const { onChange, onReady, onMonitorEvent } = props;
-  const [attach, dispose] = useMemo(() => {
-    if (!onChange) {
-      return [noop, noop];
-    }
+  const disposeRef = useRef<CookieConsentEventsReturnType>(noop);
 
-    if (isSsrEnvironment()) {
-      return [noop, noop];
+  useEffect(() => {
+    if (!onChange || isSsrEnvironment()) {
+      disposeRef.current = noop;
+      return noop;
     }
 
     const getChangeProps = (e: Event): CookieConsentChangeEvent => {
@@ -53,27 +52,26 @@ export function useCookieConsentEvents(props: CookieConsentEventsProps): CookieC
       onReady();
     };
 
-    const addEventListeners = () => {
-      window.addEventListener(cookieEventType.CHANGE, cookieListener);
-      window.addEventListener(cookieEventType.MONITOR, monitorListener);
-      window.addEventListener(cookieEventType.READY, readyListener);
-    };
-
     const removeEventListeners = () => {
       window.removeEventListener(cookieEventType.CHANGE, cookieListener);
       window.removeEventListener(cookieEventType.MONITOR, monitorListener);
       window.removeEventListener(cookieEventType.READY, readyListener);
     };
 
-    return [addEventListeners, removeEventListeners];
+    window.addEventListener(cookieEventType.CHANGE, cookieListener);
+    window.addEventListener(cookieEventType.MONITOR, monitorListener);
+    window.addEventListener(cookieEventType.READY, readyListener);
+    disposeRef.current = removeEventListeners;
+
+    return () => {
+      removeEventListeners();
+      if (disposeRef.current === removeEventListeners) {
+        disposeRef.current = noop;
+      }
+    };
   }, [onChange, onMonitorEvent, onReady]);
 
-  useEffect(() => {
-    attach();
-    return () => {
-      dispose();
-    };
+  return useCallback(() => {
+    disposeRef.current();
   }, []);
-
-  return dispose;
 }
