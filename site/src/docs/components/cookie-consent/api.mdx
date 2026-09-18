@@ -42,8 +42,8 @@ Some HDS components in the future will need `hds-namespace` to be permitted for 
 | `fallbackLanguage`                 | No       | Tells which language to use if the requested language is not available.                                                                       |
 | `groupsWhitelistedForApi`          | No       | Listed groups can be updated by calling the `setGroupsStatusToAccepted([])`                                                                   |
 | `languages`                        | Yes      | List of languages.                                                                                                                            |
-| `monitorInterval`                  | No       | Monitoring rate in milliseconds. Must be larger than 50.                                                                                      |
-| `optionalGroups`                   | No       | List of optional cookie groups and their descriptions.                                                                                        |
+| `monitorInterval`                  | No       | Monitoring rate in milliseconds. Values greater than zero enable monitoring; intervals are clamped to a minimum of 500 ms.                    |
+| `optionalGroups`                   | No       | List of optional cookie groups and their descriptions. Defaults to an empty array when omitted.                                               |
 | `remove`                           | No       | Defaults to `false`.                                                                                                                          |
 | `robotCookies`                     | No       | Listed cookies are not shown to the user but should be allowed to be stored. For example, Siteimprove can set cookies while testing the site. |
 | `requiredGroups`                   | Yes      | List of required cookie groups and their descriptions.                                                                                        |
@@ -125,21 +125,31 @@ The consent banner language should be updated to match the language of the page.
 | -------------------------------------------------------- | -------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------- | ----------------------------------------------------------------------- |
 | `getAllConsentStatuses`                                  | Returns an array of consents in the format of `[{group:string, consented:boolean}]`. `group` is the name of the consent group, and `consented` is true if the user has given consent for it.                                                       | `() => [{group:string, consented:boolean}] `                            |
 | `getConsentStatus`                                       | Returns `true` if the user has given consents to given group.                                                                                                                                                                                      | `(groupName:string) => boolean `                                        |
-| `openBanner`                                             | Opens the banner on each call and optionally highlights given groups. Use when the user needs to accept a specific group to use specific content. The `focusTargetSelector` defines the element that will receive focus once the banner is closed. | `(highlightedGroups?: string[], focusTargetSelector? :string) => void ` |
+| `openBanner`                                             | Opens the banner on each call and optionally highlights given groups. Use when the user needs to accept a specific group to use specific content. The `focusTargetSelector` defines the element that will receive focus once the banner is closed. | `(highlightedGroups?: string[], focusTargetSelector?: string) => void ` |
 | `setGroupsStatusToAccepted`                              | Asynchronous function to set specific groups as accepted. Returns `true` if the groups' status is successfully set to accepted, otherwise false. The given groups must have been listed in `siteSettings.groupsWhitelistedForApi`.                 | `(acceptedGroupsArray:string[]) => Promise<boolean> `                   |
-| `removeBanner`                                           | Removes the banner.                                                                                                                                                                                                                                | `(highlightedGroups?: string[], focusTargetSelector? :string) => void ` |
+| `removeBanner`                                           | Removes the banner and its DOM, styles, timers, and observers.                                                                                                                                                                                     | `(setFocus?: boolean) => void`                                          |
 | `removePage`                                             | Removes the rendered consents. Returns `true` if there was a page to remove.                                                                                                                                                                       | `() => boolean`                                                         |
-| `renderPage`                                             | Renders the consents to the element with matching `id` attribute with the `siteSettingsId` property.                                                                                                                                               | `() => void`                                                            |
+| `renderPage`                                             | Renders the consents to the element matching the supplied selector, or the configured `settingsPageSelector`.                                                                                                                                      | `(settingsPageSelector?: string) => void`                               |
+| `dispose`                                                | Disposes the instance's monitoring and DOM resources.                                                                                                                                                                                              | `() => void`                                                            |
 | `setLanguage`                                            | Sets a new language. Render the banner or page again once changed.                                                                                                                                                                                 | `() => void`                                                            |
 | [Table 8: Properties of the CookieConsentCore instance ] |
 
 ### Saving consents
 
-Consents that the user has given are saved to a `city-of-helsinki-cookie-consents` cookie. A version number indicating which version of the component is in use, is stored to a `city-of-helsinki-cookie-consents-version` cookie. The version number has no relation to the stored consents.
+Consents that the user has given are saved to the configured `cookieName` cookie.
 
-Cookies are always strings and consents are stored as a JSON-formatted string such as `{"cookie-id":"true","another-cookie-id":"false"}`.
+Cookies are always strings. The cookie value is JSON containing consent groups, checksums, timestamps, and, when needed, a `showBanner` flag. For example:
 
-The ID of the cookie is stored as `cookie.id`. `True` means the user has given consent for that cookie. All required cookies are always stored `true`, but other sites may list a common cookie optional, so the stored consent is not `true` by default.
+```json
+{
+  "groups": {
+    "essential": {
+      "checksum": "abc12345",
+      "timestamp": 1726579200000
+    }
+  }
+}
+```
 
 ### Callbacks
 
@@ -212,14 +222,14 @@ const options = {
   // options
 };
 const instance = await CookieConsentCore.create(siteSettings, options);
-// the banner opens automatically when needed and options.settingsPageId is not set
+// the banner opens automatically when needed
 ```
 
 Note that the `CookieConsentCore.create` is an asynchronous function.
 
-It is recommended to set `options.submitEvents` to `true` when using the <InternalLink href="/components/cookie-consent/#rendered-on-a-page">page</InternalLink> version. Otherwise the whole page is reloaded after save and the user will not see a notification about successful save and may not notify changes.
+It is recommended to set `options.submitEvent` to `true` when using the <InternalLink href="/components/cookie-consent/#rendered-on-a-page">page</InternalLink> version. Otherwise the whole page is reloaded after save and the user will not see a notification about successful save or receive a change event.
 
-The whole page is also reloaded when using the <InternalLink href="/components/cookie-consent/#banner">banner</InternalLink> without `options.submitEvents`, but the banner is closed when the consents are stored and before the page reloads.
+The whole page is also reloaded when using the <InternalLink href="/components/cookie-consent/#banner">banner</InternalLink> without `options.submitEvent`, but the banner is closed when the consents are stored and before the page reloads.
 
 When events are used, the changes done by the user should be handled with <InternalLink href="#events">event listeners.</InternalLink>
 
@@ -259,6 +269,10 @@ Internally, the context uses the <InternalLink href="#usecookieconsent-hook">use
 | `useCookieSettingsPage()`        | Add this hook where the settings page content should be shown. Preferably use the <InternalLink href="#cookiesettingspage">CookieSettingsPage</InternalLink> component.                      | -                |
 | [Table 13: Cookie consent hooks] |
 
+`useCookieSettingsPage` accepts an optional `settingsPageSelector` property.
+When provided, the settings are rendered into the matching element; otherwise
+the default element identified by `settingsPageId` is used.
+
 #### useCookieConsentEvents hook
 
 The cookie consent class dispatches window level events. These can be listened to with `window.addEventListener`. The `useCookieConsentEvents` hook does this and also handles the removal of the event listeners when the component unmounts. The hook also returns a disposer function to manually remove the event listeners.
@@ -275,6 +289,11 @@ The cookie consent class dispatches window level events. These can be listened t
 This hook creates the class instance, listens to events, and renders the parent component when consents or `isReady` are changed. The `CookieConsentContext` uses this hook, so there is no need to use this hook and the context at the same time. Both can be used, but they share the same class instance.
 Other context related hooks and components use this hook and its returned functions automatically. Usually there is no need to use this hook manually.
 
+`siteSettings` and initialization options are read when the core instance is
+created. They are not reloaded automatically when their object identity changes
+after mount. Language and theme can be changed through the returned instance;
+other option changes require disposing and creating a new instance.
+
 ```jsx
 import { useCookieConsent, CookieConsentChangeEvent } from 'hds-react';
 
@@ -289,7 +308,7 @@ const MyComponent = ()=>{
   const siteSettings = {
     // set site settings here
   };
-  const settingsPageId = 'site-settings;
+  const settingsPageId = 'site-settings';
 
   const {isReady } = useCookieConsent({onChange, options, siteSettings, settingsPageId})
 
@@ -300,6 +319,11 @@ const MyComponent = ()=>{
   return (<p>Ready</p>)
 }
 ```
+
+`settingsPageId` identifies the default element where the React settings page
+is rendered. The standalone `CookieConsentCore` API uses
+`settingsPageSelector` instead. The `renderPage` function accepts an optional
+CSS selector when rendering to a specific element.
 
 The context does not render its children if the returned `isReady` property is not true. It is true when settings have been loaded, parsed and compared to the stored consents of the user. This is the safest way to ensure all consents are loaded before components rely on the data.
 
@@ -318,9 +342,9 @@ The context does not render its children if the returned `isReady` property is n
 | `instance`                                            | Instance of the cookie consent class.                                                                                                                                                                                                              | `Class instance`                                                      | `null`                         |
 | `openBanner`                                          | Opens the banner on each call and optionally highlights given groups. Use when the user needs to accept a specific group to use specific content. The `focusTargetSelector` defines the element that will receive focus once the banner is closed. | `(highlightedGroups?: string[], focusTargetSelector? :string)=>void ` | -                              |
 | `openBannerIfNeeded`                                  | Opens the banner if all necessary consents have not been given.                                                                                                                                                                                    | `()=>void `                                                           | -                              |
-| `renderPage`                                          | Renders the consents to the element with matching `id` attribute with the `siteSettingsId` property.                                                                                                                                               | `()=>void`                                                            | -                              |
+| `renderPage`                                          | Renders the consents to the element matching the configured settings page selector, or to an optionally supplied CSS selector.                                                                                                                     | `(selector?: string) => Promise<boolean>`                             | -                              |
 | `removePage`                                          | Removes the rendered consents.                                                                                                                                                                                                                     | `()=>void`                                                            | -                              |
-| `settingsPageId`                                      | The same value as passed in the `settingsPageId` property. Used by the `useCookieSettingsPage` and `CookieSettingsPage`.                                                                                                                           | `string`                                                              | `hds-cookie-consent-full-page` |
+| `settingsPageId`                                      | The ID of the default settings-page element. Used by the `useCookieSettingsPage` and `CookieSettingsPage`.                                                                                                                                         | `string`                                                              | `hds-cookie-consent-full-page` |
 | `language`                                            | Current language passed in options.                                                                                                                                                                                                                | `string`                                                              | `en`                           |
 | [Table 16: Return type of the useCookieConsent hook ] |
 
