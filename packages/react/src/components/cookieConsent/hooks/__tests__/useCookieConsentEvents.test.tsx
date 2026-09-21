@@ -211,4 +211,25 @@ describe('useCookieConsentEventsEvents', () => {
     expect(getCallCount(onMonitorEvent)).toBe(1);
     expect(getCallCount(onReady)).toBe(1);
   });
+
+  it('replaces listeners when callback props change', () => {
+    const firstOnChange = jest.fn();
+    const secondOnChange = jest.fn();
+    const DynamicListener = ({ version }: { version: number }) => {
+      useCookieConsentEvents({
+        onChange: version === 1 ? firstOnChange : secondOnChange,
+        onMonitorEvent,
+        onReady,
+      });
+      return null;
+    };
+
+    const rendered = render(<DynamicListener version={1} />);
+    mockCore.triggerChangeEvent([]);
+    rendered.rerender(<DynamicListener version={2} />);
+    mockCore.triggerChangeEvent([]);
+
+    expect(firstOnChange).toHaveBeenCalledTimes(1);
+    expect(secondOnChange).toHaveBeenCalledTimes(1);
+  });
 });
