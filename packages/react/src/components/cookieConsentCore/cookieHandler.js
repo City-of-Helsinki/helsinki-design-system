@@ -11,7 +11,7 @@ export default class CookieHandler {
   #siteSettings;
   #lang;
   #directions;
-  #cookieName = 'city-of-helsinki-cookie-consents'; // Overridable default value
+  #cookieName = 'helfi-cookie-consents'; // Overridable default value
   #formReference;
 
   /**
@@ -33,7 +33,6 @@ export default class CookieHandler {
       shadowDomUpdateCallback(consentedGroupNames, this.#formReference);
     };
     this.#cookieName = this.#siteSettings.cookieName || this.#cookieName; // Optional override for cookie name
-    this.#verifySiteSettings();
   }
 
   /**
@@ -298,13 +297,15 @@ export default class CookieHandler {
    * @param {object} monitorReference - The reference to the monitor object.
    * @return {void}
    */
-  removeConsentWithdrawnCookiesBeforeSave(consentedGroupNames, monitorReference) {
+  async removeConsentWithdrawnCookiesBeforeSave(consentedGroupNames, monitorReference) {
     const consentedKeysArray = this.getAllKeysInConsentedGroups(consentedGroupNames);
     const reason = 'consent withdrawn';
-    monitorReference.BROWSER_STORAGES.forEach(async (storageType) => {
-      const currentStoredKeysArray = await monitorReference.getCurrentKeys(storageType);
-      monitorReference.deleteKeys(storageType, consentedKeysArray[storageType], currentStoredKeysArray, reason);
-    });
+    await Promise.all(
+      monitorReference.BROWSER_STORAGES.map(async (storageType) => {
+        const currentStoredKeysArray = await monitorReference.getCurrentKeys(storageType);
+        await monitorReference.deleteKeys(storageType, consentedKeysArray[storageType], currentStoredKeysArray, reason);
+      }),
+    );
   }
 
   /**
@@ -451,45 +452,6 @@ export default class CookieHandler {
     if (invalidGroupsFound) {
       const showBanner = true;
       this.saveConsentedGroups(newCookieGroups, showBanner);
-    }
-  }
-
-  /**
-   * Verify siteSettings validity
-   * Checks done:
-   * * At least one required group is needed
-   * * One of the required groups must contain the consent cookie
-   * * No duplicate group names
-   * @private
-   * @throws {Error} If the required group or cookie is missing in the site settings.
-   * @throws {Error} If there are multiple cookie groups with identical names in the site settings.
-   */
-  #verifySiteSettings() {
-    // Check that there is at least one required group
-    if (this.#siteSettings.requiredGroups.length === 0) {
-      throw new Error(
-        `Cookie consent: At least one required group is needed to store consent in '${this.#cookieName}'.`,
-      );
-    }
-
-    // Check that there is at least one required group that contains the cookie and its type is cookie
-    const requiredGroupWithCookie = this.#siteSettings.requiredGroups.find((group) =>
-      group.cookies.some((cookie) => cookie.name === this.#cookieName && cookie.storageType === 1),
-    );
-
-    // If no required group contains the cookie, throw an error
-    if (!requiredGroupWithCookie) {
-      throw new Error(`Cookie consent: No group found in requiredGroups that contains cookie '${this.#cookieName}'.`);
-    }
-
-    const siteSettingsGroups = [...this.#siteSettings.requiredGroups, ...this.#siteSettings.optionalGroups];
-    const groupIds = siteSettingsGroups.map((group) => group.groupId);
-    const duplicateGroupNames = groupIds.filter((groupId, index) => groupIds.indexOf(groupId) !== index);
-
-    if (duplicateGroupNames.length > 0) {
-      throw new Error(
-        `Cookie consent: Groups '${Array.from(duplicateGroupNames).join(', ')}' found multiple times in settings.`,
-      );
     }
   }
 

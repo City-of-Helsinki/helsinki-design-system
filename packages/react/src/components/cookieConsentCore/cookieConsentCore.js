@@ -15,6 +15,7 @@ import {
 import { getTranslation } from './translations';
 import MonitorAndCleanBrowserStorages from './monitorAndCleanBrowserStorages';
 import CookieHandler from './cookieHandler';
+import { validateSiteSettings } from './validateSiteSettings';
 import { isSsrEnvironment } from '../../utils/isSsrEnvironment';
 
 // This private symbol is being used as a way to ensure that the constructor is not called without the create method.
@@ -48,6 +49,8 @@ export class CookieConsentCore {
   #directions;
   #shadowRootElement = null;
   #timeoutReference = null;
+  #highlightTimeoutReference = null;
+  #pageContentStyleElement = null;
 
   #bannerElements = {
     bannerContainer: null,
@@ -93,7 +96,7 @@ export class CookieConsentCore {
       settingsPageSelector = null, // If this string is set and a matching element is found on the page, show cookie settings in a page replacing the matched element.
       focusTargetSelector = null,
       disableAutoRender = false,
-    },
+    } = {},
     calledFromCreate = false,
   ) {
     if (calledFromCreate !== privateSymbol) {
@@ -102,6 +105,7 @@ export class CookieConsentCore {
       );
     }
 
+    siteSettingsObj = validateSiteSettings(siteSettingsObj);
     this.#language = language;
     this.#theme = theme;
     this.#targetSelector = targetSelector;
@@ -173,34 +177,54 @@ export class CookieConsentCore {
    * @throws {Error} Throws an error if siteSettingsParam is an URL string and the JSON parsing fails.
    */
   static async create(siteSettingsParam, options) {
-    let instance;
-    if (!siteSettingsParam && (typeof siteSettingsParam !== 'string' || typeof siteSettingsParam !== 'object')) {
+    const isValidUrl = typeof siteSettingsParam === 'string' && siteSettingsParam.trim() !== '';
+    const isValidSettingsObject =
+      typeof siteSettingsParam === 'object' && siteSettingsParam !== null && !Array.isArray(siteSettingsParam);
+    if (!isValidUrl && !isValidSettingsObject) {
       throw new Error(
         'Cookie consent: siteSettingsParam is required, it should be an URL string or an siteSettings object.',
       );
     }
+
+    let siteSettingsObj = siteSettingsParam;
     if (typeof siteSettingsParam === 'string') {
       // Fetch the site settings JSON file
-      const siteSettingsRaw = await fetch(siteSettingsParam).then((response) => {
-        if (!response.ok) {
-          throw new Error(
-            `Cookie consent: Unable to fetch cookie consent settings: '${response.status}' from: '${siteSettingsParam}' `,
-          );
-        }
-        return response.text();
-      });
-
-      // Parse the fetched site settings string to JSON
-      let siteSettingsObj;
       try {
-        siteSettingsObj = JSON.parse(siteSettingsRaw);
+        const siteSettingsRaw = await fetch(siteSettingsParam).then((response) => {
+          if (!response.ok) {
+            throw new Error(
+              `Cookie consent: Unable to fetch cookie consent settings: '${response.status}' from: '${siteSettingsParam}' `,
+            );
+          }
+          return response.text();
+        });
+
+        // Parse the fetched site settings string to JSON
+        try {
+          siteSettingsObj = JSON.parse(siteSettingsRaw);
+        } catch (error) {
+          throw new Error(`Cookie consent: siteSettings JSON parsing failed: ${error}`, { cause: error });
+        }
       } catch (error) {
-        throw new Error(`Cookie consent: siteSettings JSON parsing failed: ${error}`);
+        if (
+          error instanceof Error &&
+          (error.message.startsWith('Cookie consent: Unable to fetch') ||
+            error.message.startsWith('Cookie consent: siteSettings JSON parsing failed'))
+        ) {
+          throw error;
+        }
+        throw new Error(
+          `Cookie consent: Unable to load cookie consent settings from '${siteSettingsParam}': ${error}`,
+          { cause: error },
+        );
       }
-      instance = new CookieConsentCore(siteSettingsObj, options, privateSymbol);
-    } else {
-      instance = new CookieConsentCore(siteSettingsParam, options, privateSymbol);
     }
+
+    siteSettingsObj = validateSiteSettings(siteSettingsObj);
+    if (!isSsrEnvironment() && window.hds?.cookieConsent?.dispose) {
+      window.hds.cookieConsent.dispose();
+    }
+    const instance = new CookieConsentCore(siteSettingsObj, options, privateSymbol);
 
     // Initialise the class instance
     await instance.#init();
@@ -262,7 +286,7 @@ export class CookieConsentCore {
    * * @param {string} focusTargetSelector - Selector for the element that will receive focus once the banner is closed. Overrides the options.focusTargetSelector
    */
   openBanner(highlightedGroups = [], focusTargetSelector = '') {
-    if (this.#settingsPageSelector && document.querySelector(this.#settingsPageSelector)) {
+    if (this.#settingsPageSelector && this.#querySelector(this.#settingsPageSelector, 'settingsPageSelector')) {
       // eslint-disable-next-line no-console
       console.error(`Cookie consent: The user is already on settings page`);
       return;
@@ -292,7 +316,7 @@ export class CookieConsentCore {
   renderPage(settingsPageSelector = undefined) {
     const selector = settingsPageSelector || this.#settingsPageSelector;
     // If settings page selector is enabled, check if the element exists
-    const settingsPageElement = selector ? document.querySelector(selector) : null;
+    const settingsPageElement = selector ? this.#querySelector(selector, 'settingsPageSelector') : null;
 
     this.#settingsPageElement = settingsPageElement;
     if (settingsPageElement) {
@@ -354,6 +378,10 @@ export class CookieConsentCore {
       window.clearTimeout(this.#timeoutReference);
       this.#timeoutReference = null;
     }
+    if (this.#highlightTimeoutReference) {
+      window.clearTimeout(this.#highlightTimeoutReference);
+      this.#highlightTimeoutReference = null;
+    }
   }
 
   /**
@@ -365,7 +393,9 @@ export class CookieConsentCore {
     // Remove banner size observer
     if (this.#resizeReference.resizeObserver && this.#resizeReference.bannerHeightElement) {
       this.#resizeReference.resizeObserver.unobserve(this.#resizeReference.bannerHeightElement);
+      this.#resizeReference.resizeObserver.disconnect();
     }
+    this.#resizeReference = { resizeObserver: null, bannerHeightElement: null };
     // Remove banner elements
     if (this.#bannerElements.bannerContainer) {
       this.#bannerElements.bannerContainer.remove();
@@ -375,19 +405,48 @@ export class CookieConsentCore {
       this.#bannerElements.spacer.remove();
       this.#bannerElements.spacer = null;
     }
+    if (this.#pageContentStyleElement) {
+      this.#pageContentStyleElement.remove();
+      this.#pageContentStyleElement = null;
+    }
 
     // Remove scroll-margin-bottom variable from all elements inside the contentSelector
     document.documentElement.style.removeProperty('--hds-cookie-consent-height');
 
+    if (!setFocus) {
+      this.#clearAnnouncementElement(false);
+    }
+
     if (setFocus && this.#focusTargetSelector) {
-      const element = document.querySelector(this.#focusTargetSelector);
+      const element = this.#querySelector(this.#focusTargetSelector, 'focusTargetSelector');
       if (element) {
         element.focus();
       }
     }
   }
 
+  /**
+   * Disposes DOM and monitoring resources owned by this instance.
+   *
+   * @returns {void}
+   */
+  dispose() {
+    this.#monitor.dispose();
+    this.removePage();
+    this.removeBanner();
+  }
+
   // MARK: Private methods
+
+  #querySelector(selector, selectorName) {
+    try {
+      return document.querySelector(selector);
+    } catch (error) {
+      throw new Error(`Cookie consent: Invalid ${selectorName} selector '${selector}': ${error.message}`, {
+        cause: error,
+      });
+    }
+  }
 
   /**
    * Gets accepted checkbox groups from form
@@ -416,12 +475,13 @@ export class CookieConsentCore {
    * @param {object} siteSettings - The site settings object.
    * @return {void}
    */
-  #handleButtonEvents(selection, formReference) {
+  async #handleButtonEvents(selection, formReference) {
     let acceptedGroups = [];
+    let cleanupPromise = Promise.resolve();
     switch (selection) {
       case 'required':
         acceptedGroups = this.#cookieHandler.getRequiredGroupNames();
-        this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
+        cleanupPromise = this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
         this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       case 'all':
@@ -430,7 +490,7 @@ export class CookieConsentCore {
         break;
       case 'selected':
         acceptedGroups = this.#getAcceptedGroups(formReference);
-        this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
+        cleanupPromise = this.#cookieHandler.removeConsentWithdrawnCookiesBeforeSave(acceptedGroups, this.#monitor);
         this.#cookieHandler.saveConsentedGroups(acceptedGroups, false);
         break;
       default:
@@ -438,8 +498,10 @@ export class CookieConsentCore {
         break;
     }
     if (!this.#submitEvent) {
+      await cleanupPromise;
       window.location.reload();
     } else {
+      await cleanupPromise;
       window.dispatchEvent(new CustomEvent(cookieEventType.CHANGE, { detail: { acceptedGroups } }));
       if (!this.#settingsPageElement) {
         this.removeBanner(true);
@@ -502,7 +564,7 @@ export class CookieConsentCore {
    * Prepares the aria-live element for announcements.
    */
   #prepareAnnouncementElement() {
-    if (!this.#bannerElements.ariaLive) {
+    if (!this.#bannerElements.ariaLive && this.#shadowRootElement) {
       const ariaLiveElement = this.#shadowRootElement.getElementById(TEMPLATE_CONSTANTS.ariaLiveId);
       this.#bannerElements.ariaLive = ariaLiveElement;
     }
@@ -516,6 +578,9 @@ export class CookieConsentCore {
     const SHOW_ARIA_LIVE_FOR_MS = 5000;
 
     this.#prepareAnnouncementElement();
+    if (!this.#bannerElements.ariaLive) {
+      return;
+    }
 
     const message = getTranslation(
       this.#siteSettings.translations,
@@ -655,20 +720,23 @@ export class CookieConsentCore {
     let spacerParent;
     let renderTargetToPrepend = renderTarget;
     if (isBanner) {
-      const bannerTarget = document.querySelector(this.#targetSelector);
+      const bannerTarget = this.#querySelector(this.#targetSelector, 'targetSelector');
       if (!bannerTarget) {
         throw new Error(`Cookie consent: The targetSelector element '${this.#targetSelector}' was not found`);
       }
-      spacerParent = document.querySelector(this.#spacerParentSelector);
+      spacerParent = this.#querySelector(this.#spacerParentSelector, 'spacerParentSelector');
       if (!spacerParent) {
         throw new Error(
           `Cookie consent: The spacerParentSelector element '${this.#spacerParentSelector}' was not found`,
         );
       }
-      if (!document.querySelector(this.#pageContentSelector)) {
+      if (!this.#querySelector(this.#pageContentSelector, 'pageContentSelector')) {
         throw new Error(`Cookie consent: The pageContentSelector element '${this.#pageContentSelector}' was not found`);
       }
       renderTargetToPrepend = bannerTarget;
+    }
+    if (!renderTargetToPrepend) {
+      throw new Error('Cookie consent: A render target is required when rendering the settings page');
     }
 
     const container = document.createElement('div');
@@ -722,13 +790,16 @@ export class CookieConsentCore {
     );
 
     this.#shadowRootElement = shadowRoot;
-    this.#cookieHandler.setFormReference(shadowRoot.querySelector('form'));
+    const shadowRootForm = shadowRoot.querySelector('form');
+    if (!shadowRootForm) {
+      throw new Error('Cookie consent: Failed to render the consent form');
+    }
+    this.#cookieHandler.setFormReference(shadowRootForm);
 
     // Add button events
-    const shadowRootForm = shadowRoot.querySelector('form');
     shadowRoot.querySelectorAll('button[type=submit]').forEach((button) => {
       button.addEventListener('click', (e) => {
-        this.#handleButtonEvents(e.currentTarget.dataset.approved, shadowRootForm);
+        void this.#handleButtonEvents(e.currentTarget.dataset.approved, shadowRootForm);
       });
     });
 
@@ -746,8 +817,9 @@ export class CookieConsentCore {
 
       // Add scroll-margin-bottom to all elements inside the contentSelector
       const style = document.createElement('style');
-      style.innerHTML = `${this.#pageContentSelector} * {scroll-margin-bottom: calc(var(--hds-cookie-consent-height, -8px) + 8px);}`;
+      style.textContent = `${this.#pageContentSelector} * {scroll-margin-bottom: calc(var(--hds-cookie-consent-height, -8px) + 8px);}`;
       document.head.appendChild(style);
+      this.#pageContentStyleElement = style;
 
       // Add spacer inside spacerParent (to the bottom of the page)
       const spacer = document.createElement('div');
@@ -757,16 +829,21 @@ export class CookieConsentCore {
       spacer.style.height = 'var(--hds-cookie-consent-height, 0)';
 
       // Update spacer and scroll-margin-bottom on banner resize
-      const resizeObserver = new ResizeObserver((entries) => {
-        entries.forEach((entry) => {
-          const bannerHeight = parseInt(entry.contentRect.height, 10);
-          const borderHeight = parseInt(getComputedStyle(entry.target).borderTopWidth, 10);
-          document.documentElement.style.setProperty('--hds-cookie-consent-height', `${bannerHeight + borderHeight}px`);
-        });
-      });
       const bannerHeightElement = shadowRoot.querySelector(`.${TEMPLATE_CONSTANTS.containerClass}`);
-      resizeObserver.observe(bannerHeightElement);
-      this.#resizeReference = { resizeObserver, bannerHeightElement };
+      if (typeof ResizeObserver !== 'undefined' && bannerHeightElement) {
+        const resizeObserver = new ResizeObserver((entries) => {
+          entries.forEach((entry) => {
+            const bannerHeight = parseInt(entry.contentRect.height, 10);
+            const borderHeight = parseInt(getComputedStyle(entry.target).borderTopWidth, 10);
+            document.documentElement.style.setProperty(
+              '--hds-cookie-consent-height',
+              `${bannerHeight + borderHeight}px`,
+            );
+          });
+        });
+        resizeObserver.observe(bannerHeightElement);
+        this.#resizeReference = { resizeObserver, bannerHeightElement };
+      }
 
       shadowRoot.querySelector('.hds-cc').focus();
     }
@@ -776,7 +853,9 @@ export class CookieConsentCore {
     if (highlightedGroups.length > 0) {
       let firstElement = null;
       highlightedGroups.forEach((group) => {
-        const groupElement = shadowRootForm.querySelector(`div[data-group-id=${group}]`);
+        const groupElement = Array.from(shadowRootForm.querySelectorAll('[data-group-id]')).find(
+          (element) => element.dataset.groupId === group,
+        );
         if (groupElement) {
           groupElement.classList.add(TEMPLATE_CONSTANTS.groupHighlightClass);
           if (firstElement === null) {
@@ -787,8 +866,9 @@ export class CookieConsentCore {
 
       if (firstElement !== null) {
         shadowRoot.querySelector(`.${TEMPLATE_CONSTANTS.accordionButtonDetailsClass}`).click();
-        setTimeout(() => {
+        this.#highlightTimeoutReference = setTimeout(() => {
           firstElement.scrollIntoView({ behavior: 'auto' });
+          this.#highlightTimeoutReference = null;
         }, 500);
       }
     }

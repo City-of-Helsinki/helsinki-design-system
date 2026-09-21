@@ -412,6 +412,41 @@ describe('cookieConsentCore', () => {
     );
   });
 
+  it.each([123, true, [], ''])('should reject invalid siteSettingsParam values: %p', async (invalidSettings) => {
+    await expect(CookieConsentCore.create(invalidSettings, options)).rejects.toThrow(
+      'Cookie consent: siteSettingsParam is required, it should be an URL string or an siteSettings object.',
+    );
+  });
+
+  it('should use default options when options are omitted', async () => {
+    const instanceWithoutOptions = await CookieConsentCore.create({ ...siteSettingsObj, monitorInterval: 0 });
+    expect(instanceWithoutOptions).toBeDefined();
+  });
+
+  it('should reject structurally invalid settings before initialization', async () => {
+    await expect(CookieConsentCore.create({ ...siteSettingsObj, languages: undefined }, options)).rejects.toThrow(
+      'Cookie consent: Invalid siteSettings.languages',
+    );
+  });
+
+  it('should default omitted optionalGroups to an empty array', async () => {
+    const settingsWithoutOptionalGroups = { ...siteSettingsObj };
+    delete settingsWithoutOptionalGroups.optionalGroups;
+
+    instance = await CookieConsentCore.create({ ...settingsWithoutOptionalGroups, monitorInterval: 0 }, options);
+
+    expect(instance).toBeDefined();
+  });
+
+  it('should reject an omitted cookieName', async () => {
+    const settingsWithoutCookieName = { ...siteSettingsObj };
+    delete settingsWithoutCookieName.cookieName;
+
+    await expect(CookieConsentCore.create(settingsWithoutCookieName, options)).rejects.toThrow(
+      'Cookie consent: Invalid siteSettings.cookieName',
+    );
+  });
+
   it('should throw an error if siteSettings URL is not found', async () => {
     await expect(CookieConsentCore.create(urls.siteSettings404, { ...options })).rejects.toThrow(
       `Cookie consent: Unable to fetch cookie consent settings: '404' from: '${urls.siteSettings404}' `,
@@ -421,6 +456,14 @@ describe('cookieConsentCore', () => {
   it('should throw an error if siteSettings JSON is malformed', async () => {
     await expect(CookieConsentCore.create(urls.siteSettingsNotJSON, { ...options })).rejects.toThrow(
       'Cookie consent: siteSettings JSON parsing failed: SyntaxError: Unexpected token',
+    );
+  });
+
+  it('should add context when fetching siteSettings fails due to a network error', async () => {
+    fetchMock.mockRejectOnce(new Error('Network unavailable'));
+
+    await expect(CookieConsentCore.create('/network-error.json', options)).rejects.toThrow(
+      "Cookie consent: Unable to load cookie consent settings from '/network-error.json': Error: Network unavailable",
     );
   });
 
@@ -446,6 +489,104 @@ describe('cookieConsentCore', () => {
     expect(
       CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, pageContentSelector: '#not-found' }),
     ).rejects.toThrow("Cookie consent: The pageContentSelector element '#not-found' was not found");
+  });
+
+  it('should report invalid selectors with a cookie consent error', async () => {
+    await expect(
+      CookieConsentCore.create(urls.siteSettingsJsonUrl, { ...options, targetSelector: '[' }),
+    ).rejects.toThrow("Cookie consent: Invalid targetSelector selector '['");
+  });
+
+  it('should escape settings-derived HTML content', async () => {
+    const unsafeSettings = JSON.parse(JSON.stringify(siteSettingsObj));
+    unsafeSettings.translations.heading.fi = '<img src=x onerror=alert(1)> Uses cookies';
+
+    instance = await CookieConsentCore.create(unsafeSettings, options);
+    await waitForRoot();
+
+    const heading = getShadowRoot()?.querySelector('.hds-cc__heading');
+    expect(heading?.textContent).toContain('<img src=x onerror=alert(1)> Uses cookies');
+    expect(heading?.querySelector('img')).toBeNull();
+  });
+
+  it('should remove banner styles when the banner is removed', async () => {
+    instance = await CookieConsentCore.create(urls.siteSettingsJsonUrl, options);
+    await waitForRoot();
+    const pageContentStyle = Array.from(document.head.querySelectorAll('style')).find((style) =>
+      style.textContent?.includes('--hds-cookie-consent-height'),
+    );
+    expect(pageContentStyle).toBeDefined();
+
+    instance.removeBanner();
+
+    expect(
+      Array.from(document.head.querySelectorAll('style')).some((style) =>
+        style.textContent?.includes('--hds-cookie-consent-height'),
+      ),
+    ).toBe(false);
+  });
+
+  it('should cancel delayed highlighted-group scrolling when the banner is removed', async () => {
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, monitorInterval: 0 }, options);
+    await waitForRoot();
+    addBoundingClientRect(getContainerElement());
+
+    instance.openBanner(['statistics']);
+    const highlightedGroup = getShadowRoot()?.querySelector('[data-group-id="statistics"]') as HTMLElement;
+    const scrollIntoView = jest.spyOn(highlightedGroup, 'scrollIntoView').mockImplementation();
+
+    instance.removeBanner();
+    jest.advanceTimersByTime(500);
+
+    expect(scrollIntoView).not.toHaveBeenCalled();
+  });
+
+  it('should dispose the monitor interval when the instance is disposed', async () => {
+    instance = await CookieConsentCore.create({ ...siteSettingsObj, monitorInterval: 500 }, options);
+    const clearIntervalSpy = jest.spyOn(window, 'clearInterval').mockClear();
+
+    instance.dispose();
+
+    expect(clearIntervalSpy).toHaveBeenCalled();
+    clearIntervalSpy.mockRestore();
+  });
+
+  it('should render without ResizeObserver support', async () => {
+    const resizeObserverDescriptor = Object.getOwnPropertyDescriptor(window, 'ResizeObserver');
+    // @ts-ignore
+    Object.defineProperty(window, 'ResizeObserver', { configurable: true, value: undefined });
+
+    try {
+      instance = await CookieConsentCore.create({ ...siteSettingsObj, monitorInterval: 0 }, options);
+      await waitForRoot();
+      expect(getRootElement()).not.toBeNull();
+    } finally {
+      if (resizeObserverDescriptor) {
+        Object.defineProperty(window, 'ResizeObserver', resizeObserverDescriptor);
+      }
+    }
+  });
+
+  it('should initialize when optional browser storage APIs are unavailable', async () => {
+    const indexedDBDescriptor = Object.getOwnPropertyDescriptor(window, 'indexedDB');
+    const cachesDescriptor = Object.getOwnPropertyDescriptor(window, 'caches');
+    // @ts-ignore
+    Object.defineProperty(window, 'indexedDB', { configurable: true, value: undefined });
+    // @ts-ignore
+    Object.defineProperty(window, 'caches', { configurable: true, value: undefined });
+
+    try {
+      instance = await CookieConsentCore.create({ ...siteSettingsObj, monitorInterval: 500 }, options);
+      await waitForRoot();
+      expect(instance).toBeDefined();
+    } finally {
+      if (indexedDBDescriptor) {
+        Object.defineProperty(window, 'indexedDB', indexedDBDescriptor);
+      }
+      if (cachesDescriptor) {
+        Object.defineProperty(window, 'caches', cachesDescriptor);
+      }
+    }
   });
 
   // - Are there whitelisted groups available in window scope?
@@ -915,7 +1056,7 @@ describe('cookieConsentCore', () => {
     // Remove test_optional approval
     bannerClicks.unApproveCategory(selectedCategory);
 
-    await waitForConsole('log', `Cookie consent: will delete unapproved localStorage(s): '${itemName}'`);
+    await waitForConsole('log', `Cookie consent: will delete consent withdrawn localStorage(s): '${itemName}'`);
 
     // Verify localStorage changes
     const localStorageItemAfterRemoval = localStorage.getItem(itemName);
@@ -957,7 +1098,7 @@ describe('cookieConsentCore', () => {
     // Remove test_optional approval
     bannerClicks.unApproveCategory(selectedCategory);
 
-    await waitForConsole('log', `Cookie consent: will delete unapproved sessionStorage(s): '${itemName}'`);
+    await waitForConsole('log', `Cookie consent: will delete consent withdrawn sessionStorage(s): '${itemName}'`);
 
     // Verify sessionStorage changes
     const sessionStorageItemAfterRemoval = sessionStorage.getItem(itemName);
@@ -1069,7 +1210,7 @@ describe('cookieConsentCore', () => {
     // Remove test_optional approval
     bannerClicks.unApproveCategory(selectedCategory);
 
-    await waitForConsole('log', `Cookie consent: will delete unapproved cacheStorage(s): '${itemName}'`);
+    await waitForConsole('log', `Cookie consent: will delete consent withdrawn cacheStorage(s): '${itemName}'`);
 
     // Verify cacheStorage changes
     const cacheStorageItemAfterRemoval = sessionStorage.getItem(itemName);
