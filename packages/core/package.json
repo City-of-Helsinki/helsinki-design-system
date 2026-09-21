@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^24"
+    "node": "^24.18.0"
   },
   "browserslist": "> 0.2%, not iOS < 15, not Safari < 14.5, not dead, not op_mini all, not Android >= 0, not and_uc >= 0",
   "main": "lib/base.min.css",
