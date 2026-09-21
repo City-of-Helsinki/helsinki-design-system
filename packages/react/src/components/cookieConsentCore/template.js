@@ -33,6 +33,14 @@ const visuallyHiddenStyleInJS = `
   white-space: nowrap;
   width: 1px;`;
 
+const escapeHtml = (value) =>
+  String(value ?? '')
+    .replace(/&/g, '&amp;')
+    .replace(/</g, '&lt;')
+    .replace(/>/g, '&gt;')
+    .replace(/"/g, '&quot;')
+    .replace(/'/g, '&#039;');
+
 /**
  *
  * @param {object} objects That contain translations, key and optional parameters
@@ -55,7 +63,7 @@ function getTranslationObjects(objects, lang, directions, fallbackLang) {
  * @returns string HTML attributes for lang and dir if needed
  */
 function getLangAttributes(translated) {
-  return translated.fallback ? `lang="${translated.lang}" dir="${translated.dir}"` : '';
+  return translated.fallback ? `lang="${escapeHtml(translated.lang)}" dir="${escapeHtml(translated.dir)}"` : '';
 }
 
 /**
@@ -91,12 +99,12 @@ export function getNotificationHtml(message, notificationAriaLabel, type = 'succ
       break;
   }
   return `
-    <section aria-label="${notificationAriaLabel.value}" class="hds-notification hds-notification--small ${typeString} enter">
+    <section aria-label="${escapeHtml(notificationAriaLabel.value)}" class="hds-notification hds-notification--small ${typeString} enter">
       <div class="hds-notification__content">
         <div class="hds-notification__label">
           <span class="hds-icon ${iconHtml}" aria-hidden="true"></span>
         </div>
-        <div class="hds-notification__body" ${getLangAttributes(message)}>${message.value}</div>
+        <div class="hds-notification__body" ${getLangAttributes(message)}>${escapeHtml(message.value)}</div>
       </div>
     </section>`;
 }
@@ -153,15 +161,15 @@ export function getCookieBannerHtml(
   const bannerDir = directions[bannerLang] || 'ltr';
 
   return `
-<div id="hds-cc" class="${CONSTANTS.cookieConsentClass} ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${theme}" tabindex="-1" role="region" aria-label="${translated.bannerAriaLabel.value}">
+<div id="hds-cc" class="${CONSTANTS.cookieConsentClass} ${isBanner ? 'hds-cc--banner' : 'hds-cc--page'} hds-theme--${escapeHtml(theme)}" tabindex="-1" role="region" aria-label="${escapeHtml(translated.bannerAriaLabel.value)}">
   <div class="${CONSTANTS.containerClass}">
-    <div class="hds-cc__aligner" lang="${bannerLang}" dir="${bannerDir}">
+    <div class="hds-cc__aligner" lang="${escapeHtml(bannerLang)}" dir="${escapeHtml(bannerDir)}">
 
       <h2 class="hds-cc__heading" ${getLangAttributes(translated.heading)}>
-        ${translated.heading.value}
+        ${escapeHtml(translated.heading.value)}
       </h2>
       <p class="hds-cc__description" ${getLangAttributes(translated.description)}>
-        ${translated.description.value}
+        ${escapeHtml(translated.description.value)}
       </p>
 
       <button
@@ -171,14 +179,14 @@ export function getCookieBannerHtml(
         aria-expanded="false"
         aria-live="polite">
         <span aria-hidden="true" class="hds-icon hds-icon--angle-down"></span>
-        <span class="hds-cc__accordion-button-show hds-button__label" ${getLangAttributes(translated.showDetails)}>${translated.showDetails.value}</span>
-        <span class="hds-cc__accordion-button-hide hds-button__label" ${getLangAttributes(translated.hideDetails)}>${translated.hideDetails.value}</span>
+        <span class="hds-cc__accordion-button-show hds-button__label" ${getLangAttributes(translated.showDetails)}>${escapeHtml(translated.showDetails.value)}</span>
+        <span class="hds-cc__accordion-button-hide hds-button__label" ${getLangAttributes(translated.hideDetails)}>${escapeHtml(translated.hideDetails.value)}</span>
       </button>
 
       <form action="" class="hds-cc__form" id="hds-cc-form">
         <div class="hds-cc__form__animator">
-          <h3 ${getLangAttributes(translated.formHeading)}>${translated.formHeading.value}</h3>
-          <p ${getLangAttributes(translated.formText)}>${translated.formText.value}</p>
+          <h3 ${getLangAttributes(translated.formHeading)}>${escapeHtml(translated.formHeading.value)}</h3>
+          <p ${getLangAttributes(translated.formText)}>${escapeHtml(translated.formText.value)}</p>
 
           <div class="hds-cc__groups">
             ${groupsHtml}
@@ -188,13 +196,13 @@ export function getCookieBannerHtml(
       ${optionalAriaLiveElement}
       <div class="hds-cc__buttons">
         <button type="submit" class="hds-button hds-button--secondary hds-cc__selected-cookies-button" data-approved="selected">
-        <span class="hds-button__label" ${getLangAttributes(translated.approveRequiredAndSelectedConsents)}>${translated.approveRequiredAndSelectedConsents.value}</span>
+        <span class="hds-button__label" ${getLangAttributes(translated.approveRequiredAndSelectedConsents)}>${escapeHtml(translated.approveRequiredAndSelectedConsents.value)}</span>
         </button>
         <button type="submit" class="hds-button hds-button--secondary hds-cc__all-cookies-button" data-approved="all">
-          <span class="hds-button__label" ${getLangAttributes(translated.approveAllConsents)}>${translated.approveAllConsents.value}</span>
+          <span class="hds-button__label" ${getLangAttributes(translated.approveAllConsents)}>${escapeHtml(translated.approveAllConsents.value)}</span>
         </button>
         <button type="submit" class="hds-button hds-button--secondary hds-cc__required-cookies-button" data-approved="required">
-          <span class="hds-button__label" ${getLangAttributes(translated.approveOnlyRequiredConsents)}>${translated.approveOnlyRequiredConsents.value}</span>
+          <span class="hds-button__label" ${getLangAttributes(translated.approveOnlyRequiredConsents)}>${escapeHtml(translated.approveOnlyRequiredConsents.value)}</span>
         </button>
       </div>
     </div>
@@ -228,7 +236,7 @@ export function formatTimestamp(timestamp, groupId, translations, lang, directio
   );
 
   return timestamp
-    ? `<p class="timestamp" data-group="${groupId}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${acceptedTranslation.acceptedAt.value}</p>`
+    ? `<p class="timestamp" data-group="${escapeHtml(groupId)}" ${getLangAttributes(acceptedTranslation.acceptedAt)}>${escapeHtml(acceptedTranslation.acceptedAt.value)}</p>`
     : '';
 }
 
@@ -299,27 +307,27 @@ export function getGroupHtml(
   );
 
   return `
-            <div class="hds-cc__group" data-group-id="${groupId}">
+            <div class="hds-cc__group" data-group-id="${escapeHtml(groupId)}">
               <div class="hds-checkbox">
-                <input type="checkbox" id="${groupId}-cookies" class="hds-checkbox__input" ${required} ${accepted} data-group="${groupId}" />
-                <label for="${groupId}-cookies" class="hds-checkbox__label" ${getLangAttributes(translated.title)}>${translated.title.value}</label>
+                <input type="checkbox" id="${escapeHtml(groupId)}-cookies" class="hds-checkbox__input" ${required} ${accepted} data-group="${escapeHtml(groupId)}" />
+                <label for="${escapeHtml(groupId)}-cookies" class="hds-checkbox__label" ${getLangAttributes(translated.title)}>${escapeHtml(translated.title.value)}</label>
               </div>
               ${getNotificationHtml(translated.highlightedGroup, translated.highlightedGroupAria, 'info')}
-              <p ${getLangAttributes(translated.description)}>${translated.description.value}</p>
-              <div data-timestamp="${groupId}">
+              <p ${getLangAttributes(translated.description)}>${escapeHtml(translated.description.value)}</p>
+              <div data-timestamp="${escapeHtml(groupId)}">
                 ${formatTimestamp(timestamp, groupId, translations, lang, directions, fallbackLang)}
               </div>
 
               <button
                 type="button"
                 class="hds-cc__accordion-button hds-cc__accordion-button--group-details hds-button hds-button--small hds-button--supplementary"
-                aria-controls="hds-cc-group-details-${groupId}"
+                aria-controls="hds-cc-group-details-${escapeHtml(groupId)}"
                 aria-expanded="false"
                 aria-live="polite">
                 <span aria-hidden="true" class="hds-icon hds-icon--angle-down"></span>
-                <span class="hds-cc__accordion-button-show hds-button__label" ${getLangAttributes(translated.showCookieSettings)}>${translated.showCookieSettings.value}</span>
-                <span class="hds-cc__accordion-button-hide hds-button__label" ${getLangAttributes(translated.hideCookieSettings)}>${translated.hideCookieSettings.value}</span>
-                <span class="visually-hidden" ${getLangAttributes(translated.title)}>${translated.title.value}</span>
+                <span class="hds-cc__accordion-button-show hds-button__label" ${getLangAttributes(translated.showCookieSettings)}>${escapeHtml(translated.showCookieSettings.value)}</span>
+                <span class="hds-cc__accordion-button-hide hds-button__label" ${getLangAttributes(translated.hideCookieSettings)}>${escapeHtml(translated.hideCookieSettings.value)}</span>
+                <span class="visually-hidden" ${getLangAttributes(translated.title)}>${escapeHtml(translated.title.value)}</span>
               </button>
               <div class="hds-cc__group-details" id="hds-cc-group-details-${groupId}">
                 <div class="hds-cc__group-details__animator">
@@ -327,11 +335,11 @@ export function getGroupHtml(
                     <table class="hds-table hds-table--light">
                       <thead>
                         <tr class="hds-table__header-row">
-                        <th scope="col" ${getLangAttributes(translated.tableHeadingsName)}>${translated.tableHeadingsName.value}</th>
-                        <th scope="col" ${getLangAttributes(translated.tableHeadingsHostName)}>${translated.tableHeadingsHostName.value}</th>
-                        <th scope="col" ${getLangAttributes(translated.tableHeadingsDescription)}>${translated.tableHeadingsDescription.value}</th>
-                        <th scope="col" ${getLangAttributes(translated.tableHeadingsExpiration)}>${translated.tableHeadingsExpiration.value}</th>
-                        <th scope="col" ${getLangAttributes(translated.tableHeadingsType)}>${translated.tableHeadingsType.value}</th>
+                        <th scope="col" ${getLangAttributes(translated.tableHeadingsName)}>${escapeHtml(translated.tableHeadingsName.value)}</th>
+                        <th scope="col" ${getLangAttributes(translated.tableHeadingsHostName)}>${escapeHtml(translated.tableHeadingsHostName.value)}</th>
+                        <th scope="col" ${getLangAttributes(translated.tableHeadingsDescription)}>${escapeHtml(translated.tableHeadingsDescription.value)}</th>
+                        <th scope="col" ${getLangAttributes(translated.tableHeadingsExpiration)}>${escapeHtml(translated.tableHeadingsExpiration.value)}</th>
+                        <th scope="col" ${getLangAttributes(translated.tableHeadingsType)}>${escapeHtml(translated.tableHeadingsType.value)}</th>
                         </tr>
                       </thead>
                       <tbody class="hds-table__content">
@@ -377,11 +385,11 @@ export function getTableRowHtml(rowData, translations, lang, directions, fallbac
 
   return `
                     <tr>
-                      <td ${getLangAttributes(translated.name)}>${translated.name.value}</td>
-                      <td ${getLangAttributes(translated.host)}>${translated.host.value}</td>
-                      <td ${getLangAttributes(translated.description)}>${translated.description.value}</td>
-                      <td ${getLangAttributes(translated.expiration)}>${translated.expiration.value}</td>
-                      <td ${getLangAttributes(translated[storageType])}>${translated[storageType].value}</td>
+                      <td ${getLangAttributes(translated.name)}>${escapeHtml(translated.name.value)}</td>
+                      <td ${getLangAttributes(translated.host)}>${escapeHtml(translated.host.value)}</td>
+                      <td ${getLangAttributes(translated.description)}>${escapeHtml(translated.description.value)}</td>
+                      <td ${getLangAttributes(translated.expiration)}>${escapeHtml(translated.expiration.value)}</td>
+                      <td ${getLangAttributes(translated[storageType])}>${escapeHtml(translated[storageType].value)}</td>
                     </tr>
                     `;
 }
