@@ -871,7 +871,6 @@
     "siteName",
     "cookieName",
     "requiredGroups",
-    "optionalGroups",
     "translations"
   ]
 }

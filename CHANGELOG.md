@@ -17,8 +17,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Breaking
 
-- [Component] What are the breaking changes?
-
 #### Added
 
 - [Component] What is added?
@@ -27,18 +25,16 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
-
 #### Fixed
 
+- [Cookie consent] `optionalGroups` may be omitted from site settings and defaults to an empty array.
+- [Cookie consent] Improved consent event listener lifecycle handling when callback props change.
 - [Component] What bugs/typos are fixed?
 
 ### Core
 
 #### Breaking
 
-- [Component] What are the breaking changes?
-
 #### Added
 
 - [Component] What is added?
@@ -47,10 +43,11 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
-
 #### Fixed
 
+- [Cookie consent] Invalid site settings are rejected before the consent instance is initialized.
+- [Cookie consent] Improved rendering safety, resource cleanup, and browser storage monitoring.
+- [Cookie consent] Settings-derived HTML is escaped before it is rendered.
 - [Link] Fixed `.hds-link--disable-visited-styles` using a hardcoded color instead of the `--link-color` custom property, causing visited links to revert to the default color when a custom link color was set.
 
 ### Documentation
