@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+- [Dependencies] Updated pnpm to 11.27.0, Playwright and its Docker image to 1.63.0, and Axe Playwright to 4.13.0. Refreshed visual regression snapshots for the updated browser version.
 
 ### React
 
@@ -31,7 +31,8 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Button] Prevented buttons from stretching to the height of sibling elements inside flex containers.
+- [CookieConsentCore] Fixed test action buttons becoming too narrow instead of wrapping on small screens.
 
 ### Core
 
@@ -51,6 +52,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
+- [Button] Prevented buttons from stretching to the height of sibling elements inside flex containers.
 - [Link] Fixed `.hds-link--disable-visited-styles` using a hardcoded color instead of the `--link-color` custom property, causing visited links to revert to the default color when a custom link color was set.
 
 ### Documentation
