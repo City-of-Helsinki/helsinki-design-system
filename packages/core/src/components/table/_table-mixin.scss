@@ -1,8 +1,17 @@
 @use '../../utils/bem' as BemUtil;
 
 @mixin base {
+  // The caption has a background of its own so that the scroll shadows do not show through it. It
+  // is deliberately not --content-background-color: the caption is above the table, on the surface
+  // of the page, and should not follow a custom colour given to the cells.
+  --caption-background-color: var(--color-white);
   --content-background-color: var(--color-white);
 
+  // The frame of the table. A border on a table element is drawn around the table grid box, which
+  // leaves the caption outside the frame and puts the top line right above the header row. Cells
+  // and rows only draw the lines inside the frame. Every line is the same 1px
+  // var(--color-black-50).
+  border: 1px solid var(--color-black-50);
   border-collapse: collapse;
   line-height: 1.5;
   width: 100%;
@@ -16,7 +25,7 @@
   }
 
   & th {
-    border-bottom: 1px solid var(--color-black-20);
+    border-bottom: 1px solid var(--color-black-50);
     font-size: var(--fontsize-body-m);
     font-weight: 500;
     line-height: var(--lineheight-l);
@@ -35,6 +44,8 @@
     padding: var(--spacing-xs) var(--spacing-m);
   }
 
+  // No vertical lines in the header row: the header cells draw none, and the frame of the table is
+  // not their business either.
   &__header-row {
     background-color: var(--header-background-color);
   }
@@ -57,7 +68,7 @@
       font-size: var(--fontsize-heading-xxs);
       letter-spacing: 0.2px;
       line-height: var(--lineheight-l);
-      margin-bottom: var(--spacing-xs);
+      padding-bottom: var(--spacing-xs);
     }
   }
 }
@@ -68,12 +79,30 @@
   }
 }
 
+// The caption is outside the frame of the table but inside the scrolling container. The background
+// and the stacking context keep the scroll shadows out of the caption area, because the shadows are
+// positioned elements with a z-index of their own.
+// The gap to the table is padding and not margin, so that the background of the caption covers it
+// and the scroll shadows do not show in the gap either.
 @mixin caption {
+  background: var(--caption-background-color);
   font-size: var(--fontsize-body-l);
   font-weight: normal;
   line-height: var(--lineheight-l);
-  margin-bottom: var(--spacing-s);
+  padding-bottom: var(--spacing-s);
+  position: relative;
   text-align: left;
+  z-index: 2;
+}
+
+// Wrap the content of the caption in this to keep the caption in place when a wide table is
+// scrolled horizontally. Sticky positioning on the caption element itself does nothing, and the
+// element has to be narrower than the caption, which is as wide as the table, or sticky has no room
+// to move it in.
+@mixin captionContent {
+  display: inline-block;
+  left: 0;
+  position: sticky;
 }
 
 
@@ -110,34 +139,25 @@
   &--dense #{&}__caption {
     font-size: var(--fontsize-body-m);
     line-height: var(--lineheight-l);
-    margin-bottom: var(--spacing-xs);
+    padding-bottom: var(--spacing-xs);
   }
 }
 
 @mixin zebra {
   &--zebra #{&}__content {
-    & tr td {
-      border-bottom: none;
-    }
-
+    // The row lines of the base styles are kept, so that the zebra variant has the same lines as
+    // every other variant.
     & tr:nth-child(even) td {
-      background-color: var(--color-black-10);
+      background-color: var(--color-black-5);
     }
   }
 }
 
 @mixin withVerticalLines {
-  &--with-vertical-lines #{&}__content {
-    border-left: 1px solid var(--color-black-50);
-
-    & td {
-      border-right: 1px solid var(--color-black-50);
-    }
-  }
-
-  &--with-vertical-lines #{&}__header-row {
-    border-left: 1px solid var(--header-background-color);
-    border-right: 1px solid var(--header-background-color);
+  // Only the lines between the columns. The line at the last column would land on the frame of the
+  // container, and the header row has no vertical lines at all.
+  &--with-vertical-lines #{&}__content td:not(:last-child) {
+    border-right: 1px solid var(--color-black-50);
   }
 }
 
@@ -146,12 +166,28 @@
     background-color: var(--header-background-color);
   }
 
-  &--with-vertical-header#{&}--with-vertical-lines #{&}__content {
-    border-left: none;
+  // A th in the content is a vertical header cell. The column is one block of colour without
+  // horizontal lines, and the line towards the content cells is on these cells instead of the col
+  // element, so that it does not continue into the header row.
+  &__content th {
+    border-bottom: 0;
+    border-right: 1px solid var(--color-black-50);
+  }
+}
+
+// Turns off the outer border of the table, for a table that sits in something that already has a
+// border of its own. Only the outer border goes: the row lines, the line under the header and the
+// vertical lines stay. The class is doubled to win over the border in the base styles regardless of
+// the order the parts are outputted in.
+@mixin withoutOuterBorder {
+  &--without-outer-border#{&} {
+    border: 0;
   }
 
-  &--with-vertical-lines#{&}--with-vertical-header #{&}__header-row {
-    border-left: none;
+  // The line under the last row is left out as well, because without the frame it reads as the
+  // bottom border of the table.
+  &--without-outer-border#{&} #{&}__content tr:last-child td {
+    border-bottom: 0;
   }
 }
 
@@ -159,18 +195,89 @@
   text-align: right;
 }
 
+// Shadows at the edges of the container, shown while there is content to scroll to in that
+// direction. No markup and no JavaScript is needed: the container is turned into a single cell
+// grid and its own pseudo elements are the shadows, with the opacity driven by a scroll timeline.
+// Browsers without scroll-driven animation support show no shadows at all. The React package
+// toggles the same shadows with a scroll listener, so there they work in every browser.
+@mixin scrollShadows {
+  &-container {
+    --scroll-shadow-color: rgb(0 0 0 / 0.2);
+    --scroll-shadow-width: var(--spacing-m);
+
+    display: grid;
+
+    // The column has to span the scrolled content, because a sticky box cannot leave its
+    // containing block, which for a grid item is its grid area. A column ending at the edge of the
+    // container would let the shadows scroll away with the content.
+    // An auto column is sized from the minimum content contribution of the table and is stretched
+    // to the container when there is room, which gives the exact width a table has without the
+    // grid. A minmax() with a percentage minimum does not work: the column starts at the container
+    // width and only grows into free space, of which a full width table leaves none.
+    grid-template-columns: auto;
+  }
+
+  // Only the table is placed in the cell. Anything else inside the container keeps flowing into
+  // rows of its own instead of being stacked under the table.
+  &-container > table {
+    grid-area: 1 / 1;
+  }
+
+  // Sticky instead of absolute, so that the shadows stay at the edges of the visible area while
+  // the content scrolls under them, and stay inside the container focus outline.
+  &-container:before,
+  &-container:after {
+    content: '';
+    grid-area: 1 / 1;
+    opacity: 0;
+    pointer-events: none;
+    position: sticky;
+    width: var(--scroll-shadow-width);
+    z-index: 1;
+  }
+
+  &-container:before {
+    background-image: linear-gradient(to right, var(--scroll-shadow-color), transparent);
+    inset-inline-start: 0;
+    justify-self: start;
+  }
+
+  &-container:after {
+    background-image: linear-gradient(to left, var(--scroll-shadow-color), transparent);
+    inset-inline-end: 0;
+    justify-self: end;
+  }
+
+  @supports (animation-timeline: scroll()) {
+    &-container:before {
+      animation: hds-table-scroll-shadow-fade-in linear both;
+      animation-range: 0 var(--scroll-shadow-width);
+      animation-timeline: scroll(nearest inline);
+    }
+
+    &-container:after {
+      animation: hds-table-scroll-shadow-fade-out linear both;
+      animation-range: calc(100% - var(--scroll-shadow-width)) 100%;
+      animation-timeline: scroll(nearest inline);
+    }
+  }
+}
+
 @mixin table(
   $all: true,
   $base: false,
   $textAlignTdRight: false,
   $caption: false,
+  $captionContent: false,
   $dark: false,
   $light: false,
   $withVerticalLines: false,
   $dense: false,
   $zebra: false,
   $withVerticalHeader: false,
+  $withoutOuterBorder: false,
   $textAlignRight: false,
+  $scrollShadows: false,
   $override: null,
   $react: false
 ) {
@@ -195,6 +302,12 @@
   @if $all or $caption {
     @include BemUtil.unscopedElement($className, 'caption', $react) {
       @include caption;
+    }
+  }
+
+  @if $all or $captionContent {
+    @include BemUtil.unscopedElement($className, 'caption-content', $react) {
+      @include captionContent;
     }
   }
 
@@ -235,9 +348,41 @@
     }
   }
 
+  @if $all or $withoutOuterBorder {
+    @include BemUtil.block($className, $override != null, $react) {
+      @include withoutOuterBorder;
+    }
+  }
+
   @if $all or $textAlignRight {
     @include BemUtil.unscopedModifier($className, 'text-align-right', $react) {
       @include textAlignRight;
+    }
+  }
+
+  @if $all or $scrollShadows {
+    @keyframes hds-table-scroll-shadow-fade-in {
+      from {
+        opacity: 0;
+      }
+
+      to {
+        opacity: 1;
+      }
+    }
+
+    @keyframes hds-table-scroll-shadow-fade-out {
+      from {
+        opacity: 1;
+      }
+
+      to {
+        opacity: 0;
+      }
+    }
+
+    @include BemUtil.block($className, $override != null, $react) {
+      @include scrollShadows;
     }
   }
 

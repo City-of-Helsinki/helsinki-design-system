@@ -13,8 +13,10 @@
       @include expect {
         @at-root {
           .hds-table {
+            --caption-background-color: var(--color-white);
             --content-background-color: var(--color-white);
 
+            border: 1px solid var(--color-black-50);
             border-collapse: collapse;
             line-height: 1.5;
             width: 100%;
@@ -29,7 +31,7 @@
           }
 
           .hds-table th {
-            border-bottom: 1px solid var(--color-black-20);
+            border-bottom: 1px solid var(--color-black-50);
             font-size: var(--fontsize-body-m);
             font-weight: 500;
             line-height: var(--lineheight-l);
@@ -57,11 +59,20 @@
           }
 
           .hds-table__caption {
+            background: var(--caption-background-color);
             font-size: var(--fontsize-body-l);
             font-weight: normal;
             line-height: var(--lineheight-l);
-            margin-bottom: var(--spacing-s);
+            padding-bottom: var(--spacing-s);
+            position: relative;
             text-align: left;
+            z-index: 2;
+          }
+
+          .hds-table__caption-content {
+            display: inline-block;
+            left: 0;
+            position: sticky;
           }
 
           .hds-table--dark {
@@ -80,17 +91,8 @@
             color: var(--color-black-90);
           }
 
-          .hds-table--with-vertical-lines .hds-table__content {
-            border-left: 1px solid var(--color-black-50);
-          }
-
-          .hds-table--with-vertical-lines .hds-table__content td {
+          .hds-table--with-vertical-lines .hds-table__content td:not(:last-child) {
             border-right: 1px solid var(--color-black-50);
-          }
-
-          .hds-table--with-vertical-lines .hds-table__header-row {
-            border-left: 1px solid var(--header-background-color);
-            border-right: 1px solid var(--header-background-color);
           }
 
           .hds-table--dense.hds-table th {
@@ -107,31 +109,101 @@
           .hds-table--dense .hds-table__caption {
             font-size: var(--fontsize-body-m);
             line-height: var(--lineheight-l);
-            margin-bottom: var(--spacing-xs);
-          }
-
-          .hds-table--zebra .hds-table__content tr td {
-            border-bottom: none;
+            padding-bottom: var(--spacing-xs);
           }
 
           .hds-table--zebra .hds-table__content tr:nth-child(even) td {
-            background-color: var(--color-black-10);
+            background-color: var(--color-black-5);
           }
 
           .hds-table__vertical-header-column {
             background-color: var(--header-background-color);
           }
 
-          .hds-table--with-vertical-header.hds-table--with-vertical-lines .hds-table__content {
-            border-left: none;
+          .hds-table__content th {
+            border-bottom: 0;
+            border-right: 1px solid var(--color-black-50);
           }
 
-          .hds-table--with-vertical-lines.hds-table--with-vertical-header .hds-table__header-row {
-            border-left: none;
+          .hds-table--without-outer-border.hds-table {
+            border: 0;
+          }
+
+          .hds-table--without-outer-border.hds-table .hds-table__content tr:last-child td {
+            border-bottom: 0;
           }
 
           .hds-table--text-align-right {
             text-align: right;
+          }
+
+          @keyframes hds-table-scroll-shadow-fade-in {
+            from {
+              opacity: 0;
+            }
+
+            to {
+              opacity: 1;
+            }
+          }
+
+          @keyframes hds-table-scroll-shadow-fade-out {
+            from {
+              opacity: 1;
+            }
+
+            to {
+              opacity: 0;
+            }
+          }
+
+          .hds-table-container {
+            --scroll-shadow-color: rgb(0 0 0 / 0.2);
+            --scroll-shadow-width: var(--spacing-m);
+
+            display: grid;
+            grid-template-columns: auto;
+          }
+
+          .hds-table-container > table {
+            grid-area: 1/1;
+          }
+
+          .hds-table-container:before,
+          .hds-table-container:after {
+            content: "";
+            grid-area: 1/1;
+            opacity: 0;
+            pointer-events: none;
+            position: sticky;
+            width: var(--scroll-shadow-width);
+            z-index: 1;
+          }
+
+          .hds-table-container:before {
+            background-image: linear-gradient(to right, var(--scroll-shadow-color), transparent);
+            inset-inline-start: 0;
+            justify-self: start;
+          }
+
+          .hds-table-container:after {
+            background-image: linear-gradient(to left, var(--scroll-shadow-color), transparent);
+            inset-inline-end: 0;
+            justify-self: end;
+          }
+
+          @supports (animation-timeline: scroll()) {
+            .hds-table-container:before {
+              animation: hds-table-scroll-shadow-fade-in linear both;
+              animation-range: 0 var(--scroll-shadow-width);
+              animation-timeline: scroll(nearest inline);
+            }
+
+            .hds-table-container:after {
+              animation: hds-table-scroll-shadow-fade-out linear both;
+              animation-range: calc(100% - var(--scroll-shadow-width)) 100%;
+              animation-timeline: scroll(nearest inline);
+            }
           }
 
           @media (max-width: 767px) {
@@ -150,7 +222,7 @@
               font-size: var(--fontsize-heading-xxs);
               letter-spacing: 0.2px;
               line-height: var(--lineheight-l);
-              margin-bottom: var(--spacing-xs);
+              padding-bottom: var(--spacing-xs);
             }
           }
         }
