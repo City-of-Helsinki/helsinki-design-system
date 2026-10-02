@@ -34,6 +34,7 @@ Changes that are not related to specific components
 
 - [Button] Prevented buttons from stretching to the height of sibling elements inside flex containers.
 - [CookieConsentCore] Fixed test action buttons becoming too narrow instead of wrapping on small screens.
+- [StepByStep] JSX description is no longer wrapped in a paragraph element, which caused invalid HTML nesting.
 
 ### Core
 
