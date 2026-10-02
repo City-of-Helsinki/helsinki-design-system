@@ -12,6 +12,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 #### Fixed
 
 - [StepByStep] JSX description is no longer wrapped in a paragraph element, which caused invalid HTML nesting.
+- [Select] Restored the missing `defaultFilter` export.
 
 ## [5.2.2] - July, 6, 2026
 
