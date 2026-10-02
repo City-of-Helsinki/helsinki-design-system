@@ -13,7 +13,7 @@ type StepType = {
    */
   buttons?: Array<ButtonProps>;
   /**
-   * Step description.
+   * Step description. A string is wrapped in a paragraph, a JSX element is rendered as is.
    */
   description?: JSX.Element | string;
   /**
@@ -96,7 +96,7 @@ const StepComponent = ({ title, description, buttons = [], links = [] }: StepTyp
     <li className={styles.stepItem}>
       <p className={styles.stepItemTitle}>{title}</p>
       <div>
-        {description && <p key="description">{description}</p>}
+        {typeof description === 'string' ? description && <p>{description}</p> : description}
         {buttons.map(renderButton)}
         {links.map(renderLink)}
       </div>
