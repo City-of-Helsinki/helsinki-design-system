@@ -45,4 +45,25 @@ describe('<StepByStep /> spec', () => {
     const element = getByTestId(divProps['data-testid']);
     expect(getElementAttributesMisMatches(element, { ...divProps })).toHaveLength(0);
   });
+  it('wraps a string description in a paragraph', () => {
+    const { getByText } = render(<StepByStep steps={[{ title: 'Step', description: 'Text description' }]} />);
+    expect(getByText('Text description').tagName).toBe('P');
+  });
+  it('renders a JSX description as is, without a wrapping paragraph', () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const description = (
+      <div data-testid="jsx-description">
+        <p>Paragraph inside JSX description</p>
+      </div>
+    );
+    const { getByTestId } = render(<StepByStep steps={[{ title: 'Step', description }]} />);
+    const element = getByTestId('jsx-description');
+    expect(element.parentElement?.tagName).toBe('DIV');
+    expect(element.closest('p')).toBeNull();
+    const nestingWarnings = consoleErrorSpy.mock.calls.filter(([message]) =>
+      String(message).includes('validateDOMNesting'),
+    );
+    consoleErrorSpy.mockRestore();
+    expect(nestingWarnings).toHaveLength(0);
+  });
 });
