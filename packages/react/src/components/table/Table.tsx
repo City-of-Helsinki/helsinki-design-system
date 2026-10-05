@@ -421,7 +421,7 @@ export const Table = ({
           <caption className={styles.caption}>
             {/* The content is wrapped, because only an element narrower than the caption can be
                 sticky inside it, which is what keeps the caption visible while scrolling. */}
-            <span className={styles.captionContent}>{caption}</span>
+            <div className={styles.captionContent}>{caption}</div>
           </caption>
         )}
         {verticalHeaders && verticalHeaders.length && <VerticalHeaderColGroup />}
