@@ -42,6 +42,26 @@ const gotoChecksStory = async (page: Page) => {
 const getCheckContainer = (page: Page, checkId: string): Locator =>
   page.locator(`[data-testid="${checkId}"] ${TABLE_CONTAINER_SELECTOR}`).first();
 
+const expectPaintedShadows = async (page: Page, container: Locator, fileName: string) => {
+  // Scrolled to the middle both shadows are visible, so one screenshot covers both.
+  await scrollHorizontallyTo(container, 'middle');
+  await waitForShadows(container, { start: true, end: true }, 'In the middle of the content');
+
+  const box = (await container.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
+  const clip = { x: box.x, y: box.y, width: box.width, height: 200 };
+
+  // Unlike the Core version, these shadows survive the default `animations: 'disabled'`, because
+  // their opacity comes from a plain CSS rule and the disabled transition is snapped to its end
+  // state. The comparison is stricter than the project default, because the shadow is a light
+  // gradient that the default threshold of 0.2 would largely ignore, and a missing shadow has to
+  // fail.
+  await expect(page).toHaveScreenshot(fileName, {
+    clip,
+    threshold: 0.1,
+    maxDiffPixelRatio: 0.002,
+  });
+};
+
 test.describe(`Testing ${storybook} component "table" scroll shadows`, () => {
   // The story sets its own widths and the assertions compare them, so the cases are run once, in a
   // viewport that is wide enough for them. A 320px viewport would make every table overflow.
@@ -155,25 +175,33 @@ test.describe(`Testing ${storybook} component "table" scroll shadows`, () => {
     await waitForShadows(container, { start: true, end: false }, 'A focused table at the end');
   });
 
-  test('Shadows are painted and not only computed', async ({ page, hasTouch }, testInfo) => {
-    const container = getCheckContainer(page, 'check-shadows-at-edges');
+  test('Shadows are mirrored in a right-to-left table', async ({ page }) => {
+    const container = getCheckContainer(page, 'check-rtl');
+    await expectToOverflow(container, true);
+    await expectShadowsToSpanTheScrolledContent(container);
+    await waitForShadows(container, { start: false, end: true }, 'At the start of the content');
 
-    // Scrolled to the middle both shadows are visible, so one screenshot covers both.
     await scrollHorizontallyTo(container, 'middle');
+    await expectShadowsToSpanTheScrolledContent(container);
     await waitForShadows(container, { start: true, end: true }, 'In the middle of the content');
 
-    const box = (await container.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
-    const clip = { x: box.x, y: box.y, width: box.width, height: 200 };
+    await scrollHorizontallyTo(container, 'end');
+    await expectShadowsToSpanTheScrolledContent(container);
+    await waitForShadows(container, { start: true, end: false }, 'At the end of the content');
 
-    // Unlike the Core version, these shadows survive the default `animations: 'disabled'`, because
-    // their opacity comes from a plain CSS rule and the disabled transition is snapped to its end
-    // state. The comparison is stricter than the project default, because the shadow is a light
-    // gradient that the default threshold of 0.2 would largely ignore, and a missing shadow has to
-    // fail.
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch), {
-      clip,
-      threshold: 0.1,
-      maxDiffPixelRatio: 0.002,
-    });
+    await scrollHorizontallyTo(container, 'start');
+    await waitForShadows(container, { start: false, end: true }, 'Back at the start of the content');
+  });
+
+  test('Shadows are painted and not only computed', async ({ page, hasTouch }, testInfo) => {
+    const container = getCheckContainer(page, 'check-shadows-at-edges');
+    await expectPaintedShadows(page, container, createScreenshotFileName(testInfo, hasTouch));
+  });
+
+  test('Shadows are painted mirrored in a right-to-left table', async ({ page, hasTouch }, testInfo) => {
+    // The gradients are the only part of the shadows that is not logical, so a shadow pointing the
+    // wrong way can only be caught from the pixels.
+    const container = getCheckContainer(page, 'check-rtl');
+    await expectPaintedShadows(page, container, createScreenshotFileName(testInfo, hasTouch));
   });
 });

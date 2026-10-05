@@ -248,6 +248,17 @@
     justify-self: end;
   }
 
+  // The positions are logical, but a gradient direction is physical, so the gradients are turned
+  // around for right-to-left content. Without this the darkest edge of each shadow would point
+  // towards the content instead of the edge of the container.
+  &-container:dir(rtl):before {
+    background-image: linear-gradient(to left, var(--scroll-shadow-color), transparent);
+  }
+
+  &-container:dir(rtl):after {
+    background-image: linear-gradient(to right, var(--scroll-shadow-color), transparent);
+  }
+
   @supports (animation-timeline: scroll()) {
     &-container:before {
       animation: hds-table-scroll-shadow-fade-in linear both;

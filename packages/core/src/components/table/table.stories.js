@@ -505,6 +505,32 @@ export const ScrollShadows = () => `
    </div>
 `;
 
+// In right-to-left content the shadows are mirrored: the start shadow is on the right and the end
+// shadow on the left, with the darkest edge of each at the edge of the container.
+export const ScrollShadowsRtl = () => `
+  <div class="hds-table-container" style="max-width: 640px;" tabindex="0" dir="rtl">
+    <table class="hds-table hds-table--dark" aria-label="Job trials" data-playwright="true">
+      <caption class="hds-table__caption"><span class="hds-table__caption-content"><b>Table 1</b>: Table description</span></caption>
+      <thead>
+        <tr class="hds-table__header-row">
+          <th scope="col">Job id</th>
+          <th scope="col">Type</th>
+          <th scope="col">Title</th>
+          <th scope="col">Expires</th>
+          <th scope="col">Department</th>
+          <th scope="col">Job name</th>
+          <th scope="col">Postal code</th>
+          <th scope="col">Available places</th>
+          <th scope="col">To be interviewed</th>
+        </tr>
+      </thead>
+      <tbody class="hds-table__content">
+        ${wideTableContent()}
+      </tbody>
+    </table>
+   </div>
+`;
+
 // The shadows must stay hidden when there is nothing to scroll, and the table must still stretch
 // to the full width of the container.
 export const ScrollShadowsWithoutOverflow = () => `
