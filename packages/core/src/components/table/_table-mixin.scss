@@ -91,7 +91,7 @@
   line-height: var(--lineheight-l);
   padding-bottom: var(--spacing-s);
   position: relative;
-  text-align: left;
+  text-align: start;
   z-index: 2;
 }
 
@@ -101,7 +101,7 @@
 // to move it in.
 @mixin captionContent {
   display: inline-block;
-  left: 0;
+  inset-inline-start: 0;
   position: sticky;
 }
 
