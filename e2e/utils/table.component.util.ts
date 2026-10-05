@@ -42,7 +42,9 @@ export const scrollHorizontallyTo = async (container: Locator, position: 'start'
   await container.evaluate((element: HTMLElement, target) => {
     const maxScroll = element.scrollWidth - element.clientWidth;
     const positions = { start: 0, middle: Math.round(maxScroll / 2), end: maxScroll };
-    element.scrollLeft = positions[target];
+    // scrollLeft is negative in rtl, and a positive value would be clamped to the start.
+    const direction = getComputedStyle(element).direction === 'rtl' ? -1 : 1;
+    element.scrollLeft = direction * positions[target];
   }, position);
 };
 

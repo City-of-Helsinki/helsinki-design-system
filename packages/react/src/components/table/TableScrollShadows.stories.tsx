@@ -127,6 +127,16 @@ export const ScrollShadowChecks = () => (
       <Table cols={wideCols} rows={wideRows} indexKey="id" />
     </Check>
 
+    <Check id="check-rtl" title="Right-to-left content">
+      <p style={note}>
+        The shadows are mirrored: the start shadow is on the right and the end shadow on the left. The darkest edge of
+        each shadow has to be at the edge of the container, not towards the content.
+      </p>
+      <div dir="rtl">
+        <Table cols={wideCols} rows={wideRows} indexKey="id" />
+      </div>
+    </Check>
+
     <Check id="check-text-wraps" title="Long text still wraps">
       <p style={note}>
         The most important regression check. The table has to fit the container with the text wrapping, exactly as

@@ -1,4 +1,4 @@
-import { test, expect, Page } from '@playwright/test';
+import { test, expect, Page, Locator } from '@playwright/test';
 
 import { createScreenshotFileName, getComponentStorybookUrls } from '../../../utils/playwright.util';
 import {
@@ -39,6 +39,31 @@ const gotoStory = async (page: Page, storyId: string) => {
 const supportsScrollDrivenAnimations = async (page: Page) =>
   page.evaluate(() => CSS.supports('animation-timeline', 'scroll()'));
 
+const expectPaintedShadows = async (page: Page, container: Locator, fileName: string) => {
+  // Scrolled to the middle both shadows are visible, so one screenshot covers both.
+  await scrollHorizontallyTo(container, 'middle');
+  await waitForShadows(container, { start: true, end: true }, 'In the middle of the content');
+
+  const box = (await container.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
+  // Only the top of the container. The story table is thousands of pixels tall and the shadows
+  // look the same all the way down, so a taller clip would only make a heavier snapshot.
+  const clip = { x: box.x, y: box.y, width: box.width, height: 200 };
+
+  // `animations: 'allow'` is required. The opacity of the shadows comes from a scroll driven
+  // animation, and the default 'disabled' cancels it, which would capture the table without any
+  // shadows and make this test pass no matter what. Allowing animations is safe here, because the
+  // animation is driven by the scroll position only and has nothing timing dependent in it.
+  //
+  // The comparison is stricter than the project default, because the shadow is a light gradient
+  // that the default threshold of 0.2 would largely ignore, and a missing shadow has to fail.
+  await expect(page).toHaveScreenshot(fileName, {
+    clip,
+    animations: 'allow',
+    threshold: 0.1,
+    maxDiffPixelRatio: 0.002,
+  });
+};
+
 test.describe(`Testing ${storybook} component "${componentName}" scroll shadows`, () => {
   // The stories set their own widths and the assertions compare them, so the cases are run once, in
   // a viewport that is wide enough for them. A 320px viewport would make every table overflow.
@@ -76,6 +101,23 @@ test.describe(`Testing ${storybook} component "${componentName}" scroll shadows`
     await expectShadowsToSpanTheScrolledContent(container);
   });
 
+  test('Shadows are mirrored in a right-to-left table', async ({ page }) => {
+    const container = await gotoStory(page, 'components-table--scroll-shadows-rtl');
+    test.skip(!(await supportsScrollDrivenAnimations(page)), 'No scroll-driven animation support');
+
+    await expectToOverflow(container, true);
+    await expectShadowsToSpanTheScrolledContent(container);
+    await waitForShadows(container, { start: false, end: true }, 'At the start of the content');
+
+    await scrollHorizontallyTo(container, 'middle');
+    await expectShadowsToSpanTheScrolledContent(container);
+    await waitForShadows(container, { start: true, end: true }, 'In the middle of the content');
+
+    await scrollHorizontallyTo(container, 'end');
+    await expectShadowsToSpanTheScrolledContent(container);
+    await waitForShadows(container, { start: true, end: false }, 'At the end of the content');
+  });
+
   test('A table without overflow shows no shadows and is stretched to the full width', async ({ page }) => {
     const container = await gotoStory(page, 'components-table--scroll-shadows-without-overflow');
 
@@ -91,27 +133,15 @@ test.describe(`Testing ${storybook} component "${componentName}" scroll shadows`
     const container = await gotoStory(page, 'components-table--scroll-shadows');
     test.skip(!(await supportsScrollDrivenAnimations(page)), 'No scroll-driven animation support');
 
-    // Scrolled to the middle both shadows are visible, so one screenshot covers both.
-    await scrollHorizontallyTo(container, 'middle');
-    await waitForShadows(container, { start: true, end: true }, 'In the middle of the content');
+    await expectPaintedShadows(page, container, createScreenshotFileName(testInfo, hasTouch));
+  });
 
-    const box = (await container.boundingBox()) || { x: 0, y: 0, width: 0, height: 0 };
-    // Only the top of the container. The story table is thousands of pixels tall and the shadows
-    // look the same all the way down, so a taller clip would only make a heavier snapshot.
-    const clip = { x: box.x, y: box.y, width: box.width, height: 200 };
+  test('Shadows are painted mirrored in a right-to-left table', async ({ page, hasTouch }, testInfo) => {
+    // The gradients are the only part of the shadows that is not logical, so a shadow pointing the
+    // wrong way can only be caught from the pixels.
+    const container = await gotoStory(page, 'components-table--scroll-shadows-rtl');
+    test.skip(!(await supportsScrollDrivenAnimations(page)), 'No scroll-driven animation support');
 
-    // `animations: 'allow'` is required. The opacity of the shadows comes from a scroll driven
-    // animation, and the default 'disabled' cancels it, which would capture the table without any
-    // shadows and make this test pass no matter what. Allowing animations is safe here, because the
-    // animation is driven by the scroll position only and has nothing timing dependent in it.
-    //
-    // The comparison is stricter than the project default, because the shadow is a light gradient
-    // that the default threshold of 0.2 would largely ignore, and a missing shadow has to fail.
-    await expect(page).toHaveScreenshot(createScreenshotFileName(testInfo, hasTouch), {
-      clip,
-      animations: 'allow',
-      threshold: 0.1,
-      maxDiffPixelRatio: 0.002,
-    });
+    await expectPaintedShadows(page, container, createScreenshotFileName(testInfo, hasTouch));
   });
 });
