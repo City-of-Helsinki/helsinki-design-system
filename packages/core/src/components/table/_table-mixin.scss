@@ -279,18 +279,18 @@
   $base: false,
   $textAlignTdRight: false,
   $caption: false,
-  $captionContent: false,
   $dark: false,
   $light: false,
   $withVerticalLines: false,
   $dense: false,
   $zebra: false,
   $withVerticalHeader: false,
-  $withoutOuterBorder: false,
   $textAlignRight: false,
-  $scrollShadows: false,
   $override: null,
-  $react: false
+  $react: false,
+  $captionContent: false,
+  $withoutOuterBorder: false,
+  $scrollShadows: false
 ) {
   $className: 'table';
 

@@ -39,7 +39,9 @@ const Table = (props) => {
       <table className="hds-table hds-table--dark">
         {tableName && caption && (
           <caption className="hds-table__caption">
-            <b>{tableName}</b>: {caption}
+            <span className="hds-table__caption-content">
+              <b>{tableName}</b>: {caption}
+            </span>
           </caption>
         )}
         {tableChildrenWithoutCaption}
