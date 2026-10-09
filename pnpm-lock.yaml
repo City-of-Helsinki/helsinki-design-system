@@ -134,7 +134,7 @@ importers:
         specifier: ^10.5.0
         version: 10.5.0
       hds-design-tokens:
-        specifier: 6.0.5
+        specifier: 6.0.6
         version: link:../design-tokens
       jest:
         specifier: ^29.7.0
@@ -278,10 +278,10 @@ importers:
         specifier: ^16.14.2
         version: 16.14.2
       hds-core:
-        specifier: 6.0.5
+        specifier: 6.0.6
         version: link:../core
       hds-design-tokens:
-        specifier: 6.0.5
+        specifier: 6.0.6
         version: link:../design-tokens
       jwt-decode:
         specifier: ^3.1.2
@@ -682,13 +682,13 @@ importers:
         specifier: ^7.0.1
         version: 7.0.1(@babel/plugin-syntax-flow@7.29.7(@babel/core@7.29.7(supports-color@8.1.1)))(@babel/plugin-transform-react-jsx@7.29.7(@babel/core@7.29.7(supports-color@8.1.1))(supports-color@8.1.1))(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)
       hds-core:
-        specifier: 6.0.5
+        specifier: 6.0.6
         version: link:../packages/core
       hds-design-tokens:
-        specifier: 6.0.5
+        specifier: 6.0.6
         version: link:../packages/design-tokens
       hds-react:
-        specifier: 6.0.5
+        specifier: 6.0.6
         version: link:../packages/react
       inquirer:
         specifier: 7.3.3
@@ -20569,7 +20569,7 @@ snapshots:
       shallow-compare: 1.2.2
       signal-exit: 3.0.7
       slugify: 1.6.9
-      socket.io: 4.8.3(supports-color@8.1.1)
+      socket.io: 4.8.3(supports-color@7.2.0)
       socket.io-client: 4.8.3(supports-color@8.1.1)
       stack-trace: 0.0.10
       string-similarity: 1.2.2
@@ -25871,7 +25871,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  socket.io@4.8.3(supports-color@8.1.1):
+  socket.io@4.8.3(supports-color@7.2.0):
     dependencies:
       accepts: 1.3.8
       base64id: 2.0.0

@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.X.X] - Month, XX, 202X
+## [6.0.6] - October, 9, 2026
 
 ### Workspace
 
@@ -15,10 +15,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 ### React
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
 - [Table] Horizontal scroll shadows at the edges of the table container, shown while there is content to scroll to in that direction and hidden when that end is reached.
@@ -26,8 +22,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [Table] `--caption-background-color` custom property for the background of the caption.
 
 #### Changed
-
-Changes that are not related to specific components
 
 - Clarified CookieConsentCore API property documentation.
 - [Table] Every line of the table is now 1px `var(--color-black-50)`: the new outer border, the line under the header row, the row lines and the vertical lines. The zebra variant keeps the row lines and uses `var(--color-black-5)` for the alternating rows.
@@ -41,10 +35,6 @@ Changes that are not related to specific components
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
 #### Added
 
 - [Table] Horizontal scroll shadows at the edges of the table container, with CSS only and without any changes to the markup. The shadows need support for CSS scroll-driven animations, and are not shown in browsers without it.
@@ -54,8 +44,6 @@ Changes that are not related to specific components
 - [Table] `scrollShadows`, `captionContent` and `withoutOuterBorder` mixins, and the matching parameters of the `table` mixin.
 
 #### Changed
-
-Changes that are not related to specific components
 
 - [Table] Every line of the table is now 1px `var(--color-black-50)`: the new outer border, the line under the header row, the row lines and the vertical lines. The zebra variant keeps the row lines and uses `var(--color-black-5)` for the alternating rows. The header row has no vertical lines, and the vertical header column has no horizontal lines.
 - [Table] `hds-table-container` is now a grid and uses its own `::before` and `::after` for the scroll shadows. Custom styles that use those pseudo elements or that rely on the container being a block element need to be checked.
@@ -68,17 +56,7 @@ Changes that are not related to specific components
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
-
-Changes that are not related to specific components
 
 - [Table] Documented the horizontal scroll shadows, the caption wrapper element, the `withoutOuterBorder` property and the `--caption-background-color` custom property.
 
@@ -88,66 +66,6 @@ Changes that are not related to specific components
 - Fixed anchor links in documentation site
 - Links to form validation pattern code examples
 - Fixed links to form validation pattern Storybook examples
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [6.0.5] - July, 17, 2026
 

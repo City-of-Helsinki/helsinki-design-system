@@ -1,6 +1,6 @@
 {
   "name": "hds-core",
-  "version": "6.0.5",
+  "version": "6.0.6",
   "description": "Core styles for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "repository": {
@@ -54,7 +54,7 @@
     "css-loader": "5.2.7",
     "cssnano": "^5.1.15",
     "glob": "^10.5.0",
-    "hds-design-tokens": "6.0.5",
+    "hds-design-tokens": "6.0.6",
     "jest": "^29.7.0",
     "postcss": "8.5.23",
     "postcss-classes-to-mixins": "^3.0.1",
