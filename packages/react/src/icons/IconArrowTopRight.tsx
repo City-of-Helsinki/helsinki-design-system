@@ -24,9 +24,9 @@ export const IconArrowTopRight = ({
     {...rest}
   >
     <path
+      d="M18 6V15H16L15.9997 9.446L7.43188 18.015L6.01767 16.6008L14.6177 8H8.99999V6H18Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M18 6V15H16L15.9997 9.446L7.43188 18.015L6.01767 16.6008L14.6177 8H8.99999V6H18Z"
       fill="currentColor"
     />
   </svg>

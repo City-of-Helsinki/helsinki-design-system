@@ -15,6 +15,7 @@
 @import url("arrow-top-right.css");
 @import url("arrow-undo.css");
 @import url("arrow-up.css");
+@import url("artificial-intelligence.css");
 @import url("at-sign.css");
 @import url("bag-cogwheel.css");
 @import url("bell.css");
@@ -69,11 +70,11 @@
 @import url("face-smile.css");
 @import url("facebook.css");
 @import url("family.css");
+@import url("family-numerous.css");
 @import url("folder.css");
 @import url("folder-group.css");
 @import url("globe.css");
 @import url("google.css");
-@import url("graph-columns.css");
 @import url("group.css");
 @import url("hammers.css");
 @import url("headphones.css");
@@ -159,6 +160,7 @@
 @import url("sort-descending.css");
 @import url("speechbubble.css");
 @import url("speechbubble-text.css");
+@import url("speechless.css");
 @import url("star.css");
 @import url("star-fill.css");
 @import url("swap-user.css");
@@ -175,6 +177,7 @@
 @import url("traveler.css");
 @import url("twitch.css");
 @import url("twitter.css");
+@import url("universal-access.css");
 @import url("upload.css");
 @import url("upload-cloud.css");
 @import url("user.css");
