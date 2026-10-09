@@ -24,9 +24,9 @@ export const IconTextItalic = ({
     {...rest}
   >
     <path
+      d="M16 4V6H13.75L12.25 18H14V20H8V18H10.25L11.75 6H10V4H16Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M16 4V6H13.75L12.25 18H14V20H8V18H10.25L11.75 6H10V4H16Z"
       fill="currentColor"
     />
   </svg>

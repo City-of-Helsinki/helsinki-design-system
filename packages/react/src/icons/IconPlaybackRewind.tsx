@@ -23,6 +23,6 @@ export const IconPlaybackRewind = ({
     style={style}
     {...rest}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M19 5L11 12L19 19V5ZM11 5L3 12L11 19V5Z" fill="currentColor" />
+    <path d="M19 5L11 12L19 19V5ZM11 5L3 12L11 19V5Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
   </svg>
 );
