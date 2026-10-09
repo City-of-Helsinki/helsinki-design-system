@@ -23,8 +23,8 @@ export const IconBox = ({
     style={style}
     {...rest}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M20 7V21H4V7H20ZM18 9V19H6V9H18Z" fill="currentColor" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M2 3H22V9H2V3ZM4 5V7H20V5H4Z" fill="currentColor" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M9 11V13H15V11H9Z" fill="currentColor" />
+    <path d="M20 7V21H4V7H20ZM18 9V19H6V9H18Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
+    <path d="M2 3H22V9H2V3ZM4 5V7H20V5H4Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
+    <path d="M9 11V13H15V11H9Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
   </svg>
 );

@@ -23,6 +23,6 @@ export const IconPlaybackFastforward = ({
     style={style}
     {...rest}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M5 5L13 12L5 19V5ZM13 5L21 12L13 19V5Z" fill="currentColor" />
+    <path d="M5 5L13 12L5 19V5ZM13 5L21 12L13 19V5Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
   </svg>
 );

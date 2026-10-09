@@ -24,9 +24,9 @@ export const IconFolderGroup = ({
     {...rest}
   >
     <path
+      d="M24 3H15L13 1H6V16H24V3ZM8 9H22V14H8V9ZM14 5H22V7H8V3H12L14 5Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M24 3H15L13 1H6V16H24V3ZM8 9H22V14H8V9ZM14 5H22V7H8V3H12L14 5Z"
       fill="currentColor"
     />
     <path d="M3 19H21V17H5V4H3V19Z" fill="currentColor" />

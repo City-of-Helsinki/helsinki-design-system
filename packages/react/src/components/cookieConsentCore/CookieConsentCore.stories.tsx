@@ -44,7 +44,7 @@ const Actions = () => {
   return (
     <>
       <h2>Controls</h2>
-      <div style={{ display: 'flex', gap: 'var(--spacing-s)' }}>
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 'var(--spacing-s)' }}>
         <Button onClick={addChatCookie}>Add chat group</Button>
         <Button onClick={addUnallowedCookie}>Add unallowed group</Button>
         <Button onClick={removeConsentCookie}>Remove consent cookie</Button>

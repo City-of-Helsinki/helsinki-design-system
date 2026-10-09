@@ -23,32 +23,32 @@ export const IconChildren = ({
     style={style}
     {...rest}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M5 24V21H7V24H5Z" fill="currentColor" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M7 24V21H9V24H7Z" fill="currentColor" />
+    <path d="M5 24V21H7V24H5Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
+    <path d="M7 24V21H9V24H7Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
       d="M6 18C5.44772 18 5 18.4477 5 19V21H3V19C3 17.3431 4.34315 16 6 16H8C9.65685 16 11 17.3431 11 19V21H9V19C9 18.4477 8.55228 18 8 18H6Z"
+      fillRule="evenodd"
+      clipRule="evenodd"
       fill="currentColor"
     />
     <path
-      fillRule="evenodd"
-      clipRule="evenodd"
       d="M7 10.5C8.38071 10.5 9.5 11.6193 9.5 13C9.5 14.3807 8.38071 15.5 7 15.5C5.61929 15.5 4.5 14.3807 4.5 13C4.5 11.6193 5.61929 10.5 7 10.5ZM7 12.5C6.72386 12.5 6.5 12.7239 6.5 13C6.5 13.2761 6.72386 13.5 7 13.5C7.27614 13.5 7.5 13.2761 7.5 13C7.5 12.7239 7.27614 12.5 7 12.5Z"
-      fill="currentColor"
-    />
-    <path fillRule="evenodd" clipRule="evenodd" d="M15 24V21H17V24H15Z" fill="currentColor" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M17 24V21H19V24H17Z" fill="currentColor" />
-    <path
       fillRule="evenodd"
       clipRule="evenodd"
+      fill="currentColor"
+    />
+    <path d="M15 24V21H17V24H15Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
+    <path d="M17 24V21H19V24H17Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
+    <path
       d="M16 18C15.4477 18 15 18.4477 15 19V21H13V19C13 17.3431 14.3431 16 16 16H18C19.6569 16 21 17.3431 21 19V21H19V19C19 18.4477 18.5523 18 18 18H16Z"
+      fillRule="evenodd"
+      clipRule="evenodd"
       fill="currentColor"
     />
     <path
+      d="M17 13.5C17.2761 13.5 17.5 13.2761 17.5 13C17.5 12.7239 17.2761 12.5 17 12.5C16.7239 12.5 16.5 12.7239 16.5 13C16.5 13.2761 16.7239 13.5 17 13.5ZM17 15.5C18.3807 15.5 19.5 14.3807 19.5 13C19.5 11.6193 18.3807 10.5 17 10.5C15.6193 10.5 14.5 11.6193 14.5 13C14.5 14.3807 15.6193 15.5 17 15.5Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M17 13.5C17.2761 13.5 17.5 13.2761 17.5 13C17.5 12.7239 17.2761 12.5 17 12.5C16.7239 12.5 16.5 12.7239 16.5 13C16.5 13.2761 16.7239 13.5 17 13.5ZM17 15.5C18.3807 15.5 19.5 14.3807 19.5 13C19.5 11.6193 18.3807 10.5 17 10.5C15.6193 10.5 14.5 11.6193 14.5 13C14.5 14.3807 15.6193 15.5 17 15.5Z"
       fill="currentColor"
     />
     <path
