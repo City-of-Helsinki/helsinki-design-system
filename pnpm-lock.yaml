@@ -8015,8 +8015,8 @@ packages:
     resolution: {integrity: sha512-ekilCSN1jwRvIbgeg/57YFh8qQDNbwDb9xT/qu2DAHbFFZUicIl4ygVaAvzveMhMVr3LnpSKTNnwt8PoOfmKhQ==}
     hasBin: true
 
-  joi@17.13.4:
-    resolution: {integrity: sha512-1RuuER6kmt8K8I3nIWvPZKi5RQCb568ZPyY4Pwjlua+yo+63ZTmIwxLZH0heBmiKN4uxjvCiarDrjaeH84xicQ==}
+  joi@17.13.8:
+    resolution: {integrity: sha512-iPKOGmiRw1jxf/JOPwxmCcUQAOdF359mdzYiP2DJ+TMX0YK2zjK3D+zYOaGjpumWxOFF/l2xVWjRVK5bGSLdEw==}
 
   js-tokens@4.0.0:
     resolution: {integrity: sha512-RdJUflcE3cUzKiMqQgsCu06FPu9UdIJO0beYbPhHN4k6apgJtifcoCtT9bcxOpYBtpD2kCM6Sbzg4CausW/PKQ==}
@@ -20064,7 +20064,7 @@ snapshots:
       gatsby-core-utils: 4.16.0(supports-color@8.1.1)
       hosted-git-info: 3.0.8
       is-valid-path: 0.1.1
-      joi: 17.13.4
+      joi: 17.13.8
       lodash: 4.18.1
       node-fetch: 2.7.0(encoding@0.1.13)
       opentracing: 0.14.7
@@ -20335,7 +20335,7 @@ snapshots:
       graphql: 16.14.2
       graphql-compose: 9.1.0(graphql@16.14.2)
       import-from: 4.0.0
-      joi: 17.13.4
+      joi: 17.13.8
       mime: 3.0.0
     transitivePeerDependencies:
       - bare-abort-controller
@@ -20526,7 +20526,7 @@ snapshots:
       invariant: 2.2.4
       is-relative: 1.0.0
       is-relative-url: 3.0.0
-      joi: 17.13.4
+      joi: 17.13.8
       json-loader: 0.5.7
       latest-version: 7.0.0
       linkfs: 2.1.0
@@ -22115,7 +22115,7 @@ snapshots:
 
   jiti@2.6.1: {}
 
-  joi@17.13.4:
+  joi@17.13.8:
     dependencies:
       '@hapi/hoek': 9.3.0
       '@hapi/topo': 5.1.0
