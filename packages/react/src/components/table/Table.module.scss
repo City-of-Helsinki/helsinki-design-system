@@ -25,9 +25,37 @@
   composes: hds-table__caption from 'hds-core/lib/components/table/table.css';
 }
 
+/* Keeps the caption in place when a wide table is scrolled horizontally. */
+.captionContent {
+  composes: hds-table__caption-content from 'hds-core/lib/components/table/table.css';
+}
+
 .container {
   composes: hds-table-container from 'hds-core/lib/components/table/table.css';
   height: inherit;
+}
+
+/* The horizontal scroll shadows are the ::before and ::after of the container, and all of their
+   appearance is inherited from the composed core styles. Core drives their opacity with a scroll
+   timeline, which only works in some browsers, so it is turned off here and useScrollShadows
+   toggles the shadows instead. That way the React version behaves the same in every browser.
+   The class is doubled to win over the core rule regardless of stylesheet order. */
+.container.container:before,
+.container.container:after {
+  animation: none;
+  transition: opacity 150ms ease-out;
+}
+
+.container[data-scroll-shadow-start='true']:before,
+.container[data-scroll-shadow-end='true']:after {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .container.container:before,
+  .container.container:after {
+    transition: none;
+  }
 }
 
 .headerRow {
@@ -110,6 +138,10 @@
   composes: hds-table--with-vertical-lines from 'hds-core/lib/components/table/table.css';
 }
 
+.withoutOuterBorder {
+  composes: hds-table--without-outer-border from 'hds-core/lib/components/table/table.css';
+}
+
 .verticalHeaderColumn {
   composes: hds-table__vertical-header-column from 'hds-core/lib/components/table/table.css';
 }
@@ -146,7 +178,7 @@
 }
 
 .checkboxHeader {
-  border-bottom: 1px solid var(--color-black-20);
+  border-bottom: 1px solid var(--color-black-50);
 }
 
 .checkboxData {

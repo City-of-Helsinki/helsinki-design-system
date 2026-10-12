@@ -1,6 +1,6 @@
 {
   "name": "hds-design-tokens",
-  "version": "6.0.5",
+  "version": "6.0.6",
   "description": "Design tokens for the Helsinki Design System",
   "homepage": "https://github.com/City-of-Helsinki/helsinki-design-system#readme",
   "repository": {
@@ -9,7 +9,7 @@
   },
   "license": "MIT",
   "engines": {
-    "node": "^24"
+    "node": "^24.18.0"
   },
   "main": "lib/all.css",
   "files": [
