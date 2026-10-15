@@ -235,8 +235,19 @@ const Editor = ({ onChange, initialCode, code, language }) => {
         viewPortRef.current.focus();
       }
     };
+    // The editor captures Tab for indentation, so Esc is the way to leave editing mode.
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape' && viewPortRef.current) {
+        event.preventDefault();
+        viewPortRef.current.focus();
+      }
+    };
     editable.addEventListener('blur', onBlur);
-    return () => editable.removeEventListener('blur', onBlur);
+    editable.addEventListener('keydown', onKeyDown);
+    return () => {
+      editable.removeEventListener('blur', onBlur);
+      editable.removeEventListener('keydown', onKeyDown);
+    };
   }, [getEditableElement, editorHelperId, editorId]);
 
   return (
