@@ -4,7 +4,7 @@
   "description": "e2e tests using Playwright",
   "version": "5.2.3",
   "engines": {
-    "node": "^22.13.1"
+    "node": "^22"
   },
   "scripts": {
     "ci": "npx playwright test",
