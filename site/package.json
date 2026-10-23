@@ -4,7 +4,7 @@
   "description": "Documentation for Helsinki Design System",
   "version": "5.2.3",
   "engines": {
-    "node": "^22.13.1"
+    "node": "^22"
   },
   "workspaces": {
     "nohoist": [
