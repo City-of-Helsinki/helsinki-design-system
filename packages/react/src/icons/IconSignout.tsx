@@ -24,9 +24,9 @@ export const IconSignout = ({
     {...rest}
   >
     <path
+      d="M16 2V7H14V4H5V20H14V17H16V22H3V2H16ZM18 7L23 12L18 17L16.5 15.5L19 12.999L8 13V11L18.999 10.999L16.5 8.5L18 7Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M16 2V7H14V4H5V20H14V17H16V22H3V2H16ZM18 7L23 12L18 17L16.5 15.5L19 12.999L8 13V11L18.999 10.999L16.5 8.5L18 7Z"
       fill="currentColor"
     />
   </svg>

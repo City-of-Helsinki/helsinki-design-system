@@ -24,9 +24,9 @@ export const IconDocumentBlank = ({
     {...rest}
   >
     <path
+      d="M15 2L20 7V22H4V2H15ZM14 4V8H18L14 4ZM14.0083 4L18 8V20H6V4H14.0083Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M15 2L20 7V22H4V2H15ZM14 4V8H18L14 4ZM14.0083 4L18 8V20H6V4H14.0083Z"
       fill="currentColor"
     />
   </svg>

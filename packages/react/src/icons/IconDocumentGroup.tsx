@@ -25,9 +25,9 @@ export const IconDocumentGroup = ({
   >
     <path d="M11 6H16V8H11V6Z" fill="currentColor" />
     <path
+      d="M18 1L22 4.00001L22 18H8V1H18ZM17 3L20 6L20 16H10V3H17Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M18 1L22 4.00001L22 18H8V1H18ZM17 3L20 6L20 16H10V3H17Z"
       fill="currentColor"
     />
     <path d="M17 3V6H20L17 3Z" fill="currentColor" />
