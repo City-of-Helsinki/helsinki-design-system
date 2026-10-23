@@ -11,7 +11,8 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+- [Tooling] Node in `.nvmrc` tracks `lts/krypton` instead of a pinned 24.18.0.
+- [Dependencies] Updated Playwright and its Docker image from 1.63.0 to 1.64.1. Refreshed visual regression snapshots for the updated browser version.
 
 ### React
 

@@ -31,6 +31,7 @@ jobs:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
+          check-latest: true
 
       # Don't do anything if we're on development, main or master branches
       - name: Check branch
