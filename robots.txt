@@ -1,0 +1,3 @@
+User-agent: *
+Disallow: /v1
+Host: https://hds.hel.fi
