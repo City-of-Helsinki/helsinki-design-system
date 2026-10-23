@@ -24,9 +24,9 @@ export const IconFolder = ({
     {...rest}
   >
     <path
+      d="M18 6H17H16H11L9 4H7H6H2V21H22V6H18ZM4 12H20V19H4V12ZM10 8H20V10H4V7.57898V6H8L10 8Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M18 6H17H16H11L9 4H7H6H2V21H22V6H18ZM4 12H20V19H4V12ZM10 8H20V10H4V7.57898V6H8L10 8Z"
       fill="currentColor"
     />
   </svg>
