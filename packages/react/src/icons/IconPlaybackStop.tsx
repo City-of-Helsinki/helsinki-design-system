@@ -23,6 +23,6 @@ export const IconPlaybackStop = ({
     style={style}
     {...rest}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M6 6H18V18H6V6Z" fill="currentColor" />
+    <path d="M6 6H18V18H6V6Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
   </svg>
 );

@@ -35,6 +35,7 @@ jobs:
           node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
           registry-url: 'https://registry.npmjs.org'
           cache: 'pnpm'
+          check-latest: true
 
       - name: install dependencies
         run: pnpm install --frozen-lockfile --ignore-scripts

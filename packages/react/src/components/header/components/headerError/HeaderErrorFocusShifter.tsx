@@ -15,7 +15,7 @@ export const HeaderErrorFocusShifter = () => {
   const buttonProps = {
     ...visuallyHiddenProps,
     ...elementProps,
-  };
+  } as React.ButtonHTMLAttributes<HTMLButtonElement>;
 
   return <button {...buttonProps} type="button" />;
 };
