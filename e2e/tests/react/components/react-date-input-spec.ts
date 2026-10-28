@@ -41,6 +41,12 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     }
     for (const componentUrl of componentUrls) {
       await page.goto(componentUrl);
+      // count() does not wait. The first story is still mounting when the load
+      // event fires, so wait until Storybook has shown it before counting.
+      await page.waitForFunction(() => {
+        const root = document.getElementById('storybook-root');
+        return !!root && root.childElementCount > 0 && !document.body.classList.contains('sb-show-preparing-story');
+      });
       const inputUtil = createDateInputHelpers(page, selector);
       const element = inputUtil.getInputLocator();
 

@@ -23,6 +23,6 @@ export const IconPlaybackPrevious = ({
     style={style}
     {...rest}
   >
-    <path fillRule="evenodd" clipRule="evenodd" d="M5 4V20H7V4H5ZM19 5L7 12L19 19V5Z" fill="currentColor" />
+    <path d="M5 4V20H7V4H5ZM19 5L7 12L19 19V5Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
   </svg>
 );

@@ -7,15 +7,22 @@ HDS_DIR_BASENAME="$(basename "$HDS_ROOT_DIR")"
 
 hds_e2e_docker_run() {
   local command="$1"
+  local container_root="/${HDS_DIR_BASENAME}"
+
+  # pnpm installs the container dependencies into node_modules.e2e so the host
+  # node_modules stays untouched. Node only looks up node_modules, so show the
+  # container install at e2e/node_modules. Test files resolve that path first.
+  mkdir -p "${HDS_ROOT_DIR}/e2e/node_modules.e2e"
 
   docker run --platform=linux/amd64 \
-    -v "${HDS_ROOT_DIR}:/${HDS_DIR_BASENAME}" \
+    -v "${HDS_ROOT_DIR}:${container_root}" \
+    -v "${HDS_ROOT_DIR}/e2e/node_modules.e2e:${container_root}/e2e/node_modules" \
     -i --rm --ipc=host \
     -e CI=true \
     -e "pnpm_config_store_dir=/${HDS_DIR_BASENAME}/e2e/.pnpm-store" \
     -e "pnpm_config_modules_dir=node_modules.e2e" \
     -e "pnpm_config_package_import_method=copy" \
-    mcr.microsoft.com/playwright:v1.61.1-noble \
+    mcr.microsoft.com/playwright:v1.64.1-noble \
     /bin/bash -s <<EOF
 set -e
 corepack enable

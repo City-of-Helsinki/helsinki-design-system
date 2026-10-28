@@ -31,7 +31,11 @@
 }
 
 .hds-link--disable-visited-styles:visited {
-  color: var(--color-bus);
+  color: var(--link-color);
+}
+
+.hds-link--disable-visited-styles:visited svg g path {
+  fill: var(--link-color);
 }
 
 .hds-link--small {

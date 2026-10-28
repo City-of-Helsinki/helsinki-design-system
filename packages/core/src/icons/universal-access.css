@@ -1,0 +1,12 @@
+.hds-icon--universal-access {
+  --mask-image-universal-access: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath d='M17.2783 9.69629L15.9922 10.2109C15.1847 10.5339 14.3478 10.7546 13.5 10.874V13.874L16.0137 17.5791L14.7725 18.4209L11.999 14.335L9.22656 18.4209L7.98633 17.5791L10.5 13.874V10.874C9.65225 10.7546 8.81529 10.5339 8.00781 10.2109L6.72168 9.69629L7.27832 8.30371L8.56445 8.81836C10.7698 9.70048 13.2302 9.70048 15.4355 8.81836L16.7217 8.30371L17.2783 9.69629Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M12 6C12.8284 6 13.5 6.67157 13.5 7.5C13.5 8.32843 12.8284 9 12 9C11.1716 9 10.5 8.32843 10.5 7.5C10.5 6.67157 11.1716 6 12 6Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M12 2C17.5228 2 22 6.47715 22 12C22 17.5228 17.5228 22 12 22C6.47715 22 2 17.5228 2 12C2 6.47715 6.47715 2 12 2ZM12 4C7.58172 4 4 7.58172 4 12C4 16.4183 7.58172 20 12 20C16.4183 20 20 16.4183 20 12C20 7.58172 16.4183 4 12 4Z' fill-rule='evenodd' clip-rule='evenodd' fill='currentColor'%3E%3C/path%3E %3C/svg%3E");
+  --mask-image: var(--mask-image-universal-access);
+}
+
+.hds-icon-start--universal-access {
+  --mask-image-before: var(--mask-image-universal-access);
+}
+
+.hds-icon-end--universal-access {
+  --mask-image-after: var(--mask-image-universal-access);
+}

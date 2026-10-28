@@ -182,6 +182,21 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
         }
       }
     ),
+    // Redirect '@reach/router' imports from .previous-versions/ to '@gatsbyjs/reach-router'.
+    // Archived AnchorLink.js calls useLocation() from '@reach/router', but Gatsby 5 provides its
+    // LocationContext.Provider via '@gatsbyjs/reach-router' — a different context object. Reading
+    // from the wrong package finds no provider and throws "useLocation hook was used but a
+    // LocationContext.Provider was not found", crashing every archived page that renders AnchorLink.
+    // The two packages are API-compatible; only applies when the importer is inside .previous-versions/.
+    new webpack.NormalModuleReplacementPlugin(
+      /^@reach\/router$/,
+      resource => {
+        const normalizedContext = resource.context.split(path.sep).join('/');
+        if (normalizedContext.includes('.previous-versions/')) {
+          resource.request = '@gatsbyjs/reach-router';
+        }
+      }
+    ),
     new webpack.NormalModuleReplacementPlugin(
       /(~?hds-core|hds-react|~?hds-design-tokens)/,
       resource => {

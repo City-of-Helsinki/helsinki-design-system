@@ -24,12 +24,12 @@ export const IconDocumentBlankGroup = ({
     {...rest}
   >
     <path
+      d="M18 1L22 4.00001L22 18H8V1H18ZM17 3V6H20L17 3ZM17 3L20 6L20 16H10V3H17Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M18 1L22 4.00001L22 18H8V1H18ZM17 3V6H20L17 3ZM17 3L20 6L20 16H10V3H17Z"
       fill="currentColor"
     />
-    <path fillRule="evenodd" clipRule="evenodd" d="M7 4H5V21H19V19H7V4Z" fill="currentColor" />
-    <path fillRule="evenodd" clipRule="evenodd" d="M4 7H2V24H16V22H4V7Z" fill="currentColor" />
+    <path d="M7 4H5V21H19V19H7V4Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
+    <path d="M4 7H2V24H16V22H4V7Z" fillRule="evenodd" clipRule="evenodd" fill="currentColor" />
   </svg>
 );

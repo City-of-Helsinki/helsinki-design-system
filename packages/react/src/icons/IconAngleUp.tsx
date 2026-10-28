@@ -24,9 +24,9 @@ export const IconAngleUp = ({
     {...rest}
   >
     <path
+      d="M12 11.5L17 16.5L18.5 15L12 8.5L5.5 15L7 16.5L12 11.5Z"
       fillRule="evenodd"
       clipRule="evenodd"
-      d="M12 11.5L17 16.5L18.5 15L12 8.5L5.5 15L7 16.5L12 11.5Z"
       fill="currentColor"
     />
   </svg>

@@ -39,6 +39,8 @@ exports[`<Table /> spec renders the component 1`] = `
   </div>
   <div
     class="container"
+    data-scroll-shadow-end="false"
+    data-scroll-shadow-start="false"
     tabindex="0"
   >
     <table
