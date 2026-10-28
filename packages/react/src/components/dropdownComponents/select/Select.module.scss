@@ -474,7 +474,6 @@
 
 .errorText {
   composes: hds-text-input__error-text from 'hds-core/lib/components/text-input/text-input.css';
-  margin-top: var(--spacing-2-xs);
 
   --icon-size: var(--computed-icon-size);
   --helper-color-invalid: var(--computed-error-text-color);
