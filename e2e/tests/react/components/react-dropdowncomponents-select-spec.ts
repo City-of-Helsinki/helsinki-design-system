@@ -40,12 +40,14 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     }
     for (const componentUrl of componentUrls) {
       await page.goto(componentUrl);
+      await page.waitForLoadState('networkidle');
+      await page.evaluate(() => document.fonts.ready);
       const selectUtil = createSelectHelpers(page, selectId);
       const containerCount = await selectUtil.getElementByName('container').count();
       if (containerCount < 1) {
         // container is not found if the story has custom id for the Select.
         // for example the "With External Label"
-        return;
+        continue;
       }
       // many select stories have extra buttons etc. so skipping them with clip
       const clip = await selectUtil.getBoundingBox();
