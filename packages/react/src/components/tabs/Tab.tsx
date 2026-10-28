@@ -47,13 +47,15 @@ export const Tab = ({ children, className, index, onClick, style }: TabProps) =>
   };
 
   /**
-   * Set the tab as active when enter is pressed
+   * Set the tab as active when enter or space is pressed.
+   * The default action is prevented so that space does not scroll the page.
    * @param event
    */
   const onKeyDown = (event: React.KeyboardEvent<HTMLLIElement>) => {
     const isEnter = event.key === 'Enter' || event.keyCode === 13;
     const isSpace = event.key === ' ' || event.keyCode === 32;
     if (isEnter || isSpace) {
+      event.preventDefault();
       if (onClick) {
         onClick();
       }
