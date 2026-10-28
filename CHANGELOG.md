@@ -32,6 +32,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Accordion] The toggle button has `aria-controls` that points to the accordion content.
+- [Tabs] Selecting a tab with the space key no longer scrolls the page.
 
 ### Core
 
