@@ -487,6 +487,11 @@
   margin-top: var(--spacing-3-xs);
 }
 
+// the error text's bottom margin already separates them
+.errorText + .assistiveText {
+  margin-top: 0;
+}
+
 .screenReaderNotifications {
   @extend %visuallyHidden;
 }
