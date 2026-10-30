@@ -68,7 +68,7 @@ export const createDomRect = (props: Partial<DOMRect>): Writable<DOMRect> => {
   };
 };
 
-export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[] = []): HTMLElement => {
+export const createFakeElement = (rect: Partial<DOMRect>, initialChildren: HTMLElement[] = []): HTMLElement => {
   const domRect = createDomRect(rect);
   const element: Partial<HTMLElement> = {
     getBoundingClientRect: () => {
@@ -79,7 +79,7 @@ export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[
     enumerable: true,
     configurable: true,
   };
-  let childList: HTMLElement[] = [];
+  let children: HTMLElement[] = [];
   let parent: HTMLElement | null = null;
   const getParentChildren = () => {
     if (!parent || !parent.children) {
@@ -93,23 +93,23 @@ export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[
   Reflect.defineProperty(element, 'lastElementChild', {
     ...baseDefineProps,
     get() {
-      return childList[childList.length - 1] || null;
+      return children[children.length - 1] || null;
     },
   });
   Reflect.defineProperty(element, 'firstElementChild', {
     ...baseDefineProps,
     get() {
-      return childList[0] || null;
+      return children[0] || null;
     },
   });
   Reflect.defineProperty(element, 'children', {
     ...baseDefineProps,
     get() {
-      return childList;
+      return children;
     },
     set(newList: HTMLElement[]) {
-      childList = [...newList];
-      childList.forEach((child) => {
+      children = [...newList];
+      children.forEach((child) => {
         // @ts-ignore
         // eslint-disable-next-line no-param-reassign
         child.parent = element;
@@ -135,7 +135,7 @@ export const createFakeElement = (rect: Partial<DOMRect>, children: HTMLElement[
   });
 
   // @ts-ignore
-  element.children = children;
+  element.children = initialChildren;
 
   return element as HTMLElement;
 };

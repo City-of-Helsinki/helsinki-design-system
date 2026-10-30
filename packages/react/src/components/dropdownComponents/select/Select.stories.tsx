@@ -783,7 +783,7 @@ export const FocusListenerExample = () => {
     };
   }, []);
 
-  const onFocus: SelectProps['onFocus'] = useCallback(async () => {
+  const onFocus: SelectProps['onFocus'] = useCallback(() => {
     memoizedProps.texts.error = '';
     setIsFocusedInHook(true);
   }, []);
@@ -1192,7 +1192,7 @@ export const WithCollaboration = () => {
 
   const removeDuplicatesAndSort = (arr: string[]) => {
     const unique = Array.from(new Set(arr));
-    return unique.sort();
+    return unique.sort((a, b) => a.localeCompare(b));
   };
 
   const optionList = getOptionLabels(20).map((item) => item.split(' '));
