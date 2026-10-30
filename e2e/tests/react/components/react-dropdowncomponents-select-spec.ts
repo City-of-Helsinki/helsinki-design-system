@@ -9,6 +9,7 @@ import {
 } from '../../../utils/playwright.util';
 import { createSelectHelpers } from '../../../utils/select.component.util';
 import {
+  combineBoundingBoxes,
   focusLocator,
   isLocatorFocused,
   isLocatorSelectedOrChecked,
@@ -31,6 +32,8 @@ const storyWithTooltip = 'Singleselect With Tooltip';
 const storyWithMultiSelectEvents = 'Multiselect';
 
 const selectId = 'hds-select-component';
+// stories that do not use the selectId above
+const storiesWithoutSelectId = ['with-collaboration', 'with-external-label', 'with-empty-string-value'];
 
 test.describe(`Testing ${storybook} component "${componentName}"`, () => {
   test('Take snapshots of all Selects stories', async ({ page, hasTouch }) => {
@@ -40,17 +43,32 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
     }
     for (const componentUrl of componentUrls) {
       await page.goto(componentUrl);
+      // count() does not wait, so wait until Storybook has shown the story before counting.
+      await page.waitForFunction(() => {
+        const root = document.getElementById('storybook-root');
+        return !!root && root.childElementCount > 0 && !document.body.classList.contains('sb-show-preparing-story');
+      });
+      await page.evaluate(() => document.fonts.ready);
+      const storyId = componentUrl.split('/').pop() as string;
       const selectUtil = createSelectHelpers(page, selectId);
       const containerCount = await selectUtil.getElementByName('container').count();
-      if (containerCount < 1) {
-        // container is not found if the story has custom id for the Select.
-        // for example the "With External Label"
-        return;
+      let clip: Awaited<ReturnType<typeof combineBoundingBoxes>>;
+      if (containerCount > 0) {
+        // many select stories have extra buttons etc. so skipping them with clip
+        clip = await selectUtil.getBoundingBox();
+      } else if (storiesWithoutSelectId.some((name) => storyId.endsWith(`--${name}`))) {
+        // these stories contain only the Select(s) and their labels, so all of the story's content is captured
+        const spacing = 8;
+        clip = await combineBoundingBoxes(await page.locator('#storybook-root > * > *').all());
+        clip.x -= spacing;
+        clip.y -= spacing;
+        clip.height += 2 * spacing;
+        clip.width += 2 * spacing;
+      } else {
+        throw new Error(`Select with id "${selectId}" was not found in story ${storyId}`);
       }
-      // many select stories have extra buttons etc. so skipping them with clip
-      const clip = await selectUtil.getBoundingBox();
 
-      const screenshotName = `${storybook}-${componentUrl.split('/').pop()}-${hasTouch ? 'mobile' : 'desktop'}`;
+      const screenshotName = `${storybook}-${storyId}-${hasTouch ? 'mobile' : 'desktop'}`;
       await expect(page).toHaveScreenshot(`${screenshotName}.png`, { clip, fullPage: true });
     }
   });
