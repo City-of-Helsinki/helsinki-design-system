@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Tabs] Selecting a tab with the space key no longer scrolls the page.
 
 ### Core
 
