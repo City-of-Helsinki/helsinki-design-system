@@ -28,11 +28,12 @@ export const Alert = () => (
   </Notification>
 );
 
-export const Error = () => (
+export const ErrorNotification = () => (
   <Notification {...props} type="error">
     {content}
   </Notification>
 );
+ErrorNotification.storyName = 'Error';
 
 export const Success = () => (
   <Notification {...props} type="success">

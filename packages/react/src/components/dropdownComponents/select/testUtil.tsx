@@ -254,12 +254,12 @@ export const renderResultToHelpers = (result: RenderResult) => {
 
   const getRenderTime = () => {
     const el = getElementById('render-time');
-    return parseInt(el.innerHTML, 10);
+    return Number.parseInt(el.innerHTML, 10);
   };
 
   const getForceRenderTime = () => {
     const el = getElementById('force-render-time');
-    return parseInt(el.innerHTML, 10);
+    return Number.parseInt(el.innerHTML, 10);
   };
 
   const createRenderUpdatePromise = (forcedUpdate = false) => {
@@ -571,7 +571,7 @@ export const renderWithHelpers = (
 
   const getOverflowCount = () => {
     const element = result.container.querySelector(selectors.overflowCounter);
-    const num = element ? parseInt(element.innerHTML, 10) : NaN;
+    const num = element ? Number.parseInt(element.innerHTML, 10) : Number.NaN;
     return Number.isNaN(num) ? -1 : num;
   };
 

@@ -200,7 +200,7 @@ export const TimeInput = ({
     if (['ArrowUp', 'ArrowDown'].includes(event.key) && !event.shiftKey) {
       event.preventDefault();
       const modifier = event.key === 'ArrowUp' ? 1 : -1;
-      const hoursAsInt = parseInt(hours, 10) || 0;
+      const hoursAsInt = Number.parseInt(hours, 10) || 0;
       const newHours = zeroPad(`${incrementNumber(0, 23, hoursAsInt, modifier)}`);
       updateTimeInput(newHours, minutes);
     }
@@ -219,7 +219,7 @@ export const TimeInput = ({
     if (['ArrowUp', 'ArrowDown'].includes(event.key) && !event.shiftKey) {
       event.preventDefault();
       const modifier = event.key === 'ArrowUp' ? 1 : -1;
-      const minutesAsInt = parseInt(minutes, 10) || 0;
+      const minutesAsInt = Number.parseInt(minutes, 10) || 0;
       const newMinutes = zeroPad(`${incrementNumber(0, 59, minutesAsInt, modifier)}`);
       updateTimeInput(hours, newMinutes);
     }

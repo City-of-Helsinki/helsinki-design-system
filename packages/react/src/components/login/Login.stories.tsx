@@ -307,8 +307,8 @@ const Nav = () => {
 
 const LogoutButton = () => {
   const oidcClient = useOidcClient();
-  const onButtonClick = () => {
-    oidcClient.logout();
+  const onButtonClick = async () => {
+    await oidcClient.logout().catch(() => undefined);
   };
   return <Button onClick={onButtonClick}>Log out</Button>;
 };
