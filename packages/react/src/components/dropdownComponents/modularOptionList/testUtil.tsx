@@ -217,12 +217,12 @@ export const renderResultToHelpers = (result: RenderResult) => {
 
   const getRenderTime = () => {
     const el = getElementById('render-time');
-    return parseInt(el.innerHTML, 10);
+    return Number.parseInt(el.innerHTML, 10);
   };
 
   const getForceRenderTime = () => {
     const el = getElementById('force-render-time');
-    return parseInt(el.innerHTML, 10);
+    return Number.parseInt(el.innerHTML, 10);
   };
 
   const createRenderUpdatePromise = (forcedUpdate = false) => {

@@ -315,13 +315,13 @@ export function emitInitializationSignals(beacon: Beacon) {
 export function waitForSignals(
   beacon: Beacon,
   triggers: (SignalType | Partial<Signal>)[],
-  options: { allowSkipping?: boolean; strictOrder?: boolean; rejectOn?: (SignalType | Partial<Signal>)[] } = {
-    allowSkipping: true,
-    strictOrder: false,
-  },
+  {
+    allowSkipping = true,
+    strictOrder = false,
+    rejectOn,
+  }: { allowSkipping?: boolean; strictOrder?: boolean; rejectOn?: (SignalType | Partial<Signal>)[] } = {},
 ): Promise<Omit<Signal, 'context'>[]> {
   return new Promise((resolve, reject) => {
-    const { strictOrder, rejectOn, allowSkipping } = options;
     const compareableTriggers = triggers.map((trigger) => convertToComparableSignals(trigger));
     const compareableRejections =
       rejectOn && rejectOn.length ? rejectOn.map((trigger) => convertToComparableSignals(trigger)) : [];

@@ -59,5 +59,9 @@ export default (...args: Array<ClassNameArgumentType>) => args.map(parseClassNam
  */
 export const styleBoundClassNames = (styles: Record<string, unknown>) => {
   const boundClassNames = parseClassName.bind(styles);
-  return (...args) => args.map(boundClassNames).filter(Boolean).join(' ');
+  return (...args: Array<ClassNameArgumentType>) =>
+    args
+      .map((arg) => boundClassNames(arg))
+      .filter(Boolean)
+      .join(' ');
 };
