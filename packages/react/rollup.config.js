@@ -300,6 +300,7 @@ if (!buildForHdsJs && !updateHdsJs && !buildStandAloneBundles) {
       {
         dir: 'lib',
         format: 'esm',
+        hoistTransitiveImports: false,
       },
     ],
     ...getConfig(reactEsmOutputFormat, false),
@@ -311,6 +312,7 @@ if (!buildForHdsJs && !updateHdsJs && !buildStandAloneBundles) {
         dir: 'lib/tmp',
         format: 'esm',
         exports: 'named',
+        hoistTransitiveImports: false,
       },
     ],
     ...getConfig(reactEsmOutputFormat, true),
@@ -321,6 +323,7 @@ if (!buildForHdsJs && !updateHdsJs && !buildStandAloneBundles) {
       {
         dir: 'lib/cjs',
         format: 'cjs',
+        hoistTransitiveImports: false,
       },
     ],
     ...getConfig(reactCommonJsOutputFormat, false),

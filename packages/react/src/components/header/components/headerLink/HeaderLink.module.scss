@@ -10,8 +10,8 @@
   display: flex;
   line-height: var(--lineheight-l);
   margin: 0;
+  overflow-wrap: break-word;
   text-decoration: none;
-  word-wrap: break-word;
 
   &:hover {
     text-decoration: underline;
@@ -58,8 +58,8 @@
   color: var(--nav-link-font-color);
   font-size: var(--fontsize-body-xl);
   margin-left: var(--nav-mobile-margin-left);
+  overflow-wrap: break-word;
   padding: 0;
-  word-wrap: break-word;
 
   &:focus {
     border: none;

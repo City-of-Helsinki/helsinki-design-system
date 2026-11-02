@@ -1,4 +1,4 @@
-@use 'hds-core/lib/components/status-label/_status-label-mixin' as CoreSass;
+@use 'hds-core/lib/components/status-label/status-label-mixin' as CoreSass;
 
 .statusLabel {
   @include CoreSass.status-label($all: false, $base: true, $react: true);
