@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Accordion] Removed the deprecated `onKeyPress` handler from the close button. The close button now relies on `onClick` only, which native buttons also fire for Space and Enter, so the behaviour is unchanged.
 
 #### Fixed
 
