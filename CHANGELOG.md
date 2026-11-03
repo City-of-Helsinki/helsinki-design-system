@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Checkbox] The checkbox can be used as an uncontrolled component when the `checked` prop is not given, so `defaultChecked` works and the checkbox can be toggled. A controlled checkbox works as before, and `checked={undefined}` is still treated as unchecked.
 
 ### Core
 
