@@ -31,6 +31,7 @@ Changes that are not related to specific components
 
 - [Dependencies] `react-hook-form`, `@hookform/resolvers`, `yup`, and `@types/cookie` are devDependencies. `hds-design-tokens` is no longer a direct dependency. The `postcss` peer dependency was removed; PostCSS remains a dependency for critical CSS extraction.
 - The ESM build keeps PostCSS in the server-rendering chunk. Bundlers that tree-shake unused exports leave it out of browser bundles that do not call the SSR helpers. A direct Node import from the package root still loads that chunk.
+- [Accordion] Removed the deprecated `onKeyPress` handler from the close button. The close button now relies on `onClick` only, which native buttons also fire for Space and Enter, so the behaviour is unchanged.
 
 #### Fixed
 

@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -165,5 +165,23 @@ describe('<DateInput /> spec', () => {
 
     // Clean up
     rerender(<div />);
+  });
+
+  it('prevents the default action when Enter is pressed in the input', () => {
+    render(<DateInput id="date" label="Choose a date" />);
+    const input = screen.getByRole('textbox');
+    // fireEvent returns false when the event's default action was prevented
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(fireEvent.keyDown(input, { key: 'a' })).toBe(true);
+  });
+
+  it('calls the given onKeyDown', () => {
+    const onKeyDown = jest.fn();
+    render(<DateInput id="date" label="Choose a date" onKeyDown={onKeyDown} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.keyDown(input, { key: 'a' });
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(onKeyDown).toHaveBeenCalledTimes(2);
+    expect(onKeyDown.mock.calls.map(([e]) => e.key)).toEqual(['a', 'Enter']);
   });
 });

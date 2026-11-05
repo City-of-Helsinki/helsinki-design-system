@@ -224,14 +224,7 @@ export const Accordion = ({
             aria-label={`${getCloseMessage(language)} ${heading}`}
             className={classNames(styles.closeButton, closeButtonClassName)}
             size={ButtonSize.Small}
-            onKeyPress={(e) => {
-              if (e.key === ' ') {
-                onCloseButtonActivate();
-              }
-            }}
-            onClick={() => {
-              onCloseButtonActivate();
-            }}
+            onClick={onCloseButtonActivate}
             variant={ButtonVariant.Supplementary}
             iconEnd={<IconAngleUp />}
           >

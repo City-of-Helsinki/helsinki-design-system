@@ -109,4 +109,24 @@ describe('<HeaderActionBar /> spec', () => {
     expect(handleLanguageChange.mock.calls[1][0]).toBe(DEFAULT_LANGUAGE);
     expect(getLogoSrc()).toBe(logoFi);
   });
+
+  it.each(['Enter', ' '])('calls onTitleClick and onLogoClick when "%s" is pressed', (key) => {
+    const onTitleClick = jest.fn();
+    const onLogoClick = jest.fn();
+    render(
+      <HeaderActionBar
+        title="Test"
+        logo={<Logo src="dummySrc" data-testid="action-bar-logo" alt="Helsingin kaupunki" />}
+        frontPageLabel="Etusivu"
+        titleHref="#"
+        onTitleClick={onTitleClick}
+        onLogoClick={onLogoClick}
+      />,
+      { wrapper: HeaderWrapper },
+    );
+    fireEvent.keyDown(screen.getByText('Test'), { key });
+    expect(onTitleClick).toHaveBeenCalledTimes(1);
+    fireEvent.keyDown(screen.getByTestId('action-bar-logo'), { key });
+    expect(onLogoClick).toHaveBeenCalledTimes(1);
+  });
 });
