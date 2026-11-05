@@ -1,5 +1,6 @@
 import React, { useRef } from 'react';
 
+import styles from '../Search.module.scss';
 import { SearchDataHandlers } from '../types';
 import { DivElementProps } from '../../modularOptionList/types';
 import { getTextFromDataHandlers } from '../texts';
@@ -15,7 +16,7 @@ function createErrorProps(dataHandlers: SearchDataHandlers): DivElementProps & {
   const error = getTextFromDataHandlers('error', dataHandlers);
   return {
     children: invalid && error ? error : null,
-    className: 'hds-search-error',
+    className: `hds-search-error ${styles.errorText}`,
   };
 }
 

@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Select][Search] Removed the fixed bottom margin below the box, which caused uneven row heights in grids. Spacing now matches TextInput.
 
 ### Core
 
