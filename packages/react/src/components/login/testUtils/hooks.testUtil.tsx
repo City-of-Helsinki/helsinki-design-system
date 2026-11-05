@@ -216,7 +216,7 @@ export function createHookTestEnvironment(
     return new Error(`${selector} element not found`);
   };
   const getInnerHtmlAsNumber = (id: string) => {
-    return parseInt(getInnerHtml(id), 10);
+    return Number.parseInt(getInnerHtml(id), 10);
   };
 
   const getRenderTime = (id: string) => {

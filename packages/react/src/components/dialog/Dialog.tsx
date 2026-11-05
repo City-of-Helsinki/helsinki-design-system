@@ -198,7 +198,10 @@ export const Dialog = ({
       const documentScrollbarWidth = window.innerWidth - document.body.offsetWidth;
       if (documentScrollbarWidth > 0) {
         bodyRightPaddingStyleRef.current = document.body.style.paddingRight;
-        const bodyPaddingRightInPixels: number = parseInt(window.getComputedStyle(document.body).paddingRight, 10);
+        const bodyPaddingRightInPixels: number = Number.parseInt(
+          window.getComputedStyle(document.body).paddingRight,
+          10,
+        );
         document.body.style.paddingRight = `${bodyPaddingRightInPixels + documentScrollbarWidth}px`;
       }
       document.body.classList.add(styles.dialogVisibleBodyWithHiddenScrollbars);

@@ -27,8 +27,7 @@ export const sessionPollerEvents = {
   SESSION_POLLING_STOPPED: 'SESSION_POLLING_STOPPED',
 } as const;
 
-export function createSessionPoller(options: SessionPollerOptions = { pollIntervalInMs: 60000 }): SessionPoller {
-  const { pollIntervalInMs } = options;
+export function createSessionPoller({ pollIntervalInMs = 60000 }: Partial<SessionPollerOptions> = {}): SessionPoller {
   const fetchCanceller = createFetchAborter();
   let userManager: UserManager | undefined;
   let currentState: OidcClientState | undefined;
