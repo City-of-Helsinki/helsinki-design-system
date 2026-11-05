@@ -1,4 +1,4 @@
-import { render, screen, waitFor } from '@testing-library/react';
+import { fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 import React from 'react';
@@ -80,5 +80,22 @@ describe('<Tabs /> spec', () => {
     );
     userEvent.type(screen.getByLabelText('Foo'), '{Enter}');
     waitFor(() => expect(onClick).toHaveBeenCalled());
+  });
+
+  it('should select the tab without scrolling the page when user presses space', () => {
+    render(
+      <Tabs>
+        <TabList>
+          <Tab>Foo</Tab>
+          <Tab>Bar</Tab>
+        </TabList>
+        <TabPanel>Fizz</TabPanel>
+        <TabPanel>Buzz</TabPanel>
+      </Tabs>,
+    );
+    const tab = screen.getByRole('tab', { name: 'Bar' });
+    // fireEvent returns false when the default action, which for space is scrolling the page, was prevented
+    expect(fireEvent.keyDown(tab, { key: ' ', code: 'Space' })).toBe(false);
+    expect(tab).toHaveAttribute('aria-selected', 'true');
   });
 });
