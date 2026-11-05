@@ -1,5 +1,5 @@
 import React from 'react';
-import { render } from '@testing-library/react';
+import { fireEvent, render } from '@testing-library/react';
 import { axe } from 'jest-axe';
 
 import { Linkbox } from './Linkbox';
@@ -65,5 +65,21 @@ describe('<Linkbox /> spec', () => {
     );
     const element = getByTestId(linkProps['data-testid']);
     expect(getElementAttributesMisMatches(element, linkProps)).toHaveLength(0);
+  });
+
+  it('clicks the link when Enter is pressed on the linkbox', () => {
+    const onClick = jest.fn((e) => e.preventDefault());
+    const { getByRole } = render(
+      <Linkbox
+        linkboxAriaLabel="Linkbox: HDS"
+        linkAriaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+        onClick={onClick}
+      />,
+    );
+    fireEvent.keyDown(getByRole('region'), { key: 'Enter' });
+    expect(onClick).toHaveBeenCalled();
   });
 });
