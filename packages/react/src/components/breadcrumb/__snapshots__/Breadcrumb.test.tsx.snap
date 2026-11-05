@@ -133,7 +133,7 @@ exports[`<Breadcrumb /> spec renders the component 1`] = `
         class="listItem"
       >
         <span
-          aria-current="true"
+          aria-current="page"
           class="activeListItem"
         >
           Current
