@@ -287,6 +287,9 @@ export const DateInput = ({
         onChange={handleInputChange}
         onBlur={(e) => handleBlur(e.target.value, e)}
         onKeyDown={(e) => {
+          if (textInputProps.onKeyDown) {
+            textInputProps.onKeyDown(e);
+          }
           if (e.key === 'Enter') {
             e.preventDefault();
             handleBlur((e.target as HTMLInputElement).value);
