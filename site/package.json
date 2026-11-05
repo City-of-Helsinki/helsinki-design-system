@@ -41,6 +41,7 @@
     "@babel/plugin-proposal-private-property-in-object": "^7.21.11",
     "@babel/plugin-syntax-flow": "^7.29.7",
     "@babel/plugin-transform-react-jsx": "^7.29.7",
+    "@city-of-helsinki/license-notices": "^0.2.0",
     "chalk": "4.1.2",
     "crypto-browserify": "^3.12.1",
     "eslint": "8.57.1",
