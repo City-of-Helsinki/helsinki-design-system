@@ -136,8 +136,8 @@ export const HeaderActionBar = ({
 }: HeaderActionBarProps) => {
   const handleClick = useCallbackIfDefined(onTitleClick);
   const handleLogoClick = useCallbackIfDefined(onLogoClick);
-  const handleKeyPress = useEnterOrSpacePressCallback(handleClick);
-  const handleLogoKeyPress = useEnterOrSpacePressCallback(handleLogoClick);
+  const handleKeyDown = useEnterOrSpacePressCallback(handleClick);
+  const handleLogoKeyDown = useEnterOrSpacePressCallback(handleLogoClick);
   const { hasNavigationContent, mobileMenuOpen, isSmallScreen } = useHeaderContext();
   const { setMobileMenuOpen } = useSetHeaderContext();
   const actionBarRef = useRef<HTMLDivElement>(null);
@@ -174,7 +174,7 @@ export const HeaderActionBar = ({
     ...(logoHref ? { role: 'link' } : {}),
     className: classNames(styles.titleAndLogoContainer, styles.logo),
     onClick: handleLogoClick,
-    onKeyPress: handleLogoKeyPress,
+    onKeyDown: handleLogoKeyDown,
   };
 
   const titleProps: LinkProps = {
@@ -182,13 +182,13 @@ export const HeaderActionBar = ({
     href: titleHref,
     className: classNames(styles.titleAndLogoContainer, styles.title, styles[titleStyle]),
     onClick: onTitleClick,
-    onKeyPress: handleLogoKeyPress,
+    onKeyDown: handleLogoKeyDown,
   };
 
   if (!(titleProps.href || titleProps.onClick)) {
     titleProps.role = titleAriaLabel && 'img';
   } else {
-    titleProps.onKeyPress = handleKeyPress;
+    titleProps.onKeyDown = handleKeyDown;
     titleProps.onClick = handleClick;
   }
   const validatedChildren = (Array.isArray(children) ? children : [children]).filter((item) =>
