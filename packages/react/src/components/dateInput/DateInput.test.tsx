@@ -174,4 +174,14 @@ describe('<DateInput /> spec', () => {
     expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
     expect(fireEvent.keyDown(input, { key: 'a' })).toBe(true);
   });
+
+  it('calls the given onKeyDown', () => {
+    const onKeyDown = jest.fn();
+    render(<DateInput id="date" label="Choose a date" onKeyDown={onKeyDown} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.keyDown(input, { key: 'a' });
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(onKeyDown).toHaveBeenCalledTimes(2);
+    expect(onKeyDown.mock.calls.map(([e]) => e.key)).toEqual(['a', 'Enter']);
+  });
 });

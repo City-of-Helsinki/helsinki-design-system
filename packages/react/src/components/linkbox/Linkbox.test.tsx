@@ -82,4 +82,40 @@ describe('<Linkbox /> spec', () => {
     fireEvent.keyDown(getByRole('region'), { key: 'Enter' });
     expect(onClick).toHaveBeenCalled();
   });
+
+  it('does not click the link when a child element has already handled Enter', () => {
+    const onClick = jest.fn((e) => e.preventDefault());
+    const { getByRole } = render(
+      <Linkbox
+        linkboxAriaLabel="Linkbox: HDS"
+        linkAriaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+        onClick={onClick}
+      >
+        <button type="button" onKeyDown={(e) => e.preventDefault()}>
+          Child
+        </button>
+      </Linkbox>,
+    );
+    fireEvent.keyDown(getByRole('button', { name: 'Child' }), { key: 'Enter' });
+    expect(onClick).not.toHaveBeenCalled();
+  });
+
+  it('does not click the link when Enter confirms an IME composition', () => {
+    const onClick = jest.fn((e) => e.preventDefault());
+    const { getByRole } = render(
+      <Linkbox
+        linkboxAriaLabel="Linkbox: HDS"
+        linkAriaLabel="HDS"
+        href="https://hds.hel.fi"
+        heading="Linkbox title"
+        text="Linkbox text"
+        onClick={onClick}
+      />,
+    );
+    fireEvent.keyDown(getByRole('region'), { key: 'Enter', isComposing: true });
+    expect(onClick).not.toHaveBeenCalled();
+  });
 });
