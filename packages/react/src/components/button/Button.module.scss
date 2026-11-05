@@ -1,4 +1,4 @@
-@use 'hds-core/lib/components/button/_button-mixin-2' as CoreSass;
+@use 'hds-core/lib/components/button/button-mixin-2' as CoreSass;
 
 @mixin get-only-modifier-output($modifierName) {
   @include CoreSass.button(

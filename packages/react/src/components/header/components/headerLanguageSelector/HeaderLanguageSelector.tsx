@@ -92,12 +92,13 @@ const defaultLanguageSorter: LanguageSelectorProps['sortLanguageOptions'] = (opt
     : [options, []];
 };
 
-export function HeaderLanguageSelector(props: LanguageSelectorProps) {
+export function HeaderLanguageSelector(
+  // eslint-disable-next-line @typescript-eslint/no-unused-vars -- read from the element in HeaderActionBar
+  props: LanguageSelectorProps,
+) {
   // This is a dummy component used for passing language selector props and children.
   // Those are extracted in <HeaderActionBar /> and rendered with <HeaderLanguageSelectorConsumer />
-
-  // use props in some way to avoid ts-error
-  return props ? null : null;
+  return null;
 }
 
 HeaderLanguageSelector.componentName = 'HeaderLanguageSelector';

@@ -163,7 +163,7 @@ export const NumberInput = ({
           aria-describedby={ariaDescribedBy}
           {...rest}
         />
-        {step && (
+        {!!step && (
           <>
             <div className={disabled ? styles.minusButtonWrapperWithoutBorder : styles.minusButtonWrapper}>
               <button
