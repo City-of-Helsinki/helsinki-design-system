@@ -16,9 +16,9 @@
 
 .legendWithTooltip {
   align-items: center;
+  column-gap: var(--spacing-2-xs);
   composes: hds-fieldset-legend from 'hds-core/lib/components/fieldset/fieldset.css';
   display: flex;
-  grid-column-gap: var(--spacing-2-xs);
   justify-content: flex-start;
 }
 
