@@ -28,7 +28,7 @@ export const Breadcrumb = () => `
         <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
       </li>
       <li class="hds-breadcrumb__list-item hds-breadcrumb__list-item--active">
-        <span aria-current="true" class="Breadcrumb_active__02+NO">Care options</span>
+        <span aria-current="page" class="Breadcrumb_active__02+NO">Care options</span>
       </li>
     </ol>
     <div class="hds-breadcrumb__list hds-breadcrumb__list--mobile">
@@ -67,7 +67,7 @@ export const WithCustomTheme = () => `
         <span class="hds-icon hds-icon--angle-right hds-breadcrumb__separator" aria-hidden="true"></span>
       </li>
       <li class="hds-breadcrumb__list-item hds-breadcrumb__list-item--active">
-        <span aria-current="true" class="Breadcrumb_active__02+NO">Care options</span>
+        <span aria-current="page" class="Breadcrumb_active__02+NO">Care options</span>
       </li>
     </ol>
     <div class="hds-breadcrumb__list hds-breadcrumb__list--mobile">
