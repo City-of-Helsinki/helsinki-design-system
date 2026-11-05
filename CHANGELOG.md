@@ -65,7 +65,7 @@ Changes that are not related to specific components
 
 #### Added
 
-- [Component] What is added?
+- [Icons] Added missing common usage descriptions for `artificial-intelligence`, `family-numerous`, `speechless`, and `universal-access` on the site icons list.
 
 #### Changed
 
