@@ -46,6 +46,7 @@ export const TextArea = ({
   infoText,
   tooltip,
   ref,
+  'aria-describedby': customAriaDescribedBy,
   ...rest
 }: TextAreaProps) => {
   const wrapperProps = {
@@ -64,7 +65,10 @@ export const TextArea = ({
   };
 
   // Compose aria-describedby attribute
-  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  const ariaDescribedBy =
+    [customAriaDescribedBy, composeAriaDescribedBy(id, helperText, errorText, successText, infoText)]
+      .filter((item) => item)
+      .join(' ') || undefined;
 
   return (
     <InputWrapper {...wrapperProps}>
