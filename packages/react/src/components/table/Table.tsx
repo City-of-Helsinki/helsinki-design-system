@@ -424,11 +424,11 @@ export const Table = ({
             <div className={styles.captionContent}>{caption}</div>
           </caption>
         )}
-        {verticalHeaders && verticalHeaders.length && <VerticalHeaderColGroup />}
+        {verticalHeaders && verticalHeaders.length > 0 && <VerticalHeaderColGroup />}
         <thead>
           <HeaderRow>
             {/* eslint-disable-next-line jsx-a11y/no-interactive-element-to-noninteractive-role */}
-            {verticalHeaders && verticalHeaders.length && <td role="presentation" />}
+            {verticalHeaders && verticalHeaders.length > 0 && <td role="presentation" />}
             {checkboxSelection && <td className={styles.checkboxHeader} />}
             {visibleColumns.map((column) => {
               if (column.isSortable) {
@@ -461,7 +461,9 @@ export const Table = ({
         <TableBody textAlignContentRight={textAlignContentRight}>
           {processedRows.map((row, index) => (
             <tr key={row[indexKey]}>
-              {verticalHeaders && verticalHeaders.length && <th scope="row">{verticalHeaders[index].headerName}</th>}
+              {verticalHeaders && verticalHeaders.length > 0 && (
+                <th scope="row">{verticalHeaders[index].headerName}</th>
+              )}
               {checkboxSelection && (
                 <td className={styles.checkboxData}>
                   <Checkbox

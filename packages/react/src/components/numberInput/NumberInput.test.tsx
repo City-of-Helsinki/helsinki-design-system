@@ -34,6 +34,15 @@ describe('<NumberInput /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('does not render a zero when step is 0', () => {
+    const { container } = render(<NumberInput {...numberInputProps} step={0} />);
+    const hasZeroText = Array.from(container.querySelectorAll('*')).some((element) =>
+      Array.from(element.childNodes).some((node) => node.nodeType === Node.TEXT_NODE && node.textContent === '0'),
+    );
+    expect(hasZeroText).toBe(false);
+    expect(screen.queryByRole('button', { name: 'Add 10 euros' })).not.toBeInTheDocument();
+  });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<NumberInput step={10} {...numberInputProps} />);
     const results = await axe(container);
