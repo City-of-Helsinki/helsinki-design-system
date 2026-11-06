@@ -88,6 +88,7 @@ export const NumberInput = ({
   type = 'number',
   unit,
   ref,
+  'aria-describedby': customAriaDescribedBy,
   ...rest
 }: NumberInputProps) => {
   const wrapperProps = {
@@ -140,7 +141,10 @@ export const NumberInput = ({
     : onChange;
 
   // Compose aria-describedby attribute
-  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  const ariaDescribedBy =
+    [customAriaDescribedBy, composeAriaDescribedBy(id, helperText, errorText, successText, infoText)]
+      .filter((item) => item)
+      .join(' ') || undefined;
 
   return (
     <InputWrapper {...wrapperProps}>
