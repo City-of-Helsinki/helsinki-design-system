@@ -29,4 +29,17 @@ describe('<RadioButton /> spec', () => {
       getElementAttributesMisMatches(element, { ...inputProps, style: undefined, className: undefined }),
     ).toHaveLength(0);
   });
+
+  describe('aria-describedby', () => {
+    it('keeps the ids of the texts when aria-describedby is given', () => {
+      const { getByRole } = render(
+        <RadioButton {...radioProps} helperText="Helper text" aria-describedby="custom-description" />,
+      );
+      expect(getByRole('radio').getAttribute('aria-describedby')).toBe('custom-description test-helper');
+    });
+    it('uses only the given aria-describedby when there are no texts', () => {
+      const { getByRole } = render(<RadioButton id="test" label="label text" aria-describedby="custom-description" />);
+      expect(getByRole('radio').getAttribute('aria-describedby')).toBe('custom-description');
+    });
+  });
 });

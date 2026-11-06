@@ -49,7 +49,14 @@ describe('<NumberInput /> spec', () => {
     const element = getByTestId(inputProps['data-testid']);
     // id, className and style are set to the wrapper element, others to input
     expect(
-      getElementAttributesMisMatches(element, { ...inputProps, id: undefined, style: undefined, className: undefined }),
+      getElementAttributesMisMatches(element, {
+        ...inputProps,
+        id: undefined,
+        style: undefined,
+        className: undefined,
+        // aria-describedby is merged with the ids of the helper and error texts
+        'aria-describedby': `${inputProps['aria-describedby']} ${inputProps.id}-helper ${inputProps.id}-error`,
+      }),
     ).toHaveLength(0);
   });
 
@@ -149,5 +156,20 @@ describe('<NumberInput /> spec', () => {
     const resultWithoutStep = render(<NumberInput defaultValue={10} {...numberInputProps} />);
     const groupNotFound = resultWithoutStep.container.querySelector('[role="group"]');
     expect(groupNotFound).toBeNull();
+  });
+
+  describe('aria-describedby', () => {
+    it('keeps the ids of the texts when aria-describedby is given', () => {
+      const { getByRole } = render(<NumberInput {...numberInputProps} aria-describedby="custom-description" />);
+      expect(getByRole('spinbutton').getAttribute('aria-describedby')).toBe(
+        'custom-description numberInputTestId-helper numberInputTestId-error',
+      );
+    });
+    it('uses only the given aria-describedby when there are no texts', () => {
+      const { getByRole } = render(
+        <NumberInput id="numberInputTestId" label="Test label number input" aria-describedby="custom-description" />,
+      );
+      expect(getByRole('spinbutton').getAttribute('aria-describedby')).toBe('custom-description');
+    });
   });
 });

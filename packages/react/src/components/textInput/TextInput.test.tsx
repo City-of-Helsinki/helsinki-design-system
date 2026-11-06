@@ -31,7 +31,14 @@ describe('<TextInput /> spec', () => {
     const element = getByTestId(inputProps['data-testid']);
     // id, className and style are set to the wrapper element, others to input
     expect(
-      getElementAttributesMisMatches(element, { ...inputProps, id: undefined, style: undefined, className: undefined }),
+      getElementAttributesMisMatches(element, {
+        ...inputProps,
+        id: undefined,
+        style: undefined,
+        className: undefined,
+        // aria-describedby is merged with the ids of the helper and error texts
+        'aria-describedby': `${inputProps['aria-describedby']} ${inputProps.id}-helper ${inputProps.id}-error`,
+      }),
     ).toHaveLength(0);
   });
   it('renders the component with tooltip', () => {
@@ -150,5 +157,20 @@ describe('<TextInput /> spec', () => {
 
     const buttons = document.getElementsByClassName('button');
     expect(buttons.length).toBe(2);
+  });
+
+  describe('aria-describedby', () => {
+    it('keeps the ids of the texts when aria-describedby is given', () => {
+      const { getByRole } = render(<TextInput {...textInputProps} aria-describedby="custom-description" />);
+      expect(getByRole('textbox').getAttribute('aria-describedby')).toBe(
+        'custom-description hdsInput-helper hdsInput-error',
+      );
+    });
+    it('uses only the given aria-describedby when there are no texts', () => {
+      const { getByRole } = render(
+        <TextInput id="hdsInput" label="HDS input field" aria-describedby="custom-description" />,
+      );
+      expect(getByRole('textbox').getAttribute('aria-describedby')).toBe('custom-description');
+    });
   });
 });
