@@ -98,6 +98,7 @@ export const TextInput = ({
   tooltip,
   type = 'text',
   ref,
+  'aria-describedby': customAriaDescribedBy,
   ...rest
 }: TextInputProps) => {
   const wrapperProps = {
@@ -119,7 +120,10 @@ export const TextInput = ({
   const innerWrapperRef = React.useRef<HTMLDivElement>(null);
 
   // Compose aria-describedby attribute
-  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  const ariaDescribedBy =
+    [customAriaDescribedBy, composeAriaDescribedBy(id, helperText, errorText, successText, infoText)]
+      .filter((item) => item)
+      .join(' ') || undefined;
   const hasButton = Boolean(buttonIcon && onButtonClick);
   const hasClearButton = Boolean(clearButton || type === 'search');
 
