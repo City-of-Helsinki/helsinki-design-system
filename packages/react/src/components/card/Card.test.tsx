@@ -33,4 +33,8 @@ describe('<Card /> spec', () => {
     const element = getByTestId(divProps['data-testid']);
     expect(getElementAttributesMisMatches(element, divProps)).toHaveLength(0);
   });
+  it('accepts a custom theme without padding values', () => {
+    const { getByRole } = render(<Card heading="Foo" theme={{ '--background-color': 'red' }} />);
+    expect(getByRole('region').className).toMatch(/custom-theme-/);
+  });
 });
