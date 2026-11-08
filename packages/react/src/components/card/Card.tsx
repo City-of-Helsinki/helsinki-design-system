@@ -11,8 +11,8 @@ export interface CardCustomTheme {
   '--border-color'?: string;
   '--border-width'?: string;
   '--color'?: string;
-  '--padding-horizontal': string;
-  '--padding-vertical': string;
+  '--padding-horizontal'?: string;
+  '--padding-vertical'?: string;
 }
 
 export type CardProps = AllElementPropsWithoutRef<'div'> & {
