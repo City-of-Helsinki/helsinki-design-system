@@ -1,4 +1,4 @@
-@use 'hds-core/lib/components/checkbox/_checkbox-mixin' as CoreSass;
+@use 'hds-core/lib/components/checkbox/checkbox-mixin' as CoreSass;
 
 .checkbox {
   @include CoreSass.checkbox($all: false, $base: true, $react: true);

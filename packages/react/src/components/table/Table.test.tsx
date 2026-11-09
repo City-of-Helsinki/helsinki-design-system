@@ -99,6 +99,41 @@ describe('<Table /> spec', () => {
     expect(screen.getByText('Not rendered')).toBeInTheDocument();
   });
 
+  const textNodesEqualToZero = (element: Element | null | undefined) => {
+    if (!element) {
+      return [];
+    }
+    return Array.from(element.childNodes).filter(
+      (node) => node.nodeType === Node.TEXT_NODE && node.textContent === '0',
+    );
+  };
+
+  it('does not render a zero when verticalHeaders is empty', () => {
+    const { container } = render(<Table {...defaultProps} verticalHeaders={[]} />);
+    const table = container.querySelector('table');
+    const headerRow = container.querySelector('thead tr');
+    const bodyRows = container.querySelectorAll('tbody tr');
+
+    expect(textNodesEqualToZero(table)).toHaveLength(0);
+    expect(textNodesEqualToZero(headerRow)).toHaveLength(0);
+    bodyRows.forEach((row) => {
+      expect(textNodesEqualToZero(row)).toHaveLength(0);
+    });
+    expect(container.querySelector('colgroup')).not.toBeInTheDocument();
+    expect(container.querySelector('td[role="presentation"]')).not.toBeInTheDocument();
+    expect(container.querySelectorAll('tbody th')).toHaveLength(0);
+  });
+
+  it('renders vertical headers when the list has entries', () => {
+    const { container } = render(
+      <Table {...defaultProps} rows={[rows[0]]} verticalHeaders={[{ key: 'monday', headerName: 'Monday' }]} />,
+    );
+
+    expect(screen.getByRole('rowheader', { name: 'Monday' })).toBeInTheDocument();
+    expect(container.querySelector('colgroup')).toBeInTheDocument();
+    expect(container.querySelector('td[role="presentation"]')).toBeInTheDocument();
+  });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<Table {...defaultProps} renderIndexCol={renderIndexCol} />);
     const results = await axe(container);

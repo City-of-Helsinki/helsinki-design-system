@@ -15,6 +15,15 @@ minimumReleaseAgeExclude:
 # Hoist all dependencies to the root of node_modules, for better compatibility with packages that expect flat node_modules
 shamefullyHoist: true
 
+# Installed versions that upstream peer ranges do not list yet.
+peerDependencyRules:
+  allowedVersions:
+    # hds-react and the site are on React 19. Spring 9, react-popper 2.3, and packages inside Gatsby 5 do not declare it.
+    react: "19"
+    react-dom: "19"
+    # Gatsby 5.16 depends on Parcel 2.8. The reporter override below pulls Parcel 2.16 workers.
+    "@parcel/core": "2.8"
+
 allowBuilds:
   '@parcel/watcher': true
   '@swc/core': true
@@ -82,3 +91,7 @@ overrides:
   uuid@<11.1.1: ^11.1.1
   ws@>=8.0.0 <8.20.1: ^8.20.1
   ws@>=8.0.0 <8.21.0: ^8.21.0
+  # Stylelint 17 peers CSS tools 4.0.2. stylelint-scss 7.4 uses the same CSS calc release.
+  stylelint-scss: ^7.4.0
+  "@csstools/css-parser-algorithms": ^4.0.2
+  "@csstools/css-tokenizer": ^4.0.2

@@ -110,6 +110,7 @@
 @import url("money-bag-fill.css");
 @import url("mover.css");
 @import url("occupation.css");
+@import url("ordered-list.css");
 @import url("paperclip.css");
 @import url("pen.css");
 @import url("pen-line.css");
@@ -174,11 +175,13 @@
 @import url("thumbs-up-fill.css");
 @import url("ticket.css");
 @import url("tiktok.css");
+@import url("translate.css");
 @import url("trash.css");
 @import url("traveler.css");
 @import url("twitch.css");
 @import url("twitter.css");
 @import url("universal-access.css");
+@import url("unordered-list.css");
 @import url("upload.css");
 @import url("upload-cloud.css");
 @import url("user.css");

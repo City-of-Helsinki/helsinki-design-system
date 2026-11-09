@@ -6,6 +6,8 @@ const {
   isVersionedArchiveContext,
   resolveVersionedHdsImportToAbsolute,
 } = require('./scripts/versioned-hds-resolve.cjs');
+const { ThirdPartyLicensesPlugin } = require('@city-of-helsinki/license-notices/webpack');
+const { thirdPartyLicensesConfig } = require('./scripts/thirdPartyLicenses.config');
 const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
 
 /** Absolute-path aliases for hds-core-X.Y.Z / hds-react-X.Y.Z under site/node_modules. */
@@ -53,7 +55,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs);
 };
 
-exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   const config = getConfig();
 
   // Custom resolver plugin to handle dynamic aliases for CSS imports
@@ -329,6 +331,13 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       },
     },
   });
+
+  // Third-party license notices for the bundle sent to browsers, emitted into public/
+  if (stage === 'build-javascript') {
+    actions.setWebpackConfig({
+      plugins: [new ThirdPartyLicensesPlugin(thirdPartyLicensesConfig)],
+    });
+  }
 };
 
 exports.createPages = async ({ actions, graphql }) => {
