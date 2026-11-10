@@ -75,7 +75,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Fixed blank pages in the archived documentation versions
 
 ### Figma
 
