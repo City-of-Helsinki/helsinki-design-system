@@ -35,6 +35,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [FileInput] Long file names use `overflow-wrap: anywhere` instead of the deprecated `word-break: break-word`.
+- [Header] Navigation menu dropdowns close when keyboard focus moves out of them. Escape closes the innermost open dropdown and moves focus to its button.
 - Visually hidden text no longer sets the deprecated `clip` property. `clip-path` already hides it.
 
 ### Core
