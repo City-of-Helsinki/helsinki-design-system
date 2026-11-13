@@ -125,6 +125,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   const { openMainNavIndex } = useHeaderContext();
   const { setOpenMainNavIndex } = useSetHeaderContext();
   const containerRef = useRef<HTMLSpanElement>(null);
+  const dropdownButtonRef = useRef<HTMLButtonElement>(null);
   const isSubNavLink = openSubNavIndex !== undefined && setOpenSubNavIndex !== undefined;
 
   const getDropdownPosition = () => {
@@ -146,12 +147,8 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
     if (depth === 1) setDynamicPosition(getDropdownPosition());
   }, []);
 
-  // Handle dropdown open state by calling either internal state or context
-  const handleDropdownOpen = (val: boolean) => {
-    if (!isSmallScreen) {
-      setDropdownOpen(val);
-    }
-    if (onDropdownButtonClick) onDropdownButtonClick();
+  // Tell the parent dropdown or the header context which dropdown is open
+  const updateOpenIndex = (val: boolean) => {
     // If sub navigation props given, call them
     if (isSubNavLink && index !== undefined) {
       setOpenSubNavIndex(val ? index : -1);
@@ -166,7 +163,21 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
     }
   };
 
+  // Handle dropdown open state by calling either internal state or context
+  const handleDropdownOpen = (val: boolean) => {
+    if (!isSmallScreen) {
+      setDropdownOpen(val);
+    }
+    if (onDropdownButtonClick) onDropdownButtonClick();
+    updateOpenIndex(val);
+  };
+
   const closeDropdown = () => setDropdownOpen(false);
+
+  const closeDropdownAndUpdateOpenIndex = () => {
+    closeDropdown();
+    updateOpenIndex(false);
+  };
 
   useEffect(() => {
     // If sub navigation index is not provided, we need to react to main nav context changes.
@@ -201,6 +212,36 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [isDropdownOpen]);
 
+  // Close dropdown menu when keyboard focus leaves it or Escape is pressed
+  useEffect(() => {
+    const container = containerRef.current;
+    if (!isDropdownOpen || !container) return undefined;
+
+    const handleFocusOut = (event: FocusEvent) => {
+      const nextFocusedElement = event.relatedTarget as Node | null;
+      // relatedTarget is null when focus leaves the document (e.g. the browser window loses focus).
+      // Keep the dropdown open then. Clicks outside are handled by handleOutsideClick.
+      if (nextFocusedElement && !container.contains(nextFocusedElement)) {
+        closeDropdownAndUpdateOpenIndex();
+      }
+    };
+
+    const handleKeyDown = (event: KeyboardEvent) => {
+      // A nested dropdown inside this one has already handled the event
+      if (event.key !== 'Escape' || event.defaultPrevented) return;
+      event.preventDefault();
+      closeDropdownAndUpdateOpenIndex();
+      dropdownButtonRef.current?.focus();
+    };
+
+    container.addEventListener('focusout', handleFocusOut);
+    container.addEventListener('keydown', handleKeyDown);
+    return () => {
+      container.removeEventListener('focusout', handleFocusOut);
+      container.removeEventListener('keydown', handleKeyDown);
+    };
+  }, [isDropdownOpen, openMainNavIndex, openSubNavIndex]);
+
   const navigationWrapperLinkClassName = classNames(
     { isSmallScreen },
     styles.navigationLinkWrapper,
@@ -228,6 +269,7 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
           openDropdownAriaButtonLabel={openDropdownAriaButtonLabel}
           closeDropdownAriaButtonLabel={closeDropdownAriaButtonLabel}
           dropdownButtonClassName={dropdownButtonClassName}
+          buttonRef={dropdownButtonRef}
         >
           {dropdownLinks.map((child) => {
             return cloneElement(child as React.ReactElement<Record<string, unknown>>, {
