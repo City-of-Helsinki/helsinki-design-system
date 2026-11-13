@@ -71,7 +71,7 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Hero] Clarified in the principles and accessibility guidelines that the hero should be placed inside the `<main>` element.
 
 #### Fixed
 
