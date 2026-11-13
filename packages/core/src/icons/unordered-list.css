@@ -1,0 +1,12 @@
+.hds-icon--unordered-list {
+  --mask-image-unordered-list: url("data:image/svg+xml;charset=utf-8,%3Csvg role='img' xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'%3E %3Cpath d='M7.99988 3H21.9999V5H7.99988V3Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M7.99988 11H21.9999V13H7.99988V11Z' fill='currentColor'%3E%3C/path%3E %3Cpath d='M7.99988 19H21.9999V21H7.99988V19Z' fill='currentColor'%3E%3C/path%3E %3Cuse xlink:href='%23stroke0_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cuse xlink:href='%23stroke0_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cuse xlink:href='%23stroke1_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cuse xlink:href='%23stroke1_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cuse xlink:href='%23stroke2_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cuse xlink:href='%23stroke1_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cuse xlink:href='%23stroke2_28925_2008' fill='currentColor'%3E%3C/use%3E %3Cdefs%3E %3Cpath id='stroke0_28925_2008' d='M5.99988 4C5.99988 5.10457 5.10445 6 3.99988 6C2.89531 6 1.99988 5.10457 1.99988 4C1.99988 2.89543 2.89531 2 3.99988 2C5.10445 2 5.99988 2.89543 5.99988 4Z'%3E%3C/path%3E %3Cpath id='stroke1_28925_2008' d='M5.99988 12C5.99988 13.1046 5.10445 14 3.99988 14C2.89531 14 1.99988 13.1046 1.99988 12C1.99988 10.8954 2.89531 10 3.99988 10C5.10445 10 5.99988 10.8954 5.99988 12Z'%3E%3C/path%3E %3Cpath id='stroke2_28925_2008' d='M5.99988 20C5.99988 21.1046 5.10445 22 3.99988 22C2.89531 22 1.99988 21.1046 1.99988 20C1.99988 18.8954 2.89531 18 3.99988 18C5.10445 18 5.99988 18.8954 5.99988 20Z'%3E%3C/path%3E %3C/defs%3E %3C/svg%3E");
+  --mask-image: var(--mask-image-unordered-list);
+}
+
+.hds-icon-start--unordered-list {
+  --mask-image-before: var(--mask-image-unordered-list);
+}
+
+.hds-icon-end--unordered-list {
+  --mask-image-after: var(--mask-image-unordered-list);
+}
