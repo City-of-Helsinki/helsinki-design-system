@@ -14,4 +14,14 @@ describe('<Accordion /> spec', () => {
     const results = await axe(container);
     expect(results).toHaveNoViolations();
   });
+  it('references the content element with aria-controls', () => {
+    const { getByRole } = render(
+      <Accordion heading="Foo" id="test-accordion">
+        Bar
+      </Accordion>,
+    );
+    const button = getByRole('button', { name: 'Foo' });
+    expect(button).toHaveAttribute('aria-controls', 'test-accordion-content');
+    expect(document.getElementById('test-accordion-content')).not.toBeNull();
+  });
 });

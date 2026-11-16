@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Accordion] The toggle button has `aria-controls` that points to the accordion content.
 
 ### Core
 
