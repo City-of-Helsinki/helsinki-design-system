@@ -66,7 +66,8 @@ export async function initTests(
       return result.container.querySelector(`#${props.id}`) as HTMLButtonElement;
     };
     const getErrorElement = () => {
-      return result.getByRole('alert') as HTMLElement;
+      // role="alert" is on the notification content, so return the whole notification which also contains the close button
+      return result.getByRole('alert').closest('section') as HTMLElement;
     };
     const getLoadIndicator = () => {
       const loadingText =

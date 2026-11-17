@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Notification] Toast and invisible notifications set `role="alert"` on the notification content instead of the whole notification, so screen readers no longer read the close button's name as part of the alert.
 
 ### Core
 

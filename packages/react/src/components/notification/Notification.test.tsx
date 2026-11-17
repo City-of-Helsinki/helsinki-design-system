@@ -44,6 +44,37 @@ describe('<Notification /> spec', () => {
     expect(asFragment()).toMatchSnapshot();
   });
 
+  it('sets role=alert on the content of a toast notification, excluding the close button', () => {
+    const { getByRole } = render(
+      <Notification label={label} position="top-right" dismissible closeButtonLabelText="Close toast">
+        {body}
+      </Notification>,
+    );
+    const alert = getByRole('alert');
+    const closeButton = getByRole('button', { name: 'Close toast' });
+    expect(alert.tagName).toBe('DIV');
+    expect(alert).toHaveTextContent(label);
+    expect(alert).toHaveTextContent(body);
+    expect(alert.contains(closeButton)).toBe(false);
+    expect(alert.closest('section')).not.toHaveAttribute('role');
+  });
+
+  it('sets role=alert on the content of an invisible notification', () => {
+    const { getByRole } = render(
+      <Notification label={label} invisible>
+        {body}
+      </Notification>,
+    );
+    const alert = getByRole('alert');
+    expect(alert.tagName).toBe('DIV');
+    expect(alert).toHaveTextContent(body);
+  });
+
+  it('does not set role=alert on an inline notification', () => {
+    const { queryByRole } = render(<Notification label={label}>{body}</Notification>);
+    expect(queryByRole('alert')).toBeNull();
+  });
+
   it('should not have basic accessibility issues', async () => {
     const { container } = render(<Notification label={label}>{body}</Notification>);
     const results = await axe(container);
