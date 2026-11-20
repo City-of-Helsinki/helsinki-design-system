@@ -212,35 +212,25 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
     return () => document.removeEventListener('click', handleOutsideClick);
   }, [isDropdownOpen]);
 
-  // Close dropdown menu when keyboard focus leaves it or Escape is pressed
-  useEffect(() => {
-    const container = containerRef.current;
-    if (!isDropdownOpen || !container) return undefined;
-
-    const handleFocusOut = (event: FocusEvent) => {
-      const nextFocusedElement = event.relatedTarget as Node | null;
-      // relatedTarget is null when focus leaves the document (e.g. the browser window loses focus).
-      // Keep the dropdown open then. Clicks outside are handled by handleOutsideClick.
-      if (nextFocusedElement && !container.contains(nextFocusedElement)) {
-        closeDropdownAndUpdateOpenIndex();
-      }
-    };
-
-    const handleKeyDown = (event: KeyboardEvent) => {
-      // A nested dropdown inside this one has already handled the event
-      if (event.key !== 'Escape' || event.defaultPrevented) return;
-      event.preventDefault();
+  // Close dropdown menu when keyboard focus leaves it. React's onBlur bubbles like the native focusout event.
+  const handleBlur = (event: React.FocusEvent<HTMLSpanElement>) => {
+    const nextFocusedElement = event.relatedTarget;
+    // relatedTarget is null when focus leaves the document (e.g. the browser window loses focus).
+    // Keep the dropdown open then. Clicks outside are handled by handleOutsideClick.
+    if (isDropdownOpen && nextFocusedElement && !event.currentTarget.contains(nextFocusedElement)) {
       closeDropdownAndUpdateOpenIndex();
-      dropdownButtonRef.current?.focus();
-    };
+    }
+  };
 
-    container.addEventListener('focusout', handleFocusOut);
-    container.addEventListener('keydown', handleKeyDown);
-    return () => {
-      container.removeEventListener('focusout', handleFocusOut);
-      container.removeEventListener('keydown', handleKeyDown);
-    };
-  }, [isDropdownOpen, openMainNavIndex, openSubNavIndex]);
+  // Close dropdown menu when Escape is pressed. This is a React handler, not a native listener, so that
+  // React handlers of the elements inside the dropdown run first and can cancel the event.
+  const handleKeyDown = (event: React.KeyboardEvent<HTMLSpanElement>) => {
+    // A nested dropdown or a dropdown link has already handled the event
+    if (!isDropdownOpen || event.key !== 'Escape' || event.defaultPrevented) return;
+    event.preventDefault();
+    closeDropdownAndUpdateOpenIndex();
+    dropdownButtonRef.current?.focus();
+  };
 
   const navigationWrapperLinkClassName = classNames(
     { isSmallScreen },
@@ -254,7 +244,9 @@ export const HeaderLink = <T extends React.ElementType = 'a'>({
   });
 
   return (
-    <span className={navigationWrapperLinkClassName} ref={containerRef}>
+    // The wrapper only handles events bubbling up from the link and the dropdown inside it. It is not interactive itself.
+    // eslint-disable-next-line jsx-a11y/no-static-element-interactions
+    <span className={navigationWrapperLinkClassName} ref={containerRef} onBlur={handleBlur} onKeyDown={handleKeyDown}>
       <Item className={navigationLinkClassName} href={href} {...rest}>
         {label}
       </Item>

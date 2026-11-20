@@ -155,5 +155,32 @@ describe('<HeaderLink /> spec', () => {
       expect(getMainMenu()).not.toBeVisible();
       expect(getMainButton()).toHaveFocus();
     });
+
+    it('keeps the dropdown open when a dropdown link cancels Escape', async () => {
+      const user = userEvent.setup();
+      render(
+        <HeaderNavigationMenuWrapper>
+          <HeaderLink
+            href="#"
+            label="Link 1"
+            dropdownLinks={[
+              <HeaderLink
+                href="#"
+                label="Nested 1"
+                onKeyDown={(event: React.KeyboardEvent) => {
+                  if (event.key === 'Escape') event.preventDefault();
+                }}
+              />,
+            ]}
+          />
+        </HeaderNavigationMenuWrapper>,
+      );
+      getMainButton().focus();
+      await user.keyboard('{Enter}');
+      screen.getByText('Nested 1').focus();
+      await user.keyboard('{Escape}');
+      expect(getMainMenu()).toBeVisible();
+      expect(screen.getByText('Nested 1')).toHaveFocus();
+    });
   });
 });
