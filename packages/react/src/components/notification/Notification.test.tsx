@@ -55,7 +55,18 @@ describe('<Notification /> spec', () => {
     expect(alert.tagName).toBe('DIV');
     expect(alert).toHaveTextContent(label);
     expect(alert).toHaveTextContent(body);
-    expect(alert.contains(closeButton)).toBe(false);
+    expect(closeButton.closest('[aria-live], [role="alert"], [role="status"], [role="log"]')).toBeNull();
+  });
+
+  it('does not forward a role prop to the section of a toast notification', () => {
+    const { getByRole } = render(
+      <Notification label={label} position="top-right" dismissible closeButtonLabelText="Close toast" role="alert">
+        {body}
+      </Notification>,
+    );
+    // getByRole throws if more than one alert is found
+    const alert = getByRole('alert');
+    expect(alert.tagName).toBe('DIV');
     expect(alert.closest('section')).not.toHaveAttribute('role');
   });
 
