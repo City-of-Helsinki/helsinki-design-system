@@ -197,6 +197,7 @@ export const Accordion = ({
           <Button
             ref={headerRef}
             aria-labelledby={`${accordionId}-heading`}
+            aria-controls={`${accordionId}-content`}
             iconEnd={icon}
             {...buttonProps}
             variant={ButtonVariant.Supplementary}

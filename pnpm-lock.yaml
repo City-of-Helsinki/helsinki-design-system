@@ -95,7 +95,7 @@ importers:
   packages/core:
     dependencies:
       hds-design-tokens:
-        specifier: 6.0.7
+        specifier: 6.0.8
         version: link:../design-tokens
     devDependencies:
       '@babel/core':
@@ -261,7 +261,7 @@ importers:
         specifier: ^16.14.2
         version: 16.14.2
       hds-core:
-        specifier: 6.0.7
+        specifier: 6.0.8
         version: link:../core
       jwt-decode:
         specifier: ^3.1.2
@@ -448,7 +448,7 @@ importers:
         specifier: ^6.2.5
         version: 6.2.5
       hds-design-tokens:
-        specifier: 6.0.7
+        specifier: 6.0.8
         version: link:../design-tokens
       identity-obj-proxy:
         specifier: 3.0.0
@@ -598,13 +598,13 @@ importers:
         specifier: 5.16.0
         version: 5.16.0(gatsby-plugin-sharp@5.16.0(gatsby@5.16.1(@swc/core@1.15.43(@swc/helpers@0.5.23))(babel-eslint@10.1.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(encoding@0.1.13)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(supports-color@8.1.1)(type-fest@4.41.0)(typescript@5.9.3)(uglify-js@3.19.3)(webpack-hot-middleware@2.26.1))(graphql@16.14.2)(supports-color@8.1.1))(gatsby@5.16.1(@swc/core@1.15.43(@swc/helpers@0.5.23))(babel-eslint@10.1.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(encoding@0.1.13)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(supports-color@8.1.1)(type-fest@4.41.0)(typescript@5.9.3)(uglify-js@3.19.3)(webpack-hot-middleware@2.26.1))(graphql@16.14.2)(supports-color@8.1.1)
       hds-core:
-        specifier: 6.0.7
+        specifier: 6.0.8
         version: link:../packages/core
       hds-design-tokens:
-        specifier: 6.0.7
+        specifier: 6.0.8
         version: link:../packages/design-tokens
       hds-react:
-        specifier: 6.0.7
+        specifier: 6.0.8
         version: link:../packages/react
       html-validate:
         specifier: 6.5.0

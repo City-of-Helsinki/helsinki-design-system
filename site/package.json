@@ -2,7 +2,7 @@
   "name": "site",
   "private": true,
   "description": "Documentation for Helsinki Design System",
-  "version": "6.0.7",
+  "version": "6.0.8",
   "engines": {
     "node": "^24"
   },
@@ -21,9 +21,9 @@
     "gatsby-remark-autolink-headers": "^6.16.0",
     "gatsby-source-filesystem": "^5.16.0",
     "gatsby-transformer-sharp": "5.16.0",
-    "hds-core": "6.0.7",
-    "hds-design-tokens": "6.0.7",
-    "hds-react": "6.0.7",
+    "hds-core": "6.0.8",
+    "hds-design-tokens": "6.0.8",
+    "hds-react": "6.0.8",
     "html-validate": "6.5.0",
     "path-browserify": "^1.0.1",
     "prism-react-renderer": "^2.4.1",
