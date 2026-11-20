@@ -60,6 +60,7 @@ export const Checkbox = ({
   value,
   tooltip,
   ref,
+  'aria-describedby': customAriaDescribedBy,
   ...rest
 }: CheckboxProps) => {
   const inputRef = useRef<HTMLInputElement>(null);
@@ -81,7 +82,10 @@ export const Checkbox = ({
     );
   }
 
-  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, undefined, undefined);
+  const ariaDescribedBy =
+    [customAriaDescribedBy, composeAriaDescribedBy(id, helperText, errorText, undefined, undefined)]
+      .filter((item) => item)
+      .join(' ') || undefined;
   return (
     <div className={classNames(styles.checkbox, className)} style={style}>
       <input

@@ -46,6 +46,7 @@ export const RadioButton = ({
   style,
   value,
   ref,
+  'aria-describedby': customAriaDescribedBy,
   ...rest
 }: RadioButtonProps) => {
   if (label && typeof label !== 'string' && typeof label !== 'number') {
@@ -55,6 +56,8 @@ export const RadioButton = ({
     );
   }
 
+  const ariaDescribedBy =
+    [customAriaDescribedBy, helperText && `${id}-helper`].filter((item) => item).join(' ') || undefined;
   return (
     <div className={classNames(styles.radioButton, className)} style={style}>
       <input
@@ -66,7 +69,7 @@ export const RadioButton = ({
         type="radio"
         disabled={disabled}
         checked={checked}
-        aria-describedby={helperText ? `${id}-helper` : null}
+        aria-describedby={ariaDescribedBy}
         {...rest}
       />
       <label htmlFor={id} className={classNames(styles.label)}>
