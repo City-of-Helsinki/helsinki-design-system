@@ -320,6 +320,8 @@ export const Notification = ({
           className,
         )}
         aria-label={notificationAriaLabel}
+        // A role from props is not forwarded, so it cannot add a second alert that also contains the close button.
+        role={undefined}
       >
         {autoClose && <AnimatedDiv style={autoCloseTransition} className={styles.autoClose} />}
         <div
