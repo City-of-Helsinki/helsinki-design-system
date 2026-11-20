@@ -46,22 +46,30 @@ export type CheckboxProps = MergeAndOverrideProps<
   }
 >;
 
-export const Checkbox = ({
-  checked = false,
-  className,
-  disabled = false,
-  errorText,
-  helperText,
-  id,
-  indeterminate,
-  label,
-  onChange = () => null,
-  style,
-  value,
-  tooltip,
-  ref,
-  ...rest
-}: CheckboxProps) => {
+export const Checkbox = (props: CheckboxProps) => {
+  const {
+    checked,
+    className,
+    disabled = false,
+    errorText,
+    helperText,
+    id,
+    indeterminate,
+    label,
+    onChange = () => null,
+    style,
+    value,
+    tooltip,
+    ref,
+    ...rest
+  } = props;
+  /**
+   * The checkbox is controlled when the `checked` prop is given, even if its value is `undefined`.
+   * `undefined` is treated as `false` to keep `checked={state[id]}` style usage controlled from the first render.
+   * When `checked` is not given at all, the checkbox is uncontrolled and `defaultChecked` can be used.
+   */
+  const isControlled = Object.prototype.hasOwnProperty.call(props, 'checked');
+  const checkedProps = isControlled ? { checked: checked ?? false } : {};
   const inputRef = useRef<HTMLInputElement>(null);
   useEffect(() => {
     if (ref) {
@@ -92,7 +100,7 @@ export const Checkbox = ({
         value={value}
         type="checkbox"
         disabled={disabled}
-        checked={checked}
+        {...checkedProps}
         aria-describedby={ariaDescribedBy}
         {...rest}
       />
