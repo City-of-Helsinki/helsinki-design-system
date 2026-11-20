@@ -4,10 +4,10 @@ title: 'Multi-page forms'
 navTitle: 'Multi-page forms'
 ---
 
-import { IconCheck, IconError } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
+import DoDont from '../../../components/DoDont';
 
 # Multi-page forms
 
@@ -63,14 +63,7 @@ HDS multi-page forms feature two separate headings; the main heading and the ste
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -90,7 +83,7 @@ HDS multi-page forms feature two separate headings; the main heading and the ste
       <strong> h2</strong> and so on).
     </li>
   </ul>
-</div>
+</DoDont>
 
 ### 2. Form navigation
 
@@ -132,21 +125,14 @@ To learn more about how to construct form in the City of Helsinki services, plea
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       If your form description includes important instructions, you <strong>must</strong> include them on the every step
       of the form. Do not expect the user to remember instructions from earlier pages.
     </li>
   </ul>
-</div>
+</DoDont>
 
 ## Handling errors
 
@@ -154,14 +140,7 @@ One of the main benefits of dividing the form into multiple steps is that the us
 
 To make the error handling as easy as possible for the user, please follow these guidelines:
 
-<div
-  class="guideline-do"
-  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       Use one of the form validation patterns listed in
@@ -175,16 +154,9 @@ To make the error handling as easy as possible for the user, please follow these
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)' , marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Do not let the user leave pages that have erroneous fields.</strong> Always validate input and guide the
@@ -204,7 +176,7 @@ To make the error handling as easy as possible for the user, please follow these
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ## End of the form
 

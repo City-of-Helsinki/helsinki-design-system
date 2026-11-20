@@ -7,14 +7,13 @@ navTitle: 'Form validation'
 import {
   Button,
   DateInput,
-  IconCheck,
-  IconError,
   TextInput,
   StatusLabel,
 } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import Notification from '../../../components/Notification';
+import DoDont from '../../../components/DoDont';
 
 # Form validation
 
@@ -109,14 +108,7 @@ If the form control has an assistive text, it is displayed below the validation 
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth:600 }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Keep it short</strong>
@@ -149,16 +141,9 @@ If the form control has an assistive text, it is displayed below the validation 
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Use vague statements</strong> (for example “There has been an error”).
@@ -171,7 +156,7 @@ If the form control has an assistive text, it is displayed below the validation 
       <strong>Output raw system errors</strong> (for example “Error 123-xyz”).
     </li>
   </ul>
-</div>
+</DoDont>
 
 ##### Fixing errors
 

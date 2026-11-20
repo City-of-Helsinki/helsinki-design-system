@@ -74,6 +74,7 @@ Changes that are not related to specific components
 
 - Fixed blank pages in the archived documentation versions
 - [Notification] Core HTML code examples on the documentation site show notification styles again.
+- [Patterns] The "Do" and "Don't" labels in the pattern guidelines are headings, so screen reader users can navigate to them.
 
 ### Figma
 
