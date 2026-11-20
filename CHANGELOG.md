@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+- [E2E] The local Docker e2e scripts install corepack, which the Playwright image no longer includes.
 
 ### React
 
