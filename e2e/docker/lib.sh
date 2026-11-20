@@ -25,6 +25,9 @@ hds_e2e_docker_run() {
     mcr.microsoft.com/playwright:v1.64.1-noble \
     /bin/bash -s <<EOF
 set -e
+# The Playwright image ships Node 26, which no longer bundles corepack.
+# --force lets corepack replace the image's global yarn shims; this container does not use yarn.
+npm install -g --force --loglevel=error --no-update-notifier corepack@0.36.0
 corepack enable
 corepack prepare "\$(node -p "require('/${HDS_DIR_BASENAME}/package.json').packageManager")" --activate
 cd /${HDS_DIR_BASENAME}
