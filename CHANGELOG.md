@@ -54,6 +54,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Notification] Notification styles are compiled into `components/all.css` and `components/all.min.css` again.
+- [Notification] The "With close button" Storybook example sets `role="alert"` on the notification content instead of the whole notification, so the close button is not read as part of the alert.
 
 ### Documentation
 
