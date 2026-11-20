@@ -76,7 +76,7 @@ const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbListItem; sho
       {hasPath ? (
         <LinkItem item={item} />
       ) : (
-        <span aria-current className={styles.activeListItem}>
+        <span aria-current="page" className={styles.activeListItem}>
           {item.title}
         </span>
       )}
