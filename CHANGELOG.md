@@ -51,7 +51,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Notification] The "With close button" Storybook example sets `role="alert"` on the notification content instead of the whole notification, so the close button is not read as part of the alert.
 
 ### Documentation
 

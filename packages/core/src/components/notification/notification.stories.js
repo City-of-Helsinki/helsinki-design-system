@@ -169,8 +169,8 @@ export const Invisible = () => `
 `;
 
 export const WithClose = () => `
-    <section aria-label="Notification" role="alert" class="hds-notification">
-      <div class="hds-notification__content">
+    <section aria-label="Notification" class="hds-notification">
+      <div role="alert" class="hds-notification__content">
        <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
           <span>Info</span>
@@ -180,8 +180,8 @@ export const WithClose = () => `
       ${closeButton}
     </section>
     <br>
-    <section aria-label="Notification" role="alert" class="hds-notification hds-notification--small">
-      <div class="hds-notification__content">
+    <section aria-label="Notification" class="hds-notification hds-notification--small">
+      <div role="alert" class="hds-notification__content">
         <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
         </div>
@@ -190,8 +190,8 @@ export const WithClose = () => `
       ${closeButton}
     </section>
     <br>
-    <section aria-label="Notification" role="alert" class="hds-notification hds-notification--large">
-      <div class="hds-notification__content">
+    <section aria-label="Notification" class="hds-notification hds-notification--large">
+      <div role="alert" class="hds-notification__content">
        <div class="hds-notification__label">
           <span class="hds-icon hds-icon--info-circle-fill" aria-hidden="true"></span>
           <span>Info</span>
