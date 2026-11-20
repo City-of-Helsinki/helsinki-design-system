@@ -52,7 +52,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Notification] Notification styles are compiled into `components/all.css` and `components/all.min.css` again.
 
 ### Documentation
 
@@ -73,6 +73,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - Fixed blank pages in the archived documentation versions
+- [Notification] Core HTML code examples on the documentation site show notification styles again.
 
 ### Figma
 
