@@ -184,4 +184,19 @@ describe('<DateInput /> spec', () => {
     expect(onKeyDown).toHaveBeenCalledTimes(2);
     expect(onKeyDown.mock.calls.map(([e]) => e.key)).toEqual(['a', 'Enter']);
   });
+
+  it.each([
+    ['isComposing is true', { isComposing: true }],
+    ['keyCode is 229', { keyCode: 229 }],
+  ])('ignores Enter that confirms an IME composition (%s)', (_, eventInit) => {
+    const onChange = jest.fn();
+    render(<DateInput id="date" label="Choose a date" onChange={onChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '1.1' } });
+    expect(fireEvent.keyDown(input, { key: 'Enter', ...eventInit })).toBe(true);
+    expect(onChange).not.toHaveBeenCalled();
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0]).toBe('1.1');
+  });
 });
