@@ -27,7 +27,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 Changes that are not related to specific components
 
-- [Accordion] Removed the deprecated `onKeyPress` handler from the close button. The close button now relies on `onClick` only, which native buttons also fire for Space and Enter, so the behaviour is unchanged.
+- [Component] What has been changed
 
 #### Fixed
 
@@ -38,6 +38,10 @@ Changes that are not related to specific components
 - [Checkbox, NumberInput, PasswordInput, RadioButton, TextArea, TextInput] A given `aria-describedby` is combined with the ids of the helper, error, success and info texts instead of replacing them.
 - [Card] The padding properties of `theme` are optional, so a custom theme can be given without them.
 - [Accordion] The close button color is based on `--content-color` instead of the undefined `--content-font-color`.
+- [Accordion] The close button no longer uses the deprecated `onKeyPress`. It relies on `onClick`, which native buttons also fire for Enter and Space, so the behaviour is unchanged.
+- [DateInput] Enter is handled in `onKeyDown` instead of the deprecated `onKeyPress`. A consumer `onKeyDown` is still called, and Enter that confirms an IME composition no longer commits the value.
+- [Linkbox] Enter is handled in `onKeyDown` instead of the deprecated `onKeyPress`. It is skipped when a consumer handler has called `preventDefault()` or an IME composition is in progress.
+- [HeaderActionBar] The title and logo use `onKeyDown` instead of the deprecated `onKeyPress` for Enter and Space.
 
 ### Core
 
