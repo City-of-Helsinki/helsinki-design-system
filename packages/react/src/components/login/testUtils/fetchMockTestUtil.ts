@@ -189,7 +189,7 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
 
   const getPendingRequests = (list: RequestInfo[]) => {
     return list.filter((r) => {
-      if (!r.promise) {
+      if (r.promise === undefined) {
         return false;
       }
       if (hasRequestStarted(r)) {
@@ -281,7 +281,7 @@ export function createControlledFetchMockUtil(responders?: Responder[]) {
         return Promise.resolve();
       }
       const pending = getPendingRequests(history);
-      await Promise.all(pending.map((req) => req.promise).filter((promise) => !!promise));
+      await Promise.all(pending.flatMap((req) => (req.promise === undefined ? [] : [req.promise])));
       history.length = 0;
       responderList = [];
       return Promise.resolve();

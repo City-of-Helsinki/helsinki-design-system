@@ -108,7 +108,7 @@ const getHorizontalSpacing = (element: Element, property: string): number => {
       // get property values and remove 'px' from them
       .map((item) => computedStyles.getPropertyValue(item).replace('px', ''))
       // convert values to numbers and add them together
-      .reduce((spacing, value) => spacing + parseInt(value, 10), 0)
+      .reduce((spacing, value) => spacing + Number.parseInt(value, 10), 0)
   );
 };
 
@@ -145,11 +145,16 @@ const handleItemHiding = (
     // loop through all selected items and add their width together.
     // items whose combined width is less than that of the container element should be visible.
     // items that don't fit inside the container on one row should be hidden.
-    [...childNodes].reduce((combinedChildWidth: number, child: HTMLDivElement) => {
+    let combinedChildWidth = 0;
+    childNodes.forEach((child) => {
       const childWidth = child.offsetWidth + childSpacing;
-      combinedChildWidth + childWidth < containerWidth ? visibleItems.push(child) : hiddenItems.push(child);
-      return combinedChildWidth + childWidth;
-    }, 0);
+      if (combinedChildWidth + childWidth < containerWidth) {
+        visibleItems.push(child);
+      } else {
+        hiddenItems.push(child);
+      }
+      combinedChildWidth += childWidth;
+    });
 
     if (hideItems) {
       // if first item is too wide to show, no items are shown.
@@ -191,7 +196,7 @@ export const ClearButton = ({
       className={classNames(styles.clearButton, toggleButtonHidden && styles.noToggle)}
       onClick={onClear}
       aria-label={clearButtonAriaLabel}
-      onFocus={onFocus && onFocus}
+      onFocus={onFocus}
       disabled={disabled}
     >
       <IconCrossCircle />
@@ -221,7 +226,7 @@ export const SelectedItems = <OptionType,>({
 }: SelectedItemsProps<OptionType>) => {
   const [ref, { width, height }] = useMeasure({ debounce: 0, scroll: false, polyfill: ResizeObserver });
   const [hiddenCount, setHiddenCount] = useState(0);
-  const hiddenItemsCountRef = useRef<HTMLSpanElement>();
+  const hiddenItemsCountRef = useRef<HTMLSpanElement>(null);
   const hiddenCountEl = hiddenItemsCountRef.current;
   const containerEl = selectedItemsContainerRef.current;
 

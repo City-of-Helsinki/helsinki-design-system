@@ -169,9 +169,7 @@
   }
 
   @media only screen and (max-width: 765.98px) {
-    & {
-      --notification-offset: var(--spacing-s);
-    }
+    --notification-offset: var(--spacing-s);
   }
 }
 

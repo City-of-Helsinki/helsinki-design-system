@@ -96,7 +96,7 @@ $componentMaxWidth: 500px;
 
 .fileListItemName {
   hyphens: auto;
-  word-break: break-word;
+  overflow-wrap: anywhere;
 }
 
 .fileListItemSize {

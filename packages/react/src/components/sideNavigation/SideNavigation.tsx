@@ -135,7 +135,7 @@ export const SideNavigation = ({
       }}
     >
       <nav {...rest} className={classNames(styles.sideNavigation, customThemeClass, className)} id={id} ref={container}>
-        {skipLink && skipLink}
+        {skipLink}
         {/* Toggle button is visible only on small screen size */}
         <Button
           aria-controls={menuId}

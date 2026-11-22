@@ -217,9 +217,7 @@
 }
 
 @mixin noLabel {
-  & {
-    padding-left: var(--size);
-  }
+  padding-left: var(--size);
 }
 
 @mixin error-text {

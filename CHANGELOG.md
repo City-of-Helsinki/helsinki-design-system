@@ -11,7 +11,7 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 
 #### Changed
 
-- [Dependencies] Monorepo-level dependency or tooling changes (resolutions, security patches, CI, etc.).
+- [E2E] The local Docker e2e scripts install corepack, which the Playwright image no longer includes.
 
 ### React
 
@@ -31,7 +31,8 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Accordion] The toggle button has `aria-controls` that points to the accordion content.
+- [Tabs] Selecting a tab with the space key no longer scrolls the page.
 
 ### Core
 
@@ -51,7 +52,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Notification] Notification styles are compiled into `components/all.css` and `components/all.min.css` again.
 
 ### Documentation
 
@@ -67,11 +68,12 @@ Changes that are not related to specific components
 
 Changes that are not related to specific components
 
-- [Component] What has been changed
+- [Hero] Clarified in the principles and accessibility guidelines that the hero should be placed inside the `<main>` element.
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- Fixed blank pages in the archived documentation versions
+- [Notification] Core HTML code examples on the documentation site show notification styles again.
 
 ### Figma
 
@@ -132,6 +134,52 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Component] What bugs/typos are fixed?
+
+## [6.0.8] - November, 9, 2026
+
+### Workspace
+
+#### Changed
+
+- [Dependencies] Moved Storybook-only and unused packages between dependencies and devDependencies. `hds-core` now depends on `hds-design-tokens`.
+- [Dependencies] Upgraded Stylelint to 17.16.0, `stylelint-config-standard-scss` to 17, and `stylelint-order` to 8.1.2.
+- [Dependencies] Allowed the React 19 and Parcel 2.8 peer ranges that Gatsby, React Spring, and react-popper do not declare yet.
+
+### React
+
+#### Changed
+
+Changes that are not related to specific components
+
+- [Dependencies] `react-hook-form`, `@hookform/resolvers`, `yup`, and `@types/cookie` are devDependencies. `hds-design-tokens` is no longer a direct dependency. The `postcss` peer dependency was removed; PostCSS remains a dependency for critical CSS extraction.
+- The ESM build keeps PostCSS in the server-rendering chunk. Bundlers that tree-shake unused exports leave it out of browser bundles that do not call the SSR helpers. A direct Node import from the package root still loads that chunk.
+
+#### Fixed
+
+- [FileInput] Long file names use `overflow-wrap: anywhere` instead of the deprecated `word-break: break-word`.
+- Visually hidden text no longer sets the deprecated `clip` property. `clip-path` already hides it.
+
+### Core
+
+#### Changed
+
+- [Dependencies] `hds-design-tokens` is a runtime dependency, so SCSS that uses the tokens package gets it installed with `hds-core`.
+
+#### Fixed
+
+- [Notification] `.visually-hidden` uses `clip-path: inset(50%)`. The previous `clip` value was invalid, so one pixel of an invisible notification could show.
+
+### Documentation
+
+#### Added
+
+- [Icons] Added missing common usage descriptions for `artificial-intelligence`, `family-numerous`, `speechless`, and `universal-access` on the site icons list.
+
+### Figma
+
+#### Added
+
+- [Icons] New unordered-list, ordered-list and translate icons
 
 ## [6.0.7] - October, 23, 2026
 

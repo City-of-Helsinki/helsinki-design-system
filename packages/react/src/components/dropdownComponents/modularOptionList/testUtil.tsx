@@ -8,6 +8,7 @@ import { useModularOptionListDataHandlers } from './hooks/useModularOptionListDa
 import { ModularOptionListProps, ModularOptionListMetaData, ModularOptionListData, Group, Option } from './types';
 import { getAllOptions } from './utils';
 import { ChangeEvent } from '../../dataProvider/DataContext';
+import { readElementInt } from '../readElementInt';
 
 export type GetModularOptionListProps = Parameters<typeof getModularOptionListProps>[0];
 
@@ -215,18 +216,8 @@ export const renderResultToHelpers = (result: RenderResult) => {
     return result.container.querySelector(`#${id}`) as unknown as T;
   };
 
-  const getRenderTime = () => {
-    const el = getElementById('render-time');
-    return parseInt(el.innerHTML, 10);
-  };
-
-  const getForceRenderTime = () => {
-    const el = getElementById('force-render-time');
-    return parseInt(el.innerHTML, 10);
-  };
-
   const createRenderUpdatePromise = (forcedUpdate = false) => {
-    const fn = () => (forcedUpdate ? getForceRenderTime() : getRenderTime());
+    const fn = () => readElementInt(result.container, forcedUpdate ? 'force-render-time' : 'render-time');
     const lastUpdate = fn();
     return waitFor(() => {
       if (fn() <= lastUpdate) {

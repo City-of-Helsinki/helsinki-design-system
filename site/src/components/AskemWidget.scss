@@ -1,5 +1,5 @@
 /* Button styles: official Core Sass partial (same entry as hds-react Button). */
-@use 'hds-core/lib/components/button/_button-mixin' as HdsButton;
+@use 'hds-core/lib/components/button/button-mixin' as HdsButton;
 
 /*
   Askem injects <style> after the bundle; theme uses gradients, shadows, overflow:hidden.

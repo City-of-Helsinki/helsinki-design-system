@@ -14,7 +14,7 @@
   &__list {
     align-items: center;
     flex-direction: row;
-    word-wrap: break-word;
+    overflow-wrap: break-word;
 
     &-item {
       align-items: center;

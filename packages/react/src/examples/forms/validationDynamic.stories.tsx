@@ -138,7 +138,7 @@ export const Dynamic = () => {
                 invalid={!!errors.city?.message}
                 required
                 onBlur={() => {
-                  trigger('city');
+                  trigger('city').catch(() => undefined);
                 }}
               />
             </div>

@@ -1,4 +1,4 @@
-@use 'hds-core/lib/components/breadcrumb/_breadcrumb-mixin' as CoreSass;
+@use 'hds-core/lib/components/breadcrumb/breadcrumb-mixin' as CoreSass;
 
 .breadcrumb {
   @include CoreSass.breadcrumb($all: false, $base: true, $react: true);

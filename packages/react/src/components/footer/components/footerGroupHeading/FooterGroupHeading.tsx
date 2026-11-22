@@ -59,7 +59,7 @@ export const FooterGroupHeading = <T extends React.ElementType = 'a'>({
 
   return (
     <Item className={classNames(styles.heading, variant && styles[variant], className)} href={href} {...rest}>
-      {label && label}
+      {label}
       {children}
     </Item>
   );

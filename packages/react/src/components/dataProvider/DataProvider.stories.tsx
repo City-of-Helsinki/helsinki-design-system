@@ -31,7 +31,7 @@ export const NumericStepper = () => {
       const { value, min, max } = getData();
       const resolveNewValue = () => {
         if (type !== 'click') {
-          return parseInt(String((payload && payload.value) || '0').replace(/[^0-9]/g, ''), 10);
+          return Number.parseInt(String((payload && payload.value) || '0').replace(/[^0-9]/g, ''), 10);
         }
         const diff = id === 'increment' ? 1 : -1;
         return value + diff;
@@ -82,7 +82,7 @@ export const NumericStepper = () => {
     return <Button onClick={onClick}>{children}</Button>;
   };
 
-  const Error = () => {
+  const ErrorMessage = () => {
     const handlers = useContextDataHandlers<NumericStepperData>();
     const { error } = handlers.getData();
     return error ? <p>{error}</p> : null;
@@ -95,7 +95,7 @@ export const NumericStepper = () => {
         <Input />
         <Action id="decrement">-</Action>
         <Action id="increment">+</Action>
-        <Error />
+        <ErrorMessage />
       </DataProvider>
     </>
   );

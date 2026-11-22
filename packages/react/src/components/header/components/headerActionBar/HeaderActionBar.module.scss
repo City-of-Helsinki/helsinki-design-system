@@ -1,5 +1,5 @@
 @use '../../../../styles/common.scss';
-@use './_typography.scss';
+@use './typography';
 @value medium-down from "../../../../styles/breakpoints.scss";
 
 .headerActionBar {
