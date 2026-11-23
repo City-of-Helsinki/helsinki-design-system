@@ -137,6 +137,42 @@ jobs:
       ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
       ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
+  prepend-unreleased-changelog:
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/master' &&
+      needs.publish-npm-packages.result == 'success'
+    needs: [publish-npm-packages]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Merge master into development
+        run: |
+          git config user.email "hds@hel.fi"
+          git config user.name "Github Actions"
+          git fetch origin master development
+          git checkout development
+          git merge origin/master --no-edit
+
+      - name: Prepend unreleased changelog template
+        run: node ./scripts/changelog/update-changelog.js
+
+      - name: Commit and push changelog to development
+        run: |
+          if git diff --quiet CHANGELOG.md; then
+            echo "CHANGELOG.md unchanged; pushing merge to development only."
+          else
+            git add CHANGELOG.md
+            git commit -m "chore: update changelog"
+          fi
+          git push origin development
+
   delete-artifacts-after-success:
     needs: [build, run-e2e-tests, publish-demo-site-with-storybooks, publish-site-with-storybooks, publish-npm-packages]
     if: |
