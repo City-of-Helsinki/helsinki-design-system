@@ -21,6 +21,7 @@ import { singleSelectOptionSelector } from '../modularOptionList/components/list
 import { multiSelectOptionSelector } from '../modularOptionList/components/listItems/MultiSelectOption';
 import { tagSelectorForTagList } from './components/tagList/TagListItem';
 import { elementIsSelectable } from '../../../utils/elementIsSelectable';
+import { readElementInt } from '../readElementInt';
 
 export type GetSelectProps = Parameters<typeof getSelectProps>[0];
 
@@ -252,18 +253,8 @@ export const renderResultToHelpers = (result: RenderResult) => {
     return result.container.querySelector(`#${id}`) as unknown as T;
   };
 
-  const getRenderTime = () => {
-    const el = getElementById('render-time');
-    return parseInt(el.innerHTML, 10);
-  };
-
-  const getForceRenderTime = () => {
-    const el = getElementById('force-render-time');
-    return parseInt(el.innerHTML, 10);
-  };
-
   const createRenderUpdatePromise = (forcedUpdate = false) => {
-    const fn = () => (forcedUpdate ? getForceRenderTime() : getRenderTime());
+    const fn = () => readElementInt(result.container, forcedUpdate ? 'force-render-time' : 'render-time');
     const lastUpdate = fn();
     return waitFor(() => {
       if (fn() <= lastUpdate) {
@@ -571,7 +562,7 @@ export const renderWithHelpers = (
 
   const getOverflowCount = () => {
     const element = result.container.querySelector(selectors.overflowCounter);
-    const num = element ? parseInt(element.innerHTML, 10) : NaN;
+    const num = element ? Number.parseInt(element.innerHTML, 10) : Number.NaN;
     return Number.isNaN(num) ? -1 : num;
   };
 

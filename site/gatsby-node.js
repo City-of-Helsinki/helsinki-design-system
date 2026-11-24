@@ -6,6 +6,8 @@ const {
   isVersionedArchiveContext,
   resolveVersionedHdsImportToAbsolute,
 } = require('./scripts/versioned-hds-resolve.cjs');
+const { ThirdPartyLicensesPlugin } = require('@city-of-helsinki/license-notices/webpack');
+const { thirdPartyLicensesConfig } = require('./scripts/thirdPartyLicenses.config');
 const buildSingleVersion = process.env.BUILD_SINGLE_VERSION === 'true';
 
 /** Absolute-path aliases for hds-core-X.Y.Z / hds-react-X.Y.Z under site/node_modules. */
@@ -53,7 +55,7 @@ exports.createSchemaCustomization = ({ actions }) => {
   createTypes(typeDefs);
 };
 
-exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
+exports.onCreateWebpackConfig = ({ stage, actions, getConfig }) => {
   const config = getConfig();
 
   // Custom resolver plugin to handle dynamic aliases for CSS imports
@@ -182,18 +184,17 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
         }
       }
     ),
-    // Redirect '@reach/router' imports from .previous-versions/ to '@gatsbyjs/reach-router'.
-    // Archived AnchorLink.js calls useLocation() from '@reach/router', but Gatsby 5 provides its
-    // LocationContext.Provider via '@gatsbyjs/reach-router' — a different context object. Reading
-    // from the wrong package finds no provider and throws "useLocation hook was used but a
-    // LocationContext.Provider was not found", crashing every archived page that renders AnchorLink.
-    // The two packages are API-compatible; only applies when the importer is inside .previous-versions/.
+    // Redirect '@reach/router' imports from .previous-versions/ to a useLocation shim.
+    // Archived AnchorLink.js calls useLocation() from '@reach/router'. The archived page chunks get
+    // their own copy of the router module, whose LocationContext is never provided by Gatsby's Router,
+    // so useLocation() throws and every archived page that renders AnchorLink is left blank.
+    // Only applies when the importing file is inside .previous-versions/.
     new webpack.NormalModuleReplacementPlugin(
       /^@reach\/router$/,
       resource => {
         const normalizedContext = resource.context.split(path.sep).join('/');
         if (normalizedContext.includes('.previous-versions/')) {
-          resource.request = '@gatsbyjs/reach-router';
+          resource.request = path.resolve(__dirname, 'src/utils/reach-router-archive-shim.js');
         }
       }
     ),
@@ -329,6 +330,13 @@ exports.onCreateWebpackConfig = ({ actions, getConfig }) => {
       },
     },
   });
+
+  // Third-party license notices for the bundle sent to browsers, emitted into public/
+  if (stage === 'build-javascript') {
+    actions.setWebpackConfig({
+      plugins: [new ThirdPartyLicensesPlugin(thirdPartyLicensesConfig)],
+    });
+  }
 };
 
 exports.createPages = async ({ actions, graphql }) => {

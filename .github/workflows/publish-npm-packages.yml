@@ -14,6 +14,10 @@ on:
         required: false
         type: boolean
         default: false
+    outputs:
+      packages_published:
+        description: True when Lerna published at least one package version this run
+        value: ${{ jobs.publish-npm-packages.outputs.packages_published }}
 
 jobs:
   publish-npm-packages:
@@ -21,9 +25,13 @@ jobs:
     permissions:
       contents: read
       id-token: write  # Required for OIDC authentication to npm registry
+    outputs:
+      packages_published: ${{ steps.release_npm.outputs.packages_published }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.commit_sha }}
 
       - name: download all artifacts
         uses: actions/download-artifact@v8
@@ -36,7 +44,7 @@ jobs:
         id: nvmrc
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6.1.0
+        uses: pnpm/action-setup@v6.1.1
 
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
         uses: actions/setup-node@v7
@@ -51,7 +59,33 @@ jobs:
 
       - name: release npm packages
         id: release_npm
-        run: ${{ inputs.release_command }}
+        run: |
+          SUMMARY_FILE=lerna-publish-summary.json
+          LOG_FILE=/tmp/lerna-publish.log
+          rm -f "$SUMMARY_FILE"
+          set -o pipefail
+          ${{ inputs.release_command }} --summary-file 2>&1 | tee "$LOG_FILE"
+          LERNA_EXIT=${PIPESTATUS[0]}
+          if [ "$LERNA_EXIT" -ne 0 ]; then
+            exit "$LERNA_EXIT"
+          fi
+
+          PACKAGES_PUBLISHED=false
+          if [ -f "$SUMMARY_FILE" ]; then
+            if node -e "const s=require('./$SUMMARY_FILE'); if(!Array.isArray(s)||!s.length) process.exit(1)"; then
+              PACKAGES_PUBLISHED=true
+            fi
+          elif grep -qF 'Successfully published:' "$LOG_FILE"; then
+            echo "::warning::Lerna summary file missing; treating run as published based on log output."
+            PACKAGES_PUBLISHED=true
+          fi
+
+          if [ "$PACKAGES_PUBLISHED" = true ]; then
+            echo "packages_published=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "packages_published=false" >> "$GITHUB_OUTPUT"
+          fi
+          rm -f "$SUMMARY_FILE"
 
       # Deprecation step is commented out for security reasons:
       # - Only needed when next major version is released

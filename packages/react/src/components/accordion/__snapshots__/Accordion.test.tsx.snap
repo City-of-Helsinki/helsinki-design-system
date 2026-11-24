@@ -15,6 +15,7 @@ exports[`<Accordion /> spec renders the component 1`] = `
         role="heading"
       >
         <button
+          aria-controls="accordion-1-content"
           aria-expanded="false"
           aria-labelledby="accordion-1-heading"
           class="button supplementary theme-bus size-medium fullWidth"

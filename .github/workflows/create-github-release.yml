@@ -1,0 +1,97 @@
+name: create GitHub release
+
+on:
+  workflow_call:
+    inputs:
+      commit_sha:
+        required: true
+        type: string
+      is_patch:
+        required: true
+        type: boolean
+    outputs:
+      release_created:
+        description: Whether a new GitHub Release was created this run
+        value: ${{ jobs.create-github-release.outputs.release_created }}
+
+jobs:
+  create-github-release:
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    outputs:
+      release_created: ${{ steps.finish.outputs.release_created }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          ref: ${{ inputs.commit_sha }}
+          fetch-depth: 0
+
+      - name: Resolve version and tag
+        id: version
+        run: |
+          VERSION=$(node -p "require('./packages/react/package.json').version")
+          echo "version=$VERSION" >> "$GITHUB_OUTPUT"
+          echo "tag=v$VERSION" >> "$GITHUB_OUTPUT"
+
+      - name: Skip if release already exists
+        id: existing
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if gh release view "${{ steps.version.outputs.tag }}" >/dev/null 2>&1; then
+            echo "GitHub Release ${{ steps.version.outputs.tag }} already exists; skipping."
+            echo "exists=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "exists=false" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Set release latest flag
+        id: target
+        if: steps.existing.outputs.exists != 'true'
+        run: |
+          if [ "${{ inputs.is_patch }}" = "true" ]; then
+            echo "latest=false" >> "$GITHUB_OUTPUT"
+          else
+            echo "latest=true" >> "$GITHUB_OUTPUT"
+          fi
+
+      - name: Verify patch maintenance branch exists
+        if: steps.existing.outputs.exists != 'true' && inputs.is_patch == true
+        run: |
+          RELEASE_BRANCH="release-${{ steps.version.outputs.version }}"
+          if ! git ls-remote --exit-code --heads origin "$RELEASE_BRANCH" >/dev/null 2>&1; then
+            echo "::error::Maintenance branch origin/$RELEASE_BRANCH not found. Create it before patch release."
+            exit 1
+          fi
+
+      - name: Extract changelog notes
+        if: steps.existing.outputs.exists != 'true'
+        run: |
+          node scripts/release/extract-changelog-section.mjs "${{ steps.version.outputs.version }}" \
+            > release-notes.md
+
+      - name: Create GitHub Release
+        id: gh_create
+        if: steps.existing.outputs.exists != 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          gh release create "${{ steps.version.outputs.tag }}" \
+            --title "${{ steps.version.outputs.tag }}" \
+            --notes-file release-notes.md \
+            --target "${{ inputs.commit_sha }}" \
+            --latest="${{ steps.target.outputs.latest }}"
+
+      - name: Finish
+        id: finish
+        if: always() && steps.existing.outcome == 'success'
+        run: |
+          if [ "${{ steps.existing.outputs.exists }}" = "true" ]; then
+            echo "release_created=false" >> "$GITHUB_OUTPUT"
+          elif [ "${{ steps.gh_create.outcome }}" = "success" ]; then
+            echo "release_created=true" >> "$GITHUB_OUTPUT"
+          else
+            echo "release_created=false" >> "$GITHUB_OUTPUT"
+          fi

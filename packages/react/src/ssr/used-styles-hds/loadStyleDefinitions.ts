@@ -45,6 +45,23 @@ const flattenOrder = (order: string | boolean | number | null): number => {
   return Number.NaN;
 };
 
+class AwaitableStyleDefinition implements PromiseLike<void> {
+  isReady = false;
+
+  private readonly awaiter: Promise<void>;
+
+  constructor(awaiter: Promise<void>) {
+    this.awaiter = awaiter;
+  }
+
+  then<TResult1 = void, TResult2 = never>(
+    onFulfilled?: ((value: void) => TResult1 | PromiseLike<TResult1>) | null,
+    onRejected?: ((reason: unknown) => TResult2 | PromiseLike<TResult2>) | null,
+  ): Promise<TResult1 | TResult2> {
+    return this.awaiter.then(onFulfilled, onRejected);
+  }
+}
+
 const createAwaitableResult = () => {
   let resolve: (value?: void | PromiseLike<never>) => void;
   let reject: (reason?: never) => void;
@@ -53,12 +70,7 @@ const createAwaitableResult = () => {
     reject = rej;
   });
 
-  const result: StyleDefinition = {
-    isReady: false,
-    then(res, rej) {
-      return awaiter.then(res, rej);
-    },
-  } as StyleDefinition;
+  const result = new AwaitableStyleDefinition(awaiter) as unknown as StyleDefinition;
 
   return {
     result,
@@ -81,7 +93,7 @@ const hasClassSelector = (str: string): boolean => !!str && str.indexOf('.') >= 
 
 const mapSelector = (selector: string): string[] => {
   // replace `something:not(.something)` to `something:not`
-  const cleanSelector = selector.replace(/\(([^)])*\)/g, '').replace(/(\\\+)/g, 'PLUS_SYMBOL');
+  const cleanSelector = selector.replace(/\([^)]*\)/g, '').replace(/(\\\+)/g, 'PLUS_SYMBOL');
   const ruleSelection =
     // anything like "class"
     cleanSelector.match(/\.([^>~+$:{[\s]+)?/g) || [];
@@ -118,7 +130,7 @@ const getPostfix = (rule: string) => {
 
 const extractParents = (selector: string): string[] => {
   // replace `something:not(.something)` to `something:not`
-  const cleanSelector = selector.replace(/\(([^)])*\)/g, '').replace(/(\\\+)/g, 'PLUS_SYMBOL');
+  const cleanSelector = selector.replace(/\([^)]*\)/g, '').replace(/(\\\+)/g, 'PLUS_SYMBOL');
   const parts = cleanSelector.split(' ');
   // remove the last part
   parts.pop();
@@ -263,7 +275,7 @@ const buildAst = memoizeOne<[CSS: string, file?: string], SingleStyleAst>((CSS: 
         }
 
         const delc: StyleBody = {
-          id: NaN,
+          id: Number.NaN,
           rules: [],
           start: createRange(Infinity, Infinity),
           end: createRange(0, 0),
@@ -368,8 +380,9 @@ export function loadStyleDefinitions(
 
     const styleFiles: StyleFiles = {};
     // prefill the obiect to pin keys ordering
-    // eslint-disable-next-line no-return-assign
-    files.map((file) => (styleFiles[file] = undefined as never));
+    files.forEach((file) => {
+      styleFiles[file] = undefined as never;
+    });
 
     await Promise.all(
       files.map(async (file) => {

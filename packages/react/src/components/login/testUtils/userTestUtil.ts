@@ -13,13 +13,13 @@ export type UserCreationProps = {
 
 type PublicUserManagerEvents = {
   _userUnloaded: {
-    raise: () => Promise<void>;
+    raise: () => void;
   };
   _userSignedOut: {
-    raise: () => Promise<void>;
+    raise: () => void;
   };
   _expiringTimer: {
-    raise: () => Promise<void>;
+    raise: () => void;
   };
 };
 

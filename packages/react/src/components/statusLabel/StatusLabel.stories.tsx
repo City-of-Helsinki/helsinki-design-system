@@ -19,7 +19,8 @@ export const Success = () => <StatusLabel type="success">Success</StatusLabel>;
 
 export const Alert = () => <StatusLabel type="alert">Alert</StatusLabel>;
 
-export const Error = () => <StatusLabel type="error">Error</StatusLabel>;
+export const ErrorStatus = () => <StatusLabel type="error">Error</StatusLabel>;
+ErrorStatus.storyName = 'Error';
 
 export const Icons = () => (
   <>

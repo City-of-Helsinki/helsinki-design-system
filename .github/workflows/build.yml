@@ -24,7 +24,7 @@ jobs:
         id: nvmrc
 
       - name: Install pnpm
-        uses: pnpm/action-setup@v6.1.0
+        uses: pnpm/action-setup@v6.1.1
 
       - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
         uses: actions/setup-node@v7
@@ -118,9 +118,35 @@ jobs:
       HDSDEMO_SSH_DEPLOY_KEY: ${{ secrets.HDSDEMO_SSH_DEPLOY_KEY }}
       ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
 
-  publish-npm-packages:
+  validate-release-preflight:
     if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease')
     needs: [build, run-e2e-tests]
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: Install pnpm
+        uses: pnpm/action-setup@v6.1.1
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Validate changelog and patch branch before npm publish
+        run: |
+          node scripts/release/validate-release-preflight.mjs \
+            ${{ github.ref == 'refs/heads/patchrelease' && '--patch' || '' }}
+
+  publish-npm-packages:
+    if: github.event_name == 'push' && (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease')
+    needs: [build, run-e2e-tests, validate-release-preflight]
     uses: ./.github/workflows/publish-npm-packages.yml
     with:
       commit_sha: ${{ github.sha }}
@@ -136,6 +162,129 @@ jobs:
     secrets:
       ACTIONS_DEPLOY_KEY: ${{ secrets.ACTIONS_DEPLOY_KEY }}
       ASKEM_API_KEY: ${{ secrets.ASKEM_API_KEY }}
+
+  reconcile-pending-github-release:
+    if: |
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease') &&
+      needs.publish-npm-packages.result == 'success'
+    needs: [publish-npm-packages]
+    runs-on: ubuntu-latest
+    outputs:
+      pending_github_release: ${{ steps.reconcile.outputs.pending_github_release }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+
+      - name: Read .nvmrc
+        run: echo "NODE_VERSION=$(cat .nvmrc)" >> $GITHUB_OUTPUT
+        id: nvmrc
+
+      - name: setup node ${{ steps.nvmrc.outputs.NODE_VERSION }}
+        uses: actions/setup-node@v7
+        with:
+          node-version: '${{ steps.nvmrc.outputs.NODE_VERSION }}'
+          registry-url: 'https://registry.npmjs.org'
+
+      - name: Detect missing GitHub Release for published npm versions
+        id: reconcile
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          if [ "${{ needs.publish-npm-packages.outputs.packages_published }}" = "true" ]; then
+            echo "pending_github_release=false" >> "$GITHUB_OUTPUT"
+            exit 0
+          fi
+
+          VERSION=$(node -p "require('./packages/react/package.json').version")
+          TAG="v$VERSION"
+          GH_ERR_FILE="$(mktemp)"
+          set +e
+          gh release view "$TAG" >/dev/null 2>"$GH_ERR_FILE"
+          GH_EXIT=$?
+          set -e
+          if [ "$GH_EXIT" -eq 0 ]; then
+            echo "pending_github_release=false" >> "$GITHUB_OUTPUT"
+            rm -f "$GH_ERR_FILE"
+            exit 0
+          fi
+          if ! grep -qiE 'not found|HTTP 404|release not found' "$GH_ERR_FILE"; then
+            echo "::error::Failed to look up GitHub Release $TAG"
+            cat "$GH_ERR_FILE"
+            rm -f "$GH_ERR_FILE"
+            exit 1
+          fi
+          rm -f "$GH_ERR_FILE"
+
+          for name in hds-core hds-design-tokens hds-js hds-react; do
+            NPM_ERR_FILE="$(mktemp)"
+            if npm view "${name}@${VERSION}" version >/dev/null 2>"$NPM_ERR_FILE"; then
+              rm -f "$NPM_ERR_FILE"
+              continue
+            fi
+            if grep -qiE 'E404|404 not found|404 Not Found' "$NPM_ERR_FILE"; then
+              echo "Package ${name}@${VERSION} not on npm; no pending GitHub Release."
+              echo "pending_github_release=false" >> "$GITHUB_OUTPUT"
+              rm -f "$NPM_ERR_FILE"
+              exit 0
+            fi
+            echo "::error::npm registry lookup failed for ${name}@${VERSION}"
+            cat "$NPM_ERR_FILE"
+            rm -f "$NPM_ERR_FILE"
+            exit 1
+          done
+
+          echo "::notice::Version ${VERSION} is on npm but GitHub Release ${TAG} is missing; will attempt to create the release."
+          echo "pending_github_release=true" >> "$GITHUB_OUTPUT"
+
+  create-github-release:
+    if: |
+      github.event_name == 'push' &&
+      (github.ref == 'refs/heads/master' || github.ref == 'refs/heads/patchrelease') &&
+      (needs.publish-npm-packages.outputs.packages_published == 'true' ||
+        needs.reconcile-pending-github-release.outputs.pending_github_release == 'true')
+    needs: [publish-npm-packages, reconcile-pending-github-release]
+    uses: ./.github/workflows/create-github-release.yml
+    with:
+      commit_sha: ${{ github.sha }}
+      is_patch: ${{ github.ref == 'refs/heads/patchrelease' }}
+
+  prepend-unreleased-changelog:
+    if: |
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/master' &&
+      needs.create-github-release.result == 'success' &&
+      needs.create-github-release.outputs.release_created == 'true'
+    needs: [create-github-release]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+
+      - name: Merge master into development
+        run: |
+          git config user.email "hds@hel.fi"
+          git config user.name "Github Actions"
+          git fetch origin master development
+          git checkout development
+          git merge origin/master --no-edit
+
+      - name: Prepend unreleased changelog template
+        run: node ./scripts/changelog/update-changelog.js
+
+      - name: Commit and push changelog to development
+        run: |
+          if git diff --quiet CHANGELOG.md; then
+            echo "CHANGELOG.md unchanged; pushing merge to development only."
+          else
+            git add CHANGELOG.md
+            git commit -m "chore: update changelog"
+          fi
+          git push origin development
 
   delete-artifacts-after-success:
     needs: [build, run-e2e-tests, publish-demo-site-with-storybooks, publish-site-with-storybooks, publish-npm-packages]
@@ -168,8 +317,16 @@ jobs:
             }
 
   delete-patchrelease-branch:
-    if: github.event_name == 'push' && github.ref == 'refs/heads/patchrelease'
-    needs: [build, run-e2e-tests, publish-npm-packages]
+    if: |
+      always() &&
+      !cancelled() &&
+      github.event_name == 'push' &&
+      github.ref == 'refs/heads/patchrelease' &&
+      needs.publish-npm-packages.result == 'success' &&
+      needs.reconcile-pending-github-release.result == 'success' &&
+      needs.create-github-release.result != 'failure' &&
+      (needs.create-github-release.result == 'success' || needs.create-github-release.result == 'skipped')
+    needs: [build, run-e2e-tests, publish-npm-packages, reconcile-pending-github-release, create-github-release]
     runs-on: ubuntu-latest
     steps:
       - name: Checkout code
