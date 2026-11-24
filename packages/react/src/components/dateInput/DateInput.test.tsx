@@ -199,4 +199,18 @@ describe('<DateInput /> spec', () => {
     expect(onChange).toHaveBeenCalledTimes(1);
     expect(onChange.mock.calls[0][0]).toBe('1.1');
   });
+
+  it('does not commit the value when the given onKeyDown prevents Enter', () => {
+    const onChange = jest.fn();
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    };
+    render(<DateInput id="date" label="Choose a date" onChange={onChange} onKeyDown={onKeyDown} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '1.1' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).not.toHaveBeenCalled();
+  });
 });

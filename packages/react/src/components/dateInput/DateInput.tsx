@@ -290,7 +290,7 @@ export const DateInput = ({
           if (textInputProps.onKeyDown) {
             textInputProps.onKeyDown(e);
           }
-          if (e.key === 'Enter' && !e.nativeEvent.isComposing && e.keyCode !== 229) {
+          if (e.key === 'Enter' && !e.defaultPrevented && !e.nativeEvent.isComposing && e.keyCode !== 229) {
             e.preventDefault();
             handleBlur((e.target as HTMLInputElement).value);
           }
