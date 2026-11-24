@@ -1,4 +1,5 @@
 *.log
+lerna-publish-summary.json
 .DS_Store
 .jest-*
 lib
