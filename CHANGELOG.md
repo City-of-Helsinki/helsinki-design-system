@@ -37,6 +37,7 @@ Changes that are not related to specific components
 - [Breadcrumb] The current page item has `aria-current="page"` instead of `"true"`.
 - [Checkbox, NumberInput, PasswordInput, RadioButton, TextArea, TextInput] A given `aria-describedby` is combined with the ids of the helper, error, success and info texts instead of replacing them.
 - [Card] The padding properties of `theme` are optional, so a custom theme can be given without them.
+- [Accordion] The close button color is based on `--content-color` instead of the undefined `--content-font-color`.
 
 ### Core
 
