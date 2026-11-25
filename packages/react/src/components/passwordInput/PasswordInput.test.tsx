@@ -38,7 +38,14 @@ describe('<PasswordInput /> spec', () => {
     const element = getByTestId(inputProps['data-testid']);
     // id, className and style are set to the wrapper element, others to input
     expect(
-      getElementAttributesMisMatches(element, { ...inputProps, id: undefined, style: undefined, className: undefined }),
+      getElementAttributesMisMatches(element, {
+        ...inputProps,
+        id: undefined,
+        style: undefined,
+        className: undefined,
+        // aria-describedby is merged with the ids of the helper and error texts
+        'aria-describedby': `${inputProps['aria-describedby']} ${defaultInputProps.id}-helper ${defaultInputProps.id}-error`,
+      }),
     ).toHaveLength(0);
   });
 
@@ -58,5 +65,20 @@ describe('<PasswordInput /> spec', () => {
     });
 
     expect(getInputElement(container).getAttribute('type')).toBe('password');
+  });
+
+  describe('aria-describedby', () => {
+    it('keeps the ids of the texts when aria-describedby is given', () => {
+      const { container } = render(<PasswordInput {...defaultInputProps} aria-describedby="custom-description" />);
+      expect(container.querySelector('input')?.getAttribute('aria-describedby')).toBe(
+        'custom-description passwordInputId-helper passwordInputId-error',
+      );
+    });
+    it('uses only the given aria-describedby when there are no texts', () => {
+      const { container } = render(
+        <PasswordInput id="passwordInputId" label="passwordInput label" aria-describedby="custom-description" />,
+      );
+      expect(container.querySelector('input')?.getAttribute('aria-describedby')).toBe('custom-description');
+    });
   });
 });
