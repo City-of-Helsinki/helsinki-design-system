@@ -11,9 +11,8 @@
  *  - "-v" verbose. Enable verbose output.
  */
 
-const { glob } = require('glob');
-var fs = require('fs/promises');
-var path = require('path');
+var fs = require('node:fs/promises');
+var path = require('node:path');
 
 function createPathReplacer(globPath, targetFolder) {
   const globPrefix = globPath.split('*')[0];
@@ -60,7 +59,7 @@ async function copyFiles(args) {
   const { globPath, targetPath, verbose } = args;
   let error;
   return new Promise(async (resolve, reject) => {
-    const filesWithJs = await glob(globPath);
+    const filesWithJs = await Array.fromAsync(fs.glob(globPath));
     const pathReplacer = createPathReplacer(globPath, targetPath);
     for (const filePath of filesWithJs) {
       if (!error) {
