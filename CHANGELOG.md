@@ -62,6 +62,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Notification] Notification styles are compiled into `components/all.css` and `components/all.min.css` again.
+- [StatusLabel] Font weight set to 500 to match Tag.
 
 ### Documentation
 
