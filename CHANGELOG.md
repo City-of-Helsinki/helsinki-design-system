@@ -36,6 +36,7 @@ Changes that are not related to specific components
 - [Checkbox] Leaving out `checked` makes the checkbox uncontrolled, so `defaultChecked` sets the initial state and the checkbox can be toggled without `checked`.
 - [Breadcrumb] The current page item has `aria-current="page"` instead of `"true"`.
 - [Checkbox, NumberInput, PasswordInput, RadioButton, TextArea, TextInput] A given `aria-describedby` is combined with the ids of the helper, error, success and info texts instead of replacing them.
+- [Card] The padding properties of `theme` are optional, so a custom theme can be given without them.
 
 ### Core
 
