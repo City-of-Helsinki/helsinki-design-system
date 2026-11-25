@@ -35,6 +35,7 @@ Changes that are not related to specific components
 - [Tabs] Selecting a tab with the space key no longer scrolls the page.
 - [Checkbox] Leaving out `checked` makes the checkbox uncontrolled, so `defaultChecked` sets the initial state and the checkbox can be toggled without `checked`.
 - [Breadcrumb] The current page item has `aria-current="page"` instead of `"true"`.
+- [Checkbox, NumberInput, PasswordInput, RadioButton, TextArea, TextInput] A given `aria-describedby` is combined with the ids of the helper, error, success and info texts instead of replacing them.
 
 ### Core
 
