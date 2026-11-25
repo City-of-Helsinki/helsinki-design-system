@@ -389,6 +389,8 @@ test.describe(`Testing ${storybook} component "${componentName}"`, () => {
       ...inputProps,
       style: undefined,
       className: undefined,
+      // aria-describedby is merged with the id of the helper text
+      'aria-describedby': `${inputProps['aria-describedby']} ${inputProps.id}-helper`,
     } as unknown as React.HTMLAttributes<HTMLInputElement>;
     await setComponentPropsAndRender(inputProps, page);
     const inputUtil = createDateInputHelpers(page, `#${inputProps.id}`);
