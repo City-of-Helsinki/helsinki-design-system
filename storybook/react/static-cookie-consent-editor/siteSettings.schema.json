@@ -1,0 +1,877 @@
+{
+  "$defs": {
+    "LocalisedText": {
+      "type": "object",
+      "title": "Localised text",
+      "properties": {
+        "fi": {
+          "type": "string",
+          "title": "fi (Finnish)",
+          "minLength": 1
+        },
+        "sv": {
+          "type": "string",
+          "title": "sv (Swedish)",
+          "minLength": 1
+        },
+        "en": {
+          "type": "string",
+          "title": "en (English)",
+          "minLength": 1
+        }
+      },
+      "required": [
+        "fi",
+        "sv",
+        "en"
+      ],
+      "additionalProperties": false
+    },
+    "UniversalText": {
+      "type": "string",
+      "title": "Universal text",
+      "minLength": 1
+    },
+    "UniversalLocalisedText": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/UniversalText"
+        },
+        {
+          "$ref": "#/$defs/LocalisedText"
+        }
+      ]
+    },
+    "LocalisedUniversalText": {
+      "oneOf": [
+        {
+          "$ref": "#/$defs/LocalisedText"
+        },
+        {
+          "$ref": "#/$defs/UniversalText"
+        }
+      ]
+    },
+    "Cookie": {
+      "title": "Item",
+      "headerTemplate": "Item {{ i1 }} - {{ self.name }} ({{ self.host }})",
+      "options": {
+        "collapsed": true
+      },
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string",
+          "title": "Name",
+          "description": "Machine name for the cookie, also used in code to verify and possibly remove cookie (if option is on). You can use * as a wildcard to match multiple cookies. For example \"SSESS*\" would match both \"SSESS\" and \"SSESS_123\"."
+        },
+        "host": {
+          "title": "Host",
+          "description": "Hostname of the cookie",
+          "allOf": [
+            {
+              "$ref": "#/$defs/UniversalLocalisedText"
+            },
+            {
+              "default": ""
+            }
+          ]
+        },
+        "storageType": {
+          "type": "integer",
+          "title": "Storage type",
+          "description": "Type of the stored item, shown to the user and used in code.",
+          "default": 1,
+          "enum": [
+            1,
+            2,
+            3,
+            4,
+            5
+          ],
+          "options": {
+            "enum_titles": [
+              "1. Cookie",
+              "2. localStorage",
+              "3. sessionStorage",
+              "4. IndexedDB",
+              "5. Cache Storage"
+            ]
+          }
+        },
+        "description": {
+          "$ref": "#/$defs/LocalisedUniversalText",
+          "title": "Description",
+          "description": "Describe to end user what information is gathered and why it is gathered by using this cookie or item.",
+          "options": {
+            "disable_collapse": true
+          }
+        },
+        "expiration": {
+          "$ref": "#/$defs/LocalisedUniversalText",
+          "title": "Expiration",
+          "description": "Describe to end user when the cookie or item expires. (e.g. \"100 days\") If it does not expire (like localStorage), enter a dash \"-\". If it's a session cookie, enter fi:\"Istunto\", sv:\"Session\", en:\"Session\".",
+          "options": {
+            "disable_collapse": true
+          }
+        }
+      },
+      "required": [
+        "name",
+        "host",
+        "description",
+        "expiration",
+        "storageType"
+      ]
+    },
+    "Group": {
+      "title": "Group",
+      "headerTemplate": "Group {{ i1 }} - {{ self.groupId }}",
+      "options": {
+        "collapsed": true
+      },
+      "type": "object",
+      "properties": {
+        "groupId": {
+          "type": "string",
+          "minLength": 1,
+          "title": "Group ID",
+          "description": "Short unique identifier for the group, used only in code",
+          "options": {
+            "input_width": "calc(10ch + 28px)"
+          }
+        },
+        "title": {
+          "title": "Title",
+          "$ref": "#/$defs/LocalisedUniversalText",
+          "minLength": 1,
+          "options": {
+            "disable_collapse": true
+          }
+        },
+        "description": {
+          "title": "Description",
+          "$ref": "#/$defs/LocalisedUniversalText",
+          "options": {
+            "disable_collapse": true
+          }
+        },
+        "cookies": {
+          "title": "Cookies",
+          "description": "Cookies or items toggled together in this group",
+          "type": "array",
+          "items": {
+            "$ref": "#/$defs/Cookie"
+          },
+          "minItems": 1,
+          "uniqueItems": true,
+          "options": {
+            "disable_collapse": true,
+            "array_controls_top": true
+          }
+        }
+      },
+      "required": [
+        "groupId",
+        "title",
+        "description",
+        "cookies"
+      ]
+    }
+  },
+  "title": "Cookie banner site settings",
+  "description": "Most text fields support \"Universal text\" and \"Localised text\" modes. Use \"Universal text\" for consistent strings across all languages, like \"localStorage.\" Use \"Localised text\" to provide different translations, like \"cookie\" (e.g., \"keksi\" in Finnish). You can copy and edit the raw JSON if you wish to using the textarea.",
+  "options": {
+    "disable_collapse": true
+  },
+  "type": "object",
+  "properties": {
+    "languages": {
+      "title": "Supported languages",
+      "description": "List all languages you wish banner to support.",
+      "type": "array",
+      "format": "table",
+      "options": {
+        "disable_collapse": true
+      },
+      "items": {
+        "type": "object",
+        "properties": {
+          "code": {
+            "type": "string",
+            "minLength": 2,
+            "title": "Code (e.g. \"fi\")"
+          },
+          "name": {
+            "type": "string",
+            "minLength": 1,
+            "title": "Name (e.g. \"Finnish\")"
+          },
+          "direction": {
+            "type": "string",
+            "title": "(Reading) direction",
+            "enum": [
+              "ltr",
+              "rtl"
+            ],
+            "options": {
+              "enum_titles": [
+                "ltr (Left to right)",
+                "rtl (Right to left)"
+              ]
+            },
+            "default": "ltr",
+            "pattern": "(ltr|rtl)"
+          }
+        },
+        "required": [
+          "code",
+          "name",
+          "direction"
+        ],
+        "title": "Language"
+      },
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "siteName": {
+      "description": "Name of the website the cookie banner is running in.",
+      "title": "Website name",
+      "options": {
+        "input_width": "calc(30ch + 28px)"
+      },
+      "allOf": [
+        {
+          "$ref": "#/$defs/UniversalLocalisedText"
+        },
+        {
+          "default": "",
+          "options": {
+            "disable_collapse": true
+          }
+        }
+      ]
+    },
+    "cookieName": {
+      "type": "string",
+      "title": "Cookie name",
+      "description": "The name of the cookie where the banner settings are stored",
+      "options": {
+        "input_width": "calc(20ch + 28px)"
+      },
+      "minLength": 1,
+      "default": "hds-cookie-consent"
+    },
+    "monitorInterval": {
+      "type": "integer",
+      "title": "Monitor interval (ms)",
+      "description": "How often banner checks for unallowed cookies in milliseconds. Disabled by default. 500 ms is a good default.",
+      "options": {
+        "input_width": "calc(5ch + 28px)"
+      },
+      "default": 500
+    },
+    "remove": {
+      "type": "boolean",
+      "title": "Remove (unallowed items)",
+      "description": "Should items (cookies, localStorage, etc) that have not been allowed (by accepting or by omission) be removed? Disabled by default.",
+      "default": true
+    },
+    "fallbackLanguage": {
+      "type": "string",
+      "title": "Fallback language",
+      "description": "Language code to fallback if translation is not found. For example, if your site supports \"fi\", \"sv\", and \"en\" languages for the interface, but you may have some content in \"uk\" and wish to show the banner in English in these situations.",
+      "enum": [
+        "fi",
+        "sv",
+        "en"
+      ],
+      "options": {
+        "enum_titles": [
+          "fi (Finnish)",
+          "sv (Swedish)",
+          "en (English)"
+        ]
+      },
+      "default": "en"
+    },
+    "requiredGroups": {
+      "type": "array",
+      "options": {
+        "disable_collapse": true,
+        "array_controls_top": true
+      },
+      "items": {
+        "$ref": "#/$defs/Group"
+      },
+      "title": "Required groups",
+      "description": "One required group must contain the cookieName-cookie. Cookies in these groups are required for the site to function. ",
+      "uniqueItems": true,
+      "minItems": 1
+    },
+    "optionalGroups": {
+      "type": "array",
+      "options": {
+        "disable_collapse": true,
+        "array_controls_top": true
+      },
+      "items": {
+        "$ref": "#/$defs/Group"
+      },
+      "title": "Optional groups",
+      "description": "These groups are optional and user can choose to accept them or not.",
+      "minItems": 0
+    },
+    "robotCookies": {
+      "title": "Robot cookies",
+      "description": "These cookies or items are never set by the website, but should be allowed by the cookie banner code. For example Siteimprove can set a cookie to open accordions before it takes a snapshot and website can read this cookie to keep the accordions open when the cookie is present.",
+      "type": "array",
+      "options": {
+        "collapsed": true,
+        "disable_array_reorder": true
+      },
+      "format": "table",
+      "items": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "title": "Name",
+            "description": "Machine name for the cookie, used only in code",
+            "minLength": 1
+          },
+          "storageType": {
+            "type": "integer",
+            "title": "Storage type",
+            "description": "Type of the stored item",
+            "enum": [
+              1,
+              2,
+              3,
+              4,
+              5
+            ],
+            "options": {
+              "enum_titles": [
+                "1. Cookie",
+                "2. localStorage",
+                "3. sessionStorage",
+                "4. IndexedDB",
+                "5. Cache Storage"
+              ]
+            }
+          }
+        },
+        "title": "Robot cookie or item",
+        "required": [
+          "name",
+          "storageType"
+        ],
+        "description": "(Not visible to end user)"
+      },
+      "default": [
+        {
+          "name": "exampleCookieName",
+          "storageType": 1
+        }
+      ]
+    },
+    "groupsWhitelistedForApi": {
+      "type": "array",
+      "format": "table",
+      "options": {
+        "collapsed": true,
+        "disable_array_reorder": true
+      },
+      "items": {
+        "type": "string",
+        "title": "Group ID",
+        "minLength": 1
+      },
+      "title": "Groups whitelisted for API",
+      "description": "Allow accepting these groups via Javascript API. For example if chat cookies should be allowed based on user interaction even if they have not made a choice on the banner.",
+      "uniqueItems": true,
+      "minLength": 1,
+      "default": [
+        "exampleGroupId"
+      ]
+    },
+    "translations": {
+      "title": "Translations",
+      "description": "Contains all translations used by the banner.",
+      "type": "object",
+      "options": {
+        "collapsed": true
+      },
+      "properties": {
+        "bannerAriaLabel": {
+          "title": "Banner ARIA label",
+          "description": "Brief description of the banner region for screen readers",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Evästeasetukset",
+                "sv": "Inställningar för kakor",
+                "en": "Cookie settings"
+              }
+            }
+          ]
+        },
+        "heading": {
+          "title": "Banner heading",
+          "description": "Banner heading supports {{siteName}} token, it's replaced with the value from siteName setting",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "{{siteName}} käyttää evästeitä",
+                "sv": "{{siteName}} använder kakor",
+                "en": "{{siteName}} uses cookies"
+              }
+            }
+          ]
+        },
+        "description": {
+          "title": "Banner description",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Tämä sivusto käyttää välttämättömiä evästeitä sivun perustoimintojen ja suorituskyvyn varmistamiseksi. Lisäksi käytämme kohdennusevästeitä käyttäjäkokemuksen parantamiseksi, analytiikkaan ja yksilöidyn sisällön näyttämiseen.",
+                "sv": "Denna webbplats använder obligatoriska kakor för att säkerställa de grundläggande funktionerna och prestandan. Dessutom använder vi inriktningskakor för bättre användarupplevelse, analytik och individualiserat innehåll.",
+                "en": "This website uses required cookies to ensure the basic functionality and performance. In addition, we use targeting cookies to improve the user experience, perform analytics and display personalised content."
+              }
+            }
+          ]
+        },
+        "showDetails": {
+          "title": "Show details - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Näytä yksityiskohdat",
+                "sv": "Visa detaljer",
+                "en": "Show details"
+              }
+            }
+          ]
+        },
+        "hideDetails": {
+          "title": "Hide details - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Piilota yksityiskohdat",
+                "sv": "Stäng detaljer",
+                "en": "Hide details"
+              }
+            }
+          ]
+        },
+        "formHeading": {
+          "title": "Form heading",
+          "description": "Visible when details are opened",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Tietoa sivustolla käytetyistä evästeistä",
+                "sv": "Information om kakor som används på webbplatsen",
+                "en": "About the cookies used on the website"
+              }
+            }
+          ]
+        },
+        "formText": {
+          "title": "Form text",
+          "description": "Visible when details are opened",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Sivustolla käytetyt evästeet on luokiteltu käyttötarkoituksen mukaan. Alla voit lukea eri luokista ja sallia tai kieltää evästeiden käytön.",
+                "sv": "Kakorna som används på webbplatsen har klassificerats enligt användningsändamål. Du kan läsa om de olika klasserna och acceptera eller förbjuda användningen av kakor.",
+                "en": "The cookies used on the website have been classified according to their intended use. Below, you can read about the various categories and accept or reject the use of cookies."
+              }
+            }
+          ]
+        },
+        "highlightedGroup": {
+          "title": "Highlighted group",
+          "description": "Shown when the banner is opened to accept certain groups to be able to use content that requires acceptance of those groups.",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Sinun on hyväksyttävä tämä kategoria, jotta voit näyttää valitsemasi sisällön.",
+                "sv": "Du måste acceptera den här kategorin för att visa innehållet du har valt.",
+                "en": "You need to accept this category to display the content you have selected."
+              }
+            }
+          ]
+        },
+        "highlightedGroupAria": {
+          "title": "Highlighted group ARIA",
+          "description": "Section name of the highlighted group for screen readers",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Hyvä tietää kategorialle: {{title}}",
+                "sv": "Bra att veta för kategorin: {{title}}",
+                "en": "Good to know for category: {{title}}"
+              }
+            }
+          ]
+        },
+        "showCookieSettings": {
+          "title": "Show cookie settings - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Näytä evästeasetukset",
+                "sv": "Visa kakinställningarna",
+                "en": "Show cookie settings"
+              }
+            }
+          ]
+        },
+        "hideCookieSettings": {
+          "title": "Hide cookie settings - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Piilota evästeasetukset",
+                "sv": "Stäng kakinställningarna",
+                "en": "Hide cookie settings"
+              }
+            }
+          ]
+        },
+        "acceptedAt": {
+          "title": "Accepted at",
+          "description": "Formats the {{date}} and {{time}} (in Finnish datetime format) to tell the user when this group of cookies has been accepted.",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Olet hyväksynyt tämän kategorian: {{date}} klo {{time}}.",
+                "sv": "Du har accepterat denna kategori: {{date}} kl. {{time}}.",
+                "en": "You have accepted this category: {{date}} at {{time}}."
+              }
+            }
+          ]
+        },
+        "tableHeadingsName": {
+          "title": "Table headings - Name",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Nimi",
+                "sv": "Namn",
+                "en": "Name"
+              }
+            }
+          ]
+        },
+        "tableHeadingsHostName": {
+          "title": "Table headings - Hostname",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Evästeen asettaja",
+                "sv": "Den som lagrat kakan",
+                "en": "Cookie set by"
+              }
+            }
+          ]
+        },
+        "tableHeadingsDescription": {
+          "title": "Table headings - Description",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Käyttötarkoitus",
+                "sv": "Användning",
+                "en": "Purpose of use"
+              }
+            }
+          ]
+        },
+        "tableHeadingsExpiration": {
+          "title": "Table headings - Expiration",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Voimassaoloaika",
+                "sv": "Giltighetstid",
+                "en": "Period of validity"
+              }
+            }
+          ]
+        },
+        "tableHeadingsType": {
+          "title": "Table headings - Type",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Tyyppi",
+                "sv": "Typ",
+                "en": "Type"
+              }
+            }
+          ]
+        },
+        "approveAllConsents": {
+          "title": "Approve all consents - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Hyväksy kaikki evästeet",
+                "sv": "Acceptera alla kakor",
+                "en": "Accept all cookies"
+              }
+            }
+          ]
+        },
+        "approveRequiredAndSelectedConsents": {
+          "title": "Approve required and selected consents - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Hyväksy valitut evästeet",
+                "sv": "Acceptera valda kakor",
+                "en": "Accept selected cookies"
+              }
+            }
+          ]
+        },
+        "approveOnlyRequiredConsents": {
+          "title": "Approve only required consents - button label",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Hyväksy vain välttämättömät evästeet",
+                "sv": "Acceptera endast nödvändiga",
+                "en": "Accept required cookies only"
+              }
+            }
+          ]
+        },
+        "settingsSaved": {
+          "title": "Settings saved",
+          "description": "ARIA-live announcement for screen reader when settings have been saved.",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Asetukset tallennettu!",
+                "sv": "Inställningar sparade!",
+                "en": "Settings saved!"
+              }
+            }
+          ]
+        },
+        "notificationAriaLabel": {
+          "title": "Notification ARIA label",
+          "description": "ARIA-label for the settings saved notification",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Ilmoitus",
+                "sv": "Meddelande",
+                "en": "Announcement"
+              }
+            }
+          ]
+        },
+        "storageType1": {
+          "title": "Type 1 - Cookie",
+          "description": "Text for type column to show to users with cookies",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": {
+                "fi": "Eväste",
+                "sv": "Kakan",
+                "en": "Cookie"
+              }
+            }
+          ]
+        },
+        "storageType2": {
+          "title": "Type 2 - localStorage",
+          "description": "Text for type column to show to users with localStorage items",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": "localStorage"
+            }
+          ]
+        },
+        "storageType3": {
+          "title": "Type 3 - sessionStorage",
+          "description": "Text for type column to show to users with sessionStorage items",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": "sessionStorage"
+            }
+          ]
+        },
+        "storageType4": {
+          "title": "Type 4 - IndexedDB",
+          "description": "Text for type column to show to users with indexedDB tables",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": "IndexedDB"
+            }
+          ]
+        },
+        "storageType5": {
+          "title": "Type 5 - Cache Storage",
+          "description": "Text for type column to show to users with Cache Storage items",
+          "options": {
+            "disable_collapse": true
+          },
+          "allOf": [
+            { "$ref": "#/$defs/LocalisedUniversalText" },
+            {
+              "default": "Cache Storage"
+            }
+          ]
+        }
+      },
+      "required": [
+        "bannerAriaLabel",
+        "heading",
+        "description",
+        "showDetails",
+        "hideDetails",
+        "formHeading",
+        "formText",
+        "highlightedGroup",
+        "highlightedGroupAria",
+        "showCookieSettings",
+        "hideCookieSettings",
+        "acceptedAt",
+        "tableHeadingsName",
+        "tableHeadingsHostName",
+        "tableHeadingsDescription",
+        "tableHeadingsExpiration",
+        "tableHeadingsType",
+        "approveAllConsents",
+        "approveRequiredAndSelectedConsents",
+        "approveOnlyRequiredConsents",
+        "settingsSaved",
+        "notificationAriaLabel",
+        "storageType1",
+        "storageType2",
+        "storageType3",
+        "storageType4",
+        "storageType5"
+      ]
+    }
+  },
+  "required": [
+    "languages",
+    "siteName",
+    "cookieName",
+    "requiredGroups",
+    "optionalGroups",
+    "translations"
+  ]
+}
