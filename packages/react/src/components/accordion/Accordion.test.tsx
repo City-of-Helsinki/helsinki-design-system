@@ -1,5 +1,5 @@
 import React from 'react';
-import { render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import { axe } from 'jest-axe';
 
@@ -104,5 +104,50 @@ describe('<Accordion /> spec', () => {
     const button = getByRole('button', { name: 'Foo' });
     expect(button).toHaveAttribute('aria-controls', 'test-accordion-content');
     expect(document.getElementById('test-accordion-content')).not.toBeNull();
+  });
+  describe('close button', () => {
+    beforeEach(() => {
+      jest.useFakeTimers();
+    });
+    afterEach(() => {
+      jest.useRealTimers();
+    });
+
+    it('closes the accordion and moves focus to the header button', () => {
+      render(
+        <Accordion heading="Foo" id="test-accordion" initiallyOpen language="en">
+          Bar
+        </Accordion>,
+      );
+      const headerButton = screen.getByRole('button', { name: 'Foo' });
+      fireEvent.click(screen.getByRole('button', { name: 'Close Foo' }));
+      act(() => {
+        jest.advanceTimersByTime(50);
+      });
+      expect(headerButton).toHaveAttribute('aria-expanded', 'false');
+      expect(screen.getByText('Bar')).not.toBeVisible();
+      expect(headerButton).toHaveFocus();
+    });
+
+    it('does not move focus back to the header button after the accordion has closed', () => {
+      render(
+        <>
+          <Accordion heading="Foo" id="test-accordion" initiallyOpen language="en">
+            Bar
+          </Accordion>
+          <button type="button">Next</button>
+        </>,
+      );
+      fireEvent.click(screen.getByRole('button', { name: 'Close Foo' }));
+      act(() => {
+        jest.advanceTimersByTime(50);
+      });
+      const nextButton = screen.getByRole('button', { name: 'Next' });
+      nextButton.focus();
+      act(() => {
+        jest.advanceTimersByTime(100);
+      });
+      expect(nextButton).toHaveFocus();
+    });
   });
 });
