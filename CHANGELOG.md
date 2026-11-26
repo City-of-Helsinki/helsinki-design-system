@@ -32,6 +32,7 @@ Changes that are not related to specific components
 #### Fixed
 
 - [Accordion] The toggle button has `aria-controls` that points to the accordion content.
+- [Header] Navigation menu dropdowns close when keyboard focus moves out of them. Escape closes the innermost open dropdown and moves focus to its button.
 - [Tabs] Selecting a tab with the space key no longer scrolls the page.
 - [Checkbox] Leaving out `checked` makes the checkbox uncontrolled, so `defaultChecked` sets the initial state and the checkbox can be toggled without `checked`.
 - [Breadcrumb] The current page item has `aria-current="page"` instead of `"true"`.
