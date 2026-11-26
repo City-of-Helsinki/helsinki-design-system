@@ -353,7 +353,7 @@ importers:
         version: 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(typescript@5.9.3)
       '@storybook/react-webpack5':
         specifier: ^8.6.18
-        version: 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)(uglify-js@3.19.3)
+        version: 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@7.2.0)(typescript@5.9.3)(uglify-js@3.19.3)
       '@testing-library/dom':
         specifier: ^10.4.1
         version: 10.4.1
@@ -7456,8 +7456,8 @@ packages:
     resolution: {integrity: sha512-xgs2NH9AE66ucSq4cNG1nhSFghr5l6tdL15Pk+jl46bmmBapgoaY/AacXyaDznAqmGL99TiLSQgO/XazFSKYeQ==}
     engines: {node: '>=0.10.0'}
 
-  ip-address@10.7.0:
-    resolution: {integrity: sha512-BGFsyJd5mpXp3rK6jIdADLNgpJUK1jnjzvYF8lK+VyDab9JAmqN0YOKDdP17HlgKb2+ehPgDc8EtnRLbGCAMhA==}
+  ip-address@10.7.6:
+    resolution: {integrity: sha512-00LYkM6byILa9eQIx6qoaXCM40xTLd56AZ4vyaPW3YTyb49VZYPo5xsiAq4tuQ54GH4R7gVdYScJ1B7B77PuTg==}
     engines: {node: '>= 12'}
 
   ip-regex@4.3.0:
@@ -8972,6 +8972,7 @@ packages:
 
   node-abort-controller@3.1.1:
     resolution: {integrity: sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==}
+    deprecated: This package is no longer needed on supported Node.js versions. Node.js 16+ includes AbortController and AbortSignal as built-in globals. All Node.js versions requiring this polyfill are end-of-life. Use the built-in globals instead.
 
   node-addon-api@4.3.0:
     resolution: {integrity: sha512-73sE9+3UaLYYFmDsFZnqCInzPyh3MqIwZO9cw58yIqAZhONrrabrYyYe3TuIqtIiOuTXVhsGau8hcrhhwSsDIQ==}
@@ -15803,7 +15804,7 @@ snapshots:
       - uglify-js
       - webpack-cli
 
-  '@storybook/preset-react-webpack@8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)(uglify-js@3.19.3)':
+  '@storybook/preset-react-webpack@8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@7.2.0)(typescript@5.9.3)(uglify-js@3.19.3)':
     dependencies:
       '@storybook/core-webpack': 8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))
       '@storybook/react': 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(typescript@5.9.3)
@@ -15868,10 +15869,10 @@ snapshots:
       react-dom: 19.2.7(react@19.2.7)
       storybook: 8.6.19(prettier@3.9.5)(supports-color@8.1.1)
 
-  '@storybook/react-webpack5@8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)(uglify-js@3.19.3)':
+  '@storybook/react-webpack5@8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@7.2.0)(typescript@5.9.3)(uglify-js@3.19.3)':
     dependencies:
       '@storybook/builder-webpack5': 8.6.18(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(typescript@5.9.3)(uglify-js@3.19.3)
-      '@storybook/preset-react-webpack': 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@8.1.1)(typescript@5.9.3)(uglify-js@3.19.3)
+      '@storybook/preset-react-webpack': 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(supports-color@7.2.0)(typescript@5.9.3)(uglify-js@3.19.3)
       '@storybook/react': 8.6.18(@storybook/test@8.6.18(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1)))(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(storybook@8.6.19(prettier@3.9.5)(supports-color@8.1.1))(typescript@5.9.3)
       react: 19.2.7
       react-dom: 19.2.7(react@19.2.7)
@@ -20258,7 +20259,7 @@ snapshots:
       shallow-compare: 1.2.2
       signal-exit: 3.0.7
       slugify: 1.6.9
-      socket.io: 4.8.3(supports-color@8.1.1)
+      socket.io: 4.8.3(supports-color@7.2.0)
       socket.io-client: 4.8.3(supports-color@8.1.1)
       stack-trace: 0.0.10
       string-similarity: 1.2.2
@@ -21074,7 +21075,7 @@ snapshots:
 
   invert-kv@1.0.0: {}
 
-  ip-address@10.7.0: {}
+  ip-address@10.7.6: {}
 
   ip-regex@4.3.0: {}
 
@@ -25568,7 +25569,7 @@ snapshots:
     transitivePeerDependencies:
       - supports-color
 
-  socket.io@4.8.3(supports-color@8.1.1):
+  socket.io@4.8.3(supports-color@7.2.0):
     dependencies:
       accepts: 1.3.8
       base64id: 2.0.0
@@ -25592,7 +25593,7 @@ snapshots:
 
   socks@2.8.10:
     dependencies:
-      ip-address: 10.7.0
+      ip-address: 10.7.6
       smart-buffer: 4.2.0
 
   sort-keys@2.0.0:
