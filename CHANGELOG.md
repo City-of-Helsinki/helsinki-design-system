@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Accordion] After the close button closes the accordion, focus is no longer moved back to the header button a moment later.
 
 ### Core
 

@@ -8,7 +8,6 @@ import { IconAngleDown, IconAngleUp } from '../../icons';
 import { useAccordion } from './useAccordion';
 import { useTheme } from '../../hooks/useTheme';
 import { Button, ButtonTheme, ButtonSize, ButtonVariant } from '../button';
-import useHasMounted from '../../hooks/useHasMounted';
 import { ThemePrefixer } from '../../utils/themePrefixer';
 import { AllElementPropsWithoutRef } from '../../utils/elementTypings';
 
@@ -149,8 +148,6 @@ export const Accordion = ({
     <IconAngleDown style={{ width: '100%', height: '100%' }} />
   );
 
-  const hasMounted = useHasMounted();
-
   /*
     Close button does not work well with different screen readers. To avoid issues, we had to:
     1. Add aria-expanded to false before closing the accordion (state beforeCloseButtonClick)
@@ -160,17 +157,14 @@ export const Accordion = ({
    */
 
   useEffect(() => {
-    if (!hasMounted) {
-      return;
+    if (!beforeCloseButtonClick) {
+      return undefined;
     }
     const timer = setTimeout(() => {
       headerRef.current.focus();
-      if (beforeCloseButtonClick === true) {
-        setBeforeCloseButtonClick(false);
-        buttonProps.onClick();
-      }
+      setBeforeCloseButtonClick(false);
+      buttonProps.onClick();
     }, 50);
-    // eslint-disable-next-line consistent-return
     return () => clearTimeout(timer);
   }, [beforeCloseButtonClick]);
 
