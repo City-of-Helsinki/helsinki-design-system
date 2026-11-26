@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Breadcrumb] Items that have the same title no longer cause duplicate React key warnings.
 
 ### Core
 

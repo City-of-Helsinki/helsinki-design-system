@@ -80,7 +80,7 @@ const BreadcrumbItem = ({ item, showSeparator }: { item: BreadcrumbListItem; sho
           {item.title}
         </span>
       )}
-      {showSeparator && <Separator key={`separator-${item.title}`} />}
+      {showSeparator && <Separator />}
     </li>
   );
 };
@@ -98,9 +98,9 @@ const DesktopListView = ({ list }: { list: BreadcrumbListItem[] }) => {
   return (
     <ol className={classNames(styles.list, styles.desktopList)}>
       {list.map((item, index) => (
-        <React.Fragment key={item.title}>
-          <BreadcrumbItem key={item.title} item={item} showSeparator={index < list.length - 1} />
-        </React.Fragment>
+        // Titles are not unique (e.g. two levels can have the same title), and the items are identified by their position
+        // eslint-disable-next-line react/no-array-index-key
+        <BreadcrumbItem key={index} item={item} showSeparator={index < list.length - 1} />
       ))}
     </ol>
   );
