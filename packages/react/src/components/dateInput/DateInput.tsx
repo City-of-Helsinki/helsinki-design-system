@@ -286,8 +286,11 @@ export const DateInput = ({
         onButtonClick={disableDatePicker ? undefined : onOpenButtonClick}
         onChange={handleInputChange}
         onBlur={(e) => handleBlur(e.target.value, e)}
-        onKeyPress={(e) => {
-          if (e.key === 'Enter') {
+        onKeyDown={(e) => {
+          if (textInputProps.onKeyDown) {
+            textInputProps.onKeyDown(e);
+          }
+          if (e.key === 'Enter' && !e.defaultPrevented && !e.nativeEvent.isComposing && e.keyCode !== 229) {
             e.preventDefault();
             handleBlur((e.target as HTMLInputElement).value);
           }

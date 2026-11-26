@@ -39,7 +39,28 @@ describe('<Textarea /> spec', () => {
     const element = getByTestId(textAreaAdditionalProps['data-testid']);
     // className and style is set to the input element, others to wrapper
     expect(
-      getElementAttributesMisMatches(element, { ...textAreaAdditionalProps, className: undefined, style: undefined }),
+      getElementAttributesMisMatches(element, {
+        ...textAreaAdditionalProps,
+        className: undefined,
+        style: undefined,
+        // aria-describedby is merged with the ids of the helper and error texts
+        'aria-describedby': `${textAreaAdditionalProps['aria-describedby']} ${textAreaAdditionalProps.id}-helper ${textAreaAdditionalProps.id}-error`,
+      }),
     ).toHaveLength(0);
+  });
+
+  describe('aria-describedby', () => {
+    it('keeps the ids of the texts when aria-describedby is given', () => {
+      const { getByRole } = render(<TextArea {...textAreaProps} aria-describedby="custom-description" />);
+      expect(getByRole('textbox').getAttribute('aria-describedby')).toBe(
+        'custom-description hdsInput-helper hdsInput-error',
+      );
+    });
+    it('uses only the given aria-describedby when there are no texts', () => {
+      const { getByRole } = render(
+        <TextArea id="hdsInput" label="HDS input field" aria-describedby="custom-description" />,
+      );
+      expect(getByRole('textbox').getAttribute('aria-describedby')).toBe('custom-description');
+    });
   });
 });

@@ -67,6 +67,7 @@ export const PasswordInput = ({
   revealPasswordButtonAriaLabel,
   type,
   ref,
+  'aria-describedby': customAriaDescribedBy,
   ...passwordInputProps
 }: PasswordInputProps) => {
   const wrapperProps = {
@@ -127,7 +128,10 @@ export const PasswordInput = ({
   };
 
   // Compose aria-describedby attribute
-  const ariaDescribedBy = composeAriaDescribedBy(id, helperText, errorText, successText, infoText);
+  const ariaDescribedBy =
+    [customAriaDescribedBy, composeAriaDescribedBy(id, helperText, errorText, successText, infoText)]
+      .filter((item) => item)
+      .join(' ') || undefined;
 
   return (
     <InputWrapper onBlur={handleOnBlur} {...wrapperProps}>

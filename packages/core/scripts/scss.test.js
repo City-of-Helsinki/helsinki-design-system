@@ -1,15 +1,15 @@
 /**
  * @jest-environment node
  */
-const path = require('path');
+const path = require('node:path');
+const { globSync } = require('node:fs');
 const sassTrue = require('sass-true');
 const sassEmbedded = require('sass-embedded');
-const glob = require('glob');
 global.snapshot = (contents) => {
   console.log('SNAP!', contents);
 };
 describe('SCSS Testing', () => {
-  const sassTestFiles = glob.sync(path.resolve(process.cwd(), 'src/**/*.test.scss'));
+  const sassTestFiles = globSync(path.resolve(process.cwd(), 'src/**/*.test.scss'));
 
   sassTestFiles.forEach((file) => {
     sassTrue.runSass(

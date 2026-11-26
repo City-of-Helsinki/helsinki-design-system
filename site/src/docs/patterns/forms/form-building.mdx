@@ -4,11 +4,12 @@ title: 'Building forms'
 navTitle: 'Building forms'
 ---
 
-import { Link, IconCheck, IconError } from 'hds-react';
+import { Link, IconCheck } from 'hds-react';
 import ExternalLink from '../../../components/ExternalLink';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
+import DoDont from '../../../components/DoDont';
  
 # Building forms
 
@@ -20,19 +21,7 @@ import InternalLink from '../../../components/InternalLink';
 
 Forms _should_ be designed to be as clear and straightforward as possible, to allow the user to complete the task quickly.
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Only ask for absolutely necessary information</strong>
@@ -85,43 +74,19 @@ Forms _should_ be designed to be as clear and straightforward as possible, to al
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       The user <em>should not</em> be made to constantly switch between keyboard and mouse while filling the form.
     </li>
   </ul>
-</div>
+</DoDont>
 
 ## Accessibility
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={3}>
   <strong>
     A change in a form controls value or state <em>must never </em>trigger a change in page <em>context</em>.
   </strong>
@@ -178,7 +143,7 @@ Forms _should_ be designed to be as clear and straightforward as possible, to al
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -211,19 +176,7 @@ Enable user to **input textual data of a specific type**. While this kind of dat
 | <Image src="/images/patterns/form/building/form-choosing-passwordinput@2x.png" alt="Password input" style={{ maxWidth: 250 }} viewable />        | Password input     | Entering a password or other sensitive data. | Passwords, passphrases, sensitive personal data |
 | [Table 2:Data inputs available in the HDS]                                                                                                       |
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       Adjust the width to reflect the intended length of the content.
@@ -239,7 +192,7 @@ Enable user to **input textual data of a specific type**. While this kind of dat
     </li>
     <li>Make sure users can enter their information even on smaller screen sizes and mobile devices.</li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -257,19 +210,7 @@ Each selection control has a specific use case. To learn which one to use, see <
 | <Image src="/images/patterns/form/building/form-choosing-select-togglebutton@2x.png" alt="Toggle button" style={{ maxWidth: 250 }} viewable />   | Toggle button      | Choosing between binary options.                           | Changing a setting, switching a theme                                                                |
 | [Table 3:Selection components available in the HDS]                                                                                              |
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -278,7 +219,7 @@ Each selection control has a specific use case. To learn which one to use, see <
       with a legend stating the selection being made made.
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -290,19 +231,7 @@ Each selection control has a specific use case. To learn which one to use, see <
 | <Image src="/images/patterns/form/building/form-choosing-dropdown-multi@2x.png" alt="Dropdown multi-select" style={{ maxWidth: 250 }} viewable /> | Select<br/>multi-select | <ul style={{ marginBottom: 0 }}><li>Selecting multiple options </li><li>4–7 choices.</li><li>Comparable to a checkbox group.</li></ul>    |          |
 | [Table 4:Selection components for a large number of items available in the HDS]                                                                   |
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -311,7 +240,7 @@ Each selection control has a specific use case. To learn which one to use, see <
       Links cause a change in context (see <a href="#accessibility">form accessibility principles</a>)
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -328,19 +257,7 @@ Individual form controls can also have action buttons attached to them, that let
 | <Image src="/images/patterns/form/building/form-choosing-supplementary@2x.png" alt="Supplementary action button" style={{ maxWidth: 250 }} viewable /> | Supplementary action | Allows user to perform: <ul style={{ marginBottom: 0 }}><li><strong>Auxiliary functionalities</strong> that help the user but are not essential in filling the form</li><li><strong>Inline actions</strong> that affect smaller sections of a form (for example a fieldset)</li></ul> | <ul style={{ marginBottom: 0 }}><li>Printing</li><li>Saving a draft</li><li>Adding or removing instances or rows to a data list (for example persons to a participant list)</li><li>Inputting data to a form control from an outside source (for example uploading an image, or fetching a location from Google maps)</li></ul> |
 | [Table 5:Buttons for triggering actions available in the HDS]                                                                                          |
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -410,21 +327,9 @@ Individual form controls can also have action buttons attached to them, that let
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -439,7 +344,7 @@ Individual form controls can also have action buttons attached to them, that let
       </strong>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -473,24 +378,12 @@ The actual **interactive control element** that allows the user to input or info
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <p>
     <strong>Adjust the size</strong> of the input field or selection to indicate the length of the preferred input or
     average option.
   </p>
-</div>
+</DoDont>
 
 ---
 
@@ -505,19 +398,7 @@ The actual **interactive control element** that allows the user to input or info
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -557,26 +438,14 @@ The actual **interactive control element** that allows the user to input or info
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>Use ALL CAPS.</li>
     <li>Use a colon : after label names.</li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -591,19 +460,7 @@ Marking that indicates a form control for which **the user _must_ enter a value*
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -625,7 +482,7 @@ Marking that indicates a form control for which **the user _must_ enter a value*
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -645,19 +502,7 @@ Icons can be used to:
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       Be descriptive.
@@ -671,28 +516,16 @@ Icons can be used to:
       about using and choosing icons.
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={4}>
   <p>
     <strong>
       An icon <em>must</em> not be used to perform an action.{' '}
     </strong>
     Use an action button instead.
   </p>
-</div>
+</DoDont>
 
 ---
 
@@ -712,23 +545,11 @@ Although the action button is visually similar to an icon, the implementation is
   viewable
 />
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={4}>
   <p>
     In HDS form components, action buttons are used for predefined purposes and <em>should</em> not be customised.
   </p>
-</div>
+</DoDont>
 
 ---
 
@@ -749,19 +570,7 @@ Form controls are either _active_ or _disabled_ depending on for example selecti
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       Disabled form controls can also be hidden from view but in most situations all fields – even the disabled ones –
@@ -779,7 +588,7 @@ Form controls are either _active_ or _disabled_ depending on for example selecti
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -800,19 +609,7 @@ Allowing the user enter a value either by input or selection is the **form contr
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <p>
     <strong>Help the user by minimising unnecessary and redundant work needed for filling the form. </strong>Especially
     long forms can become tedious to fill, especially, if the same information must be entered multiple times.
@@ -849,28 +646,16 @@ Allowing the user enter a value either by input or selection is the **form contr
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={4}>
   <p>
     <strong>
       Selections that demand the users consent, like approving terms and conditions <em>must</em> never be pre-selected
       as default.
     </strong>
   </p>
-</div>
+</DoDont>
 
 ---
 
@@ -898,19 +683,7 @@ The form heading **summarises the purpose of the form** and indicates the user w
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -937,7 +710,7 @@ The form heading **summarises the purpose of the form** and indicates the user w
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -959,19 +732,7 @@ To help the user better understand the functionality of the form, instructions a
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       The instructions should be placed after the heading and sub-heading, before the first form control or fieldeset.
@@ -985,7 +746,7 @@ To help the user better understand the functionality of the form, instructions a
       are required".
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -1013,19 +774,7 @@ A short secondary description that elaborates the label and helps the user to pr
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Keep it short and clear.</strong>
@@ -1043,7 +792,7 @@ A short secondary description that elaborates the label and helps the user to pr
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 #### b) Tooltip
 
@@ -1062,19 +811,7 @@ A popup element that provides **context or background information** that is “n
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Be clear and concise.</strong>
@@ -1094,21 +831,9 @@ A popup element that provides **context or background information** that is “n
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Make the tooltip open on hover.</strong>
@@ -1122,7 +847,7 @@ A popup element that provides **context or background information** that is “n
       </strong>
     </li>
   </ul>
-</div>
+</DoDont>
 
 #### c) Placeholder text
 
@@ -1140,19 +865,7 @@ It can be used to provide the user **a hint of what to enter or what is selected
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -1178,21 +891,9 @@ It can be used to provide the user **a hint of what to enter or what is selected
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={5}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Never use the placeholder as the only channel to provide crucial information.</strong>
@@ -1211,7 +912,7 @@ It can be used to provide the user **a hint of what to enter or what is selected
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -1466,19 +1167,7 @@ To make the structure of the form even more understandable, **form controls that
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>Use the proper heading level: If the form heading is h1, the segment headings must be h2.</li>
     <li>
@@ -1488,7 +1177,7 @@ To make the structure of the form even more understandable, **form controls that
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -1508,19 +1197,7 @@ See guidelines for <InternalLink href="/patterns/forms/form-multi-page/">Multi-p
   viewable
 />
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -1562,7 +1239,7 @@ See guidelines for <InternalLink href="/patterns/forms/form-multi-page/">Multi-p
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 
@@ -1611,19 +1288,7 @@ For this reason it is essential to ensure that individual controls receive focus
 6. Next page or Submit button
 7. Previous page button
 
-<div
-  class="guideline-do"
-  style={{
-    background: 'var(--color-success-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Check the order in which individual controls in the form receive focus</strong>
@@ -1671,21 +1336,9 @@ For this reason it is essential to ensure that individual controls receive focus
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{
-    background: 'var(--color-error-light)',
-    padding: 'var(--spacing-s)',
-    marginBottom: 'var(--spacing-layout-2-xs)',
-    maxWidth: 600,
-  }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={4}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Any form controls or essential information must not be placed after the “Submit” button.</strong>
@@ -1705,7 +1358,7 @@ For this reason it is essential to ensure that individual controls receive focus
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ---
 

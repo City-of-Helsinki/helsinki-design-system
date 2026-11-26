@@ -14,6 +14,11 @@ export enum DropdownMenuPosition {
 }
 export type NavigationLinkDropdownProps = React.PropsWithChildren<{
   /**
+   * Ref for the dropdown toggle button.
+   * @internal
+   */
+  buttonRef?: React.Ref<HTMLButtonElement>;
+  /**
    * Additional class names.
    */
   className?: string;
@@ -65,6 +70,7 @@ export const HeaderLinkDropdown = ({
   closeDropdownAriaButtonLabel,
   openDropdownAriaButtonLabel,
   dropdownButtonClassName,
+  buttonRef,
 }: NavigationLinkDropdownProps) => {
   // State for which nested dropdown link is open
   const { isSmallScreen } = useHeaderContext();
@@ -129,6 +135,7 @@ export const HeaderLinkDropdown = ({
   return (
     <>
       <button
+        ref={buttonRef}
         type="button"
         className={classNames(styles.button, { isSmallScreen }, depthClassName, dropdownButtonClassName)}
         onClick={handleMenuButtonClick}

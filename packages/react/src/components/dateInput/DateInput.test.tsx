@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-explicit-any */
 /* eslint-disable max-classes-per-file */
 import React from 'react';
-import { act, render, screen, waitFor } from '@testing-library/react';
+import { act, fireEvent, render, screen, waitFor } from '@testing-library/react';
 import userEvent from '@testing-library/user-event';
 import '@testing-library/jest-dom';
 import { axe } from 'jest-axe';
@@ -165,5 +165,52 @@ describe('<DateInput /> spec', () => {
 
     // Clean up
     rerender(<div />);
+  });
+
+  it('prevents the default action when Enter is pressed in the input', () => {
+    render(<DateInput id="date" label="Choose a date" />);
+    const input = screen.getByRole('textbox');
+    // fireEvent returns false when the event's default action was prevented
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(fireEvent.keyDown(input, { key: 'a' })).toBe(true);
+  });
+
+  it('calls the given onKeyDown', () => {
+    const onKeyDown = jest.fn();
+    render(<DateInput id="date" label="Choose a date" onKeyDown={onKeyDown} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.keyDown(input, { key: 'a' });
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(onKeyDown).toHaveBeenCalledTimes(2);
+    expect(onKeyDown.mock.calls.map(([e]) => e.key)).toEqual(['a', 'Enter']);
+  });
+
+  it.each([
+    ['isComposing is true', { isComposing: true }],
+    ['keyCode is 229', { keyCode: 229 }],
+  ])('ignores Enter that confirms an IME composition (%s)', (_, eventInit) => {
+    const onChange = jest.fn();
+    render(<DateInput id="date" label="Choose a date" onChange={onChange} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '1.1' } });
+    expect(fireEvent.keyDown(input, { key: 'Enter', ...eventInit })).toBe(true);
+    expect(onChange).not.toHaveBeenCalled();
+    expect(fireEvent.keyDown(input, { key: 'Enter' })).toBe(false);
+    expect(onChange).toHaveBeenCalledTimes(1);
+    expect(onChange.mock.calls[0][0]).toBe('1.1');
+  });
+
+  it('does not commit the value when the given onKeyDown prevents Enter', () => {
+    const onChange = jest.fn();
+    const onKeyDown = (e: React.KeyboardEvent<HTMLInputElement>) => {
+      if (e.key === 'Enter') {
+        e.preventDefault();
+      }
+    };
+    render(<DateInput id="date" label="Choose a date" onChange={onChange} onKeyDown={onKeyDown} />);
+    const input = screen.getByRole('textbox');
+    fireEvent.change(input, { target: { value: '1.1' } });
+    fireEvent.keyDown(input, { key: 'Enter' });
+    expect(onChange).not.toHaveBeenCalled();
   });
 });

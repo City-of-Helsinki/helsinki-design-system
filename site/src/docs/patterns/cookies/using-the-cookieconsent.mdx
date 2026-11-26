@@ -4,11 +4,11 @@ title: 'Using the CookieConsent'
 navTitle: 'Using the CookieConsent'
 ---
 
-import { IconCheck, IconError } from 'hds-react';
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import InternalLink from '../../../components/InternalLink';
 import StatusLabel from '../../../components/StatusLabel';
+import DoDont from '../../../components/DoDont';
 
 # Using the CookieConsent
 
@@ -23,14 +23,7 @@ If you are looking for an explanation about gathering and categorising cookies, 
 
 ## Principles
 
-<div
-  class="guideline-do"
-  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s)' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>
@@ -59,23 +52,16 @@ If you are looking for an explanation about gathering and categorising cookies, 
       <strong>Offer the cookie consent banner and cookie settings in all languages that your service supports.</strong>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: 600 }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       The cookie consent banner should not prevent the user from using the web page. Never use an overlay behind the
       banner or otherwise restrict the use of the site.
     </li>
   </ul>
-</div>
+</DoDont>
 
 ## Cookie banner and cookie page
 

@@ -68,4 +68,9 @@ describe('<Breadcrumb /> spec', () => {
     const nav = container.querySelectorAll('nav')[0] as HTMLElement;
     expect(nav.getAttribute('aria-label')).toBe(defaultProps['aria-label']);
   });
+  it('marks the current page with aria-current="page".', async () => {
+    const { container, getByText } = render(<Breadcrumb {...defaultProps} />);
+    expect(getByText('Current', { selector: 'span' }).getAttribute('aria-current')).toBe('page');
+    expect(container.querySelectorAll('[aria-current]')).toHaveLength(1);
+  });
 });

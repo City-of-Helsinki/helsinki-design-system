@@ -106,8 +106,9 @@ export const Linkbox = ({
     <div
       role="region"
       tabIndex={0} // eslint-disable-line jsx-a11y/no-noninteractive-tabindex
-      onKeyPress={(e) => {
-        if (e.key === 'Enter') {
+      onKeyDown={(e) => {
+        // ignore Enter that a child element already handled or that confirms an IME composition
+        if (e.key === 'Enter' && !e.defaultPrevented && !e.nativeEvent.isComposing) {
           linkRef.current.click();
         }
       }}

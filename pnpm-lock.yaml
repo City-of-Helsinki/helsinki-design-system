@@ -95,7 +95,7 @@ importers:
   packages/core:
     dependencies:
       hds-design-tokens:
-        specifier: 6.0.8
+        specifier: 6.0.9
         version: link:../design-tokens
     devDependencies:
       '@babel/core':
@@ -125,9 +125,6 @@ importers:
       cssnano:
         specifier: ^5.1.15
         version: 5.1.15(postcss@8.5.10)
-      glob:
-        specifier: ^10.5.0
-        version: 10.5.0
       jest:
         specifier: ^29.7.0
         version: 29.7.0(@types/node@22.20.1)(babel-plugin-macros@3.1.0)(supports-color@8.1.1)
@@ -261,7 +258,7 @@ importers:
         specifier: ^16.14.2
         version: 16.14.2
       hds-core:
-        specifier: 6.0.8
+        specifier: 6.0.9
         version: link:../core
       jwt-decode:
         specifier: ^3.1.2
@@ -448,7 +445,7 @@ importers:
         specifier: ^6.2.5
         version: 6.2.5
       hds-design-tokens:
-        specifier: 6.0.8
+        specifier: 6.0.9
         version: link:../design-tokens
       identity-obj-proxy:
         specifier: 3.0.0
@@ -598,13 +595,13 @@ importers:
         specifier: 5.16.0
         version: 5.16.0(gatsby-plugin-sharp@5.16.0(gatsby@5.16.1(@swc/core@1.15.43(@swc/helpers@0.5.23))(babel-eslint@10.1.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(encoding@0.1.13)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(supports-color@8.1.1)(type-fest@4.41.0)(typescript@5.9.3)(uglify-js@3.19.3)(webpack-hot-middleware@2.26.1))(graphql@16.14.2)(supports-color@8.1.1))(gatsby@5.16.1(@swc/core@1.15.43(@swc/helpers@0.5.23))(babel-eslint@10.1.0(eslint@8.57.0(supports-color@8.1.1))(supports-color@8.1.1))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(encoding@0.1.13)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(react-dom@19.2.7(react@19.2.7))(react@19.2.7)(supports-color@8.1.1)(type-fest@4.41.0)(typescript@5.9.3)(uglify-js@3.19.3)(webpack-hot-middleware@2.26.1))(graphql@16.14.2)(supports-color@8.1.1)
       hds-core:
-        specifier: 6.0.8
+        specifier: 6.0.9
         version: link:../packages/core
       hds-design-tokens:
-        specifier: 6.0.8
+        specifier: 6.0.9
         version: link:../packages/design-tokens
       hds-react:
-        specifier: 6.0.8
+        specifier: 6.0.9
         version: link:../packages/react
       html-validate:
         specifier: 6.5.0
@@ -7456,8 +7453,8 @@ packages:
     resolution: {integrity: sha512-xgs2NH9AE66ucSq4cNG1nhSFghr5l6tdL15Pk+jl46bmmBapgoaY/AacXyaDznAqmGL99TiLSQgO/XazFSKYeQ==}
     engines: {node: '>=0.10.0'}
 
-  ip-address@10.7.0:
-    resolution: {integrity: sha512-BGFsyJd5mpXp3rK6jIdADLNgpJUK1jnjzvYF8lK+VyDab9JAmqN0YOKDdP17HlgKb2+ehPgDc8EtnRLbGCAMhA==}
+  ip-address@10.7.6:
+    resolution: {integrity: sha512-00LYkM6byILa9eQIx6qoaXCM40xTLd56AZ4vyaPW3YTyb49VZYPo5xsiAq4tuQ54GH4R7gVdYScJ1B7B77PuTg==}
     engines: {node: '>= 12'}
 
   ip-regex@4.3.0:
@@ -8890,8 +8887,8 @@ packages:
     resolution: {integrity: sha512-xV2bxeN6F7oYjZWTe/YPAy6MN2M+sL4u/Rlm2AHCIVGfo2p1yGmBHQ6vHehl4bRTZBdHu3TSkWdYgkwpYzAGSw==}
     engines: {node: '>=0.10.0'}
 
-  moment@2.30.1:
-    resolution: {integrity: sha512-uEmtNhbDOrWPFS+hdjFCBfy9f2YoyzRpwcl+DqpC6taX21FzsTLQVbMV/W7PzNSX6x/bhC1zA3c2UQ5NzH6how==}
+  moment@2.31.0:
+    resolution: {integrity: sha512-0acOTfMiWOheYS4eoWb80yYMb/JLvVv9SHbs2PehaDzfUG0Bw855SKyk0IKTnPGa5+U2bmi3W68l1+sGLX/pvw==}
 
   mri@1.2.0:
     resolution: {integrity: sha512-tzzskb3bG8LvYGFF/mDTpq3jpI6Q9wc3LEmBaghu+DdCssd1FakN7Bc0hVNmEyGq1bq3RgfkCb3cmQLpNPOroA==}
@@ -8972,6 +8969,7 @@ packages:
 
   node-abort-controller@3.1.1:
     resolution: {integrity: sha512-AGK2yQKIjRuqnc6VkX2Xj5d+QW8xZ87pa1UK6yA6ouUyuxfHuMP6umE5QK7UmTeOAymo+Zx1Fxiuw9rVx8taHQ==}
+    deprecated: This package is no longer needed on supported Node.js versions. Node.js 16+ includes AbortController and AbortSignal as built-in globals. All Node.js versions requiring this polyfill are end-of-life. Use the built-in globals instead.
 
   node-addon-api@4.3.0:
     resolution: {integrity: sha512-73sE9+3UaLYYFmDsFZnqCInzPyh3MqIwZO9cw58yIqAZhONrrabrYyYe3TuIqtIiOuTXVhsGau8hcrhhwSsDIQ==}
@@ -20227,7 +20225,7 @@ snapshots:
       mime: 3.0.0
       mini-css-extract-plugin: 1.6.2(webpack@5.108.4(@swc/core@1.15.43(@swc/helpers@0.5.23))(clean-css@5.3.3)(cssnano@5.1.15(postcss@8.5.10))(csso@4.2.0)(esbuild@0.28.1)(html-minifier-terser@6.1.0)(postcss@8.5.10)(uglify-js@3.19.3))
       mitt: 1.2.0
-      moment: 2.30.1
+      moment: 2.31.0
       multer: 2.5.0
       node-fetch: 2.7.0(encoding@0.1.13)
       node-html-parser: 5.4.2
@@ -21074,7 +21072,7 @@ snapshots:
 
   invert-kv@1.0.0: {}
 
-  ip-address@10.7.0: {}
+  ip-address@10.7.6: {}
 
   ip-regex@4.3.0: {}
 
@@ -23003,7 +23001,7 @@ snapshots:
 
   modify-values@1.0.1: {}
 
-  moment@2.30.1: {}
+  moment@2.31.0: {}
 
   mri@1.2.0: {}
 
@@ -25592,7 +25590,7 @@ snapshots:
 
   socks@2.8.10:
     dependencies:
-      ip-address: 10.7.0
+      ip-address: 10.7.6
       smart-buffer: 4.2.0
 
   sort-keys@2.0.0:
