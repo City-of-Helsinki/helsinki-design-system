@@ -8,8 +8,7 @@
  *  - "-v" verbose. Enable verbose output.
  */
 
-const { glob } = require('glob');
-var fs = require('fs/promises');
+var fs = require('node:fs/promises');
 
 /**
  * Returns true, if fullFilePath ends with any of the targetFiles i.e. file is listed
@@ -87,7 +86,7 @@ async function cssToImportableString(args) {
   const { globPath, targetFiles, verbose } = args;
   let error;
   return new Promise(async (resolve, reject) => {
-    const filesWithJs = await glob(globPath);
+    const filesWithJs = await Array.fromAsync(fs.glob(globPath));
     for (const filePath of filesWithJs) {
       if (isMatchingFile(targetFiles, filePath)) {
         console.log('Copying file', filePath);
