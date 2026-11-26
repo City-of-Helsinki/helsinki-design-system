@@ -73,4 +73,22 @@ describe('<Breadcrumb /> spec', () => {
     expect(getByText('Current', { selector: 'span' }).getAttribute('aria-current')).toBe('page');
     expect(container.querySelectorAll('[aria-current]')).toHaveLength(1);
   });
+  it('renders items that have the same title without duplicate key warnings.', async () => {
+    const consoleErrorSpy = jest.spyOn(console, 'error').mockImplementation(() => {});
+    const { container } = render(
+      <Breadcrumb
+        {...defaultProps}
+        list={[
+          { title: 'Home', path: '/' },
+          { title: 'Services', path: '/services' },
+          { title: 'Home', path: '/services/home' },
+          { title: 'Current', path: null },
+        ]}
+      />,
+    );
+    const desktopItems = Array.from(container.querySelectorAll('ol > li')).map((item) => item.textContent);
+    expect(desktopItems).toEqual(['Home', 'Services', 'Home', 'Current']);
+    expect(consoleErrorSpy).not.toHaveBeenCalled();
+    consoleErrorSpy.mockRestore();
+  });
 });
