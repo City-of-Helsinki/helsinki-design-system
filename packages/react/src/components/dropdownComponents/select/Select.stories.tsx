@@ -1329,7 +1329,7 @@ export const WithCollaboration = () => {
   };
 
   return (
-    <div>
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 'var(--spacing-m)' }}>
       <Select {...topCategoryStorage.getProps()} />
       <Select {...subCategoryStorage.getProps()} />
       <SelectedValues />

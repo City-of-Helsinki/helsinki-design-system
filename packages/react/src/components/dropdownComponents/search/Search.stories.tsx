@@ -142,7 +142,9 @@ export const WithExternalButton = () => {
         </Notification>
       )}
       <Search {...props} onSearch={handleSearch} onSend={onSend} hideSubmitButton ref={searchInputRef} />
-      <Button onClick={handleExternalButtonClick}>Send search</Button>
+      <Button style={{ marginTop: 'var(--spacing-s)' }} onClick={handleExternalButtonClick}>
+        Send search
+      </Button>
     </>
   );
 };
