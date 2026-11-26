@@ -7,6 +7,7 @@ navTitle: 'Building navigation'
 import LeadParagraph from '../../../components/LeadParagraph';
 import Image from '../../../components/Image';
 import StatusLabel from '../../../components/StatusLabel';
+import DoDont from '../../../components/DoDont';
 import {
   Breadcrumb,
   Button,
@@ -16,8 +17,6 @@ import {
   SideNavigation,
   Tabs,
   Footer,
-  IconCheck,
-  IconError,
   IconFacebook,
   IconTwitter,
   IconInstagram,
@@ -41,14 +40,7 @@ import {
 
 Adhering to these principles can create an effective and user-friendly navigation component that enhances the overall user experience.
 
-<div
-  class="guideline-do"
-  style={{ background: 'var(--color-success-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
->
-  <div class="guideline-do-label" style={{ color: 'var(--color-success)', marginBottom: 'var(--spacing-s' }}>
-    <IconCheck style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Do</strong>
-  </div>
+<DoDont type="do" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Keep it as simple as possible.</strong>
@@ -71,16 +63,9 @@ Adhering to these principles can create an effective and user-friendly navigatio
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
-<div
-  class="guideline-dont"
-  style={{ background: 'var(--color-error-light)', padding: 'var(--spacing-s)', marginBottom: 'var(--spacing-layout-2-xs)', maxWidth: '600px' }}
->
-  <div class="guideline-dont-label" style={{ color: 'var(--color-error)', marginBottom: 'var(--spacing-s)' }}>
-    <IconError style={{ marginRight: 'var(--spacing-3-xs)', verticalAlign: 'middle' }} size="small" />
-    <strong>Don't</strong>
-  </div>
+<DoDont type="dont" headingLevel={3}>
   <ul style={{ marginBottom: 0 }}>
     <li>
       <strong>Don't utilize the content area for navigation purposes.</strong>
@@ -103,7 +88,7 @@ Adhering to these principles can create an effective and user-friendly navigatio
       </ul>
     </li>
   </ul>
-</div>
+</DoDont>
 
 ## Recommended order of navigation components
 
