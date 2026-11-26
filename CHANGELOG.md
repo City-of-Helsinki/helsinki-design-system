@@ -5,7 +5,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
-## [6.X.X] - Month, XX, 202X
+## [6.0.9] - November, 26, 2026
 
 ### Workspace
 
@@ -14,20 +14,6 @@ and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0
 - [E2E] The local Docker e2e scripts install corepack, which the Playwright image no longer includes.
 
 ### React
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
 
 #### Fixed
 
@@ -46,20 +32,6 @@ Changes that are not related to specific components
 
 ### Core
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
 #### Fixed
 
 - [Notification] Notification styles are compiled into `components/all.css` and `components/all.min.css` again.
@@ -67,17 +39,7 @@ Changes that are not related to specific components
 
 ### Documentation
 
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
 #### Changed
-
-Changes that are not related to specific components
 
 - [Hero] Clarified in the principles and accessibility guidelines that the hero should be placed inside the `<main>` element.
 
@@ -86,66 +48,6 @@ Changes that are not related to specific components
 - Fixed blank pages in the archived documentation versions
 - [Notification] Core HTML code examples on the documentation site show notification styles again.
 - [Patterns] The "Do" and "Don't" labels in the pattern guidelines are headings, so screen reader users can navigate to them.
-
-### Figma
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Icon kit
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
-
-### Hds-js
-
-#### Breaking
-
-- [Component] What are the breaking changes?
-
-#### Added
-
-- [Component] What is added?
-
-#### Changed
-
-Changes that are not related to specific components
-
-- [Component] What has been changed
-
-#### Fixed
-
-- [Component] What bugs/typos are fixed?
 
 ## [6.0.8] - November, 9, 2026
 
