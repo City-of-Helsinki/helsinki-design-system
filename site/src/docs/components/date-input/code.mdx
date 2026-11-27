@@ -166,6 +166,8 @@ import { DateInput } from 'hds-react';
   return (
     <div style={{ maxWidth: '400px' }}>
       <DateInput
+        id="date-input-example-weekdays"
+        label="Choose a weekday"
         value={value}
         onChange={setValue}
         isDateDisabledBy={isWeekend}
@@ -250,7 +252,7 @@ import { DateInput } from 'hds-react';
       return `You have selected a start date of ${dateToString(range[0])}.`;
     }
     if (range[1] && isValid(range[1])) {
-      return `You have selected a end date of ${dateToString(range[0])}.`;
+      return `You have selected an end date of ${dateToString(range[1])}.`;
     }
     return `Please select a range!`;
   };
@@ -258,6 +260,7 @@ import { DateInput } from 'hds-react';
   return (
     <div style={{ maxWidth: '400px' }}>
       <DateInput
+        id="date-input-example-range-start"
         disableConfirmation
         minDate={startMinDate}
         maxDate={startMaxDate}
@@ -268,6 +271,7 @@ import { DateInput } from 'hds-react';
         errorText={errors[0]}
       />
       <DateInput
+        id="date-input-example-range-end"
         disableConfirmation
         minDate={endMinDate}
         maxDate={endMaxDate}
