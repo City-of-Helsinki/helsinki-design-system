@@ -45,4 +45,13 @@ describe('<Link /> spec', () => {
       }),
     ).toHaveLength(0);
   });
+  it('keeps numbers of the link text in the aria-label of an external link', () => {
+    const pageNumber = 2;
+    const { getByRole } = render(
+      <Link href="https://hds.hel.fi" external>
+        Page {pageNumber}
+      </Link>,
+    );
+    expect(getByRole('link')).toHaveAttribute('aria-label', 'Page 2. Siirtyy toiseen sivustoon.');
+  });
 });
