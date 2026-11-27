@@ -71,7 +71,9 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [DateInput] The code and customisation examples have an `id` and a label, so each label is linked to its input with the `for` attribute.
+- [DateInput] The date range example shows the selected end date when only an end date is picked.
+- [PhoneInput] The usage example has an `id`, so its label is linked to the input with the `for` attribute.
 
 ### Figma
 
