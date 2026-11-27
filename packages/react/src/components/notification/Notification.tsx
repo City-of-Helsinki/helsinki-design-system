@@ -320,11 +320,17 @@ export const Notification = ({
           className,
         )}
         aria-label={notificationAriaLabel}
-        // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
-        role={isToast || invisible ? 'alert' : undefined}
+        // A role from props is not forwarded, so it cannot add a second alert that also contains the close button.
+        role={undefined}
       >
         {autoClose && <AnimatedDiv style={autoCloseTransition} className={styles.autoClose} />}
-        <div className={styles.content} ref={ref}>
+        <div
+          className={styles.content}
+          ref={ref}
+          // Toast or invisible notifications require a role alert to ensure the screen readers will notify the content change.
+          // The role is set on the content only, so the close button is not announced as part of the alert.
+          role={isToast || invisible ? 'alert' : undefined}
+        >
           {label && (
             // Toast or invisible notifications do not always notice heading if role heading or aria-level is present.
             <div

@@ -65,11 +65,11 @@ exports[`<Notification /> spec uses toast notification props in non-inline notif
   <section
     aria-label="Notification"
     class="bottom-center notification medium info"
-    role="alert"
     style="transform: translate3d(-50%, 32px, 0); opacity: 0.66;"
   >
     <div
       class="content"
+      role="alert"
     >
       <div
         class="label"
