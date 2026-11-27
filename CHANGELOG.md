@@ -31,7 +31,7 @@ Changes that are not related to specific components
 
 #### Fixed
 
-- [Component] What bugs/typos are fixed?
+- [Link] Numbers in the link text are kept in the aria-label of an external link.
 
 ### Core
 

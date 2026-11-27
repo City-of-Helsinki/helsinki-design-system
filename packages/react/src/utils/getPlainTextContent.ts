@@ -18,6 +18,9 @@ export const getPlainTextContent = (element: ReactNode): string => {
   if (typeof element === 'string') {
     return element;
   }
+  if (typeof element === 'number') {
+    return String(element);
+  }
   if (isValidElement(element)) {
     return getPlainTextContent((element.props as { children?: ReactNode }).children);
   }
